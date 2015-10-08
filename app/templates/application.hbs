@@ -1,3 +1,32 @@
-<h2 id="title">Welcome to Ember</h2>
-
+<div class="collapse" id="navbar-header">
+    <div class="bg-inverse p-a">
+        <h3>Collapsed content</h3>
+        <p>Toggleable via the navbar brand.</p>
+    </div>
+</div>
+<div class="navbar navbar-default navbar-static-top">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-header">
+        &#9776;
+    </button>
+    {{#link-to "index"}}el.vis{{/link-to}}
+    <ul class="nav pull-right navbar-nav">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">_pages</a>
+            <div class="dropdown-menu">
+                {{#link-to "index" class="dropdown-item"}}home{{/link-to}}
+                {{#link-to "graph.new" class="dropdown-item"}}data filter{{/link-to}}
+                {{#link-to "graph" class="dropdown-item"}}my graphs{{/link-to}}
+                {{#link-to "index" class="dropdown-item"}}system message{{/link-to}}
+                {{#link-to "account" class="dropdown-item"}}account{{/link-to}}
+                {{#link-to "account.settings" class="dropdown-item"}}settings{{/link-to}}
+            </div>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="#">About <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Help</a>
+        </li>
+    </ul>
+</div>
 {{outlet}}

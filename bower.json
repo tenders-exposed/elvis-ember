@@ -1,5 +1,13 @@
 {
   "name": "elvis-ember",
+  "version": "0.0.1",
+  "authors": [
+    "Matej Chudada",
+    "Victor Nitu",
+    "Adriana Homolova",
+    "Georgiana Bere"
+  ],
+  "license": "MIT",
   "dependencies": {
     "ember": "1.13.7",
     "ember-cli-shims": "ember-cli/ember-cli-shims#0.0.3",
@@ -9,8 +17,13 @@
     "ember-qunit": "0.4.9",
     "ember-qunit-notifications": "0.0.7",
     "ember-resolver": "~0.1.18",
-    "jquery": "^1.11.3",
+    "jquery": "~2.1.4",
     "loader.js": "ember-cli/loader.js#3.2.1",
-    "qunit": "~1.18.0"
+    "qunit": "~1.18.0",
+    "bootstrap": "4.0.0-alpha",
+    "modernizr": "~2.7.1",
+    "tether": "~1.1.0",
+    "select2-bootstrap-css": "~1.4.6",
+    "font-awesome": "~4.4.0"
   }
 }

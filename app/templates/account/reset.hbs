@@ -1,0 +1,32 @@
+<div id="reset-password" class="container">
+
+    <h1>Password recovery</h1>
+
+    <div class="tab-content">
+        <div id="passwordreset-step1" class="active tab-pane">
+            <p>Fill in your email to reset the password</p>
+            <form class="form-vertical">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="your e-mail">
+                </div>
+                <div class="form-group">
+                    {{#link-to "index" class="btn btn-secondary"}}Cancel{{/link-to}}
+                    <a href="#passwordreset-step2" data-toggle="tab" class="btn btn-primary">Reset</a>
+                </div>
+            </form>
+        </div>
+
+        <div id="passwordreset-step2" class="tab-pane">
+            <div class="result">
+                <div class="result-icon"><i class="fa fa-envelope-o"></i></div>
+                <h2 class="result-title">Check your email</h2>
+                <div class="result-description">
+                    <p>To recover your password, follow the instructions we've sent to your email.</p>
+                </div>
+                <div class="result-actions">
+                    {{#link-to "index" class="btn btn-secondary" data-dismiss="modal"}}Log in{{/link-to}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
