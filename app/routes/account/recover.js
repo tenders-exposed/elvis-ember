@@ -2,19 +2,12 @@ import Ember from 'ember';
 import { raw } from 'ic-ajax';
 
 export default Ember.Route.extend({
-  queryParams: {
-    reset_password_token: {
-    } 
-  },
   actions: {
-    deviseSendReset: function(email, password, password_confirmation, params) {
-      console.log("params", params);
-      console.log("queryParams", this.queryParams);
-      var reset_password_token = this.controller.reset_password_token;
+    deviseSendRecover: function(email) {
       var req = raw({
-        type: 'PUT',
+        type: 'POST',
         url: '/users/password',
-        data: { "user": { "email": email, "password": password, "password_confirmation": password_confirmation, "reset_password_token": reset_password_token } }
+        data: { "user": { "email": email } }
         //,
         //dataType: 'json'
       });
@@ -22,7 +15,7 @@ export default Ember.Route.extend({
       req.then(function(result){
           console.log('Response from Rails', result.response);
           self.notifications.addNotification({
-            message: 'Your password was updated!',
+            message: 'Password reset instructions were sent to your email address.',
             type: 'success'
           });
           self.controller.transitionToRoute('login');

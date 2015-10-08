@@ -11,8 +11,12 @@ Router.map(function() {
     this.route('new', {});
   });
   this.route('account', {}, function() {
-    this.route('settings', {});
+    this.route('new', {path: 'register'});
+    this.route('confirm', {});
     this.route('reset', {});
+    this.route('recover', {path: 'recover'});
+    this.route('settings', {});
+    this.route('destroy', {});
   });
 });
 

@@ -1,0 +1,15 @@
+<form id="register" {{action 'register' on='submit'}}>
+  <fieldset>
+    <legend>Registration</legend>
+    <label for="identification">Email address</label>
+    {{input id='identification' placeholder='Enter a valid email address'
+            value=user.email}}
+    <label for="password">Password</label>
+    {{input id='password' placeholder='Enter Password'
+            type='password' value=user.password}}
+    <label for="password">Password confirmation</label>
+    {{input id='password_confirmation' placeholder='Confirm your password'
+            type='password' value=user.password_confirmation}}
+    <button id="submit" type="submit">Sign up</button>
+  </fieldset>
+</form>
