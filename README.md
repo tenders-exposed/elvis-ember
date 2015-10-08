@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/tenders-exposed/elvis-ember.png?label=ready&title=Ready)](https://waffle.io/tenders-exposed/elvis-ember)
 # Elvis-ember
 
 This README outlines the details of collaborating on this Ember application.
