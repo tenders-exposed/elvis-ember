@@ -24,6 +24,8 @@
     "modernizr": "~2.7.1",
     "tether": "~1.1.0",
     "select2-bootstrap-css": "~1.4.6",
-    "font-awesome": "~4.4.0"
+    "font-awesome": "~4.4.0",
+    "ember-simple-auth": "0.8.0",
+    "select2": "3.5.2"
   }
 }
