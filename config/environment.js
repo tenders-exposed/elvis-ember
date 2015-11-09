@@ -16,13 +16,18 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+      'ember-cli-notifications': {
+          includeFontAwesome: true
+      },
     }
   };
 
   if (environment === 'development') {
-    ENV.APP.LOG_RESOLVER = true;
+    ENV.APP.apiHost = 'http://localhost:3000';
+    ENV.APP.apiNamespace = 'v1';
+    // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
-    ENV.APP.LOG_TRANSITIONS = true;
+    // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
   }
@@ -39,8 +44,36 @@ module.exports = function(environment) {
     ENV.APP.rootElement = '#ember-testing';
   }
 
-  if (environment === 'production') {
+  if (environment === 'staging') {
+    ENV.APP.apiHost = 'http://api.staging.elvis.tenders.exposed';
+    ENV.APP.apiNamespace = 'v1';
 
+  }
+
+  if (environment === 'production') {
+    ENV.APP.apiHost = 'http://api.elvis.tenders.exposed';
+    ENV.APP.apiNamespace = 'v1';
+
+  }
+
+  ENV['simple-auth'] = {
+    authorizer: 'simple-auth-authorizer:devise',
+    crossOriginWhitelist: ['*']
+  };
+  ENV['simple-auth-devise'] = {
+    tokenAttributeName: 'token',
+    identificationAttributeName: 'email',
+    serverTokenEndpoint: ENV.APP.apiHost + '/users/sign_in'
+  };
+  ENV.contentSecurityPolicy = {
+    'default-src': "'self'",
+    'script-src': "'self' 'unsafe-eval' 'unsafe-inline' *",
+    'font-src': "'self' http://fonts.gstatic.com",
+    'connect-src': "'self' http://0.0.0.0:3000 https://api.mixpanel.com http://localhost:3000 http://localhost:35729",
+    'img-src': "'self' *",
+    'style-src': "'self' 'unsafe-inline' http://fonts.googleapis.com",
+    'media-src': "'self'",
+    'report-uri': "http://localhost:4200"
   }
 
   return ENV;
