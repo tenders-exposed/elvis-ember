@@ -1,4 +1,9 @@
-@import "bower_components/bootstrap/scss/bootstrap.scss";
+@import "../../bower_components/bootstrap/scss/bootstrap.scss";
+@import "../../bower_components/vis/dist/vis.min.css";
+@import "components.scss";
+@import "layout.scss";
+@import "sidebar.scss";
+@import "graph.scss";
 
 
 /* General styles */

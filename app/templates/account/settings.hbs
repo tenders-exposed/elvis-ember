@@ -1,22 +1,43 @@
-<div class="jumbotron">
-    <div class="container">
-        <h1>Account Settings</h1>
-    </div>
+<div class="row">
+  <div class="col-lg-4">
+      <div class="sidebar">
+        <span class="userphoto"><i class="fa fa-user"></i></span>
+        <h1>Sarah Connor</h1>
+        <h4>sarah@future.com</h4>
+      </div>
+  </div>
+  <div class="col-lg-8">
+      <h2>Account Settings</h2>
+      <form>
+          <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="email" class="form-control" id="name" placeholder="Name">
+          </div>
+          <div class="form-group">
+              <label for="name">Default Country</label>
+              <select class="c-select form-control" id="country">
+                  <option>Slovakia</option>
+                  <option>Romania</option>
+                  <option>Netherlands</option>
+                  <option>Poland</option>
+              </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+      <hr>
+      <h2>Change password</h2>
+      <form class="form-inline">
+          <div class="form-group">
+              <label class="sr-only" for="newPassword1">New password</label>
+              <input type="email" class="form-control" id="newPassword1" placeholder="New password">
+          </div>
+          <div class="form-group">
+              <label class="sr-only" for="newPassword2">Confirm new password</label>
+              <input type="password" class="form-control" id="newPassword2" placeholder="Confirm new password">
+          </div>
+          <button type="submit" class="btn btn-primary">Reset</button>
+      </form>
+
+
+  </div>
 </div>
-<div class="container">
-
-    <h2>Change password</h2>
-    <form class="form-inline">
-        <div class="form-group">
-            <label class="sr-only" for="newPassword1">New password</label>
-            <input type="email" class="form-control" id="newPassword1" placeholder="New password">
-        </div>
-        <div class="form-group">
-            <label class="sr-only" for="newPassword2">Confirm new password</label>
-            <input type="password" class="form-control" id="newPassword2" placeholder="Confirm new password">
-        </div>
-        <button type="submit" class="btn btn-primary">Reset</button>
-    </form>
-
-</div>
-

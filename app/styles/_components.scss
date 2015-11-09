@@ -1,0 +1,13 @@
+.userphoto {
+  $size: 100px;
+  display: block;
+  width: $size;
+  line-height: $size;
+  height: $size;
+  margin: 0 auto;
+  border-radius: 50%;
+  font-size: 50px;
+  text-align: center;
+  background: #ccc;
+  color: #aaa;
+}
