@@ -64,7 +64,8 @@
                 </fieldset>
             </div>
             <fieldset class="form-group">
-                <!-- TODO: select with search. hint: http://www.bipsolutions.com/cpvtool/bip-cpv-search-tool.html -->
+                <!-- TODO: proper experience with browsing a large list of CPV codes.
+                  select with search. hint: http://www.bipsolutions.com/cpvtool/bip-cpv-search-tool.html -->
                 <select style="width:100%;" class="select2" name="CPV" placeholder="select industry field(s)" multiple>
                     <option>03000000 : Agricultural, farming, fishing, forestry and related products</option>
                     <option>09000000 : Petroleum products, fuel, electricity and other sources of energy</option>
@@ -76,10 +77,7 @@
                     <option>22000000 : Printed matter and related products</option>
                 </select>
             </fieldset>
-            <fieldset class="form-group">
-                <!-- TODO: suggestion search -->
-                <input class="form-control" type="text" name="keyword" placeholder="search keyword (people, institutions, companies)">
-            </fieldset>
+            <!-- we should have a limit for number of nodes for visualisation, it might get too slow for high numbers -->
             <p class="text-center"><small>Your criteria will output <strong>567 results</strong> for visualisation</small>.</p>
             <br>
             <a href="#datafilter-step1" data-toggle="tab" class="btn btn-default pull-left">Back</a>

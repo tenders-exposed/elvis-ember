@@ -7,7 +7,7 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-lg-2 col-md-3">
               {{#link-to "graph.new" class="card button"}}
                 <div class="card-icon">
                   {{fa-icon "plus"}}
@@ -17,12 +17,13 @@
                 </div>
               {{/link-to}}
             </div>
-            <div class="col-md-2">
+            <div class="col-lg-2 col-md-3">
                 <div class="card">
                     <img class="card-img-top" src="images/sample-graph.png" alt="Card image cap">
                     <div class="card-block">
                         <h4 class="card-title"> {{#link-to "graph.show" 1}} Graph #1 {{/link-to}} </h4>
                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <a class="btn btn-small">{{fa-icon "trash-o"}}</a>
                     </div>
                 </div>
             </div>
