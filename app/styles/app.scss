@@ -1,4 +1,7 @@
-@import "../../bower_components/bootstrap/scss/bootstrap.scss";
+@import 'materialize';
+@import 'ember-cli-materialize';
+
+// @import "../../bower_components/bootstrap/scss/bootstrap.scss";
 @import "../../bower_components/vis/dist/vis.min.css";
 @import "components.scss";
 @import "layout.scss";
@@ -23,7 +26,7 @@
 #mygraphs .card.button {
   display: block;
   color: white;
-  background: $brand-success;
+  // background: $brand-success;
   a { color: white; }
   .card-icon { font-size: 60px; width: 100%; text-align: center; }
 }
