@@ -43,12 +43,20 @@
                 <fieldset class="form-group col-lg-6">
                     <label for="country">Country</label>
 
+                    {{select-2
+                        content=pizzas
+                        value=favouritePizza
+                        placeholder="Choose your pizza"
+                        allowClear=true
+                    }}
+                    {{!--
                     <select class="c-select form-control" id="country"><!-- TODO: use select2 with flags; ISSUE: no BS4 support -->
                         <option>Slovakia</option>
                         <option>Romania</option>
                         <option>Netherlands</option>
                         <option>Poland</option>
                     </select>
+                    --}}
                 </fieldset>
                 <fieldset class="form-group col-lg-6">
                     <label for="year">Year <a data-toggle="tooltip" data-placement="top" title="some tooltip hint!" href="#"><i class="fa fa-question-circle"></i></a></label>
