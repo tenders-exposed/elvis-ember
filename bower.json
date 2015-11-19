@@ -27,6 +27,7 @@
     "font-awesome": "~4.4.0",
     "ember-simple-auth": "0.8.0",
     "select2": "3.5.2",
-    "vis": "~4.9.0"
+    "vis": "~4.9.0",
+    "materialize": "~0.97.0"
   }
 }
