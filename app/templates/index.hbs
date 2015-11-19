@@ -1,53 +1,81 @@
-<div class="jumbotron">
-    <div class="container text-center">
-        <h1>Howdy, data journalists</h1>
-        <p class="lead"><strong>el.vis</strong> is an investigative visualisation tool to help you find patterns in public procurement contracts.</p>
-    </div>
+<div class="slider">
+  <ul class="slides">
+    <li>
+      <img src="http://lorempixel.com/g/580/150/technics">
+      <div class="caption center-align">
+        <h3>Howdy, data journalists</h3>
+        <h5 class="light grey-text text-lighten-3">el.vis is an investigative visualisation tool to help you find patterns in public procurement contracts.</h5>
+      </div>
+    </li>
+  </ul>
 </div>
+
+
 <div class="container">
-    <div id="login" class="col-md-6">
-      <div class="container">
-        <div class="col-md-8 col-md-offset-2">
+  <div class="row">
+    <div id="login" class="col m6">
+      <div class="row">
+        <div class="col m10 offset-m2">
           <form class="form-signin">
-              <h2>Log in to your account</h2>
-              <p>{toolname} is for registered users only.</p>
-              <label for="inputEmail" class="sr-only">Email address</label>
-              <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-              <label for="inputPassword" class="sr-only">Password</label>
-              <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-              {{#link-to "account.reset" class="btn-link"}}Lost password{{/link-to}}
-              <div class="checkbox">
-                  <label>
-                      <input type="checkbox" value="remember-me"> Remember me
-                  </label>
+            <div class="row">
+
+            </div>
+            <div class="col s12">
+              <h3>Log in to your account</h3>
+              <p>el.vis is for registered users only.</p>
+            </div>
+              <div class="input-field col s12">
+                <input type="email" required>
+                <label for="inputEmail">Email address</label>
               </div>
+              <div class="input-field col s12">
+                <input type="password" required>
+                <label for="inputPassword">Password</label>
+              </div>
+              {{#link-to "account.reset"}}Lost password{{/link-to}}
+              <p>
+                <input type="checkbox" value="remember-me" id="rememberme">
+                <label for="rememberme">Remember me</label>
+              </p>
               {{#link-to "graph" class="btn btn-lg btn-primary btn-block"}}Sign in{{/link-to}}
           </form>
         </div>
       </div>
     </div>
-    <div id="register" class="col-md-6">
-        <div class="col-md-8 col-md-offset-2">
+    <div id="register" class="col m6">
+        <div class="col m10 offset-m2">
           <form id="register" class="form-signin" {{action 'register' on='submit'}}>
-              <h2>Don't have an account?</h2>
-              <p>Create one here. We will send the further instructions to your email. Your data are safe with us.</p>
-              <label for="inputEmail" class="sr-only">Email address</label>
-              {{input id="inputEmail" placeholder="Email address" class="form-control" value=user.email}}
-              <div id="inputPasswordContainer">
-                <br>
-                <label for="password" class="sr-only">Your password here</label>
-                {{input type="password" id="password"
-                  class="form-control" placeholder="Your password here"
-                  value=user.password}}
-                <label for="password_confirmation" class="sr-only">Please confirm your password</label>
-                {{input type="password" id="password_confirmation"
-                  class="form-control" placeholder="...again, please?"
-                  value=user.password_confirmation}}
+            <div class="row">
+              <div class="col s12">
+                <h3>Don't have an account?</h3>
+                <p>Create one here. We will send the further instructions to your email. Your data are safe with us.</p>
               </div>
-              <br>
-              {{input class="btn btn-lg btn-primary btn-block" type="submit" value="Create an account"}}
+              <div class="input-field col s12">
+                <label for="inputEmail" class="sr-only">Email address</label>
+                {{input id="inputEmail" value=user.email}}
+              </div>
+              <div class="input-field col s12">
+                <label for="password">Your password here</label>
+                {{input type="password" value=user.password}}
+              </div>
+              <div class="input-field col s12">
+                <label for="password_confirmation">...again, please?</label>
+                {{input type="password" value=user.password_confirmation}}
+              </div>
+              <div class="input-field col s12">
+                {{input class="btn btn-lg btn-primary btn-block" type="submit" value="Create an account"}}
+              </div>
+            </div>
           </form>
         </div>
     </div>
+  </div>
 </div>
+
 {{outlet}}
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.slider').slider({full_width: true, indicators: false});
+  });
+</script>
