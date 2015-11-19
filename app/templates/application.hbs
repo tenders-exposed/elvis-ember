@@ -1,35 +1,17 @@
-<div class="collapse" id="navbar-header">
+{{!-- <div class="collapse" id="navbar-header">
     <div class="bg-inverse p-a">
         <h3>Collapsed content</h3>
         <p>Toggleable via the navbar brand.</p>
     </div>
-</div>
-<div class="navbar navbar-default navbar-static-top">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-header">
-        &#9776;
-    </button>
-    {{#link-to "index"}}el.vis{{/link-to}}
-    <ul class="nav pull-right navbar-nav">
-        <li class="nav-item active">
-            <a class="nav-link" href="#">About <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Help</a>
-        </li>
-        <li class="nav-item">
-          {{#link-to "account" class="nav-link"}}<span class="circle"><i class="fa fa-user"></i></span>{{/link-to}}
+</div> --}}
 
-        </li>
-    </ul>
-</div>
+{{#md-navbar name='el.vis' class='indigo'}}
+  {{#link-to 'account' tagName='li'}}
+    {{link-to 'Account' 'account' }}
+  {{/link-to}}
+{{/md-navbar}}
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-          {{outlet}}
-        </div>
-    </div>
-</div>
+{{outlet}}
 
 
 
