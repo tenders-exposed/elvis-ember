@@ -1,41 +1,61 @@
-<div class="collapse" id="navbar-header">
-    <div class="bg-inverse p-a">
-        <h3>Collapsed content</h3>
-        <p>Toggleable via the navbar brand.</p>
-    </div>
-</div>
-<div class="navbar navbar-default navbar-static-top">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-header">
-        &#9776;
-    </button>
-    {{#link-to "index"}}el.vis{{/link-to}}
-    <ul class="nav pull-right navbar-nav">
-        <li class="nav-item active">
-            <a class="nav-link" href="#">About <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Help</a>
-        </li>
-        <li class="nav-item">
-          {{#link-to "account" class="nav-link"}}<span class="circle"><i class="fa fa-user"></i></span>{{/link-to}}
-
-        </li>
-    </ul>
-</div>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-          {{outlet}}
+<div id="main-navbar" class="navbar-fixed">
+  <nav class="mainbg main-nav lighten-4">
+    <div class="nav-wrapper">
+      <div class="row">
+      <div class="col s1">
+        <img alt="Logo" class="logo" src="/elvis-logo-light.png"/>
+      </div>
+      <div class="col s8">
+        <div class="outer-wrapper">
+          <div class="inner-wrapper">
+            <ul id="main-links">
+              {{#link-to 'graph.new' tagName='li'}}
+                {{#link-to 'graph.new'}}
+                  <div class="link-icon new-graph-icon"></div>
+                  New visualisation
+                {{/link-to}}
+              {{/link-to}}
+              {{#link-to 'projects' tagName='li'}}
+                {{#link-to 'projects'}}
+                  <div class="link-icon my-projects-icon"></div>
+                  My projects
+                {{/link-to}}
+              {{/link-to}}
+              {{#link-to 'account.settings' tagName='li'}}
+                {{#link-to 'account.settings'}}
+                  <div class="link-icon account-settings-icon"></div>
+                  Account settings
+                {{/link-to}}
+              {{/link-to}}
+            </ul>
+          </div>
         </div>
+      </div>
+      <div class="col s3">
+        <ul id="secondary-links">
+          <li>
+            <a href="#">About</a>
+          </li>
+          <li>
+            <a href="#">Community</a>
+          </li>
+          <li>
+            <a href="#">Blog</a>
+          </li>
+        </ul>
+      </div>
+      </div>
     </div>
+  </nav>
 </div>
-
-
-
 
 <div class="c-notifications__container">
     {{#each notifications as |notification|}}
         {{notification-message notification=notification}}
     {{/each}}
 </div>
+
+{{outlet}}
+
+{{!-- ember-cli-materialize modal container --}}
+{{md-modal-container}}
