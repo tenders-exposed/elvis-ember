@@ -1,0 +1,28 @@
+<div class="h50"></div>
+
+<div class="row">
+  <div class="col s6">
+    <form class="" {{action "account.update"}} method="post">
+      <h5>Personal settings</h5>
+      <div class="row">
+        {{md-input value=account.name label='Your display name' class="col s12"}}
+        {{md-input value=account.name label='Preferred country' class="col s12"}}
+      </div>
+      <div class="row">
+        <input type="submit" value="Save" class="waves-effect waves-light btn right">
+      </div>
+    </form>
+  </div>
+  <div class="col s6">
+    <form class="" {{action "account.password"}} method="post">
+      <h5>Change password</h5>
+      <div class="row">
+        {{md-input value=account.name type="password" label='Change password' class="col s6"}}
+        {{md-input value=account.name type="password" label='Again, please?' class="col s6"}}
+      </div>
+      <div class="row">
+        <input type="submit" value="Save" class="waves-effect waves-light btn right">
+      </div>
+    </form>
+  </div>
+</div>
