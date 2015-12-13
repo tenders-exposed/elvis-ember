@@ -1,72 +1,53 @@
-{{!-- <div class="collapse" id="navbar-header">
-    <div class="bg-inverse p-a">
-        <h3>Collapsed content</h3>
-        <p>Toggleable via the navbar brand.</p>
+<div id="main-navbar" class="navbar-fixed">
+  <nav class="mainbg main-nav lighten-4">
+    <div class="nav-wrapper">
+      <div class="row">
+      <div class="col s1">
+        <img alt="Logo" class="logo" src="/elvis-logo-light.png"/>
+      </div>
+      <div class="col s8">
+        <div class="outer-wrapper">
+          <div class="inner-wrapper">
+            <ul id="main-links">
+              {{#link-to 'graph.new' tagName='li'}}
+                {{#link-to 'graph.new'}}
+                  <div class="link-icon new-graph-icon"></div>
+                  New visualisation
+                {{/link-to}}
+              {{/link-to}}
+              {{#link-to 'projects' tagName='li'}}
+                {{#link-to 'projects'}}
+                  <div class="link-icon my-projects-icon"></div>
+                  My projects
+                {{/link-to}}
+              {{/link-to}}
+              {{#link-to 'account.settings' tagName='li'}}
+                {{#link-to 'account.settings'}}
+                  <div class="link-icon account-settings-icon"></div>
+                  Account settings
+                {{/link-to}}
+              {{/link-to}}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col s3">
+        <ul id="secondary-links">
+          <li>
+            <a href="#">About</a>
+          </li>
+          <li>
+            <a href="#">Community</a>
+          </li>
+          <li>
+            <a href="#">Blog</a>
+          </li>
+        </ul>
+      </div>
+      </div>
     </div>
-</div> --}}
-
-{{!--
-{{#md-navbar name='el.vis' class='indigo'}}
-  {{#link-to 'account' tagName='li'}}
-    {{link-to 'Account' 'account' }}
-  {{/link-to}}
-{{/md-navbar}}
---}}
-
-<nav id="top-nav-small">
-  <div class="nav-wrapper">
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li>
-        {{#link-to "index"}}
-          Home
-        {{/link-to}}
-      </li>
-      <li>
-        {{#link-to "index"}}
-          Research
-        {{/link-to}}
-      </li>
-      <li>
-        {{#link-to "index"}}
-          Visualisation
-        {{/link-to}}
-      </li>
-      <li>
-        {{#link-to "index"}}
-          Community
-        {{/link-to}}
-      </li>
-    </ul>
-  </div>
-</nav>
-<nav id="top-nav-big">
-  <div class="nav-wrapper">
-    {{#link-to "index" class="brand-logo"}}
-      EL.VIS
-    {{/link-to}}
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li>
-        {{#link-to "graph.new"}}
-          <i class="mdi-content-add left"></i>New Network
-        {{/link-to}}
-      </li>
-      <li>
-        {{#link-to "account.show" 1}}
-          <i class="mdi-social-person left"></i>My Settings
-        {{/link-to}}
-      </li>
-      <li>
-        {{#link-to "graph"}}
-          <i class="mdi-navigation-menu left"></i>My Networks
-        {{/link-to}}
-      </li>
-    </ul>
-  </div>
-</nav>
-
-{{outlet}}
-
-
+  </nav>
+</div>
 
 <div class="c-notifications__container">
     {{#each notifications as |notification|}}
@@ -74,6 +55,7 @@
     {{/each}}
 </div>
 
+{{outlet}}
 
 {{!-- ember-cli-materialize modal container --}}
 {{md-modal-container}}

@@ -10,6 +10,8 @@ Router.map(function() {
     this.route('show', {path: ":id"});
     this.route('new', {});
   });
+  this.route('projects', {}, function() {
+  });
   this.route('account', {}, function() {
     this.route('new', {path: 'register'});
     this.route('confirm', {});
