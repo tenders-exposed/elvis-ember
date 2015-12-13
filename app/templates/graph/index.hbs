@@ -1,32 +1,55 @@
 <div id="mygraphs">
-    <div class="jumbotron">
-        <div class="container" id="mygraphs">
-            <h1>Welcome, <small>Sarah Connor</small></h1>
-            <p>You have <strong>16 graphs</strong>, <strong>7 potatoes</strong> and <strong>4 hemorhoids</strong></p>
-        </div>
-    </div>
     <div class="container">
         <div class="row">
-            <div class="col-lg-2 col-md-3">
-              {{#link-to "graph.new" class="card button"}}
-                <div class="card-icon">
-                  {{fa-icon "plus"}}
-                </div>
-                <div class="card-block">
-                    <h4 class="card-title">New graph</h4>
-                </div>
-              {{/link-to}}
+          <div class="col s12 m6 l4">
+            <div class="card">
+              <div class="card-image waves-effect waves-block waves-light">
+                {{!-- <img class="activator" src="http://lorempixel.com/400/200/animals/"> --}}
+                <img class="activator" src="/default_image.jpg">
+              </div>
+              <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">
+                  IT Procurement Project
+                  <small class="right">14 days ago</small>
+                </span>
+                <p><a href="#">Load project</a></p>
+              </div>
+              <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">
+                  IT Procurement Project
+                </span>
+                <p>
+                  Here is some more information about this project that is only revealed once clicked on.
+                  <br>
+                  <a href="#">Load project</a>
+                </p>
+              </div>
             </div>
-            <div class="col-lg-2 col-md-3">
-                <div class="card">
-                    <img class="card-img-top" src="images/sample-graph.png" alt="Card image cap">
-                    <div class="card-block">
-                        <h4 class="card-title"> {{#link-to "graph.show" 1}} Graph #1 {{/link-to}} </h4>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        <a class="btn btn-small">{{fa-icon "trash-o"}}</a>
-                    </div>
-                </div>
+          </div>
+          <div class="col s12 m6 l4">
+            <div class="card">
+              <div class="card-image waves-effect waves-block waves-light">
+                {{!-- <img class="activator" src="http://lorempixel.com/400/200/animals/"> --}}
+                <img class="activator" src="/default_image.jpg">
+              </div>
+              <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">
+                  New Project
+                </span>
+                <p><a href="#">Create a new project</a></p>
+              </div>
+              <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">
+                  New Project
+                </span>
+                <p>
+                  Here is some more information about this project that is only revealed once clicked on.
+                  <br>
+                  <a href="#">Create a new project</a>
+                </p>
+              </div>
             </div>
+          </div>
         </div>
     </div>
 </div>
