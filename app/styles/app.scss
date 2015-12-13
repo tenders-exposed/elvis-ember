@@ -8,71 +8,28 @@
 @import "sidebar.scss";
 @import "graph.scss";
 
+/* Helper styles */
+.h50 { display: block; height: 50px; }
+.radius { border-radius: 5px; }
 
 /* General styles */
-.navbar-brand { float: none; }
-.tight {
-  max-width: 400px;
-  margin: 0 auto;
-}
-.group-heading {
-  color: #999;
-  text-transform: uppercase;
-  font-size: 12px;
-}
-
-/* my graphs */
-#mygraphs .card-img-top { width: 100%; }
-#mygraphs .card.button {
-  display: block;
-  color: white;
-  // background: $brand-success;
-  a { color: white; }
-  .card-icon { font-size: 60px; width: 100%; text-align: center; }
+#top-nav-small,
+#top-nav-small *
+{
+  box-shadow: none;
+  height: 30px;
+  padding: 0 0 0 5;
+  line-height: 1rem;
+  >a {
+    margin-top: 7px;
+  }
 }
 
-
-/* graph workspace */
-#graph {
-  .graph-nav {  }
-  .graph-name  { }
-  .left-sidebar { padding: 20px;}
-}
-
-/* login / register forms */
-.form-signin {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
-}
-.form-signin .form-signin-heading,
-.form-signin .checkbox {
-  margin-bottom: 10px;
-}
-.form-signin .checkbox {
-  font-weight: normal;
-}
-.form-signin .form-control {
-  position: relative;
-  height: auto;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 10px;
-  font-size: 16px;
-}
-.form-signin .form-control:focus {
-  z-index: 2;
-}
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-.form-signin div#inputPasswordContainer {
-  display: none;
+#top-nav-big {
+  box-shadow: none;
+  .brand-logo {
+    float: left;
+    margin-left: 30px;
+    bottom: 15px;
+  }
 }

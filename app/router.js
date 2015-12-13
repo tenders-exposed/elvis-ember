@@ -17,6 +17,7 @@ Router.map(function() {
     this.route('recover', {path: 'recover'});
     this.route('settings', {});
     this.route('destroy', {});
+    this.route('show', {path: ":id"});
   });
 });
 

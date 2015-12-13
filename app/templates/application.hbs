@@ -5,11 +5,64 @@
     </div>
 </div> --}}
 
+{{!--
 {{#md-navbar name='el.vis' class='indigo'}}
   {{#link-to 'account' tagName='li'}}
     {{link-to 'Account' 'account' }}
   {{/link-to}}
 {{/md-navbar}}
+--}}
+
+<nav id="top-nav-small">
+  <div class="nav-wrapper">
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li>
+        {{#link-to "index"}}
+          Home
+        {{/link-to}}
+      </li>
+      <li>
+        {{#link-to "index"}}
+          Research
+        {{/link-to}}
+      </li>
+      <li>
+        {{#link-to "index"}}
+          Visualisation
+        {{/link-to}}
+      </li>
+      <li>
+        {{#link-to "index"}}
+          Community
+        {{/link-to}}
+      </li>
+    </ul>
+  </div>
+</nav>
+<nav id="top-nav-big">
+  <div class="nav-wrapper">
+    {{#link-to "index" class="brand-logo"}}
+      EL.VIS
+    {{/link-to}}
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li>
+        {{#link-to "graph.new"}}
+          <i class="mdi-content-add left"></i>New Network
+        {{/link-to}}
+      </li>
+      <li>
+        {{#link-to "account.show" 1}}
+          <i class="mdi-social-person left"></i>My Settings
+        {{/link-to}}
+      </li>
+      <li>
+        {{#link-to "graph"}}
+          <i class="mdi-navigation-menu left"></i>My Networks
+        {{/link-to}}
+      </li>
+    </ul>
+  </div>
+</nav>
 
 {{outlet}}
 
