@@ -23,6 +23,6 @@ var Account = DS.Model.extend({
   }),
   formattedBio: Ember.computed(function() {
         return this.get('bio').replace(/\n\r?/g, '<br>');
-  }).property('bio').cacheable()
+  }).property('bio')
 });
 export default Account;
