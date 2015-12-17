@@ -1,0 +1,42 @@
+<div class="h50"></div>
+<div class="container">
+  <div class="row">
+    <div class="col s2">&nbsp;</div>
+    <div class="col s8">
+      <form {{!action "vis.new"}} method="post">
+        <div class="row">
+          <div class="input-field col s12">
+            <!--             <input placeholder="Country" id="country" type="text" class="validate"> -->
+            {{ember-select-guru
+            value=query.country_ids
+            options=country_select
+            searchKey='description'
+            onSelect=(action "onSelectEvent")}}
+          </div>
+          <div class="input-field col s12">
+            <div id="years"></div>
+            <p class="range-field">
+               {{! md-range
+                min=2000
+                max=2015
+                start=2008
+                connect=true
+                step=1}}
+              {{range-slider
+                class='noUi-target noUi-ltr noUi-horizontal noUi-background'
+                min=2001
+                max=2015
+                step=1
+                connect=true
+                tooltips=true
+                change="changedAction"}}
+            </p>
+          </div>
+        </div>
+        <input name="" type="submit" value="OK"/>
+      </form>
+    </div>
+    <div class="col s2">&nbsp;</div>
+  </div>
+</div>
+

@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAAA,QAAS;EACP,UAAU,EAAE,IAAI",
-"sources": ["sidebar.scss"],
-"names": [],
-"file": "sidebar.css"
-}
