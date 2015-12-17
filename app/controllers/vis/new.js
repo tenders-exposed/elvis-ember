@@ -33,7 +33,7 @@ export default Ember.Controller.extend({
     },
   ],
   actions: {
-    onSelectEvent: function(value){
+    onSelectEvent(value) {
       Ember.debug( "New select value: %@".fmt( value ) );
     }
   }
