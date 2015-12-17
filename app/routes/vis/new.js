@@ -5,7 +5,7 @@ export default Ember.Route.extend({
 //    this.render('graph/new');
 //  }
   actions: {
-    changedAction: function(value) {
+    changedAction(value) {
       Ember.debug( "New slider value: %@".fmt( value ) );
     }
   }

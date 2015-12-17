@@ -9,7 +9,9 @@ var Account = DS.Model.extend({
   bio             : DS.attr('string'),
   url             : DS.attr('string'),
   avatar          : DS.attr('string'),
-  user            : DS.belongsTo('user'),
+  user            : DS.belongsTo('user', {
+    async: false
+  }),
   is_owner: Ember.computed(function(){
     var session = this.container.lookup('simple-auth-session:main');
     return this.get('id').toString() === session.content.id.toString();
