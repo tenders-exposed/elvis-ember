@@ -9,34 +9,36 @@
             <!--             <input placeholder="Country" id="country" type="text" class="validate"> -->
             {{ember-select-guru
             value=query.country_ids
-            options=country_select
+            options=countries
             searchKey='description'
+            multiple=true
             onSelect=(action "onSelectEvent")}}
           </div>
           <div class="input-field col s12">
-            <div id="years"></div>
+            <div class="row">
+              <div class="col s2 center-align"><span class="year-label left-year">2002</span></div>
+              <div class="col s8">&nbsp;</div>
+              <div class="col s2 center-align"><span class="year-label right-year">2010</span></div>
+            </div>
             <p class="range-field">
-               {{! md-range
-                min=2000
-                max=2015
-                start=2008
-                connect=true
-                step=1}}
               {{range-slider
-                class='noUi-target noUi-ltr noUi-horizontal noUi-background'
                 min=2001
                 max=2015
                 step=1
                 connect=true
                 tooltips=true
-                change="changedAction"}}
+                slide="slidingAction"}}
             </p>
           </div>
         </div>
-        <input name="" type="submit" value="OK"/>
+          {{md-btn text='Proceed'
+            icon='mdi-navigation-chevron-right'
+            iconPosition='right'
+            action='sendForm'
+            class='right'
+          }}
       </form>
     </div>
     <div class="col s2">&nbsp;</div>
   </div>
 </div>
-

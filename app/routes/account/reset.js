@@ -2,15 +2,15 @@ import Ember from 'ember';
 /* import { raw } from 'ic-ajax'; */
 
 export default Ember.Route.extend({
-  queryParams: {
-    reset_password_token: {
-    } 
-  },
+  //queryParams: {
+  //  reset_password_token: {
+  //  }
+  //},
   actions: {
     deviseSendReset: function(email, password, password_confirmation, params) {
       console.log("params", params);
       console.log("queryParams", this.queryParams);
-      var reset_password_token = this.controller.reset_password_token;
+      //var reset_password_token = this.controller.reset_password_token;
       //var req = raw({
       //  type: 'PUT',
       //  url: '/users/password',

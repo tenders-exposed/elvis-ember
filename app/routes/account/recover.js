@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import { raw } from 'ic-ajax';
 
 export default Ember.Route.extend({
   actions: {

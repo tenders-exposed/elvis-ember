@@ -1,23 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  country_select2: [
-    {
-      id: 1,
-      text: 'one',
-      description: 'one description'
-    },
-    {
-      id: 2,
-      text: 'two',
-      description: 'one description'
-    },
-    {
-      id: 3,
-      text: 'three',
-      description: 'one description'
-    },
-  ],
   country_select: [
     {
       name: 'one',
@@ -34,7 +17,8 @@ export default Ember.Controller.extend({
   ],
   actions: {
     onSelectEvent(value) {
-      Ember.debug( "New select value: %@".fmt( value ) );
+      this.set('values', values);
+      console.log( "New select value: ", value);
     }
   }
 });
