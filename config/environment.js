@@ -19,9 +19,6 @@ module.exports = function(environment) {
       'ember-cli-notifications': {
           includeFontAwesome: true
       },
-    },
-    sassOptions: {
-      includePaths: ['bower_components/materialize/sass']
     }
   };
 
@@ -70,7 +67,7 @@ module.exports = function(environment) {
   };
   ENV.contentSecurityPolicy = {
     'default-src': "'self'",
-    'script-src': "'self'",
+    'script-src': "'self' 'unsafe-inline' 'unsafe-eval'",
     'font-src': "'self' http://fonts.gstatic.com",
     'connect-src': "'self' http://0.0.0.0:3000 https://api.mixpanel.com http://localhost:3000 http://localhost:35729",
     'img-src': "'self' 'unsafe-inline' 'unsafe-eval' *",
