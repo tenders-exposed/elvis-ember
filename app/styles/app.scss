@@ -1,75 +1,102 @@
-@import "../../bower_components/bootstrap/scss/bootstrap.scss";
-@import "../../bower_components/vis/dist/vis.min.css";
+@import 'materialize';
+@import 'ember-cli-materialize';
+
 @import "components.scss";
+@import "forms.scss";
 @import "layout.scss";
 @import "sidebar.scss";
 @import "graph.scss";
 
+/* Helper styles */
+.h50 { display: block; height: 50px; }
+.radius { border-radius: 5px; }
+.noflow { overflow: hidden; }
+.outer-wrapper { position: relative; left: 50%; float: left; }
+.inner-wrapper { position: relative; left: -50%; float: left; }
 
-/* General styles */
-.navbar-brand { float: none; }
-.tight {
-  max-width: 400px;
-  margin: 0 auto;
-}
-.group-heading {
-  color: #999;
-  text-transform: uppercase;
-  font-size: 12px;
-}
-
-/* my graphs */
-#mygraphs .card-img-top { width: 100%; }
-#mygraphs .card.button {
-  display: block;
-  color: white;
-  background: $brand-success;
-  a { color: white; }
-  .card-icon { font-size: 60px; width: 100%; text-align: center; }
+/* Theme colors */
+.mainbg {
+  background-color: #221518;
 }
 
+/* Main navbar*/
+div#main-navbar {
+  nav.main-nav, div.nav-wrapper {
+    height: 150px;
+    box-shadow: none;
+  }
+  height: 150px;
+  /*   * {height: 150px;} */
+  .logo{
+    height: 36px;
+    width: 64px;
+    margin: 30px;
+  }
+  ul#main-links {
+    height: 150px;
+    margin: 0px auto;
+    div.link-icon {
+      display: block;
+      margin: 0px auto;
+      width: 25px;
+      height: 25px;
+      &.new-graph-icon {
+        background-image: url('/new-visualisation-icon-inactive.png');
+        background-color: transparent; background-repeat: no-repeat;
+      }
+      &.my-projects-icon {
+        background-image: url('/my-projects-icon-inactive.png');
+        background-color: transparent; background-repeat: no-repeat;
+      }
+      &.account-settings-icon {
+        background-image: url('/account-settings-icon-inactive.png');
+        background-color: transparent; background-repeat: no-repeat;
+      }
+    }
 
-/* graph workspace */
-#graph {
-  .graph-nav {  }
-  .graph-name  { }
-  .left-sidebar { padding: 20px;}
+    li:hover, li *:hover,
+    li.active {
+      background-color: inherit;
+      a {
+        color: #aa8073;
+        background-color: inherit;
+      }
+      .link-icon {
+        &.new-graph-icon {
+          background-image: url('/new-visualisation-icon-active.png');
+          background-color: transparent; background-repeat: no-repeat;
+        }
+        &.my-projects-icon {
+          background-image: url('/my-projects-icon-active.png');
+          background-color: transparent; background-repeat: no-repeat;
+        }
+        &.account-settings-icon {
+          background-image: url('/account-settings-icon-active.png');
+          background-color: transparent; background-repeat: no-repeat;
+        }
+      }
+    }
+    .active {
+      border-bottom: 2px solid #aa8073;
+    }
+    a {
+      color: #3e2d2e;
+      height: 90px;
+      text-transform: uppercase;
+      margin-top: 60px;
+    }
+  }
+  ul#secondary-links{
+    height: 30px;
+    li{
+      height: 30px;
+      a{
+      color: #757172;
+        height: 30px;
+      }
+    }
+  }
 }
 
-/* login / register forms */
-.form-signin {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
-}
-.form-signin .form-signin-heading,
-.form-signin .checkbox {
-  margin-bottom: 10px;
-}
-.form-signin .checkbox {
-  font-weight: normal;
-}
-.form-signin .form-control {
-  position: relative;
-  height: auto;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 10px;
-  font-size: 16px;
-}
-.form-signin .form-control:focus {
-  z-index: 2;
-}
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-.form-signin div#inputPasswordContainer {
-  display: none;
-}
+
+/* ----- */

@@ -5,7 +5,7 @@ export default Ember.Controller.extend({
     return this.store.createRecord('user');
   }),
   actions: {
-    register: function() {
+    register() {
       var self = this;
       this.get('user').save().then(function() {
         self.notifications.addNotification({

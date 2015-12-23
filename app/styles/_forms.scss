@@ -1,0 +1,30 @@
+.noUi-target {
+  height: 5px;
+  &, * {border: none;}
+}
+.noUi-base {background-color: transparent;}
+.noUi-origin { }
+
+.noUi-handle-upper,
+.noUi-handle {
+  height: 15px !important;
+  width: 15px !important;
+  border-radius: 10px;
+  margin-left: 3px;
+  box-shadow: none;
+  &:after, &:before { background-color: transparent; }
+}
+
+form span.year-label {
+  color: rgba(255,255,255,.7);
+  font-weight: bold;
+  position: absolute;
+  &.left-year {bottom: 10px; left: 20px;}
+  &.right-year {bottom: 10px; right: 20px;}
+}
+
+
+.ember-select-guru__dropdown > .options-wrapper {
+  max-height: 200px;
+  overflow: scroll;
+}

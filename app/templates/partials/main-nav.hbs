@@ -1,0 +1,52 @@
+<div id="main-navbar" class="navbar-fixed">
+  <nav class="mainbg main-nav lighten-4">
+    <div class="nav-wrapper">
+      <div class="row">
+      <div class="col s1">
+        {{#link-to 'application'}}
+          <img alt="Logo" class="logo" src="/elvis-logo-light.png"/>
+        {{/link-to}}
+      </div>
+      <div class="col s8">
+        <div class="outer-wrapper">
+          <div class="inner-wrapper">
+            <ul id="main-links">
+              {{#link-to 'network.query' tagName='li'}}
+                {{#link-to 'network.query'}}
+                  <div class="link-icon new-graph-icon"></div>
+                  New visualisation
+                {{/link-to}}
+              {{/link-to}}
+              {{#link-to 'projects' tagName='li'}}
+                {{#link-to 'projects'}}
+                  <div class="link-icon my-projects-icon"></div>
+                  My projects
+                {{/link-to}}
+              {{/link-to}}
+              {{#link-to 'account.settings' tagName='li'}}
+                {{#link-to 'account.settings'}}
+                  <div class="link-icon account-settings-icon"></div>
+                  Account settings
+                {{/link-to}}
+              {{/link-to}}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col s3">
+        <ul id="secondary-links">
+          <li>
+            <a href="#">About</a>
+          </li>
+          <li>
+            <a href="#">Community</a>
+          </li>
+          <li>
+            <a href="#">Blog</a>
+          </li>
+        </ul>
+      </div>
+      </div>
+    </div>
+  </nav>
+</div>
