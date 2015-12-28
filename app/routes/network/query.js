@@ -32,7 +32,7 @@ export default Ember.Route.extend({
     },
     sendForm() {
       //console.log("Years: ", this.controller.years);
-      this.transitionTo('vis.show', 1);
+      this.transitionTo('network.show', 1);
     }
   }
 });
