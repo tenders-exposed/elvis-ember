@@ -1,24 +1,17 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  country_select: [
-    {
-      name: 'one',
-      description: 'one description'
-    },
-    {
-      name: 'two',
-      description: 'one description'
-    },
-    {
-      name: 'three',
-      description: 'one description'
-    },
-  ],
+  isShowingCpvSelector: false,
+  query: {
+    'country_ids': []
+  },
   actions: {
     onSelectEvent(value) {
-      this.set('values', values);
+      this.set('query.country_ids', value);
       console.log( "New select value: ", value);
-    }
+    },
+    toggleBasic() {
+      this.toggleProperty('isShowingCpvSelector');
+    },
   }
 });

@@ -1,11 +1,14 @@
 @import 'materialize';
 @import 'ember-cli-materialize';
 
+@import "ember-modal-dialog/ember-modal-structure";
+@import "ember-modal-dialog/ember-modal-appearance";
+
 @import "components.scss";
 @import "forms.scss";
 @import "layout.scss";
 @import "sidebar.scss";
-@import "graph.scss";
+@import "network.scss";
 
 /* Helper styles */
 .h50 { display: block; height: 50px; }
@@ -13,6 +16,23 @@
 .noflow { overflow: hidden; }
 .outer-wrapper { position: relative; left: 50%; float: left; }
 .inner-wrapper { position: relative; left: -50%; float: left; }
+.overlay {position: absolute;}
+.full-screen {}
+.full-height {height: 100%;}
+.blur {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+}
+
+html, body, .container,
+body > .ember-view
+{
+  height: 100%;
+}
+
 
 /* Theme colors */
 .mainbg {
