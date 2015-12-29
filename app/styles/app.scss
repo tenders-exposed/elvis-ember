@@ -6,7 +6,6 @@
 
 @import "components.scss";
 @import "forms.scss";
-@import "layout.scss";
 @import "sidebar.scss";
 @import "navbar.scss";
 @import "network.scss";
@@ -33,6 +32,12 @@ body > .ember-view
 {
   height: 100%;
   color: #eee;
+}
+
+h1 {
+  font-size: 2.3em;
+  font-family: serif;
+  font-weight: 600;
 }
 
 

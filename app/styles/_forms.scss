@@ -1,16 +1,62 @@
+span.query-step{
+  color: white;
+  text-align: center;
+  display: block;
+  border-radius: 40px;
+  line-height: 1.4;
+  &.circle {
+    margin: 15px 5px;
+    border: 2px solid white;
+    width: 44px;
+    height: 44px;
+    font-size: 2em;
+  }
+  &.mark {
+    background: #D4650F;
+    width:  32px;
+    height: 32px;
+    margin: 10px 10px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: black;
+  }
+}
+
+div.query-form-container {
+  h5 {
+    font-size: 1.1em;
+    font-weight: 600;
+    font-family: serif;
+    margin-bottom: 0px;
+  }
+  h4 {
+    font-size: 1.5em;
+    font-weight: 600;
+    font-family: serif;
+    margin-bottom: 0px;
+  }
+  small {
+    color: #444446;
+    font-size: .8em;
+  }
+}
+
+
 .noUi-target {
-  height: 5px;
+  height: 2px;
   &, * {border: none;}
 }
-.noUi-base {background-color: transparent;}
+.noUi-background, .noUi-base {background: #2A2A2B; box-shadow: none;}
+.noUi-connect { background: #eee; }
 .noUi-origin { }
 
 .noUi-handle-upper,
 .noUi-handle {
-  height: 15px !important;
-  width: 15px !important;
+  height: 20px !important;
+  width: 20px !important;
   border-radius: 10px;
   margin-left: 3px;
+  margin-top: -3px;
   box-shadow: none;
   &:after, &:before { background-color: transparent; }
 }
