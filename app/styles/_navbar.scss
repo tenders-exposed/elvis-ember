@@ -1,0 +1,89 @@
+/* Main navbar*/
+
+div.nav-wrapper>div.row {
+  margin-bottom: 0px;
+}
+
+div#main-navbar {
+  nav.main-nav, div.nav-wrapper {
+    height: 80px;
+    box-shadow: none;
+  }
+  .logo{
+    height: 36px;
+    width: 64px;
+    margin: 22px 10px;
+  }
+  ul#elvis-links,
+  ul#external-links {
+    li {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      a {
+        height: 60px;
+      }
+    }
+  }
+  ul#main-links {
+    margin: 0px auto;
+    div.link-icon {
+      display: block;
+      margin: 0px auto;
+      width: 25px;
+      height: 25px;
+      &.new-graph-icon {
+        background-image: url('/new-visualisation-icon-inactive.png');
+        background-color: transparent; background-repeat: no-repeat;
+      }
+      &.my-projects-icon {
+        background-image: url('/my-projects-icon-inactive.png');
+        background-color: transparent; background-repeat: no-repeat;
+      }
+      &.account-settings-icon {
+        background-image: url('/account-settings-icon-inactive.png');
+        background-color: transparent; background-repeat: no-repeat;
+      }
+    }
+
+    li:hover, li *:hover,
+    li.active {
+      background-color: inherit;
+      a {
+        color: #aa8073;
+        background-color: inherit;
+        height: 80px;
+      }
+      .link-icon {
+        &.new-graph-icon {
+          background-image: url('/new-visualisation-icon-active.png');
+          background-color: transparent; background-repeat: no-repeat;
+        }
+        &.my-projects-icon {
+          background-image: url('/my-projects-icon-active.png');
+          background-color: transparent; background-repeat: no-repeat;
+        }
+        &.account-settings-icon {
+          background-image: url('/account-settings-icon-active.png');
+          background-color: transparent; background-repeat: no-repeat;
+        }
+      }
+    }
+    .active {
+      border-bottom: 2px solid #aa8073;
+    }
+    a {
+      color: #3e2d2e;
+      text-transform: uppercase;
+    }
+  }
+  ul#secondary-links{
+    li{
+      a{
+      color: #757172;
+      }
+    }
+  }
+}
+
+
+/* ----- */

@@ -8,6 +8,7 @@
 @import "forms.scss";
 @import "layout.scss";
 @import "sidebar.scss";
+@import "navbar.scss";
 @import "network.scss";
 
 /* Helper styles */
@@ -31,92 +32,12 @@ html, body, .container,
 body > .ember-view
 {
   height: 100%;
+  color: #eee;
 }
 
 
 /* Theme colors */
 .mainbg {
-  background-color: #221518;
+  background-color: #1A1A1C;
 }
 
-/* Main navbar*/
-div#main-navbar {
-  nav.main-nav, div.nav-wrapper {
-    height: 150px;
-    box-shadow: none;
-  }
-  height: 150px;
-  /*   * {height: 150px;} */
-  .logo{
-    height: 36px;
-    width: 64px;
-    margin: 30px;
-  }
-  ul#main-links {
-    height: 150px;
-    margin: 0px auto;
-    div.link-icon {
-      display: block;
-      margin: 0px auto;
-      width: 25px;
-      height: 25px;
-      &.new-graph-icon {
-        background-image: url('/new-visualisation-icon-inactive.png');
-        background-color: transparent; background-repeat: no-repeat;
-      }
-      &.my-projects-icon {
-        background-image: url('/my-projects-icon-inactive.png');
-        background-color: transparent; background-repeat: no-repeat;
-      }
-      &.account-settings-icon {
-        background-image: url('/account-settings-icon-inactive.png');
-        background-color: transparent; background-repeat: no-repeat;
-      }
-    }
-
-    li:hover, li *:hover,
-    li.active {
-      background-color: inherit;
-      a {
-        color: #aa8073;
-        background-color: inherit;
-      }
-      .link-icon {
-        &.new-graph-icon {
-          background-image: url('/new-visualisation-icon-active.png');
-          background-color: transparent; background-repeat: no-repeat;
-        }
-        &.my-projects-icon {
-          background-image: url('/my-projects-icon-active.png');
-          background-color: transparent; background-repeat: no-repeat;
-        }
-        &.account-settings-icon {
-          background-image: url('/account-settings-icon-active.png');
-          background-color: transparent; background-repeat: no-repeat;
-        }
-      }
-    }
-    .active {
-      border-bottom: 2px solid #aa8073;
-    }
-    a {
-      color: #3e2d2e;
-      height: 90px;
-      text-transform: uppercase;
-      margin-top: 60px;
-    }
-  }
-  ul#secondary-links{
-    height: 30px;
-    li{
-      height: 30px;
-      a{
-      color: #757172;
-        height: 30px;
-      }
-    }
-  }
-}
-
-
-/* ----- */
