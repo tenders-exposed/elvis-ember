@@ -1,54 +1,98 @@
 {{partial 'partials/main-nav'}}
 
-<div class="h50"></div>
 <div class="container">
   <div class="row">
-    <div class="col s2">&nbsp;</div>
-    <div class="col s8">
-      <form {{!action "vis.new"}} method="post">
-        <div class="row">
-          <div class="input-field col s12">
-            <!--             <input placeholder="Country" id="country" type="text" class="validate"> -->
-            {{ember-select-guru
-            value=query.country_ids
-            options=countries
-            searchKey='description'
-            multiple=true
-            optionComponent='country-option'
-            onSelect=(action "onSelectEvent")}}
-          </div>
-          <div class="input-field col s12">
-            <div class="row">
-              <div class="col s2 center-align"><span class="year-label left-year">2002</span></div>
-              <div class="col s8">&nbsp;</div>
-              <div class="col s2 center-align"><span class="year-label right-year">2010</span></div>
+    <div class="col s12">
+      <h1>Launch New Visualisation</h1>
+      <hr/>
+    </div>
+    <div class="col s12">
+      <p>
+        Select criteria you would like to visualise from the <a href="">TED data</a>.<br/>
+        Bare in mind that wider criteria will result in too much data to visualise which will make
+        the visualisation run slow.
+      </p>
+    </div>
+    <div class="col s12 query-form-container">
+    <form {{!action "vis.new"}} method="post">
+      <div class="row">
+        <div class="col s1"><span class="query-step circle">1</span></div>
+        <div class="col s4">
+          <h5>Country of interest</h5>
+          <small>Only procurement from this country will be visualised</small>
+        </div>
+        <div class="col s6">
+            <div class="input-field">
+              {{ember-select-guru
+              value=query.country_ids
+              options=countries
+              searchKey='description'
+              multiple=true
+              optionComponent='country-option'
+              onSelect=(action "onSelectEvent")}}
             </div>
-            <p class="range-field">
-              {{range-slider
-                min=2001
-                max=2015
-                step=1
-                connect=true
-                tooltips=true
-                slide="slidingAction"}}
-            </p>
           </div>
         </div>
-          {{md-btn text='Proceed'
-            icon='mdi-navigation-chevron-right'
-            iconPosition='right'
-            action='sendForm'
-            class='right'
-          }}
+        <div class="row">
+          <div class="col s1"><span class="query-step circle">2</span></div>
+          <div class="col s4">
+            <h5>Year Range</h5>
+            <small>Only procurement in this year range will be visualised</small>
+          </div>
+          <div class="col s6">
+            <div class="input-field">
+              <div class="row">
+                <div class="col s2 center-align"><span class="year-label left-year">2002</span></div>
+                <div class="col s8">&nbsp;</div>
+                <div class="col s2 center-align"><span class="year-label right-year">2010</span></div>
+              </div>
+              <p class="range-field">
+                {{range-slider
+                  min=2001
+                  max=2015
+                  step=1
+                  connect=true
+                  tooltips=true
+                  slide="slidingAction"}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s1"><span class="query-step circle">3</span></div>
+          <div class="col s4">
+            <h5>Related Fields</h5>
+            <small>
+              Only procurement marked with this CPV codes will be visualised.
+              <br/><a href="">Read more about CPV codes</a>
+            </small>
+          </div>
+          <div class="col s6"></div>
+        </div>
+        <div class="row">
+          <div class="col s1"><span class="query-step mark">!</span></div>
+          <div class="col s4">
+            <h5 class="orange-text">Medium Performance</h5>
+            <small>Your query will result in a lot of nodes and edges.
+            The visualisation might run a bit slow.</small>
+          </div>
+          <div class="col s6">
+            <span class="center-align col s3">
+              <h4>938742</h4>
+              <small>results</small>
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s1">
+            {{md-btn icon='mdi-hardware-keyboard-arrow-right'
+              action='sendForm' buttonType='floating'
+              class='btn-large'}}
+          </div>
+          <div class="col s3"></div>
+          <div class="col s8"></div>
+        </div>
       </form>
     </div>
-    <div class="col s2">&nbsp;</div>
   </div>
 </div>
-          <button {{action 'toggleBasic'}}>Do It</button>
-
-{{#modal-dialog close='toggleBasic'}}
-  <h1>Stop! Modal Time!</h1>
-  <p>Basic</p>
-  <button {{action 'toggleBasic'}}>Close</button>
-{{/modal-dialog}}

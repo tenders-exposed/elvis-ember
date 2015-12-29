@@ -1,6 +1,9 @@
 import Ember from 'ember';
+import ENV from "../../config/environment";
 
 export default Ember.Route.extend({
+  host: ENV.APP.apiHost,
+  namespace: ENV.APP.apiNamespace,
 //  renderTemplate: function(){
 //    this.render('graph/new');
 //  }
@@ -11,15 +14,16 @@ export default Ember.Route.extend({
   },
   setupController(controller) {
     controller.set('years', [2002,2008]);
-    this.get('ajax')
-      .request('/elastic/documents/countries')
-        .then((data) => {
-          data.search.results.map((element) => {
-            element.description = element.name + ' / ' + element.key;
-            //console.log(element);
-          });
-          controller.set('countries', data.search.results);
-        });
+    controller.set('countries', ["UK"]);
+    //this.get('ajax')
+    //  .request(this.host + '/api/' + this.namespace + '/elastic/contracts/countries')
+    //    .then((data) => {
+    //      data.search.results.map((element) => {
+    //        element.description = element.name + ' / ' + element.key;
+    //        //console.log(element);
+    //      });
+    //      controller.set('countries', data.search.results);
+    //    });
   },
   actions: {
     slidingAction(value) {
