@@ -27,7 +27,7 @@ export default Ember.Route.extend({
       console.error('There was a problem', response.jqXHR.responseText, response);
       self.notifications.addNotification({
         message: `Oops, something bad happened: ${JSON.parse(response.jqXHR.responseText).errors[0]}`,
-        type: 'error',
+        type: 'error'
       });
     }
     );
