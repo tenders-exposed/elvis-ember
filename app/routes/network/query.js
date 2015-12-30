@@ -10,7 +10,7 @@ export default Ember.Route.extend({
   ajax: Ember.inject.service(),
   countries() {
     //console.log(this.get('ajax').request('/elastic/documents/countries'));
-    return
+    return;
   },
   setupController(controller) {
     controller.set('years', [2002,2008]);
@@ -38,5 +38,5 @@ export default Ember.Route.extend({
       //console.log("Years: ", this.controller.years);
       this.transitionTo('network.show', 1);
     }
-  }
+  },
 });

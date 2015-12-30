@@ -53,6 +53,7 @@
     "ember-radio-button": "1.0.7",
     "ember-resolver": "^2.0.3",
     "ember-select-guru": "1.1.2",
+    "ember-suave": "1.2.3",
     "ember-watson": "0.7.0",
     "ember-world-flags": "0.2.5",
     "form-data": "^0.2.0"
