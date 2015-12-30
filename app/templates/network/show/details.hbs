@@ -2,11 +2,14 @@
   <div id="network-sidebar" class="col s3">
     <div class="row">
       <div class="col s12">
+        <h5 class="details">MyProjectName</h5>
+      </div>
+      <div class="col s12">
         {{#tabbed-content active=active on-change="changeTab" as |manager|}}
           <div class="tabs__nav">
-            {{#tab-button manager=manager name="suppliers"}}Suppliers{{/tab-button}}
-            {{#tab-button manager=manager name="procurers"}}Procurers{{/tab-button}}
-            {{#tab-button manager=manager name="relationships"}}Relationshits{{/tab-button}}
+            {{#tab-button class="tab-button" manager=manager name="suppliers"}}Suppliers{{/tab-button}}
+            {{#tab-button class="tab-button" manager=manager name="procurers"}}Procurers{{/tab-button}}
+            {{#tab-button class="tab-button" manager=manager name="relationships"}}Relationshits{{/tab-button}}
           </div>
 
           {{#tab-panel manager=manager name="suppliers"}}
