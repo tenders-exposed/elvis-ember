@@ -10,15 +10,34 @@ span.query-step{
     width: 44px;
     height: 44px;
     font-size: 2em;
+    background: #1A1A1C;
+    &:before {
+      content: "";
+      display: block;
+      z-index: -1;
+      border-left: 1px solid white;
+      height: 110px;
+      position: absolute;
+      margin-left: 20px;
+    }
   }
   &.mark {
     background: #D4650F;
     width:  32px;
     height: 32px;
-    margin: 10px 10px;
+    margin: 10px 11px;
     font-size: 1.5em;
     font-weight: bold;
     color: black;
+    &:before {
+      content: "";
+      display: block;
+      z-index: -1;
+      border-left: 1px solid white;
+      height: 110px;
+      position: absolute;
+      margin-left: 16px;
+    }
   }
 }
 
@@ -63,14 +82,28 @@ div.query-form-container {
 
 form span.year-label {
   color: rgba(255,255,255,.7);
-  font-weight: bold;
   position: absolute;
-  &.left-year {bottom: 10px; left: 20px;}
-  &.right-year {bottom: 10px; right: 20px;}
+  &.left-year {bottom: 20px; left: -7px;}
+  &.right-year {bottom: 20px; right: -7px;}
 }
 
 
+.ember-select-guru__dropdown {
+  background: #383838;
+  & div.ember-view ember-select-guru__option,
+  & div.is-active {
+    background: #383838;
+  }
+}
 .ember-select-guru__dropdown > .options-wrapper {
   max-height: 200px;
-  overflow: scroll;
+  overflow: auto;
+}
+.multi-value__option {
+  background: #383838;
+  border: none;
+}
+
+.btn-floating i {
+  color: inherit;
 }

@@ -48,8 +48,8 @@
               </div>
               <p class="range-field">
                 {{range-slider
-                  min=2001
-                  max=2015
+                  min=yearMin
+                  max=yearMax
                   step=1
                   connect=true
                   tooltips=true
@@ -85,9 +85,9 @@
         </div>
         <div class="row">
           <div class="col s1">
-            {{md-btn icon='mdi-hardware-keyboard-arrow-right'
+            {{md-btn icon='fa fa-arrow-right'
               action='sendForm' buttonType='floating'
-              class='btn-large'}}
+              class='btn-large white grey-text text-darken-4'}}
           </div>
           <div class="col s3"></div>
           <div class="col s8"></div>

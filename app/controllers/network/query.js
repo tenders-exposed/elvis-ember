@@ -2,6 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   isShowingCpvSelector: false,
+  yearMin: 2001,
+  yearMax: 2015,
   query: {
     'country_ids': []
   },
