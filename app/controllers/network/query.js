@@ -10,10 +10,10 @@ export default Ember.Controller.extend({
   actions: {
     onSelectEvent(value) {
       this.set('query.country_ids', value);
-      console.log( "New select value: ", value);
+      console.log('New select value: ', value);
     },
     toggleBasic() {
       this.toggleProperty('isShowingCpvSelector');
-    },
+    }
   }
 });
