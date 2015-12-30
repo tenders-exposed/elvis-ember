@@ -1,20 +1,20 @@
 import Ember from 'ember';
 import { raw } from 'ic-ajax';
-import ENV from "../../config/environment";
+import ENV from '../../config/environment';
 
 export default Ember.Route.extend({
   queryParams: {
-    confirmation_token: {
+    confirmationToken: {
     }
   },
-  model: function(params) {
-    var token = params.confirmation_token;
-    var self = this;
-    var req = raw({
+  model(params) {
+    let token = params.confirmationToken;
+    let self = this;
+    let req = raw({
       type: 'GET',
-      url: ENV.APP.apiHost + '/users/confirmation?confirmation_token=' + token
+      url: `${ENV.APP.apiHost}/users/confirmation?confirmationToken=${token}`
     });
-    req.then(function(result){
+    req.then(function(result) {
       console.log('Response from Rails', result.response);
       self.notifications.addNotification({
         message: 'Your account is now activated!',
@@ -26,8 +26,8 @@ export default Ember.Route.extend({
     function(response) {
       console.error('There was a problem', response.jqXHR.responseText, response);
       self.notifications.addNotification({
-        message: 'Oops, something bad happened: ' + JSON.parse(response.jqXHR.responseText).errors[0],
-        type: 'error',
+        message: `Oops, something bad happened: ${JSON.parse(response.jqXHR.responseText).errors[0]}`,
+        type: 'error'
       });
     }
     );

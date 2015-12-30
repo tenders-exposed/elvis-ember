@@ -5,7 +5,7 @@ export default RangeSlider.extend({
   start: [2004, 2012],
   actions: {
     changedAction(value) {
-      Ember.debug( "New slider value: %@".fmt( value ) );
+      Ember.debug('New slider value: %@'.fmt(value));
     }
   }
 });

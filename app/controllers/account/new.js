@@ -6,7 +6,7 @@ export default Ember.Controller.extend({
   }),
   actions: {
     register() {
-      var self = this;
+      let self = this;
       this.get('user').save().then(function() {
         self.notifications.addNotification({
           message: 'Done! Please check your inbox.',
@@ -14,6 +14,6 @@ export default Ember.Controller.extend({
         });
         self.transitionToRoute('login');
       });
-    },
+    }
   }
 });

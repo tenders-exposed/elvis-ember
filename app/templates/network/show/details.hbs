@@ -1,0 +1,38 @@
+<div id="network-row" class="row full-height">
+  <div id="network-sidebar" class="col s3">
+    <div class="row">
+      <div class="col s12">
+        <h5 class="details">MyProjectName</h5>
+      </div>
+      <div class="col s12">
+        {{#tabbed-content active=active on-change="changeTab" as |manager|}}
+          <div class="tabs__nav">
+            {{#tab-button class="tab-button" manager=manager name="suppliers"}}Suppliers{{/tab-button}}
+            {{#tab-button class="tab-button" manager=manager name="procurers"}}Procurers{{/tab-button}}
+            {{#tab-button class="tab-button" manager=manager name="relationships"}}Relationshits{{/tab-button}}
+          </div>
+
+          {{#tab-panel manager=manager name="suppliers"}}
+            Tab suppliers
+          {{/tab-panel}}
+
+          {{#tab-panel manager=manager name="procurers"}}
+            Tab procurers
+          {{/tab-panel}}
+
+          {{#tab-panel manager=manager name="relationships"}}
+            Tab relationships
+          {{/tab-panel}}
+        {{/tabbed-content}}
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-details" class="col s9">B{{outlet}}</div>
+</div>
+
+
+<script type="text/javascript">
+ $(document).ready(function(){
+   $("div#network-row").parent().height("100%");
+ });
+</script>
