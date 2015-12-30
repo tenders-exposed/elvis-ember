@@ -1,22 +1,22 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 
-var Account = DS.Model.extend({
-  display_name    : DS.attr('string', {
-    defaultValue: function() { return 'Unknown identity'; }
+let Account = DS.Model.extend({
+  displayName: DS.attr('string', {
+    defaultValue() {
+      return 'Unknown identity';
+    }
   }),
-  join_date       : DS.attr(),
-  bio             : DS.attr('string'),
-  url             : DS.attr('string'),
-  avatar          : DS.attr('string'),
-  user            : DS.belongsTo('user', {
-    async: false
-  }),
-  is_owner: Ember.computed(function(){
-    var session = this.container.lookup('simple-auth-session:main');
+  joinDate: DS.attr(),
+  bio: DS.attr('string'),
+  url: DS.attr('string'),
+  avatar: DS.attr('string'),
+  user: DS.belongsTo('user', { async: false }),
+  isOwner: Ember.computed(function() {
+    let session = this.container.lookup('simple-auth-session:main');
     return this.get('id').toString() === session.content.id.toString();
   }),
-  computed_display_name : Ember.computed(function(){
+  computedDisplayName: Ember.computed(function() {
     if (this.get('display_name')) {
       return this.get('display_name');
     } else {
@@ -24,7 +24,7 @@ var Account = DS.Model.extend({
     }
   }),
   formattedBio: Ember.computed(function() {
-        return this.get('bio').replace(/\n\r?/g, '<br>');
+    return this.get('bio').replace(/\n\r?/g, '<br>');
   }).property('bio')
 });
 export default Account;
