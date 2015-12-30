@@ -7,7 +7,7 @@ export default Ember.Controller.extend({
 
   actions: {
     register() {
-      var self = this;
+      let self = this;
       this.get('user').save().then(function() {
         self.notifications.addNotification({
           message: 'Done! Please check your inbox.',
@@ -18,7 +18,7 @@ export default Ember.Controller.extend({
           console.error('There was a problem', response);
           Object.keys(response.errors).map(function(value, index) {
             console.log(index);
-            response.errors.each(function(){
+            response.errors.each(function() {
               self.notifications.addNotification({
                 message: this[0],
                 type: 'error',
@@ -29,6 +29,6 @@ export default Ember.Controller.extend({
           });
         }
       );
-    },
+    }
   }
 });

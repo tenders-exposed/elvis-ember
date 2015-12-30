@@ -9,6 +9,6 @@ export default Component.extend({
     return this.get('currentHighlight') === this.get('index');
   }),
   click() {
-    this.sendAction("onClick", this.get('option'));
+    this.sendAction('onClick', this.get('option'));
   }
 });

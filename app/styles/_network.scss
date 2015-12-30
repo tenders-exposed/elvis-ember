@@ -12,10 +12,16 @@ div#visjs-container {
 div#network-sidebar {
   position: relative;
   z-index: 10;
-  background: rgba(255,255,255,.2);
+  background: rgba(0,0,0,.8);
   display: block;
   height: 100%;
   min-height: 400px;
+  .tabs__nav {
+    .tab-button {
+      display: inline-block;
+      font-weight: bold;
+    }
+  }
 }
 
 div#sidebar-details {
