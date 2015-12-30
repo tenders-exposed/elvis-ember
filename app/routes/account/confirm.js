@@ -10,10 +10,9 @@ export default Ember.Route.extend({
   model(params) {
     let token = params.confirmationToken;
     let self = this;
-    let confirmationUrl = ENV.APP.apiHost + '/users/confirmation?confirmationToken=' + token;
     let req = raw({
       type: 'GET',
-      url: confirmationUrl
+      url: `${ENV.APP.apiHost}/users/confirmation?confirmationToken=${token}`
     });
     req.then(function(result) {
       console.log('Response from Rails', result.response);
@@ -26,10 +25,9 @@ export default Ember.Route.extend({
     },
     function(response) {
       console.error('There was a problem', response.jqXHR.responseText, response);
-      let notification = 'Oops, something bad happened: ' + JSON.parse(response.jqXHR.responseText).errors[0];
       self.notifications.addNotification({
-        message: notification,
-        type: 'error'
+        message: `Oops, something bad happened: ${JSON.parse(response.jqXHR.responseText).errors[0]}`,
+        type: 'error',
       });
     }
     );
