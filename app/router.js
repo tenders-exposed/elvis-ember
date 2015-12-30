@@ -45,7 +45,19 @@ Router.map(function() {
         this.route('relationships', {});
       });
     });
-    this.route('query', {});
+    this.route('query', {}, function() {
+      this.route('cpv', {}, function() {
+        this.modal('cpv-selector', {
+          withParams: ['salutation', 'person'],
+          otherParams: {
+            modalMessage: 'message'
+          },
+          actions: {
+            changeSalutation: 'changeSalutation'
+          }
+        });
+      });
+    });
   });
 });
 
