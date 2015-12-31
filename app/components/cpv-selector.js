@@ -3,10 +3,10 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   classNames: ['cpv-selector'],
   actions: {
-    gotIt: function() {
+    gotIt() {
       this.sendAction('dismiss');
     },
-    change: function() {
+    change() {
       this.sendAction('changeSalutation');
     }
   }
