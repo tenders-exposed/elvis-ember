@@ -1,5 +1,4 @@
-<div id="network-row" class="row full-height">
-  <div id="network-sidebar" class="col s3">
+  <div id="details-sidebar">
     <div class="row">
       <div class="col s12">
         <h5 class="details">MyProjectName</h5>
@@ -27,12 +26,17 @@
       </div>
     </div>
   </div>
-  <div id="sidebar-details" class="col s9">B{{outlet}}</div>
-</div>
+  <div id="details-info">B{{liquid-outlet}}</div>
 
 
 <script type="text/javascript">
+ function resizeDetails() {
+   $("div#network-container").parent().height(self.innerHeight);
+ }
  $(document).ready(function(){
-   $("div#network-row").parent().height("100%");
+   resizeDetails();
+ });
+ $(window).resize(function() {
+   resizeDetails();
  });
 </script>

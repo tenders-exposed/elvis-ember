@@ -6,6 +6,16 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.modal('cpv-selector', {
+    withParams: ['salutation', 'person'],
+    otherParams: {
+      modalMessage: 'message'
+    },
+    actions: {
+      changeSalutation: 'changeSalutation'
+    }
+  });
+
   this.route('login', function() {});
   this.route('account', {}, function() {
     this.route('new', { path: 'register' });
@@ -45,7 +55,10 @@ Router.map(function() {
         this.route('relationships', {});
       });
     });
-    this.route('query', {});
+    this.route('query', {}, function() {
+      this.route('cpv', {}, function() {
+      });
+    });
   });
 });
 

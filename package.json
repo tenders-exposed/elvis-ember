@@ -56,6 +56,7 @@
     "ember-suave": "1.2.3",
     "ember-watson": "0.7.0",
     "ember-world-flags": "0.2.5",
-    "form-data": "^0.2.0"
+    "form-data": "^0.2.0",
+    "liquid-fire": "0.22.1"
   }
 }

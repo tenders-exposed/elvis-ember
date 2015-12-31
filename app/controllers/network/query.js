@@ -1,6 +1,11 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+  queryParams: ['salutation', 'person'],
+  salutation: null,
+  person: null,
+  modalMessage: 'bound text for modal',
+
   isShowingCpvSelector: false,
   yearMin: 2001,
   yearMax: 2015,
