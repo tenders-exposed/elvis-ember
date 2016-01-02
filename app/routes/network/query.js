@@ -37,9 +37,6 @@ export default Ember.Route.extend({
     sendForm() {
       // console.log("Years: ", this.controller.years);
       this.transitionTo('network.show', 1);
-    },
-    openCpv() {
-      this.transitionTo('network.query.cpv');
     }
   }
 });

@@ -1,10 +1,13 @@
 div#network-container {
+  h5 {
+    margin-top: 0px;
+  }
   position: relative;
   width: 100%;
-  height: 100%;
+  /*   height: 100%; */
   display: block;
   top: 0px;
-  background: yellow;
+  /*   background: yellow; */
 
   .ember-view { height: 100%; }
 
@@ -21,8 +24,8 @@ div#network-container {
       min-height: 400px;
       float: left;
       top: 0px;
-      background: pink;
-      opacity: .6;
+      background: #000;
+      opacity: .95;
       .tabs__nav {
         .tab-button {
           display: inline-block;
@@ -37,8 +40,36 @@ div#network-container {
       min-height: 400px;
       float: left;
       top: 0px;
-      background: green;
+      /*       background: green; */
       opacity: .8;
+    }
+  }
+}
+
+div#sidebar-toggle {
+  position: absolute;
+  min-height: 500px;
+  height: 100%;
+  div#sidebar-toggle-border {
+    display: block;
+    height: 100%;
+    width: .2em;
+    background: #888;
+      filter: blur(1px);
+      -webkit-filter: blur(1px);
+    &:hover {
+      cursor: pointer;
+      filter: blur(5px);
+      -webkit-filter: blur(5px);
+    }
+  }
+  i {
+    position: absolute;
+    color: #888;
+    top: 20%;
+    left: .15em;
+    &:hover {
+      cursor: pointer;
     }
   }
 }

@@ -6,7 +6,7 @@ export default Ember.Controller.extend({
   person: null,
   modalMessage: 'bound text for modal',
 
-  isShowingCpvSelector: false,
+  modalIsOpen: false,
   yearMin: 2001,
   yearMax: 2015,
   query: {
@@ -17,8 +17,8 @@ export default Ember.Controller.extend({
       this.set('query.country_ids', value);
       console.log('New select value: ', value);
     },
-    toggleBasic() {
-      this.toggleProperty('isShowingCpvSelector');
+    toggleModal() {
+      this.toggleProperty('modalIsOpen');
     }
   }
 });
