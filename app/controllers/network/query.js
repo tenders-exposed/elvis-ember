@@ -7,6 +7,7 @@ export default Ember.Controller.extend({
   modalMessage: 'bound text for modal',
 
   modalIsOpen: false,
+  cpvModalIsOpen: false,
   yearMin: 2001,
   yearMax: 2015,
   query: {
@@ -18,7 +19,8 @@ export default Ember.Controller.extend({
       console.log('New select value: ', value);
     },
     toggleModal() {
-      this.toggleProperty('modalIsOpen');
+      // this.toggleProperty('modalIsOpen');
+      this.toggleProperty('cpvModalIsOpen');
     }
   }
 });
