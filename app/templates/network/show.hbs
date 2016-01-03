@@ -7,20 +7,13 @@
 </div>
 
 <div id="network-container">
-  <h5>Visualisation here</h5>
+
+  <div id="visjs-network"></div>
+
   {{outlet id="details-container"}}
 </div>
 
 {{!
 <script type="text/javascript">
- function resizeDetails() {
-   $("div#network-container").parent().height(self.innerHeight);
- }
- $(document).ready(function(){
-   resizeDetails();
- });
- $(window).resize(function() {
-   resizeDetails();
- });
 </script>
 }}

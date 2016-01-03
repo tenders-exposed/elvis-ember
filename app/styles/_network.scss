@@ -4,14 +4,20 @@ div#network-container {
   }
   position: relative;
   width: 100%;
-  /*   height: 100%; */
   display: block;
   top: 0px;
   /*   background: yellow; */
 
+  div#visjs-network {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+
   .ember-view { height: 100%; }
 
   div#details-container {
+    z-index: 100;
     position: absolute;
     top: 0px;
     width: 100%; height: 100%; display: block;
@@ -47,6 +53,7 @@ div#network-container {
 }
 
 div#sidebar-toggle {
+  z-index: 100;
   position: absolute;
   min-height: 500px;
   height: 100%;
@@ -71,5 +78,21 @@ div#sidebar-toggle {
     &:hover {
       cursor: pointer;
     }
+  }
+}
+
+
+/* ember-cli-materialize hacks */
+.ember-modal-overlay {
+  opacity: 1 !important;
+}
+
+.modal {
+  top: 80px !important;
+  &, & .modal-footer {
+    box-shadow: none;
+    color: #eee;
+    background-color: #1A1A1C;
+    width: 100%;
   }
 }
