@@ -10,6 +10,7 @@ export default Ember.Controller.extend({
   cpvModalIsOpen: false,
   yearMin: 2001,
   yearMax: 2015,
+  height: window.innerHeight - 100,
   query: {
     'country_ids': []
   },

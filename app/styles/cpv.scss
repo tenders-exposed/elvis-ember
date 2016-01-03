@@ -14,3 +14,14 @@ div#cpv-container {
   display: block;
   z-index: 1000;
 }
+
+
+.virtual-each {
+  overflow-y: auto;
+}
+
+.infinite-list-content {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
