@@ -88,6 +88,9 @@ form span.year-label {
 }
 
 
+.ember-select-guru {
+  z-index: 20 !important;
+}
 .ember-select-guru__dropdown {
   background: #383838;
   & div.ember-view ember-select-guru__option,

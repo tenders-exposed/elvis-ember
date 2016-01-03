@@ -1,4 +1,20 @@
-<div>{{salutation}} {{person}}!</div>
-<div>{{input value=message class="modal-input"}}</div>
-<button {{action "gotIt"}} class="done">Thanks</button>
-<button {{action "change"}} class="change">Change</button>
+<div id="cpv-container" class="mainbg">
+  {{md-btn action="toggleModal"}}
+  <div class="row">
+    <div class="col s10">
+      {{#virtual-each cpvs
+        height=height
+        itemHeight=15
+        as |cpv actualIndex virtualIndex|
+      }}
+        <div class="person-row">
+          <div>
+            <div>{{cpv.code}}: {{cpv.description}}</div>
+          </div>
+        </div>
+      {{else}}
+        <strong>No results</strong>
+      {{/virtual-each}}
+    </div>
+  </div>
+</div>

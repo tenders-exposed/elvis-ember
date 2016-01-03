@@ -1,0 +1,27 @@
+div#cpv-container {
+  width: 100%;
+  height: 100%;
+  /*
+  left: 50%;
+  top: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+  */
+  position: fixed;
+  overflow: auto;
+  top: 0px;
+  left: 0px;
+  display: block;
+  z-index: 1000;
+}
+
+
+.virtual-each {
+  overflow-y: auto;
+}
+
+.infinite-list-content {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

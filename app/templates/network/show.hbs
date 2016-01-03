@@ -1,8 +1,19 @@
 {{!-- Sidebar will stay in the main outlet, everything
   else will stay in sidebar's outlet --}}
 
+<div id="sidebar-toggle" {{action "openSidebar"}}>
+  <div id="sidebar-toggle-border"></div>
+  <i class="fa fa-arrow-circle-right"></i>
+</div>
 
 <div id="network-container">
-  <h5>Visualisation here</h5>
-  {{liquid-outlet id="details-container"}}
+
+  <div id="visjs-network"></div>
+
+  {{outlet id="details-container"}}
 </div>
+
+{{!
+<script type="text/javascript">
+</script>
+}}
