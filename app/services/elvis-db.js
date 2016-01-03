@@ -8,7 +8,34 @@ import IndexedDBStore from 'ember-cli-indexeddb-wrapper/services/indexeddb-store
 
 export default IndexedDBStore.extend({
   // Override these properties to customise for your application
-  // databaseNamespace: 'elvisDb',
-  // version: 1,
   // objectStores: [{ name: 'things', indexes: [{key: 'name', options: {unique: true}}]}]
+  databaseNamespace: 'elvisDb',
+  version: 1,
+  objectStores: [
+    {
+      name: 'countries',
+      indexes: [
+        {
+          key: 'key',
+          options: {
+            unique: true
+          }
+        }
+      ]
+    },
+    {
+      name: 'cpvs',
+      indexes: [
+        {
+          key: 'code',
+          options: {
+            unique: true
+          }
+        }
+      ]
+    },
+    {
+      name: 'networks'
+    }
+  ]
 });
