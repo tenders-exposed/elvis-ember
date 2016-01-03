@@ -14,23 +14,24 @@ export default Ember.Route.extend({
   },
   setupController(controller) {
     controller.set('years', [2002,2008]);
-    // controller.set('countries', ['UK']);
     this.get('ajax')
-      .request(this.host + '/api/' + this.namespace + '/contracts/countries')
+      .request(`${this.host}/api/${this.namespace}/contracts/countries`)
         .then((data) => {
+          console.log(data);
           data.search.results.map((element) => {
-            element.description = element.name + ' / ' + element.key;
-            // console.log(element);
+            element.description = `${element.name} / ${element.key}`;
           });
+          // this.get('elvisDb').save('countries', data.search.results).then((data) => {
+          //   this.set('saving', false);
+          //   console.log('Saved to IndexedDB!');
+          // }, (err) => {
+          //   console.log('Error: ', err);
+          // });
           controller.set('countries', data.search.results);
         });
     this.get('ajax')
-      .request(this.host + '/api/' + this.namespace + '/contracts/cpvs/autocomplete')
+      .request(`${this.host}/api/${this.namespace}/contracts/cpvs/autocomplete`)
         .then((data) => {
-          data.search.results.map((element) => {
-            element.description = element.name + ' / ' + element.key;
-            // console.log(element);
-          });
           controller.set('cpvs', data.search.results);
         });
   },

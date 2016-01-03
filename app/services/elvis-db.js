@@ -12,30 +12,8 @@ export default IndexedDBStore.extend({
   databaseNamespace: 'elvisDb',
   version: 1,
   objectStores: [
-    {
-      name: 'countries',
-      indexes: [
-        {
-          key: 'key',
-          options: {
-            unique: true
-          }
-        }
-      ]
-    },
-    {
-      name: 'cpvs',
-      indexes: [
-        {
-          key: 'code',
-          options: {
-            unique: true
-          }
-        }
-      ]
-    },
-    {
-      name: 'networks'
-    }
+    {name: 'countries'},
+    {name: 'cpvs'},
+    {name: 'networks'}
   ]
 });
