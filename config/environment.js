@@ -19,6 +19,7 @@ module.exports = function(environment) {
       'ember-cli-notifications': {
           includeFontAwesome: true
       },
+      dbVersion: '1'
     }
   };
 
@@ -69,7 +70,7 @@ module.exports = function(environment) {
     'default-src': "'self'",
     'script-src': "'self' 'unsafe-inline' 'unsafe-eval'",
     'font-src': "'self' http://fonts.gstatic.com",
-    'connect-src': "'self' http://0.0.0.0:3000 https://api.mixpanel.com http://localhost:3000 http://localhost:35729",
+    'connect-src': "'self' http://0.0.0.0:3000 https://api.mixpanel.com http://localhost:3000 http://localhost:35729 blob:",
     'img-src': "'self' 'unsafe-inline' 'unsafe-eval' *",
     'style-src': "'self' 'unsafe-inline' http://fonts.googleapis.com",
     'media-src': "'self'",
