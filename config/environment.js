@@ -19,6 +19,7 @@ module.exports = function(environment) {
       'ember-cli-notifications': {
           includeFontAwesome: true
       },
+      dbVersion: '1'
     }
   };
 

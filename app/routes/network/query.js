@@ -5,42 +5,50 @@ import localforage from 'ember-local-forage';
 export default Ember.Route.extend({
   host: ENV.APP.apiHost,
   namespace: ENV.APP.apiNamespace,
-  //  renderTemplate: function(){
-  //    this.render('graph/new');
-  //  }
+  dbVersion: ENV.APP.dbVersion,
   ajax: Ember.inject.service(),
-  countries() {
-    console.log(this.get('ajax').request('/elastic/documents/countries'));
-    return;
+  refreshData(name, path, controller) {
+    let self = this;
+    localforage.removeItem(name, function(err) {
+      self.get('ajax').request(path)
+        .then((data) => {
+          localforage.setItem(name, data.search.results).then((results) => {
+            localforage.getItem(name).then((result) => {
+              controller.set(name, result);
+            });
+          });
+        });
+    });
+  },
+  refreshAllData(controller) {
+    this.refreshData('countries', `${this.host}/api/${this.namespace}/contracts/countries`, controller);
+    this.refreshData('cpvs', `${this.host}/api/${this.namespace}/contracts/cpvs/autocomplete`, controller);
   },
   setupController(controller) {
     controller.set('years', [2002,2008]);
-    this.get('ajax')
-      .request(`${this.host}/api/${this.namespace}/contracts/countries`)
-        .then((data) => {
-          console.log(data);
-          data.search.results.map((element) => {
-            element.description = `${element.name} / ${element.key}`;
-          });
-          // this.get('elvisDb').save('countries', data.search.results).then((data) => {
-          //   this.set('saving', false);
-          //   console.log('Saved to IndexedDB!');
-          // }, (err) => {
-          //   console.log('Error: ', err);
-          // });
-          localforage.setItem('countries', data.search.results).then(() => {
-            localforage.getItem('countries').then((countries) => {
-              console.log(countries);
+
+    let self = this;
+    localforage.keys(function(err, keys) {
+      // An array of all the key names.
+      if (typeof keys.indexOf('dbVersion') !== undefined) {
+        localforage.getItem('dbVersion').then((dbVersion) => {
+          if (dbVersion != self.dbVersion) {
+            self.refreshAllData(controller);
+            localforage.setItem('dbVersion', self.dbVersion).then(() => {
+              console.log('Local DB was updated!');
             });
-            // controller.set('countries', localforage.getItem('countries'));
-          });
-          // controller.set('countries', data.search.results);
+          } else if (keys.indexOf('countries') === -1) {
+            self.refreshData('countries', `${self.host}/api/${self.namespace}/contracts/countries`, controller);
+          } else if (keys.indexOf('cpvs') === -1) {
+            self.refreshData('cpvs', `${self.host}/api/${self.namespace}/contracts/cpvs/autocomplete`, controller);
+          } else {
+              console.log('Local DB does not need an update.');
+          }
         });
-    this.get('ajax')
-      .request(`${this.host}/api/${this.namespace}/contracts/cpvs/autocomplete`)
-        .then((data) => {
-          controller.set('cpvs', data.search.results);
-        });
+      } else {
+        self.refreshAllData(controller);
+      }
+    });
   },
   actions: {
     slidingAction(value) {
