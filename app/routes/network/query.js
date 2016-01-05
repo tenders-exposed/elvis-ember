@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ENV from '../../config/environment';
+import localforage from 'ember-local-forage';
 
 export default Ember.Route.extend({
   host: ENV.APP.apiHost,
@@ -27,7 +28,13 @@ export default Ember.Route.extend({
           // }, (err) => {
           //   console.log('Error: ', err);
           // });
-          controller.set('countries', data.search.results);
+          localforage.setItem('countries', data.search.results).then(() => {
+            localforage.getItem('countries').then((countries) => {
+              console.log(countries);
+            });
+            // controller.set('countries', localforage.getItem('countries'));
+          });
+          // controller.set('countries', data.search.results);
         });
     this.get('ajax')
       .request(`${this.host}/api/${this.namespace}/contracts/cpvs/autocomplete`)
