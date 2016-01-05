@@ -28,7 +28,8 @@
     "vis": "~4.9.0",
     "materialize": "~0.97.0",
     "nouislider": "^8.0.1",
-    "jstree": "~3.2.1"
+    "jstree": "~3.2.1",
+    "localforage": "~1.2.10"
   },
   "resolutions": {
     "ember": "2.2.0",
