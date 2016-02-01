@@ -13,6 +13,11 @@ div#cpv-container {
   left: 0px;
   display: block;
   z-index: 1000;
+  ul#cpv-list {
+    &, & * {
+      background: #1A1A1C;
+    }
+  }
 }
 
 

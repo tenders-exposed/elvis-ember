@@ -1,7 +1,6 @@
 {{partial 'partials/main-nav'}}
 
-<div class="slider">
-  <ul class="slides">
+{{#elvis-slider}}
     <li>
       <img>
       <div class="caption center-align">
@@ -9,8 +8,7 @@
         <h5 class="light grey-text text-lighten-3">el.vis is an investigative visualisation tool to help you find patterns in public procurement contracts.</h5>
       </div>
     </li>
-  </ul>
-</div>
+{{/elvis-slider}}
 
 
 <div class="container">
@@ -18,7 +16,7 @@
     <div id="login" class="col m6">
       <div class="row">
         <div class="col m10 offset-m2">
-          <form class="form-signin">
+          <form {{action 'authenticate' on='submit'}}>
             <div class="row">
 
             </div>
@@ -27,19 +25,22 @@
               <p>el.vis is for registered users only.</p>
             </div>
               <div class="input-field col s12">
-                <input type="email" required>
+                {{input id='identification' value=identification type='email'}}
                 <label for="inputEmail">Email address</label>
               </div>
               <div class="input-field col s12">
-                <input type="password" required>
-                <label for="inputPassword">Password</label>
+                {{input id='password' type='password' value=password}}
+                <label for="password">Password</label>
               </div>
               {{#link-to "account.recover"}}Lost password{{/link-to}}
-              <p>
+              {{!<p>
                 <input type="checkbox" value="remember-me" id="rememberme">
                 <label for="rememberme">Remember me</label>
-              </p>
-              {{#link-to "projects" class="btn btn-lg btn-primary btn-block"}}Sign in{{/link-to}}
+              </p>}}
+              {{input type="submit" value="Sign in" class="btn btn-lg btn-primary btn-block"}}
+              {{#if errorMessage}}
+                <p>{{errorMessage}}</p>
+              {{/if}}
           </form>
         </div>
       </div>
@@ -54,15 +55,15 @@
               </div>
               <div class="input-field col s12">
                 <label for="inputEmail" class="sr-only">Email address</label>
-                {{input id="inputEmail" value=user.email}}
+                {{input id="inputEmail" value=fakeUser.email}}
               </div>
               <div class="input-field col s12">
                 <label for="password">Your password here</label>
-                {{input type="password" value=user.password}}
+                {{input type="password" value=fakeUser.password}}
               </div>
               <div class="input-field col s12">
                 <label for="password_confirmation">...again, please?</label>
-                {{input type="password" value=user.password_confirmation}}
+                {{input type="password" value=fakeUser.password_confirmation}}
               </div>
               <div class="input-field col s12">
                 {{input class="btn btn-lg btn-primary btn-block" type="submit" value="Create an account"}}
@@ -75,9 +76,3 @@
 </div>
 
 {{outlet}}
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('.slider').slider({full_width: true, indicators: false});
-  });
-</script>

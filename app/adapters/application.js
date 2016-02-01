@@ -1,9 +1,10 @@
 import ActiveModelAdapter from 'active-model-adapter';
+import DS from 'ember-data';
+import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
 import ENV from '../config/environment';
 
-let Adapter = ActiveModelAdapter.extend({
-  host: ENV.APP.apiHost,
-  namespace: ENV.APP.apiNamespace
+export default DS.RESTAdapter.extend(ActiveModelAdapter, {
+  host: ENV.APP.apiHost + '/api',
+  namespace: ENV.APP.apiNamespace,
+  authorizer: 'authorizer:devise',
 });
-
-export default Adapter;

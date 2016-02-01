@@ -5,6 +5,7 @@ export default Ember.Controller.extend({
   salutation: null,
   person: null,
   modalMessage: 'bound text for modal',
+  checkedItems: [],
 
   modalIsOpen: false,
   cpvModalIsOpen: false,
@@ -21,6 +22,9 @@ export default Ember.Controller.extend({
     },
     toggleModal() {
       // this.toggleProperty('modalIsOpen');
+      this.get('checkedItems').forEach((k, v) => {
+        console.log(this.get('cpvs')[v]);
+      });
       this.toggleProperty('cpvModalIsOpen');
     }
   }

@@ -19,17 +19,18 @@ module.exports = function(environment) {
       'ember-cli-notifications': {
           includeFontAwesome: true
       },
+      // Fake versioning for the client side database (for caching purposes)
       dbVersion: '1'
     }
   };
 
   if (environment === 'development') {
-    ENV.APP.apiHost = 'http://localhost:3000';
+    ENV.APP.apiHost = 'http://localhost:4200';
     ENV.APP.apiNamespace = 'v1';
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
-    ENV.APP.LOG_TRANSITIONS = true;
-    ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
+    // ENV.APP.LOG_TRANSITIONS = true;
+    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
   }
 
@@ -57,15 +58,13 @@ module.exports = function(environment) {
 
   }
 
-  ENV['simple-auth'] = {
-    authorizer: 'simple-auth-authorizer:devise',
-    crossOriginWhitelist: ['*']
-  };
-  ENV['simple-auth-devise'] = {
-    tokenAttributeName: 'token',
-    identificationAttributeName: 'email',
-    serverTokenEndpoint: ENV.APP.apiHost + '/users/sign_in'
-  };
+  // ENV['ember-simple-auth'] = {
+  //   // authorizer: 'simple-auth-authorizer:devise',
+  //   // crossOriginWhitelist: ['*'],
+  //   // tokenAttributeName: 'token',
+  //   // identificationAttributeName: 'email',
+  //   authenticationRoute: ENV.APP.apiHost + '/api/' + ENV.APP.apiNamespace + '/users/sign_in'
+  // };
   ENV.contentSecurityPolicy = {
     'default-src': "'self'",
     'script-src': "'self' 'unsafe-inline' 'unsafe-eval'",

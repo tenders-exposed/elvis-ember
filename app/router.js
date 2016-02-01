@@ -6,7 +6,6 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('login', function() {});
   this.route('account', {}, function() {
     this.route('new', { path: 'register' });
     this.route('recover', function() {

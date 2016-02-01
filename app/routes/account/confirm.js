@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import { raw } from 'ic-ajax';
 import ENV from '../../config/environment';
+import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(UnauthenticatedRouteMixin, {
   queryParams: {
     confirmationToken: {
     }
