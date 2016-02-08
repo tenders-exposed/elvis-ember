@@ -3,6 +3,12 @@ import localforage from 'ember-local-forage';
 
 export default Ember.Component.extend({
   classNames: ['cpv-selector'],
+  columns: [
+    {
+      "propertyName": "plain_code",
+      "title": "Code"
+    }
+  ],
   actions: {
     toggleModal() {
       this.get('targetObject').send('toggleModal');

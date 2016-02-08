@@ -1,14 +1,19 @@
 <div id="cpv-container" class="mainbg">
   {{md-btn action="toggleModal"}}
-  <div class="row">
+  <div class="row-collapse">
     <div class="col s10">
       <form>
         <ul id="cpv-list" class="collection with-header">
           <li class="collection-header">
             <h4>CPV (Common Procurement Vocabulary) Codes</h4>
           </li>
+          {{models-table
+            data=cpvs
+            columns=columns
+            filteringIgnoreCase=true
+          }}
           {{#virtual-each cpvs
-            height=height
+            height=72
             itemHeight=36
             positionIndex=0
             as |cpv actualIndex virtualIndex|
@@ -18,12 +23,6 @@
                 <b>{{cpv.plain_code}}:</b>
                 {{cpv.name}} Checked: {{cpv.checked}}
                 <span class="secondary-content">
-                  <p {{action "selectCpv" cpv.plain_code on="mouseUp"}}>
-                    {{cpv-checkbox cpv=cpv checkedItems=checkedItems}}
-                  </p>
-                  {{!md-check
-                    data-name=cpv.plain_code
-                    name=cpv.plain_code}}
                 </span>
               </div>
             </li>
