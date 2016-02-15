@@ -25,6 +25,10 @@ module.exports = function(defaults) {
 
   // app.import('bower_components/bootstrap/dist/js/bootstrap.min.js');
   app.import('bower_components/vis/dist/vis.js');
+  app.import('bower_components/datatables/media/js/jquery.dataTables.min.js');
+  app.import('bower_components/datatables/media/js/dataTables.material.min.js');
+
+  app.import('bower_components/datatables/media/css/dataTables.material.min.css');
 
   return app.toTree();
 };

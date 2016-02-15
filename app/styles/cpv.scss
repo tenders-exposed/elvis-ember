@@ -20,13 +20,18 @@ div#cpv-container {
   }
 }
 
-
-.virtual-each {
-  overflow-y: auto;
-}
-
-.infinite-list-content {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+#cpv-table {
+  tr {
+    &.odd {background-color: #111;}
+    &.even {background-color: #222;}
+    &:hover {
+      background-color: #333;
+      color: #B693B6;
+      cursor: pointer;
+    }
+    &.selected {
+      & td:first-child {text-decoration: line-through;}
+      & td:last-child {font-weight: bold;}
+    }
+  }
 }

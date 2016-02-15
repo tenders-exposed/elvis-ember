@@ -58,7 +58,17 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
         self.controllerFor('network.query').set('countries', countries);
       });
       localforage.getItem('cpvs').then((cpvs) => {
-        self.controllerFor('network.query').set('cpvs', cpvs);
+        let filtered = [];
+        let checkbox = '';
+        cpvs.map((cpv) => {
+          if (cpv.plain_code.match(/^[0-9]{1,3}0{5,7}/)) {
+            filtered.push([
+              cpv.plain_code,
+              cpv.name
+            ]);
+          }
+        });
+        self.controllerFor('network.query').set('cpvs', filtered);
       });
     });
   },

@@ -1,36 +1,26 @@
 <div id="cpv-container" class="mainbg">
   {{md-btn action="toggleModal"}}
   <div class="row-collapse">
-    <div class="col s10">
-      <form>
-        <ul id="cpv-list" class="collection with-header">
-          <li class="collection-header">
-            <h4>CPV (Common Procurement Vocabulary) Codes</h4>
-          </li>
-          {{models-table
-            data=cpvs
-            columns=columns
-            filteringIgnoreCase=true
-          }}
-          {{#virtual-each cpvs
-            height=72
-            itemHeight=36
-            positionIndex=0
-            as |cpv actualIndex virtualIndex|
-          }}
-            <li class="collection-item">
-              <div>
-                <b>{{cpv.plain_code}}:</b>
-                {{cpv.name}} Checked: {{cpv.checked}}
-                <span class="secondary-content">
-                </span>
-              </div>
-            </li>
-          {{else}}
-            <strong>No results</strong>
-          {{/virtual-each}}
-        </ul>
-      </form>
+    <div class="col s2">&nbsp;</div>
+    <div class="col s8">
+      <table id="cpv-table">
+      </table>
     </div>
+    <div class="col s2">&nbsp;</div>
+  </div>
+  <div class="row-collapse">
+    <div class="col s2">&nbsp;</div>
+    <div class="col s8">
+      {{#if refresh}}
+        {{#each checkedItems as |selected|}}
+          <div class="chip" id="chip-{{selected.code}}">
+            [{{selected.code}}]
+            {{selected.description}}
+            <i class="material-icons">x</i>
+          </div>
+        {{/each}}
+      {{/if}}
+    </div>
+    <div class="col s2">&nbsp;</div>
   </div>
 </div>
