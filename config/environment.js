@@ -25,7 +25,7 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    ENV.APP.apiHost = 'http://localhost:4200';
+    ENV.APP.apiHost = 'http://elvis.app:4200';
     ENV.APP.apiNamespace = 'v1';
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
@@ -69,7 +69,7 @@ module.exports = function(environment) {
     'default-src': "'self'",
     'script-src': "'self' 'unsafe-inline' 'unsafe-eval'",
     'font-src': "'self' http://fonts.gstatic.com",
-    'connect-src': "'self' http://0.0.0.0:3000 https://api.mixpanel.com http://localhost:3000 http://localhost:35729 blob:",
+    'connect-src': "'self' * http://192.168.0.111:3000 http://0.0.0.0:3000 https://api.mixpanel.com http://localhost:3000 http://localhost:35729 blob:",
     'img-src': "'self' 'unsafe-inline' 'unsafe-eval' *",
     'style-src': "'self' 'unsafe-inline' http://fonts.googleapis.com",
     'media-src': "'self'",
