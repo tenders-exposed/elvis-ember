@@ -1,59 +1,13 @@
 import Ember from 'ember';
-import ENV from '../../config/environment';
-import localforage from 'ember-local-forage';
 
 export default Ember.Route.extend({
-  host: ENV.APP.apiHost,
-  namespace: ENV.APP.apiNamespace,
-  dbVersion: ENV.APP.dbVersion,
-  ajax: Ember.inject.service(),
-  refreshData(name, path, controller) {
-    let self = this;
-    localforage.removeItem(name, function(err) {
-      self.get('ajax').request(path)
-        .then((data) => {
-          localforage.setItem(name, data.search.results).then((results) => {
-            localforage.getItem(name).then((result) => {
-              controller.set(name, result);
-            });
-          });
-        });
-    });
-  },
-  refreshAllData(controller) {
-    this.refreshData('countries', `${this.host}/api/${this.namespace}/contracts/countries`, controller);
-    this.refreshData('cpvs', `${this.host}/api/${this.namespace}/contracts/cpvs/autocomplete`, controller);
-  },
-  setupController(controller) {
-    controller.set('years', [2002,2008]);
-
-    let self = this;
-    localforage.keys(function(err, keys) {
-      // An array of all the key names.
-      if (typeof keys.indexOf('dbVersion') !== undefined) {
-        localforage.getItem('dbVersion').then((dbVersion) => {
-          if (dbVersion != self.dbVersion) {
-            self.refreshAllData(controller);
-            localforage.setItem('dbVersion', self.dbVersion).then(() => {
-              console.log('Local DB was updated!');
-            });
-          } else if (keys.indexOf('countries') === -1) {
-            self.refreshData('countries', `${self.host}/api/${self.namespace}/contracts/countries`, controller);
-          } else if (keys.indexOf('cpvs') === -1) {
-            self.refreshData('cpvs', `${self.host}/api/${self.namespace}/contracts/cpvs/autocomplete`, controller);
-          } else {
-              console.log('Local DB does not need an update.');
-          }
-        });
-      } else {
-        self.refreshAllData(controller);
-      }
-    });
-  },
   actions: {
     slidingAction(value) {
       // Ember.debug( "New slider value: %@".fmt( value ) );
-      this.controller.set('years', value[0]);
+      // this.controller.set('years', value[0]);
+      this.controller.set('query.years', []);
+      this.controller.get('query.years').push(value[0]);
+      this.controller.get('query.years').push(value[1]);
       Ember.run.scheduleOnce('afterRender', function() {
         Ember.$('span.left-year').text(value[0]);
         Ember.$('span.right-year').text(value[1]);

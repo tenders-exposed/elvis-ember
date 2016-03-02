@@ -1,34 +1,52 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  user: Ember.computed(function() {
-    return this.store.createRecord('user');
+  session: Ember.inject.service('session'),
+  fakeUser: Ember.computed(function() {
+    return {
+      email: '',
+      password: '',
+      password_confirmation: ''
+    }
   }),
 
   actions: {
     register() {
       let self = this;
-      this.get('user').save().then(function() {
-        self.notifications.addNotification({
-          message: 'Done! Please check your inbox.',
-          type: 'success'
-        });
-        self.transitionToRoute('index');
-      }, function(response) {
-          console.error('There was a problem', response);
-          Object.keys(response.errors).map(function(value, index) {
-            console.log(index);
-            response.errors.each(function() {
-              self.notifications.addNotification({
-                message: this[0],
-                type: 'error',
-                autoClear: true,
-                clearDuration: 2500
-              });
-            });
+      this.store.createRecord('user', {
+          email: self.get('fakeUser.email'),
+          password: self.get('fakeUser.password'),
+          password_confirmation: self.get('fakeUser.password_confirmation')
+        }).save().then(function() {
+          self.notifications.addNotification({
+            message: 'Done! Please check your inbox.',
+            type: 'success'
           });
+        self.transitionToRoute('index');
+        }, function(response) {
+          console.log(response);
+          // Disabled for now, as we don't have JSON API error responses yet
+
+          // console.error('There was a problem', response);
+          // Object.keys(response.errors).map(function(value, index) {
+          //   console.log(index);
+          //   response.errors.each(function() {
+          //     self.notifications.addNotification({
+          //       message: this[0],
+          //       type: 'error',
+          //       autoClear: true,
+          //       clearDuration: 2500
+          //     });
+          //   });
+          // });
         }
       );
+    },
+    authenticate() {
+      let {identification, password} = this.getProperties('identification', 'password');
+      this.get('session').authenticate('authenticator:devise', identification, password).catch((reason) => {
+        this.set('errorMessage', reason.error || reason);
+      });
     }
   }
 });

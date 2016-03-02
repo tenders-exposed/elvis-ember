@@ -1,20 +1,26 @@
 <div id="cpv-container" class="mainbg">
   {{md-btn action="toggleModal"}}
-  <div class="row">
-    <div class="col s10">
-      {{#virtual-each cpvs
-        height=height
-        itemHeight=15
-        as |cpv actualIndex virtualIndex|
-      }}
-        <div class="person-row">
-          <div>
-            <div>{{cpv.plain_code}}: {{cpv.name}}</div>
-          </div>
-        </div>
-      {{else}}
-        <strong>No results</strong>
-      {{/virtual-each}}
+  <div class="row-collapse">
+    <div class="col s2">&nbsp;</div>
+    <div class="col s8">
+      <table id="cpv-table">
+      </table>
     </div>
+    <div class="col s2">&nbsp;</div>
+  </div>
+  <div class="row-collapse">
+    <div class="col s2">&nbsp;</div>
+    <div class="col s8">
+      {{#if refresh}}
+        {{#each checkedItems as |selected|}}
+          <div class="chip" id="chip-{{selected.code}}">
+            [{{selected.code}}]
+            {{selected.description}}
+            <i class="material-icons">x</i>
+          </div>
+        {{/each}}
+      {{/if}}
+    </div>
+    <div class="col s2">&nbsp;</div>
   </div>
 </div>
