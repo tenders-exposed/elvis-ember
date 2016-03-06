@@ -1,8 +1,10 @@
 import Ember from 'ember';
+import DS from 'ember-data';
 import ENV from '../../config/environment';
 
 export default Ember.Controller.extend({
-  ajax: Ember.inject.service(),
+  session: Ember.inject.service('session'),
+  ajax: Ember.inject.service('ajax'),
 
   checkedItems: [],
 
@@ -48,15 +50,33 @@ export default Ember.Controller.extend({
     },
     submitQuery() {
       this.prepareQuery();
-      console.log(this.get('query'));
-      let self = this;
 
-      return this.get('ajax').request('/networks', {
-        method: 'POST',
-        data: {
-          query: this.get('query')
-        }
+      this.get('session').authorize('authorizer:oauth2-bearer', (headerName, headerValue) => {
+        xhr.setRequestHeader(headerName, headerValue);
       });
+      let network = this.get('store').createRecord('network', {
+        query: {
+          cpvs: this.get('query.cpvs'),
+          countries: this.get('query.countries'),
+          years: this.get('query.years'),
+          nodes: this.get('query.nodes'),
+          edges: this.get('query.edges')
+        }
+      }).save().then((data) => {
+        console.log(data);
+      });
+
+
+
+      // console.log(this.get('query'));
+      // let self = this;
+
+      // return this.get('ajax').request('/networks', {
+      //   method: 'POST',
+      //   data: {
+      //     query: this.get('query')
+      //   }
+      // });
     }
   }
 });
