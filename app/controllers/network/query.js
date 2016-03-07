@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 import ENV from '../../config/environment';
+import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(UnauthenticatedRouteMixin, {
   session: Ember.inject.service('session'),
   ajax: Ember.inject.service('ajax'),
 
@@ -51,9 +52,9 @@ export default Ember.Controller.extend({
     submitQuery() {
       this.prepareQuery();
 
-      this.get('session').authorize('authorizer:oauth2-bearer', (headerName, headerValue) => {
-        xhr.setRequestHeader(headerName, headerValue);
-      });
+      // this.get('session').authorize('authorizer:oauth2-bearer', (headerName, headerValue) => {
+      //   xhr.setRequestHeader(headerName, headerValue);
+      // });
       let network = this.get('store').createRecord('network', {
         query: {
           cpvs: this.get('query.cpvs'),
@@ -65,8 +66,6 @@ export default Ember.Controller.extend({
       }).save().then((data) => {
         console.log(data);
       });
-
-
 
       // console.log(this.get('query'));
       // let self = this;
