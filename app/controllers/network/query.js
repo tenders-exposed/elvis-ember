@@ -1,8 +1,11 @@
 import Ember from 'ember';
+import DS from 'ember-data';
 import ENV from '../../config/environment';
+import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
 
-export default Ember.Controller.extend({
-  ajax: Ember.inject.service(),
+export default Ember.Controller.extend(UnauthenticatedRouteMixin, {
+  session: Ember.inject.service('session'),
+  ajax: Ember.inject.service('ajax'),
 
   checkedItems: [],
 
@@ -12,7 +15,8 @@ export default Ember.Controller.extend({
   yearMax: 2015,
   height: window.innerHeight - 200,
   query: {
-    'nodes': 'suppliers',
+    'nodes': 'count',
+    'edges': 'count',
     'countries': ['PL', 'LV', 'IT'],
     'years': [2004, 2007],
     'cpvs': []
@@ -48,15 +52,36 @@ export default Ember.Controller.extend({
     },
     submitQuery() {
       this.prepareQuery();
-      console.log(this.get('query'));
-      let self = this;
 
-      return this.get('ajax').request('/networks', {
-        method: 'POST',
-        data: {
-          query: this.get('query')
+      // this.get('session').authorize('authorizer:oauth2-bearer', (headerName, headerValue) => {
+      //   xhr.setRequestHeader(headerName, headerValue);
+      // });
+      let network = this.get('store').createRecord('network', {
+        options: {
+          nodes: this.get('query.nodes'),
+          edges: this.get('query.edges'),
+        },
+        query: {
+          cpvs: this.get('query.cpvs'),
+          countries: this.get('query.countries'),
+          years: this.get('query.years'),
         }
+      }).save().then((data) => {
+        console.log(data);
       });
+
+      // console.log(this.get('query'));
+      // let self = this;
+
+      // return this.get('ajax').request('/networks', {
+      //   method: 'POST',
+      //   data: {
+      //     query: this.get('query')
+      //   }
+      // });
+    },
+    invalidateSession() {
+      this.get('session').invalidate();
     }
   }
 });

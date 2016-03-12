@@ -8,6 +8,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   namespace: ENV.APP.apiNamespace,
   dbVersion: ENV.APP.dbVersion,
   ajax: Ember.inject.service(),
+  session: Ember.inject.service('session'),
   refreshData(name, path, controller) {
     let self = this;
     localforage.removeItem(name, function(err) {

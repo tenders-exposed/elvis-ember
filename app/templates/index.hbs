@@ -37,7 +37,10 @@
                 <input type="checkbox" value="remember-me" id="rememberme">
                 <label for="rememberme">Remember me</label>
               </p>}}
-              {{input type="submit" value="Sign in" class="btn btn-lg btn-primary btn-block"}}
+              {{#if session.isAuthenticated}}
+              {{else}}
+                {{input type="submit" value="Sign in" class="btn btn-lg btn-primary btn-block"}}
+              {{/if}}
               {{#if errorMessage}}
                 <p>{{errorMessage}}</p>
               {{/if}}
