@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import DS from 'ember-data';
 
 export default Ember.Controller.extend({
   session: Ember.inject.service('session'),
@@ -25,6 +26,10 @@ export default Ember.Controller.extend({
         self.transitionToRoute('index');
         }, function(response) {
           console.log(response);
+          self.notifications.addNotification({
+            message: 'Error!',
+            type: 'error'
+          });
           // Disabled for now, as we don't have JSON API error responses yet
 
           // console.error('There was a problem', response);
@@ -44,7 +49,7 @@ export default Ember.Controller.extend({
     },
     authenticate() {
       let {identification, password} = this.getProperties('identification', 'password');
-      this.get('session').authenticate('authenticator:devise', identification, password).catch((reason) => {
+      this.get('session').authenticate('authenticator:elvis', identification, password).catch((reason) => {
         this.set('errorMessage', reason.error || reason);
       });
     }
