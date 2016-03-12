@@ -15,7 +15,8 @@ export default Ember.Controller.extend(UnauthenticatedRouteMixin, {
   yearMax: 2015,
   height: window.innerHeight - 200,
   query: {
-    'nodes': 'suppliers',
+    'nodes': 'count',
+    'edges': 'count',
     'countries': ['PL', 'LV', 'IT'],
     'years': [2004, 2007],
     'cpvs': []
@@ -56,12 +57,14 @@ export default Ember.Controller.extend(UnauthenticatedRouteMixin, {
       //   xhr.setRequestHeader(headerName, headerValue);
       // });
       let network = this.get('store').createRecord('network', {
+        options: {
+          nodes: this.get('query.nodes'),
+          edges: this.get('query.edges'),
+        },
         query: {
           cpvs: this.get('query.cpvs'),
           countries: this.get('query.countries'),
           years: this.get('query.years'),
-          nodes: this.get('query.nodes'),
-          edges: this.get('query.edges')
         }
       }).save().then((data) => {
         console.log(data);
@@ -76,6 +79,9 @@ export default Ember.Controller.extend(UnauthenticatedRouteMixin, {
       //     query: this.get('query')
       //   }
       // });
+    },
+    invalidateSession() {
+      this.get('session').invalidate();
     }
   }
 });
