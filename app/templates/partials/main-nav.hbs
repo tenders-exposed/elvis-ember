@@ -29,18 +29,22 @@
                     New visualisation
                   {{/link-to}}
                 {{/link-to}}
-                {{#link-to 'projects' tagName='li'}}
-                  {{#link-to 'projects'}}
-                    <!--                   <div class="link-icon my-projects-icon"></div> -->
-                    My projects
+                {{#if session.isAuthenticated}}
+                  {{#link-to 'projects' tagName='li'}}
+                    {{#link-to 'projects'}}
+                      <!--                   <div class="link-icon my-projects-icon"></div> -->
+                      My projects
+                    {{/link-to}}
                   {{/link-to}}
-                {{/link-to}}
-                {{#link-to 'account.settings' tagName='li'}}
-                  {{#link-to 'account.settings'}}
-                    <!--                   <div class="link-icon account-settings-icon"></div> -->
-                    Account settings
+                  {{#link-to 'account.settings' tagName='li'}}
+                    {{#link-to 'account.settings'}}
+                      <!--                   <div class="link-icon account-settings-icon"></div> -->
+                      Account settings
+                    {{/link-to}}
                   {{/link-to}}
-                {{/link-to}}
+                  <li><a {{action 'invalidateSession'}}><i class="fa fa-power-off"></i></a></li>
+                {{else}}
+                {{/if}}
               </ul>
         </div>
         <div class="col s1">&nbsp;</div>

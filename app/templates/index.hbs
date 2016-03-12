@@ -16,32 +16,38 @@
     <div id="login" class="col m6">
       <div class="row">
         <div class="col m10 offset-m2">
-          <form {{action 'authenticate' on='submit'}}>
-            <div class="row">
-
-            </div>
+          {{#if session.isAuthenticated}}
             <div class="col s12">
-              <h3>Log in to your account</h3>
-              <p>el.vis is for registered users only.</p>
+              <h5>You're authenticated as [...]</h5>
             </div>
-              <div class="input-field col s12">
-                {{input id='identification' value=identification type='email'}}
-                <label for="inputEmail">Email address</label>
+          {{else}}
+            <form {{action 'authenticate' on='submit'}}>
+              <div class="row">
+
               </div>
-              <div class="input-field col s12">
-                {{input id='password' type='password' value=password}}
-                <label for="password">Password</label>
+              <div class="col s12">
+                <h3>Log in to your account</h3>
+                <p>el.vis is for registered users only.</p>
               </div>
-              {{#link-to "account.recover"}}Lost password{{/link-to}}
-              {{!<p>
-                <input type="checkbox" value="remember-me" id="rememberme">
-                <label for="rememberme">Remember me</label>
-              </p>}}
-              {{input type="submit" value="Sign in" class="btn btn-lg btn-primary btn-block"}}
-              {{#if errorMessage}}
-                <p>{{errorMessage}}</p>
-              {{/if}}
-          </form>
+                <div class="input-field col s12">
+                  {{input id='identification' value=identification type='email'}}
+                  <label for="inputEmail">Email address</label>
+                </div>
+                <div class="input-field col s12">
+                  {{input id='password' type='password' value=password}}
+                  <label for="password">Password</label>
+                </div>
+                {{#link-to "account.recover"}}Lost password{{/link-to}}
+                {{!<p>
+                  <input type="checkbox" value="remember-me" id="rememberme">
+                  <label for="rememberme">Remember me</label>
+                </p>}}
+                {{input type="submit" value="Sign in" class="btn btn-lg btn-primary btn-block"}}
+                {{#if errorMessage}}
+                  <p>{{errorMessage}}</p>
+                {{/if}}
+            </form>
+          {{/if}}
         </div>
       </div>
     </div>
