@@ -3,9 +3,9 @@ import DS from 'ember-data';
 import ENV from '../../config/environment';
 import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
 
-export default Ember.Controller.extend(UnauthenticatedRouteMixin, {
+export default Ember.Controller.extend({
+  ajax: Ember.inject.service(),
   session: Ember.inject.service('session'),
-  ajax: Ember.inject.service('ajax'),
 
   checkedItems: [],
 
