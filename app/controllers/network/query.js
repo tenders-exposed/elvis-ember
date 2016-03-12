@@ -3,6 +3,7 @@ import ENV from '../../config/environment';
 
 export default Ember.Controller.extend({
   ajax: Ember.inject.service(),
+  session: Ember.inject.service('session'),
 
   checkedItems: [],
 
