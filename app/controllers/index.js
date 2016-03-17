@@ -18,17 +18,15 @@ export default Ember.Controller.extend({
           email: self.get('fakeUser.email'),
           password: self.get('fakeUser.password'),
           password_confirmation: self.get('fakeUser.password_confirmation')
-        }).save().then(function() {
-          self.notifications.addNotification({
-            message: 'Done! Please check your inbox.',
-            type: 'success'
+        }).save().then(function(response) {
+          self.notifications.clearAll();
+          self.notifications.success('Done! Please check your inbox.', {
+              autoClear: true
           });
         self.transitionToRoute('index');
         }, function(response) {
-          console.log(response);
-          self.notifications.addNotification({
-            message: 'Error!',
-            type: 'error'
+          response.errors.forEach((error) => {
+            self.notifications.error(`Error: ${error.source.pointer.replace('/data/attributes/', '')} ${error.detail}`);
           });
           // Disabled for now, as we don't have JSON API error responses yet
 
@@ -54,7 +52,8 @@ export default Ember.Controller.extend({
       });
     },
     invalidateSession() {
-      this.get('session').invalidate();
+      console.log(this.get('session'));
+      //this.get('session').invalidate();
     }
   }
 });
