@@ -25,7 +25,7 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    ENV.APP.apiHost = 'http://localhost:3000';
+    ENV.APP.apiHost = 'http://192.168.0.123:3000';
     ENV.APP.apiNamespace = 'v1';
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
