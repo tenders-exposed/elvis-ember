@@ -24,7 +24,7 @@ script:
   - ember build -e production
 
 before_deploy:
-  - openssl aes-256-cbc -K $encrypted_0a6446eb3ae3_key -iv $encrypted_0a6446eb3ae3_key -in config/id_rsa.enc -out config/id_rsa -d
+  - openssl aes-256-cbc -K $encrypted_89a2e6e6f2a2_key -iv $encrypted_89a2e6e6f2a2_iv -in config/id_rsa.enc -out config/id_rsa -d
 
 deploy:
   skip_cleanup: true
