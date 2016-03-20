@@ -11,16 +11,23 @@
 {{/elvis-slider}}
 
 
+{{#if session.isAuthenticated}}
+
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <h5>You're authenticated as {{session.session.content.authenticated.email}}</h5>
+    </div>
+  </div>
+</div>
+
+{{else}}
+
 <div class="container">
   <div class="row">
     <div id="login" class="col m6">
       <div class="row">
         <div class="col m10 offset-m2">
-          {{#if session.isAuthenticated}}
-            <div class="col s12">
-              <h5>You're authenticated as {{session.session.content.authenticated.email}}</h5>
-            </div>
-          {{else}}
             <form {{action 'authenticate' on='submit'}} autocomplete="off">
               <div class="row">
 
@@ -47,7 +54,6 @@
                   <p>{{errorMessage}}</p>
                 {{/if}}
             </form>
-          {{/if}}
         </div>
       </div>
     </div>
@@ -80,5 +86,7 @@
     </div>
   </div>
 </div>
+
+{{/if}}
 
 {{outlet}}
