@@ -32,10 +32,10 @@ export default Ember.Component.extend({
       scrollY: "60vh",
       scrollCollapse: true,
       createdRow: function (row, data, index) {
-        $(row).attr('id', 'tr-' + data[0]);
-        $(row).attr('title', data[1]);
-        if ($.grep(self.get('checkedItems'), (obj) => {return obj.code === data[0]}).length > 0) {
-          $(row).addClass('hide');
+        Ember.$(row).attr('id', 'tr-' + data[0]);
+        Ember.$(row).attr('title', data[1]);
+        if (Ember.$.grep(self.get('checkedItems'), (obj) => {return obj.code === data[0]}).length > 0) {
+          Ember.$(row).addClass('hide');
         }
       }
     });
@@ -45,8 +45,8 @@ export default Ember.Component.extend({
 
       self.get('checkedItems').push(
         {
-          code: $(this).attr('id').substr(3),
-          description: $(this).attr('title')
+          code: Ember.$(this).attr('id').substr(3),
+          description: Ember.$(this).attr('title')
         }
       );
 
@@ -56,7 +56,7 @@ export default Ember.Component.extend({
     });
     Ember.$('div.chip').click(function () {
       self.set('refresh', false);
-      let selected = $(this).attr('id').substr(5);
+      let selected = Ember.$(this).attr('id').substr(5);
       Ember.$("#tr-"+selected).toggleClass('hide');
 
       let pos = self.get('checkedItems').map(obj => obj.code).indexOf(selected);
@@ -71,7 +71,7 @@ export default Ember.Component.extend({
     let self = this;
     Ember.$('div.chip').click(function () {
       self.set('refresh', false);
-      let selected = $(this).attr('id').substr(5);
+      let selected = Ember.$(this).attr('id').substr(5);
       Ember.$("#tr-"+selected).toggleClass('hide');
 
       let pos = self.get('checkedItems').map(obj => obj.code).indexOf(selected);

@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 import ENV from '../../config/environment';
-import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
 
 export default Ember.Controller.extend({
   ajax: Ember.inject.service(),
@@ -17,7 +16,7 @@ export default Ember.Controller.extend({
   query: {
     'nodes': 'count',
     'edges': 'count',
-    'countries': ['PL', 'LV', 'IT'],
+    'countries': [],
     'years': [2004, 2007],
     'cpvs': []
   },
@@ -33,6 +32,9 @@ export default Ember.Controller.extend({
   //   });
   //   return query;
   // }.property(checkedItems),
+  model() {
+    return this.store.findRecord('user', this.get('session.session.content.authenticated.id'));
+  },
   prepareQuery() {
     this.get('checkedItems').forEach((k,v) => {
       this.get('query.cpvs').push(k.code);
@@ -51,11 +53,11 @@ export default Ember.Controller.extend({
       this.toggleProperty('cpvModalIsOpen');
     },
     submitQuery() {
-      this.prepareQuery();
+      let self = this;
 
-      // this.get('session').authorize('authorizer:oauth2-bearer', (headerName, headerValue) => {
-      //   xhr.setRequestHeader(headerName, headerValue);
-      // });
+      self.prepareQuery();
+      self.send('loading');
+
       let network = this.get('store').createRecord('network', {
         options: {
           nodes: this.get('query.nodes'),
@@ -68,17 +70,10 @@ export default Ember.Controller.extend({
         }
       }).save().then((data) => {
         console.log(data);
+        self.send('finished');
+        self.transitionToRoute('network.query.show', data.id)
       });
 
-      // console.log(this.get('query'));
-      // let self = this;
-
-      // return this.get('ajax').request('/networks', {
-      //   method: 'POST',
-      //   data: {
-      //     query: this.get('query')
-      //   }
-      // });
     },
     invalidateSession() {
       this.get('session').invalidate();

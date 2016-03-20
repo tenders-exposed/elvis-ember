@@ -12,23 +12,18 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   refreshData(name, path, controller) {
     let self = this;
     localforage.removeItem(name, function(err) {
-      self.get('ajax').request(path)
-        .then((data) => {
-          localforage.setItem(name, data.search.results).then((results) => {
-            localforage.getItem(name).then((result) => {
-              controller.set(name, result);
-            });
+      self.get('ajax').request(path).then((data) => {
+        localforage.setItem(name, data.search.results).then((results) => {
+          localforage.getItem(name).then((result) => {
+            controller.set(name, result);
           });
-          // data.forEach((k,v) => {
-          //   localforage.setItem(name, data.search.results).then((results) => {
-          //   });
-          // });
         });
+      });
     });
   },
   refreshAllData(controller) {
-    this.refreshData('countries', `${this.host}/api/${this.namespace}/contracts/countries`, controller);
-    this.refreshData('cpvs', `${this.host}/api/${this.namespace}/contracts/cpvs/autocomplete`, controller);
+    this.refreshData('countries', '/contracts/countries', controller);
+    this.refreshData('cpvs', '/contracts/cpvs/autocomplete', controller);
   },
   setupController(controller) {
     this.controllerFor('network.query').set('years', [2002,2008]);

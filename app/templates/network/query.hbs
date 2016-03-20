@@ -18,15 +18,15 @@
       <div class="row">
         <div class="col s1"><span class="query-step circle">1</span></div>
         <div class="col s4">
-          <h5>Country of interest</h5>
-          <small>Only procurement from this country will be visualised</small>
+          <h5>Countries of interest</h5>
+          <small>Only procurement from these countries will be visualised</small>
         </div>
         <div class="col s6">
             <div class="input-field">
               {{ember-select-guru
               value=query.countries
               options=countries
-              searchKey='description'
+              searchKey='name'
               multiple=true
               optionComponent='country-option'
               onSelect=(action "onSelectEvent")}}
