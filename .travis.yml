@@ -4,6 +4,8 @@ node_js:
   - "5.3.0"
 git:
   depth: 3
+addons:
+  ssh_known_hosts: strix.umbra.xyz
 
 sudo: true
 
