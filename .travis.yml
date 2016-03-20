@@ -1,9 +1,11 @@
 ---
 language: node_js
 node_js:
-  - "0.12"
+  - "5.3.0"
+git:
+  depth: 3
 
-sudo: false
+sudo: true
 
 cache:
   directories:
@@ -12,7 +14,6 @@ cache:
 before_install:
   - export PATH=/usr/local/phantomjs-2.0.0/bin:$PATH
   - "npm config set spin false"
-  - "npm install -g npm@^2"
 
 install:
   - npm install -g bower
@@ -20,4 +21,13 @@ install:
   - bower install
 
 script:
-  - npm test
+  - ember build -e production
+
+before_deploy:
+  - openssl aes-256-cbc -K $encrypted_0a6446eb3ae3_key -iv $encrypted_0a6446eb3ae3_key -in config/id_rsa.enc -out config/id_rsa -d
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: scripts/deploy.sh
+
