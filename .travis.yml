@@ -4,6 +4,10 @@ node_js:
   - "5.3.0"
 git:
   depth: 3
+branches:
+  only:
+    - master
+    - develop
 
 sudo: true
 
