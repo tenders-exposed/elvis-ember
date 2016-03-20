@@ -27,6 +27,7 @@ script:
 
 before_deploy:
   - openssl aes-256-cbc -K $encrypted_89a2e6e6f2a2_key -iv $encrypted_89a2e6e6f2a2_iv -in config/id_rsa.enc -out config/id_rsa -d
+  - chmod 400 config/id_rsa
 
 deploy:
   skip_cleanup: true
