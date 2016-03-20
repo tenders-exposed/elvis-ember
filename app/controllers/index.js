@@ -8,7 +8,7 @@ export default Ember.Controller.extend({
       email: '',
       password: '',
       password_confirmation: ''
-    }
+    };
   }),
 
   actions: {
@@ -52,8 +52,7 @@ export default Ember.Controller.extend({
       });
     },
     invalidateSession() {
-      console.log(this.get('session'));
-      //this.get('session').invalidate();
+      this.get('session').invalidate();
     }
   }
 });

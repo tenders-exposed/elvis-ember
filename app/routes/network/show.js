@@ -3,7 +3,7 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
   nodes() {
-    return new vis.DataSet([
+    return new Ember.vis.DataSet([
       {id: 1, label: 'Node 1'},
       {id: 2, label: 'Node 2'},
       {id: 3, label: 'Node 3'},
@@ -12,7 +12,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     ]);
   },
   edges() {
-    return new vis.DataSet([
+    return new Ember.vis.DataSet([
       {from: 1, to: 3},
       {from: 1, to: 2},
       {from: 2, to: 4},
