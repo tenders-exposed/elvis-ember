@@ -2,6 +2,13 @@ import Ember from 'ember';
 // import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
 export default Ember.Route.extend(/*AuthenticatedRouteMixin,*/ {
+  activate() {
+    this.notifications.clearAll();
+    this.notifications.info('This page might be subject to layout changes', {
+      autoClear: true,
+      clearDuration: 15000
+    });
+  },
   actions: {
     slidingAction(value) {
       // Ember.debug( "New slider value: %@".fmt( value ) );
