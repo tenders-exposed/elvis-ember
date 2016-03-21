@@ -16,6 +16,7 @@ export default Ember.Controller.extend({
   query: {
     'nodes': 'count',
     'edges': 'count',
+    'rawCountries': [],
     'countries': [],
     'years': [2004, 2007],
     'cpvs': []
@@ -36,8 +37,12 @@ export default Ember.Controller.extend({
     return this.store.findRecord('user', this.get('session.session.content.authenticated.id'));
   },
   prepareQuery() {
-    this.get('checkedItems').forEach((k,v) => {
-      this.get('query.cpvs').push(k.code);
+    let self = this;
+    self.get('checkedItems').forEach((k,v) => {
+      self.get('query.cpvs').push(k.code);
+    });
+    self.get('query.rawCountries').forEach((k,v) => {
+      self.get('query.countries').push(k.key);
     });
   },
   actions: {
@@ -56,7 +61,11 @@ export default Ember.Controller.extend({
       let self = this;
 
       self.prepareQuery();
-      self.send('loading');
+      ////self.send('loading');
+
+      self.notifications.info('This is probably going to take a while...', {
+        autoClear: false
+      });
 
       let network = this.get('store').createRecord('network', {
         options: {
@@ -64,14 +73,15 @@ export default Ember.Controller.extend({
           edges: this.get('query.edges'),
         },
         query: {
-          cpvs: this.get('query.cpvs'),
-          countries: this.get('query.countries'),
+          cpvs: this.get('query.cpvs').push('45214600'),
+          countries: this.get('query.countries').uniq(),
           years: this.get('query.years'),
         }
       }).save().then((data) => {
         console.log(data);
-        self.send('finished');
-        self.transitionToRoute('network.query.show', data.id)
+        //self.send('finished');
+        //self.transitionToRoute('network.query.show', data.id)
+        self.transitionToRoute('network.show', 1)
       });
 
     },
