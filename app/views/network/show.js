@@ -9,7 +9,7 @@ export default Ember.View.extend(WithComputedSizeMixin, {
       nodes: this.get('controller.nodes'),
       edges: this.get('controller.edges')
     };
-    let options = {};
+    let options = this.get('controller.options');
     let network = new vis.Network(container, data, options);
   },
   didInsertElement : function(){

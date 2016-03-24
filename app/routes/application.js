@@ -40,9 +40,9 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
               console.log('Local DB was updated!');
             });
           } else if (keys.indexOf('countries') === -1) {
-            self.refreshData('countries', `${self.host}/api/${self.namespace}/contracts/countries`, controller);
+            self.refreshData('countries', '/contracts/countries', controller);
           } else if (keys.indexOf('cpvs') === -1) {
-            self.refreshData('cpvs', `${self.host}/api/${self.namespace}/contracts/cpvs/autocomplete`, controller);
+            self.refreshData('cpvs', '/contracts/cpvs/autocomplete', controller);
           } else {
               console.log('Local DB does not need an update.');
           }
