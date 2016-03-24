@@ -76,7 +76,7 @@ export default Ember.Controller.extend({
           edges: this.get('query.edges'),
         },
         query: {
-          cpvs: this.get('query.cpvs').push('45214600'),
+          cpvs: this.get('query.cpvs').uniq(),
           countries: this.get('query.countries').uniq(),
           years: this.get('query.years'),
         }
