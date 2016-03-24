@@ -6,6 +6,8 @@ export default Ember.Controller.extend({
   ajax: Ember.inject.service(),
   session: Ember.inject.service('session'),
 
+  network: {},
+
   checkedItems: [],
 
   modalIsOpen: false,
@@ -34,7 +36,8 @@ export default Ember.Controller.extend({
   //   return query;
   // }.property(checkedItems),
   model() {
-    return this.store.findRecord('user', this.get('session.session.content.authenticated.id'));
+    //return this.store.findRecord('user', this.get('session.session.content.authenticated.id'));
+    //return this.store.createRecord('network', {});
   },
   prepareQuery() {
     let self = this;
@@ -67,7 +70,7 @@ export default Ember.Controller.extend({
         autoClear: false
       });
 
-      let network = this.get('store').createRecord('network', {
+      this.get('store').createRecord('network', {
         options: {
           nodes: this.get('query.nodes'),
           edges: this.get('query.edges'),
@@ -78,10 +81,13 @@ export default Ember.Controller.extend({
           years: this.get('query.years'),
         }
       }).save().then((data) => {
+        //self.set('network', data);
+        alert('data');
         console.log(data);
+        alert('data2');
         //self.send('finished');
         //self.transitionToRoute('network.query.show', data.id)
-        self.transitionToRoute('network.show', 1)
+        self.transitionToRoute('network.show', data.id);
       });
 
     },
