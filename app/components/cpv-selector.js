@@ -4,43 +4,48 @@ export default Ember.Component.extend({
   classNames: ['cpv-selector'],
   checkedItems: [],
   refresh: true,
-  dataSet: [],
-  columns: [
-    {
-      'propertyName': 'plain_code',
-      'title': 'Code'
-    }
-  ],
-  // init() {
-  //   cpvs = this.get('cpvs');
-  //   cpvs.map((cpv) => {
-  //     this.get('dataSet').push([cpv.plain_code, cpv.name]);
-  //   });
-  //   console.log('dataSet: ', this.get('dataSet'));
-  // },
+  table: {},
+  // dataSet: [],
+  // columns: [
+  //   {
+  //     'propertyName': 'key',
+  //     'title': 'Code'
+  //   },
+  //   {
+  //     'propertyName': 'name',
+  //     'title': 'Description'
+  //   },
+  //   {
+  //     'propertyName': 'doc_count',
+  //     'title': 'Count'
+  //   }
+  // ],
   didInsertElement() {
+    console.log(this.get('cpvs'));
     let self = this;
-    Ember.$('#cpv-table').DataTable({
-      data: this.get('cpvs'),
+    self.set('table', Ember.$('#cpv-table').DataTable({
+      data: self.get('cpvs'),
       columns: [
         { title: 'Code' },
-        { title: 'Description' }
+        { title: 'Description' },
+        { title: 'Count' }
       ],
       info: false,
       paging: false,
       scrollY: '60vh',
       scrollCollapse: true,
-      createdRow: Ember.computed(function(row, data) {
+      createdRow: function(row, data) {
         Ember.$(row).attr('id', `tr-${data[0]}`);
         Ember.$(row).attr('title', data[1]);
         if (Ember.$.grep(self.get('checkedItems'),
                          (obj) => {
                            return obj.code === data[0];
-                         }).length > 0) {
+                         }).length > 0
+        ) {
           Ember.$(row).addClass('hide');
         }
-      })
-    });
+      }
+    }));
     Ember.$('#cpv-table tbody').on('click', 'tr', function() {
       self.set('refresh', false);
       Ember.$(this).toggleClass('hide');
@@ -69,6 +74,9 @@ export default Ember.Component.extend({
       });
     });
   },
+  //willClearRender() {
+  //  this.set('table', {});
+  //},
   didUpdate() {
     let self = this;
     Ember.$('div.chip').click(function() {
@@ -93,7 +101,7 @@ export default Ember.Component.extend({
       // console.log('Controller ', this.get('cpvs'));
       let item;
       [item] = this.get('cpvs').filter((value) => {
-        if (value.plain_code === code) {
+        if (value.key === code) {
           value.checked = 'checked';
           return true;
         } else {

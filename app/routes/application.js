@@ -34,7 +34,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       // An array of all the key names.
       if (typeof keys.indexOf('dbVersion') !== undefined) {
         localforage.getItem('dbVersion').then((dbVersion) => {
-          if (dbVersion != self.dbVersion) {
+          if (dbVersion !== self.dbVersion) {
             self.refreshAllData(controller);
             localforage.setItem('dbVersion', self.dbVersion).then(() => {
               console.log('Local DB was updated!');
@@ -42,9 +42,9 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
           } else if (keys.indexOf('countries') === -1) {
             self.refreshData('countries', '/contracts/countries', controller);
           } else if (keys.indexOf('cpvs') === -1) {
-            self.refreshData('cpvs', '/contracts/cpvs/autocomplete', controller);
+            self.refreshData('cpvs', '/contracts/cpvs', controller);
           } else {
-              console.log('Local DB does not need an update.');
+            console.log('Local DB does not need an update.');
           }
         });
       } else {
@@ -57,15 +57,16 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
         let filtered = [];
         let checkbox = '';
         cpvs.map((cpv) => {
-          if (cpv.plain_code.match(/^[0-9]{1,3}0{5,7}/)) {
+          if (cpv.key.match(/^[0-9]{1,3}0{5,7}/)) {
             filtered.push([
-              cpv.plain_code,
-              cpv.name
+              cpv.key,
+              cpv.name,
+              cpv.doc_count
             ]);
           }
         });
         self.controllerFor('network.query').set('cpvs', filtered);
       });
     });
-  },
+  }
 });

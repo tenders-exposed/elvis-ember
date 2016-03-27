@@ -20,7 +20,7 @@ module.exports = function(environment) {
           includeFontAwesome: true
       },
       // Fake versioning for the client side database (for caching purposes)
-      dbVersion: '1'
+      dbVersion: '2'
     }
   };
 

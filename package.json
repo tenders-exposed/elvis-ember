@@ -66,7 +66,7 @@
     "ember-simple-auth": "1.0.1",
     "ember-suave": "1.2.3",
     "ember-watson": "0.7.0",
-    "ember-world-flags": "0.2.5",
+    "ember-world-flags": "git+https://github.com/tenders-exposed/ember-world-flags.git",
     "form-data": "^0.2.0",
     "lodash": "4.6.1",
     "virtual-each": "0.2.1"
