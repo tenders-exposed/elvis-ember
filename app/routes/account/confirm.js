@@ -1,36 +1,34 @@
 import Ember from 'ember';
-import { raw } from 'ic-ajax';
 import ENV from '../../config/environment';
 import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
+import _ from 'lodash/lodash';
+
 
 export default Ember.Route.extend(UnauthenticatedRouteMixin, {
+  ajax: Ember.inject.service(),
   queryParams: {
-    confirmationToken: {
+    t: {
     }
   },
   model(params) {
-    let token = params.confirmationToken;
     let self = this;
-    let req = raw({
-      type: 'GET',
-      url: `${ENV.APP.apiHost}/users/confirmation?confirmationToken=${token}`
-    });
-    req.then(function(result) {
-      console.log('Response from Rails', result.response);
-      self.notifications.addNotification({
-        message: 'Your account is now activated!',
-        type: 'success',
+    let token = params.t;
+    self.get('ajax').request(`/users/confirmation?confirmation_token=${token}`).then((data) => {
+      self.notifications.success('Your account is now activated!', {
         autoClear: true
       });
-      self.controller.transitionToRoute('login');
-    },
-    function(response) {
-      console.error('There was a problem', response.jqXHR.responseText, response);
-      self.notifications.addNotification({
-        message: `Oops, something bad happened: ${JSON.parse(response.jqXHR.responseText).errors[0]}`,
-        type: 'error'
+      self.controller.transitionToRoute('index');
+    }, function(response) {
+      _.each(response.errors, function(error) {
+        self.notifications.info('You have been redirected to our index page.', {
+          autoClear: true
+        });
+        self.notifications.error(`${error.title} ${error.detail}`, {
+          autoClear: true,
+          clearDuration: 5000
+        });
+        self.controller.transitionToRoute('index');
       });
-    }
-    );
+    });
   }
 });

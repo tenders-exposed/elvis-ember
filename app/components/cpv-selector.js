@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import localforage from 'ember-local-forage';
 
 export default Ember.Component.extend({
   classNames: ['cpv-selector'],
@@ -8,8 +7,8 @@ export default Ember.Component.extend({
   dataSet: [],
   columns: [
     {
-      "propertyName": "plain_code",
-      "title": "Code"
+      'propertyName': 'plain_code',
+      'title': 'Code'
     }
   ],
   // init() {
@@ -24,22 +23,25 @@ export default Ember.Component.extend({
     Ember.$('#cpv-table').DataTable({
       data: this.get('cpvs'),
       columns: [
-        {title: "Code"},
-        {title: "Description"},
+        { title: 'Code' },
+        { title: 'Description' }
       ],
       info: false,
       paging: false,
-      scrollY: "60vh",
+      scrollY: '60vh',
       scrollCollapse: true,
-      createdRow: function (row, data, index) {
-        Ember.$(row).attr('id', 'tr-' + data[0]);
+      createdRow: Ember.computed(function(row, data) {
+        Ember.$(row).attr('id', `tr-${data[0]}`);
         Ember.$(row).attr('title', data[1]);
-        if (Ember.$.grep(self.get('checkedItems'), (obj) => {return obj.code === data[0]}).length > 0) {
+        if (Ember.$.grep(self.get('checkedItems'),
+                         (obj) => {
+                           return obj.code === data[0];
+                         }).length > 0) {
           Ember.$(row).addClass('hide');
         }
-      }
+      })
     });
-    Ember.$('#cpv-table tbody').on( 'click', 'tr', function () {
+    Ember.$('#cpv-table tbody').on('click', 'tr', function() {
       self.set('refresh', false);
       Ember.$(this).toggleClass('hide');
 
@@ -50,34 +52,34 @@ export default Ember.Component.extend({
         }
       );
 
-      Ember.run.next(function () {
+      Ember.run.next(function() {
         self.set('refresh', true);
       });
     });
-    Ember.$('div.chip').click(function () {
+    Ember.$('div.chip').click(function() {
       self.set('refresh', false);
       let selected = Ember.$(this).attr('id').substr(5);
-      Ember.$("#tr-"+selected).toggleClass('hide');
+      Ember.$(`#tr-${selected}`).toggleClass('hide');
 
-      let pos = self.get('checkedItems').map(obj => obj.code).indexOf(selected);
+      let pos = self.get('checkedItems').map((obj) => obj.code).indexOf(selected);
       self.get('checkedItems').splice(pos, 1);
 
-      Ember.run.next(function () {
+      Ember.run.next(function() {
         self.set('refresh', true);
       });
     });
   },
   didUpdate() {
     let self = this;
-    Ember.$('div.chip').click(function () {
+    Ember.$('div.chip').click(function() {
       self.set('refresh', false);
       let selected = Ember.$(this).attr('id').substr(5);
-      Ember.$("#tr-"+selected).toggleClass('hide');
+      Ember.$(`#tr-${selected}`).toggleClass('hide');
 
-      let pos = self.get('checkedItems').map(obj => obj.code).indexOf(selected);
+      let pos = self.get('checkedItems').map((obj) => obj.code).indexOf(selected);
       self.get('checkedItems').splice(pos, 1);
 
-      Ember.run.next(function () {
+      Ember.run.next(function() {
         self.set('refresh', true);
       });
     });
@@ -87,20 +89,23 @@ export default Ember.Component.extend({
       this.get('targetObject').send('toggleModal');
     },
     selectCpv(code) {
-      console.log('Selected ', code);
+      // console.log('Selected ', code);
       // console.log('Controller ', this.get('cpvs'));
-      let item = this.get('cpvs').filter((value) => {
+      let item;
+      [item] = this.get('cpvs').filter((value) => {
         if (value.plain_code === code) {
           value.checked = 'checked';
           return true;
-        } else { return false; }
-      })[0];
-      console.log('Item: ', item.name);
-      console.log('Checked: ', item.checked);
+        } else {
+          return false;
+        }
+      });
+      // console.log('Item: ', item.name);
+      // console.log('Checked: ', item.checked);
 
       this.get('checkedItems').push(code);
 
-      console.log(this.get('checkedItems'));
+      // console.log(this.get('checkedItems'));
     }
   }
 });

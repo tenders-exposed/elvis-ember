@@ -62,9 +62,9 @@ export default Ember.Controller.extend({
     },
     // 'physics': {
     //   'enabled': false
+    // },
+    // 'interaction': {
+    //   'hover': true
     // }
-    'interaction': {
-      'hover': true
-    }
   }
 });
