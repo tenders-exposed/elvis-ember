@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 import ENV from '../../config/environment';
+import _ from 'lodash/lodash';
 
 export default Ember.Controller.extend({
   ajax: Ember.inject.service(),
@@ -78,7 +79,7 @@ export default Ember.Controller.extend({
         query: {
           cpvs: this.get('query.cpvs').uniq(),
           countries: this.get('query.countries').uniq(),
-          years: this.get('query.years'),
+          years: _.range(this.get('query.years')[0], ++this.get('query.years')[1])
         }
       }).save().then((data) => {
         //self.set('network', data);
