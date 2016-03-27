@@ -4,8 +4,8 @@ node_js:
   - "5.3.0"
 git:
   depth: 3
-addons:
-  ssh_known_hosts: strix.umbra.xyz
+#addons:
+#  ssh_known_hosts: strix.umbra.xyz
 
 sudo: true
 
@@ -25,12 +25,12 @@ install:
 script:
   - ember build -e production
 
-before_deploy:
-  - openssl aes-256-cbc -K $encrypted_89a2e6e6f2a2_key -iv $encrypted_89a2e6e6f2a2_iv -in config/id_rsa.enc -out config/id_rsa -d
-  - chmod 400 config/id_rsa
-
-deploy:
-  skip_cleanup: true
-  provider: script
-  script: scripts/deploy.sh
+#before_deploy:
+#  - openssl aes-256-cbc -K $encrypted_89a2e6e6f2a2_key -iv $encrypted_89a2e6e6f2a2_iv -in config/id_rsa.enc -out config/id_rsa -d
+#  - chmod 400 config/id_rsa
+#
+#deploy:
+#  skip_cleanup: true
+#  provider: script
+#  script: scripts/deploy.sh
 
