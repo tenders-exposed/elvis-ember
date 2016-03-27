@@ -27,8 +27,8 @@ export default Ember.Route.extend(UnauthenticatedRouteMixin, {
           autoClear: true,
           clearDuration: 5000
         });
-        self.controller.transitionToRoute('index');
       });
+      self.controller.transitionToRoute('index');
     });
   }
 });
