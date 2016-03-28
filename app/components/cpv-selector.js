@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import _ from 'lodash/lodash';
 
 export default Ember.Component.extend({
   classNames: ['cpv-selector'],
@@ -20,18 +21,27 @@ export default Ember.Component.extend({
   //     'title': 'Count'
   //   }
   // ],
+  flattenCpvs(cpvs) {
+    _.each(cpvs, function(value, key, array) {
+      array[key] = _.toArray(value);
+      // [array[key][1], array[key][2]] = [array[key][2], array[key][1]];
+    });
+  },
   didInsertElement() {
-    console.log(this.get('cpvs'));
     let self = this;
+
+    this.flattenCpvs(self.get('cpvs'));
+
+
     self.set('table', Ember.$('#cpv-table').DataTable({
       data: self.get('cpvs'),
       columns: [
         { title: 'Code' },
-        { title: 'Description' },
-        { title: 'Count' }
+        { title: 'Count' },
+        { title: 'Description' }
       ],
       info: false,
-      paging: false,
+      // paging: false,
       scrollY: '60vh',
       scrollCollapse: true,
       createdRow: function(row, data) {

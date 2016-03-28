@@ -1,7 +1,41 @@
 import Ember from 'ember';
+import _ from 'lodash/lodash';
 // import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
 export default Ember.Route.extend(/*AuthenticatedRouteMixin,*/ {
+  ajax: Ember.inject.service(),
+
+  endpoints: {
+    'countries': '/contracts/countries',
+    'years': '/contracts/years',
+    'cpvs': '/contracts/cpvs'
+  },
+  availableData: {
+    'countries': undefined,
+    'years': undefined,
+    'cpvs': undefined
+  },
+
+  /* Custom functions */
+
+  setAvailable(controller, item) {
+    let self = this;
+    if (_.indexOf(_.keysIn(self.get('endpoints')), item) !== -1) {
+      self.get('ajax').post(self.get(`endpoints.${item}`)).then((data) => {
+        self.set(`availableData.${item}`, data);
+        // let result = [];
+        // _.each(data.search.results, function(v) {
+        //   result.push(v.key)
+        // });
+        controller.set(item, data.search.results);
+      });
+    } else {
+      console.error(`Unknown set '${item}'`);
+    }
+  },
+
+  /* Hooks */
+
   activate() {
     this.notifications.clearAll();
     this.notifications.info('This page might be subject to layout changes', {
@@ -9,6 +43,16 @@ export default Ember.Route.extend(/*AuthenticatedRouteMixin,*/ {
       clearDuration: 15000
     });
   },
+  setupController(controller) {
+    let self = this;
+
+    _.each(['countries', 'years', 'cpvs'], function(value) {
+      self.setAvailable(controller, value);
+    });
+  },
+
+  /* Custom actions */
+
   actions: {
     slidingAction(value) {
       // Ember.debug( "New slider value: %@".fmt( value ) );
