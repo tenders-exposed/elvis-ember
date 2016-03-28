@@ -1,36 +1,22 @@
 ---
 language: node_js
 node_js:
-  - "5.3.0"
-git:
-  depth: 3
-#addons:
-#  ssh_known_hosts: strix.umbra.xyz
+  - "4"
 
-sudo: true
+sudo: false
 
 cache:
   directories:
     - node_modules
 
 before_install:
-  - export PATH=/usr/local/phantomjs-2.0.0/bin:$PATH
-  - "npm config set spin false"
+  - npm config set spin false
+  - npm install -g bower
+  - npm install phantomjs-prebuilt
 
 install:
-  - npm install -g bower
   - npm install
   - bower install
 
 script:
-  - ember build -e production
-
-#before_deploy:
-#  - openssl aes-256-cbc -K $encrypted_89a2e6e6f2a2_key -iv $encrypted_89a2e6e6f2a2_iv -in config/id_rsa.enc -out config/id_rsa -d
-#  - chmod 400 config/id_rsa
-#
-#deploy:
-#  skip_cleanup: true
-#  provider: script
-#  script: scripts/deploy.sh
-
+  - npm test
