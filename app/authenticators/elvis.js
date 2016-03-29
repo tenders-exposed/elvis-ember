@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Base from 'ember-simple-auth/authenticators/base';
-import ENV from "../config/environment";
+import ENV from '../config/environment';
 
 const { RSVP, isEmpty, run, get } = Ember;
 
@@ -68,7 +68,7 @@ export default Base.extend({
       let data = {
         user: {
           email: identification,
-          password: password
+          password
         }
       };
 

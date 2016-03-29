@@ -20,7 +20,7 @@ module.exports = function(environment) {
           includeFontAwesome: true
       },
       // Fake versioning for the client side database (for caching purposes)
-      dbVersion: '1'
+      dbVersion: '2'
     }
   };
 
@@ -53,8 +53,8 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    //ENV.APP.apiHost = 'http://api.elvis.tenders.exposed';
-    ENV.APP.apiHost = 'http://nulltech.ddns.net:3000';
+    ENV.APP.apiHost = 'http://api.elvis.tenders.exposed';
+    //ENV.APP.apiHost = 'http://nulltech.ddns.net:3000';
     ENV.APP.apiNamespace = 'v1';
 
   }

@@ -2,6 +2,7 @@ import Ember from 'ember';
 import ENV from '../config/environment';
 import localforage from 'ember-local-forage';
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
+import _ from 'lodash/lodash';
 
 export default Ember.Route.extend(ApplicationRouteMixin, {
   host: ENV.APP.apiHost,
@@ -9,10 +10,12 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   dbVersion: ENV.APP.dbVersion,
   ajax: Ember.inject.service(),
   session: Ember.inject.service('session'),
+
+
   refreshData(name, path, controller) {
     let self = this;
     localforage.removeItem(name, function(err) {
-      self.get('ajax').request(path).then((data) => {
+      self.get('ajax').post(path).then((data) => {
         localforage.setItem(name, data.search.results).then((results) => {
           localforage.getItem(name).then((result) => {
             controller.set(name, result);
@@ -23,49 +26,6 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   },
   refreshAllData(controller) {
     this.refreshData('countries', '/contracts/countries', controller);
-    this.refreshData('cpvs', '/contracts/cpvs/autocomplete', controller);
-  },
-  setupController(controller) {
-    this.controllerFor('network.query').set('years', [2002,2008]);
-
-    let self = this;
-
-    localforage.keys(function(err, keys) {
-      // An array of all the key names.
-      if (typeof keys.indexOf('dbVersion') !== undefined) {
-        localforage.getItem('dbVersion').then((dbVersion) => {
-          if (dbVersion != self.dbVersion) {
-            self.refreshAllData(controller);
-            localforage.setItem('dbVersion', self.dbVersion).then(() => {
-              console.log('Local DB was updated!');
-            });
-          } else if (keys.indexOf('countries') === -1) {
-            self.refreshData('countries', '/contracts/countries', controller);
-          } else if (keys.indexOf('cpvs') === -1) {
-            self.refreshData('cpvs', '/contracts/cpvs/autocomplete', controller);
-          } else {
-              console.log('Local DB does not need an update.');
-          }
-        });
-      } else {
-        self.refreshAllData(controller);
-      }
-      localforage.getItem('countries').then((countries) => {
-        self.controllerFor('network.query').set('countries', countries);
-      });
-      localforage.getItem('cpvs').then((cpvs) => {
-        let filtered = [];
-        let checkbox = '';
-        cpvs.map((cpv) => {
-          if (cpv.plain_code.match(/^[0-9]{1,3}0{5,7}/)) {
-            filtered.push([
-              cpv.plain_code,
-              cpv.name
-            ]);
-          }
-        });
-        self.controllerFor('network.query').set('cpvs', filtered);
-      });
-    });
+    this.refreshData('cpvs', '/contracts/cpvs', controller);
   },
 });
