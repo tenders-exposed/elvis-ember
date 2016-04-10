@@ -4,20 +4,17 @@ import BaseAuthorizer from 'ember-simple-auth/authorizers/base';
 const { isEmpty } = Ember;
 
 export default BaseAuthorizer.extend({
-  tokenAttributeName: 'authentication_token',
-  identificationAttributeName: 'email',
-
   authorize(data, block) {
-    const { tokenAttributeName, identificationAttributeName } = this.getProperties('tokenAttributeName', 'identificationAttributeName');
-    const userToken          = data[tokenAttributeName];
-    const userIdentification = data[identificationAttributeName];
+    const userToken          = data.user.authentication_token;
+    const userIdentification = data.user.email;
     if (!isEmpty(userToken) && !isEmpty(userIdentification)) {
       // const authData = `${tokenAttributeName}="${userToken}", ${identificationAttributeName}="${userIdentification}"`;
       block('X-User-Email', `${userIdentification}`);
       block('X-User-Token', `${userToken}`);
     } else {
-      console.log(`userToken: ${userToken}`);
-      console.log(`userIdentification: ${userIdentification}`);
+      console.log('authorizer data: ', data);
+      console.log(`authorizer userToken: ${userToken}`);
+      console.log(`authorizer userIdentification: ${userIdentification}`);
     }
   }
 });

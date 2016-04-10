@@ -16,8 +16,6 @@ const { RSVP, isEmpty, run, get } = Ember;
 */
 export default Base.extend({
   serverTokenEndpoint: `${ENV.APP.apiHost}/api/${ENV.APP.apiNamespace}/users/sign_in`,
-  tokenAttributeName: 'authentication_token',
-  identificationAttributeName: 'email',
 
   /**
     Restores the session from a session data object; __returns a resolving
@@ -33,13 +31,14 @@ export default Base.extend({
     @public
   */
   restore(data) {
-    const { tokenAttributeName, identificationAttributeName } = this.getProperties('tokenAttributeName', 'identificationAttributeName');
-    const tokenAttribute = get(data, tokenAttributeName);
-    const identificationAttribute = get(data, identificationAttributeName);
+    const tokenAttribute = data.user.authentication_token;
+    const identificationAttribute = data.user.email;
     return new RSVP.Promise((resolve, reject) => {
       if (!isEmpty(tokenAttribute) && !isEmpty(identificationAttribute)) {
         resolve(data);
       } else {
+        console.log('authenticator data: ', data);
+        console.log('authenticator tokenAttribute: ', tokenAttribute);
         reject();
       }
     });
