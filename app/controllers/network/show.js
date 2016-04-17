@@ -2,9 +2,9 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   //queryCtl: Ember.inject.controller('network.query'),
-  query: Ember.computed(function(){
-    return this.controllerFor('network.query').get('network.graph');
-  }),
+  // query: Ember.computed(function(){
+  //   return this.controllerFor('network.query').get('network.graph');
+  // }),
 
   nodes: Ember.computed(function() {
     return new vis.DataSet(
@@ -60,6 +60,12 @@ export default Ember.Controller.extend({
         }
       }
     },
+    'physics': {
+      'timestep': 0.3
+    },
+    'layout': {
+      'improvedLayout': false
+    }
     // 'physics': {
     //   'enabled': false
     // },
