@@ -11,6 +11,10 @@ export default Ember.Controller.extend({
     };
   }),
 
+  beforeModel() {
+    this.set('currentUser.email', this.get('session.content.authenticated.user.email'))
+  },
+
   actions: {
     register() {
       let self = this;
