@@ -3,7 +3,7 @@ import _ from 'lodash/lodash';
 
 export default Ember.Component.extend({
   classNames: ['cpv-selector'],
-  checkedItems: [],
+  selectedCodes: [],
   refresh: true,
   table: {},
   // dataSet: [],
@@ -47,7 +47,7 @@ export default Ember.Component.extend({
       createdRow: function(row, data) {
         Ember.$(row).attr('id', `tr-${data[0]}`);
         Ember.$(row).attr('title', data[1]);
-        if (Ember.$.grep(self.get('checkedItems'),
+        if (Ember.$.grep(self.get('selectedCodes'),
                          (obj) => {
                            return obj.code === data[0];
                          }).length > 0
@@ -60,7 +60,7 @@ export default Ember.Component.extend({
       self.set('refresh', false);
       Ember.$(this).toggleClass('hide');
 
-      self.get('checkedItems').push(
+      self.get('selectedCodes').push(
         {
           code: Ember.$(this).attr('id').substr(3),
           description: Ember.$(this).attr('title')
@@ -76,8 +76,8 @@ export default Ember.Component.extend({
       let selected = Ember.$(this).attr('id').substr(5);
       Ember.$(`#tr-${selected}`).toggleClass('hide');
 
-      let pos = self.get('checkedItems').map((obj) => obj.code).indexOf(selected);
-      self.get('checkedItems').splice(pos, 1);
+      let pos = self.get('selectedCodes').map((obj) => obj.code).indexOf(selected);
+      self.get('selectedCodes').splice(pos, 1);
 
       Ember.run.next(function() {
         self.set('refresh', true);
@@ -94,8 +94,8 @@ export default Ember.Component.extend({
       let selected = Ember.$(this).attr('id').substr(5);
       Ember.$(`#tr-${selected}`).toggleClass('hide');
 
-      let pos = self.get('checkedItems').map((obj) => obj.code).indexOf(selected);
-      self.get('checkedItems').splice(pos, 1);
+      let pos = self.get('selectedCodes').map((obj) => obj.code).indexOf(selected);
+      self.get('selectedCodes').splice(pos, 1);
 
       Ember.run.next(function() {
         self.set('refresh', true);
@@ -121,9 +121,9 @@ export default Ember.Component.extend({
       // console.log('Item: ', item.name);
       // console.log('Checked: ', item.checked);
 
-      this.get('checkedItems').push(code);
+      this.get('selectedCodes').push(code);
 
-      // console.log(this.get('checkedItems'));
+      // console.log(this.get('selectedCodes'));
     }
   }
 });
