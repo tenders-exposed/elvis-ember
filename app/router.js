@@ -44,7 +44,9 @@ Router.map(function() {
         this.route('relationships', {});
       });
     });
-    this.route('query', {});
+    this.route('query', function(){
+      this.route('config', {});
+    });
   });
 });
 

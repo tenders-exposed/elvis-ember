@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import DS from 'ember-data';
-import ENV from '../../config/environment';
+import ENV from '../../../config/environment';
 import _ from 'lodash/lodash';
 
 export default Ember.Controller.extend({
@@ -72,7 +72,7 @@ export default Ember.Controller.extend({
       this.get('store').createRecord('network', {
         options: {
           nodes: this.get('query.nodes'),
-          edges: this.get('query.edges'),
+          edges: this.get('query.edges')
         },
         query: {
           cpvs: this.get('query.cpvs').uniq(),
