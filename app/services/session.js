@@ -6,7 +6,7 @@ export default ESASession.extend({
 
   setCurrentUser: function() {
     if (this.get('isAuthenticated')) {
-      this.get('store').queryRecord('user', '56f6c8dbd731e25711000000').then((user) => {
+      this.get('store').find('user', '56f6c8dbd731e25711000000').then((user) => {
         this.set('currentUser', user);
       });
     }
