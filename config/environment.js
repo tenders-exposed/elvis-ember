@@ -75,7 +75,7 @@ module.exports = function(environment) {
     'style-src': "'self' 'unsafe-inline' http://fonts.googleapis.com",
     'media-src': "'self'",
     'report-uri': "http://localhost:4200"
-  }
+  };
 
   return ENV;
 };
