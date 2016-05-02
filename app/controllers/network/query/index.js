@@ -1,6 +1,4 @@
 import Ember from 'ember';
-import DS from 'ember-data';
-import ENV from '../../config/environment';
 import _ from 'lodash/lodash';
 
 export default Ember.Controller.extend({
@@ -9,9 +7,8 @@ export default Ember.Controller.extend({
 
   network: {},
 
-  checkedItems: [],
+  selectedCodes: [],
 
-  modalIsOpen: false,
   cpvModalIsOpen: false,
   yearMin: 2001,
   yearMax: 2015,
@@ -31,18 +28,18 @@ export default Ember.Controller.extend({
   //     'cpvs': []
   //   };
   //   let cpvs = [];
-  //   this.get('checkedItems').forEach((k,v) => {
+  //   this.get('selectedCodes').forEach((k,v) => {
   //     query.cpvs.push(v.code);
   //   });
   //   return query;
-  // }.property(checkedItems),
+  // }.property(selectedCodes),
   model() {
-    //return this.store.findRecord('user', this.get('session.session.content.authenticated.id'));
-    //return this.store.createRecord('network', {});
+    // return this.store.findRecord('user', this.get('session.session.content.authenticated.id'));
+    // return this.store.createRecord('network', {});
   },
   prepareQuery() {
     let self = this;
-    self.get('checkedItems').forEach((k,v) => {
+    self.get('selectedCodes').forEach((k, v) => {
       self.get('query.cpvs').push(k.code);
     });
     self.get('query.rawCountries').forEach((k,v) => {
@@ -55,8 +52,7 @@ export default Ember.Controller.extend({
       console.log('New select value: ', value);
     },
     toggleModal() {
-      // this.toggleProperty('modalIsOpen');
-      this.get('checkedItems').forEach((k, v) => {
+      this.get('selectedCodes').forEach((k, v) => {
         console.log(this.get('cpvs')[v]);
       });
       this.toggleProperty('cpvModalIsOpen');
@@ -65,7 +61,7 @@ export default Ember.Controller.extend({
       let self = this;
 
       self.prepareQuery();
-      ////self.send('loading');
+      // // self.send('loading');
 
       self.notifications.info('This is probably going to take a while...', {
         autoClear: false
@@ -74,7 +70,7 @@ export default Ember.Controller.extend({
       this.get('store').createRecord('network', {
         options: {
           nodes: this.get('query.nodes'),
-          edges: this.get('query.edges'),
+          edges: this.get('query.edges')
         },
         query: {
           cpvs: this.get('query.cpvs').uniq(),
@@ -82,12 +78,12 @@ export default Ember.Controller.extend({
           years: _.range(this.get('query.years')[0], ++this.get('query.years')[1])
         }
       }).save().then((data) => {
-        //self.set('network', data);
+        // self.set('network', data);
         alert('data');
         console.log(data);
         alert('data2');
-        //self.send('finished');
-        //self.transitionToRoute('network.query.show', data.id)
+        // self.send('finished');
+        // self.transitionToRoute('network.query.show', data.id)
         self.transitionToRoute('network.show', data.id);
       });
 

@@ -2,7 +2,7 @@ import Ember from 'ember';
 import Base from 'ember-simple-auth/authenticators/base';
 import ENV from '../config/environment';
 
-const { RSVP, isEmpty, run, get } = Ember;
+const { RSVP, isEmpty, run } = Ember;
 
 /**
   Authenticator that works with the Ruby gem
@@ -15,9 +15,7 @@ const { RSVP, isEmpty, run, get } = Ember;
   @public
 */
 export default Base.extend({
-  serverTokenEndpoint: `${ENV.APP.apiHost}/api/${ENV.APP.apiNamespace}/users/sign_in`,
-  tokenAttributeName: 'authentication_token',
-  identificationAttributeName: 'email',
+  serverTokenEndpoint: `${ENV.APP.apiHost}/${ENV.APP.apiNamespace}/users/sign_in`,
 
   /**
     Restores the session from a session data object; __returns a resolving
@@ -33,13 +31,14 @@ export default Base.extend({
     @public
   */
   restore(data) {
-    const { tokenAttributeName, identificationAttributeName } = this.getProperties('tokenAttributeName', 'identificationAttributeName');
-    const tokenAttribute = get(data, tokenAttributeName);
-    const identificationAttribute = get(data, identificationAttributeName);
+    let tokenAttribute = data.user.authentication_token;
+    let identificationAttribute = data.user.email;
     return new RSVP.Promise((resolve, reject) => {
       if (!isEmpty(tokenAttribute) && !isEmpty(identificationAttribute)) {
         resolve(data);
       } else {
+        console.log('authenticator data: ', data);
+        console.log('authenticator tokenAttribute: ', tokenAttribute);
         reject();
       }
     });
@@ -100,7 +99,7 @@ export default Base.extend({
     @protected
   */
   makeRequest(data) {
-    const serverTokenEndpoint = this.get('serverTokenEndpoint');
+    let serverTokenEndpoint = this.get('serverTokenEndpoint');
     return Ember.$.ajax({
       url:      serverTokenEndpoint,
       type:     'POST',

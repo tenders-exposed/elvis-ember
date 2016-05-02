@@ -1,11 +1,11 @@
 div#network-container {
   h5 {
-    margin-top: 0px;
+    margin-top: 0;
   }
   position: relative;
   width: 100%;
   display: block;
-  top: 0px;
+  top: 0;
   /*   background: yellow; */
 
   div#visjs-network {
@@ -19,17 +19,17 @@ div#network-container {
   div#details-container {
     z-index: 100;
     position: absolute;
-    top: 0px;
+    top: 0;
     width: 100%; height: 100%; display: block;
 
-    * {margin: none; padding: none; border: none;}
+    * {margin: 0; padding: 0; border: 0;}
 
     div#details-sidebar {
       height: 100%;
       width: 30%;
       min-height: 400px;
       float: left;
-      top: 0px;
+      top: 0;
       background: #000;
       opacity: .95;
       .tabs__nav {
@@ -45,7 +45,7 @@ div#network-container {
       width: 70%;
       min-height: 400px;
       float: left;
-      top: 0px;
+      top: 0;
       /*       background: green; */
       opacity: .8;
     }

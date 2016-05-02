@@ -1,9 +1,9 @@
 import ENV from '../config/environment';
 import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
-import ActiveModelAdapter from 'active-model-adapter';
+import DS from 'ember-data';
 
-export default ActiveModelAdapter.extend(DataAdapterMixin, {
-  host: `${ENV.APP.apiHost}/api`,
+export default DS.RESTAdapter.extend(DataAdapterMixin, {
+  host: `${ENV.APP.apiHost}`,
   namespace: ENV.APP.apiNamespace,
   authorizer: 'authorizer:elvis'
 });

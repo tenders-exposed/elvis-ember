@@ -5,6 +5,7 @@ export default Ember.Component.extend({
   resizeDetails() {
     this.$('div#network-container').parent().height(this.innerHeight);
   },
+
   didInsertElement() {
     this.$(document).ready(function() {
       this.resizeDetails();

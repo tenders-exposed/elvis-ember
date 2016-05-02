@@ -44,8 +44,11 @@ Router.map(function() {
         this.route('relationships', {});
       });
     });
-    this.route('query', {});
+    this.route('query', function() {
+      this.route('config', {});
+    });
   });
+  this.route('welcome', { path: '' });
 });
 
 export default Router;

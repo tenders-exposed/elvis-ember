@@ -9,6 +9,14 @@ export default Component.extend({
     return this.get('currentHighlight') === this.get('index');
   }),
   click() {
-    this.sendAction('onClick', this.get('option'));
+    console.log(this.get('option'));
+
+    // Hack for GB = UK, because TED data...
+    if (this.get('option.key') === 'UK') {
+      this.set('option.name', 'United Kingdom');
+      this.sendAction('onClick', this.get('option'));
+    } else {
+      this.sendAction('onClick', this.get('option'));
+    }
   }
 });

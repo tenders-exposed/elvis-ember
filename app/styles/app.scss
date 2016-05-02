@@ -9,7 +9,8 @@
 @import "sidebar.scss";
 @import "navbar.scss";
 @import "network.scss";
-@import "cpv.scss";
+@import "cpv";
+@import "loading";
 
 /* Helper styles */
 .h50 { display: block; height: 50px; }
@@ -22,8 +23,6 @@
 .full-height {height: 100%;}
 .blur {
   -webkit-filter: blur(5px);
-  -moz-filter: blur(5px);
-  -o-filter: blur(5px);
   -ms-filter: blur(5px);
   filter: blur(5px);
 }

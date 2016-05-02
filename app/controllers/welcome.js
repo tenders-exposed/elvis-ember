@@ -1,32 +1,23 @@
 import Ember from 'ember';
-import DS from 'ember-data';
 
 export default Ember.Controller.extend({
-  session: Ember.inject.service('session'),
-  fakeUser: Ember.computed(function() {
-    return {
-      email: '',
-      password: '',
-      password_confirmation: ''
-    };
-  }),
-
   actions: {
     register() {
-      let self = this;
+      let _this = this;
       this.store.createRecord('user', {
-          email: self.get('fakeUser.email'),
-          password: self.get('fakeUser.password'),
-          password_confirmation: self.get('fakeUser.password_confirmation')
-        }).save().then(function(response) {
-          self.notifications.clearAll();
-          self.notifications.success('Done! Please check your inbox.', {
-              autoClear: true
+        email: _this.get('fakeUser.email'),
+        password: _this.get('fakeUser.password'),
+        password_confirmation: _this.get('fakeUser.password_confirmation')
+      }).save().then(function(response) {
+          _this.notifications.clearAll();
+          _this.notifications.success('Done! Please check your inbox.', {
+            autoClear: true
           });
-        self.transitionToRoute('index');
+          console.log('Response: ', response);
+          _this.transitionToRoute('index');
         }, function(response) {
           response.errors.forEach((error) => {
-            self.notifications.error(`Error: ${error.source.pointer.replace('/data/attributes/', '')} ${error.detail}`);
+            _this.notifications.error(`Error: ${error.source.pointer.replace('/data/attributes/', '')} ${error.detail}`);
           });
           // Disabled for now, as we don't have JSON API error responses yet
 
@@ -46,13 +37,12 @@ export default Ember.Controller.extend({
       );
     },
     authenticate() {
-      let {identification, password} = this.getProperties('identification', 'password');
+      let { identification, password } = this.getProperties('identification', 'password');
       this.get('session').authenticate('authenticator:elvis', identification, password).catch((reason) => {
         this.set('errorMessage', reason.error || reason);
+      }).then(function() {
+        location.reload();
       });
-    },
-    invalidateSession() {
-      this.get('session').invalidate();
     }
   }
 });

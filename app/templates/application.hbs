@@ -1,8 +1,13 @@
+{{partial 'partials/main-nav'}}
+
 <div class="c-notifications__container">
     {{#each notifications as |notification|}}
         {{notification-message notification=notification}}
     {{/each}}
 </div>
 
+
 {{outlet}}
 
+{{!-- ember-cli-materialize modal container --}}
+{{md-modal-container}}

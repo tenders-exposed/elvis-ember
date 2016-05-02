@@ -12,7 +12,7 @@
     <div class="col s2">&nbsp;</div>
     <div class="col s8">
       {{#if refresh}}
-        {{#each checkedItems as |selected|}}
+        {{#each selectedCodes as |selected|}}
           <div class="chip" id="chip-{{selected.code}}">
             [{{selected.code}}]
             {{selected.description}}

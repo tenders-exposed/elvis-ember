@@ -1,8 +1,6 @@
 import Ember from 'ember';
-import ENV from '../../config/environment';
 import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
 import _ from 'lodash/lodash';
-
 
 export default Ember.Route.extend(UnauthenticatedRouteMixin, {
   ajax: Ember.inject.service(),
@@ -13,7 +11,7 @@ export default Ember.Route.extend(UnauthenticatedRouteMixin, {
   model(params) {
     let self = this;
     let token = params.t;
-    self.get('ajax').request(`/users/confirmation?confirmation_token=${token}`).then((data) => {
+    self.get('ajax').request(`/users/confirmation?confirmation_token=${token}`).then(() => {
       self.notifications.success('Your account is now activated!', {
         autoClear: true
       });
