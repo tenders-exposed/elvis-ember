@@ -13,6 +13,7 @@ export default Ember.Controller.extend({
           self.notifications.success('Done! Please check your inbox.', {
             autoClear: true
           });
+          console.log('Response: ', response);
           self.transitionToRoute('index');
         }, function(response) {
           response.errors.forEach((error) => {
