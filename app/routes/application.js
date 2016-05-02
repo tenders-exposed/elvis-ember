@@ -9,7 +9,11 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   namespace: ENV.APP.apiNamespace,
   dbVersion: ENV.APP.dbVersion,
   ajax: Ember.inject.service(),
-  session: Ember.inject.service('session'),
+  
+  
+  setupController(controller){
+    controller.set('currentUser', this.get('session.session.content.authenticated.user'));
+  },
 
 
   refreshData(name, path, controller) {

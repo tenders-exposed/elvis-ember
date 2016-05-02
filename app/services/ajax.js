@@ -3,7 +3,7 @@ import ENV from '../config/environment';
 import AjaxService from 'ember-ajax/services/ajax';
 
 export default AjaxService.extend({
-  host: `${ENV.APP.apiHost}/api/${ENV.APP.apiNamespace}`,
+  host: `${ENV.APP.apiHost}/${ENV.APP.apiNamespace}`,
   trustedHosts: [
     '/.*/',
     'localhost',

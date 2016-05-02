@@ -10,13 +10,6 @@ export default Ember.Controller.extend({
     };
   }),
 
-  currentUser: function(){
-    return this.get('session.currentUser');
-  },
-
-  beforeModel() {
-    this.set('currentUser.email', this.get('session.content.authenticated.email'))
-  },
 
   actions: {
     register() {
@@ -56,6 +49,8 @@ export default Ember.Controller.extend({
       let {identification, password} = this.getProperties('identification', 'password');
       this.get('session').authenticate('authenticator:elvis', identification, password).catch((reason) => {
         this.set('errorMessage', reason.error || reason);
+      }).then(function(){
+          location.reload();
       });
     },
     invalidateSession() {
