@@ -48,6 +48,7 @@ Router.map(function() {
       this.route('config', {});
     });
   });
+  this.route('welcome', {path: ''});
 });
 
 export default Router;
