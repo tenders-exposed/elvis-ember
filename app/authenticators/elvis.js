@@ -2,7 +2,7 @@ import Ember from 'ember';
 import Base from 'ember-simple-auth/authenticators/base';
 import ENV from '../config/environment';
 
-const { RSVP, isEmpty, run, get } = Ember;
+const { RSVP, isEmpty, run } = Ember;
 
 /**
   Authenticator that works with the Ruby gem
@@ -31,8 +31,8 @@ export default Base.extend({
     @public
   */
   restore(data) {
-    const tokenAttribute = data.user.authentication_token;
-    const identificationAttribute = data.user.email;
+    let tokenAttribute = data.user.authentication_token;
+    let identificationAttribute = data.user.email;
     return new RSVP.Promise((resolve, reject) => {
       if (!isEmpty(tokenAttribute) && !isEmpty(identificationAttribute)) {
         resolve(data);
@@ -99,7 +99,7 @@ export default Base.extend({
     @protected
   */
   makeRequest(data) {
-    const serverTokenEndpoint = this.get('serverTokenEndpoint');
+    let serverTokenEndpoint = this.get('serverTokenEndpoint');
     return Ember.$.ajax({
       url:      serverTokenEndpoint,
       type:     'POST',

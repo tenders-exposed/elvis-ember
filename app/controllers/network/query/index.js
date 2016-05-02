@@ -1,6 +1,4 @@
 import Ember from 'ember';
-import DS from 'ember-data';
-import ENV from '../../../config/environment';
 import _ from 'lodash/lodash';
 
 export default Ember.Controller.extend({
@@ -36,8 +34,8 @@ export default Ember.Controller.extend({
   //   return query;
   // }.property(selectedCodes),
   model() {
-    //return this.store.findRecord('user', this.get('session.session.content.authenticated.id'));
-    //return this.store.createRecord('network', {});
+    // return this.store.findRecord('user', this.get('session.session.content.authenticated.id'));
+    // return this.store.createRecord('network', {});
   },
   prepareQuery() {
     let self = this;
@@ -63,7 +61,7 @@ export default Ember.Controller.extend({
       let self = this;
 
       self.prepareQuery();
-      ////self.send('loading');
+      // // self.send('loading');
 
       self.notifications.info('This is probably going to take a while...', {
         autoClear: false
@@ -80,12 +78,12 @@ export default Ember.Controller.extend({
           years: _.range(this.get('query.years')[0], ++this.get('query.years')[1])
         }
       }).save().then((data) => {
-        //self.set('network', data);
+        // self.set('network', data);
         alert('data');
         console.log(data);
         alert('data2');
-        //self.send('finished');
-        //self.transitionToRoute('network.query.show', data.id)
+        // self.send('finished');
+        // self.transitionToRoute('network.query.show', data.id)
         self.transitionToRoute('network.show', data.id);
       });
 

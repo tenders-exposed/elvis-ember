@@ -6,6 +6,7 @@ export default Ember.Component.extend({
   selectedCodes: [],
   refresh: true,
   table: {},
+
   // dataSet: [],
   // columns: [
   //   {
@@ -32,7 +33,6 @@ export default Ember.Component.extend({
 
     this.flattenCpvs(self.get('cpvs'));
 
-
     self.set('table', Ember.$('#cpv-table').DataTable({
       data: self.get('cpvs'),
       columns: [
@@ -44,7 +44,7 @@ export default Ember.Component.extend({
       // paging: false,
       scrollY: '60vh',
       scrollCollapse: true,
-      createdRow: function(row, data) {
+      createdRow(row, data) {
         Ember.$(row).attr('id', `tr-${data[0]}`);
         Ember.$(row).attr('title', data[1]);
         if (Ember.$.grep(self.get('selectedCodes'),
@@ -84,9 +84,9 @@ export default Ember.Component.extend({
       });
     });
   },
-  //willClearRender() {
-  //  this.set('table', {});
-  //},
+  // willClearRender() {
+  //   this.set('table', {});
+  // },
   didUpdate() {
     let self = this;
     Ember.$('div.chip').click(function() {

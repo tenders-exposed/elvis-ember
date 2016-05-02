@@ -1,7 +1,7 @@
 /* Main navbar*/
 
 div.nav-wrapper>div.row {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 div#main-navbar {
@@ -25,10 +25,10 @@ div#main-navbar {
     }
   }
   ul#main-links {
-    margin: 0px auto;
+    margin: 0 auto;
     div.link-icon {
       display: block;
-      margin: 0px auto;
+      margin: 0 auto;
       width: 25px;
       height: 25px;
       &.new-graph-icon {

@@ -44,11 +44,11 @@ Router.map(function() {
         this.route('relationships', {});
       });
     });
-    this.route('query', function(){
+    this.route('query', function() {
       this.route('config', {});
     });
   });
-  this.route('welcome', {path: ''});
+  this.route('welcome', { path: '' });
 });
 
 export default Router;

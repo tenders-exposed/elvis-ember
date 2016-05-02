@@ -4,6 +4,7 @@ export default Ember.Route.extend({
   actions: {
     deviseSendRecover(email) {
       console.log(email);
+
       // var req = raw({
       //   type: 'POST',
       //   url: '/users/password',

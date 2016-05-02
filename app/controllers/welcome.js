@@ -3,21 +3,21 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   actions: {
     register() {
-      let self = this;
+      let _this = this;
       this.store.createRecord('user', {
-        email: self.get('fakeUser.email'),
-        password: self.get('fakeUser.password'),
-        password_confirmation: self.get('fakeUser.password_confirmation')
+        email: _this.get('fakeUser.email'),
+        password: _this.get('fakeUser.password'),
+        password_confirmation: _this.get('fakeUser.password_confirmation')
       }).save().then(function(response) {
-          self.notifications.clearAll();
-          self.notifications.success('Done! Please check your inbox.', {
+          _this.notifications.clearAll();
+          _this.notifications.success('Done! Please check your inbox.', {
             autoClear: true
           });
           console.log('Response: ', response);
-          self.transitionToRoute('index');
+          _this.transitionToRoute('index');
         }, function(response) {
           response.errors.forEach((error) => {
-            self.notifications.error(`Error: ${error.source.pointer.replace('/data/attributes/', '')} ${error.detail}`);
+            _this.notifications.error(`Error: ${error.source.pointer.replace('/data/attributes/', '')} ${error.detail}`);
           });
           // Disabled for now, as we don't have JSON API error responses yet
 
@@ -37,12 +37,12 @@ export default Ember.Controller.extend({
       );
     },
     authenticate() {
-      let {identification, password} = this.getProperties('identification', 'password');
+      let { identification, password } = this.getProperties('identification', 'password');
       this.get('session').authenticate('authenticator:elvis', identification, password).catch((reason) => {
         this.set('errorMessage', reason.error || reason);
-      }).then(function(){
+      }).then(function() {
         location.reload();
       });
-    },
+    }
   }
 });

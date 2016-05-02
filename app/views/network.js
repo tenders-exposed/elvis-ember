@@ -5,6 +5,7 @@ export default Ember.View.extend({
     this._super();
     Ember.run.scheduleOnce('afterRender', this, this.afterRenderEvent);
   },
+
   afterRenderEvent() {
     // Em.$(document).ready(function(){
     //   Em.$("div#network-container").height(window.innerHeight);

@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  //queryCtl: Ember.inject.controller('network.query'),
+  // queryCtl: Ember.inject.controller('network.query'),
   // query: Ember.computed(function(){
   //   return this.controllerFor('network.query').get('network.graph');
   // }),

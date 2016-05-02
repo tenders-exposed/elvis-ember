@@ -10,7 +10,7 @@ export default Component.extend({
   }),
   click() {
     console.log(this.get('option'));
-    
+
     // Hack for GB = UK, because TED data...
     if (this.get('option.key') === 'UK') {
       this.set('option.name', 'United Kingdom');

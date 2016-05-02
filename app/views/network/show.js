@@ -3,20 +3,19 @@ import WithComputedSizeMixin from 'ember-computed-size/mixins/with-computed-size
 
 export default Ember.View.extend(WithComputedSizeMixin, {
   initializeNetwork() {
-    var self = this;
     let container = document.getElementById('visjs-network');
     let data = {
       nodes: this.get('controller.nodes'),
       edges: this.get('controller.edges')
     };
     let options = this.get('controller.options');
-    let network = new vis.Network(container, data, options);
+    return new vis.Network(container, data, options);
   },
-  didInsertElement : function(){
+  didInsertElement() {
     this._super();
     this.initializeNetwork();
     // Ember.run.scheduleOnce('afterRender', this, this.afterRenderEvent);
-  },
+  }
   //  afterRenderEvent : function(){
   //    $(document).ready(function(){
   //      resizeDetails();

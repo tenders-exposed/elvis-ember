@@ -6,6 +6,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     // console.log('query: ', this.controllerFor('network.query').get('query'));
     this.notifications.clearAll();
   },
+
   // setupController(controller) {
   //   //controller.set('nodes', new vis.DataSet([
   //   //                          {id: 1, label: 'Node 1'},

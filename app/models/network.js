@@ -7,5 +7,5 @@ export default DS.Model.extend({
   description: DS.attr('string'),
   query: DS.attr(),
   graph: DS.attr(),
-  options: DS.attr(),
+  options: DS.attr()
 });
