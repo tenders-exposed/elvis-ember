@@ -15,7 +15,7 @@ const { RSVP, isEmpty, run, get } = Ember;
   @public
 */
 export default Base.extend({
-  serverTokenEndpoint: `${ENV.APP.apiHost}/api/${ENV.APP.apiNamespace}/users/sign_in`,
+  serverTokenEndpoint: `${ENV.APP.apiHost}/${ENV.APP.apiNamespace}/users/sign_in`,
 
   /**
     Restores the session from a session data object; __returns a resolving

@@ -1,15 +1,17 @@
-import ESASession from "ember-simple-auth/services/session";
+import Ember from 'ember';
+import DS from 'ember-data';
+import SessionService from 'ember-simple-auth/services/session';
 
-export default ESASession.extend({
+export default SessionService.extend({
 
   store: Ember.inject.service(),
 
-  setCurrentUser: function() {
-    if (this.get('isAuthenticated')) {
-      this.get('store').find('user', '56f6c8dbd731e25711000000').then((user) => {
-        this.set('currentUser', user);
+  account: Ember.computed('session.content.authenticated.user_id', function() {
+    const user_id =  this.get('session.content.authenticated.user_id');
+    if (!Ember.isEmpty(user_id)) {
+      return DS.PromiseObject.create({
+        promise: this.get('store').findRecord('user', user_id)
       });
     }
-  }.observes('isAuthenticated')
-
+  })
 });

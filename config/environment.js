@@ -25,7 +25,7 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    ENV.APP.apiHost = 'http://localhost:3000';
+    ENV.APP.apiHost = 'http://localhost:3000/api';
     ENV.APP.apiNamespace = 'v1';
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
@@ -47,13 +47,13 @@ module.exports = function(environment) {
   }
 
   if (environment === 'staging') {
-    ENV.APP.apiHost = 'http://api.staging.elvis.tenders.exposed';
+    ENV.APP.apiHost = 'http://api.staging.elvis.tenders.exposed/api';
     ENV.APP.apiNamespace = 'v1';
 
   }
 
   if (environment === 'production') {
-    ENV.APP.apiHost = 'http://db1.tenders.exposed:3000';
+    ENV.APP.apiHost = 'http://db1.tenders.exposed:3000/api';
     //ENV.APP.apiHost = 'http://nulltech.ddns.net:3000';
     ENV.APP.apiNamespace = 'v1';
 
@@ -71,7 +71,7 @@ module.exports = function(environment) {
     'script-src': "'self' 'unsafe-inline' 'unsafe-eval' http://api.elvis.tenders.exposed http://db1.tenders.exposed:3000",
     'font-src': "'self' http://fonts.gstatic.com",
     'connect-src': "'self' * http://192.168.0.111:3000 http://0.0.0.0:3000 https://api.mixpanel.com http://localhost:3000 http://localhost:35729 blob: http://api.elvis.tenders.exposed http://db1.tenders.exposed:3000",
-    'img-src': "'self' 'unsafe-inline' 'unsafe-eval' *",
+    'img-src': "'self' 'unsafe-inline' 'unsafe-eval' data: *",
     'style-src': "'self' 'unsafe-inline' http://fonts.googleapis.com",
     'media-src': "'self'",
     'report-uri': "http://localhost:4200"
