@@ -15,8 +15,8 @@ span.query-step{
       content: "";
       display: block;
       z-index: -1;
-      border-left: 1px solid white;
-      height: 110px;
+      border-left: 0px solid white;
+      height: 250px;
       position: absolute;
       margin-left: 20px;
     }
@@ -33,7 +33,7 @@ span.query-step{
       content: "";
       display: block;
       z-index: -1;
-      border-left: 1px solid white;
+      border-left: 0px solid white;
       height: 110px;
       position: absolute;
       margin-left: 16px;
@@ -60,6 +60,30 @@ div.query-form-container {
   }
 }
 
+form > .row {
+  position: relative;
+}
+
+form > .row > .col.s1:first-child {
+    &:before {
+      content: "";
+      display: block;
+      z-index: -1;
+      border-left: 1px solid white;
+      height: 130%;
+      position: absolute;
+      margin-left: 28px;
+      margin-top: 16px;
+    }
+}
+
+form > .row:last-child > .col.s1:first-child {
+    &:before {
+      content: "";
+      display: block;
+      border-left: 0px;
+    }
+}
 
 .noUi-target {
   height: 2px;
