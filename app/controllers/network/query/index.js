@@ -6,10 +6,9 @@ export default Ember.Controller.extend({
   session: Ember.inject.service('session'),
 
   network: {},
-
   selectedCodes: [],
-
   cpvModalIsOpen: false,
+  optionsModalIsOpen: false,
   yearMin: 2001,
   yearMax: 2015,
   height: window.innerHeight - 200,
@@ -21,22 +20,12 @@ export default Ember.Controller.extend({
     'years': [2004, 2007],
     'cpvs': []
   },
-  // query: function() {
-  //   let query = {
-  //     'countries': ['PL', 'LV', 'IT'],
-  //     'years': [],
-  //     'cpvs': []
-  //   };
-  //   let cpvs = [];
-  //   this.get('selectedCodes').forEach((k,v) => {
-  //     query.cpvs.push(v.code);
-  //   });
-  //   return query;
-  // }.property(selectedCodes),
+  
   model() {
     // return this.store.findRecord('user', this.get('session.session.content.authenticated.id'));
     // return this.store.createRecord('network', {});
   },
+  
   prepareQuery() {
     let self = this;
     self.get('selectedCodes').forEach((k, v) => {
@@ -46,17 +35,25 @@ export default Ember.Controller.extend({
       self.get('query.countries').push(k.key);
     });
   },
+  
   actions: {
+    
     onSelectEvent(value) {
       this.set('query.country_ids', value);
       console.log('New select value: ', value);
     },
-    toggleModal() {
+    
+    toggleCpvModal() {
       this.get('selectedCodes').forEach((k, v) => {
         console.log(this.get('cpvs')[v]);
       });
       this.toggleProperty('cpvModalIsOpen');
     },
+    
+    toggleOptionsModal() {
+      this.toggleProperty('optionsModalIsOpen');
+    },
+    
     submitQuery() {
       let self = this;
 
@@ -66,6 +63,8 @@ export default Ember.Controller.extend({
       self.notifications.info('This is probably going to take a while...', {
         autoClear: false
       });
+      
+      self.set('isLoading', true);
 
       this.get('store').createRecord('network', {
         options: {
@@ -79,15 +78,17 @@ export default Ember.Controller.extend({
         }
       }).save().then((data) => {
         // self.set('network', data);
-        alert('data');
+        // alert('data');
         console.log(data);
-        alert('data2');
+        // alert('data2');
         // self.send('finished');
         // self.transitionToRoute('network.query.show', data.id)
+        self.set('isLoading', false);
+        self.toggleProperty('optionsModalIsOpen');
         self.transitionToRoute('network.show', data.id);
       });
-
     },
+
     invalidateSession() {
       this.get('session').invalidate();
     }

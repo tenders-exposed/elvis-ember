@@ -53,7 +53,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.APP.apiHost = 'http://db1.tenders.exposed:3000/api';
+    ENV.APP.apiHost = 'http://oz.tenders.exposed:3000/api';
     //ENV.APP.apiHost = 'http://nulltech.ddns.net:3000';
     ENV.APP.apiNamespace = 'v1';
 
