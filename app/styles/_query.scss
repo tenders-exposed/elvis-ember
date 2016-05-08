@@ -1,0 +1,37 @@
+div#cpv-container {
+  width: 100%;
+  height: 100%;
+  /*
+  left: 50%;
+  top: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+  */
+  position: fixed;
+  overflow: auto;
+  top: 0;
+  left: 0;
+  display: block;
+  z-index: 1000;
+  ul#cpv-list {
+    &, & * {
+      background: #1A1A1C;
+    }
+  }
+}
+
+#cpv-table {
+  tr {
+    &.odd {background-color: #111;}
+    &.even {background-color: #222;}
+    &:hover {
+      background-color: #333;
+      color: #B693B6;
+      cursor: pointer;
+    }
+    &.selected {
+      & td:first-child {text-decoration: line-through;}
+      & td:last-child {font-weight: bold;}
+    }
+  }
+}
