@@ -95,7 +95,7 @@
             <div class="col s8"></div>
         </div>
         {{#if optionsModalIsOpen}}
-          {{query-options-modal sourceController=this action='submitQuery'}}
+          {{query-options-modal sourceController=this action='submitQuery' query=query}}
         {{/if}}
     </form>
 </div>

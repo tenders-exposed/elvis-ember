@@ -79,7 +79,7 @@ export default Ember.Controller.extend({
       }).save().then((data) => {
         // self.set('network', data);
         // alert('data');
-        console.log(data);
+        // console.log(data);
         // alert('data2');
         // self.send('finished');
         // self.transitionToRoute('network.query.show', data.id)
