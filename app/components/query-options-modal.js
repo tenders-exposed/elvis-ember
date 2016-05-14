@@ -39,7 +39,7 @@ export default Ember.Component.extend({
     onSelectNodes(value) {
       this.set('query.nodes', value);
     },
-    
+
     onSelectEdges(value) {
       this.set('query.edges', value);
     },

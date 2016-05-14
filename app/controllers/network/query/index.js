@@ -3,7 +3,8 @@ import _ from 'lodash/lodash';
 
 export default Ember.Controller.extend({
   ajax: Ember.inject.service(),
-  session: Ember.inject.service('session'),
+  // Session is now automatically injected everywhere
+  // session: Ember.inject.service('session'),
 
   network: {},
   selectedCodes: [],
@@ -17,43 +18,63 @@ export default Ember.Controller.extend({
     'edges': 'count',
     'rawCountries': [],
     'countries': [],
-    'years': [2004, 2007],
+    'years': [2008, 2010],
     'cpvs': []
   },
-  
-  model() {
-    // return this.store.findRecord('user', this.get('session.session.content.authenticated.id'));
-    // return this.store.createRecord('network', {});
-  },
-  
+
   prepareQuery() {
     let self = this;
-    self.get('selectedCodes').forEach((k, v) => {
-      self.get('query.cpvs').push(k.code);
-    });
-    self.get('query.rawCountries').forEach((k,v) => {
-      self.get('query.countries').push(k.key);
+    _.this.get('selectedCodes').forEach((v) => {
+      self.get('query.cpvs').push(v.code);
     });
   },
-  
+
   actions: {
-    
+
     onSelectEvent(value) {
-      this.set('query.country_ids', value);
-      console.log('New select value: ', value);
-    },
-    
-    toggleCpvModal() {
-      this.get('selectedCodes').forEach((k, v) => {
-        console.log(this.get('cpvs')[v]);
+      this.set('query.countries', []);
+      value.forEach((v) => {
+        this.get('query.countries').push(v.key);
       });
-      this.toggleProperty('cpvModalIsOpen');
+      this.set('query.country_ids', value);
+      // this.prepareQuery();
     },
-    
+
+    slidingAction(value) {
+      // Ember.debug( "New slider value: %@".fmt( value ) );
+      // this.controller.set('years', value[0]);
+      this.set('query.years', []);
+      this.get('query.years').push(value[0]);
+      this.get('query.years').push(value[1]);
+      Ember.run.scheduleOnce('afterRender', function() {
+        Ember.$('span.left-year').text(value[0]);
+        Ember.$('span.right-year').text(value[1]);
+      });
+      this.set('query.years', _.range(this.get('query.years')[0], ++this.get('query.years')[1]));
+    },
+
+    toggleCpvModal() {
+
+      let self = this;
+      let options = `{
+        "query": {
+            "countries": ["${self.get('query.countries').join('", "')}"],
+            "years": [${self.get('query.years').join(', ')}]
+        }
+      }`;
+
+      this.get('ajax')
+        .post('/contracts/cpvs', {data: options, headers: {"Content-Type": 'application/json'}})
+        .then((data) => {
+          self.set('cpvs', data.search.results);
+          this.toggleProperty('cpvModalIsOpen');
+        });
+    },
+
     toggleOptionsModal() {
       this.toggleProperty('optionsModalIsOpen');
     },
-    
+
     submitQuery() {
       let self = this;
 
@@ -63,18 +84,18 @@ export default Ember.Controller.extend({
       self.notifications.info('This is probably going to take a while...', {
         autoClear: false
       });
-      
+
       self.set('isLoading', true);
 
       this.get('store').createRecord('network', {
         options: {
-          nodes: this.get('query.nodes'),
-          edges: this.get('query.edges')
+          nodes: this.get('query.nodes.name'),
+          edges: this.get('query.edges.name')
         },
         query: {
           cpvs: this.get('query.cpvs').uniq(),
           countries: this.get('query.countries').uniq(),
-          years: _.range(this.get('query.years')[0], ++this.get('query.years')[1])
+          years: this.get('query.years').uniq(),
         }
       }).save().then((data) => {
         // self.set('network', data);
