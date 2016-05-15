@@ -21,11 +21,17 @@ export default Ember.Controller.extend({
     'years': [2008, 2010],
     'cpvs': []
   },
+  defaults: {
+    years: {
+      min: 2008,
+      max: 2011
+    }
+  },
 
   prepareQuery() {
     let self = this;
-    _.this.get('selectedCodes').forEach((v) => {
-      self.get('query.cpvs').push(v.code);
+    self.get('selectedCodes').forEach((v) => {
+      self.get('query.cpvs').push(v.code.replace(/0*$/g, ''));
     });
   },
 

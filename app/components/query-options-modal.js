@@ -2,6 +2,17 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   refresh: true,
+  
+  defaults: {
+    nodes: {
+      name: 'sum',
+      description: 'Sum of the contracts'
+    },
+    edges: {
+      name: 'sum',
+      description: 'Sum of the contracts'
+    }
+  },
 
   options: {
     nodes: [

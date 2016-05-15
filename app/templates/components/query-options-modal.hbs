@@ -18,7 +18,7 @@
                   <div class="col s6">
                       <div class="input-field">
                         {{ember-select-guru
-                        value=query.nodes
+                        value=defaults.nodes
                         options=options.nodes
                         onSelect=(action "onSelectNodes")}}
                       </div>
@@ -38,7 +38,7 @@
                   <div class="col s6">
                       <div class="input-field">
                         {{ember-select-guru
-                        value=query.edges
+                        value=defaults.edges
                         options=options.edges
                         onSelect=(action "onSelectEdges")}}
                       </div>
