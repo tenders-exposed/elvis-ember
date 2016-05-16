@@ -27,9 +27,9 @@
             <div class="col s6">
                 <div class="input-field">
                     <div class="row">
-                        <div class="col s2 center-align"><span class="year-label left-year">2004</span></div>
+                        <div class="col s2 center-align"><span class="year-label left-year">{{defaults.years.min}}</span></div>
                         <div class="col s8">&nbsp;</div>
-                        <div class="col s2 center-align"><span class="year-label right-year">2007</span></div>
+                        <div class="col s2 center-align"><span class="year-label right-year">{{defaults.years.max}}</span></div>
                     </div>
                     <p class="range-field">
                       {{range-slider
@@ -95,7 +95,7 @@
             <div class="col s8"></div>
         </div>
         {{#if optionsModalIsOpen}}
-          {{query-options-modal sourceController=this action='submitQuery'}}
+          {{query-options-modal sourceController=this action='submitQuery' query=query}}
         {{/if}}
     </form>
 </div>

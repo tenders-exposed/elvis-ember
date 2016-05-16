@@ -16,6 +16,12 @@
                       <img src="//lorempixum.com/100/100">
                   </div>
                   <div class="col s6">
+                      <div class="input-field">
+                        {{ember-select-guru
+                        value=defaults.nodes
+                        options=options.nodes
+                        onSelect=(action "onSelectNodes")}}
+                      </div>
                   </div>
               </div>
               <div class="row">
@@ -30,6 +36,12 @@
                       <img src="//lorempixum.com/100/100">
                   </div>
                   <div class="col s6">
+                      <div class="input-field">
+                        {{ember-select-guru
+                        value=defaults.edges
+                        options=options.edges
+                        onSelect=(action "onSelectEdges")}}
+                      </div>
                   </div>
               </div>
               <div class="row">

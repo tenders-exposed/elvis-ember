@@ -17,10 +17,10 @@ export default Ember.Route.extend({
 
   /* Custom functions */
 
-  setAvailable(controller, item) {
+  setAvailable(controller, item, options) {
     let self = this;
     if (_.indexOf(_.keysIn(self.get('endpoints')), item) !== -1) {
-      self.get('ajax').post(self.get(`endpoints.${item}`)).then((data) => {
+      self.get('ajax').post(self.get(`endpoints.${item}`), options).then((data) => {
         self.set(`availableData.${item}`, data);
         // let result = [];
         // _.each(data.search.results, function(v) {
@@ -45,28 +45,9 @@ export default Ember.Route.extend({
   setupController(controller) {
     let self = this;
 
-    _.each(['countries', 'years', 'cpvs'], function(value) {
+    _.each(['countries', 'years'], function(value) {
       self.setAvailable(controller, value);
     });
   },
 
-  /* Custom actions */
-
-  actions: {
-    slidingAction(value) {
-      // Ember.debug( "New slider value: %@".fmt( value ) );
-      // this.controller.set('years', value[0]);
-      this.controller.set('query.years', []);
-      this.controller.get('query.years').push(value[0]);
-      this.controller.get('query.years').push(value[1]);
-      Ember.run.scheduleOnce('afterRender', function() {
-        Ember.$('span.left-year').text(value[0]);
-        Ember.$('span.right-year').text(value[1]);
-      });
-    },
-    sendForm() {
-      // console.log("Years: ", this.controller.years);
-      this.transitionTo('network.show', 1);
-    }
-  }
 });
