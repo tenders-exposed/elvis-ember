@@ -84,7 +84,6 @@ export default Ember.Controller.extend({
     submitQuery() {
       let self = this;
 
-      self.prepareQuery();
       // // self.send('loading');
 
       self.notifications.info('This is probably going to take a while...', {
@@ -95,8 +94,10 @@ export default Ember.Controller.extend({
 
       this.get('store').createRecord('network', {
         options: {
-          nodes: this.get('query.nodes.name'),
-          edges: this.get('query.edges.name')
+          // nodes: this.get('query.nodes.name'),
+          // edges: this.get('query.edges.name')
+          nodes: 'count',
+          edges: 'count'
         },
         query: {
           cpvs: this.get('query.cpvs').uniq(),
