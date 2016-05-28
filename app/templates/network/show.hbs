@@ -6,10 +6,19 @@
   <i class="fa fa-arrow-circle-right"></i>
 </div>
 
-<div id="network-container">
-
-  <div id="visjs-network"></div>
-
+<div id="network-container" style="height: {{height}}px;">
+{{#visjs-network options=networkOptions}}
+  {{#each model.graph.nodes as |node|}}
+    {{#if (eq node.type 'supplier')}}
+      {{visjs-node nId=node.id label=node.label color='rgb(39,239,252)'}}
+    {{else}}
+      {{visjs-node nId=node.id label=node.label color='rgb(239,48,143)'}}
+    {{/if}}
+  {{/each}}
+  {{#each model.graph.edges as |edge|}}
+    {{visjs-edge from=edge.from to=edge.to value=edge.value color='rgb(49,57,57)'}}
+  {{/each}}
+{{/visjs-network}}
   {{outlet id="details-container"}}
 </div>
 
