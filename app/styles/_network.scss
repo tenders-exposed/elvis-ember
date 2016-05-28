@@ -85,6 +85,23 @@ div#sidebar-toggle {
   }
 }
 
+/* [ Left Sidebar ] */
+div#details-container {
+  div#details-sidebar {
+    div.tabs__nav {
+      div.tab-button {
+        width: 32%;
+        cursor: pointer;
+        text-align: center;
+        padding: 10px 0;
+
+        &:hover {
+          background-color: rgba(50,50,50,.7);
+        }
+      }
+    }
+  }
+}
 
 /* ember-cli-materialize hacks */
 .ember-modal-overlay {
