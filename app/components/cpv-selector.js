@@ -72,6 +72,7 @@ export default Ember.Component.extend({
           description: Ember.$(this).attr('title')
         }
       );
+      self.get('query.cpvs').push(Ember.$(this).attr('id').substr(3).replace(/0*$/g, ''));
 
       Ember.run.next(function() {
         self.set('refresh', true);
