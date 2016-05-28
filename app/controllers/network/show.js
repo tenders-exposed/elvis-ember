@@ -6,30 +6,31 @@ export default Ember.Controller.extend({
   //   return this.controllerFor('network.query').get('network.graph');
   // }),
 
-  nodes: Ember.computed(function() {
-    return new vis.DataSet(
-      this.get('model.graph.nodes')
-      // [
-      //   {id: 1, label: 'Node 1'},
-      //   {id: 2, label: 'Node 2'},
-      //   {id: 3, label: 'Node 3'},
-      //   {id: 4, label: 'Node 4'},
-      //   {id: 5, label: 'Node 5'}
-      // ]
-    );
-  }),
-  edges: Ember.computed(function() {
-    return new vis.DataSet(
-      this.get('model.graph.edges')
-      // [
-      //   {from: 1, to: 3},
-      //   {from: 1, to: 2},
-      //   {from: 2, to: 4},
-      //   {from: 2, to: 5}
-      // ]
-    );
-  }),
-  options: {
+  // nodes: Ember.computed(function() {
+  //   return new vis.DataSet(
+  //     this.get('model.graph.nodes')
+  //     // [
+  //     //   {id: 1, label: 'Node 1'},
+  //     //   {id: 2, label: 'Node 2'},
+  //     //   {id: 3, label: 'Node 3'},
+  //     //   {id: 4, label: 'Node 4'},
+  //     //   {id: 5, label: 'Node 5'}
+  //     // ]
+  //   );
+  // }),
+  // edges: Ember.computed(function() {
+  //   return new vis.DataSet(
+  //     this.get('model.graph.edges')
+  //     // [
+  //     //   {from: 1, to: 3},
+  //     //   {from: 1, to: 2},
+  //     //   {from: 2, to: 4},
+  //     //   {from: 2, to: 5}
+  //     // ]
+  //   );
+  // }),
+  height: window.innerHeight - 100,
+  networkOptions: {
     'nodes': {
       'shape': 'dot',
       'scaling': {
@@ -72,5 +73,12 @@ export default Ember.Controller.extend({
     // 'interaction': {
     //   'hover': true
     // }
+  },
+
+  actions: {
+    nodeClicked(nodeId) {
+      this.set('nodeColor', `#${Math.floor(Math.random() * 16777215).toString(16)}`);
+      console.log(`${nodeId} was clicked`);
+    }
   }
 });
