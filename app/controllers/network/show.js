@@ -6,10 +6,11 @@ export default Ember.Controller.extend({
     'nodes': {
       'shape': 'dot',
       'scaling': {
-        'label': {
-          'min': 5,
-          'max': 20
-        }
+        'min': 5,
+        'max': 20,
+        // 'label': {
+        //   'enabled': true
+        // }
       },
       'font': {
         'face': 'Roboto',
@@ -35,10 +36,6 @@ export default Ember.Controller.extend({
         }
       },
       // 'arrowStrikethrough': false,
-      'scaling': {
-        'min': 1,
-        'max': 15
-      },
       'color': {
         'color': '#b1b1b1',
         'highlight': '#313939'

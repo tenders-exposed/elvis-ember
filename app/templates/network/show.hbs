@@ -10,9 +10,9 @@
 {{#visjs-network options=networkOptions}}
   {{#each model.graph.nodes as |node|}}
     {{#if (eq node.type 'supplier')}}
-      {{visjs-node nId=node.id label=node.label color='rgb(39,239,252)'}}
+      {{visjs-node nId=node.id label=node.label value=node.value color='rgb(39,239,252)'}}
     {{else}}
-      {{visjs-node nId=node.id label=node.label color='rgb(239,48,143)'}}
+      {{visjs-node nId=node.id label=node.label value=node.value color='rgb(239,48,143)'}}
     {{/if}}
   {{/each}}
   {{#each model.graph.edges as |edge|}}
