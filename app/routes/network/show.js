@@ -23,10 +23,13 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   //   //                        ]));
   // },
   model(params) {
+    // alert('finding model');
     return this.store.findRecord('network', params.id);
   },
   setupController(controller, model) {
+    // alert('found model');
     controller.set('model', model);
+    // alert('set model');
   },
   actions: {
     openSidebar() {

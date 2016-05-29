@@ -1,5 +1,26 @@
-.sidebar {
-  background: #eee;
-  padding: 30px;
-  text-align: center;
+div#details-container {
+  div#details-sidebar {
+
+    h5.details {
+      padding: 20px;
+    }
+
+    div.tabs__nav {
+      div.tab-button {
+        width: 32%;
+        cursor: pointer;
+        text-align: center;
+        padding: 10px 0;
+
+        &:hover {
+          background-color: rgba(50,50,50,.7);
+        }
+      }
+    }
+
+    .tab-panel {
+      padding: 20px 10px;
+    }
+  }
 }
+

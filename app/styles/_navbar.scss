@@ -4,6 +4,10 @@ div.nav-wrapper>div.row {
   margin-bottom: 0;
 }
 
+.navbar-fixed {
+  height: 80px;
+}
+
 div#main-navbar {
   nav.main-nav, div.nav-wrapper {
     height: 80px;
@@ -18,7 +22,7 @@ div#main-navbar {
   ul#external-links {
     li {
       padding-top: 10px;
-      padding-bottom: 10px;
+      //padding-bottom: 10px;
       a {
         height: 60px;
       }
