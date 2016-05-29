@@ -1,27 +1,40 @@
 {{#network-container id='details-container'}}
-  <div id="details-sidebar">
+  <div id="details-sidebar"  style="height: {{height}}px;">
     <div class="row">
       <div class="col s12">
-        <h5 class="details">MyProjectName</h5>
+        <h5 class="details">New Network {{fa-icon 'edit' size=1}}</h5>
       </div>
       <div class="col s12">
         {{#tabbed-content active=active on-change="changeTab" as |manager|}}
           <div class="tabs__nav">
             {{#tab-button class="tab-button" manager=manager name="suppliers"}}Suppliers{{/tab-button}}
             {{#tab-button class="tab-button" manager=manager name="procurers"}}Procurers{{/tab-button}}
-            {{#tab-button class="tab-button" manager=manager name="relationships"}}Relationshits{{/tab-button}}
+            {{#tab-button class="tab-button" manager=manager name="relationships"}}Relationships{{/tab-button}}
           </div>
 
-          {{#tab-panel manager=manager name="suppliers"}}
-            Tab suppliers
+          {{#tab-panel manager=manager name="suppliers" class='tab-panel'}}
+            {{!--Tab suppliers--}}
+            {{#if model.graph.nodes}}
+              {{ ag-grid gridOptions=gridOptions.suppliers }}
+            {{else}}
+              {{fa-icon 'plus' spin=true}} Loading data grid...
+            {{/if}}
           {{/tab-panel}}
 
-          {{#tab-panel manager=manager name="procurers"}}
-            Tab procurers
+          {{#tab-panel manager=manager name="procurers" class='tab-panel'}}
+            {{#if model.graph.nodes}}
+              {{ ag-grid gridOptions=gridOptions.procurers }}
+            {{else}}
+              {{fa-icon 'plus' spin=true}} Loading data grid...
+            {{/if}}
           {{/tab-panel}}
 
-          {{#tab-panel manager=manager name="relationships"}}
-            Tab relationships
+          {{#tab-panel manager=manager name="relationships" class='tab-panel'}}
+            {{#if model.graph.nodes}}
+              {{ ag-grid gridOptions=gridOptions.relationships }}
+            {{else}}
+              {{fa-icon 'plus' spin=true}} Loading data grid...
+            {{/if}}
           {{/tab-panel}}
         {{/tabbed-content}}
       </div>

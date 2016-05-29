@@ -23,12 +23,14 @@ div#network-container {
   div#details-container {
     z-index: 100;
     position: absolute;
-    top: 0;
+    pointer-events: none;
+    //top: 80px;
     width: 100%; height: 100%; display: block;
 
     * {margin: 0; padding: 0; border: 0;}
 
     div#details-sidebar {
+      pointer-events: all;
       height: 100%;
       width: 30%;
       min-height: 400px;
@@ -45,12 +47,13 @@ div#network-container {
     }
 
     div#details-info {
+      display: none;
       height: 100%;
       width: 70%;
       min-height: 400px;
       float: left;
       top: 0;
-      /*       background: green; */
+      background: green;
       opacity: .8;
     }
   }
@@ -60,7 +63,7 @@ div#sidebar-toggle {
   z-index: 100;
   position: absolute;
   min-height: 500px;
-  height: 100%;
+  height: 90%;
   div#sidebar-toggle-border {
     display: block;
     height: 100%;
@@ -85,24 +88,6 @@ div#sidebar-toggle {
   }
 }
 
-/* [ Left Sidebar ] */
-div#details-container {
-  div#details-sidebar {
-    div.tabs__nav {
-      div.tab-button {
-        width: 32%;
-        cursor: pointer;
-        text-align: center;
-        padding: 10px 0;
-
-        &:hover {
-          background-color: rgba(50,50,50,.7);
-        }
-      }
-    }
-  }
-}
-
 /* ember-cli-materialize hacks */
 .ember-modal-overlay {
   opacity: 1 !important;
@@ -116,4 +101,8 @@ div#details-container {
     background-color: #1A1A1C;
     width: 100%;
   }
+}
+
+.ember-cli-visks-network > .ember-view {
+  display: none;
 }

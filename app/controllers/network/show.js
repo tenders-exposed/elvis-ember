@@ -7,7 +7,7 @@ export default Ember.Controller.extend({
       'shape': 'dot',
       'scaling': {
         'min': 5,
-        'max': 20,
+        'max': 20
         // 'label': {
         //   'enabled': true
         // }
@@ -37,22 +37,42 @@ export default Ember.Controller.extend({
       },
       // 'arrowStrikethrough': false,
       'color': {
-        'color': '#b1b1b1',
-        'highlight': '#313939'
+        'color': '#313939',
+        'highlight': '#b1b1b1'
       }
-    },
-    'physics': {
-      'timestep': 0.3
     },
     'layout': {
       'improvedLayout': false
+    },
+    'physics': {
+      // 'enabled': true,
+      'enabled': true,
+      // 'maxVelocity': 50,
+      'maxVelocity': 50,
+      // 'minVelocity': 0.1,
+      'minVelocity': 0.1,
+      // 'solver': 'barnesHut',
+      'solver': 'barnesHut',
+      // 'timestep': 0.5,
+      'timestep': 0.3,
+      // 'adaptiveTimestep': true
+      'adaptiveTimestep': true,
+      'barnesHut': {
+        'gravitationalConstant': -2000,
+        'springConstant': 0.04,
+        'damping': 0.09
+      },
+      'stabilization': {
+        'enabled': true,
+        'iterations': 1500,
+        'updateInterval': 50,
+        'onlyDynamicEdges': false,
+        'fit': true
+      }
+    },
+    'interaction': {
+      'hover': true
     }
-    // 'physics': {
-    //   'enabled': false
-    // },
-    // 'interaction': {
-    //   'hover': true
-    // }
   },
 
   actions: {
