@@ -18,13 +18,13 @@ export default Ember.Controller.extend({
     'edges': 'count',
     'rawCountries': [],
     'countries': [],
-    'years': [2008, 2010],
+    'years': [2004, 2007],
     'cpvs': []
   },
   defaults: {
     years: {
-      min: 2008,
-      max: 2011
+      min: 2004,
+      max: 2007
     }
   },
 
