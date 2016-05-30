@@ -55,7 +55,6 @@
     "ember-font-awesome": "2.1.0",
     "ember-key-responder": "0.4.2",
     "ember-keyboard": "1.0.3",
-    "ember-legacy-views": "0.2.0",
     "ember-load": "0.0.8",
     "ember-load-initializers": "^0.5.1",
     "ember-local-forage": "0.0.5",

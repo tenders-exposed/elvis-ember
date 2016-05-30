@@ -28,6 +28,7 @@ export default Ember.Controller.extend({
     }
   },
 
+
   prepareQuery() {
     let self = this;
     self.get('selectedCodes').forEach((v) => {
