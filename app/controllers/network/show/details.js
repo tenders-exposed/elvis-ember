@@ -8,11 +8,11 @@ export default Ember.Controller.extend({
     { id: 'relationships', title: 'Relationships' }
   ],
   active: 'suppliers',
-  
+
   gridOptionsBoilerplate: {
     enableColResize: true,
     suppressMovableColumns: true,
-    enableSorting: true,
+    enableSorting: true
     // enableFilter: true,
     // quickFilterText: 'suppliers'
   },
@@ -20,33 +20,31 @@ export default Ember.Controller.extend({
   gridOptions: {
     suppliers: {
       columnDefs: [
-        { headerName: "ID", field: "id", width: 60 },
-        { headerName: "Name", field: "label", width: 210,
-          cellStyle: {
-            'white-space': 'normal'
-          }
+        { headerName: 'ID', field: 'id', width: 60 },
+        { headerName: 'Name', field: 'label', width: 210,
+          cellStyle: { 'white-space': 'normal' }
         },
-        { headerName: "Value", field: "value", width: 30 }
+        { headerName: 'Value', field: 'value', width: 30 }
       ],
       getRowHeight: function(params) { return 18 * (Math.floor(params.data.label.length / 25) + 1); }
     },
     procurers: {
       columnDefs: [
-        { headerName: "ID", field: "id" },
-        { headerName: "Name", field: "label" },
-        { headerName: "Value", field: "value" }
+        { headerName: 'ID', field: 'id' },
+        { headerName: 'Name', field: 'label' },
+        { headerName: 'Value', field: 'value' }
       ],
       getRowHeight: function(params) { return 18 * (Math.floor(params.data.label.length / 25) + 1); }
     },
     relationships: {
       columnDefs: [
-        { headerName: "From", field: "from" },
-        { headerName: "To", field: "to" },
-        { headerName: "Value", field: "value" }
+        { headerName: 'From', field: 'from' },
+        { headerName: 'To', field: 'to' },
+        { headerName: 'Value', field: 'value' }
       ]
     }
   },
-  
+
   init() {
     // this.get('gridOptions.suppliers').push(this.get('gridOptionsBoilerplate'));
     Ember.$.each(this.get('gridOptionsBoilerplate'), (k, v) => {

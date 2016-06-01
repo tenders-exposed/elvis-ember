@@ -42,7 +42,7 @@ export default Ember.Controller.extend({
       }
     },
     'layout': {
-      'improvedLayout': false
+      'improvedLayout': true
     },
     'physics': {
       // 'enabled': true,
@@ -64,14 +64,14 @@ export default Ember.Controller.extend({
       },
       'stabilization': {
         'enabled': true,
-        'iterations': 1500,
-        'updateInterval': 50,
+        'iterations': 1000,
+        'updateInterval': 100,
         'onlyDynamicEdges': false,
         'fit': true
-      }
+      },
     },
     'interaction': {
-      'hover': true
+      'hover': false
     }
   },
 
