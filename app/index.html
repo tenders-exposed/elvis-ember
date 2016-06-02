@@ -19,6 +19,12 @@
   <body>
     {{content-for "body"}}
 
+
+    <script src="assets/vendor.js"></script>
+    <script src="assets/elvis-ember.js"></script>
+
+    {{content-for "body-footer"}}
+
     <div class="ember-load-indicator" style="margin-top: 300px;">
 
       <div class="demo">
@@ -48,10 +54,5 @@
         </svg>
       </div>
     </div>
-
-    <script src="assets/vendor.js"></script>
-    <script src="assets/elvis-ember.js"></script>
-
-    {{content-for "body-footer"}}
   </body>
 </html>

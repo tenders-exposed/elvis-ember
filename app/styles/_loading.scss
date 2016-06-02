@@ -1,5 +1,9 @@
 .ember-load-indicator {
-  background-color: rgba(0, 0, 0, .5);
+  /* background-color: rgba(0, 0, 0, .5); */
+  position: absolute;
+  width: 150px;
+  margin-left: -75px;
+  left: 50%;
 }
 
 .demo {
