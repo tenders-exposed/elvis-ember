@@ -30,18 +30,6 @@
                   {{/link-to}}
                 {{/link-to}}
                 {{#if session.isAuthenticated}}
-                  {{#link-to 'projects' tagName='li'}}
-                    {{#link-to 'projects'}}
-                      <!--                   <div class="link-icon my-projects-icon"></div> -->
-                      My projects
-                    {{/link-to}}
-                  {{/link-to}}
-                  {{#link-to 'account.settings' tagName='li'}}
-                    {{#link-to 'account.settings'}}
-                      <!--                   <div class="link-icon account-settings-icon"></div> -->
-                      Account settings
-                    {{/link-to}}
-                  {{/link-to}}
                   <li><a {{action 'invalidateSession'}}>Log out {{fa-icon "power-off"}}</a></li>
                 {{else}}
                 {{/if}}
