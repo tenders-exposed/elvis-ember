@@ -22,14 +22,14 @@ export default Ember.Component.extend({
   //     'title': 'Count'
   //   }
   // ],
-  
+
   flattenCpvs(cpvs) {
     _.each(cpvs, function(value, key, array) {
       array[key] = _.toArray(value);
       // [array[key][1], array[key][2]] = [array[key][2], array[key][1]];
     });
   },
-  
+
   didInsertElement() {
     let self = this;
 
@@ -61,7 +61,7 @@ export default Ember.Component.extend({
         }
       }
     }));
-    
+
     Ember.$('#cpv-table tbody').on('click', 'tr', function() {
       self.set('refresh', false);
       Ember.$(this).toggleClass('hide');
@@ -78,7 +78,7 @@ export default Ember.Component.extend({
         self.set('refresh', true);
       });
     });
-    
+
     Ember.$('div.chip').click(function() {
       self.set('refresh', false);
       let selected = Ember.$(this).attr('id').substr(5);
@@ -92,11 +92,11 @@ export default Ember.Component.extend({
       });
     });
   },
-  
+
   // willClearRender() {
   //   this.set('table', {});
   // },
-  
+
   didUpdate() {
     let self = this;
     Ember.$('div.chip').click(function() {
@@ -112,13 +112,13 @@ export default Ember.Component.extend({
       });
     });
   },
-  
+
   actions: {
-    
+
     toggleModal() {
       this.get('targetObject').send('toggleCpvModal');
     },
-    
+
     selectCpv(code) {
       // console.log('Selected ', code);
       // console.log('Controller ', this.get('cpvs'));
@@ -131,7 +131,7 @@ export default Ember.Component.extend({
           return false;
         }
       });
-      
+
       this.get('selectedCodes').push(code);
     }
   }

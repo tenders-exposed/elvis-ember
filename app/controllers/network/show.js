@@ -68,7 +68,7 @@ export default Ember.Controller.extend({
         'updateInterval': 100,
         'onlyDynamicEdges': false,
         'fit': true
-      },
+      }
     },
     'interaction': {
       'hover': false

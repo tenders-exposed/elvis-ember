@@ -1,24 +1,37 @@
 import Ember from 'ember';
+import _ from 'lodash/lodash';
 
 export default Ember.Controller.extend({
+  fakeUser: Ember.computed(function() {
+    return {
+      email: '',
+      password: '',
+      password_confirmation: ''
+    };
+  }),
   actions: {
     register() {
-      let _this = this;
+      let self = this;
       this.store.createRecord('user', {
-        email: _this.get('fakeUser.email'),
-        password: _this.get('fakeUser.password'),
-        password_confirmation: _this.get('fakeUser.password_confirmation')
+        email: self.get('fakeUser.email'),
+        password: self.get('fakeUser.password'),
+        password_confirmation: self.get('fakeUser.password_confirmation')
       }).save().then(function(response) {
-          _this.notifications.clearAll();
-          _this.notifications.success('Done! Please check your inbox.', {
+          self.notifications.clearAll();
+          self.notifications.success('Done! Please check your inbox.', {
             autoClear: true
           });
           console.log('Response: ', response);
-          _this.transitionToRoute('index');
+          self.transitionToRoute('welcome');
         }, function(response) {
-          response.errors.forEach((error) => {
-            _this.notifications.error(`Error: ${error.source.pointer.replace('/data/attributes/', '')} ${error.detail}`);
+          _.forEach(response.errors, (error, index) => {
+            error.forEach((v) => {
+              self.notifications.error(`Error: ${index } ${v}`);
+            });
+            // JSON API version:
+            // self.notifications.error(`Error: ${error.source.pointer.replace('/data/attributes/', '')} ${error.detail}`);
           });
+        
           // Disabled for now, as we don't have JSON API error responses yet
 
           // console.error('There was a problem', response);

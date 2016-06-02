@@ -2,40 +2,20 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   refresh: true,
-  
-  defaults: {
-    nodes: {
-      name: 'sum',
-      description: 'Sum of the contracts'
-    },
-    edges: {
-      name: 'sum',
-      description: 'Sum of the contracts'
-    }
-  },
 
   options: {
     nodes: [
-      {
-        name: 'sum',
-        description: 'Sum of the contracts'
-      },
-      {
-        name: 'count',
-        description: 'Total number of contracts'
-      },
+      { name: 'sum' },
+      { name: 'count' }
     ],
     edges: [
-      {
-        name: 'sum',
-        description: 'Sum of the contracts'
-      },
-      {
-        name: 'count',
-        description: 'Total number of contracts'
-      },
+      { name: 'sum' },
+      { name: 'count' }
     ]
   },
+
+  nodes: { name: 'sum'},
+  edges: { name: 'sum'},
 
   actions: {
 
@@ -48,11 +28,13 @@ export default Ember.Component.extend({
     },
 
     onSelectNodes(value) {
-      this.set('query.nodes', value);
+      this.set('nodes', value);
+      this.set('query.nodes', value.name);
     },
 
     onSelectEdges(value) {
-      this.set('query.edges', value);
-    },
+      this.set('edges', value);
+      this.set('query.edges', value.name);
+    }
   }
 });
