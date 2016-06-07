@@ -44,6 +44,11 @@ div#network-container {
           font-weight: bold;
         }
       }
+      .tab-panel {
+        .ag-grid-container {
+          width: 100%;
+        }
+      }
     }
 
     div#details-info {

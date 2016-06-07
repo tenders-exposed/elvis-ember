@@ -18,6 +18,10 @@ div#cpv-container {
       background: #1A1A1C;
     }
   }
+  >.btn {
+    margin-left: 10px;
+    margin-top: 10px;
+  }
 }
 
 #cpv-table {
@@ -32,6 +36,18 @@ div#cpv-container {
     &.selected {
       & td:first-child {text-decoration: line-through;}
       & td:last-child {font-weight: bold;}
+    }
+  }
+}
+
+div#cpv-table_wrapper {
+  div.pagination {
+    .mdl-button {
+      background: black;
+      border: 3px black inset;
+      &:hover {
+        border-color: #666;
+      }
     }
   }
 }

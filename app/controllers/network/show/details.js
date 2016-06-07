@@ -12,7 +12,7 @@ export default Ember.Controller.extend({
   gridOptionsBoilerplate: {
     enableColResize: true,
     suppressMovableColumns: true,
-    enableSorting: true
+    enableSorting: true,
     // enableFilter: true,
     // quickFilterText: 'suppliers'
   },
@@ -20,11 +20,11 @@ export default Ember.Controller.extend({
   gridOptions: {
     suppliers: {
       columnDefs: [
-        { headerName: 'ID', field: 'id', width: 60 },
-        { headerName: 'Name', field: 'label', width: 210,
+        { headerName: 'ID', field: 'id' },
+        { headerName: 'Name', field: 'label',
           cellStyle: { 'white-space': 'normal' }
         },
-        { headerName: 'Value', field: 'value', width: 30 }
+        { headerName: 'Value', field: 'value' }
       ],
       getRowHeight: function(params) { return 18 * (Math.floor(params.data.label.length / 25) + 1); }
     },
@@ -55,6 +55,9 @@ export default Ember.Controller.extend({
   },
 
   actions: {
+    closeDetails(networkId) {
+      this.transitionToRoute('network.show', networkId);
+    },
     changeTab(tab) {
       this.set('active', tab);
     }

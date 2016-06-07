@@ -1,9 +1,8 @@
 import Ember from 'ember';
-import _ from 'lodash/lodash';
 
 export default Ember.Route.extend({
 
-  setupController(controller){
+  setupController(controller) {
     controller.set(
       'model', this.controllerFor('network.show').get('model')
     );

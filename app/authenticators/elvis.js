@@ -31,8 +31,8 @@ export default Base.extend({
     @public
   */
   restore(data) {
-    let tokenAttribute = data.user.authentication_token;
-    let identificationAttribute = data.user.email;
+    let tokenAttribute = data.authentication_token;
+    let identificationAttribute = data.email;
     return new RSVP.Promise((resolve, reject) => {
       if (!isEmpty(tokenAttribute) && !isEmpty(identificationAttribute)) {
         resolve(data);
