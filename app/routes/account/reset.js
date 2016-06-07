@@ -1,6 +1,8 @@
 import Ember from 'ember';
 /* import { raw } from 'ic-ajax'; */
 
+// TODO: WIP, wrap it up and remove dead code
+
 export default Ember.Route.extend({
   // queryParams: {
   //   reset_password_token: {

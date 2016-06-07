@@ -7,26 +7,9 @@ export default Ember.Component.extend({
   refresh: true,
   table: {},
 
-  // dataSet: [],
-  // columns: [
-  //   {
-  //     'propertyName': 'key',
-  //     'title': 'Code'
-  //   },
-  //   {
-  //     'propertyName': 'name',
-  //     'title': 'Description'
-  //   },
-  //   {
-  //     'propertyName': 'doc_count',
-  //     'title': 'Count'
-  //   }
-  // ],
-
   flattenCpvs(cpvs) {
     _.each(cpvs, function(value, key, array) {
       array[key] = _.toArray(value);
-      // [array[key][1], array[key][2]] = [array[key][2], array[key][1]];
     });
   },
 

@@ -3,7 +3,6 @@ import DeviseAuthorizer from 'ember-simple-auth/authorizers/devise';
 
 const { isEmpty } = Ember;
 
-// export default BaseAuthorizer.extend({
 export default DeviseAuthorizer.extend({
   tokenAttributeName: 'authentication_token',
   identificationAttributeName: 'email',
