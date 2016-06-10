@@ -47,7 +47,9 @@
                             <input type="checkbox" value="remember-me" id="rememberme">
                             <label for="rememberme">Remember me</label>
                           </p>}}
-                          {{input type="submit" value="Sign in" class="btn btn-lg btn-primary btn-block"}}
+                          {{!--{{input type="submit" value="Sign in" class="btn btn-lg btn-primary btn-block"}}--}}
+                          {{async-button action=(action "authenticate" fakeUser) default="Sign in" pending="Logging in..." class="btn btn-lg btn-primary btn-block"}}
+
                           {{#if errorMessage}}
                               <p>{{errorMessage}}</p>
                           {{/if}}

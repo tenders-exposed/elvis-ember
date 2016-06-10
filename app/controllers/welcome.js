@@ -31,7 +31,7 @@ export default Ember.Controller.extend({
             // JSON API version:
             // self.notifications.error(`Error: ${error.source.pointer.replace('/data/attributes/', '')} ${error.detail}`);
           });
-        
+
           // Disabled for now, as we don't have JSON API error responses yet
 
           // console.error('There was a problem', response);
@@ -51,10 +51,15 @@ export default Ember.Controller.extend({
     },
     authenticate() {
       let { identification, password } = this.getProperties('identification', 'password');
-      this.get('session').authenticate('authenticator:elvis', identification, password).catch((reason) => {
+      return this.get('session').authenticate('authenticator:elvis', identification, password).catch((reason) => {
         this.set('errorMessage', reason.error || reason);
-      }).then(function() {
-        location.reload();
+      }).then(function(response) {
+        if( typeof response === 'undefined' ) {
+          return;
+        } else {
+          return;
+          location.reload();
+        }
       });
     }
   }
