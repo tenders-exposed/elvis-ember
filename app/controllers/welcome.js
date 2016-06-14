@@ -12,7 +12,7 @@ export default Ember.Controller.extend({
   actions: {
     register() {
       let self = this;
-      this.store.createRecord('user', {
+      return this.store.createRecord('user', {
         email: self.get('fakeUser.email'),
         password: self.get('fakeUser.password'),
         password_confirmation: self.get('fakeUser.password_confirmation')
@@ -24,6 +24,7 @@ export default Ember.Controller.extend({
           console.log('Response: ', response);
           self.transitionToRoute('welcome');
         }, function(response) {
+          self.notifications.clearAll();
           _.forEach(response.errors, (error, index) => {
             error.forEach((v) => {
               self.notifications.error(`Error: ${index } ${v}`);
