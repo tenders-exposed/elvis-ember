@@ -2997,9 +2997,9 @@
       }
     },
     "node-sass": {
-      "version": "3.6.0",
+      "version": "3.7.0",
       "from": "node-sass@>=3.4.1 <4.0.0",
-      "resolved": "https://registry.npmjs.org/node-sass/-/node-sass-3.6.0.tgz",
+      "resolved": "https://registry.npmjs.org/node-sass/-/node-sass-3.7.0.tgz",
       "dependencies": {
         "glob": {
           "version": "7.0.3",

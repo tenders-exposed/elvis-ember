@@ -7,26 +7,9 @@ export default Ember.Component.extend({
   refresh: true,
   table: {},
 
-  // dataSet: [],
-  // columns: [
-  //   {
-  //     'propertyName': 'key',
-  //     'title': 'Code'
-  //   },
-  //   {
-  //     'propertyName': 'name',
-  //     'title': 'Description'
-  //   },
-  //   {
-  //     'propertyName': 'doc_count',
-  //     'title': 'Count'
-  //   }
-  // ],
-
   flattenCpvs(cpvs) {
     _.each(cpvs, function(value, key, array) {
       array[key] = _.toArray(value);
-      // [array[key][1], array[key][2]] = [array[key][2], array[key][1]];
     });
   },
 
@@ -66,7 +49,7 @@ export default Ember.Component.extend({
       self.set('refresh', false);
       Ember.$(this).toggleClass('hide');
 
-      self.get('selectedCodes').push(
+      self.get('selectedCodes').pushObject(
         {
           code: Ember.$(this).attr('id').substr(3),
           description: Ember.$(this).attr('title')
@@ -79,18 +62,18 @@ export default Ember.Component.extend({
       });
     });
 
-    Ember.$('div.chip').click(function() {
-      self.set('refresh', false);
-      let selected = Ember.$(this).attr('id').substr(5);
-      Ember.$(`#tr-${selected}`).toggleClass('hide');
+    // Ember.$('div.chip').click(function() {
+    //   self.set('refresh', false);
+    //   let selected = Ember.$(this).attr('id').substr(5);
+    //   Ember.$(`#tr-${selected}`).toggleClass('hide');
 
-      let pos = self.get('selectedCodes').map((obj) => obj.code).indexOf(selected);
-      self.get('selectedCodes').splice(pos, 1);
+    //   let pos = self.get('selectedCodes').map((obj) => obj.code).indexOf(selected);
+    //   self.get('selectedCodes').splice(pos, 1);
 
-      Ember.run.next(function() {
-        self.set('refresh', true);
-      });
-    });
+    //   Ember.run.next(function() {
+    //     self.set('refresh', true);
+    //   });
+    // });
   },
 
   // willClearRender() {
@@ -100,7 +83,7 @@ export default Ember.Component.extend({
   didUpdate() {
     let self = this;
     Ember.$('div.chip').click(function() {
-      self.set('refresh', false);
+      // self.set('refresh', false);
       let selected = Ember.$(this).attr('id').substr(5);
       Ember.$(`#tr-${selected}`).toggleClass('hide');
 
@@ -108,7 +91,7 @@ export default Ember.Component.extend({
       self.get('selectedCodes').splice(pos, 1);
 
       Ember.run.next(function() {
-        self.set('refresh', true);
+        // self.set('refresh', true);
       });
     });
   },
@@ -132,7 +115,7 @@ export default Ember.Component.extend({
         }
       });
 
-      this.get('selectedCodes').push(code);
+      this.get('selectedCodes').pushObject(code);
     }
   }
 });

@@ -4,11 +4,12 @@
 @import "ember-modal-dialog/ember-modal-structure";
 @import "ember-modal-dialog/ember-modal-appearance";
 
-@import "components.scss";
-@import "forms.scss";
-@import "sidebar.scss";
-@import "navbar.scss";
-@import "network.scss";
+@import "variables";
+@import "components";
+@import "forms";
+@import "sidebar";
+@import "navbar";
+@import "network";
 @import "cpv";
 @import "query";
 @import "loading";
@@ -52,6 +53,6 @@ h1 {
 
 /* Theme colors */
 .mainbg {
-  background-color: #1A1A1C;
+  background-color: $main-bg;
 }
 

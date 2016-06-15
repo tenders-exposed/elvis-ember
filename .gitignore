@@ -10,6 +10,7 @@
 
 # misc
 .idea/
+.browse.VC.db
 /.sass-cache
 /connect.lock
 /coverage/*

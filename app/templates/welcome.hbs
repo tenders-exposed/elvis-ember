@@ -8,7 +8,6 @@
     </li>
 {{/elvis-slider}}
 
-
 {{#if session.isAuthenticated}}
 
     <div class="container">
@@ -47,7 +46,9 @@
                             <input type="checkbox" value="remember-me" id="rememberme">
                             <label for="rememberme">Remember me</label>
                           </p>}}
-                          {{input type="submit" value="Sign in" class="btn btn-lg btn-primary btn-block"}}
+                          {{!--{{input type="submit" value="Sign in" class="btn btn-lg btn-primary btn-block"}}--}}
+                          {{async-button action=(action "authenticate" fakeUser) default="Sign in" pending="Logging in..." class="btn btn-lg btn-primary btn-block"}}
+
                           {{#if errorMessage}}
                               <p>{{errorMessage}}</p>
                           {{/if}}
@@ -76,7 +77,7 @@
                               {{input id="registerPasswordConfirmation" type="password" value=fakeUser.password_confirmation}}
                             </div>
                             <div class="input-field col s12">
-                              {{input class="btn btn-lg btn-primary btn-block" type="submit" value="Create an account"}}
+                              {{async-button action=(action "register" fakeUser) default="Create an account" pending="Sending..." class="btn btn-lg btn-primary btn-block"}}
                             </div>
                         </div>
                     </form>
