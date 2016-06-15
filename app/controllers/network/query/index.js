@@ -6,13 +6,15 @@ export default Ember.Controller.extend({
   // Session is now automatically injected everywhere
   // session: Ember.inject.service('session'),
 
-  network: {},
-  selectedCodes: [],
   cpvModalIsOpen: false,
   optionsModalIsOpen: false,
+
+  network: {},
+  selectedCodes: Ember.A([]),
   yearMin: 2001,
   yearMax: 2015,
   height: window.innerHeight - 200,
+
   query: {
     'nodes': 'count',
     'edges': 'count',

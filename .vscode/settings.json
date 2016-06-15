@@ -1,4 +1,22 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-  "editor.fontFamily": "'Source Code Pro', 'Monofur for Powerline', 'Liberation Mono'"
+  "editor.fontFamily": "'Source Code Pro', 'Monofur for Powerline', 'Liberation Mono'",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.DS_Store": true
+    },
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/node_modules/**": true,
+        "**/dist": true,
+        "**/tmp": true,
+        "**/bower_components": true
+    },
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/dist": true,
+        "**/tmp": true,
+        "**/bower_components": true
+    },
 }
