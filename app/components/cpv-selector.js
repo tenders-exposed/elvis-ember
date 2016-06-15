@@ -62,39 +62,8 @@ export default Ember.Component.extend({
       });
     });
 
-    // Ember.$('div.chip').click(function() {
-    //   self.set('refresh', false);
-    //   let selected = Ember.$(this).attr('id').substr(5);
-    //   Ember.$(`#tr-${selected}`).toggleClass('hide');
-
-    //   let pos = self.get('selectedCodes').map((obj) => obj.code).indexOf(selected);
-    //   self.get('selectedCodes').splice(pos, 1);
-
-    //   Ember.run.next(function() {
-    //     self.set('refresh', true);
-    //   });
-    // });
   },
 
-  // willClearRender() {
-  //   this.set('table', {});
-  // },
-
-  didUpdate() {
-    let self = this;
-    Ember.$('div.chip').click(function() {
-      // self.set('refresh', false);
-      let selected = Ember.$(this).attr('id').substr(5);
-      Ember.$(`#tr-${selected}`).toggleClass('hide');
-
-      let pos = self.get('selectedCodes').map((obj) => obj.code).indexOf(selected);
-      self.get('selectedCodes').splice(pos, 1);
-
-      Ember.run.next(function() {
-        // self.set('refresh', true);
-      });
-    });
-  },
 
   actions: {
 
@@ -103,8 +72,6 @@ export default Ember.Component.extend({
     },
 
     selectCpv(code) {
-      // console.log('Selected ', code);
-      // console.log('Controller ', this.get('cpvs'));
       let item;
       [item] = this.get('cpvs').filter((value) => {
         if (value.key === code) {

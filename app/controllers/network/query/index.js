@@ -9,8 +9,9 @@ export default Ember.Controller.extend({
   cpvModalIsOpen: false,
   optionsModalIsOpen: false,
 
-  network: {},
   selectedCodes: Ember.A([]),
+
+  network: {},
   yearMin: 2001,
   yearMax: 2015,
   height: window.innerHeight - 200,
