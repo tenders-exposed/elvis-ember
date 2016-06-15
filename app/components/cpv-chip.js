@@ -2,28 +2,18 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 
-  click() {
-    let self = this;
-    let code = self.code;
-    let description = self.get('description');
+  click(event) {
 
-    console.log(`Clicked on ${code}`);
-      
-    Ember.$(`#tr-${code}`).toggleClass('hide');
+    if(event.target.classList.contains('fa-close')) {
+      let self = this;
+      let code = self.code;
+      let description = self.get('description');
 
-    // let removable;
-    // self.get('selectedCodes').forEach(function(element) {
-    //   console.log(element.code);
-    //   if (element.code == code) {
-    //     removable = element;
-    //     return;
-    //   }
-    // });
+      Ember.$(`#tr-${code}`).toggleClass('hide');
 
-    let removable = self.get('selectedCodes').findBy('code', code);
+      let removable = self.get('selectedCodes').findBy('code', code);
 
-    // console.log(removable);
-    self.get('selectedCodes').removeObject(removable);
-    // console.log(self.get('selectedCodes'));
+      self.get('selectedCodes').removeObject(removable);
+    }
   }
 });
