@@ -2,6 +2,8 @@
 
 # Elvis-ember
 
+[![Join the chat at https://gitter.im/tenders-exposed/elvis-ember](https://badges.gitter.im/tenders-exposed/elvis-ember.svg)](https://gitter.im/tenders-exposed/elvis-ember?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This README outlines the details of collaborating on this Ember application.
 A short introduction of this app could easily go here.
 
