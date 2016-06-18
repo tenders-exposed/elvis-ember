@@ -111,3 +111,29 @@ div#sidebar-toggle {
 .ember-cli-visks-network > .ember-view {
   display: none;
 }
+
+div#stabilization-info {
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  color: black;
+  text-shadow: 0 0 20px rgba(99, 172, 255, 1);
+  div.align-center {
+    b {
+      padding-top: 25%;
+      width: 100%;
+      text-align: center;
+      position: fixed;
+      font-family: Roboto;
+      //font-weight: normal;
+      font-size: 2rem;
+    }
+  }
+  //padding-top: 35%;
+  //text-align: center;
+  //color: red;
+  //background-color: yellow;
+}

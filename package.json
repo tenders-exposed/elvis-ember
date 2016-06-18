@@ -21,6 +21,7 @@
   "devDependencies": {
     "active-model-adapter": "2.1.1",
     "broccoli-asset-rev": "^2.4.2",
+    "elvis-network": "0.1.1",
     "ember-ag-grid": "0.1.8",
     "ember-ajax": "2.0.1",
     "ember-async-button": "1.0.0",
@@ -47,7 +48,6 @@
     "ember-cli-spinkit": "1.0.0",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-uglify": "^1.2.0",
-    "ember-cli-visjs": "git+https://github.com/nightsh/ember-cli-visjs.git#develop",
     "ember-composability": "0.3.2",
     "ember-computed-size": "0.0.5",
     "ember-data": "2.6.0",

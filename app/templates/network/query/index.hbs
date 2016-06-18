@@ -61,9 +61,8 @@
                 {{cpv-selector cpvs=cpvs height=height selectedCodes=selectedCodes query=query}}
               {{/if}}
                 <br>
-              {{#cpv-chip}}87654760{{/cpv-chip}}
               {{#each selectedCodes as |selected|}}
-                {{#cpv-chip selectedCodes=selectedCodes}}
+                {{#cpv-chip selectedCodes=selectedCodes code=selected.code}}
                   {{selected.code}} - {{selected.description}}
                 {{/cpv-chip}}
               {{/each}}

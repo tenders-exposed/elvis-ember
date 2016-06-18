@@ -18,6 +18,12 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   actions: {
     openSidebar() {
       this.transitionTo('network.show.details');
-    }
+    },
+    // startStabilizing() {
+    //   alert('start stabilizing');
+    // },
+    // stabilizationIterationsDone() {
+    //   alert('stabilization iterations done');
+    // }
   }
 });
