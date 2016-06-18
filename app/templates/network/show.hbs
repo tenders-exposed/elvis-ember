@@ -6,18 +6,50 @@
   <i class="fa fa-arrow-circle-right"></i>
 </div>
 
+<div id="stabilization-info">
+    <div class="align-center"><b>
+        Stabilizing network: {{stabilizationPercent}}%
+    </b></div>
+  <div class="ember-load-indicator" style="margin-top: 300px;">
+    <div class="demo">
+      <svg class="loader">
+        <circle cx="75" cy="75" r="60" fill="transparent" stroke="#F4F519" stroke-width="6" stroke-linecap="round" stroke-dasharray="385" stroke-dashoffset="385" filter="url(#blur)"></circle>
+      </svg>
+      <svg class="loader loader-2">
+        <circle cx="75" cy="75" r="60" fill="transparent" stroke="#DE2FFF" stroke-width="6" stroke-linecap="round" stroke-dasharray="385" stroke-dashoffset="385" filter="url(#blur)"></circle>
+      </svg>
+      <svg class="loader loader-3">
+        <circle cx="75" cy="75" r="60" fill="transparent" stroke="#FF5932" stroke-width="6" stroke-linecap="round" stroke-dasharray="385" stroke-dashoffset="385" filter="url(#blur)"></circle>
+      </svg>
+      <svg class="loader loader-4">
+        <circle cx="75" cy="75" r="60" fill="transparent" stroke="#E97E42" stroke-width="6" stroke-linecap="round" stroke-dasharray="385" stroke-dashoffset="385" filter="url(#blur)"></circle>
+      </svg>
+      <svg class="loader loader-5">
+        <circle cx="75" cy="75" r="60" fill="transparent" stroke="white" stroke-width="6" stroke-linecap="round" filter="url(#blur)"></circle>
+      </svg>
+      <svg class="loader loader-6">
+        <circle cx="75" cy="75" r="60" fill="transparent" stroke="#00DCA3" stroke-width="6" stroke-linecap="round" stroke-dasharray="385" stroke-dashoffset="385" filter="url(#blur)"></circle>
+      </svg>
+      <svg class="loader loader-7">
+        <circle cx="75" cy="75" r="60" fill="transparent" stroke="purple" stroke-width="6" stroke-linecap="round" stroke-dasharray="385" stroke-dashoffset="385" filter="url(#blur)"></circle>
+      </svg>
+      <svg class="loader loader-8">
+        <circle cx="75" cy="75" r="60" fill="transparent" stroke="#AAEA33" stroke-width="6" stroke-linecap="round" stroke-dasharray="385" stroke-dashoffset="385" filter="url(#blur)"></circle>
+      </svg>
+    </div>
+  </div>
+</div>
+
 <div id="network-container" style="height: {{height}}px;">
   {{outlet id="details-container"}}
-{{#visjs-network options=networkOptions nodesSet=model.graph.nodes edgesSet=model.graph.edges}}
-  {{!--{{#each model.graph.nodes as |node|}}--}}
-    {{!--{{#if (eq node.type 'supplier')}}--}}
-      {{!--{{visjs-node nId=node.id label=node.label value=node.value color='rgb(39,239,252)'}}--}}
-    {{!--{{else}}--}}
-      {{!--{{visjs-node nId=node.id label=node.label value=node.value color='rgb(239,48,143)'}}--}}
-    {{!--{{/if}}--}}
-  {{!--{{/each}}--}}
-  {{!--{{#each model.graph.edges as |edge|}}--}}
-    {{!--{{visjs-edge from=edge.from to=edge.to value=edge.value color='rgb(49,57,57)'}}--}}
-  {{!--{{/each}}--}}
+{{#visjs-network
+  options=networkOptions
+  nodesSet=model.graph.nodes
+  edgesSet=model.graph.edges
+  startStabilizingAction=(action 'startStabilizing')
+  stabilizationIterationsDoneAction=(action 'stabilizationIterationsDone')
+  stabilizedAction=(action 'stabilized')
+  stabilizationProgressAction=(action 'stabilizationProgress')
+}}
 {{/visjs-network}}
 </div>
