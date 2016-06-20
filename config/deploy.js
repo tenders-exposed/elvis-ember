@@ -12,7 +12,7 @@ module.exports = function(deployTarget) {
   }
 
   if (deployTarget === 'staging') {
-    ENV.build.environment = 'production';
+    ENV.build.environment = 'staging';
     // configure other plugins for staging deploy target here
     ENV['scp'] = {
       username: 'vu2003',
