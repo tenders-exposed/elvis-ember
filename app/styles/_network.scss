@@ -36,8 +36,8 @@ div#network-container {
       min-height: 400px;
       float: left;
       top: 0;
-      background: #000;
-      opacity: .95;
+      background: $main-bg;
+      opacity: .9;
       .tabs__nav {
         .tab-button {
           display: inline-block;
