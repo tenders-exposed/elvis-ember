@@ -25,7 +25,8 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    ENV.APP.apiHost = 'http://toto.tenders.exposed/api';
+    // ENV.APP.apiHost = 'http://toto.tenders.exposed/api';
+    ENV.APP.apiHost = 'http://oz.tenders.exposed/api';
     ENV.APP.apiNamespace = 'v1';
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
@@ -47,14 +48,13 @@ module.exports = function(environment) {
   }
 
   if (environment === 'staging') {
-    ENV.APP.apiHost = 'http://api.staging.elvis.tenders.exposed/api';
+    ENV.APP.apiHost = 'http://toto.tenders.exposed/api';
     ENV.APP.apiNamespace = 'v1';
 
   }
 
   if (environment === 'production') {
-    ENV.APP.apiHost = 'http://toto.tenders.exposed/api';
-    //ENV.APP.apiHost = 'http://nulltech.ddns.net:3000';
+    ENV.APP.apiHost = 'http://oz.tenders.exposed/api';
     ENV.APP.apiNamespace = 'v1';
 
   }

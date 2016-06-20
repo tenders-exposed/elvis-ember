@@ -12,8 +12,13 @@ module.exports = function(deployTarget) {
   }
 
   if (deployTarget === 'staging') {
-    ENV.build.environment = 'production';
+    ENV.build.environment = 'staging';
     // configure other plugins for staging deploy target here
+    ENV['scp'] = {
+      username: 'vu2003',
+      host: 'strix.umbra.xyz',
+      path: '/var/www/virtual/tenders.exposed/staging.elvis/htdocs'
+    };
   }
 
   if (deployTarget === 'production') {
@@ -23,7 +28,7 @@ module.exports = function(deployTarget) {
       username: 'vu2003',
       host: 'strix.umbra.xyz',
       path: '/var/www/virtual/tenders.exposed/elvis/htdocs'
-    }
+    };
   }
 
   // Note: if you need to build some configuration asynchronously, you can return
