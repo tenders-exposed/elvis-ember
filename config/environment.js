@@ -48,7 +48,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'staging') {
-    ENV.APP.apiHost = 'http://toto.tenders.exposed/api';
+    ENV.APP.apiHost = 'http://oz.tenders.exposed/api';
     ENV.APP.apiNamespace = 'v1';
 
   }
