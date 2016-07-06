@@ -75,6 +75,11 @@ export default Ember.Controller.extend({
     }
   },
   
+  init() {
+    this._super();
+    this.set('stabilizationPercent', 0);
+  },
+  
   didInsertElement() {
     Ember.$('div#stabilization-info').height(window.innnerHeight - 200);
   },

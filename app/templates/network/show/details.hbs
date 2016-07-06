@@ -18,7 +18,7 @@
           {{#tab-panel manager=manager name="suppliers" class='tab-panel'}}
             {{!--Tab suppliers--}}
             {{#if model.graph.nodes}}
-              {{ ag-grid gridOptions=gridOptions.suppliers }}
+              {{ ag-grid gridOptions=gridOptions.suppliers class="material-data-table" }}
             {{else}}
               {{fa-icon 'plus' spin=true}} Loading data grid...
             {{/if}}

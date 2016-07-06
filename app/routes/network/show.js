@@ -10,20 +10,16 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     // alert('finding model');
     return this.store.findRecord('network', params.id);
   },
+  
   setupController(controller, model) {
     // alert('found model');
     controller.set('model', model);
     // alert('set model');
   },
+  
   actions: {
     openSidebar() {
       this.transitionTo('network.show.details');
-    },
-    // startStabilizing() {
-    //   alert('start stabilizing');
-    // },
-    // stabilizationIterationsDone() {
-    //   alert('stabilization iterations done');
-    // }
+    }
   }
 });
