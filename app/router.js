@@ -22,6 +22,9 @@ Router.map(function() {
   });
   this.route('projects');
   this.route('network', function() {
+    this.route('query', function() {
+      this.route('config', {});
+    });
     this.route('show', { path: ':id' }, function() {
       this.route('details', function() {
         this.route('suppliers', function() {
@@ -44,9 +47,6 @@ Router.map(function() {
         });
         this.route('relationships', {});
       });
-    });
-    this.route('query', function() {
-      this.route('config', {});
     });
   });
   this.route('welcome', { path: '' });
