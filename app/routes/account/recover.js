@@ -4,7 +4,7 @@ export default Ember.Route.extend({
   actions: {
     deviseSendRecover(email) {
       console.log(email);
-      
+
       // TODO: Very much WIP, will need to wrap this up ASAP
 
       // var req = raw({
