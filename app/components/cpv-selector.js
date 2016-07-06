@@ -14,6 +14,7 @@ export default Ember.Component.extend({
   },
 
   didInsertElement() {
+    // TODO: This should probably be refactored into smaller bits
     let self = this;
 
     this.flattenCpvs(self.get('cpvs'));
@@ -61,9 +62,7 @@ export default Ember.Component.extend({
         self.set('refresh', true);
       });
     });
-
   },
-
 
   actions: {
 

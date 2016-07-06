@@ -31,7 +31,6 @@ export default Ember.Controller.extend({
     }
   },
 
-
   prepareQuery() {
     let self = this;
     self.get('selectedCodes').forEach((v) => {
@@ -74,7 +73,7 @@ export default Ember.Controller.extend({
       }`;
 
       this.get('ajax')
-        .post('/contracts/cpvs', {data: options, headers: {"Content-Type": 'application/json'}})
+        .post('/contracts/cpvs', { data: options, headers: { "Content-Type": 'application/json' } })
         .then((data) => {
           self.set('cpvs', data.search.results);
           this.toggleProperty('cpvModalIsOpen');
@@ -106,7 +105,7 @@ export default Ember.Controller.extend({
         query: {
           cpvs: this.get('query.cpvs').uniq(),
           countries: this.get('query.countries').uniq(),
-          years: this.get('query.years').uniq(),
+          years: this.get('query.years').uniq()
         }
       }).save().then((data) => {
         // self.send('finished');

@@ -12,7 +12,7 @@ export default Ember.Controller.extend({
   gridOptionsBoilerplate: {
     enableColResize: true,
     suppressMovableColumns: true,
-    enableSorting: true,
+    enableSorting: true
     // enableFilter: true,
     // quickFilterText: 'suppliers'
   },
@@ -26,7 +26,9 @@ export default Ember.Controller.extend({
         },
         { headerName: 'Value', field: 'value' }
       ],
-      getRowHeight: function(params) { return 18 * (Math.floor(params.data.label.length / 25) + 1); }
+      getRowHeight: (params) => {
+        return 18 * (Math.floor(params.data.label.length / 25) + 1);
+      }
     },
     procurers: {
       columnDefs: [
@@ -34,7 +36,9 @@ export default Ember.Controller.extend({
         { headerName: 'Name', field: 'label' },
         { headerName: 'Value', field: 'value' }
       ],
-      getRowHeight: function(params) { return 18 * (Math.floor(params.data.label.length / 25) + 1); }
+      getRowHeight: (params) => {
+        return 18 * (Math.floor(params.data.label.length / 25) + 1);
+      }
     },
     relationships: {
       columnDefs: [
