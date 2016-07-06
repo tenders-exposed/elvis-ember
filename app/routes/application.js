@@ -12,11 +12,11 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   setupController(controller) {
     controller.set('currentUser', this.get('session.session.content.authenticated.user'));
   },
-  
+
   init() {
     this.setupLoader();
   },
-  
+
   setupLoader() {
     this.controllerFor('loading').get('loaderWords').pushObject('network');
   },

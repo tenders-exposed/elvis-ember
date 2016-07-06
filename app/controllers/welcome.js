@@ -55,11 +55,11 @@ export default Ember.Controller.extend({
       return this.get('session').authenticate('authenticator:elvis', identification, password).catch((reason) => {
         this.set('errorMessage', reason.error || reason);
       }).then(function(response) {
-        if( typeof response === 'undefined' ) {
+        if (typeof response === 'undefined') {
           return;
         } else {
           return;
-          location.reload();
+          // location.reload();
         }
       });
     }
