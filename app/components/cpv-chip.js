@@ -6,7 +6,7 @@ export default Ember.Component.extend({
 
     if (event.target.classList.contains('fa-close')) {
       let self = this;
-      let { code, description } = self;
+      let { code } = self;
 
       Ember.$(`#tr-${code}`).toggleClass('hide');
 
