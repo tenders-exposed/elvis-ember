@@ -64,6 +64,7 @@ export default Ember.Controller.extend({
 
     toggleCpvModal() {
 
+      Ember.$('.cpv-modal-open').css('pointer-events', 'none');
       let self = this;
       let options = `{
         "query": {
@@ -77,6 +78,7 @@ export default Ember.Controller.extend({
         .then((data) => {
           self.set('cpvs', data.search.results);
           this.toggleProperty('cpvModalIsOpen');
+          Ember.$('.cpv-modal-open').css('pointer-events', 'inherit');
         });
     },
 
