@@ -1,63 +1,64 @@
 <div class="mainbg" id="options-modal-container">
     {{partial 'network/query'}}
     <div class="row">
-        <div class="col s12">
-          <form method="post">
-              <div class="row">
-                  <div class="col s1"><span class="query-step circle">1</span></div>
-                  <div class="col s4">
-                      <h5>Size of Nodes</h5>
-                      <small>
-                        Supplying companies and procuring governmental institutions
-                        are displayed as nodes in the network. Their size can represent
-                        a specific attribute of your choice.
-                      </small>
-                      <br> <br>
-                      <br> <br>
-                      <!-- <img src="//lorempixum.com/100/100"> -->
-                  </div>
-                  <div class="col s6">
-                      <div class="input-field">
-                        {{ember-select-guru
-                        value=nodes
-                        options=options.nodes
-                        onSelect=(action "onSelectNodes")}}
-                      </div>
-                  </div>
-              </div>
-              <div class="row">
-                  <div class="col s1"><span class="query-step circle">2</span></div>
-                  <div class="col s4">
-                      <h5>Thickness of Edges</h5>
-                      <small>
-                        Strength of relationships between Procurers and Suppliers is
-                        represented by thickness of the edges connecting them.
-                      </small>
-                      <br> <br>
-                      <br> <br>
-                      <!-- <img src="//lorempixum.com/100/100"> -->
-                  </div>
-                  <div class="col s6">
-                      <div class="input-field">
-                        {{ember-select-guru
-                        value=edges
-                        options=options.edges
-                        onSelect=(action "onSelectEdges")}}
-                      </div>
-                  </div>
-              </div>
-              <div class="row">
-                  <div class="col s1">
-                    {{md-btn icon='fa fa-arrow-left'
-                    action='toggleOptionsModal' buttonType='floating'
-                    class='btn-large white grey-text text-darken-4'}}
-                    {{md-btn icon='fa fa-arrow-right'
-                    action='submitQuery' buttonType='floating'
-                    class='btn-large white grey-text text-darken-4'}}
-                  </div>
-                  <div class="col s8"></div>
-              </div>
-          </form>
-        </div>
+      <div class="col s8">
+        <form method="post">
+            <div class="row">
+                <div class="col s1"><span class="query-step circle">1</span></div>
+                <div class="col s4">
+                    <h5>Size of Nodes</h5>
+                    <small>
+                      Supplying companies and procuring governmental institutions
+                      are displayed as nodes in the network. Their size can represent
+                      a specific attribute of your choice.
+                    </small>
+                    <br> <br>
+                    <br> <br>
+                    <!-- <img src="//lorempixum.com/100/100"> -->
+                </div>
+                <div class="col s6">
+                    <div class="input-field">
+                      {{ember-select-guru
+                      value=nodes
+                      options=options.nodes
+                      onSelect=(action "onSelectNodes")}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s1"><span class="query-step circle">2</span></div>
+                <div class="col s4">
+                    <h5>Thickness of Edges</h5>
+                    <small>
+                      Strength of relationships between Procurers and Suppliers is
+                      represented by thickness of the edges connecting them.
+                    </small>
+                    <br> <br>
+                    <br> <br>
+                    <!-- <img src="//lorempixum.com/100/100"> -->
+                </div>
+                <div class="col s6">
+                    <div class="input-field">
+                      {{ember-select-guru
+                      value=edges
+                      options=options.edges
+                      onSelect=(action "onSelectEdges")}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s1">
+                  {{md-btn icon='fa fa-arrow-left'
+                  action='toggleOptionsModal' buttonType='floating'
+                  class='btn-large white grey-text text-darken-4'}}
+                  {{md-btn icon='fa fa-arrow-right'
+                  action='submitQuery' buttonType='floating'
+                  class='btn-large white grey-text text-darken-4'}}
+                </div>
+                <div class="col s8"></div>
+            </div>
+        </form>
+      </div>
+      <div class="col s4">&nbsp;</div>
     </div>
 </div>
