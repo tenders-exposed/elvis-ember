@@ -1,0 +1,36 @@
+.elvis-cpv-chip {
+  line-height: 1em;
+  padding: 0 6px;
+  height: 1.4em;
+  background: $main-bg;
+  border: 0px inset #CCCCCC;
+  border-radius: 10px;
+  color: #CCCCCC;
+  margin: 4px auto;
+
+  span {
+    display: block;
+    margin-top: 3px;
+    line-height: 1em;
+    padding-left: 18px;
+    font-size: 1em;
+  }
+  i.material-icons {
+    line-height: 1em;
+    float: left;
+    position: relative;
+    padding-left: 2px;
+    padding-right: 2px;
+    >i.fa {
+      margin: 1px 2px auto -2px;
+      transition: transform .5s ease-in-out;
+      transform-origin: center;
+      transform-style: preserve-3D;
+      &:hover {
+        color: red;
+        transform: rotate(360deg);
+      }
+    }
+  }
+}
+

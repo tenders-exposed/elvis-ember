@@ -30,7 +30,7 @@ export default Ember.Component.extend({
         emptyTable: '<p class="text-center">No CPV codes available for the selected <b>countries</b> and <b>years</b>.</p>'
       },
       info: false,
-      // paging: false,
+      paging: false,
       scrollY: '60vh',
       scrollCollapse: true,
       createdRow(row, data) {
