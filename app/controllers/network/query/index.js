@@ -31,7 +31,6 @@ export default Ember.Controller.extend({
     }
   },
 
-
   prepareQuery() {
     let self = this;
     self.get('selectedCodes').forEach((v) => {
@@ -74,7 +73,7 @@ export default Ember.Controller.extend({
       }`;
 
       this.get('ajax')
-        .post('/contracts/cpvs', {data: options, headers: {"Content-Type": 'application/json'}})
+        .post('/contracts/cpvs', { data: options, headers: { 'Content-Type': 'application/json' } })
         .then((data) => {
           self.set('cpvs', data.search.results);
           this.toggleProperty('cpvModalIsOpen');
@@ -98,15 +97,13 @@ export default Ember.Controller.extend({
 
       this.get('store').createRecord('network', {
         options: {
-          // nodes: this.get('query.nodes.name'),
-          // edges: this.get('query.edges.name')
-          nodes: 'count',
-          edges: 'count'
+          nodes: this.get('query.nodes'),
+          edges: this.get('query.edges')
         },
         query: {
           cpvs: this.get('query.cpvs').uniq(),
           countries: this.get('query.countries').uniq(),
-          years: this.get('query.years').uniq(),
+          years: this.get('query.years').uniq()
         }
       }).save().then((data) => {
         // self.send('finished');
@@ -114,6 +111,15 @@ export default Ember.Controller.extend({
         self.set('isLoading', false);
         self.toggleProperty('optionsModalIsOpen');
         self.transitionToRoute('network.show', data.id);
+      }).catch((data) => {
+        // TODO: Catch the actual reason sent by the API (for some reason it's not pulled in, will check later)
+        console.log(`Error: ${data}`);
+        self.set('isLoading', false);
+        self.notifications.clearAll();
+        self.notifications.error('You need to <a href="/">sign in</a> or <a href="/">sign up</a> before continuing.', {
+          htmlContent: true,
+          autoClear: false
+        });
       });
     },
 

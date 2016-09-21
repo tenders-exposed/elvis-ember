@@ -74,16 +74,17 @@ export default Ember.Controller.extend({
       'hover': false
     }
   },
-  
+
+  init() {
+    this._super();
+    this.set('stabilizationPercent', 0);
+  },
+
   didInsertElement() {
     Ember.$('div#stabilization-info').height(window.innnerHeight - 200);
   },
 
   actions: {
-    nodeClicked(nodeId) {
-      this.set('nodeColor', `#${Math.floor(Math.random() * 16777215).toString(16)}`);
-      console.log(`${nodeId} was clicked`);
-    },
     startStabilizing() {
       console.log('start stabilizing');
     },
@@ -94,7 +95,7 @@ export default Ember.Controller.extend({
     },
     stabilizationProgress(amount) {
       this.set('stIterations', amount.total);
-      this.set('stabilizationPercent', (amount.iterations / amount.total) * 100 );
+      this.set('stabilizationPercent', (amount.iterations / amount.total) * 100);
       console.log(`Stabilization progress: ${amount.iterations} / ${amount.total}`);
     },
     stabilized(event) {

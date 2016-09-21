@@ -13,6 +13,14 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     controller.set('currentUser', this.get('session.session.content.authenticated.user'));
   },
 
+  init() {
+    this.setupLoader();
+  },
+
+  setupLoader() {
+    this.controllerFor('loading').get('loaderWords').pushObject('network');
+  },
+
   refreshData(name, path, controller) {
     let self = this;
     localforage.removeItem(name, function() {

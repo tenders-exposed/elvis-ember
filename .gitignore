@@ -10,6 +10,7 @@
 
 # misc
 .idea/
+.vscode/
 .browse.VC.db
 /.sass-cache
 /connect.lock

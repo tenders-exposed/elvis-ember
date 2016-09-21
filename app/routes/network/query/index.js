@@ -44,6 +44,6 @@ export default Ember.Route.extend({
     _.each(['countries', 'years'], function(value) {
       self.setAvailable(controller, value);
     });
-  },
+  }
 
 });

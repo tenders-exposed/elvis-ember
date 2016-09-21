@@ -1,5 +1,6 @@
 div#details-container {
   div#details-sidebar {
+    width: 100%;
 
     h5.details {
       padding: 20px;
@@ -19,7 +20,16 @@ div#details-container {
     }
 
     .tab-panel {
+      width: 100%;
       padding: 20px 10px;
+
+      .ag-body-container {
+        width: 100%;
+      }
+
+      .ag-cell, .ag-body-viewport {
+        background: $main-bg;
+      }
     }
   }
 }

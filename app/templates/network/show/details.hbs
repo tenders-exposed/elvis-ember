@@ -18,7 +18,7 @@
           {{#tab-panel manager=manager name="suppliers" class='tab-panel'}}
             {{!--Tab suppliers--}}
             {{#if model.graph.nodes}}
-              {{ ag-grid gridOptions=gridOptions.suppliers }}
+              {{ ag-grid gridOptions=gridOptions.suppliers width="100%" theme="ag-material" network=network }}
             {{else}}
               {{fa-icon 'plus' spin=true}} Loading data grid...
             {{/if}}
@@ -26,7 +26,7 @@
 
           {{#tab-panel manager=manager name="procurers" class='tab-panel'}}
             {{#if model.graph.nodes}}
-              {{ ag-grid gridOptions=gridOptions.procurers }}
+              {{ ag-grid gridOptions=gridOptions.procurers width="100%" theme="ag-material" network=network }}
             {{else}}
               {{fa-icon 'plus' spin=true}} Loading data grid...
             {{/if}}
@@ -34,7 +34,7 @@
 
           {{#tab-panel manager=manager name="relationships" class='tab-panel'}}
             {{#if model.graph.nodes}}
-              {{ ag-grid gridOptions=gridOptions.relationships }}
+              {{ ag-grid gridOptions=gridOptions.relationships width="100%" theme="ag-material" network=network }}
             {{else}}
               {{fa-icon 'plus' spin=true}} Loading data grid...
             {{/if}}

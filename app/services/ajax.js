@@ -9,7 +9,7 @@ export default AjaxService.extend({
     'elvis.tenders.exposed',
     'db1.tenders.exposed'
   ]
-  
+
   // // TODO: Not sure we still need this, will keep around for a while
   // session: Ember.inject.service(),
   // headers: Ember.computed('session.authToken', {

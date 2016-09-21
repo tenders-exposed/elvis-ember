@@ -14,8 +14,8 @@ export default Ember.Component.extend({
     ]
   },
 
-  nodes: { name: 'count'},
-  edges: { name: 'count'},
+  nodes: { name: 'count' },
+  edges: { name: 'count' },
 
   actions: {
 
