@@ -29,6 +29,7 @@ module.exports = function(defaults) {
   app.import('bower_components/datatables/media/js/dataTables.material.min.js');
 
   app.import('bower_components/datatables/media/css/dataTables.material.min.css');
+  app.import('bower_components/ag-grid/dist/styles/theme-material.css');
 
   return app.toTree();
 };

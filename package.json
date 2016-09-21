@@ -22,7 +22,7 @@
     "active-model-adapter": "2.1.1",
     "broccoli-asset-rev": "^2.4.2",
     "elvis-network": "0.1.1",
-    "ember-ag-grid": "0.2.2",
+      "ember-ag-grid": "tenders-exposed/ember-ag-grid",
     "ember-ajax": "^2.0.1",
     "ember-async-button": "1.0.0",
     "ember-cli": "^2.7.0",
@@ -80,7 +80,6 @@
     "virtual-each": "0.2.1"
   },
   "dependencies": {
-    "ember-welcome-page": "^1.0.1",
     "loader.js": "^4.0.1"
   }
 }

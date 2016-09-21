@@ -85,10 +85,6 @@ export default Ember.Controller.extend({
   },
 
   actions: {
-    nodeClicked(nodeId) {
-      this.set('nodeColor', `#${Math.floor(Math.random() * 16777215).toString(16)}`);
-      console.log(`${nodeId} was clicked`);
-    },
     startStabilizing() {
       console.log('start stabilizing');
     },

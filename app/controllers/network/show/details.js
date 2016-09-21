@@ -9,6 +9,19 @@ export default Ember.Controller.extend({
   ],
   active: 'suppliers',
 
+
+  // onSelectionChanged() {
+  //   alert('dsda');
+  //   // var selectedRows = agGridGridOptions.api.getSelectedRows();
+  //   // var selectedRowsString = '';
+  //   // selectedRows.forEach( function(selectedRow, index) {
+  //   //   if (index!=0) {
+  //   //     selectedRowsString += ', ';
+  //   //   }
+  //   //   selectedRowsString += selectedRow.value;
+  //   // });
+  // },
+
   gridOptionsBoilerplate: {
     enableColResize: true,
     suppressMovableColumns: true,
@@ -19,6 +32,11 @@ export default Ember.Controller.extend({
 
   gridOptions: {
     suppliers: {
+      rowSelection: 'single',
+      onSelectionChanged: function() {
+        var selectedRows = this.api.getSelectedRows();
+        this.network.moveTo(selectedRows[0].id);
+      },
       columnDefs: [
         { headerName: 'ID', field: 'id' },
         { headerName: 'Name', field: 'label',
@@ -27,8 +45,9 @@ export default Ember.Controller.extend({
         { headerName: 'Value', field: 'value' }
       ],
       getRowHeight: (params) => {
-        return 18 * (Math.floor(params.data.label.length / 25) + 1);
-      }
+        return 18 * (Math.floor(params.data.label.length / 25) + 1.5);
+      },
+      enableFilter: true
     },
     procurers: {
       columnDefs: [
@@ -49,8 +68,15 @@ export default Ember.Controller.extend({
     }
   },
 
+  onFilterChanged(value) {
+    console.log(value);
+    this.gridOptions.api.setQuickFilter(value);
+  },
+
   init() {
+    console.log(this);
     // this.get('gridOptions.suppliers').push(this.get('gridOptionsBoilerplate'));
+    this.set('gridOptions.suppliers.vis', this.get('network'));
     Ember.$.each(this.get('gridOptionsBoilerplate'), (k, v) => {
       this.set(`gridOptions.suppliers.${k}`, v);
       this.set(`gridOptions.procurers.${k}`, v);
