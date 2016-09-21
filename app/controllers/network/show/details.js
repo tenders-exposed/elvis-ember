@@ -36,6 +36,7 @@ export default Ember.Controller.extend({
       onSelectionChanged: function() {
         var selectedRows = this.api.getSelectedRows();
         this.network.moveTo(selectedRows[0].id);
+        this.network.network.selectNodes([selectedRows[0].id]);
       },
       columnDefs: [
         { headerName: 'ID', field: 'id' },
@@ -50,6 +51,12 @@ export default Ember.Controller.extend({
       enableFilter: true
     },
     procurers: {
+      rowSelection: 'single',
+      onSelectionChanged: function() {
+        var selectedRows = this.api.getSelectedRows();
+        this.network.moveTo(selectedRows[0].id);
+        this.network.network.selectNodes([selectedRows[0].id]);
+      },
       columnDefs: [
         { headerName: 'ID', field: 'id' },
         { headerName: 'Name', field: 'label' },
@@ -60,6 +67,13 @@ export default Ember.Controller.extend({
       }
     },
     relationships: {
+      rowSelection: 'single',
+      onSelectionChanged: function() {
+        var selectedRows = this.api.getSelectedRows();
+        console.log(selectedRows);
+        this.network.moveTo(selectedRows[0].id);
+        this.network.network.selectEdges([selectedRows[0].id]);
+      },
       columnDefs: [
         { headerName: 'From', field: 'from' },
         { headerName: 'To', field: 'to' },
@@ -76,7 +90,7 @@ export default Ember.Controller.extend({
   init() {
     console.log(this);
     // this.get('gridOptions.suppliers').push(this.get('gridOptionsBoilerplate'));
-    this.set('gridOptions.suppliers.vis', this.get('network'));
+    // this.set('gridOptions.suppliers.vis', this.get('network'));
     Ember.$.each(this.get('gridOptionsBoilerplate'), (k, v) => {
       this.set(`gridOptions.suppliers.${k}`, v);
       this.set(`gridOptions.procurers.${k}`, v);
