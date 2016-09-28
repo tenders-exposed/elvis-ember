@@ -10,13 +10,13 @@ export default Ember.Route.extend({
     controller.set(
       'gridOptions.suppliers.rowData', 
       _.filter(this.controllerFor('network.show').get('model.graph.nodes'), (o) => {
-        return o.type == 'supplier' && o;
+        return o.type === 'supplier' && o;
       })
     );
     controller.set(
       'gridOptions.procurers.rowData',
       _.filter(this.controllerFor('network.show').get('model.graph.nodes'), (o) => {
-        return o.type == 'procuring_entity' && o;
+        return o.type === 'procuring_entity' && o;
       })
     );
     controller.set(
@@ -24,17 +24,5 @@ export default Ember.Route.extend({
     );
 
     let self = this;
-
-    this.controllerFor('network.show').addObserver('network', function() {
-      controller.set(
-        'gridOptions.suppliers.network', self.controllerFor('network.show').get('network')
-      );
-      controller.set(
-        'gridOptions.procurers.network', self.controllerFor('network.show').get('network')
-      );
-      controller.set(
-        'gridOptions.relationships.network', self.controllerFor('network.show').get('network')
-      );
-    });
   }
 });
