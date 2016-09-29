@@ -34,7 +34,7 @@ export default Ember.Controller.extend({
   prepareQuery() {
     let self = this;
     self.get('selectedCodes').forEach((v) => {
-      self.get('query.cpvs').push(v.code.replace(/0*$/g, ''));
+      self.get('query.cpvs').push(v.id.replace(/0*$/g, ''));
     });
   },
 

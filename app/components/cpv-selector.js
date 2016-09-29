@@ -34,11 +34,11 @@ export default Ember.Component.extend({
       scrollY: '60vh',
       scrollCollapse: true,
       createdRow(row, data) {
-        Ember.$(row).attr('id', `tr-${data[0]}`);
-        Ember.$(row).attr('title', data[2]);
+        Ember.$(row).attr('id', `tr-${data[2]}`);
+        Ember.$(row).attr('title', data[1]);
         if (Ember.$.grep(self.get('selectedCodes'),
                          (obj) => {
-                           return obj.code === data[0];
+                           return obj.id === data[0];
                          }).length > 0
         ) {
           Ember.$(row).addClass('hide');
@@ -52,8 +52,8 @@ export default Ember.Component.extend({
 
       self.get('selectedCodes').pushObject(
         {
-          code: Ember.$(this).attr('id').substr(3),
-          description: Ember.$(this).attr('title')
+          id: Ember.$(this).attr('id').substr(3),
+          title: Ember.$(this).attr('title')
         }
       );
       self.get('query.cpvs').push(Ember.$(this).attr('id').substr(3).replace(/0*$/g, ''));
@@ -70,10 +70,10 @@ export default Ember.Component.extend({
       this.get('targetObject').send('toggleCpvModal');
     },
 
-    selectCpv(code) {
+    selectCpv(id) {
       let item;
       [item] = this.get('cpvs').filter((value) => {
-        if (value.id === code) {
+        if (value.id === id) {
           value.checked = 'checked';
           return true;
         } else {
@@ -81,7 +81,7 @@ export default Ember.Component.extend({
         }
       });
 
-      this.get('selectedCodes').pushObject(code);
+      this.get('selectedCodes').pushObject(id);
     }
   }
 });

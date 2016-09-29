@@ -63,8 +63,8 @@
                   {{/if}}
                     <br> <br>
                   {{#each selectedCodes as |selected|}}
-                    {{#cpv-chip selectedCodes=selectedCodes code=selected.code}}
-                      {{selected.code}} - {{selected.description}}
+                    {{#cpv-chip selectedCodes=selectedCodes id=selected.id}}
+                      {{selected.id}} - {{selected.title}}
                     {{/cpv-chip}}
                   {{/each}}
                 </div>
