@@ -26,7 +26,7 @@ export default Ember.Route.extend(UnauthenticatedRouteMixin, {
           clearDuration: 5000
         });
       });
-      self.controller.transitionToRoute('index');
+      self.controller.transitionToRoute('network.query');
     });
   }
 });

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import localforage from 'ember-local-forage';
 import _ from 'lodash/lodash';
 
 export default Ember.Route.extend({
@@ -29,6 +30,24 @@ export default Ember.Route.extend({
     }
   },
 
+  refreshData(name, path, controller) {
+    let self = this;
+    localforage.removeItem(name, function() {
+      self.get('ajax').post(path).then((data) => {
+        localforage.setItem(name, data.search.results).then(() => {
+          localforage.getItem(name).then((result) => {
+            controller.set(name, result);
+          });
+        });
+      });
+    });
+  },
+
+  refreshAllData(controller) {
+    this.refreshData('countries', '/contracts/countries', controller);
+    this.refreshData('cpvs', '/contracts/cpvs', controller);
+  },
+
   /* Hooks */
 
   activate() {
@@ -38,12 +57,15 @@ export default Ember.Route.extend({
       clearDuration: 15000
     });
   },
+
   setupController(controller) {
     let self = this;
 
     _.each(['countries', 'years'], function(value) {
       self.setAvailable(controller, value);
     });
+
+    this.refreshAllData(controller);
   }
 
 });

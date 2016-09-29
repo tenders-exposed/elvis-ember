@@ -31,10 +31,22 @@ export default Ember.Controller.extend({
     }
   },
 
+  jsTree: {
+    core: {
+      'themes': {
+        'url': '/assets/photonui/style.css',
+        'name': 'photonui',
+      }
+    },
+    plugins: 'wholerow, checkbox, search, contextmenu, massload',
+    searchOptions: { 'show_only_matches' : true },
+  },
+  searchTerm: '',
+
   prepareQuery() {
     let self = this;
     self.get('selectedCodes').forEach((v) => {
-      self.get('query.cpvs').push(v.id.replace(/0*$/g, ''));
+      self.get('query.cpvs').push(v.id);
     });
   },
 
@@ -80,6 +92,8 @@ export default Ember.Controller.extend({
           this.toggleProperty('cpvModalIsOpen');
           Ember.$('.cpv-modal-open').css('pointer-events', 'inherit');
         });
+
+      console.log(this.selectedCodes);
     },
 
     toggleOptionsModal() {
@@ -96,6 +110,7 @@ export default Ember.Controller.extend({
       });
 
       self.set('isLoading', true);
+      self.prepareQuery();
 
       this.get('store').createRecord('network', {
         options: {

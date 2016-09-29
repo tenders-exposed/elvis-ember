@@ -3,17 +3,30 @@
   <div class="row-collapse">
     <div class="col s1">&nbsp;</div>
     <div class="col s5">
-      <table id="cpv-table" class="mdl-data-table" cellspacing="0">
-      </table>
+      <table id="cpv-table-disabled" class="mdl-data-table" cellspacing="0"> </table>
+      <div class="cpv-tree">
+          {{ember-jstree
+            data=cpvs
+            plugins=config.plugins
+            themes=config.themes
+            selectedNodes=selectedCodes
+            searchOptions=config.searchOptions
+            searchTerm=searchTerm
+          }}
+      </div>
     </div>
     <div class="col s6">
       <div class="row-collapse">
         <div class="col s12">
-          <br> <br> <br> <br> <br> 
+          <div class="search">
+            <h4>Search</h4>
+            {{input type="text" placeholder="Search" class="search-input form-control" value=searchTerm}}
+          </div>
+          <br> <br> <br> <br> <br>
           {{#if refresh}}
             {{#each selectedCodes as |selected|}}
-              {{#cpv-chip id=selected.id title=selected.title selectedCodes=selectedCodes}}
-                {{selected.id}} - {{selected.title}}
+              {{#cpv-chip cid=selected.id unique='selector' title=selected.title selectedCodes=selectedCodes}}
+                {{selected.id}} - {{selected.text}}
               {{/cpv-chip}}
             {{/each}}
           {{/if}}
