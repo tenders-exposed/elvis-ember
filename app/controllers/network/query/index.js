@@ -43,7 +43,7 @@ export default Ember.Controller.extend({
     onSelectEvent(value) {
       this.set('query.countries', []);
       value.forEach((v) => {
-        this.get('query.countries').push(v.key);
+        this.get('query.countries').push(v.id);
       });
       this.set('query.country_ids', value);
       // this.prepareQuery();

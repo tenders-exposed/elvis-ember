@@ -22,9 +22,9 @@ export default Ember.Component.extend({
     self.set('table', Ember.$('#cpv-table').DataTable({
       data: self.get('cpvs'),
       columns: [
-        { title: 'Code' },
         { title: 'Count' },
-        { title: 'Description' }
+        { title: 'Description' },
+        { title: 'Code' },
       ],
       language: {
         emptyTable: '<p class="text-center">No CPV codes available for the selected <b>countries</b> and <b>years</b>.</p>'
@@ -73,7 +73,7 @@ export default Ember.Component.extend({
     selectCpv(code) {
       let item;
       [item] = this.get('cpvs').filter((value) => {
-        if (value.key === code) {
+        if (value.id === code) {
           value.checked = 'checked';
           return true;
         } else {

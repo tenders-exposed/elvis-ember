@@ -8,11 +8,16 @@ export default Component.extend({
   current: computed('currentHighlight', 'index', function() {
     return this.get('currentHighlight') === this.get('index');
   }),
+  init() {
+    this._super(...arguments);
+    this.set('option.key', this.get('option.id'));
+    this.set('option.name', this.get('option.title'));
+  },
   click() {
     console.log(this.get('option'));
 
     // Hack for GB = UK, because TED data...
-    if (this.get('option.key') === 'UK') {
+    if (this.get('option.id') === 'UK') {
       this.set('option.name', 'United Kingdom');
       this.sendAction('onClick', this.get('option'));
     } else {
