@@ -13,7 +13,7 @@
           {{#if refresh}}
             {{#each selectedCodes as |selected|}}
               {{#cpv-chip id=selected.id title=selected.title selectedCodes=selectedCodes}}
-                {{selected.id}} - {{selected.title}}
+                {{selected.id}} - {{selected.text}}
               {{/cpv-chip}}
             {{/each}}
           {{/if}}
