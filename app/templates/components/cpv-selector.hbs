@@ -1,26 +1,38 @@
 <div id="cpv-container" class="mainbg">
-  {{#md-btn action="toggleModal"}}
-    OK
-  {{/md-btn}}
+  <br> <br>
   <div class="row-collapse">
-    <div class="col s2">&nbsp;</div>
-    <div class="col s8">
+    <div class="col s1">&nbsp;</div>
+    <div class="col s5">
       <table id="cpv-table" class="mdl-data-table" cellspacing="0">
       </table>
     </div>
-    <div class="col s2">&nbsp;</div>
+    <div class="col s6">
+      <div class="row-collapse">
+        <div class="col s12">
+          <br> <br> <br> <br> <br> 
+          {{#if refresh}}
+            {{#each selectedCodes as |selected|}}
+              {{#cpv-chip id=selected.id title=selected.title selectedCodes=selectedCodes}}
+                {{selected.id}} - {{selected.title}}
+              {{/cpv-chip}}
+            {{/each}}
+          {{/if}}
+        </div>
+      </div>
+      <div class="row-collapse">
+        <div class="col s3">&nbsp;</div>
+        <div class="col s6">
+        </div>
+        <div class="col s3">&nbsp;</div>
+      </div>
+    </div>
   </div>
   <div class="row-collapse">
-    <div class="col s2">&nbsp;</div>
-    <div class="col s8">
-      {{#if refresh}}
-        {{#each selectedCodes as |selected|}}
-          {{#cpv-chip code=selected.code description=selected.description selectedCodes=selectedCodes}}
-            {{selected.code}} - {{selected.description}}
-          {{/cpv-chip}}
-        {{/each}}
-      {{/if}}
+    <div class="col s12">
+      <br> <br> <br>
+      {{#md-btn action="toggleModal" class="cpv-ok-button"}}
+        OK
+      {{/md-btn}}
     </div>
-    <div class="col s2">&nbsp;</div>
   </div>
 </div>

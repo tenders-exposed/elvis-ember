@@ -11,9 +11,22 @@ export default Ember.Route.extend({
   },
 
   setupController(controller, model) {
-    // alert('found model');
     controller.set('model', model);
-    // alert('set model');
+    let self = this;
+    controller.addObserver('network', function() {
+      self.controllerFor('network.show.details').set(
+        'gridOptions.suppliers.network',
+        controller.get('network')
+      );
+      self.controllerFor('network.show.details').set(
+        'gridOptions.procurers.network',
+        controller.get('network')
+      );
+      self.controllerFor('network.show.details').set(
+        'gridOptions.relationships.network',
+        controller.get('network')
+      );
+    });
   },
 
   actions: {

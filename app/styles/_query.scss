@@ -1,37 +1,5 @@
-.elvis-cpv-chip {
-  line-height: 1em;
-  padding: 0 6px;
-  height: 1.5em;
-  background: $main-bg;
-  border: 1px inset #CCCCCC;
-  border-radius: 10px;
-  color: #CCCCCC;
-
-  span {
-    display: block;
-    margin-top: 3px;
-    line-height: 1em;
-    padding-right: 16px;
-  }
-  i.material-icons {
-    line-height: 1em;
-    float: right;
-    position: relative;
-    >i.fa {
-      margin: 1px 2px auto -2px;
-      transition: transform .5s ease-in-out;
-      transform-origin: center;
-      transform-style: preserve-3D;
-      &:hover {
-        color: red;
-        transform: rotate(360deg);
-      }
-    }
-  }
-}
-
 div#options-modal-container {
-  //width: 100%;
+  width: 80%;
   //height: 100%;
   /*
   left: 50%;

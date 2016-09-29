@@ -21,20 +21,20 @@ export default Ember.Controller.extend({
     'edges': 'count',
     'rawCountries': [],
     'countries': [],
-    'years': [2004, 2007],
+    'years': [2004, 2010],
     'cpvs': []
   },
   defaults: {
     years: {
       min: 2004,
-      max: 2007
+      max: 2010
     }
   },
 
   prepareQuery() {
     let self = this;
     self.get('selectedCodes').forEach((v) => {
-      self.get('query.cpvs').push(v.code.replace(/0*$/g, ''));
+      self.get('query.cpvs').push(v.id.replace(/0*$/g, ''));
     });
   },
 
@@ -43,7 +43,7 @@ export default Ember.Controller.extend({
     onSelectEvent(value) {
       this.set('query.countries', []);
       value.forEach((v) => {
-        this.get('query.countries').push(v.key);
+        this.get('query.countries').push(v.id);
       });
       this.set('query.country_ids', value);
       // this.prepareQuery();
@@ -64,6 +64,7 @@ export default Ember.Controller.extend({
 
     toggleCpvModal() {
 
+      Ember.$('.cpv-modal-open').css('pointer-events', 'none');
       let self = this;
       let options = `{
         "query": {
@@ -77,6 +78,7 @@ export default Ember.Controller.extend({
         .then((data) => {
           self.set('cpvs', data.search.results);
           this.toggleProperty('cpvModalIsOpen');
+          Ember.$('.cpv-modal-open').css('pointer-events', 'inherit');
         });
     },
 

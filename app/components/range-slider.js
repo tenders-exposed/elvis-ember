@@ -2,7 +2,7 @@ import Ember from 'ember';
 import RangeSlider from 'ember-cli-nouislider/components/range-slider';
 
 export default RangeSlider.extend({
-  start: [2004, 2007],
+  start: [2004, 2010],
 
   didInsertElement() {
     // Ember.$('.noUi-handle-lower').prepend('span.left-year');
