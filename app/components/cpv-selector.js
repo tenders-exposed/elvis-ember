@@ -23,8 +23,8 @@ export default Ember.Component.extend({
       data: self.get('cpvs'),
       columns: [
         { title: 'Count' },
-        { title: 'Code' },
         { title: 'Description' },
+        { title: 'Code' },
       ],
       language: {
         emptyTable: '<p class="text-center">No CPV codes available for the selected <b>countries</b> and <b>years</b>.</p>'
@@ -34,8 +34,8 @@ export default Ember.Component.extend({
       scrollY: '60vh',
       scrollCollapse: true,
       createdRow(row, data) {
-        Ember.$(row).attr('id', `tr-${data[1]}`);
-        Ember.$(row).attr('title', data[2]);
+        Ember.$(row).attr('title', data[1]);
+        Ember.$(row).attr('id', `tr-${data[2]}`);
         if (Ember.$.grep(self.get('selectedCodes'),
                          (obj) => {
                            return obj.id === data[0];
