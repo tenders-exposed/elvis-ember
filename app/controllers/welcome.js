@@ -12,7 +12,7 @@ export default Ember.Controller.extend({
   actions: {
     register() {
       let self = this;
-      return this.store.createRecord('user', {
+      return this.store.createRecord('account.js', {
         email: self.get('fakeUser.email'),
         password: self.get('fakeUser.password'),
         password_confirmation: self.get('fakeUser.password_confirmation')
@@ -51,7 +51,7 @@ export default Ember.Controller.extend({
       );
     },
     authenticate() {
-      let { identification, password } = this.getProperties('identification', 'password');
+      const { identification, password } = this.getProperties('identification', 'password');
       return this.get('session').authenticate('authenticator:elvis', identification, password).catch((reason) => {
         this.set('errorMessage', reason.error || reason);
       }).then(function(response) {
