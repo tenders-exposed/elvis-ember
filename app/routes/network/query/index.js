@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import localforage from 'ember-local-forage';
-import _ from 'lodash/lodash';
 
 export default Ember.Route.extend({
   ajax: Ember.inject.service(),
@@ -45,6 +44,7 @@ export default Ember.Route.extend({
   /* Hooks */
 
   activate() {
+    console.log(_.VERSION);
     this.notifications.clearAll();
     this.notifications.info('This page might be subject to layout changes', {
       autoClear: true,
