@@ -27,19 +27,21 @@
                 </div>
                 <div class="col s6">
                     <div class="input-field">
-                        <div class="row">
-                            <div class="col s2 center-align"><span class="year-label left-year">{{defaults.years.min}}</span></div>
-                            <div class="col s8">&nbsp;</div>
-                            <div class="col s2 center-align"><span class="year-label right-year">{{defaults.years.max}}</span></div>
-                        </div>
+
                         <p class="range-field">
+
+                        {{#if years}}
                           {{range-slider
-                          min=yearMin
-                          max=yearMax
-                          step=1
-                          connect=true
-                          tooltips=true
-                          slide="slidingAction"}}
+                            range = yearsRange
+                            start = yearsStart
+                            step=1
+                            connect=true
+                            tooltips=true
+                            disabled=rangeIsDisabled
+
+                            on-slide="slidingAction"}}
+                        {{/if}}
+
                         </p>
                     </div>
                 </div>

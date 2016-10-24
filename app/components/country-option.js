@@ -11,7 +11,7 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     this.set('option.key', this.get('option.id'));
-    this.set('option.name', this.get('option.title'));
+    this.set('option.name', this.get('option.text'));
   },
   click() {
     console.log(this.get('option'));

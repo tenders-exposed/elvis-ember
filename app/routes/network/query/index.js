@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import localforage from 'ember-local-forage';
 
 export default Ember.Route.extend({
   ajax: Ember.inject.service(),
@@ -58,6 +57,7 @@ export default Ember.Route.extend({
     _.each(['countries', 'years'], function(item) {
       self.setAvailable(controller, item);
     });
+
 
     // this.refreshAllData(controller);
   }
