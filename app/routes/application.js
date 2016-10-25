@@ -13,13 +13,12 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
 
   model(){
     if(this.get('session.isAuthenticated')){
-      console.log('MODEL');
       return this.store.findRecord('user', this.get('me.data.id'));
     }
   },
 
-  setupController(controller) {
-    controller.set('currentUser', this.get('session.session.content.authenticated.user'));
+  setupController(controller, model) {
+    this._super(controller, model);
   },
 
   init() {

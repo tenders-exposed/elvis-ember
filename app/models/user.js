@@ -1,9 +1,15 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 
-let user = DS.Model.extend({
+const User = DS.Model.extend({
   email: DS.attr('string'),
+  authentication_token: DS.attr('string'),
   password: DS.attr('string'),
-  password_confirmation: DS.attr('string')
+  password_confirmation: DS.attr('string'),
+
+  token: Ember.computed('authentication_token', function() {
+    return this.get('authentication_token');
+  }),
 
 });
-export default user;
+export default User;
