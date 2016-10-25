@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import _ from 'lodash';
 
 export default Ember.Route.extend({
 
@@ -8,7 +7,7 @@ export default Ember.Route.extend({
       'model', this.controllerFor('network.show').get('model')
     );
     controller.set(
-      'gridOptions.suppliers.rowData', 
+      'gridOptions.suppliers.rowData',
       _.filter(this.controllerFor('network.show').get('model.graph.nodes'), (o) => {
         return o.type === 'supplier' && o;
       })
@@ -22,7 +21,5 @@ export default Ember.Route.extend({
     controller.set(
       'gridOptions.relationships.rowData', this.controllerFor('network.show').get('model.graph.edges')
     );
-
-    let self = this;
   }
 });
