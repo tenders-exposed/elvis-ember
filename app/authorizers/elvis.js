@@ -7,7 +7,7 @@ export default DeviseAuthorizer.extend({
   tokenAttributeName: 'authentication_token',
   identificationAttributeName: 'email',
   authorize(data, block) {
-    console.log('Data is: ', data);
+    // console.log('Data is: ', data);
     let userToken          = data.authentication_token;
     let userIdentification = data.email;
     if (!isEmpty(userToken) && !isEmpty(userIdentification)) {

@@ -6,11 +6,11 @@ export default Ember.Component.extend({
 
     if (event.target.classList.contains('fa-close')) {
       let self = this;
-      let { id } = self;
+      let { cid } = self;
 
-      Ember.$(`#tr-${id}`).toggleClass('hide');
+      Ember.$(`#tr-${cid}`).toggleClass('hide');
 
-      let removable = self.get('selectedCodes').findBy('id', id);
+      let removable = self.get('selectedCodes').findBy('id', cid);
 
       console.log(self.get('selectedCodes'));
       self.get('selectedCodes').removeObject(removable);

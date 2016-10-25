@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
-import _ from 'lodash/lodash';
 
 export default Ember.Route.extend(UnauthenticatedRouteMixin, {
   ajax: Ember.inject.service(),
@@ -26,7 +25,7 @@ export default Ember.Route.extend(UnauthenticatedRouteMixin, {
           clearDuration: 5000
         });
       });
-      self.controller.transitionToRoute('index');
+      self.controller.transitionToRoute('network.query');
     });
   }
 });

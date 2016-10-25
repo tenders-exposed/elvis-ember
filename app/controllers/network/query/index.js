@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import _ from 'lodash/lodash';
 
 export default Ember.Controller.extend({
   ajax: Ember.inject.service(),
@@ -11,10 +10,27 @@ export default Ember.Controller.extend({
 
   selectedCodes: Ember.A([]),
 
-  network: {},
-  yearMin: 2001,
-  yearMax: 2015,
+  rangeIsDisabled: Ember.computed('query.countries', function(){
+    const dis =!this.get('query.countries').length;
+    console.log('disabletornot '+ dis);
+    return dis
+  }),
+
+  countries: [],
+  yearsStart: [],
+
+  yearsRange: Ember.computed('years', function () {
+      let yearMin = _.minBy(this.get('years'), 'id').id;
+      let yearMax = _.maxBy(this.get('years'), 'id').id;
+
+      this.set('yearsStart', [yearMin,yearMax]);
+
+      return {'min': yearMin, 'max' : yearMax};
+  }),
+
   height: window.innerHeight - 200,
+
+  network: {},
 
   query: {
     'nodes': 'count',
@@ -24,17 +40,23 @@ export default Ember.Controller.extend({
     'years': [2004, 2010],
     'cpvs': []
   },
-  defaults: {
-    years: {
-      min: 2004,
-      max: 2010
-    }
+
+  jsTree: {
+    core: {
+      'themes': {
+        'url': '/assets/photonui/style.css',
+        'name': 'photonui',
+      }
+    },
+    plugins: 'wholerow, checkbox, search, contextmenu, massload',
+    searchOptions: { 'show_only_matches' : true },
   },
+  searchTerm: '',
 
   prepareQuery() {
     let self = this;
     self.get('selectedCodes').forEach((v) => {
-      self.get('query.cpvs').push(v.id.replace(/0*$/g, ''));
+      self.get('query.cpvs').push(v.id);
     });
   },
 
@@ -45,8 +67,20 @@ export default Ember.Controller.extend({
       value.forEach((v) => {
         this.get('query.countries').push(v.id);
       });
-      this.set('query.country_ids', value);
+
+      // this.set('query.country_ids', value);
       // this.prepareQuery();
+
+      let options = this.get('query.countries').length && `{
+        "query": {
+            "countries": ["${this.get('query.countries').join('", "')}"]
+        }
+      }`;
+      this.get('ajax')
+          .post('/contracts/years', { data: options, headers: { 'Content-Type': 'application/json' } })
+          .then((data) => {
+            this.set('years', data.search.results);
+          });
     },
 
     slidingAction(value) {
@@ -60,6 +94,10 @@ export default Ember.Controller.extend({
         Ember.$('span.right-year').text(value[1]);
       });
       this.set('query.years', _.range(this.get('query.years')[0], ++this.get('query.years')[1]));
+
+
+
+
     },
 
     toggleCpvModal() {
@@ -80,6 +118,8 @@ export default Ember.Controller.extend({
           this.toggleProperty('cpvModalIsOpen');
           Ember.$('.cpv-modal-open').css('pointer-events', 'inherit');
         });
+
+      console.log(this.selectedCodes);
     },
 
     toggleOptionsModal() {
@@ -96,6 +136,7 @@ export default Ember.Controller.extend({
       });
 
       self.set('isLoading', true);
+      self.prepareQuery();
 
       this.get('store').createRecord('network', {
         options: {

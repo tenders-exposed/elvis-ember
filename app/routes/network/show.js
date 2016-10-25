@@ -5,11 +5,6 @@ export default Ember.Route.extend({
     this.notifications.clearAll();
   },
 
-  model(params) {
-    // alert('finding model');
-    return this.store.findRecord('network', params.id);
-  },
-
   setupController(controller, model) {
     controller.set('model', model);
     let self = this;

@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import _ from 'lodash/lodash';
 
 export default Ember.Component.extend({
   classNames: ['cpv-selector'],
@@ -13,75 +12,38 @@ export default Ember.Component.extend({
     });
   },
 
-  didInsertElement() {
-    // TODO: This should probably be refactored into smaller bits
-    let self = this;
+  init() {
+    this._super();
+    this.createTree();
+  },
 
-    this.flattenCpvs(self.get('cpvs'));
-
-    self.set('table', Ember.$('#cpv-table').DataTable({
-      data: self.get('cpvs'),
-      columns: [
-        { title: 'Count' },
-        { title: 'Code' },
-        { title: 'Description' },
-      ],
-      language: {
-        emptyTable: '<p class="text-center">No CPV codes available for the selected <b>countries</b> and <b>years</b>.</p>'
-      },
-      info: false,
-      paging: false,
-      scrollY: '60vh',
-      scrollCollapse: true,
-      createdRow(row, data) {
-        Ember.$(row).attr('id', `tr-${data[1]}`);
-        Ember.$(row).attr('title', data[2]);
-        if (Ember.$.grep(self.get('selectedCodes'),
-                         (obj) => {
-                           return obj.id === data[0];
-                         }).length > 0
-        ) {
-          Ember.$(row).addClass('hide');
+  createTree() {
+    let cpvs = this.get('cpvs');
+    _.map(_.groupBy(cpvs, (obj) => obj.id[0]), (group) => {
+      group = _.sortBy(group, 'id');
+      _.map(group, (obj) => {
+        let patternBase = obj.id.replace(/0+$/, '').slice(0, -1);
+        let parent = {id: '#'};
+        const matcher = (o) => o.id.match(new RegExp(`^${patternBase}0+$`));
+        while (patternBase.length > 0 && parent.id === '#') {
+          let found = _.findLast(group, matcher);
+          if (found) {
+            parent = found;
+            break;
+          }
+          patternBase = patternBase.slice(0, -1);
         }
-      }
-    }));
-
-    Ember.$('#cpv-table tbody').on('click', 'tr', function() {
-      self.set('refresh', false);
-      Ember.$(this).toggleClass('hide');
-
-      self.get('selectedCodes').pushObject(
-        {
-          id: Ember.$(this).attr('id').substr(3),
-          text: Ember.$(this).attr('title')
-        }
-      );
-      self.get('query.cpvs').push(Ember.$(this).attr('id').substr(3).replace(/0*$/g, ''));
-
-      Ember.run.next(function() {
-        self.set('refresh', true);
+        obj.parent = String(parent.id);
+        obj.state = {opened: false};
+        obj.text = `<b>${obj.id}</b> &rarr; ${obj.text} (${obj.doc_count})`;
       });
     });
+
   },
 
   actions: {
-
     toggleModal() {
       this.get('targetObject').send('toggleCpvModal');
     },
-
-    selectCpv(id) {
-      let item;
-      [item] = this.get('cpvs').filter((value) => {
-        if (value.id === id) {
-          value.checked = 'checked';
-          return true;
-        } else {
-          return false;
-        }
-      });
-
-      this.get('selectedCodes').pushObject(id);
-    }
   }
 });
