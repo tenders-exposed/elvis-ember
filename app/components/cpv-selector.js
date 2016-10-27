@@ -35,8 +35,20 @@ export default Ember.Component.extend({
         }
         obj.parent = String(parent.id);
         obj.state = {opened: false};
-        obj.text = `<b>${obj.id}</b> &rarr; ${obj.text} (${obj.doc_count})`;
+        obj.name = `${obj.text}`;
       });
+    });
+
+    _.map(cpvs, (obj) => {
+      obj.count = _.sumBy(
+        cpvs,
+        function(cpv) {
+          if (cpv.parent === obj.id || cpv.id === obj.id) {
+            return cpv.doc_count;
+          }
+        }
+      );
+      obj.text = `<b>${obj.id}</b> &rarr; ${obj.text} (${obj.count} documents)`;
     });
 
   },

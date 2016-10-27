@@ -11,9 +11,7 @@ export default Ember.Controller.extend({
   selectedCodes: Ember.A([]),
 
   rangeIsDisabled: Ember.computed('query.countries', function(){
-    const dis =!this.get('query.countries').length;
-    console.log('disabletornot '+ dis);
-    return dis
+    return !this.get('query.countries').length;
   }),
 
   countries: [],
@@ -48,8 +46,11 @@ export default Ember.Controller.extend({
         'name': 'photonui',
       }
     },
-    plugins: 'wholerow, checkbox, search, contextmenu, massload',
+    plugins: 'checkbox, search, contextmenu',
     searchOptions: { 'show_only_matches' : true },
+    checkbox : {
+      "three_state" : true
+    }
   },
   searchTerm: '',
 
@@ -101,7 +102,6 @@ export default Ember.Controller.extend({
     },
 
     toggleCpvModal() {
-
       Ember.$('.cpv-modal-open').css('pointer-events', 'none');
       let self = this;
       let options = `{
@@ -119,7 +119,7 @@ export default Ember.Controller.extend({
           Ember.$('.cpv-modal-open').css('pointer-events', 'inherit');
         });
 
-      console.log(this.selectedCodes);
+      console.log(this.get('selectedCodes'));
     },
 
     toggleOptionsModal() {
