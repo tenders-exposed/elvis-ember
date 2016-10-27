@@ -8,8 +8,6 @@ export default Ember.Component.extend({
       let self = this;
       let { cid } = self;
 
-      Ember.$(`#tr-${cid}`).toggleClass('hide');
-
       let removable = self.get('selectedCodes').findBy('id', cid);
 
       console.log(self.get('selectedCodes'));
