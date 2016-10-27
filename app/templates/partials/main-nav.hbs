@@ -29,6 +29,13 @@
                     New visualisation
                   {{/link-to}}
                 {{/link-to}}
+                {{#link-to 'account.settings' tagName='li'}}
+                  {{#link-to 'account.settings'}}
+                    Acoount Settings
+                  {{/link-to}}
+                {{/link-to}}
+
+
                 {{#if session.isAuthenticated}}
                   <li><a {{action 'invalidateSession'}}>Log out {{fa-icon "power-off"}}</a></li>
                 {{else}}

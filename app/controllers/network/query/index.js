@@ -13,7 +13,7 @@ export default Ember.Controller.extend({
   rangeIsDisabled: Ember.computed('query.countries', function(){
     const dis =!this.get('query.countries').length;
     console.log('disabletornot '+ dis);
-    return dis
+    return dis;
   }),
 
   countries: [],
