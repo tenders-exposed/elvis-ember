@@ -1,12 +1,11 @@
 <div class="row">
  <div class="col s12">
-   {{model.email}}
       <h1>Account Settings</h1>
       <hr/>
   </div>
 </div>
 <div class="row query-form-container">
-  <form>
+  <form {{action "settings" model on="submit"}}>
     <div class="col s12">
       <small>BASIC SETTINGS <hr/></small>
 
@@ -19,6 +18,7 @@
         {{md-input
              label="Name"
              class="col s3"
+             value=model.name
              validate=true
         }}
       </div>
@@ -29,7 +29,7 @@
         </div>
         <div class="input-field col s3">
             {{ember-select-guru
-                value=selectedCountry
+                value=model.country
                 options=countries
                 searchKey='text'
                 multiple=false
@@ -48,7 +48,7 @@
   </form>
 </div>
 <div class="row query-form-container">
-  <form class="form-inline">
+  <form class="form-inline" id="recover" {{action 'deviseSendReset' password password_confirmation on='submit'}}>
     <div class="col s12">
         <small>
           CHANGE PASSWORD
@@ -61,11 +61,15 @@
         </div>
           {{md-input
                label="type new password here"
+               type="password"
+               value=password
                class="col s3"
                validate=true
           }}
           {{md-input
                label="repeat new password"
+               type="password"
+               value=password_confirmation
                class="col s3"
                validate=true
           }}
