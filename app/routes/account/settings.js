@@ -6,16 +6,24 @@ export default Ember.Route.extend({
 
   actions: {
     settings(model){
-      console.log("model",model);
+      console.log("model", model);
     },
-    deviseSendReset(password, password_confirmation){
-      let email= this.controller.get('model.email');
-      let data=  {"user": { "email": email, "password": password,"password_confirmation": password_confirmation}};
-      this.get('ajax').post('/users/password', {data: data,headers: { 'Content-Type': 'application/json' } })
+    deviseSendReset(current_password, password, password_confirmation){
+      const email = this.controller.get('model.email');
+      const token = this.controller.get('model.token');
+      const data =  `{"user": {"email": "${email}", "current_password": "${current_password}", "password": "${password}", "password_confirmation": "${password_confirmation}"}}`;
+      this.get('ajax').patch('/users', {
+        data: data,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-User-Email': `'${email}'`,
+          'X-User-Token': `'${token}'`
+        }
+      })
         .then((response)=>{
-           console.log("Response: ",response);
+           console.log("Response: ", response);
         }, (response)=>{
-          console.log("Response: ",response);
+          console.log("Response: ", response);
         });
 
     }

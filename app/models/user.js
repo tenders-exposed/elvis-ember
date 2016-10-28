@@ -7,6 +7,7 @@ const User = DS.Model.extend({
   country: DS.attr('string'),
   authentication_token: DS.attr('string'),
   password: DS.attr('string'),
+  old_password: DS.attr('string'),
   password_confirmation: DS.attr('string'),
 
   token: Ember.computed('authentication_token', function() {

@@ -34,7 +34,6 @@
                 searchKey='text'
                 multiple=false
                 optionComponent='country-option'
-                onSelect=(action "onSelectEvent")
                 }}
         </div>
         </div>
@@ -48,7 +47,7 @@
   </form>
 </div>
 <div class="row query-form-container">
-  <form class="form-inline" id="recover" {{action 'deviseSendReset' password password_confirmation on='submit'}}>
+  <form class="form-inline" id="recover" {{action 'deviseSendReset' current_password password password_confirmation on='submit'}}>
     <div class="col s12">
         <small>
           CHANGE PASSWORD
@@ -59,6 +58,12 @@
         <div class="col s4">
             <h5>New Password</h5>
         </div>
+          {{md-input
+               label="type old password here"
+               type="password"
+               value=current_password
+               class="col s3"
+          }}
           {{md-input
                label="type new password here"
                type="password"
