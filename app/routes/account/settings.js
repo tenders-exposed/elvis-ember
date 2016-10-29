@@ -14,12 +14,12 @@ export default Ember.Route.extend({
       const token = this.controller.get('model.token');
       const data =  `{"user": {"email": "${email}", "current_password": "${current_password}", "password": "${password}", "password_confirmation": "${password_confirmation}"}}`;
       console.log("data",data);
-      this.get('ajax').patch('/users', {
+      this.get('ajax').put('/users', {
         data: data,
         headers: {
           'Content-Type': 'application/json',
-          'X-User-Email': `'${email}'`,
-          'X-User-Token': `'${token}'`
+          'X-User-Email': `${email}`,
+          'X-User-Token': `${token}`
         }
       }).then(
         (response)=>{
