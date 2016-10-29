@@ -22,7 +22,8 @@ export default Ember.Controller.extend({
           });
           console.log('Response: ', response);
           self.transitionToRoute('welcome');
-        }, function(response) {
+        },
+        function(response) {
           self.notifications.clearAll();
           _.forEach(response.errors, (error, index) => {
             error.forEach((v) => {
