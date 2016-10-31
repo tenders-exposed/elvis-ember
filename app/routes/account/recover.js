@@ -9,7 +9,7 @@ export default Ember.Route.extend({
       this.notifications.clearAll();
 
       this.controller.validate().then(()=>{
-        let data = { "user": { "email": email } };
+        let data = `{ "user": { "email": "${email}" } }`;
         let headers = {
           'Content-Type': 'application/json'
         };
