@@ -1,9 +1,37 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  ajax: Ember.inject.service(),
+
+
   actions: {
     deviseSendRecover(email) {
-      console.log(email);
+      this.notifications.clearAll();
+
+      this.controller.validate().then(()=>{
+        let data = { "user": { "email": email } };
+        let headers = {
+          'Content-Type': 'application/json'
+        };
+        this.get('ajax').post('users/password', {
+          data: data,
+          headers: headers
+        }).then((response) => {
+          console.log(response);
+          this.controller.set('emailSent', true);
+
+        },(response) => {
+          console.log(data);
+          console.log(headers);
+          console.log(response);
+        });
+
+
+      }, (response)=>{
+        let error = response.email[0];
+        this.notifications.error(`Error: ${error}`);
+
+      });
 
       // TODO: Very much WIP, will need to wrap this up ASAP
 

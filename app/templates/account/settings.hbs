@@ -8,8 +8,6 @@
   <form {{action "settings" model on="submit"}}>
     <div class="col s12">
       <small>BASIC SETTINGS <hr/></small>
-
-
       <div class="row">
         <div class="col s4">
           <h5>Your Name</h5>
@@ -55,9 +53,6 @@
         </small>
 
       <div class="row">
-        <div class="col s4">
-            <h5>New Password</h5>
-        </div>
           {{md-input
                label="type old password here"
                type="password"
@@ -80,8 +75,8 @@
           }}
       </div>
       <div class="row">
-        <div class="col  s3 offset-s4">
-           <button type="submit" class="btn btn-primary">Reset</button>
+        <div class="col  s3 offset-s6">
+           <button type="submit" class="btn btn-primary {{isDisabled}}">Reset</button>
         </div>
       </div>
     </div>

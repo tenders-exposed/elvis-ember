@@ -1,6 +1,5 @@
 import Ember from 'ember';
 
-
 export default Ember.Route.extend({
   ajax: Ember.inject.service(),
 
@@ -24,14 +23,19 @@ export default Ember.Route.extend({
       }).then(
         (response)=>{
           self.notifications.clearAll();
-          self.notifications.success('Done! Please check your inbox.', {
+          self.notifications.success('Done! Your password was reset.', {
             autoClear: true
           });
+
+          this.controller.set('current_password', '');
+          this.controller.set('password', '');
+          this.controller.set('password_confirmation', '');
+
           console.log("Response: ", response);
         }, (response)=>{
           self.notifications.clearAll();
           console.log(response);
-          /*_.forEach(response.errors, (error, index) => {
+         /* _.forEach(response.errors, (error, index) => {
             error.forEach((v) => {
               self.notifications.error(`Error: ${index } ${v}`);
             });
