@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import EmberValidations from 'ember-validations';
-//import Validator from 'ember-model-validator/mixins/model-validator';
 
 export default Ember.Controller.extend(EmberValidations,{
   needs: ['application'],
@@ -28,6 +27,7 @@ export default Ember.Controller.extend(EmberValidations,{
     });
   }),
 
+  //@todo: the list of countries with autocomplete
   countries: [
     {
       id: "UK",

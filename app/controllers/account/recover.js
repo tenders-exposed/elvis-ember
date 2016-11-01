@@ -1,10 +1,10 @@
 import Ember from 'ember';
 import EmberValidations from 'ember-validations';
 
-
 export default Ember.Controller.extend(EmberValidations,{
-
-  validations: {
+  queryParams: ['t'],
+  t:null,
+  validations:{
     email: {
       presence: {message: "the field can't be blank"},
       format: {
@@ -13,4 +13,5 @@ export default Ember.Controller.extend(EmberValidations,{
       }
     }
   }
+
 });

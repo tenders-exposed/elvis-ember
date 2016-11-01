@@ -3,14 +3,36 @@ import Ember from 'ember';
 export default Ember.Route.extend({
   ajax: Ember.inject.service(),
 
-
   actions: {
+    deviseSendChange( password, password_confirmation, token){
+
+      const data=`{"user": {
+                  "reset_password_token": "${token}",
+                  "password": "${password}",
+                  "password_confirmation": "${password_confirmation}"}
+                }`;
+      const headers = {
+        'Content-Type': 'application/json'
+      };
+      this.get('ajax').put('users/password', {
+        data: data,
+        headers: headers
+      }).then(()=>{
+        this.notifications.addNotification({
+          message: 'Your password was updated!',
+          type: 'success'
+        });
+        this.controller.transitionToRoute('welcome');
+    },(response)=>{
+        //@TODO: show error messages from server
+        console.log(response);
+      });
+    },
     deviseSendRecover(email) {
       this.notifications.clearAll();
-
       this.controller.validate().then(()=>{
-        let data = `{ "user": { "email": "${email}" } }`;
-        let headers = {
+        const data = `{ "user": { "email": "${email}" } }`;
+        const headers = {
           'Content-Type': 'application/json'
         };
         this.get('ajax').post('users/password', {
@@ -21,44 +43,13 @@ export default Ember.Route.extend({
           this.controller.set('emailSent', true);
 
         },(response) => {
-          console.log(data);
-          console.log(headers);
+          //@TODO: show error messages from server
           console.log(response);
         });
-
-
       }, (response)=>{
         let error = response.email[0];
         this.notifications.error(`Error: ${error}`);
-
       });
-
-      // TODO: Very much WIP, will need to wrap this up ASAP
-
-      // var req = raw({
-      //   type: 'POST',
-      //   url: '/users/password',
-      //   data: { "user": { "email": email } }
-      //   //,
-      //   //dataType: 'json'
-      // });
-      // var self=this;
-      // req.then(function(result){
-      //     console.log('Response from Rails', result.response);
-      //     self.notifications.addNotification({
-      //       message: 'Password reset instructions were sent to your email address.',
-      //       type: 'success'
-      //     });
-      //     self.controller.transitionToRoute('login');
-      //   },
-      //   function(response) {
-      //     console.error('There was a problem: ', response);
-      //     self.notifications.addNotification({
-      //       message: 'Oops, something bad happened: ' + JSON.parse(response.jqXHR.responseText).errors[0],
-      //       type: 'error'
-      //     });
-      //   }
-      // );
     }
   }
 });

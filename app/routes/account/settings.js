@@ -1,10 +1,11 @@
 import Ember from 'ember';
+import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(AuthenticatedRouteMixin,{
   ajax: Ember.inject.service(),
-
   actions: {
     settings(model){
+      //@todo: implement save model
       console.log("model", model);
     },
     deviseSendReset(current_password, password, password_confirmation){
@@ -12,7 +13,6 @@ export default Ember.Route.extend({
       const email = this.controller.get('model.email');
       const token = this.controller.get('model.token');
       const data =  `{"user": {"email": "${email}", "current_password": "${current_password}", "password": "${password}", "password_confirmation": "${password_confirmation}"}}`;
-      console.log("data",data);
       this.get('ajax').put('/users', {
         data: data,
         headers: {
@@ -21,7 +21,7 @@ export default Ember.Route.extend({
           'X-User-Token': `${token}`
         }
       }).then(
-        (response)=>{
+        ()=>{
           self.notifications.clearAll();
           self.notifications.success('Done! Your password was reset.', {
             autoClear: true
@@ -31,7 +31,6 @@ export default Ember.Route.extend({
           this.controller.set('password', '');
           this.controller.set('password_confirmation', '');
 
-          console.log("Response: ", response);
         }, (response)=>{
           self.notifications.clearAll();
           console.log(response);
@@ -41,7 +40,6 @@ export default Ember.Route.extend({
             });
           });*/
         });
-
     }
   },
 
