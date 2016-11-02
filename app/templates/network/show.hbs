@@ -43,6 +43,11 @@
 
 <div id="network-container" style="height: {{height}}px;">
   {{outlet id="details-container"}}
+  {{#if selectedNodes.length}}
+    {{#each selectedNodes as |node|}}
+      {{box-details node=node nodesSet=model.graph.nodes id="box-details-container"}}
+    {{/each}}
+  {{/if}}
 {{#visjs-network
   options=networkOptions
   nodesSet=model.graph.nodes
@@ -52,6 +57,7 @@
   stabilizedAction=(action 'stabilized')
   stabilizationProgressAction=(action 'stabilizationProgress')
   storeAs=network
+  selectedNodes=selectedNodes
 }}
 {{/visjs-network}}
 </div>
