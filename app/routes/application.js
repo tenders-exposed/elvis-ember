@@ -7,9 +7,17 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   namespace: ENV.APP.apiNamespace,
   dbVersion: ENV.APP.dbVersion,
   ajax: Ember.inject.service(),
+  session: Ember.inject.service(),
+  me: Ember.inject.service(),
 
-  setupController(controller) {
-    controller.set('currentUser', this.get('session.session.content.authenticated.user'));
+  model(){
+    if(this.get('session.isAuthenticated')){
+      return this.store.findRecord('user', this.get('me.data.id'));
+    }
+  },
+
+  setupController(controller, model) {
+    this._super(controller, model);
   },
 
   init() {

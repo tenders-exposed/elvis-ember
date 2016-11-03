@@ -1,36 +1,84 @@
 <div class="row">
- <div class="col-lg-8">
-      <h2>Account Settings</h2>
-      <form>
-          <div class="form-group">
-              <label for="name">Your Name</label>
-              <input type="email" class="form-control" id="name" placeholder="Name">
-          </div>
-          <div class="form-group">
-              <label for="country">Default Country</label>
-              <select class="c-select form-control" id="country">
-                  <option>Slovakia</option>
-                  <option>Romania</option>
-                  <option>Netherlands</option>
-                  <option>Poland</option>
-              </select>
-          </div>
-          <button type="submit" class="btn btn-primary">Save</button>
-      </form>
-      <hr>
-      <h2>Change password</h2>
-      <form class="form-inline">
-          <div class="form-group">
-              <label class="sr-only" for="newPassword1">New password</label>
-              <input type="email" class="form-control" id="newPassword1" placeholder="New password">
-          </div>
-          <div class="form-group">
-              <label class="sr-only" for="newPassword2">Confirm new password</label>
-              <input type="password" class="form-control" id="newPassword2" placeholder="Confirm new password">
-          </div>
-          <button type="submit" class="btn btn-primary">Reset</button>
-      </form>
-
-
+ <div class="col s12">
+      <h1>Account Settings</h1>
+      <hr/>
   </div>
+</div>
+<div class="row query-form-container">
+  <form {{action "settings" model on="submit"}}>
+    <div class="col s12">
+      <small>BASIC SETTINGS <hr/></small>
+      <div class="row">
+        <div class="col s4">
+          <h5>Your Name</h5>
+          <small>Tell me who you are and i will know how to call you </small>
+        </div>
+        {{md-input
+             label="Name"
+             class="col s3"
+             value=model.name
+             validate=true
+        }}
+      </div>
+      <div class="row">
+        <div class="col s4">
+          <h5>Default Country</h5>
+          <small>We will use this as a default country for your visualisation queries</small>
+        </div>
+        <div class="input-field col s3">
+            {{ember-select-guru
+                value=model.country
+                options=countries
+                searchKey='text'
+                multiple=false
+                optionComponent='country-option'
+                }}
+        </div>
+        </div>
+      <div class="row">
+        <div class="col s4"> </div>
+        <div class="col s3 offset-s4">
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="row query-form-container">
+  <form class="form-inline" id="recover" {{action 'deviseSendReset' current_password password password_confirmation on='submit'}}>
+    <div class="col s12">
+      <small>
+         CHANGE PASSWORD
+         <hr/>
+       </small>
+
+      <div class="row">
+          {{md-input
+               label="type old password here"
+               type="password"
+               value=current_password
+               class="col s3"
+          }}
+          {{md-input
+               label="type new password here"
+               type="password"
+               value=password
+               class="col s3"
+               validate=true
+          }}
+          {{md-input
+               label="repeat new password"
+               type="password"
+               value=password_confirmation
+               class="col s3"
+               validate=true
+          }}
+      </div>
+      <div class="row">
+        <div class="col  s3 offset-s6">
+           <button type="submit" class="btn btn-primary {{isDisabled}}">Reset</button>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>

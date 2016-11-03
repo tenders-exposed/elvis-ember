@@ -57,6 +57,9 @@ module.exports = function(environment) {
     ENV.APP.apiNamespace = 'v1';
 
   }
+  ENV['ember-simple-auth'] = {
+    authenticationRoute: 'welcome'
+  };
 
   // ENV['ember-simple-auth'] = {
   //   // authorizer: 'simple-auth-authorizer:devise',
