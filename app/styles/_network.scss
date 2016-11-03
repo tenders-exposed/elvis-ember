@@ -20,12 +20,74 @@ div#network-container {
 
   .ember-view { height: 100%; }
 
+  div#box-details-container{
+    z-index: 100;
+    position: absolute;
+    pointer-events: none;
+    width: 100%; height: 100%; display: block;
+
+    div#box-details-card{
+      width:16%;
+      float: right;
+      top:0;
+      opacity: 0.9;
+      background: #151517;
+
+      margin-right: 5%;
+      border-radius: 5px;
+      border: 1px solid #707070;
+      padding: 10px;
+
+      span.color-pink{
+        color:deeppink;
+      }
+      span.color-blue{
+        color:deepskyblue;
+      }
+
+      h1{
+        font-size: 1.5em;
+        margin: 0px;
+        margin-bottom: 0.2em;
+      }
+      h2{
+        font-size: 1.3em;
+        margin: 0px;
+        margin-bottom: 0.2em;
+      }
+
+      h5{
+        font-size: 0.6em;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin: 0px;
+        margin-bottom: 0.1em;
+      }
+
+      div.flags{
+        font-size: 0.6em;
+        color: orangered;
+
+        i{
+          margin-right: 3px;
+        }
+      }
+
+      div.col{
+        padding: 0px;
+      }
+
+
+    }
+
+  }
+
   div#details-container {
     z-index: 100;
     position: absolute;
     pointer-events: none;
     //top: 80px;
-    width: 100%; height: 100%; display: block;
+    width: 100%; height: 50%; display: block;
 
     * {margin: 0; padding: 0; border: 0;}
 

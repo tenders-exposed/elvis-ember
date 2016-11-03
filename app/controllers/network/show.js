@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   height: window.innerHeight - 100,
+  selectedNodes: [],
   networkOptions: {
     'nodes': {
       'shape': 'dot',
