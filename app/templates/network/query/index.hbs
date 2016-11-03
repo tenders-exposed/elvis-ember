@@ -60,13 +60,14 @@
                   icon='fa fa-plus'
                   action='toggleCpvModal'
                   class='grey darken-3 cpv-modal-open'}}
+                  {{loading-cpv}}
                   {{#if cpvModalIsOpen}}
                     {{cpv-selector cpvs=cpvs config=jsTree searchTerm=searchTerm height=height selectedCodes=selectedCodes query=query}}
                   {{/if}}
                     <br> <br>
                   {{#each selectedCodes as |selected|}}
                     {{#cpv-chip selectedCodes=selectedCodes cid=selected.id unique='query'}}
-                      {{selected.id}} - {{selected.text}}
+                      {{selected.id}}<br>{{selected.original.name}}
                     {{/cpv-chip}}
                   {{/each}}
                 </div>

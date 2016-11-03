@@ -2,8 +2,10 @@
   <br> <br>
   <div class="row-collapse">
     <div class="col s1">&nbsp;</div>
-    <div class="col s5">
-      <table id="cpv-table-disabled" class="mdl-data-table" cellspacing="0"> </table>
+    <div class="col s8 cpv-table-container">
+      <div class="search">
+        {{input type="text" placeholder="Search" class="search-input form-control" value=searchTerm}}
+      </div>
       <div class="cpv-tree">
           {{ember-jstree
             data=cpvs
@@ -15,18 +17,19 @@
           }}
       </div>
     </div>
-    <div class="col s6">
+    <div class="col s3 cpv-info-container">
       <div class="row-collapse">
         <div class="col s12">
-          <div class="search">
-            <h4>Search</h4>
-            {{input type="text" placeholder="Search" class="search-input form-control" value=searchTerm}}
-          </div>
-          <br> <br> <br> <br> <br>
+          {{#if selectedCodes}}
+            <h4>Selected codes:</h4>
+          {{/if}}
+          <br><br>
           {{#if refresh}}
             {{#each selectedCodes as |selected|}}
               {{#cpv-chip cid=selected.id unique='selector' title=selected.title selectedCodes=selectedCodes}}
-                {{selected.id}} - {{selected.text}}
+                <b>{{selected.id}}</b><br>
+                {{selected.original.name}}<br>
+                <i class="grey-text darken-1">{{selected.original.doc_count}} documents</i>
               {{/cpv-chip}}
             {{/each}}
           {{/if}}

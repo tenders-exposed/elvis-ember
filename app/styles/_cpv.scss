@@ -24,38 +24,24 @@ div#cpv-container {
   }
 }
 
-#cpv-table {
-  tr {
-    &.odd {background-color: #111;}
-    &.even {background-color: #222;}
-    &:hover {
-      background-color: #333;
-      color: #B693B6;
-      cursor: pointer;
-    }
-    &.selected {
-      & td:first-child {text-decoration: line-through;}
-      & td:last-child {font-weight: bold;}
-    }
-  }
-}
+div.cpv-table-container {
+  height: 800px;
+  overflow: auto;
+  width: 100%;
 
-div#cpv-table_wrapper {
-  div.pagination {
-    .mdl-button {
-      background: black;
-      border: 3px black inset;
-      &:hover {
-        border-color: #666;
-      }
-    }
+  div.cpv-tree {
   }
 }
 
 .cpv-ok-button {
-  margin: 0px auto;
+  margin-top: 0;
+  margin-bottom: 0;
   width: 100px;
   left: 50%;
   margin-left: -50px;
   color: white;
+}
+
+.jstree-clicked {
+  background-color: #4a148c !important;
 }
