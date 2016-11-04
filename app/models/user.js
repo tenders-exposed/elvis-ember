@@ -7,6 +7,7 @@ const User = DS.Model.extend({
   name: DS.attr('string'),
   country: DS.attr('string'),
   authentication_token: DS.attr('string'),
+  networks: DS.hasMany('network'),
 
   token: Ember.computed('authentication_token', function() {
     return this.get('authentication_token');

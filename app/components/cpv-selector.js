@@ -39,18 +39,30 @@ export default Ember.Component.extend({
       });
     });
 
-    _.map(cpvs, (obj) => {
-      obj.count = _.sumBy(
-        cpvs,
-        function(cpv) {
-          if (cpv.parent === obj.id || cpv.id === obj.id) {
-            return cpv.doc_count;
+  let count = (obj) =>{
+      if(obj.count) {
+        return obj.count;
+      } else {
+        return _.sumBy(
+          cpvs,
+          function(cpv){
+            if(cpv.id === obj.id) {
+              return cpv.doc_count;
+            }
+            if (cpv.parent === obj.id ) {
+              return count(cpv);
+            }
           }
-        }
-      );
-      obj.text = `<b>${obj.id}</b> &rarr; ${obj.text} (${obj.count} documents)`;
+        );
+      }
+    }
+    _.map(cpvs, (obj) =>    {
+      obj.count = count(obj);
+      obj.text = `<b>${obj.id}</b> 
+                  <span class="jstree-count"> ${obj.count} </span>
+                  <span class="jstree-count"> ${obj.doc_count}</span> 
+                  ${obj.text} `;
     });
-
   },
 
   actions: {
