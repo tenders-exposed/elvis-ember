@@ -14,22 +14,6 @@ export default Ember.Controller.extend({
     return !this.get('query.countries').length;
   }),
 
-  countries: [],
-  yearsStart: [],
-
-  yearsRange: Ember.computed('years', function () {
-      let yearMin = _.minBy(this.get('years'), 'id').id;
-      let yearMax = _.maxBy(this.get('years'), 'id').id;
-
-      this.set('yearsStart', [yearMin,yearMax]);
-
-      return {'min': yearMin, 'max' : yearMax};
-  }),
-
-  height: window.innerHeight - 200,
-
-  network: {},
-
   query: {
     'nodes': 'count',
     'edges': 'count',
@@ -38,6 +22,27 @@ export default Ember.Controller.extend({
     'years': [2004, 2010],
     'cpvs': []
   },
+
+  countries: [],
+
+  yearsStart: [],
+
+  yearsRange: Ember.computed('years', function () {
+      let yearMin = _.minBy(this.get('years'), 'id').id;
+      let yearMax = _.maxBy(this.get('years'), 'id').id;
+      let yearsRange = {'min': yearMin, 'max' : yearMax};
+
+      console.log(`yearMin = ${yearMin} | yearMax = ${yearMax} | yearsRange = ${yearsRange}`);
+
+      this.set('yearsStart', [yearMin,yearMax]);
+      this.set('query.years', [yearMin,yearMax]);
+
+      return yearsRange;
+  }),
+
+  height: window.innerHeight - 200,
+
+  network: {},
 
   jsTree: {
     core: {
@@ -95,10 +100,6 @@ export default Ember.Controller.extend({
         Ember.$('span.right-year').text(value[1]);
       });
       this.set('query.years', _.range(this.get('query.years')[0], ++this.get('query.years')[1]));
-
-
-
-
     },
 
     toggleCpvModal() {
@@ -111,6 +112,7 @@ export default Ember.Controller.extend({
         }
       }`;
 
+      //console.log('options', options);
       this.get('ajax')
         .post('/contracts/cpvs', { data: options, headers: { 'Content-Type': 'application/json' } })
         .then((data) => {
