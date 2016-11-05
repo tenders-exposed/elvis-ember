@@ -7,12 +7,14 @@ export default DS.JSONSerializer.extend({
     json.data.attributes.user = {
       id: json.data.attributes.id,
       email: json.data.attributes.email,
-      token: json.data.attributes.token
+      token: json.data.attributes.token,
+      networks: json.data.attributes.networks
     };
 
     delete json.data.attributes.id;
     delete json.data.attributes.email;
     delete json.data.attributes.token;
+    delete json.data.attributes.networks;
 
     return json;
   },
