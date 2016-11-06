@@ -31,6 +31,12 @@
                 {{/link-to}}
 
                 {{#if session.isAuthenticated}}
+                  {{#link-to 'projects' tagName='li'}}
+                    {{#link-to 'projects'}}
+                      My projects
+                    {{/link-to}}
+                  {{/link-to}}
+
                   {{#link-to 'account.settings' tagName='li'}}
                     {{#link-to 'account.settings'}}
                       Acoount Settings

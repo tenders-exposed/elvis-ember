@@ -1,41 +1,69 @@
 <div id="mygraphs">
     <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <h1>My Projects</h1>
+          <hr/>
+        </div>
+      </div>
         <div class="row">
-          <div class="col s12 m6 l4">
+          {{#each model as |network|}}
+
+          <div class="card-container col s3 m6 l4">
             <div class="card">
               <div class="card-image waves-effect waves-block waves-light">
                 {{!-- <img class="activator" src="http://lorempixel.com/400/200/animals/"> --}}
-                <img class="activator" src="/default_image.jpg">
+                <img class="activator" src="/network_demo.jpg">
               </div>
               <div class="card-content">
-                <span class="card-title activator grey-text text-darken-4">
+                <span class="card-title activator ">
                   IT Procurement Project
-                  <small class="right">14 days ago</small>
+                  <small class="grey-text">{{network.id}}</small>
                 </span>
-                <p><a href="#">Load project</a></p>
+                <p class="row">
+                  <small class="left">14 days ago</small>
+                  <small class="right">
+                    {{#link-to 'network.show' network.id}}
+                      Load project
+                    {{/link-to}}
+                  </small>
+
+                </p>
               </div>
               <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">
+                <span class="card-title ">
                   IT Procurement Project
                 </span>
-                <p>
+                <p class="grey-text">
                   Here is some more information about this project that is only revealed once clicked on.
                   <br>
-                  <a href="#">Load project</a>
+                  {{#link-to 'network.show' network.id}}
+                    Load project
+                  {{/link-to}}
                 </p>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col m12">
-              {{#each model as |network|}}
-                {{#link-to 'network.show' network.id}}
-                  {{network.id}}
+          {{/each}}
+
+          <div class="card-container col s3 m6 l4">
+            <div class="card">
+              <div class="card-image waves-effect waves-block waves-light">
+                {{!-- <img class="activator" src="http://lorempixel.com/400/200/animals/"> --}}
+                {{#link-to 'network.query'}}
+                <img class="activator" src="/new_visualisation.jpg">
                 {{/link-to}}
-                <br>
-              {{/each}}
+              </div>
+              <div class="card-content">
+                <span class="card-title">
+                 New visualisation
+                  <br>
+                  <small class="grey-text">start right now</small>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
+
     </div>
 </div>
