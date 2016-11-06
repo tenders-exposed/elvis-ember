@@ -2,9 +2,6 @@ import Ember from 'ember';
 import RangeSlider from 'ember-cli-nouislider/components/range-slider';
 
 export default RangeSlider.extend({
-  change(){
-    console.log('fuck this');
-  },
 
   didInsertElement() {
     // Ember.$('.noUi-handle-lower').prepend('span.left-year');
@@ -13,17 +10,25 @@ export default RangeSlider.extend({
     Ember.$('span.right-year').appendTo('.noUi-handle-upper');
   },
 
+  didRender(){
 
-  didUpdateAttrs() {
-    let slider = this.get('slider');
-    const softLimits = slider.get('range');
-    slider.on('change', ()=>{
-      let limits = slider.get('range');
+    const slider = this.get('slider');
 
-      limits[0] = limits[0] < softLimits[0] && softLimits[0];
-      limits[1] = limits[1] > softLimits[1] && softLimits[1];
+    slider.on('change', (value)=>{
 
-      slider.set( limits);
+      const start = this.get('start');
+      if(value[0] < start[0]){
+        value[0] = start[0];
+      }
+      if(value[1] > start[1]) {
+        value[1] = start[1];
+      }
+      // limits[0] = limits[0] < softLimits[0] && softLimits[0];
+      // limits[1] = limits[1] > softLimits[1] && softLimits[1];
+
+      slider.set( value);
+
+      return false;
     });
   },
 

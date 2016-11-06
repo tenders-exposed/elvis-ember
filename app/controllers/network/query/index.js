@@ -32,10 +32,10 @@ export default Ember.Controller.extend({
       let yearMax = _.maxBy(this.get('years'), 'id').id;
       let yearsRange = {'min': yearMin, 'max' : yearMax};
 
-      console.log(`yearMin = ${yearMin} | yearMax = ${yearMax} | yearsRange = ${yearsRange}`);
+      //console.log(`yearMin = ${yearMin} | yearMax = ${yearMax} | yearsRange = ${yearsRange}`);
 
       this.set('yearsStart', [yearMin,yearMax]);
-      this.set('query.years', [yearMin,yearMax]);
+      this.send('slidingAction', [yearMin,yearMax]);
 
       return yearsRange;
   }),
@@ -120,7 +120,6 @@ export default Ember.Controller.extend({
           this.toggleProperty('cpvModalIsOpen');
           Ember.$('.cpv-modal-open').css('pointer-events', 'inherit');
         });
-
       console.log(this.get('selectedCodes'));
     },
 
@@ -131,7 +130,7 @@ export default Ember.Controller.extend({
     submitQuery() {
       let self = this;
 
-      // // self.send('loading');
+      // self.send('loading');
 
       self.notifications.info('This is probably going to take a while...', {
         autoClear: false

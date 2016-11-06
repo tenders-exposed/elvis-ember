@@ -58,7 +58,6 @@ export default Ember.Route.extend({
       self.setAvailable(controller, item);
     });
 
-
     // this.refreshAllData(controller);
   }
 
