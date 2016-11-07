@@ -47,8 +47,9 @@ export default Ember.Controller.extend({
   jsTree: {
     core: {
       'themes': {
-        'url': '/assets/photonui/style.css',
+        'url': '/assets/jstree/photonui/style.css',
         'name': 'photonui',
+        'theme': 'photonui'
       }
     },
     plugins: 'checkbox, search, contextmenu',

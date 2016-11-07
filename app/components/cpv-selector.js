@@ -58,10 +58,16 @@ export default Ember.Component.extend({
     }
     _.map(cpvs, (obj) =>    {
       obj.count = count(obj);
-      obj.text = `<b>${obj.id}</b> 
-                  <span class="jstree-count"> ${obj.count} </span>
-                  <span class="jstree-count"> ${obj.doc_count}</span> 
-                  ${obj.text} `;
+      obj.text = `<span class="details">
+                    <small>
+                        ${obj.id} ( ${obj.count} / ${obj.doc_count})
+                    </small> 
+                    <br>
+                    <div>
+                      ${obj.text}
+                    </div>
+                  </span>
+                  `;
     });
   },
 

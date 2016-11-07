@@ -49,8 +49,11 @@
   background-color: transparent;
   background-size: 108px 96px;
 }
+.jstree-photonui > ul ul li{
+  margin-left: 25px !important;
+}
 .jstree-photonui li {
-  background-position: -90px 0;
+  background-position: -105px 0;
   background-repeat: repeat-y;
   min-height: 20px;
   line-height: 20px;
@@ -59,53 +62,64 @@
   text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
   color: #d1d7df;
-  font-size: 14px;
+  font-size: 34px;
   line-height: 17px;
   text-shadow: none;
+  padding: 3px 0px;
 }
+
 .jstree.jstree-photonui > ul > li:first-child {
   padding-top: 5px;
+}
+.jstree.jstree-photonui .jstree-ocl {
+  width: 18px;
+  height: 18px;
+  margin-top: 19px;
 }
 .jstree.jstree-photonui a > i.jstree-icon {
   width: 18px;
   height: 18px;
+  float: right;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+.jstree.jstree-photonui a.jstree-clicked div{
+  color: whitesmoke;
+}
+.jstree.jstree-photonui a div {
+  font-family: serif;
+  font-size: 18px;
+  margin-bottom: 6px;
+  color: grey;
 }
 .jstree-photonui li.jstree-last {
   background: transparent;
 }
 .jstree-photonui .jstree-open > i.jstree-icon {
-  background-position: -72px 0;
+  background-position: -18px 0;
 }
 .jstree-photonui .jstree-open > a > i.jstree-icon {
   background-position: -56px -37px;
 }
 .jstree-photonui .jstree-open > a > i.jstree-icon {
-  height: 14px;
+  height: 18px;
 }
 .jstree-photonui .jstree-closed > i.jstree-icon {
-  background-position: -54px 0;
+  /*background-position: -54px 0;*/
+
 }
 .jstree-photonui .jstree-leaf > i.jstree-icon {
-  background-position: -36px 0;
+  /*background-position: -36px 0;*/
+  background: none
 }
 .jstree.jstree-photonui .jstree-hovered {
-  background: #3E4651;
-  border: none;
-  padding: 0px 2px;
-  border: 1px solid #2E3641;
-  color: #ffffff;
-  text-shadow: 0 2px 1px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: inset 4px 4px 8px -3px #363d46;
-  -moz-box-shadow: inset 4px 4px 8px -3px #363d46;
-  box-shadow: inset 4px 4px 8px -3px #363d46;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+  border-bottom: 1px solid deepskyblue;
 }
 .jstree.jstree-photonui .jstree-clicked {
-  border: none;
-  padding: 1px 3px;
-  background-color: #edeff2;
+  /*border: none;
+  padding: 1px 3px;*/
+ /* background-color: #edeff2;
   background-image: -moz-linear-gradient(top, #ffffff, #d1d7df);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#d1d7df));
   background-image: -webkit-linear-gradient(top, #ffffff, #d1d7df);
@@ -117,23 +131,28 @@
   text-shadow: 0 1px 1px white;
   -webkit-box-shadow: 1px 0 1px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 1px 0 1px rgba(0, 0, 0, 0.3);
-  box-shadow: 1px 0 1px rgba(0, 0, 0, 0.3);
-  -webkit-border-radius: 4px;
+  box-shadow: 1px 0 1px rgba(0, 0, 0, 0.3);*/
+ /* -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
-  border-radius: 4px;
+  border-radius: 4px;*/
 }
 .jstree.jstree-photonui .jstree-clicked > i.jstree-icon {
   background-position: -74px -19px;
 }
 .jstree.jstree-photonui a {
-  max-width: 85%;
-  display: inline;
-  height: 17px;
-  padding: 1px 3px;
+  width: 100%;
+  display: inline-block;
+  padding: 0px 3px 9px !important;
   color: #d1d7df;
   font-size: 14px;
   line-height: 17px;
   text-shadow: 0 2px 1px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid grey;
+}
+
+.jstree.jstree-photonui a span.details {
+  display: inline-block;
+  margin-left: 7px;
 }
 /*.jstree-photonui a .jstree-icon {*/
   /*background-position: -56px -19px;*/
@@ -196,14 +215,17 @@
   text-shadow: none;
   opacity: 0.7;
 }
-#vakata-dragged.jstree-photonui i.jstree-icon {
-  background: transparent !important;
+
+.jstree-photonui i.jstree-themeicon {
+  display: none;
+  /*background: transparent !important;
+  */
 }
-#vakata-dragged.jstree-photonui .jstree-ok {
+.jstree-photonui .jstree-ok {
   background: url("/assets/photonui/d.png") -1px -54px no-repeat !important;
   background-size: 108px 96px !important;
 }
-#vakata-dragged.jstree-photonui .jstree-invalid {
+.jstree-photonui .jstree-invalid {
   background: url("/assets/photonui/d.png") -18px -54px no-repeat !important;
   background-size: 108px 96px !important;
 }
@@ -232,7 +254,7 @@
 }
 #vakata-contextmenu.jstree-photonui-context a:hover,
 #vakata-contextmenu.jstree-photonui-context .vakata-hover > a {
-  padding: 0 5px;
+
   background: #e8eff7;
   border: 1px solid #aecff7;
   color: black;
@@ -245,7 +267,7 @@
   color: silver;
   background: transparent;
   border: 0;
-  padding: 1px 4px;
+
 }
 #vakata-contextmenu.jstree-photonui-context li.vakata-separator {
   background: white;
@@ -259,12 +281,16 @@
   .jstree.jstree-photonui {
     width: 100%;
   }
+  .jstree-photonui .jstree-node{
+    margin-left: 25px !important;
+  }
   .jstree-photonui li {
     background-image: none;
   }
   .jstree-photonui i.jstree-icon {
     background-size: 108px 96px;
   }
+
   .jstree.jstree-photonui li {
     padding: 8px 0;
     border-top: 1px solid #4f5660;

@@ -6,21 +6,19 @@
       <div class="search">
         {{input type="text" placeholder="Search" class="search-input form-control" value=searchTerm}}
       </div>
-      <div class="row jstree-row-example">
-        <b>code</b>
-        <span class="jstree-count-example">Total contracts</span>
-        <span class="jstree-count-example">contracts</span>
-        Description
-      </div>
+
       <div class="cpv-tree">
+        <div class="jstree-default-dark-small">
           {{ember-jstree
-            data=cpvs
-            plugins=config.plugins
-            themes=config.themes
-            selectedNodes=selectedCodes
-            searchOptions=config.searchOptions
-            searchTerm=searchTerm
+              data=cpvs
+              plugins=config.plugins
+              themes=config.core.themes
+              selectedNodes=selectedCodes
+              searchOptions=config.searchOptions
+              searchTerm=searchTerm
           }}
+        </div>
+
       </div>
     </div>
     <div class="col s3 cpv-info-container">

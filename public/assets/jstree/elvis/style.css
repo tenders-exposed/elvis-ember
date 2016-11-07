@@ -620,11 +620,16 @@
   background-position: -167px -39px;
 }
 .jstree-default-dark-small.jstree-checkbox-selection .jstree-clicked > .jstree-checkbox,
-.jstree-default-dark-small .jstree-checked > .jstree-checkbox {
+.jstree-default-dark-small .jstree-checked > .jstree-checkbox,
+.jstree-default-dark-small .jstree-clicked >  .jstree-checkbox
+{
   background-position: -231px -7px;
 }
 .jstree-default-dark-small.jstree-checkbox-selection .jstree-clicked > .jstree-checkbox:hover,
-.jstree-default-dark-small .jstree-checked > .jstree-checkbox:hover {
+.jstree-default-dark-small .jstree-checked > .jstree-checkbox:hover,
+.jstree-default-dark-small .jstree-clicked >  .jstree-checkbox:hover
+
+{
   background-position: -231px -39px;
 }
 .jstree-default-dark-small .jstree-anchor > .jstree-undetermined {
