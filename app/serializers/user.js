@@ -21,8 +21,6 @@ export default DS.JSONSerializer.extend({
       delete json[v];
     });
 
-    console.log(json);
-
     return json;
   }
 });
