@@ -22,8 +22,8 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
         }
       }).then(
         () => {
-          self.notifications.clearAll();
-          self.notifications.success('Done! Your password was reset.', {
+          self.get('notifications').clearAll();
+          self.get('notifications').success('Done! Your password was reset.', {
             autoClear: true
           });
 
@@ -32,11 +32,11 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
           this.controller.set('password_confirmation', '');
 
         }, (response) => {
-          self.notifications.clearAll();
+          self.get('notifications').clearAll();
           console.log(response);
           /* _.forEach(response.errors, (error, index) => {
             error.forEach((v) => {
-              self.notifications.error(`Error: ${index } ${v}`);
+              self.get('notifications').error(`Error: ${index } ${v}`);
             });
           });*/
         });
@@ -44,8 +44,8 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   },
 
   activate() {
-    this.notifications.clearAll();
-    this.notifications.warning('Warning, this page contains unfinished features!', {
+    this.get('notifications').clearAll();
+    this.get('notifications').warning('Warning, this page contains unfinished features!', {
       autoClear: true,
       clearDuration: 10000
     });

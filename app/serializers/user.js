@@ -4,15 +4,24 @@ export default DS.JSONSerializer.extend({
   serialize(snapshot, options) {
     let json = this._super(...arguments);
 
-    json.data.attributes.user = {
-      id: json.data.attributes.id,
-      email: json.data.attributes.email,
-      token: json.data.attributes.token
-    };
+    let attributes = [
+      'id',
+      'email',
+      'password',
+      'token',
+      'password_confirmation',
+      'country',
+      'name'
+    ];
 
-    delete json.data.attributes.id;
-    delete json.data.attributes.email;
-    delete json.data.attributes.token;
+    json.user = {};
+
+    attributes.forEach((v) => {
+      json.user[v] = json[v];
+      delete json[v];
+    });
+
+    console.log(json);
 
     return json;
   }
