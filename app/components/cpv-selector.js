@@ -73,7 +73,7 @@ export default Ember.Component.extend({
 
   actions: {
     toggleModal() {
-      this.get('targetObject').send('toggleCpvModal');
+      this.sendAction();
     },
   }
 });

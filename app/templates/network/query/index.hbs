@@ -62,7 +62,15 @@
                   class='grey darken-3 cpv-modal-open'}}
                   {{loading-cpv}}
                   {{#if cpvModalIsOpen}}
-                    {{cpv-selector cpvs=cpvs config=jsTree searchTerm=searchTerm height=height selectedCodes=selectedCodes query=query}}
+                    {{cpv-selector
+                      cpvs=cpvs
+                      config=jsTree
+                      searchTerm=searchTerm
+                      height=height
+                      selectedCodes=selectedCodes
+                      query=query
+                      action=(action 'toggleCpvModal')
+                    }}
                   {{/if}}
                     <br> <br>
                   {{#each selectedCodes as |selected|}}
