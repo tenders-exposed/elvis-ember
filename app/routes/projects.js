@@ -1,10 +1,10 @@
 import Ember from 'ember';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
   model() {
-    this.get('store').findAll('network');
+    return this.get('store').findAll('network');
   },
   activate() {
     this.notifications.clearAll();

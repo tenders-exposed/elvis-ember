@@ -27,9 +27,6 @@
                 </div>
                 <div class="col s6">
                     <div class="input-field">
-
-                        <p class="range-field">
-
                         {{#if years}}
                           {{range-slider
                             range = yearsRange
@@ -38,11 +35,8 @@
                             connect=true
                             tooltips=true
                             disabled=rangeIsDisabled
-
                             on-slide="slidingAction"}}
                         {{/if}}
-
-                        </p>
                     </div>
                 </div>
             </div>
