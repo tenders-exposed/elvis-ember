@@ -6,6 +6,7 @@ export default Ember.Controller.extend({
   // session: Ember.inject.service('session'),
 
   cpvModalIsOpen: false,
+  selectedCodesModalIsOpen: false,
   optionsModalIsOpen: false,
 
   selectedCodes: Ember.A([]),
@@ -122,6 +123,10 @@ export default Ember.Controller.extend({
         });
 
       console.log(this.get('selectedCodes'));
+    },
+
+    toggleSelectedCodesModal() {
+      this.toggleProperty('selectedCodesModalIsOpen');
     },
 
     toggleOptionsModal() {

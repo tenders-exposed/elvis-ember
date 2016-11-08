@@ -28,15 +28,17 @@
             <h4>Selected codes:</h4>
           {{/if}}
           <br><br>
-          {{#if refresh}}
-            {{#each selectedCodes as |selected|}}
-              {{#cpv-chip cid=selected.id unique='selector' title=selected.title selectedCodes=selectedCodes}}
-                <b>{{selected.id}}</b><br>
-                {{selected.original.name}}<br>
-                <i class="grey-text darken-1">{{selected.original.doc_count}} documents</i>
-              {{/cpv-chip}}
-            {{/each}}
-          {{/if}}
+          <div class="cpv-selector-selected-codes-container">
+            {{#if refresh}}
+              {{#each selectedCodes as |selected|}}
+                {{#cpv-chip cid=selected.id unique='selector' title=selected.title selectedCodes=selectedCodes}}
+                  <b>{{selected.id}}</b><br>
+                  {{selected.original.name}}<br>
+                  <i class="grey-text darken-1">{{selected.original.doc_count}} documents</i>
+                {{/cpv-chip}}
+              {{/each}}
+            {{/if}}
+          </div>
         </div>
       </div>
       <div class="row-collapse">

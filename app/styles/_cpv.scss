@@ -33,6 +33,11 @@ div.cpv-table-container {
   }
 }
 
+.cpv-selector-selected-codes-container {
+  max-height: 700px;
+  overflow: scroll;
+}
+
 .cpv-ok-button {
   margin-top: 0;
   margin-bottom: 0;
