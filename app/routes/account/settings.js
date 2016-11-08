@@ -1,27 +1,27 @@
 import Ember from 'ember';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default Ember.Route.extend(AuthenticatedRouteMixin,{
+export default Ember.Route.extend(AuthenticatedRouteMixin, {
   ajax: Ember.inject.service(),
   actions: {
-    settings(model){
-      //@todo: implement save model
-      console.log("model", model);
+    settings(model) {
+      // @todo: implement save model
+      console.log('model', model);
     },
-    deviseSendReset(current_password, password, password_confirmation){
+    deviseSendReset(current_password, password, password_confirmation) {
       let self = this;
-      const email = this.controller.get('model.email');
-      const token = this.controller.get('model.token');
-      const data =  `{"user": {"email": "${email}", "current_password": "${current_password}", "password": "${password}", "password_confirmation": "${password_confirmation}"}}`;
+      let email = this.controller.get('model.email');
+      let token = this.controller.get('model.token');
+      let data =  `{"user": {"email": "${email}", "current_password": "${current_password}", "password": "${password}", "password_confirmation": "${password_confirmation}"}}`;
       this.get('ajax').put('/users', {
-        data: data,
+        data,
         headers: {
           'Content-Type': 'application/json',
           'X-User-Email': `${email}`,
           'X-User-Token': `${token}`
         }
       }).then(
-        ()=>{
+        () => {
           self.notifications.clearAll();
           self.notifications.success('Done! Your password was reset.', {
             autoClear: true
@@ -31,10 +31,10 @@ export default Ember.Route.extend(AuthenticatedRouteMixin,{
           this.controller.set('password', '');
           this.controller.set('password_confirmation', '');
 
-        }, (response)=>{
+        }, (response) => {
           self.notifications.clearAll();
           console.log(response);
-         /* _.forEach(response.errors, (error, index) => {
+          /* _.forEach(response.errors, (error, index) => {
             error.forEach((v) => {
               self.notifications.error(`Error: ${index } ${v}`);
             });

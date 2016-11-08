@@ -2,7 +2,7 @@ import DS from 'ember-data';
 
 export default DS.JSONSerializer.extend({
   serialize(snapshot, options) {
-    var json = this._super(...arguments);
+    let json = this._super(...arguments);
 
     json.data.attributes.user = {
       id: json.data.attributes.id,
@@ -15,5 +15,5 @@ export default DS.JSONSerializer.extend({
     delete json.data.attributes.token;
 
     return json;
-  },
+  }
 });

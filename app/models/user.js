@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 
-
 const User = DS.Model.extend({
   email: DS.attr('string'),
   name: DS.attr('string'),
@@ -11,7 +10,7 @@ const User = DS.Model.extend({
 
   token: Ember.computed('authentication_token', function() {
     return this.get('authentication_token');
-  }),
+  })
 
 });
 export default User;

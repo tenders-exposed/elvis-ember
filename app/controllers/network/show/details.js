@@ -90,7 +90,7 @@ export default Ember.Controller.extend({
         console.log(selectedRows);
         // this.network.moveTo(selectedRows[0].from);
         this.network.network.fit({
-          nodes: [selectedRows[0].from, selectedRows[0].to], 
+          nodes: [selectedRows[0].from, selectedRows[0].to],
           animation: true
         });
         this.network.network.selectEdges([selectedRows[0].id]);

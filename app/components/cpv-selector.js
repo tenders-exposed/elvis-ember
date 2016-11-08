@@ -23,8 +23,8 @@ export default Ember.Component.extend({
       group = _.sortBy(group, 'id');
       _.map(group, (obj) => {
         let patternBase = obj.id.replace(/0+$/, '').slice(0, -1);
-        let parent = {id: '#'};
-        const matcher = (o) => o.id.match(new RegExp(`^${patternBase}0+$`));
+        let parent = { id: '#' };
+        let matcher = (o) => o.id.match(new RegExp(`^${patternBase}0+$`));
         while (patternBase.length > 0 && parent.id === '#') {
           let found = _.findLast(group, matcher);
           if (found) {
@@ -34,34 +34,35 @@ export default Ember.Component.extend({
           patternBase = patternBase.slice(0, -1);
         }
         obj.parent = String(parent.id);
-        obj.state = {opened: false};
+        obj.state = { opened: false };
         obj.name = `${obj.text}`;
       });
     });
 
-  let count = (obj) =>{
-      if(obj.count) {
+    let count = (obj) => {
+      if (obj.count) {
         return obj.count;
       } else {
         return _.sumBy(
           cpvs,
-          function(cpv){
-            if(cpv.id === obj.id) {
+          function(cpv) {
+            if (cpv.id === obj.id) {
               return cpv.doc_count;
             }
-            if (cpv.parent === obj.id ) {
+            if (cpv.parent === obj.id) {
               return count(cpv);
             }
           }
         );
       }
-    }
+    };
+
     _.map(cpvs, (obj) =>    {
       obj.count = count(obj);
       obj.text = `<span class="details">
                     <small>
                         ${obj.id} ( ${obj.count} / ${obj.doc_count})
-                    </small> 
+                    </small>
                     <br>
                     <div>
                       ${obj.text}
@@ -74,6 +75,6 @@ export default Ember.Component.extend({
   actions: {
     toggleModal() {
       this.sendAction();
-    },
+    }
   }
 });

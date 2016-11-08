@@ -10,7 +10,7 @@ export default Ember.Controller.extend({
 
   selectedCodes: Ember.A([]),
 
-  rangeIsDisabled: Ember.computed('query.countries', function(){
+  rangeIsDisabled: Ember.computed('query.countries', function() {
     return !this.get('query.countries').length;
   }),
 
@@ -27,17 +27,17 @@ export default Ember.Controller.extend({
 
   yearsStart: [],
 
-  yearsRange: Ember.computed('years', function () {
-      let yearMin = _.minBy(this.get('years'), 'id').id;
-      let yearMax = _.maxBy(this.get('years'), 'id').id;
-      let yearsRange = {'min': yearMin, 'max' : yearMax};
+  yearsRange: Ember.computed('years', function() {
+    let yearMin = _.minBy(this.get('years'), 'id').id;
+    let yearMax = _.maxBy(this.get('years'), 'id').id;
+    let yearsRange = { 'min': yearMin, 'max': yearMax };
 
-      console.log(`yearMin = ${yearMin} | yearMax = ${yearMax} | yearsRange = ${yearsRange}`);
+    console.log(`yearMin = ${yearMin} | yearMax = ${yearMax} | yearsRange = ${yearsRange}`);
 
-      this.set('yearsStart', [yearMin,yearMax]);
-      this.set('query.years', [yearMin,yearMax]);
+    this.set('yearsStart', [yearMin,yearMax]);
+    this.set('query.years', [yearMin,yearMax]);
 
-      return yearsRange;
+    return yearsRange;
   }),
 
   height: window.innerHeight - 200,
@@ -53,9 +53,9 @@ export default Ember.Controller.extend({
       }
     },
     plugins: 'checkbox, search, contextmenu',
-    searchOptions: { 'show_only_matches' : true },
-    checkbox : {
-      "three_state" : true
+    searchOptions: { 'show_only_matches': true },
+    checkbox: {
+      'three_state': true
     }
   },
   searchTerm: '',
@@ -113,7 +113,6 @@ export default Ember.Controller.extend({
         }
       }`;
 
-      //console.log('options', options);
       this.get('ajax')
         .post('/contracts/cpvs', { data: options, headers: { 'Content-Type': 'application/json' } })
         .then((data) => {

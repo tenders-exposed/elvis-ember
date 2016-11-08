@@ -10,8 +10,8 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   session: Ember.inject.service(),
   me: Ember.inject.service(),
 
-  model(){
-    if(this.get('session.isAuthenticated')){
+  model() {
+    if (this.get('session.isAuthenticated')) {
       return this.store.findRecord('user', this.get('me.data.id'));
     }
   },
@@ -26,6 +26,6 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
 
   setupLoader() {
     this.controllerFor('loading').get('loaderWords').pushObject('network');
-  },
+  }
 
 });
