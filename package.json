@@ -82,6 +82,5 @@
     "virtual-each": "0.2.1"
   },
   "dependencies": {
-    "loader.js": "^4.0.1"
   }
 }
