@@ -55,7 +55,6 @@
                   action='toggleCpvModal'
                   class='grey darken-3 cpv-modal-open'}}
                   {{loading-cpv}}
-                  {{#if query.countries}}
                     {{cpv-selector
                       visible=cpvModalIsOpen
                       cpvs=cpvs
@@ -67,7 +66,6 @@
                       action=(action 'toggleCpvModal')
                       jsTree=jsTree
                     }}
-                  {{/if}}
                   {{#if selectedCodes}}
                     {{md-btn
                       text='Review'
