@@ -2,9 +2,13 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   classNames: ['cpv-selector'],
-  selectedCodes: [],
+  classNameBindings: ['visible:visible:hide'],
   refresh: true,
   table: {},
+
+  treeObserver: Ember.observer('cpvs', function() {
+    this.createTree();
+  }),
 
   flattenCpvs(cpvs) {
     _.each(cpvs, function(value, key, array) {

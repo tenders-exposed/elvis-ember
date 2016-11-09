@@ -55,8 +55,9 @@
                   action='toggleCpvModal'
                   class='grey darken-3 cpv-modal-open'}}
                   {{loading-cpv}}
-                  {{#if cpvModalIsOpen}}
+                  {{#if query.countries}}
                     {{cpv-selector
+                      visible=cpvModalIsOpen
                       cpvs=cpvs
                       config=jsTree
                       searchTerm=searchTerm
@@ -64,6 +65,7 @@
                       selectedCodes=selectedCodes
                       query=query
                       action=(action 'toggleCpvModal')
+                      jsTree=jsTree
                     }}
                   {{/if}}
                   {{#if selectedCodes}}
@@ -78,7 +80,12 @@
                       {{#md-modal close='closeModal' class='selected-codes-modal'}}
                           <div class="selected-codes-modal-content">
                             {{#each selectedCodes as |selected|}}
-                              {{#cpv-chip selectedCodes=selectedCodes cid=selected.id unique='query'}}
+                              {{#cpv-chip
+                                 selectedCodes=selectedCodes
+                                 cid=selected.id
+                                 unique='query'
+                                 jsTree=jsTree
+                              }}
                                 {{selected.id}}<br>{{selected.original.name}}
                               {{/cpv-chip}}
                             {{/each}}

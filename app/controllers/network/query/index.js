@@ -45,8 +45,14 @@ export default Ember.Controller.extend({
 
   network: {},
 
+  jsTreeRefresh: Ember.observer('selectedCodes', function() {
+    console.log('tree: ', this.get('jsTree'));
+    // this.get('jsTree').send('redraw');
+  }),
+
   jsTree: {
     core: {
+      'worker': false,
       'themes': {
         'url': '/assets/jstree/photonui/style.css',
         'name': 'photonui',
@@ -56,7 +62,7 @@ export default Ember.Controller.extend({
     plugins: 'checkbox, search, contextmenu',
     searchOptions: { 'show_only_matches': true },
     checkbox: {
-      'three_state': true
+      'cascade': 'up+down'
     }
   },
   searchTerm: '',
@@ -121,7 +127,7 @@ export default Ember.Controller.extend({
           this.toggleProperty('cpvModalIsOpen');
           Ember.$('.cpv-modal-open').css('pointer-events', 'inherit');
         });
-      console.log(this.get('selectedCodes'));
+      // console.log(this.get('selectedCodes'));
     },
 
     toggleSelectedCodesModal() {
