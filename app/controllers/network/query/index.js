@@ -10,6 +10,12 @@ export default Ember.Controller.extend({
   optionsModalIsOpen: false,
 
   selectedCodes: Ember.A([]),
+  selectedCodesCount: Ember.computed('selectedCodes', function () {
+    const count = _.sumBy(this.get('selectedCodes'), function(o) {
+      return o.original.doc_count;
+    });
+    return count;
+  }),
 
   rangeIsDisabled: Ember.computed('query.countries', function() {
     return !this.get('query.countries').length;

@@ -1,4 +1,9 @@
-div#cpv-container {
+div#selected-cpvs-container{
+  background: #1A1A1C;
+}
+div#cpv-container,
+div#selected-cpvs-container
+{
   width: 100%;
   height: 100%;
   /*
@@ -8,7 +13,7 @@ div#cpv-container {
   margin-top: -50px;
   */
   position: fixed;
-  overflow: auto;
+ /* overflow: auto;*/
   top: 0;
   left: 0;
   display: block;
@@ -24,18 +29,102 @@ div#cpv-container {
   }
 }
 
-div.cpv-table-container {
-  height: 800px;
-  overflow: auto;
-  width: 100%;
+ul.selected-cpvs {
+  i {
+    font-size: 17px !important;
+  }
+  i:hover {
+    color: orangered;
+    cursor: pointer;
+  }
+  li:hover {
+    span.details {
+      border-bottom: 1px solid orangered;
+    }
+  }
+  li {
+    padding-top: 5px;
+    min-height: 20px;
+    line-height: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    color: #d1d7df;
+    font-size: 34px;
+    line-height: 17px;
+    padding: 3px 0px;
 
-  div.cpv-tree {
+    span.details {
+      display: inline-block;
+      width: 100%;
+      padding: 0px 3px 9px !important;
+      color: #d1d7df;
+      font-size: 14px;
+      line-height: 17px;
+      text-shadow: 0 2px 1px rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid grey;
+
+      div {
+        font-family: serif;
+        font-size: 18px;
+        margin-bottom: 6px;
+        color: grey;
+      }
+    }
   }
 }
 
-.cpv-selector-selected-codes-container {
-  max-height: 700px;
-  overflow: scroll;
+.cpv-table-container {
+  .search {
+    margin-bottom: 20px;
+
+    input{
+      background-color: #151517;
+      height: 2rem;
+      width: 95%;
+      border: 1px solid #313030;
+      padding: 0px 16px;
+      color: #615f5f;
+    }
+  }
+}
+
+.cpv-tree,
+.cpv-selector-selected-codes-container ,
+.selected-codes{
+  .jstree-default-dark-small {
+    height: 500px;
+  }
+  .ps-container {
+    position:relative;
+    margin:0px auto;
+    padding:0px;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    padding-right: 20px;
+  }
+  .spacer { text-align:center }
+}
+
+.ps-scrollbar-y-rail {
+  background-color: grey !important;
+  width: 10px !important;
+
+  .ps-scrollbar-y{
+    margin-top: 10px;
+  }
+}
+
+.ps-scrollbar-y-rail:hover{
+  width: 10px !important;
+  .ps-scrollbar-y {
+    width: 6px !important;
+  }
+}
+.ps-scrollbar-y:hover{
+  width: 6px !important;
 }
 
 .cpv-ok-button {
@@ -50,3 +139,7 @@ div.cpv-table-container {
 .jstree-photonui .jstree-icon {
   background: url("/assets/photonui/d.png");
 }
+
+.toggled{   display: none; }
+.show-container {display: block !important;}
+

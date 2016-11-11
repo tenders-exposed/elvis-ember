@@ -5,6 +5,7 @@ export default Ember.Component.extend({
   classNameBindings: ['visible:visible:hide'],
   refresh: true,
   table: {},
+  showSelected: false,
 
   treeObserver: Ember.observer('cpvs', function() {
     this.createTree();
@@ -77,6 +78,9 @@ export default Ember.Component.extend({
   },
 
   actions: {
+    toggleSelectedCodesModal() {
+      this.toggleProperty('showSelected');
+    },
     toggleModal() {
       this.sendAction();
     }
