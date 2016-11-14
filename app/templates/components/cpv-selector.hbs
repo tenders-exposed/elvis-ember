@@ -58,12 +58,19 @@
       </div>
       <div class="toggled {{unless showSelected 'show-container'}}">
         <div class="search">
+          <form onsubmit="return false;">
           {{input type="text"
                   placeholder="search for keyword of CPV code.."
                   class="search-input form-control"
                   value=searchTerm
           }}
-
+          {{md-btn text='search'
+                   icon='fa fa-search'
+                   action='searchCpv'
+                   class='grey darken-3'
+                   isDisabled=isDisabled
+          }}
+          </form>
           {{#if selectedCodes}}
             {{md-btn
                 text='Review'
@@ -82,8 +89,8 @@
                  themes=config.core.themes
                  selectedNodes=selectedCodes
                  searchOptions=config.searchOptions
-                 searchTerm=searchTerm
                  actionReceiver=jsTree
+                 searchTerm=searchTree
              }}
            </div>
            {{/perfect-scroll}}

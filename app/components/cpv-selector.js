@@ -6,6 +6,16 @@ export default Ember.Component.extend({
   refresh: true,
   table: {},
   showSelected: false,
+  searchTerm: "",
+  searchTree: "",
+  isDisabled: Ember.computed('searchTerm.length', function () {
+    if(this.get('searchTerm.length') > 4) {
+      return false;
+    } else {
+      this.set('searchTree','');
+      return true;
+    }
+  }),
 
   treeObserver: Ember.observer('cpvs', function() {
     this.createTree();
@@ -83,6 +93,9 @@ export default Ember.Component.extend({
     },
     toggleModal() {
       this.sendAction();
+    },
+    searchCpv(){
+      this.set('searchTree', this.get('searchTerm'));
     }
   }
 });

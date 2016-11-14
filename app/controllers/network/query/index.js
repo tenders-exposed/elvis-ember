@@ -56,7 +56,7 @@ export default Ember.Controller.extend({
     // this.get('jsTree').send('redraw');
   }),
 
-  jsTree: {
+  jsTreeConfig: {
     core: {
       'worker': false,
       'themes': {
