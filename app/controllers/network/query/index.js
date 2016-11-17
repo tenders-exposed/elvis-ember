@@ -125,12 +125,11 @@ export default Ember.Controller.extend({
             "years": [${self.get('query.years').join(', ')}]
         }
       }`;
-
+      this.toggleProperty('cpvModalIsOpen');
       this.get('ajax')
         .post('/contracts/cpvs', { data: options, headers: { 'Content-Type': 'application/json' } })
         .then((data) => {
           self.set('cpvs', data.search.results);
-          this.toggleProperty('cpvModalIsOpen');
           Ember.$('.cpv-modal-open').css('pointer-events', 'inherit');
         });
       // console.log(this.get('selectedCodes'));
