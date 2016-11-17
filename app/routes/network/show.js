@@ -1,11 +1,15 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  beforeModel(){
+    this.store.unloadAll('network');
+  },
   activate() {
     this.notifications.clearAll();
   },
 
   setupController(controller, model) {
+
     controller.set('model', model);
     let self = this;
     controller.addObserver('network', function() {

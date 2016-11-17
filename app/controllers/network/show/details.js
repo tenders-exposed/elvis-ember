@@ -1,12 +1,14 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+
   sidebarTabs: [
     { id: 'suppliers', title: 'Suppliers' },
     { id: 'procurers', title: 'Procurers' },
     { id: 'relationships', title: 'Relationships' }
   ],
   active: 'suppliers',
+  //active: 'suppliers',
 
   gridOptionsBoilerplate: {
     enableColResize: true,

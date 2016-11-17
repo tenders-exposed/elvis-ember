@@ -8,15 +8,20 @@
         <h5 class="details">New Network {{fa-icon 'edit' size=1}}</h5>
       </div>
       <div class="col s12">
-        {{#tabbed-content active=active on-change="changeTab" as |manager|}}
+        {{#tabbed-content active=active on-change="changeTab" active-class="tab-button--active" as |manager|}}
           <div class="tabs__nav">
-            {{#tab-button class="tab-button" manager=manager name="suppliers"}}Suppliers{{/tab-button}}
-            {{#tab-button class="tab-button" manager=manager name="procurers"}}Procurers{{/tab-button}}
-            {{#tab-button class="tab-button" manager=manager name="relationships"}}Relationships{{/tab-button}}
+            {{#tab-button class="tab-button"  manager=manager name="suppliers"}}
+              {{#link-to 'network.show.details.detail' 'suppliers'}} Suppliers{{/link-to}}
+            {{/tab-button}}
+            {{#tab-button class="tab-button"  manager=manager  name="procurers"}}
+              {{#link-to 'network.show.details.detail' 'procurers'}} Procurers{{/link-to}}
+            {{/tab-button}}
+            {{#tab-button class="tab-button"  manager=manager name="relationships" active-class="tabs-button--active2"}}
+              {{#link-to 'network.show.details.detail' 'relationships'}}Relationships{{/link-to}}
+            {{/tab-button}}
           </div>
-
           {{#tab-panel manager=manager name="suppliers" class='tab-panel'}}
-            {{!--Tab suppliers--}}
+          {{!--Tab suppliers--}}
             {{#if model.graph.nodes}}
               {{ ag-grid gridOptions=gridOptions.suppliers width="100%" theme="ag-material" network=network }}
             {{else}}
@@ -40,6 +45,7 @@
             {{/if}}
           {{/tab-panel}}
         {{/tabbed-content}}
+
       </div>
     </div>
   </div>

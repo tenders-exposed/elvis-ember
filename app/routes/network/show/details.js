@@ -3,6 +3,12 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 
   setupController(controller) {
+
+    let active = this.paramsFor('network.show.details.detail').type;
+    if(active){
+     controller.set('active', active);
+    }
+
     controller.set(
       'model', this.controllerFor('network.show').get('model')
     );
