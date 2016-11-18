@@ -5,4 +5,5 @@ export default Ember.Component.extend({
   size: "big",
   mode: "circular",
   loading: "",
+
 });

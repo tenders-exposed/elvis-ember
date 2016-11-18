@@ -9,11 +9,73 @@ div.nav-wrapper>div.row {
 }
 
 div#main-navbar {
+  .container{
+    border-bottom: 2px solid #464646;
+  }
+  a.logo-container {
+    height: 80px;
+    opacity: 0.3;
+  }
+  a.logo-container:hover {
+    opacity: 1;
+  }
+  .dropdown-content {
+    width: 15% !important;
+    position: absolute;
+    top: 80px !important;;
+    right: 15% !important;;
+    left: auto !important;
+    background: #1a1a1c !important;
+    color: whitesmoke !important;
+
+    a{
+      font-size: 1rem !important;
+    }
+
+    a:hover, a.active{
+      border-bottom: none !important;
+      color: #636363 !important;
+    }
+  }
+
+  .dropdown-content li > a, .dropdown-content li > span {
+    font-size: 16px;
+    color: #eee;
+    display: block;
+    line-height: 22px !important;
+    padding: 14px 16px;
+  }
+
+  nav .button-collapse {
+    float: right;
+    position: relative;
+    z-index: 1;
+  }
+
+  nav ul.main-menu a {
+    line-height: 63px;
+    padding-top: 15px;
+    color: #636363;
+    /*font-family: serif
+      font-size: 1rem;
+      font-weight: bold;
+    ;*/
+    i {
+      height: inherit;
+      line-height: inherit;
+    }
+  }
+  nav ul.main-menu a:hover,
+  nav ul.main-menu a.active {
+    color: whitesmoke;
+    border-bottom: 2px solid whitesmoke;
+  }
+
   nav.main-nav, div.nav-wrapper {
     height: 80px;
     box-shadow: none;
   }
-  .logo{
+  .logo {
     height: 36px;
     width: 64px;
     margin: 22px 10px;
