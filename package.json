@@ -84,7 +84,8 @@
     "form-data": "^0.2.0",
     "loader.js": "^4.0.10",
     "node-sass": "3.4.2",
-    "virtual-each": "0.2.1"
+    "virtual-each": "0.2.1",
+    "ember-data-table": "0.3.0"
   },
   "dependencies": {}
 }

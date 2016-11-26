@@ -25,6 +25,10 @@ export default Ember.Route.extend({
         'gridOptions.relationships.network',
         controller.get('network')
       );
+      self.controllerFor('network.show.details').set(
+        'network',
+        controller.get('network')
+      );
     });
   },
 

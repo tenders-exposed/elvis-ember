@@ -1,4 +1,40 @@
 div#network-container {
+
+  .suppliers {
+    th {padding: 10px 0px !important;}
+    th.id {width: 2% !important;}
+    th.label {width: 16% !important;}
+    th.value {width: 2% !important;}
+  }
+
+  .relationships{
+    th {padding: 10px 0px !important;}
+    th.fromLabel {width: 12% !important;}
+    th.toLabel {width: 16% !important;}
+    th.value {width: 3% !important;}
+  }
+
+  thead {
+    display: block;
+    th{
+      cursor: pointer;
+    }
+  }
+
+  .data-table .ps-container {
+    position: relative;
+    margin: 0px auto;
+    padding: 0px;
+    width: 103%;
+    height: 400px;
+    overflow: hidden;
+    padding-right: 20px !important;
+
+    .ps-scrollbar-y-rail{
+      margin-left: 10px !important;
+    }
+  }
+
   h5 {
     margin-top: 0;
   }
@@ -6,16 +42,14 @@ div#network-container {
   width: 100%;
   display: block;
   top: 0;
-  /*   background: yellow; */
 
   div.network-canvas {
     height: 100%;
   }
 
-    div#visjs-network {
+   div#visjs-network {
     position: fixed;
     width: 100%;
-    //height: 100%;
   }
 
   .ember-view { height: 100%; }
@@ -67,29 +101,23 @@ div#network-container {
       div.flags{
         font-size: 0.6em;
         color: orangered;
-
         i{
           margin-right: 3px;
         }
       }
-
       div.col{
         padding: 0px;
       }
-
-
     }
-
   }
-
+  div#details-container > * {
+    margin: 0; padding: 0; border: 0;
+  }
   div#details-container {
     z-index: 100;
     position: absolute;
     pointer-events: none;
-    //top: 80px;
     width: 100%; height: 50%; display: block;
-
-    * {margin: 0; padding: 0; border: 0;}
 
     div#details-sidebar {
       pointer-events: all;
@@ -101,16 +129,36 @@ div#network-container {
       background: $main-bg;
       opacity: .9;
       .tabs__nav {
+        .tab-button--active,
+        .tabs-button--active2 {
+          a {
+            border-bottom: 2px solid whitesmoke;
+          }
+        }
+
         .tab-button {
           display: inline-block;
           font-weight: bold;
+
+          a {
+            color: whitesmoke;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            padding-bottom: 10px;
+          }
         }
       }
       .tab-panel {
+        background: $main-bg;
         .ag-grid-container {
           width: 100%;
         }
       }
+    }
+    .searchIcon{
+      top: 4px;
+      right: 4px;
+      cursor: pointer;
     }
 
     div#details-info {
@@ -194,8 +242,4 @@ div#stabilization-info {
       font-size: 2rem;
     }
   }
-  //padding-top: 35%;
-  //text-align: center;
-  //color: red;
-  //background-color: yellow;
 }

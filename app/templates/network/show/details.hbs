@@ -2,28 +2,48 @@
   <div id="details-sidebar"  style="height: {{height}}px;">
     <div class="row">
       <div class="col s12">
-        <a {{action 'closeDetails' model.id}} class="right" style="cursor: pointer;">
-          <i class="material-icons">close</i>
-        </a>
-        <h5 class="details">New Network {{fa-icon 'edit' size=1}}</h5>
+        <h5 class="details">{{fa-icon 'bars' size=1}} MyProjectName {{fa-icon 'cog' size=1}}</h5>
       </div>
-      <div class="col s12">
+      <div class="col s12 relative">
+        <a {{action 'closeDetails' model.id}} class="right closeDetails absolute" style="cursor: pointer;">
+          <i class="material-icons">{{fa-icon 'arrow-circle-left' size=1}}</i>
+        </a>
         {{#tabbed-content active=active on-change="changeTab" active-class="tab-button--active" as |manager|}}
           <div class="tabs__nav">
             {{#tab-button class="tab-button"  manager=manager name="suppliers"}}
-              {{#link-to 'network.show.details.detail' 'suppliers'}} Suppliers{{/link-to}}
+              {{#link-to 'network.show.details.detail' 'suppliers'}}
+                <span class="absolute circle supplier"> {{fa-icon 'circle' size=1}} </span>
+                Suppliers
+              {{/link-to}}
             {{/tab-button}}
             {{#tab-button class="tab-button"  manager=manager  name="procurers"}}
-              {{#link-to 'network.show.details.detail' 'procurers'}} Procurers{{/link-to}}
+              {{#link-to 'network.show.details.detail' 'procurers'}}
+                <span class="absolute circle procurer"> {{fa-icon 'circle' size=1}} </span>
+                Procurers
+              {{/link-to}}
             {{/tab-button}}
             {{#tab-button class="tab-button"  manager=manager name="relationships" active-class="tabs-button--active2"}}
-              {{#link-to 'network.show.details.detail' 'relationships'}}Relationships{{/link-to}}
+              {{#link-to 'network.show.details.detail' 'relationships'}}
+                <span class="absolute circle relationship-line"> <hr/> </span>
+                <span class="absolute circle relationship rel1"> {{fa-icon 'circle' size=1}} </span>
+                <span class="absolute circle relationship rel2"> {{fa-icon 'circle' size=1}} </span>
+                Relationships
+              {{/link-to}}
             {{/tab-button}}
           </div>
           {{#tab-panel manager=manager name="suppliers" class='tab-panel'}}
           {{!--Tab suppliers--}}
             {{#if model.graph.nodes}}
+              {{!--
               {{ ag-grid gridOptions=gridOptions.suppliers width="100%" theme="ag-material" network=network }}
+              --}}
+              {{elvis-data-table
+                  class="suppliers"
+                  action="moveNetwork"
+                  tableContent=gridOptions.suppliers.rowData
+                  fields=fields.suppliers
+                  network=network
+              }}
             {{else}}
               {{fa-icon 'plus' spin=true}} Loading data grid...
             {{/if}}
@@ -31,7 +51,13 @@
 
           {{#tab-panel manager=manager name="procurers" class='tab-panel'}}
             {{#if model.graph.nodes}}
-              {{ ag-grid gridOptions=gridOptions.procurers width="100%" theme="ag-material" network=network }}
+              {{elvis-data-table
+                  class="suppliers"
+                  action="moveNetwork"
+                  tableContent=gridOptions.procurers.rowData
+                  fields=fields.suppliers
+                  network=network
+              }}
             {{else}}
               {{fa-icon 'plus' spin=true}} Loading data grid...
             {{/if}}
@@ -39,7 +65,13 @@
 
           {{#tab-panel manager=manager name="relationships" class='tab-panel'}}
             {{#if model.graph.nodes}}
-              {{ ag-grid gridOptions=gridOptions.relationships width="100%" theme="ag-material" network=network }}
+              {{elvis-data-table
+                  class="relationships"
+                  action="moveToEdge"
+                  tableContent=gridOptions.relationships.rowData
+                  fields=fields.relationships
+                  network=network
+              }}
             {{else}}
               {{fa-icon 'plus' spin=true}} Loading data grid...
             {{/if}}

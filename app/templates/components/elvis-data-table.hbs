@@ -1,0 +1,50 @@
+<div class="relative">
+  {{input
+      type="text"
+      placeholder=searchLabel
+      class="search-input"
+      value=search
+  }}
+  <span class="absolute searchIcon" {{action "searchTable" on="click"}}>
+    {{fa-icon 'search' size=1}}
+  </span>
+
+</div>
+{{#data-table content=content sort=sort page=page as |t|}}
+{{!--
+{{#t.menu as |menu|}}
+  {{#menu.general}}
+    <a {{action 'export'}}>Export</a>
+    <a>Print</a>
+  {{/menu.general}}
+  {{#menu.selected as |selection|}}
+    <a {{action 'selectRow' selection}}>Delete</a>
+  {{/menu.selected}}
+{{/t.menu}}
+--}}
+  {{#t.content as |c|}}
+    {{#c.header}}
+      {{#each-in fields as |name label|}}
+        {{elvis-th-sortable
+            field=name
+            currentSorting=sort
+            label=label
+            class=name
+            search=search
+            action="searchColumn"
+        }}
+      {{/each-in}}
+    {{/c.header}}
+    {{#perfect-scroll scrollTop=100 includePadding=true suppressScrollX=true}}
+
+      {{#c.body as |row|}}
+        {{#each-in fields as |name label|}}
+          <td {{action "selectRow" row on="click"}}>
+            {{dd row name}}
+          </td>
+        {{/each-in}}
+      {{/c.body}}
+
+    {{/perfect-scroll}}
+  {{/t.content}}
+{{/data-table}}
