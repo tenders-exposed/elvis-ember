@@ -2,16 +2,27 @@ div#network-container {
 
   .suppliers {
     th {padding: 10px 0px !important;}
-    th.id {width: 2% !important;}
-    th.label {width: 16% !important;}
-    th.value {width: 2% !important;}
+    th.id{width: 3% !important;}
+    th.label{width: 16% !important;}
+    th.value{width: 2% !important;}
+
+    td.id {width: 3% !important;}
+    td.label {width: 25% !important;}
+    td.value {width: 1% !important; text-align: right;}
   }
 
   .relationships{
     th {padding: 10px 0px !important;}
+
     th.fromLabel {width: 12% !important;}
     th.toLabel {width: 16% !important;}
     th.value {width: 3% !important;}
+
+    td.fromLabel {width: 12% !important;}
+    td.toLabel {width: 16% !important;}
+    td.value {width: 3% !important; text-align: right;}
+
+
   }
 
   thead {

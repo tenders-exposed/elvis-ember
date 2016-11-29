@@ -39,7 +39,7 @@
 
       {{#c.body as |row|}}
         {{#each-in fields as |name label|}}
-          <td {{action "selectRow" row on="click"}}>
+          <td class="{{name}}" {{action "selectRow" row on="click"}}>
             {{dd row name}}
           </td>
         {{/each-in}}
