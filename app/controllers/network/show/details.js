@@ -116,7 +116,7 @@ export default Ember.Controller.extend({
   },
 
   init() {
-    console.log("init-this = ",this);
+    console.log("network options ",this.get('network'));
     // this.get('gridOptions.suppliers').push(this.get('gridOptionsBoilerplate'));
     // this.set('gridOptions.suppliers.vis', this.get('network'));
     Ember.$.each(this.get('gridOptionsBoilerplate'), (k, v) => {

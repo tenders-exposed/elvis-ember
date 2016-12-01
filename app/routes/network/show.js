@@ -12,24 +12,31 @@ export default Ember.Route.extend({
 
     controller.set('model', model);
     let self = this;
+    self.controllerFor('network.show.details').set(
+      'fields.suppliers.value',
+      _.capitalize(model.get('options.nodes'))
+    );
+    self.controllerFor('network.show.details').set(
+      'fields.relationships.value',
+      _.capitalize(model.get('options.edges'))
+    );
+
     controller.addObserver('network', function() {
+      //@todo: dead code
+      let network = controller.get('network');
       self.controllerFor('network.show.details').set(
-        'gridOptions.suppliers.network',
-        controller.get('network')
-      );
+        'gridOptions.suppliers.network', network );
       self.controllerFor('network.show.details').set(
-        'gridOptions.procurers.network',
-        controller.get('network')
-      );
+        'gridOptions.procurers.network',network);
+
       self.controllerFor('network.show.details').set(
-        'gridOptions.relationships.network',
-        controller.get('network')
-      );
+        'gridOptions.relationships.network',network);
+      //dead code?
+
       self.controllerFor('network.show.details').set(
         'network',
         controller.get('network')
       );
-
     });
   },
 
