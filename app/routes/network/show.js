@@ -35,6 +35,10 @@ export default Ember.Route.extend({
   actions: {
     openSidebar() {
       this.transitionTo('network.show.details');
+    },
+    //set toggled menu for show routes and subroutes
+    didTransition(){
+      this.controllerFor('application').set('dropMenu', 'hideMenu');
     }
   }
 });

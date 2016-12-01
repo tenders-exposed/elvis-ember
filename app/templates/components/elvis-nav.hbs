@@ -1,4 +1,6 @@
-<div id="main-navbar" class="navbar-fixed">
+<div class="menu-container {{dropMenu}}">
+
+  <div id="main-navbar" class="navbar-fixed ">
       <!-- Dropdown Structure -->
       {{#if session.isAuthenticated}}
       <ul id="dropdown1" class="dropdown-content">
@@ -79,4 +81,16 @@
           </div>
         </div>
       </nav>
+</div>
+
+  <div class="toggleMenu">
+    <div class="container">
+      <div class="row">
+        <a class="handle" {{action "toggleMenu"}}>
+          <span class="down-arrow">{{fa-icon "arrow-circle-down"}}</span>
+          <span class="up-arrow">{{fa-icon "arrow-circle-up"}}</span>
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
