@@ -26,7 +26,11 @@ Router.map(function() {
       this.route('config', {});
     });
     this.route('show', { path: ':network_id' }, function() {
-      this.route('details', function() {
+     this.route('details', function () {
+       this.route('detail', {path: ':type'});
+     });
+     //this.route('details', {path: 'details/:type'}, function(){});
+     /* this.route('details', function() {
         this.route('suppliers', function() {
           this.route('show', { path: ':supplier_id' }, function() {
             this.route('contracts', function() {
@@ -46,7 +50,7 @@ Router.map(function() {
           });
         });
         this.route('relationships', {});
-      });
+      });*/
     });
   });
   this.route('welcome', { path: '' });

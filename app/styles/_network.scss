@@ -1,4 +1,51 @@
 div#network-container {
+
+  .suppliers {
+    th {padding: 10px 0px !important;}
+    th.id{width: 3% !important;}
+    th.label{width: 16% !important;}
+    th.value{width: 2% !important;}
+
+    td.id {width: 3% !important;}
+    td.label {width: 25% !important;}
+    td.value {width: 1% !important; text-align: right;}
+  }
+
+  .relationships{
+    th {padding: 10px 0px !important;}
+
+    th.fromLabel {width: 12% !important;}
+    th.toLabel {width: 16% !important;}
+    th.value {width: 3% !important;}
+
+    td.fromLabel {width: 12% !important;}
+    td.toLabel {width: 16% !important;}
+    td.value {width: 3% !important; text-align: right;}
+
+
+  }
+
+  thead {
+    display: block;
+    th{
+      cursor: pointer;
+    }
+  }
+
+  .data-table .ps-container {
+    position: relative;
+    margin: 0px auto;
+    padding: 0px;
+    width: 103%;
+    height: 400px;
+    overflow: hidden;
+    padding-right: 20px !important;
+
+    .ps-scrollbar-y-rail{
+      margin-left: 10px !important;
+    }
+  }
+
   h5 {
     margin-top: 0;
   }
@@ -6,37 +53,51 @@ div#network-container {
   width: 100%;
   display: block;
   top: 0;
-  /*   background: yellow; */
 
   div.network-canvas {
     height: 100%;
   }
 
-    div#visjs-network {
+   div#visjs-network {
     position: fixed;
     width: 100%;
-    //height: 100%;
   }
 
   .ember-view { height: 100%; }
 
   div#box-details-container{
-    z-index: 100;
+    z-index: 999;
     position: absolute;
-    pointer-events: none;
-    width: 100%; height: 100%; display: block;
+    top: 35px;
+    right: 0px;
+    width: 225px;
+    height: 50px;
+    display: block;
 
     div#box-details-card{
-      width:16%;
+      position: relative;
+      width: 100%;
       float: right;
-      top:0;
+      top: 0;
       opacity: 0.9;
-      background: #151517;
-
+      background: #171719;
       margin-right: 5%;
       border-radius: 5px;
-      border: 1px solid #707070;
+      border: 1px solid #2f2f35;
       padding: 10px;
+
+      .close{
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        cursor: pointer !important;
+        width: 18px;
+        opacity: 0.2;
+      }
+      .close:hover {
+        opacity: 1;
+      }
+
 
       span.color-pink{
         color:deeppink;
@@ -67,50 +128,65 @@ div#network-container {
       div.flags{
         font-size: 0.6em;
         color: orangered;
-
         i{
           margin-right: 3px;
         }
       }
-
       div.col{
         padding: 0px;
       }
-
-
     }
-
   }
-
+  div#details-container > * {
+    margin: 0; padding: 0; border: 0;
+  }
   div#details-container {
     z-index: 100;
     position: absolute;
     pointer-events: none;
-    //top: 80px;
     width: 100%; height: 50%; display: block;
-
-    * {margin: 0; padding: 0; border: 0;}
 
     div#details-sidebar {
       pointer-events: all;
-      height: 100%;
       width: 30%;
       min-height: 400px;
       float: left;
       top: 0;
-      background: $main-bg;
+      background: #171719;
       opacity: .9;
+      clear: both;
+      border-right: 1px solid #1d1d21;
       .tabs__nav {
+        .tab-button--active,
+        .tabs-button--active2 {
+          a {
+            border-bottom: 2px solid whitesmoke;
+          }
+        }
+
         .tab-button {
           display: inline-block;
           font-weight: bold;
+
+          a {
+            color: whitesmoke;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            padding-bottom: 10px;
+          }
         }
       }
       .tab-panel {
+       /* background: $main-bg;*/
         .ag-grid-container {
           width: 100%;
         }
       }
+    }
+    .searchIcon{
+      top: 4px;
+      right: 4px;
+      cursor: pointer;
     }
 
     div#details-info {
@@ -194,8 +270,4 @@ div#stabilization-info {
       font-size: 2rem;
     }
   }
-  //padding-top: 35%;
-  //text-align: center;
-  //color: red;
-  //background-color: yellow;
 }

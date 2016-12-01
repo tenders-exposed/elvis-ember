@@ -23,7 +23,7 @@
     <div class="col s1">&nbsp;</div>
     <div class="col s10 cpv-table-container">
       <div class="toggled {{if showSelected 'show-container'}}">
-         <div class="row">
+         <div class="">
            {{md-btn
                text='View tree'
                icon='fa fa-edit'
@@ -80,6 +80,8 @@
             }}
           {{/if}}
         </div>
+
+         {{elvis-loader loading=cpvs message="Loading Cpvs..."}}
         <div class="cpv-tree">
           {{#perfect-scroll scrollTop=100 includePadding=true suppressScrollX=true}}
            <div class="jstree-default-dark-small">

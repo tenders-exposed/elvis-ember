@@ -26,6 +26,12 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
 
   setupLoader() {
     this.controllerFor('loading').get('loaderWords').pushObject('network');
-  }
+  },
 
+  actions:{
+    //resetting the toggled menu for all routes
+    didTransition(){
+      this.controllerFor('application').set('dropMenu', false);
+    }
+  }
 });

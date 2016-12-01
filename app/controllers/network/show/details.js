@@ -1,6 +1,11 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+  fields: {
+    "suppliers": { id: "ID" , label: "Name", value: "Value"},
+    "relationships": { fromLabel: "Procurer", toLabel: "Supplier", value: "Value"}
+  },
+
   sidebarTabs: [
     { id: 'suppliers', title: 'Suppliers' },
     { id: 'procurers', title: 'Procurers' },
@@ -17,8 +22,11 @@ export default Ember.Controller.extend({
   },
 
   gridOptions: {
+    suppliers: {},
+    procurers: {},
+    relationships: {}
 
-    suppliers: {
+    /*suppliers: {
       rowSelection: 'single',
       onSelectionChanged: function() {
         var selectedRows = this.api.getSelectedRows();
@@ -45,9 +53,8 @@ export default Ember.Controller.extend({
         return 18 * (Math.floor(params.data.label.length / 25) + 1.5);
       },
       enableFilter: true
-    },
-
-    procurers: {
+    },*/
+    /*procurers: {
       rowSelection: 'single',
       onGridSizeChanged: function() {
         this.api.sizeColumnsToFit();
@@ -72,10 +79,10 @@ export default Ember.Controller.extend({
         return 18 * (Math.floor(params.data.label.length / 25) + 1.5);
       },
       enableFilter: true
-    },
-
-    relationships: {
+    },*/
+    /*relationships: {
       rowSelection: 'single',
+
       onGridSizeChanged: function() {
         this.api.sizeColumnsToFit();
       },
@@ -100,7 +107,7 @@ export default Ember.Controller.extend({
         { headerName: 'Supplier', field: 'to' },
         { headerName: 'Value', field: 'value' }
       ]
-    }
+    }*/
   },
 
   onFilterChanged(value) {
@@ -109,7 +116,7 @@ export default Ember.Controller.extend({
   },
 
   init() {
-    console.log(this);
+    console.log("init-this = ",this);
     // this.get('gridOptions.suppliers').push(this.get('gridOptionsBoilerplate'));
     // this.set('gridOptions.suppliers.vis', this.get('network'));
     Ember.$.each(this.get('gridOptionsBoilerplate'), (k, v) => {
@@ -123,8 +130,25 @@ export default Ember.Controller.extend({
     closeDetails(networkId) {
       this.transitionToRoute('network.show', networkId);
     },
+
     changeTab(tab) {
       this.set('active', tab);
+    },
+
+    nodeRowClick(selection){
+      this.get('network').moveTo(selection.id);
+      this.get('network').network.selectNodes([selection.id]);
+      this.set('network.selectedNodes', [selection.id]);
+      console.log('selectedNodes ', this.get('network').selectedNodes);
+    },
+
+    edgeRowClick(selection){
+      this.network.network.fit({
+        nodes: [selection.from, selection.to],
+        animation: true
+      });
+      this.network.network.selectEdges([selection.id]);
     }
+
   }
 });

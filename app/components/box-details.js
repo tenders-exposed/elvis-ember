@@ -18,5 +18,12 @@ export default Ember.Component.extend({
 
     let [nodeDetails] = _.filter(this.get('nodesSet'), { 'id': this.get('node') });
     this.set('nodeDetails', nodeDetails);
+  },
+  actions:{
+    close(){
+      console.log('close box-detaisl');
+      console.log('networkselected = ', this.get('network.selectedNodes'));
+      this.set('network.selectedNodes', []);
+    }
   }
 });

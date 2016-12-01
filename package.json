@@ -21,6 +21,7 @@
   "devDependencies": {
     "active-model-adapter": "2.1.1",
     "broccoli-asset-rev": "^2.4.5",
+    "dc-tabs": "0.1.0",
     "elvis-network": "tenders-exposed/elvis-network",
     "ember-ag-grid": "tenders-exposed/ember-ag-grid",
     "ember-ajax": "^2.4.1",
@@ -83,7 +84,8 @@
     "form-data": "^0.2.0",
     "loader.js": "^4.0.10",
     "node-sass": "3.4.2",
-    "virtual-each": "0.2.1"
+    "virtual-each": "0.2.1",
+    "ember-data-table": "0.3.0"
   },
   "dependencies": {}
 }
