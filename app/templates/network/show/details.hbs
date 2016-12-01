@@ -39,7 +39,7 @@
               --}}
               {{elvis-data-table
                   class="suppliers"
-                  action="moveNetwork"
+                  action="nodeRowClick"
                   tableContent=gridOptions.suppliers.rowData
                   fields=fields.suppliers
                   network=network
@@ -53,7 +53,7 @@
             {{#if model.graph.nodes}}
               {{elvis-data-table
                   class="suppliers"
-                  action="moveNetwork"
+                  action="nodeRowClick"
                   tableContent=gridOptions.procurers.rowData
                   fields=fields.suppliers
                   network=network
@@ -67,7 +67,7 @@
             {{#if model.graph.nodes}}
               {{elvis-data-table
                   class="relationships"
-                  action="moveToEdge"
+                  action="edgeRowClick"
                   tableContent=gridOptions.relationships.rowData
                   fields=fields.relationships
                   network=network

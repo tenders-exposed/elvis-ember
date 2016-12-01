@@ -29,6 +29,7 @@ export default Ember.Route.extend({
         'network',
         controller.get('network')
       );
+
     });
   },
 

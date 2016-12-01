@@ -135,12 +135,14 @@ export default Ember.Controller.extend({
       this.set('active', tab);
     },
 
-    moveNetwork(selection){
+    nodeRowClick(selection){
       this.get('network').moveTo(selection.id);
-      this.get('network').network.selectNodes(selection.id);
+      this.get('network').network.selectNodes([selection.id]);
+      this.set('network.selectedNodes', [selection.id]);
+      console.log('selectedNodes ', this.get('network').selectedNodes);
     },
 
-    moveToEdge(selection){
+    edgeRowClick(selection){
       this.network.network.fit({
         nodes: [selection.from, selection.to],
         animation: true

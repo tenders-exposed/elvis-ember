@@ -159,7 +159,6 @@ div#main-navbar {
   height: 20px;
   border-top: 2px solid #616161;
   position: relative;
-  margin-top: -2px;
   background: #1a1a1c;
 
     .handle{
@@ -185,22 +184,23 @@ div#main-navbar {
   top: 0px;
   width: 100%;
   right: 0px;
-  z-index: 999;
+  z-index: 9999;
 
   .toggleMenu{
     display: block !important;
   }
-
 }
 
 .menu-container.hideMenu .toggleMenu{
-  margin-top: 1px;
+ /* margin-top: 1px;*/
   border-top: 3px solid #616161;
+  margin-top: 0px !important;
 
   .down-arrow {display: block;}
   .up-arrow {display: none;}
 }
 .menu-container.showMenu .toggleMenu {
+  margin-top: -2px !important;
   .down-arrow {display: none;}
   .up-arrow {display: block;}
 }
@@ -208,16 +208,19 @@ div#main-navbar {
 .menu-container.hideMenu .navbar-fixed{
   overflow-y: hidden;
   max-height: 0px; /* approximate max height */
-
   transition-property: all;
   transition-duration: 3s;
   transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+
+  .main-nav {height: 0px !important;}
+  .nav-wrapper{height: 0px !important;}
 }
 .menu-container.showMenu .navbar-fixed{
   height: 80px; /* approximate max height */
-
   transition-property: all;
   transition-duration: 3s;
   transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+
+  .main-nav {height: 80px;}
 }
 /* ----- */

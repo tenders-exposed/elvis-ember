@@ -15,7 +15,7 @@ export default Ember.Component.extend({
       this.get('router').transitionTo('welcome');
     },
     toggleMenu(){
-      console.log('tring to hide the menu '+Ember.$(".menu-container").hasClass('hideMenu'));
+      //console.log('tring to hide the menu '+Ember.$(".menu-container").hasClass('hideMenu'));
       const jQMenuContainer = Ember.$(".menu-container");
       jQMenuContainer.toggleClass('hideMenu');
       jQMenuContainer.toggleClass('showMenu');
