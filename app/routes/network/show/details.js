@@ -6,8 +6,10 @@ export default Ember.Route.extend({
   setupController(controller) {
 
     let valueFormat = (value) => {
-      value = value.toFixed();
-      value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      if(typeof value !== 'string'){
+        value = value.toFixed();
+        value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
       return value;
     };
 

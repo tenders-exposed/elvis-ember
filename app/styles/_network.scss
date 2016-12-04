@@ -225,8 +225,10 @@ div#sidebar-toggle {
     color: #888;
     top: 20%;
     left: .15em;
+    opacity: 0.9;
     &:hover {
       cursor: pointer;
+      color: whitesmoke;
     }
   }
 }
