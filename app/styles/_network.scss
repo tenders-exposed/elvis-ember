@@ -2,11 +2,11 @@ div#network-container {
 
   .suppliers {
     th {padding: 10px 0px !important;}
-    th.id{width: 3% !important;}
+    th.id{width: 3% !important; }
     th.label{width: 16% !important;}
     th.value{width: 2% !important;}
 
-    td.id {width: 3% !important;}
+    td.id {width: 3% !important; text-align: center;}
     td.label {width: 25% !important;}
     td.value {width: 1% !important; text-align: right;}
   }

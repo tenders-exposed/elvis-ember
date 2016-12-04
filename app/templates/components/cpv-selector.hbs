@@ -70,7 +70,7 @@
                    class='grey darken-3'
                    isDisabled=isDisabled
           }}
-          </form>
+
           {{#if selectedCodes}}
             {{md-btn
                 text='Review'
@@ -79,6 +79,8 @@
                 class='grey darken-3'
             }}
           {{/if}}
+          </form>
+
         </div>
 
          {{elvis-loader loading=cpvs message="Loading Cpvs..."}}
