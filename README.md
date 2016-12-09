@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/tenders-exposed/elvis-ember.png?label=ready&title=Ready)](https://waffle.io/tenders-exposed/elvis-ember)
 # Elvis-ember
 
 [![Join the chat at https://gitter.im/tenders-exposed/elvis-ember](https://badges.gitter.im/tenders-exposed/elvis-ember.svg)](https://gitter.im/tenders-exposed/elvis-ember?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
