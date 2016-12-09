@@ -47,6 +47,7 @@ export default Ember.Route.extend({
     //set toggled menu for show routes and subroutes
     didTransition(){
       this.controllerFor('application').set('dropMenu', 'hideMenu');
+      this.controllerFor('application').set('footer', false);
     }
   }
 });

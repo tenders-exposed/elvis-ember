@@ -59,7 +59,7 @@ h1 {
   background-color: $main-bg;
 }
 
-.search-input{
+.search-input {
   background-color: #151517 !important;
   height: 2rem !important;
   width: 95% !important;
@@ -67,9 +67,25 @@ h1 {
   padding: 0px 16px !important;
   color: #615f5f !important;
 }
-.absolute{
+.absolute {
   position: absolute;
 }
-.relative{
+.relative {
   position: relative;
+}
+
+.footer-container .container {
+  border-top: 1px solid #252527;
+  background: #161618;
+
+  .col {
+    line-height: 50px;
+  }
+  a {
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: #555;
+    &:hover { color: whitesmoke;}
+  }
+
 }

@@ -32,6 +32,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     //resetting the toggled menu for all routes
     didTransition(){
       this.controllerFor('application').set('dropMenu', false);
+      this.controllerFor('application').set('footer', 'partials/main-footer');
     }
   }
 });
