@@ -12,7 +12,7 @@ this repository.
 If you just want to look around, make sure you also check:
 
 * [Project's homepage](http://tenders.exposed)
-* [Discussion forum](https://discuss.tenders.exposed)
+* [Discussion forum](https://talk.tenders.exposed)
 * [The public instance of the project](https://elvis.tenders.exposed)
 * [The backend source code](https://github.com/tenders-exposed/elvis-backend)
 * [The rest of the code](https://github.com/tenders-exposed) in our GitHub organization
