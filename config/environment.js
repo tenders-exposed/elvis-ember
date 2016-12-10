@@ -57,6 +57,9 @@ module.exports = function(environment) {
     ENV.APP.apiNamespace = 'v1';
 
   }
+  ENV['ember-simple-auth'] = {
+    authenticationRoute: 'welcome'
+  };
 
   // ENV['ember-simple-auth'] = {
   //   // authorizer: 'simple-auth-authorizer:devise',
@@ -67,6 +70,7 @@ module.exports = function(environment) {
   // };
   ENV.contentSecurityPolicy = {
     'default-src': "'self' http://api.elvis.tenders.exposed http://toto.tenders.exposed",
+    'child-src': "blob: * 'self'",
     'script-src': "'self' 'unsafe-inline' 'unsafe-eval' http://api.elvis.tenders.exposed http://toto.tenders.exposed",
     'font-src': "'self' http://fonts.gstatic.com",
     'connect-src': "'self' * http://192.168.0.111:3000 http://0.0.0.0:3000 https://api.mixpanel.com http://localhost:3000 http://localhost:35729 blob: http://api.elvis.tenders.exposed http://toto.tenders.exposed",

@@ -1,2 +1,67 @@
-{{outlet}}
-Recover
+{{#if t}}
+  <div class="row">
+    <div class="col s12">
+      <h1>Change Password</h1>
+      <hr>
+    </div>
+
+    <div class="query-form-container">
+      <form {{action "deviseSendChange" password password_confirmation t on='submit'}}>
+        <div class="row">
+          {{md-input
+              label="type new password here"
+              type="password"
+              value=password
+              class="col s3"
+              validate=true
+          }}
+          {{md-input
+              label="repeat new password"
+              type="password"
+              value=password_confirmation
+              class="col s3"
+              validate=true
+          }}
+        </div>
+        <div class="row">
+          <div class="col  s3 offset-s3 right-align">
+            <button type="submit" class="btn btn-primary {{isDisabled}}">Reset</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+{{else}}
+  <div class="row">
+    <div class="col s12">
+      <h1>Recover Password</h1>
+      <hr>
+    </div>
+  </div>
+  {{#if emailSent}}
+    <div class="row center-align">
+      <p>Please check your email.</p>
+    </div>
+  {{else}}
+    <div class="query-form-container">
+      <form {{action "deviseSendRecover" email on="submit"}}>
+        <div class="row">
+          {{md-input
+              label="your email"
+              value=email
+              class="col s4 offset-s4"
+              validate=true
+          }}
+        </div>
+        <div class="row">
+          <div class="col s4 offset-s4 center-align">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  {{/if}}
+
+{{/if}}
+

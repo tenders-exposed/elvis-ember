@@ -1,0 +1,356 @@
+/*!
+ * Photon UI Theme
+ *
+ * Designed and built with all the love in the world @orangehilldev.
+*/
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+.hide-text {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.input-block-level {
+  display: block;
+  width: 100%;
+  min-height: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/*
+ * jsTree PhotonUI theme 1.0
+ * Based on jsTree Apple theme
+ * Supported features: dots/no-dots, icons/no-icons, focused, loading
+ * Supported plugins: ui (hovered, clicked), checkbox, contextmenu, search
+ */
+.jstree-photonui {
+  -webkit-font-smoothing: antialiased;
+  font-family: Arial, sans-serif;
+  text-align: left;
+  margin-bottom: 20px;
+}
+.jstree-photonui li,
+.jstree-photonui i.jstree-icon {
+  background-image: url("/assets/photonui/d.png");
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-size: 108px 96px;
+}
+.jstree-photonui > ul ul li{
+  margin-left: 25px !important;
+}
+.jstree-photonui li {
+  background-position: -105px 0;
+  background-repeat: repeat-y;
+  min-height: 20px;
+  line-height: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  color: #d1d7df;
+  font-size: 34px;
+  line-height: 17px;
+  text-shadow: none;
+  padding: 3px 0px;
+}
+
+.jstree.jstree-photonui > ul > li:first-child {
+  padding-top: 5px;
+}
+.jstree.jstree-photonui .jstree-ocl {
+  width: 18px;
+  height: 18px;
+  margin-top: 19px;
+}
+.jstree.jstree-photonui a > i.jstree-icon {
+  width: 18px;
+  height: 18px;
+  float: right;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+.jstree.jstree-photonui a.jstree-clicked div{
+  color: whitesmoke;
+}
+.jstree.jstree-photonui a div {
+  font-family: serif;
+  font-size: 18px;
+  margin-bottom: 6px;
+  color: grey;
+}
+.jstree-photonui li.jstree-last {
+  background: transparent;
+}
+.jstree-photonui .jstree-open > i.jstree-icon {
+  background-position: -18px 0;
+}
+.jstree-photonui .jstree-open > a > i.jstree-icon {
+  background-position: -56px -37px;
+}
+.jstree-photonui .jstree-open > a > i.jstree-icon {
+  height: 18px;
+}
+.jstree-photonui .jstree-closed > i.jstree-icon {
+  /*background-position: -54px 0;*/
+
+}
+.jstree-photonui .jstree-leaf > i.jstree-icon {
+  /*background-position: -36px 0;*/
+  background: none
+}
+.jstree.jstree-photonui .jstree-hovered {
+  border-bottom: 1px solid deepskyblue;
+}
+.jstree.jstree-photonui .jstree-clicked {
+  /*border: none;
+  padding: 1px 3px;*/
+ /* background-color: #edeff2;
+  background-image: -moz-linear-gradient(top, #ffffff, #d1d7df);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#d1d7df));
+  background-image: -webkit-linear-gradient(top, #ffffff, #d1d7df);
+  background-image: -o-linear-gradient(top, #ffffff, #d1d7df);
+  background-image: linear-gradient(to bottom, #ffffff, #d1d7df);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffd1d7df', GradientType=0);
+  color: #333333;
+  text-shadow: 0 1px 1px white;
+  -webkit-box-shadow: 1px 0 1px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 1px 0 1px rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 0 1px rgba(0, 0, 0, 0.3);*/
+ /* -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;*/
+}
+.jstree.jstree-photonui .jstree-clicked > i.jstree-icon {
+  background-position: -74px -19px;
+}
+.jstree.jstree-photonui a {
+  width: 98%;
+  display: inline-block;
+  padding: 0px 3px 9px !important;
+  color: #d1d7df;
+  font-size: 14px;
+  line-height: 17px;
+  text-shadow: 0 2px 1px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid grey;
+}
+
+.jstree.jstree-photonui a span.details {
+  display: inline-block;
+  margin-left: 7px;
+}
+/*.jstree-photonui a .jstree-icon {*/
+  /*background-position: -56px -19px;*/
+/*}*/
+.jstree-photonui a.jstree-loading .jstree-icon {
+  background: url("throbber.gif") center center no-repeat !important;
+}
+.jstree-photonui.jstree-focused {
+  background: transparent;
+}
+.jstree-photonui .jstree-no-dots li,
+.jstree-photonui .jstree-no-dots .jstree-leaf > i.jstree-icon {
+  background: transparent;
+}
+.jstree-photonui .jstree-no-dots .jstree-open > i.jstree-icon {
+  background-position: -18px 0;
+}
+.jstree-photonui .jstree-no-dots .jstree-closed > i.jstree-icon {
+  background-position: 0 0;
+}
+.jstree-photonui .jstree-no-icons a .jstree-icon {
+  display: none;
+}
+.jstree-photonui .jstree-search {
+  font-style: italic;
+}
+.jstree-photonui .jstree-no-icons .jstree-checkbox {
+  display: inline-block;
+}
+.jstree-photonui .jstree-no-checkboxes .jstree-checkbox {
+  display: none !important;
+}
+.jstree-photonui a > .jstree-checkbox {
+  background-position: -1px -19px !important;
+}
+.jstree-photonui .jstree-clicked .jstree-checkbox {
+  background-position: -37px -19px !important;
+}
+.jstree-photonui .jstree-undetermined > a > .jstree-checkbox {
+  background-position: -19px -19px !important;
+}
+.jstree-photonui .jstree-checked > a > .checkbox:hover {
+  background-position: -37px -37px !important;
+}
+.jstree-photonui .jstree-unchecked > a > .jstree-checkbox:hover {
+  background-position: -1px -37px !important;
+}
+.jstree-photonui .jstree-undetermined > a > .jstree-checkbox:hover {
+  background-position: -19px -37px !important;
+}
+.jstree li[rel="file"] > a > i.jstree-icon {
+  background-image: url("file.png");
+  background-position: 0 0;
+  background-size: 18px 16px;
+}
+#vakata-dragged {
+  color: #d1d7df;
+  font-size: 14px;
+  line-height: 17px;
+  text-shadow: none;
+  opacity: 0.7;
+}
+
+.jstree-photonui i.jstree-themeicon {
+  display: none;
+  /*background: transparent !important;
+  */
+}
+.jstree-photonui .jstree-ok {
+  background: url("/assets/photonui/d.png") -1px -54px no-repeat !important;
+  background-size: 108px 96px !important;
+}
+.jstree-photonui .jstree-invalid {
+  background: url("/assets/photonui/d.png") -18px -54px no-repeat !important;
+  background-size: 108px 96px !important;
+}
+#jstree-marker.jstree-photonui {
+  background: url("/assets/photonui/d.png") -40px -56px no-repeat !important;
+  background-size: 108px 96px !important;
+  text-indent: -100px;
+}
+.jstree-photonui a.jstree-search {
+  color: aqua;
+}
+.jstree-photonui .jstree-locked a {
+  color: silver;
+  cursor: default;
+}
+#vakata-contextmenu.jstree-photonui-context,
+#vakata-contextmenu.jstree-photonui-context li ul {
+  background: #f0f0f0;
+  border: 1px solid #979797;
+  -moz-box-shadow: 1px 1px 2px #999;
+  -webkit-box-shadow: 1px 1px 2px #999;
+  box-shadow: 1px 1px 2px #999;
+}
+#vakata-contextmenu.jstree-photonui-context a {
+  color: black;
+}
+#vakata-contextmenu.jstree-photonui-context a:hover,
+#vakata-contextmenu.jstree-photonui-context .vakata-hover > a {
+
+  background: #e8eff7;
+  border: 1px solid #aecff7;
+  color: black;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+}
+#vakata-contextmenu.jstree-photonui-context li.jstree-contextmenu-disabled a,
+#vakata-contextmenu.jstree-photonui-context li.jstree-contextmenu-disabled a:hover {
+  color: silver;
+  background: transparent;
+  border: 0;
+
+}
+#vakata-contextmenu.jstree-photonui-context li.vakata-separator {
+  background: white;
+  border-top: 1px solid #e0e0e0;
+  margin: 0;
+}
+#vakata-contextmenu.jstree-photonui-context li ul {
+  margin-left: -4px;
+}
+@media (max-width: 768px) {
+  .jstree.jstree-photonui {
+    width: 100%;
+  }
+  .jstree-photonui .jstree-node{
+    margin-left: 25px !important;
+  }
+  .jstree-photonui li {
+    background-image: none;
+  }
+  .jstree-photonui i.jstree-icon {
+    background-size: 108px 96px;
+  }
+
+  .jstree.jstree-photonui li {
+    padding: 8px 0;
+    border-top: 1px solid #4f5660;
+    border-bottom: 1px solid #2b3139;
+    margin-left: 0;
+  }
+  .jstree.jstree-photonui .jstree-open {
+    padding: 9px 0;
+    padding-top: 6px !important;
+    padding-bottom: 0;
+    border-bottom: 0;
+    border: none;
+    background-color: rgba(50, 57, 68, 0.4);
+    -webkit-box-shadow: inset 0 6px 3px -5px #262e38;
+    -moz-box-shadow: inset 0 6px 3px -5px #262e38;
+    box-shadow: inset 0 6px 3px -5px #262e38;
+  }
+  .jstree.jstree-photonui .jstree-open li:last-child {
+    -webkit-box-shadow: inset 0 -6px 3px -5px #262e38;
+    -moz-box-shadow: inset 0 -6px 3px -5px #262e38;
+    box-shadow: inset 0 -6px 3px -5px #262e38;
+  }
+  .jstree.jstree-photonui .jstree-open + .jstree-open {
+    border-top: 1px solid #4f5660;
+    background-color: rgba(50, 57, 68, 0.2);
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+  }
+  li.jstree-open > ul {
+    border-top: 1px solid #2b3139;
+    margin-top: 9px;
+  }
+  .jstree.jstree-photonui li > i.jstree-icon {
+    width: 21px;
+    height: 21px;
+  }
+  .jstree.jstree-photonui a {
+    position: relative;
+    top: 3px;
+  }
+  .jstree-photonui .jstree-leaf > i.jstree-icon {
+    background: transparent;
+  }
+  .jstree-photonui .jstree-no-dots .jstree-closed > i.jstree-icon,
+  .jstree-photonui .jstree-closed > i.jstree-icon {
+    background-position: -53px -75px;
+  }
+  .jstree-photonui .jstree-no-dots .jstree-open > i.jstree-icon,
+  .jstree-photonui .jstree-open > i.jstree-icon {
+    background-position: -53px -54px;
+  }
+  .jstree.jstree-photonui > ul > li > i.jstree-icon {
+    margin-left: 15px;
+    margin-right: 5px;
+  }
+  .jstree.jstree-photonui > ul > li > ul > li > i.jstree-icon {
+    margin-left: 40px;
+  }
+  .jstree.jstree-photonui > ul > li > ul > li > ul > li > i.jstree-icon {
+    margin-left: 60px;
+  }
+}

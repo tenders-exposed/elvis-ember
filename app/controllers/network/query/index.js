@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import _ from 'lodash/lodash';
 
 export default Ember.Controller.extend({
   ajax: Ember.inject.service(),
@@ -7,14 +6,20 @@ export default Ember.Controller.extend({
   // session: Ember.inject.service('session'),
 
   cpvModalIsOpen: false,
+  selectedCodesModalIsOpen: false,
   optionsModalIsOpen: false,
 
   selectedCodes: Ember.A([]),
+  selectedCodesCount: Ember.computed('selectedCodes', function () {
+    const count = _.sumBy(this.get('selectedCodes'), function(o) {
+      return o.original.doc_count;
+    });
+    return count;
+  }),
 
-  network: {},
-  yearMin: 2001,
-  yearMax: 2015,
-  height: window.innerHeight - 200,
+  rangeIsDisabled: Ember.computed('query.countries', function() {
+    return !this.get('query.countries').length;
+  }),
 
   query: {
     'nodes': 'count',
@@ -24,17 +29,54 @@ export default Ember.Controller.extend({
     'years': [2004, 2010],
     'cpvs': []
   },
-  defaults: {
-    years: {
-      min: 2004,
-      max: 2010
+
+  countries: [],
+
+  yearsStart: [],
+
+  yearsRange: Ember.computed('years', function() {
+    let yearMin = _.minBy(this.get('years'), 'id').id;
+    let yearMax = _.maxBy(this.get('years'), 'id').id;
+    let yearsRange = { 'min': yearMin, 'max': yearMax };
+
+      //console.log(`yearMin = ${yearMin} | yearMax = ${yearMax} | yearsRange = ${yearsRange}`);
+
+      this.set('yearsStart', [yearMin,yearMax]);
+      this.send('slidingAction', [yearMin,yearMax]);
+
+    return yearsRange;
+  }),
+
+  height: window.innerHeight - 200,
+
+  network: {},
+
+  jsTreeRefresh: Ember.observer('selectedCodes', function() {
+    console.log('tree: ', this.get('jsTree'));
+    // this.get('jsTree').send('redraw');
+  }),
+
+  jsTreeConfig: {
+    core: {
+      'worker': false,
+      'themes': {
+        'url': '/assets/jstree/photonui/style.css',
+        'name': 'photonui',
+        'theme': 'photonui'
+      }
+    },
+    plugins: 'checkbox, search, contextmenu',
+    searchOptions: { 'show_only_matches': true },
+    checkbox: {
+      'cascade': 'up+down'
     }
   },
+  searchTerm: '',
 
   prepareQuery() {
     let self = this;
     self.get('selectedCodes').forEach((v) => {
-      self.get('query.cpvs').push(v.id.replace(/0*$/g, ''));
+      self.get('query.cpvs').push(v.id);
     });
   },
 
@@ -45,8 +87,20 @@ export default Ember.Controller.extend({
       value.forEach((v) => {
         this.get('query.countries').push(v.id);
       });
-      this.set('query.country_ids', value);
+
+      // this.set('query.country_ids', value);
       // this.prepareQuery();
+
+      let options = this.get('query.countries').length && `{
+        "query": {
+            "countries": ["${this.get('query.countries').join('", "')}"]
+        }
+      }`;
+      this.get('ajax')
+          .post('/contracts/years', { data: options, headers: { 'Content-Type': 'application/json' } })
+          .then((data) => {
+            this.set('years', data.search.results);
+          });
     },
 
     slidingAction(value) {
@@ -63,7 +117,6 @@ export default Ember.Controller.extend({
     },
 
     toggleCpvModal() {
-
       Ember.$('.cpv-modal-open').css('pointer-events', 'none');
       let self = this;
       let options = `{
@@ -72,14 +125,18 @@ export default Ember.Controller.extend({
             "years": [${self.get('query.years').join(', ')}]
         }
       }`;
-
+      this.toggleProperty('cpvModalIsOpen');
       this.get('ajax')
         .post('/contracts/cpvs', { data: options, headers: { 'Content-Type': 'application/json' } })
         .then((data) => {
           self.set('cpvs', data.search.results);
-          this.toggleProperty('cpvModalIsOpen');
           Ember.$('.cpv-modal-open').css('pointer-events', 'inherit');
         });
+      // console.log(this.get('selectedCodes'));
+    },
+
+    toggleSelectedCodesModal() {
+      this.toggleProperty('selectedCodesModalIsOpen');
     },
 
     toggleOptionsModal() {
@@ -89,13 +146,14 @@ export default Ember.Controller.extend({
     submitQuery() {
       let self = this;
 
-      // // self.send('loading');
+      // self.send('loading');
 
       self.notifications.info('This is probably going to take a while...', {
         autoClear: false
       });
 
       self.set('isLoading', true);
+      self.prepareQuery();
 
       this.get('store').createRecord('network', {
         options: {

@@ -1,4 +1,4 @@
-{{partial 'partials/main-nav'}}
+{{elvis-nav dropMenu=dropMenu}}
 
 <div class="c-notifications__container">
     {{#each notifications as |notification|}}
@@ -8,6 +8,8 @@
 
 
 {{outlet}}
+
+{{partial footer}}
 
 {{!-- ember-cli-materialize modal container --}}
 {{md-modal-container}}

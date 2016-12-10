@@ -1,0 +1,26 @@
+<div id="box-details-card" class="row">
+    <div class="close" {{action "close" on="click"}}>
+      {{fa-icon 'close' size=1}}
+    </div>
+    <div class="row">
+      <h5>
+        <span class="{{color}}">
+          {{fa-icon 'circle' size=1}}
+        </span>
+        {{nodeDetails.type}}</h5>
+      <h2>{{nodeDetails.label}}</h2>
+      {{#each-in nodeDetails.flags as |keyValue value|}}
+        <div class="flags">{{fa-icon 'flag' size=1}}{{keyValue}}</div>
+      {{/each-in}}
+    </div>
+    <div class="row" style="margin-bottom: 0px">
+      <div class="col s6 left-align">
+        <h5>Total flow</h5>
+        <h1>{{nodeDetails.value}}</h1>
+      </div>
+      <div class="col s6 left-align" >
+        <h5>Competition</h5>
+        <h1>1.1</h1>
+      </div>
+    </div>
+</div>

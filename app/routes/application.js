@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import ENV from '../config/environment';
-import localforage from 'ember-local-forage';
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 
 export default Ember.Route.extend(ApplicationRouteMixin, {
@@ -8,9 +7,17 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   namespace: ENV.APP.apiNamespace,
   dbVersion: ENV.APP.dbVersion,
   ajax: Ember.inject.service(),
+  session: Ember.inject.service(),
+  me: Ember.inject.service(),
 
-  setupController(controller) {
-    controller.set('currentUser', this.get('session.session.content.authenticated.user'));
+  model() {
+    if (this.get('session.isAuthenticated')) {
+      return this.store.findRecord('user', this.get('me.data.id'));
+    }
+  },
+
+  setupController(controller, model) {
+    this._super(controller, model);
   },
 
   init() {
@@ -21,20 +28,11 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     this.controllerFor('loading').get('loaderWords').pushObject('network');
   },
 
-  refreshData(name, path, controller) {
-    let self = this;
-    localforage.removeItem(name, function() {
-      self.get('ajax').post(path).then((data) => {
-        localforage.setItem(name, data.search.results).then(() => {
-          localforage.getItem(name).then((result) => {
-            controller.set(name, result);
-          });
-        });
-      });
-    });
-  },
-  refreshAllData(controller) {
-    this.refreshData('countries', '/contracts/countries', controller);
-    this.refreshData('cpvs', '/contracts/cpvs', controller);
+  actions:{
+    //resetting the toggled menu for all routes
+    didTransition(){
+      this.controllerFor('application').set('dropMenu', false);
+      this.controllerFor('application').set('footer', 'partials/main-footer');
+    }
   }
 });

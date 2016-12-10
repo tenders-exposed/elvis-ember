@@ -25,19 +25,23 @@ Router.map(function() {
     this.route('query', function() {
       this.route('config', {});
     });
-    this.route('show', { path: ':id' }, function() {
-      this.route('details', function() {
+    this.route('show', { path: ':network_id' }, function() {
+     this.route('details', function () {
+       this.route('detail', {path: ':type'});
+     });
+     //this.route('details', {path: 'details/:type'}, function(){});
+     /* this.route('details', function() {
         this.route('suppliers', function() {
-          this.route('show', { path: ':id' }, function() {
+          this.route('show', { path: ':supplier_id' }, function() {
             this.route('contracts', function() {
-              this.route('show', { path: ':id' });
+              this.route('show', { path: ':contract_id' });
             });
             this.route('procurers', {});
             this.route('stats', {});
           });
         });
         this.route('procurers', function() {
-          this.route('show', { path: ':id' }, function() {
+          this.route('show', { path: ':procurer_id' }, function() {
             this.route('contracts', function() {
               this.route('show', { path: ':id' });
             });
@@ -46,7 +50,7 @@ Router.map(function() {
           });
         });
         this.route('relationships', {});
-      });
+      });*/
     });
   });
   this.route('welcome', { path: '' });

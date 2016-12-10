@@ -1,29 +1,40 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  beforeModel(){
+    this.store.unloadAll('network');
+  },
   activate() {
     this.notifications.clearAll();
   },
 
-  model(params) {
-    // alert('finding model');
-    return this.store.findRecord('network', params.id);
-  },
-
   setupController(controller, model) {
+
     controller.set('model', model);
     let self = this;
+    self.controllerFor('network.show.details').set(
+      'fields.suppliers.value',
+      _.capitalize(model.get('options.nodes'))
+    );
+    self.controllerFor('network.show.details').set(
+      'fields.relationships.value',
+      _.capitalize(model.get('options.edges'))
+    );
+
     controller.addObserver('network', function() {
+      //@todo: dead code
+      let network = controller.get('network');
       self.controllerFor('network.show.details').set(
-        'gridOptions.suppliers.network',
-        controller.get('network')
-      );
+        'gridOptions.suppliers.network', network );
       self.controllerFor('network.show.details').set(
-        'gridOptions.procurers.network',
-        controller.get('network')
-      );
+        'gridOptions.procurers.network',network);
+
       self.controllerFor('network.show.details').set(
-        'gridOptions.relationships.network',
+        'gridOptions.relationships.network',network);
+      //dead code?
+
+      self.controllerFor('network.show.details').set(
+        'network',
         controller.get('network')
       );
     });
@@ -32,6 +43,11 @@ export default Ember.Route.extend({
   actions: {
     openSidebar() {
       this.transitionTo('network.show.details');
+    },
+    //set toggled menu for show routes and subroutes
+    didTransition(){
+      this.controllerFor('application').set('dropMenu', 'hideMenu');
+      this.controllerFor('application').set('footer', false);
     }
   }
 });

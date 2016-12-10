@@ -1,3 +1,24 @@
+.selected-codes-modal-content {
+  max-height: 400px;
+  width: 50%;
+  margin: 0 auto;
+  overflow: auto;
+  margin-top: 10%;
+  margin-bottom: 5%;
+}
+
+.selected-codes-modal-footer {
+  width: 50% !important;
+  margin-bottom: 20px !important;
+  margin: 0 auto;
+}
+
+.tooltip-selected {
+  max-height: 70%;
+  overflow: scroll;
+  background-color: transparent;
+}
+
 div#options-modal-container {
   width: 80%;
   //height: 100%;
