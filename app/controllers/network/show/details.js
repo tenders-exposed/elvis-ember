@@ -2,8 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   fields: {
-    "suppliers": { id: "ID" , label: "Name", value: "Value"},
-    "relationships": { fromLabel: "Procurer", toLabel: "Supplier", value: "Value"}
+    "suppliers": { id: "ID" , label: "Name", flags: " ", value: "Value"},
+    "relationships": { fromLabel: "Procurer", toLabel: "Supplier", flags: " ", value: "Value"}
   },
 
   sidebarTabs: [

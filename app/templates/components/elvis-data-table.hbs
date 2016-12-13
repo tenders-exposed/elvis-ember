@@ -40,7 +40,13 @@
       {{#c.body as |row|}}
         {{#each-in fields as |name label|}}
           <td class="{{name}}" {{action "selectRow" row on="click"}}>
-            {{dd row name}}
+            {{#if (eq name "flags")}}
+              {{#each-in row.flags as |flName flValue|}}
+                <span class="flags"> {{fa-icon 'flag' size=1 title=flName}}</span>
+              {{/each-in}}
+            {{else}}
+              {{dd row name}}
+            {{/if}}
           </td>
         {{/each-in}}
       {{/c.body}}
