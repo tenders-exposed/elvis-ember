@@ -5,10 +5,12 @@ div#network-container {
     th.id{width: 3% !important; }
     th.label{width: 16% !important;}
     th.value{width: 2% !important;}
+    th.flags{width: 2% !important;}
 
-    td.id {width: 3% !important; text-align: center;}
+    td.id {width: 1% !important; text-align: center;}
     td.label {width: 25% !important;}
     td.value {width: 1% !important; text-align: right;}
+    td.flags {width: 1% !important; text-align: right;}
   }
 
   .relationships{
@@ -17,10 +19,12 @@ div#network-container {
     th.fromLabel {width: 12% !important;}
     th.toLabel {width: 16% !important;}
     th.value {width: 3% !important;}
+    th.flags {width: 3% !important;}
 
     td.fromLabel {width: 12% !important;}
     td.toLabel {width: 16% !important;}
     td.value {width: 3% !important; text-align: right;}
+    td.flags {width: 3% !important; text-align: right;}
 
 
   }
@@ -124,18 +128,28 @@ div#network-container {
         margin: 0px;
         margin-bottom: 0.1em;
       }
-
-      div.flags{
-        font-size: 0.6em;
-        color: orangered;
-        i{
-          margin-right: 3px;
-        }
-      }
       div.col{
         padding: 0px;
       }
     }
+  }
+  div.flags,
+  span.flags{
+    font-size: 0.6em;
+    color: orangered;
+    i{
+      margin-right: 3px;
+      &:hover{
+        color: #ff6802;
+      }
+    }
+
+  }
+
+  table .flags{
+    font-size: 0.9em;
+    line-height: 0.9em;
+    i{ height: 0%;}
   }
   div#details-container > * {
     margin: 0; padding: 0; border: 0;

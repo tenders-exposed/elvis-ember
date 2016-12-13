@@ -157,6 +157,7 @@ table.data-table {
         cursor: pointer;
       }
       td{
+        vertical-align: top !important;
         padding: 5px !important;
       }
     }
