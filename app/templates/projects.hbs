@@ -17,7 +17,11 @@
               </div>
               <div class="card-content">
                 <span class="card-title activator ">
-                  IT Procurement Project
+                  {{#if network.name}}
+                    {{network.name}}
+                  {{else}}
+                    My Project
+                  {{/if}}
                   <small class="grey-text">{{network.id}}</small>
                 </span>
                 <p class="row">

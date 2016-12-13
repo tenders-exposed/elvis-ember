@@ -2,7 +2,25 @@
   <div id="details-sidebar"  style="height: {{height}}px;">
     <div class="row">
       <div class="col s12">
-        <h5 class="details">{{fa-icon 'bars' size=1}} MyProjectName {{fa-icon 'cog' size=1}}</h5>
+        <h5 class={{if networkInput "hide" "show-block details"}}>
+          <span {{action "toggleInput" on="click"}}>
+            {{fa-icon 'cog' size=1}}
+          </span>
+          {{#if model.name}}
+            {{model.name}}
+          {{else}}
+            MyProjectName
+          {{/if}}
+        </h5>
+        <div class={{if networkInput "show-block network-input row" "hide"}}>
+          <span class="col s10">
+            {{input type="text" value=model.name placeholder="My Project Name"}}
+          </span>
+          <div class="controls col s2">
+            <span {{action "saveNetworkName"}}>{{fa-icon 'check' size=1}}</span>
+            <span {{action "toggleInput"}}>{{fa-icon 'close' size=1 }} </span>
+          </div>
+        </div>
       </div>
       <div class="col s12 relative">
         <a {{action 'closeDetails' model.id}} class="right closeDetails absolute" style="cursor: pointer;">
