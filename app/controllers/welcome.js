@@ -9,27 +9,28 @@ export default Ember.Controller.extend({
   actions: {
     register() {
       let self = this;
-      let user =  this.store.createRecord('user', {
+      let user = this.store.createRecord('user', {
         email: self.get('fakeUser.email'),
         password: self.get('fakeUser.password'),
         password_confirmation: self.get('fakeUser.password_confirmation')
       });
-      user.save().then(function(response) {
-          self.notifications.clearAll();
-          self.notifications.success('Done! Please check your inbox.', {
-            autoClear: true
-          });
-          console.log('Response: ', response);
-          self.transitionToRoute('welcome');
-        },
-        function(response) {
-          console.log("errors");
-          console.log(user.get('errors')); // instance of DS.Errors
-          console.log(user.get('errors').toArray());
-          console.log(user.get('isValid')); // false
 
-          console.log("erori-register", response);
-          self.notifications.clearAll();
+      return user.save().then(function(response) {
+        self.notifications.clearAll();
+        self.notifications.success('Done! Please check your inbox.', {
+          autoClear: true
+        });
+        console.log('Response: ', response);
+        self.transitionToRoute('welcome');
+      },
+      function(response) {
+        console.log(response);
+        self.notifications.clearAll();
+        _.forEach(response.errors, (error, index) => {
+          error.forEach((v) => {
+            self.notifications.error(`Error: ${index } ${v}!`);
+          });
+        });
         }
       );
     },
