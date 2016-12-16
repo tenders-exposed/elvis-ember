@@ -1,3 +1,5 @@
+{{outlet "details"}}
+
 {{#network-container id='details-container'}}
   <div id="details-sidebar"  style="height: {{height}}px;">
     <div class="row">
@@ -62,6 +64,7 @@
                   fields=fields.suppliers
                   flags=flags.suppliers
                   network=network
+                  networkId=model.id
               }}
             {{else}}
               {{fa-icon 'plus' spin=true}} Loading data grid...
@@ -77,6 +80,7 @@
                   fields=fields.suppliers
                   flags=flags.suppliers
                   network=network
+                  networkId=model.id
               }}
             {{else}}
               {{fa-icon 'plus' spin=true}} Loading data grid...
@@ -92,6 +96,7 @@
                   fields=fields.relationships
                   flags=flags.relationships
                   network=network
+                  networkId=model.id
               }}
             {{else}}
               {{fa-icon 'plus' spin=true}} Loading data grid...

@@ -49,6 +49,12 @@
             {{/if}}
           </td>
         {{/each-in}}
+        <!--<td class="absolute controls">something</td>-->
+        <td class="absolute  toggle-controls">
+          {{#link-to "network.show.details.suppliers.show" row.id}}
+            {{fa-icon 'arrow-circle-right' size=1}}
+          {{/link-to}}
+        </td>
       {{/c.body}}
 
     {{/perfect-scroll}}

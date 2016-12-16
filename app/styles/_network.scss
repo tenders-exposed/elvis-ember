@@ -1,4 +1,9 @@
 div#network-container {
+  height: 100% !important;
+
+  .ps-content{
+    overflow: visible !important;
+  }
 
   .suppliers {
     th {padding: 10px 0px !important;}
@@ -8,7 +13,7 @@ div#network-container {
     th.flags{width: 2% !important;}
 
     td.id {width: 1% !important; text-align: center;}
-    td.label {width: 25% !important;}
+    td.label {width: 75% !important;}
     td.value {width: 1% !important; text-align: right;}
     td.flags {width: 1% !important; text-align: right;}
   }
@@ -25,8 +30,32 @@ div#network-container {
     td.toLabel {width: 16% !important;}
     td.value {width: 3% !important; text-align: right;}
     td.flags {width: 3% !important; text-align: right;}
-
-
+  }
+  // for other controls
+  .controls{
+    right: -113px;
+    height: 50px;
+    width: 100px;
+    border: 1px solid grey;
+    border-radius: 5px;
+  }
+  tr{
+    .toggle-controls{
+      color: darkgrey;
+      right: -14px;
+      display: none;
+      padding-top: 8px !important;
+      font-size: 1.1rem;
+      width: 55px;
+      text-align: right;
+      padding-right: 8px !important;
+    }
+    &:hover .toggle-controls{
+      display: block;
+      &:hover i{
+        color: #cbcbcb;
+      }
+    }
   }
 
   thead {
@@ -158,11 +187,11 @@ div#network-container {
     z-index: 100;
     position: absolute;
     pointer-events: none;
-    width: 100%; height: 50%; display: block;
+    width: 30%; height: 50%; display: block;
 
     div#details-sidebar {
       pointer-events: all;
-      width: 30%;
+      width: 100%;
       min-height: 400px;
       float: left;
       top: 0;
@@ -286,4 +315,15 @@ div#stabilization-info {
       font-size: 2rem;
     }
   }
+}
+
+
+/*details-entity*/
+.details-entity{
+  right: 0px;
+  min-height: 400px;
+  width: 70%;
+  background: #171719;
+  opacity: 0.8;
+  z-index: 9;
 }

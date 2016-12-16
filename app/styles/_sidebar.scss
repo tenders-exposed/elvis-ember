@@ -132,6 +132,7 @@ div#details-container {
 }
 
 table.data-table {
+  position: relative;
   font-size: 80%;
   color: whitesmoke;
   table-layout: fixed;
@@ -158,6 +159,7 @@ table.data-table {
 
   tbody {
     tr {
+      position: relative;
       &:hover, &.selected {
         /*background-color: #eeeeee;
         */
