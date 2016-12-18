@@ -158,6 +158,7 @@ table.data-table {
   }
 
   tbody {
+    max-height: 400px !important;
     tr {
       position: relative;
       &:hover, &.selected {

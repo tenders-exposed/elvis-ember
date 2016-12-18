@@ -27,13 +27,18 @@ Router.map(function() {
     });
     this.route('show', { path: ':network_id' }, function() {
      this.route('details', function () {
+
        this.route('suppliers' ,function () {
+         this.route('show', { path: ':id' });
+       });
+       this.route('procurers' ,function () {
          this.route('show', { path: ':id' });
        });
        /*this.route('suppliers');
        this.route('supplier', { path: '/suppliers/:id' });
 */
        this.route('detail', {path: ':type'}, function () {
+          this.route('show', { path: ':id' });
        });
      });
 
@@ -66,8 +71,9 @@ Router.map(function() {
     });
   });
   this.route('welcome', { path: '' });
-  this.route('network.show.details.suppliers');
-  this.route('network.show.details.suppliers.supplier');
+
+
+
 });
 
 export default Router;

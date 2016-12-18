@@ -1,9 +1,6 @@
 div#network-container {
   height: 100% !important;
 
-  .ps-content{
-    overflow: visible !important;
-  }
 
   .suppliers {
     th {padding: 10px 0px !important;}
@@ -13,7 +10,7 @@ div#network-container {
     th.flags{width: 2% !important;}
 
     td.id {width: 1% !important; text-align: center;}
-    td.label {width: 75% !important;}
+    td.label {width: 80% !important;}
     td.value {width: 1% !important; text-align: right;}
     td.flags {width: 1% !important; text-align: right;}
   }
@@ -33,18 +30,18 @@ div#network-container {
   }
   // for other controls
   .controls{
-    right: -113px;
+    /*right: -113px;
     height: 50px;
     width: 100px;
     border: 1px solid grey;
-    border-radius: 5px;
+    border-radius: 5px;*/
   }
   tr{
     .toggle-controls{
       color: darkgrey;
-      right: -14px;
+      right: -8px;
       display: none;
-      padding-top: 8px !important;
+      padding-top: 3px !important;
       font-size: 1.1rem;
       width: 55px;
       text-align: right;
@@ -53,6 +50,7 @@ div#network-container {
     &:hover .toggle-controls{
       display: block;
       &:hover i{
+        cursor: pointer;
         color: #cbcbcb;
       }
     }
@@ -74,8 +72,18 @@ div#network-container {
     overflow: hidden;
     padding-right: 20px !important;
 
+
     .ps-scrollbar-y-rail{
+      background-color: #1A1A1C !important;
+      opacity: 0.2;
       margin-left: 10px !important;
+      width: 1px !important;
+
+      .ps-scrollbar-y{
+        width: 1px !important;
+        right: 0px !important;
+        background-color: whitesmoke;
+      }
     }
   }
 
@@ -319,11 +327,73 @@ div#stabilization-info {
 
 
 /*details-entity*/
-.details-entity{
+.details-entity {
   right: 0px;
-  min-height: 400px;
+  height: 100%;
   width: 70%;
   background: #171719;
   opacity: 0.8;
   z-index: 9;
+
+  .close {
+    cursor: pointer;
+    opacity: 0.5;
+    right: 30px;
+    top: 30px;
+    &:hover{
+      opacity: 1;
+    }
+  }
+
+  .s3 {
+    width: 30%;
+  }
+
+  .container-entity {
+    width: 80%;
+
+    .title {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      .supplier i{
+        color: deepskyblue;
+      }
+      .type {
+        text-transform: uppercase;
+        color: grey;
+        font-weight: bold;
+        font-family: Roboto;
+      }
+      .name {
+        font-family: Serif;
+        font-weight: bold;
+        font-size: 1.7rem;
+        color: white;
+        .years {
+          font-size: 1.1rem;
+          color: grey;
+        }
+      }
+    }
+    .flag {
+      color: orangered;
+    }
+    .second-row {
+      .title {
+        text-transform: uppercase;
+        font-weight: bold;
+        color: grey;
+        margin-top: 0px !important;
+        font-size: 0.7rem;
+      }
+      .value {
+        font-family: Serif;
+        font-size: 2rem;
+        font-weight: bold;
+        color: whitesmoke;
+      }
+
+    }
+
+  }
 }

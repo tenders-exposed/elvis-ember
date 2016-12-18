@@ -5,6 +5,6 @@ export default Ember.Route.extend({
     this.render({ outlet: 'details' });
   },
   activate(){
-    console.log("in supplier");
+    console.log(" *in supplier");
   }
 });

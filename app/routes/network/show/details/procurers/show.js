@@ -27,7 +27,7 @@ export default Ember.Route.extend({
     //console.log("firstYear", firstYear);
 
     //not working bad request
-    let query = `{ "query": {"suppliers": [${model.id}], "countries": ["${countries}"], "years": [${years}] }}`;
+    let query = `{ "query": {"procuring_entities": [${model.id}], "countries": ["${countries}"], "years": [${years}] }}`;
 
     //let query = `{ "query": {"suppliers": [${model.id}]}}`;
     let self = this;

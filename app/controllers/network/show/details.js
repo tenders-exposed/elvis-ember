@@ -164,14 +164,6 @@ export default Ember.Controller.extend({
       let email = this.get("me.data.email");
 
       let data = `{"network": { "name": "${networkName}"}}`;
-      const headers = `{
-          "Content-Type": "application/json",
-          "X-User-Email': "${email}",
-          "X-User-Token': "${token}"
-      }`;
-
-      console.log("data = "+data);
-      console.log("headers = "+headers);
       let self = this;
 
       this.get('ajax')
