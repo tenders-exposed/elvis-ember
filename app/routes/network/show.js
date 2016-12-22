@@ -42,7 +42,8 @@ export default Ember.Route.extend({
 
   actions: {
     openSidebar() {
-      this.transitionTo('network.show.details');
+      let activeTab = this.controllerFor('network.show.details').get('activeTab');
+      this.transitionTo('network.show.details', activeTab);
     },
     //set toggled menu for show routes and subroutes
     didTransition(){

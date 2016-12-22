@@ -26,54 +26,12 @@ Router.map(function() {
       this.route('config', {});
     });
     this.route('show', { path: ':network_id' }, function() {
-     this.route('details', function () {
-
-       this.route('suppliers' ,function () {
-         this.route('show', { path: ':id' });
-       });
-       this.route('procurers' ,function () {
-         this.route('show', { path: ':id' });
-       });
-       /*this.route('suppliers');
-       this.route('supplier', { path: '/suppliers/:id' });
-*/
-       this.route('detail', {path: ':type'}, function () {
-          this.route('show', { path: ':id' });
-       });
-     });
-
-
-
-
-
-     //this.route('details', {path: 'details/:type'}, function(){});
-     /* this.route('details', function() {
-        this.route('suppliers', function() {
-          this.route('show', { path: ':supplier_id' }, function() {
-            this.route('contracts', function() {
-              this.route('show', { path: ':contract_id' });
-            });
-            this.route('procurers', {});
-            this.route('stats', {});
-          });
-        });
-        this.route('procurers', function() {
-          this.route('show', { path: ':procurer_id' }, function() {
-            this.route('contracts', function() {
-              this.route('show', { path: ':id' });
-            });
-            this.route('procurers', {});
-            this.route('stats', {});
-          });
-        });
-        this.route('relationships', {});
-      });*/
+      this.route('details', {path: ':tab'}, function(){
+        this.route('show', { path: ':id' });
+      });
     });
   });
   this.route('welcome', { path: '' });
-
-
-
 });
 
 export default Router;

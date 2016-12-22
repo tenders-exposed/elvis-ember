@@ -1,6 +1,10 @@
 div#network-container {
+  position: relative;
   height: 100% !important;
-
+  width: 100%;
+  display: block;
+  flex-direction: row;
+  top: 0;
 
   .suppliers {
     th {padding: 10px 0px !important;}
@@ -90,10 +94,6 @@ div#network-container {
   h5 {
     margin-top: 0;
   }
-  position: relative;
-  width: 100%;
-  display: block;
-  top: 0;
 
   div.network-canvas {
     height: 100%;
@@ -195,13 +195,17 @@ div#network-container {
     z-index: 100;
     position: absolute;
     pointer-events: none;
-    width: 30%; height: 50%; display: block;
+    /* width: 30%; */
+    height: 100%;
+    display: flex;
 
     div#details-sidebar {
       pointer-events: all;
-      width: 100%;
+      width: 30%;
+      min-width: 300px;
       min-height: 400px;
-      float: left;
+      height: 100%;
+      /* float: left; */
       top: 0;
       background: #171719;
       opacity: .9;
@@ -227,12 +231,6 @@ div#network-container {
           }
         }
       }
-      .tab-panel {
-       /* background: $main-bg;*/
-        .ag-grid-container {
-          width: 100%;
-        }
-      }
     }
     .searchIcon{
       top: 4px;
@@ -241,14 +239,79 @@ div#network-container {
     }
 
     div#details-info {
-      display: none;
       height: 100%;
-      width: 70%;
-      min-height: 400px;
-      float: left;
-      top: 0;
-      background: green;
-      opacity: .8;
+      width: 100%;
+      pointer-events: none;
+      border-left: 1px dashed rgba(100, 100, 100, .1);
+
+      .details-info-wrapper {
+        pointer-events: all;
+        width: 100%;
+        height: 100%;
+        right: 0px;
+        height: 100%;
+        background: rgba(23, 23, 25, .9);
+
+        .close {
+          cursor: pointer;
+          opacity: 0.5;
+          right: 30px;
+          top: 30px;
+          &:hover{
+            opacity: 1;
+          }
+        }
+        .s3 {
+          width: 30%;
+        }
+        .container-entity {
+          width: 80%;
+
+          .title {
+            margin-top: 40px;
+            font-size: 0.9rem;
+            .supplier i{
+              color: deepskyblue;
+            }
+            .type {
+              text-transform: uppercase;
+              color: grey;
+              font-weight: bold;
+              font-family: Roboto;
+            }
+            .name {
+              font-family: Serif;
+              font-weight: bold;
+              font-size: 1.7rem;
+              color: white;
+              .years {
+                font-size: 1.1rem;
+                color: grey;
+              }
+            }
+          }
+          .flag {
+            color: orangered;
+          }
+          .second-row {
+            .title {
+              text-transform: uppercase;
+              font-weight: bold;
+              color: grey;
+              margin-top: 0px !important;
+              font-size: 0.7rem;
+            }
+            .value {
+              font-family: Serif;
+              font-size: 2rem;
+              font-weight: bold;
+              color: whitesmoke;
+            }
+
+          }
+
+        }
+      }
     }
   }
 }
@@ -327,73 +390,5 @@ div#stabilization-info {
 
 
 /*details-entity*/
-.details-entity {
-  right: 0px;
-  height: 100%;
-  width: 70%;
-  background: #171719;
-  opacity: 0.8;
-  z-index: 9;
-
-  .close {
-    cursor: pointer;
-    opacity: 0.5;
-    right: 30px;
-    top: 30px;
-    &:hover{
-      opacity: 1;
-    }
-  }
-
-  .s3 {
-    width: 30%;
-  }
-
-  .container-entity {
-    width: 80%;
-
-    .title {
-      margin-top: 40px;
-      font-size: 0.9rem;
-      .supplier i{
-        color: deepskyblue;
-      }
-      .type {
-        text-transform: uppercase;
-        color: grey;
-        font-weight: bold;
-        font-family: Roboto;
-      }
-      .name {
-        font-family: Serif;
-        font-weight: bold;
-        font-size: 1.7rem;
-        color: white;
-        .years {
-          font-size: 1.1rem;
-          color: grey;
-        }
-      }
-    }
-    .flag {
-      color: orangered;
-    }
-    .second-row {
-      .title {
-        text-transform: uppercase;
-        font-weight: bold;
-        color: grey;
-        margin-top: 0px !important;
-        font-size: 0.7rem;
-      }
-      .value {
-        font-family: Serif;
-        font-size: 2rem;
-        font-weight: bold;
-        color: whitesmoke;
-      }
-
-    }
-
-  }
+#details-info {
 }

@@ -1,0 +1,36 @@
+<div class="container container-entity relative">
+  <div class="row">
+    <div class="col s12 title">
+      <div class="type supplier">
+        {{fa-icon 'circle' size=1}} supplier
+      </div>
+      <div class="name">
+        {{model.name}}
+        <span class="years">( {{model.firstYear}} - {{model.lastYear}} )</span>
+      </div>
+      <hr>
+    </div>
+  </div>
+  <div class="row second-row">
+    <div class="col s3">
+      <div class="flag">
+        {{fa-icon 'flag' size=1}} sole bidder {{fa-icon 'question-circle' size=1}}
+      </div>
+      <div class="flag">
+        {{fa-icon 'flag' size=1}} frequent winner {{fa-icon 'question-circle' size=1}}
+      </div>
+    </div>
+    <div class="col s3">
+      <div class="title">total income</div>
+      <div class="value">{{model.total_earnings}} <small>M</small></div>
+    </div>
+    <div class="col s3">
+      <div class="title">avg competition</div>
+      <div class="value">1.7</div>
+    </div>
+    <div class="col s3">
+      <div class="title">data missing</div>
+      <div class="value">{{model.missing_values}}%</div>
+    </div>
+  </div>
+</div>
