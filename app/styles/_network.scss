@@ -226,8 +226,12 @@ div#network-container {
           a {
             color: whitesmoke;
             text-transform: uppercase;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             padding-bottom: 10px;
+
+            span {
+              font-size: 0.9rem;
+            }
           }
         }
       }

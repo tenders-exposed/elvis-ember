@@ -24,18 +24,20 @@ export default Ember.Route.extend({
     let self = this;
     let networkModel = this.modelFor('network.show');
     let endpoint = this.paramsFor('network.show.details').tab;
+    let endpointQ = this.endpoints[endpoint];
 
-    let countries = networkModel.query.countries;
-    let years     = networkModel.query.years;
+    let countries = networkModel.get('query').countries;
+    let years     = networkModel.get('query').years;
     let token = this.get('me.data.authentication_token');
     let email = this.get('me.data.email');
 
     let firstYear = _.head(years);
     let lastYear = _.last(years);
 
+    //@todo: query does not contain the years & countries
     let entityQuery = `{
         "query": {
-          "${endpoint}": [${params.id}]
+          "${endpointQ}": [${params.id}]
         }
       }`;
 
@@ -49,11 +51,13 @@ export default Ember.Route.extend({
         }
       }).then(
         (data)=>{
-          data.firstYear = firstYear;
-          data.lastYear = lastYear;
+          let dataEntity = data.search.results[0];
+          dataEntity.firstYear = firstYear;
+          dataEntity.lastYear = lastYear;
+          return dataEntity;
 
-          return data.search.results[0];
         },(response) => {
+
           self.get('notifications').clearAll();
           console.log(response);
           _.forEach(response.errors, (error, index) => {
