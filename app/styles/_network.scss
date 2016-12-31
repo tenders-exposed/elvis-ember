@@ -6,6 +6,85 @@ div#network-container {
   flex-direction: row;
   top: 0;
 
+  .container-entity{
+    div.tabs__nav {
+      line-height: 2.5rem;
+      margin-bottom: 10px;
+      border-bottom: 1px solid rgb(72, 72, 72);
+
+      .tab-button {
+        display: inline-block;
+        font-weight: bold;
+        position: relative;
+        width: 11%;
+        cursor: pointer;
+        text-align: left;
+        padding-top: 10px;
+
+        a{
+          color: grey;
+          text-transform: uppercase;
+          font-size: 0.8rem;
+          padding-bottom: 10px;
+          &:hover{
+            border-bottom: 2px solid grey;
+          }
+        }
+      }
+
+      .tab-button--active a{
+        color: whitesmoke;
+        border-bottom: 2px solid whitesmoke;
+      }
+    }
+
+    .data-table {
+      tr, tbody{
+        display: block;
+        width: 100%;
+      }
+      th {
+        text-transform: uppercase;
+        color: gray;
+        font-size: 0.7rem;
+        display: inline-block;
+      }
+      td {
+        color: gray;
+        padding: 10px !important;
+        display: inline-block;
+        i{height: 0%;}
+      }
+
+    }
+  }
+  .contracts{
+    .data-table{
+      th.award  { width: 35%; padding-left: 0px; margin-left: -15px; }
+      th.parties{ width: 32%;}
+      th.value  { width: 20%; text-align: right;}
+      th.bids   { width: 13%; text-align: right;  padding-right: 0px !important;}
+
+      td.award  { width: 34%; padding-left: 0px !important; }
+      td.parties{ width: 30%; i {color: deepskyblue;} }
+      td.value  { width: 20%; color: white; font-family: Serif; text-align: right; font-size: 1.2rem; padding-right: 0px !important; }
+      td.bids   { width: 14%; color: white; font-family: Serif; text-align: right; font-size: 1.2rem; }
+    }
+  }
+  .procurers{
+    .data-table{
+      th.procurer { width: 35%; padding-left: 0px; margin-left: -15px; }
+      th.contracts{ width: 32%;}
+      th.income   { width: 20%; text-align: right;}
+      th.bids     { width: 13%; text-align: right;  padding-right: 0px !important;}
+
+      td.procurer { width: 34%; padding-left: 0px !important; i { color: deeppink;} }
+      td.contracts{ width: 35%; }
+      td.income   { width: 15%; color: white; font-family: Serif; text-align: right; font-size: 1.2rem; padding-right: 0px !important; }
+      td.bids     { width: 14%; color: white; font-family: Serif; text-align: right; font-size: 1.2rem; }
+    }
+  }
+
   .suppliers {
     th {padding: 10px 0px !important;}
     th.id{width: 3% !important; }

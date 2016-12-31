@@ -1,0 +1,32 @@
+{{#data-table content=content sort=sort page=page as |t|}}
+{{!--
+{{#t.menu as |menu|}}
+  {{#menu.general}}
+    <a {{action 'export'}}>Export</a>
+    <a>Print</a>
+  {{/menu.general}}
+  {{#menu.selected as |selection|}}
+    <a {{action 'selectRow' selection}}>Delete</a>
+  {{/menu.selected}}
+{{/t.menu}}
+--}}
+  {{#t.content as |c|}}
+    {{#c.header}}
+      {{#each-in fields as |name label|}}
+        {{th-sortable
+            field=name
+            currentSorting=sort
+            label=label
+            class=name
+        }}
+      {{/each-in}}
+    {{/c.header}}
+    {{#perfect-scroll scrollTop=100 includePadding=true suppressScrollX=true}}
+
+      {{#c.body as |row|}}
+        {{partial partialPath}}
+      {{/c.body}}
+
+    {{/perfect-scroll}}
+  {{/t.content}}
+{{/data-table}}

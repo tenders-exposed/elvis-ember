@@ -1,0 +1,13 @@
+<td class="award">
+  {{fa-icon 'file-text' size=1}}
+  {{row.award.title}}
+</td>
+<td class="parties">
+  {{#each row.suppliers as |supplier|}}
+    <span class="circle supplier"> {{fa-icon 'circle' size=1}} </span>
+    {{supplier.name}}
+    <br>
+  {{/each}}
+</td>
+<td class="value">{{row.award.value.x_amount_eur}} M</td>
+<td class="bids">{{row.number_of_tenderers}}</td>

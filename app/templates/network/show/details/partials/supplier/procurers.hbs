@@ -1,0 +1,14 @@
+<td class="procurer">
+  <span class="circle procurer"> {{fa-icon 'circle' size=1}} </span>
+  {{row.name}}
+</td>
+<td class="contracts">
+  {{#each row.contracts as |contract|}}
+    <div>
+      <span> {{fa-icon 'file-text' size=1}} </span>
+      <span>{{contract}}</span>
+    </div>
+  {{/each}}
+</td>
+<td class="income">{{row.income}} M</td>
+<td class="bids">{{row.bids}}</td>

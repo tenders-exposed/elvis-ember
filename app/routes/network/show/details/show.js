@@ -54,6 +54,8 @@ export default Ember.Route.extend({
           let dataEntity = data.search.results[0];
           dataEntity.firstYear = firstYear;
           dataEntity.lastYear = lastYear;
+
+          console.log("details content ", dataEntity);
           return dataEntity;
 
         },(response) => {
@@ -74,7 +76,32 @@ export default Ember.Route.extend({
   setupController(controller, model) {
     let activeTab = this.controllerFor('network.show.details').get('activeTab');
     controller.set('activeTab', activeTab);
+
+    let procurers=[];
+
+    _.forEach(model.contracts, function(contract) {
+      let id = contract.procuring_entity.x_slug_id;
+
+      if(typeof procurers[id] === 'undefined'){
+        procurers[id] = {};
+        procurers[id].id = contract.procuring_entity.x_slug_id;
+        procurers[id].name = contract.procuring_entity.name;
+        procurers[id].contracts = [];
+        procurers[id].income = 0;
+        procurers[id].tenderers = 0;
+        procurers[id].tenderers_no = 0;
+      }
+      procurers[id].contracts.push(contract.award.title);
+      procurers[id].income += contract.award.value.x_amount_eur;
+      procurers[id].tenderers += contract.number_of_tenderers;
+      procurers[id].tenderers_no++;
+      procurers[id].bids = procurers[id].tenderers /procurers[id].tenderers_no;
+      procurers[id].bids = procurers[id].bids.toFixed(1);
+
+    });
+    model.procurers = procurers;
     controller.set('model', model);
+
   },
 
   actions: {
