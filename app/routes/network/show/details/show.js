@@ -23,6 +23,10 @@ export default Ember.Route.extend({
 
     let self = this;
     let networkModel = this.modelFor('network.show');
+    let node = _.find(networkModel.data.graph.nodes, function(o) {
+      return +o.id === +params.id;
+    });
+
     let endpoint = this.paramsFor('network.show.details').tab;
     let endpointQ = this.endpoints[endpoint];
 
@@ -54,8 +58,7 @@ export default Ember.Route.extend({
           let dataEntity = data.search.results[0];
           dataEntity.firstYear = firstYear;
           dataEntity.lastYear = lastYear;
-
-          console.log("details content ", dataEntity);
+          dataEntity.flags = node.flags;
           return dataEntity;
 
         },(response) => {
@@ -77,7 +80,8 @@ export default Ember.Route.extend({
     let activeTab = this.controllerFor('network.show.details').get('activeTab');
     controller.set('activeTab', activeTab);
 
-    let procurers=[];
+    let procurers = [];
+    let ids = [];
 
     _.forEach(model.contracts, function(contract) {
       let id = contract.procuring_entity.x_slug_id;
@@ -88,20 +92,37 @@ export default Ember.Route.extend({
         procurers[id].name = contract.procuring_entity.name;
         procurers[id].contracts = [];
         procurers[id].income = 0;
-        procurers[id].tenderers = 0;
-        procurers[id].tenderers_no = 0;
+        procurers[id].tenderers = [];
+        procurers[id].median = 0;
+        ids.push(id);
       }
       procurers[id].contracts.push(contract.award.title);
       procurers[id].income += contract.award.value.x_amount_eur;
-      procurers[id].tenderers += contract.number_of_tenderers;
-      procurers[id].tenderers_no++;
-      procurers[id].bids = procurers[id].tenderers /procurers[id].tenderers_no;
-      procurers[id].bids = procurers[id].bids.toFixed(1);
+      procurers[id].tenderers.push(contract.number_of_tenderers);
 
+    });
+    //avg bids
+    _.forEach(ids, function (id) {
+        let sorted = _.sortBy(procurers[id].tenderers);
+        let length = sorted.length;
+        if(length) {
+          let poz = length/2;
+          poz = _.floor(poz);
+          let median = sorted[poz];
+          //console.log("length ", length);
+          //console.log("poz ", poz);
+          //console.log("tenderers ", sorted);
+          //console.log("median ", median);
+          if(length%2 === 0) {
+              median = (median + sorted[poz-1])/2;
+              median = _.round(median,1);
+              //console.log("median rest "+sorted[poz-1] + " median " + median);
+          }
+          procurers[id].median = median;
+        }
     });
     model.procurers = procurers;
     controller.set('model', model);
-
   },
 
   actions: {

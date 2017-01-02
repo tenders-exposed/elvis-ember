@@ -13,12 +13,11 @@
   </div>
   <div class="row second-row">
     <div class="col s3">
-      <div class="flag">
-        {{fa-icon 'flag' size=1}} sole bidder {{fa-icon 'question-circle' size=1}}
-      </div>
-      <div class="flag">
-        {{fa-icon 'flag' size=1}} frequent winner {{fa-icon 'question-circle' size=1}}
-      </div>
+      {{#each-in model.flags as |flName flValue|}}
+        <div class="flag">
+          {{fa-icon 'flag' size=1}} {{flName}} {{fa-icon 'question-circle' size=1}}
+        </div>
+      {{/each-in}}
     </div>
     <div class="col s3">
       <div class="title">total income</div>
