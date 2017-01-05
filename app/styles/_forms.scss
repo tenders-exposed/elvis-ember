@@ -90,6 +90,9 @@ form > .row:last-child > .col.s1:first-child {
       border-left: 0px;
     }
 }
+.noUi-target.disable-range {
+  opacity: 0.4;
+}
 
 .noUi-target {
   height: 2px;
