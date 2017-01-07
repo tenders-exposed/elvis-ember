@@ -85,29 +85,42 @@ div#network-container {
     }
   }
 
+  .suppliers, .relationships {
+    tbody, tr{
+      display: block !important;
+    }
+    td,th {
+      display: inline-block;
+      vertical-align: bottom;
+    }
+    .flags{
+      margin-top: 5px !important;
+    }
+  }
+
   .suppliers {
     th {padding: 10px 0px !important;}
-    th.id{width: 3% !important; }
-    th.label{width: 16% !important;}
-    th.value{width: 2% !important;}
+    th.id{width: 15% !important; }
+    th.label{width: 65% !important;}
     th.flags{width: 2% !important;}
+    th.value{width: 15% !important;}
 
-    td.id {width: 1% !important; text-align: center;}
-    td.label {width: 80% !important;}
-    td.value {width: 1% !important; text-align: right;}
-    td.flags {width: 1% !important; text-align: right;}
+    td.id {width: 15% !important; text-align: center;}
+    td.label {width: 67% !important;}
+    td.flags {width: 5% !important; text-align: right;}
+    td.value {width: 8% !important; text-align: right;}
   }
 
   .relationships{
     th {padding: 10px 0px !important;}
 
-    th.fromLabel {width: 12% !important;}
-    th.toLabel {width: 16% !important;}
-    th.value {width: 3% !important;}
+    th.fromLabel {width: 40% !important;}
+    th.toLabel {width: 43% !important;}
     th.flags {width: 3% !important;}
+    th.value {width: 11% !important;}
 
-    td.fromLabel {width: 12% !important;}
-    td.toLabel {width: 16% !important;}
+    td.fromLabel {width: 43% !important;}
+    td.toLabel {width: 44% !important;}
     td.value {width: 3% !important; text-align: right;}
     td.flags {width: 3% !important; text-align: right;}
   }
@@ -122,7 +135,8 @@ div#network-container {
   tr{
     .toggle-controls{
       color: darkgrey;
-      right: -8px;
+      top: 0px;
+      right: -18px;
       display: none;
       padding-top: 3px !important;
       font-size: 1.1rem;
@@ -153,7 +167,7 @@ div#network-container {
     width: 103%;
     height: 400px;
     overflow: hidden;
-    padding-right: 20px !important;
+    padding-right: 10px !important;
 
 
     .ps-scrollbar-y-rail{
@@ -280,7 +294,7 @@ div#network-container {
 
     div#details-sidebar {
       pointer-events: all;
-      width: 30%;
+      width: 40%;
       min-width: 300px;
       min-height: 400px;
       height: 100%;
