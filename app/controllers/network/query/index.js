@@ -17,9 +17,7 @@ export default Ember.Controller.extend({
     return count;
   }),
 
-  rangeIsDisabled: Ember.computed('query.countries', function() {
-    return !this.get('query.countries').length;
-  }),
+
 
   query: {
     'nodes': 'count',
@@ -31,6 +29,20 @@ export default Ember.Controller.extend({
   },
 
   countries: [],
+
+  rangeDisableClass: "",
+  rangeIsDisabled: Ember.computed('query.countries', function() {
+    if(this.get('query.countries').length > 0) {
+      this.set("rangeDisableClass", "");
+      return false;
+
+    } else {
+      console.log("here here ", this.get('query.countries').length);
+      this.set("rangeDisableClass", "disable-range");
+
+      return true;
+    }
+  }),
 
   yearsStart: [],
 
@@ -101,6 +113,8 @@ export default Ember.Controller.extend({
           .then((data) => {
             this.set('years', data.search.results);
           });
+      console.log('queryCountries', this.get('query.countries'));
+      console.log('countries', this.get('countries'));
     },
 
     slidingAction(value) {
