@@ -15,6 +15,7 @@ export default Ember.Route.extend({
     let self = this;
     if (_.indexOf(_.keysIn(self.get('endpoints')), item) !== -1) {
       self.get('ajax').post(self.get(`endpoints.${item}`), options).then((data) => {
+        console.log("item = " + item + " = " + data.search.results);
         controller.set(item, data.search.results);
       });
     } else {
