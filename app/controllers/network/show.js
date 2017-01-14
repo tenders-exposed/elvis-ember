@@ -85,11 +85,51 @@ export default Ember.Controller.extend({
     Ember.$('div#stabilization-info').height(window.innnerHeight - 200);
   },
 
+  showNetworkInfo(){
+    let start = this.get("startStabilizing");
+    let end = performance.now();
+    let timeS = _.ceil((end-start), 2);
+    let iterations = this.get("stIterations");
+    let nodes = this.get("model.graph.nodes").length;
+    let edges = this.get("model.graph.edges").length;
+
+    let message =
+      `
+          <div id="network-info">
+            <p>Netowrk info</p>
+            <div class="info">
+              <div class="info-name">Stabilization</div>
+              <div class="info-val">${timeS} ms</div>
+            </div>
+            <div class="info">
+              <div class="info-name">Iterations</div>
+              <div class="info-val">${iterations}</div>
+            </div>
+            <div class="info">
+              <div class="info-name">Nodes</div>
+              <div class="info-val">${nodes}</div>
+            </div>
+            <div class="info">
+              <div class="info-name">Edges</div>
+              <div class="info-val">${edges}</div>
+            </div>
+          </div>        
+        `;
+    this.notifications.success(message, {
+      autoClear: false,
+      htmlContent: true
+    });
+
+  },
+
   actions: {
     startStabilizing() {
+      this.set("startStabilizing", performance.now());
       console.log('start stabilizing');
     },
     stabilizationIterationsDone() {
+      this.showNetworkInfo();
+
       console.log('stabilization iterations done');
       this.set('stabilizationPercent', 100);
       Ember.$('div#stabilization-info').fadeOut();
