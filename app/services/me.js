@@ -7,7 +7,5 @@ export default Ember.Service.extend({
     this.set('data', Ember.computed('session.session.content.authenticated', function() {
       return this.get('session.session.content.authenticated');
     }));
-
-    this.set('client', new ClientJS());
   }
 });
