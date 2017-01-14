@@ -21,7 +21,7 @@ export default Ember.Service.extend({
       // 'DeviceVendor',
       // 'CPU',
       // 'ScreenPrint',
-      // 'CurrentResolution',
+      'CurrentResolution',
       // 'DeviceXDPI',
       // 'DeviceYDPI',
       // 'Plugins',
@@ -31,11 +31,17 @@ export default Ember.Service.extend({
       // 'Language',
     ];
 
+    let windowSize = {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    };
+
     properties.forEach((p) => {
       _this.set(
         p.toLowerCase(),
         eval(`client.get${p}()`)
       );
     });
+    this.set('windowsize', `${windowSize.width}x${windowSize.height}`);
   }
 });
