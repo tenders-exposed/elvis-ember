@@ -29,7 +29,8 @@
     "vis": "^4.16.0",
     "ag-grid": "^5.3.1",
     "lodash": "^4.16.4",
-    "perfect-scrollbar": "^0.6.14"
+    "perfect-scrollbar": "^0.6.14",
+    "clientjs": "^0.1.5"
   },
   "resolutions": {
     "qunit-notifications": "~0.1.0",

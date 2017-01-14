@@ -44,7 +44,6 @@ export default Ember.Route.extend({
   /* Hooks */
 
   activate() {
-    console.log(_.VERSION);
     this.notifications.clearAll();
     this.notifications.info('This page might be subject to layout changes', {
       autoClear: true,

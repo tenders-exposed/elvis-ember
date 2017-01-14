@@ -33,5 +33,12 @@ module.exports = function(defaults) {
 
   app.import('bower_components/lodash/lodash.js');
 
+  app.import('bower_components/clientjs/src/vendor/deployJava.js', {type: 'vendor', prepend: true});
+  app.import('bower_components/clientjs/src/vendor/fontdetect.js', {type: 'vendor', prepend: true});
+  app.import('bower_components/clientjs/src/vendor/murmurhash3.js', {type: 'vendor', prepend: true});
+  app.import('bower_components/clientjs/src/vendor/swfobject.js', {type: 'vendor', prepend: true});
+  app.import('bower_components/clientjs/src/vendor/ua-parser.js', {type: 'vendor', prepend: true});
+  app.import('bower_components/clientjs/src/client.js');
+
   return app.toTree();
 };
