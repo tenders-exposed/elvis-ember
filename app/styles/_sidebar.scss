@@ -137,6 +137,9 @@ table.data-table {
   color: whitesmoke;
   table-layout: fixed;
 
+  a{ color: whitesmoke; }
+  a:hover{ color: deepskyblue; }
+
   thead {
     color: whitesmoke;;
     .sorted {

@@ -39,21 +39,21 @@
 
       {{#c.body as |row|}}
         {{#each-in fields as |name label|}}
-          <td class="{{name}}" {{action "selectRow" row on="click"}}>
+          <td class="{{name}}" >
             {{#if (eq name "flags")}}
               {{#each-in row.flags as |flName flValue|}}
                 <span class="flags"> {{fa-icon 'flag' size=1 title=flName}}</span>
               {{/each-in}}
             {{else}}
-              {{dd row name}}
+              {{#link-to "network.show.details.show" route row.id}}
+                {{dd row name}}
+              {{/link-to}}
             {{/if}}
           </td>
         {{/each-in}}
         <!--<td class="absolute controls">something</td>-->
-        <td class="absolute  toggle-controls">
-          {{#link-to "network.show.details.show" route row.id}}
-            {{fa-icon 'arrow-circle-right' size=1}}
-          {{/link-to}}
+        <td class="absolute  toggle-controls" {{action "selectRow" row on="click"}}>
+            {{fa-icon 'dot-circle-o' size=1}}
         </td>
       {{/c.body}}
 
