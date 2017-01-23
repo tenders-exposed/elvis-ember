@@ -1,29 +1,32 @@
-.userphoto {
-  $size: 100px;
-  display: block;
-  width: $size;
-  line-height: $size;
-  height: $size;
-  margin: 0 auto;
-  border-radius: 50%;
-  font-size: 50px;
-  text-align: center;
-  background: #ccc;
-  color: #aaa;
-}
-
 /* select guru */
 .ember-select-guru__container {
   border: none;
   border-bottom: 1px solid #3E3E3F;
   border-radius: 0;
-
 }
-/* /select guru */
+.ember-select-guru {
+  z-index: 20 !important;
+}
+.ember-select-guru__dropdown {
+  background: #383838;
+  & div.ember-view ember-select-guru__option,
+  & div.is-active {
+    background: #383838;
+  }
+}
+.ember-select-guru__dropdown > .options-wrapper {
+  max-height: 200px;
+  overflow: auto;
+}
+.multi-value__option {
+  background: #383838;
+  border: none;
+}
 
-
-.noUi-tooltip {
-  background: none;
-  top: -32px;
-  left: -50%;
+/* Notifications */
+.c-notifications__container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
 }

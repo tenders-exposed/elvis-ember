@@ -19,8 +19,6 @@ module.exports = function(environment) {
       'ember-cli-notifications': {
           includeFontAwesome: true
       },
-      // Fake versioning for the client side database (for caching purposes)
-      dbVersion: '2'
     }
   };
 

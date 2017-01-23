@@ -1,0 +1,52 @@
+  .container-entity{
+    div.tabs__nav {
+      line-height: 2.5rem;
+      margin-bottom: 10px;
+      border-bottom: 1px solid rgb(72, 72, 72);
+
+      .tab-button {
+        display: inline-block;
+        font-weight: bold;
+        position: relative;
+        width: 11%;
+        cursor: pointer;
+        text-align: left;
+        padding-top: 10px;
+
+        a{
+          color: grey;
+          text-transform: uppercase;
+          font-size: 0.8rem;
+          padding-bottom: 10px;
+          &:hover{
+            border-bottom: 2px solid grey;
+          }
+        }
+      }
+
+      .tab-button--active a{
+        color: whitesmoke;
+        border-bottom: 2px solid whitesmoke;
+      }
+    }
+
+    .data-table {
+      tr, tbody{
+        display: block;
+        width: 100%;
+      }
+      th {
+        text-transform: uppercase;
+        color: gray;
+        font-size: 0.7rem;
+        display: inline-block;
+      }
+      td {
+        color: gray;
+        padding: 10px !important;
+        display: inline-block;
+        i{height: 0%;}
+      }
+
+    }
+  }

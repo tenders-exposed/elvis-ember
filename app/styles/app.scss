@@ -1,37 +1,37 @@
+/* 3rd party styles */
 @import 'materialize';
 @import 'ember-cli-materialize';
 
 @import "ember-modal-dialog/ember-modal-structure";
 @import "ember-modal-dialog/ember-modal-appearance";
 
+/* Settings and general tweaks */
 @import "variables";
+@import "helpers";
 @import "components";
-@import "forms";
-@import "sidebar";
-@import "navbar";
-@import "network";
-@import "cpv";
-@import "query";
-@import "loading";
-@import "cpv-chip";
-@import "projects";
-// @import "ag-grid";
-@import "spinner";
 
-/* Helper styles */
-.h50 { display: block; height: 50px; }
-.radius { border-radius: 5px; }
-.noflow { overflow: hidden; }
-.outer-wrapper { position: relative; left: 50%; float: left; }
-.inner-wrapper { position: relative; left: -50%; float: left; }
-.overlay {position: absolute;}
-.full-screen {}
-.full-height {height: 100%;}
-.blur {
-  -webkit-filter: blur(5px);
-  -ms-filter: blur(5px);
-  filter: blur(5px);
-}
+/* Components */
+@import "components/cpv-selector";
+@import "components/cpv-chip";
+@import "components/range-slider";
+
+/* Network */
+@import "network/query";
+@import "network/show/details";
+@import "network/show/details/show";
+
+/* Partials */
+@import "partials/main-nav";
+
+/* Top level templates */
+@import "loading";
+@import "footer";
+@import "projects";
+
+/* To move / remove / change / split */
+@import "sidebar";
+@import "network/show";
+
 
 html, body, .container,
 body > .ember-view
@@ -46,13 +46,6 @@ h1 {
   font-weight: 600;
 }
 
-/* Notifications */
-.c-notifications__container {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 9999;
-}
 
 /* Theme colors */
 .mainbg {
@@ -67,33 +60,5 @@ h1 {
   padding: 0px 16px !important;
   color: #615f5f !important;
 }
-.absolute {
-  position: absolute;
-}
-.relative {
-  position: relative;
-}
 
-.footer-container .container {
-  border-top: 1px solid #252527;
-  background: #161618;
 
-  .col {
-    line-height: 50px;
-  }
-  a {
-    font-size: 0.9rem;
-    cursor: pointer;
-    color: #555;
-    &:hover { color: whitesmoke;}
-  }
-
-}
-
-.hide{
-  display: none !important;
-}
-
-.show-block{
-  display: block !important;
-}

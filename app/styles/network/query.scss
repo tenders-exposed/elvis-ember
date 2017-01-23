@@ -1,0 +1,140 @@
+/* FIXME: Change form to class names!!! */
+form > .row {
+  position: relative;
+}
+
+form > .row > .col.s1:first-child {
+    &:before {
+      content: "";
+      display: block;
+      z-index: -1;
+      border-left: 1px solid white;
+      height: 130%;
+      position: absolute;
+      margin-left: 28px;
+      margin-top: 16px;
+    }
+}
+
+form > .row:last-child > .col.s1:first-child {
+    &:before {
+      content: "";
+      display: block;
+      border-left: 0px;
+    }
+}
+
+.btn-floating i {
+  color: inherit;
+}
+
+span.query-step{
+  color: white;
+  text-align: center;
+  display: block;
+  border-radius: 40px;
+  line-height: 1.4;
+  &.circle {
+    margin: 15px 5px;
+    border: 2px solid white;
+    width: 44px;
+    height: 44px;
+    font-size: 2em;
+    background: #1A1A1C;
+    &:before {
+      content: "";
+      display: block;
+      z-index: -1;
+      border-left: 0px solid white;
+      height: 250px;
+      position: absolute;
+      margin-left: 20px;
+    }
+  }
+  &.mark {
+    background: #D4650F;
+    width:  32px;
+    height: 32px;
+    margin: 10px 11px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: black;
+    &:before {
+      content: "";
+      display: block;
+      z-index: -1;
+      border-left: 0px solid white;
+      height: 110px;
+      position: absolute;
+      margin-left: 16px;
+    }
+  }
+}
+
+div.query-form-container {
+  h5 {
+    font-size: 1.1em;
+    font-weight: 600;
+    font-family: serif;
+    margin-bottom: 0;
+  }
+  h4 {
+    font-size: 1.5em;
+    font-weight: 600;
+    font-family: serif;
+    margin-bottom: 0;
+  }
+  small {
+    color: #444446;
+    font-size: .8em;
+
+    hr{
+      color: #444446;
+      border-width: 0.3px;
+      border-style: solid;
+    }
+  }
+}
+.selected-codes-modal-content {
+  max-height: 400px;
+  width: 50%;
+  margin: 0 auto;
+  overflow: auto;
+  margin-top: 10%;
+  margin-bottom: 5%;
+}
+
+.selected-codes-modal-footer {
+  width: 50% !important;
+  margin-bottom: 20px !important;
+  margin: 0 auto;
+}
+
+.tooltip-selected {
+  max-height: 70%;
+  overflow: scroll;
+  background-color: transparent;
+}
+
+div#options-modal-container {
+  width: 80%;
+  //height: 100%;
+  /*
+  left: 50%;
+  top: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+  */
+  //position: fixed;
+  //overflow: auto;
+  //top: 0;
+  //left: 0;
+  display: block;
+  z-index: 1000;
+  position: absolute;
+  top: 80px;
+
+  >.container {
+    margin: 0px;
+  }
+}
