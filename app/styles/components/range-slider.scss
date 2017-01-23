@@ -1,0 +1,35 @@
+/* Range slider tooltips */
+.noUi-tooltip {
+  background: none;
+  top: -32px;
+  left: -50%;
+}
+.noUi-target.disable-range {
+  opacity: 0.4;
+}
+
+.noUi-target {
+  height: 2px;
+  &, * {border: none;}
+}
+.noUi-background, .noUi-base {background: #2A2A2B; box-shadow: none;}
+.noUi-connect { background: #eee; }
+.noUi-origin { }
+
+.noUi-handle-upper,
+.noUi-handle {
+  height: 20px !important;
+  width: 20px !important;
+  border-radius: 10px;
+  margin-left: 3px;
+  margin-top: -3px;
+  box-shadow: none;
+  &:after, &:before { background-color: transparent; }
+}
+
+form span.year-label {
+  color: rgba(255,255,255,.7);
+  position: absolute;
+  &.left-year {bottom: 20px; left: -7px;}
+  &.right-year {bottom: 20px; right: -7px;}
+}

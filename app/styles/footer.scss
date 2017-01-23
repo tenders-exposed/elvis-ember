@@ -1,0 +1,15 @@
+.footer-container .container {
+  border-top: 1px solid #252527;
+  background: #161618;
+
+  .col {
+    line-height: 50px;
+  }
+  a {
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: #555;
+    &:hover { color: whitesmoke;}
+  }
+
+}
