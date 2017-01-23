@@ -489,3 +489,27 @@ div#stabilization-info {
 /*details-entity*/
 #details-info {
 }
+
+/*network info notification*/
+#network-info{
+  p{margin: 0px; margin-bottom: 5px;}
+
+  .info{
+    margin-bottom: 5px;
+    clear: both;
+
+    * {
+      display: inline-block;
+      font-size: 80%;
+      line-height: 1.4rem;
+    }
+    .info-val{
+      text-align: right;
+      float: right;
+      padding-left: 36px;
+    }
+    .info-name{
+      float: left;
+    }
+  }
+}
