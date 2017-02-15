@@ -6,14 +6,8 @@ div#selected-cpvs-container
 {
   width: 100%;
   height: 100%;
-  /*
-  left: 50%;
-  top: 50%;
-  margin-left: -50px;
-  margin-top: -50px;
-  */
+
   position: fixed;
- /* overflow: auto;*/
   top: 0;
   left: 0;
   display: block;
@@ -75,17 +69,18 @@ ul.selected-cpvs {
   }
 }
 
+.toggled { display: none; }
+
 .cpv-table-container {
+  .show-container {
+    display: block !important;
+  }
   .search {
     margin-bottom: 20px;
 
-    input{
-      background-color: #151517;
-      height: 2rem;
+    .search-input{
+      @include search-input;
       width: 95%;
-      border: 1px solid #313030;
-      padding: 0px 16px;
-      color: #615f5f;
     }
   }
 }
@@ -139,7 +134,4 @@ ul.selected-cpvs {
 .jstree-photonui .jstree-icon {
   background: url("/assets/photonui/d.png");
 }
-
-.toggled { display: none; }
-.show-container {display: block !important;}
 

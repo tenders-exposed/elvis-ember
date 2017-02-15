@@ -56,8 +56,8 @@ span.query-step{
     width:  32px;
     height: 32px;
     margin: 10px 11px;
-    font-size: 1.5em;
-    font-weight: bold;
+    font-size: $fs3;
+    font-weight: bold ;
     color: black;
     &:before {
       content: "";
@@ -71,30 +71,7 @@ span.query-step{
   }
 }
 
-div.query-form-container {
-  h5 {
-    font-size: 1.1em;
-    font-weight: 600;
-    font-family: serif;
-    margin-bottom: 0;
-  }
-  h4 {
-    font-size: 1.5em;
-    font-weight: 600;
-    font-family: serif;
-    margin-bottom: 0;
-  }
-  small {
-    color: #444446;
-    font-size: .8em;
 
-    hr{
-      color: #444446;
-      border-width: 0.3px;
-      border-style: solid;
-    }
-  }
-}
 .selected-codes-modal-content {
   max-height: 400px;
   width: 50%;
@@ -118,17 +95,6 @@ div.query-form-container {
 
 div#options-modal-container {
   width: 80%;
-  //height: 100%;
-  /*
-  left: 50%;
-  top: 50%;
-  margin-left: -50px;
-  margin-top: -50px;
-  */
-  //position: fixed;
-  //overflow: auto;
-  //top: 0;
-  //left: 0;
   display: block;
   z-index: 1000;
   position: absolute;

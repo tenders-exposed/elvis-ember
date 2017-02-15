@@ -1,52 +1,41 @@
-  .container-entity{
-    div.tabs__nav {
-      line-height: 2.5rem;
-      margin-bottom: 10px;
-      border-bottom: 1px solid rgb(72, 72, 72);
+div#details-info {
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  border-left: 1px dashed rgba(100, 100, 100, .1);
 
-      .tab-button {
-        display: inline-block;
-        font-weight: bold;
-        position: relative;
-        width: 11%;
-        cursor: pointer;
-        text-align: left;
-        padding-top: 10px;
+  .details-info-wrapper {
+    pointer-events: all;
+    width: 100%;
+    height: 100%;
+    right: 0px;
+    height: 100%;
+    //background: rgba(23, 23, 25, .9);
+    @include bg-dark;
 
-        a{
-          color: grey;
-          text-transform: uppercase;
-          font-size: 0.8rem;
-          padding-bottom: 10px;
-          &:hover{
-            border-bottom: 2px solid grey;
-          }
+    .close {
+      cursor: pointer;
+      opacity: 0.5;
+      right: 30px;
+      top: 30px;
+      &:hover{
+        opacity: 1;
+      }
+    }
+    .s3 {
+      width: 30%;
+    }
+    .container-entity {
+      width: 80%;
+      .title {
+        margin-top: 40px;
+        .supplier i{
+          color: $color-supplier;
         }
       }
-
-      .tab-button--active a{
-        color: whitesmoke;
-        border-bottom: 2px solid whitesmoke;
+      .flag {
+        color: $color-flags;
       }
-    }
-
-    .data-table {
-      tr, tbody{
-        display: block;
-        width: 100%;
-      }
-      th {
-        text-transform: uppercase;
-        color: gray;
-        font-size: 0.7rem;
-        display: inline-block;
-      }
-      td {
-        color: gray;
-        padding: 10px !important;
-        display: inline-block;
-        i{height: 0%;}
-      }
-
     }
   }
+}
