@@ -15,8 +15,8 @@ module.exports = function(deployTarget) {
     ENV.build.environment = 'staging';
     // configure other plugins for staging deploy target here
     ENV['scp'] = {
-      username: 'vu2003',
-      host: 'strix.umbra.xyz',
+      username: 'vu2004',
+      host: 'staging.elvis.tenders.exposed',
       path: '/var/www/virtual/tenders.exposed/staging.elvis/htdocs'
     };
   }
@@ -25,8 +25,8 @@ module.exports = function(deployTarget) {
     ENV.build.environment = 'production';
     // configure other plugins for production deploy target here
     ENV['scp'] = {
-      username: 'vu2003',
-      host: 'strix.umbra.xyz',
+      username: 'vu2004',
+      host: 'elvis.tenders.exposed',
       path: '/var/www/virtual/tenders.exposed/elvis/htdocs'
     };
   }

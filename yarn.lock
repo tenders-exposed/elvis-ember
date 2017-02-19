@@ -2091,10 +2091,6 @@ date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
 
-dc-tabs@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/dc-tabs/-/dc-tabs-0.1.0.tgz#e020e14607625b06362796a70872f769b5a44572"
-
 debug@0.7.4, debug@~0.7.4:
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-0.7.4.tgz#06e1ea8082c2cb14e39806e22e2f6f757f92af39"
