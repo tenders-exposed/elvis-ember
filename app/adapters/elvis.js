@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Adapter from "ember-data/adapter";
+import Adapter from 'ember-data/adapter';
 import {
   AdapterError,
   InvalidError,
@@ -11,17 +11,18 @@ import {
   TimeoutError,
   AbortError
 } from 'ember-data/adapters/errors';
-import BuildURLMixin from "ember-data/-private/adapters/build-url-mixin";
+import BuildURLMixin from 'ember-data/-private/adapters/build-url-mixin';
 import isEnabled from 'ember-data/-private/features';
 import { runInDebug, warn, deprecate } from 'ember-data/-private/debug';
 import parseResponseHeaders from 'ember-data/-private/utils/parse-response-headers';
 
 const {
   MapWithDefault,
-  get
+  get,
+  RSVP
 } = Ember;
 
-const Promise = Ember.RSVP.Promise;
+const { Promise } = RSVP;
 var ElvisAdapter = Adapter.extend(BuildURLMixin, {
   defaultSerializer: '-rest',
 
@@ -278,7 +279,7 @@ var ElvisAdapter = Adapter.extend(BuildURLMixin, {
     }
 
     var groupsArray = [];
-    groups.forEach((group, key) => {
+    groups.forEach((group) => {
       var paramNameLength = '&ids%5B%5D='.length;
       var splitGroups = splitGroupToFitInUrl(group, maxURLLength, paramNameLength);
 
@@ -318,11 +319,11 @@ var ElvisAdapter = Adapter.extend(BuildURLMixin, {
     return new AdapterError(errors, detailedMessage);
   },
 
-  isSuccess(status, headers, payload) {
+  isSuccess(status/*, headers, payload*/) {
     return status >= 200 && status < 300 || status === 304;
   },
 
-  isInvalid(status, headers, payload) {
+  isInvalid(status/*, headers, payload*/) {
     return status === 422;
   },
 
@@ -556,7 +557,7 @@ if (isEnabled('ds-improved-ajax')) {
       return this.buildURL(type.modelName, id, snapshot, requestType, query);
     },
 
-    headersForRequest(params) {
+    headersForRequest() {
       return this.get('headers');
     },
 
