@@ -8,6 +8,9 @@ export default Ember.Route.extend({
     this.activeTab = params.tab;
   },
 
+  activate() {
+  },
+
   setupController(controller) {
 
     controller.set('activeTab', this.get('activeTab'));
