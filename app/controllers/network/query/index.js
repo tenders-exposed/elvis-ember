@@ -1,6 +1,15 @@
 import Ember from 'ember';
 
-const { Controller, inject, observer, computed, run, A, $ } = Ember;
+const {
+  Controller,
+  inject,
+  observer,
+  computed,
+  run,
+  Object,
+  A,
+  $
+} = Ember;
 
 export default Controller.extend({
   ajax: inject.service(),
@@ -17,19 +26,19 @@ export default Controller.extend({
     return count;
   }),
 
-  query: {
+  query: new Object({
     'nodes': 'count',
     'edges': 'count',
-    'rawCountries': [],
-    'countries': [],
-    'years': [2004, 2010],
-    'cpvs': []
-  },
+    'rawCountries': A([]),
+    'countries': A([]),
+    'years': A([2004, 2010]),
+    'cpvs': A([])
+  }),
 
   countries: [],
 
   rangeDisableClass: '',
-  rangeIsDisabled: computed('query.countries', function() {
+  rangeIsDisabled: computed('query.countries', () => {
     if (this.get('query.countries').length > 0) {
       this.set('rangeDisableClass', '');
       return false;
@@ -41,7 +50,7 @@ export default Controller.extend({
 
   yearsStart: [],
 
-  yearsRange: computed('years', function() {
+  yearsRange: computed('years', () => {
     let yearMin = _.minBy(this.get('years'), 'id').id;
     let yearMax = _.maxBy(this.get('years'), 'id').id;
     let yearsRange = { 'min': yearMin, 'max': yearMax };
@@ -56,7 +65,7 @@ export default Controller.extend({
 
   network: {},
 
-  jsTreeRefresh: observer('selectedCodes', function() {
+  jsTreeRefresh: observer('selectedCodes', () => {
     // @TODO: Is this still needed for anything?
     console.log('tree: ', this.get('jsTree'));
     // this.get('jsTree').send('redraw');
