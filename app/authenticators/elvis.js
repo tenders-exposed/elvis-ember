@@ -2,7 +2,7 @@ import Ember from 'ember';
 import Base from 'ember-simple-auth/authenticators/base';
 import ENV from '../config/environment';
 
-const { RSVP, isEmpty, run } = Ember;
+const { RSVP, isEmpty, run, $ } = Ember;
 
 export default Base.extend({
   serverTokenEndpoint: `${ENV.APP.apiHost}/${ENV.APP.apiNamespace}/users/sign_in`,
@@ -45,7 +45,7 @@ export default Base.extend({
 
   makeRequest(data) {
     let serverTokenEndpoint = this.get('serverTokenEndpoint');
-    return Ember.$.ajax({
+    return $.ajax({
       url:      serverTokenEndpoint,
       type:     'POST',
       // dataType: 'json',

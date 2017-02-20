@@ -1,7 +1,9 @@
 import Ember from 'ember';
 
-export default Ember.Route.extend({
-  ajax: Ember.inject.service(),
+const { Route, inject } = Ember;
+
+export default Route.extend({
+  ajax: inject.service(),
 
   actions: {
     deviseSendChange(password, password_confirmation, token) {

@@ -1,23 +1,21 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
-  ajax: Ember.inject.service(),
-  // Session is now automatically injected everywhere
-  // session: Ember.inject.service('session'),
+const { Controller, inject, observer, computed, run, A, $ } = Ember;
+
+export default Controller.extend({
+  ajax: inject.service(),
 
   cpvModalIsOpen: false,
   selectedCodesModalIsOpen: false,
   optionsModalIsOpen: false,
 
-  selectedCodes: Ember.A([]),
-  selectedCodesCount: Ember.computed('selectedCodes', function () {
-    const count = _.sumBy(this.get('selectedCodes'), function(o) {
+  selectedCodes: A([]),
+  selectedCodesCount: computed('selectedCodes', () => {
+    let count = _.sumBy(this.get('selectedCodes'), (o) => {
       return o.original.doc_count;
     });
     return count;
   }),
-
-
 
   query: {
     'nodes': 'count',
@@ -30,31 +28,26 @@ export default Ember.Controller.extend({
 
   countries: [],
 
-  rangeDisableClass: "",
-  rangeIsDisabled: Ember.computed('query.countries', function() {
-    if(this.get('query.countries').length > 0) {
-      this.set("rangeDisableClass", "");
+  rangeDisableClass: '',
+  rangeIsDisabled: computed('query.countries', function() {
+    if (this.get('query.countries').length > 0) {
+      this.set('rangeDisableClass', '');
       return false;
-
     } else {
-      console.log("here here ", this.get('query.countries').length);
-      this.set("rangeDisableClass", "disable-range");
-
+      this.set('rangeDisableClass', 'disable-range');
       return true;
     }
   }),
 
   yearsStart: [],
 
-  yearsRange: Ember.computed('years', function() {
+  yearsRange: computed('years', function() {
     let yearMin = _.minBy(this.get('years'), 'id').id;
     let yearMax = _.maxBy(this.get('years'), 'id').id;
     let yearsRange = { 'min': yearMin, 'max': yearMax };
 
-      //console.log(`yearMin = ${yearMin} | yearMax = ${yearMax} | yearsRange = ${yearsRange}`);
-
-      this.set('yearsStart', [yearMin,yearMax]);
-      this.send('slidingAction', [yearMin,yearMax]);
+    this.set('yearsStart', [yearMin, yearMax]);
+    this.send('slidingAction', [yearMin, yearMax]);
 
     return yearsRange;
   }),
@@ -63,7 +56,8 @@ export default Ember.Controller.extend({
 
   network: {},
 
-  jsTreeRefresh: Ember.observer('selectedCodes', function() {
+  jsTreeRefresh: observer('selectedCodes', function() {
+    // @TODO: Is this still needed for anything?
     console.log('tree: ', this.get('jsTree'));
     // this.get('jsTree').send('redraw');
   }),
@@ -93,15 +87,11 @@ export default Ember.Controller.extend({
   },
 
   actions: {
-
     onSelectEvent(value) {
       this.set('query.countries', []);
       value.forEach((v) => {
         this.get('query.countries').push(v.id);
       });
-
-      // this.set('query.country_ids', value);
-      // this.prepareQuery();
 
       let options = this.get('query.countries').length && `{
         "query": {
@@ -113,25 +103,21 @@ export default Ember.Controller.extend({
           .then((data) => {
             this.set('years', data.search.results);
           });
-      console.log('queryCountries', this.get('query.countries'));
-      console.log('countries', this.get('countries'));
     },
 
     slidingAction(value) {
-      // Ember.debug( "New slider value: %@".fmt( value ) );
-      // this.controller.set('years', value[0]);
       this.set('query.years', []);
       this.get('query.years').push(value[0]);
       this.get('query.years').push(value[1]);
-      Ember.run.scheduleOnce('afterRender', function() {
-        Ember.$('span.left-year').text(value[0]);
-        Ember.$('span.right-year').text(value[1]);
+      run.scheduleOnce('afterRender', function() {
+        $('span.left-year').text(value[0]);
+        $('span.right-year').text(value[1]);
       });
       this.set('query.years', _.range(this.get('query.years')[0], ++this.get('query.years')[1]));
     },
 
     toggleCpvModal() {
-      Ember.$('.cpv-modal-open').css('pointer-events', 'none');
+      $('.cpv-modal-open').css('pointer-events', 'none');
       let self = this;
       let options = `{
         "query": {
@@ -144,9 +130,8 @@ export default Ember.Controller.extend({
         .post('/contracts/cpvs', { data: options, headers: { 'Content-Type': 'application/json' } })
         .then((data) => {
           self.set('cpvs', data.search.results);
-          Ember.$('.cpv-modal-open').css('pointer-events', 'inherit');
+          $('.cpv-modal-open').css('pointer-events', 'inherit');
         });
-      // console.log(this.get('selectedCodes'));
     },
 
     toggleSelectedCodesModal() {
@@ -159,8 +144,6 @@ export default Ember.Controller.extend({
 
     submitQuery() {
       let self = this;
-
-      // self.send('loading');
 
       self.notifications.info('This is probably going to take a while...', {
         autoClear: false
