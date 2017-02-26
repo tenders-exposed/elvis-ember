@@ -1,8 +1,10 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+const { Component, $ } = Ember;
+
+export default Component.extend({
   didInsertElement() {
-    this.$('.slider').slider({
+    $('.slider').slider({
       full_width: true,
       indicators: false
     });

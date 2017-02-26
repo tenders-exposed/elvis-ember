@@ -1,11 +1,13 @@
 import Ember from 'ember';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default Ember.Route.extend(AuthenticatedRouteMixin, {
-  ajax: Ember.inject.service(),
+const { Route, inject } = Ember;
+
+export default Route.extend(AuthenticatedRouteMixin, {
+  ajax: inject.service(),
   actions: {
     settings(model) {
-      // @todo: implement save model
+      // @TODO: implement save model
       console.log('model', model);
     },
     deviseSendReset(current_password, password, password_confirmation) {
@@ -34,6 +36,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
         }, (response) => {
           self.get('notifications').clearAll();
           console.log(response);
+          // @TODO: Do something with the below code (and errors)
           /* _.forEach(response.errors, (error, index) => {
             error.forEach((v) => {
               self.get('notifications').error(`Error: ${index } ${v}`);

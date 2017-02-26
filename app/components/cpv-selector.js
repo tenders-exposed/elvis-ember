@@ -1,23 +1,25 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+const { Component, computed, observer } = Ember;
+
+export default Component.extend({
   classNames: ['cpv-selector'],
   classNameBindings: ['visible:visible:hide'],
   refresh: true,
   table: {},
   showSelected: false,
-  searchTerm: "",
-  searchTree: "",
-  isDisabled: Ember.computed('searchTerm.length', function () {
-    if(this.get('searchTerm.length') > 4) {
+  searchTerm: '',
+  searchTree: '',
+  isDisabled: computed('searchTerm.length', function() {
+    if (this.get('searchTerm.length') > 4) {
       return false;
     } else {
-      this.set('searchTree','');
+      this.set('searchTree', '');
       return true;
     }
   }),
 
-  treeObserver: Ember.observer('cpvs', function() {
+  treeObserver: observer('cpvs', function() {
     this.createTree();
   }),
 
@@ -60,12 +62,13 @@ export default Ember.Component.extend({
       } else {
         return _.sumBy(
           cpvs,
-          function(cpv) {
+          (cpv) => {
             if (cpv.id === obj.id) {
               return cpv.doc_count;
-            }
-            if (cpv.parent === obj.id) {
+            } else if (cpv.parent === obj.id) {
               return count(cpv);
+            } else {
+              return 0;
             }
           }
         );
@@ -94,7 +97,7 @@ export default Ember.Component.extend({
     toggleModal() {
       this.sendAction();
     },
-    searchCpv(){
+    searchCpv() {
       this.set('searchTree', this.get('searchTerm'));
     }
   }

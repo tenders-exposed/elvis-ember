@@ -1,8 +1,10 @@
 import Ember from 'ember';
 import EmberValidations from 'ember-validations';
 
-export default Ember.Controller.extend(EmberValidations, {
-  application: Ember.inject.controller(),
+const { Controller, observer, inject } = Ember;
+
+export default Controller.extend(EmberValidations, {
+  application: inject.controller(),
 
   validations: {
     password: {
@@ -16,7 +18,7 @@ export default Ember.Controller.extend(EmberValidations, {
     }
   },
   isDisabled: 'disabled',
-  isDisabledCheck: Ember.observer('password', 'current_password', 'password_confirmation', function() {
+  isDisabledCheck: observer('password', 'current_password', 'password_confirmation', () => {
     let self = this;
     this.validate().then(() => {
       if (self.get('password') === self.get('password_confirmation')) {
@@ -27,7 +29,7 @@ export default Ember.Controller.extend(EmberValidations, {
     });
   }),
 
-  // @todo: the list of countries with autocomplete
+  // @TODO: the list of countries with autocomplete
   countries: [
     {
       id: 'UK',

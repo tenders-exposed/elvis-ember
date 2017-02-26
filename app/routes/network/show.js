@@ -1,7 +1,9 @@
 import Ember from 'ember';
 
-export default Ember.Route.extend({
-  beforeModel(){
+const { Route } = Ember;
+
+export default Route.extend({
+  beforeModel() {
     this.store.unloadAll('network');
   },
   activate() {
@@ -22,16 +24,16 @@ export default Ember.Route.extend({
     );
 
     controller.addObserver('network', function() {
-      //@todo: dead code
+      // @TODO: dead code
       let network = controller.get('network');
       self.controllerFor('network.show.details').set(
-        'gridOptions.suppliers.network', network );
+        'gridOptions.suppliers.network', network);
       self.controllerFor('network.show.details').set(
-        'gridOptions.procurers.network',network);
+        'gridOptions.procurers.network', network);
 
       self.controllerFor('network.show.details').set(
-        'gridOptions.relationships.network',network);
-      //dead code?
+        'gridOptions.relationships.network', network);
+      // dead code?
 
       self.controllerFor('network.show.details').set(
         'network',
@@ -45,8 +47,8 @@ export default Ember.Route.extend({
       let activeTab = this.controllerFor('network.show.details').get('activeTab');
       this.transitionTo('network.show.details', activeTab);
     },
-    //set toggled menu for show routes and subroutes
-    didTransition(){
+    // set toggled menu for show routes and subroutes
+    didTransition() {
       this.controllerFor('application').set('dropMenu', 'hideMenu');
       this.controllerFor('application').set('footer', false);
     }

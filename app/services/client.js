@@ -1,10 +1,16 @@
 import Ember from 'ember';
 
-export default Ember.Service.extend({
+const { Service } = Ember;
+
+export default Service.extend({
 
   init() {
     let _this = this;
     let client = new ClientJS();
+
+    if (client) {
+      console.log('Client features detection loaded');
+    }
 
     let properties = [
       // 'Fingerprint',
@@ -16,12 +22,12 @@ export default Ember.Service.extend({
       'EngineVersion',
       'OS',
       'OSVersion',
+      'CurrentResolution'
       // 'Device',
       // 'DeviceType',
       // 'DeviceVendor',
       // 'CPU',
       // 'ScreenPrint',
-      'CurrentResolution',
       // 'DeviceXDPI',
       // 'DeviceYDPI',
       // 'Plugins',
@@ -33,7 +39,7 @@ export default Ember.Service.extend({
 
     let windowSize = {
       width: window.innerWidth,
-      height: window.innerHeight,
+      height: window.innerHeight
     };
 
     properties.forEach((p) => {

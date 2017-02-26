@@ -1,12 +1,14 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
-  session: Ember.inject.service('session'),
+const { Component, inject, $ } = Ember;
+
+export default Component.extend({
+  session: inject.service('session'),
   dropMenu: false,
 
-  didInsertElement(){
-    Ember.$("#main-navbar .dropdown-button").dropdown();
-    Ember.$("#main-navbar .button-collapse").sideNav();
+  didInsertElement() {
+    $('#main-navbar .dropdown-button').dropdown();
+    $('#main-navbar .button-collapse').sideNav();
   },
 
   actions: {
@@ -14,9 +16,8 @@ export default Ember.Component.extend({
       this.get('session').invalidate();
       this.get('router').transitionTo('welcome');
     },
-    toggleMenu(){
-      //console.log('tring to hide the menu '+Ember.$(".menu-container").hasClass('hideMenu'));
-      const jQMenuContainer = Ember.$(".menu-container");
+    toggleMenu() {
+      let jQMenuContainer = $('.menu-container');
       jQMenuContainer.toggleClass('hideMenu');
       jQMenuContainer.toggleClass('showMenu');
 

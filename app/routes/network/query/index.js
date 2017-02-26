@@ -1,7 +1,9 @@
 import Ember from 'ember';
 
-export default Ember.Route.extend({
-  ajax: Ember.inject.service(),
+const { Route, inject } = Ember;
+
+export default Route.extend({
+  ajax: inject.service(),
 
   endpoints: {
     'countries': '/contracts/countries',
@@ -9,39 +11,16 @@ export default Ember.Route.extend({
     'cpvs': '/contracts/cpvs'
   },
 
-  /* Custom functions */
-
   setAvailable(controller, item, options) {
     let self = this;
     if (_.indexOf(_.keysIn(self.get('endpoints')), item) !== -1) {
       self.get('ajax').post(self.get(`endpoints.${item}`), options).then((data) => {
-        console.log("item = " + item + " = " + data.search.results);
         controller.set(item, data.search.results);
       });
     } else {
       console.error(`Unknown set '${item}'`);
     }
   },
-
-  // refreshData(name, path, controller) {
-  //   let self = this;
-  //   localforage.removeItem(name, function() {
-  //     self.get('ajax').post(path).then((data) => {
-  //       localforage.setItem(name, data.search.results).then(() => {
-  //         localforage.getItem(name).then((result) => {
-  //           controller.set(name, result);
-  //         });
-  //       });
-  //     });
-  //   });
-  // },
-
-  // refreshAllData(controller) {
-  //   this.refreshData('countries', '/contracts/countries', controller);
-  //   this.refreshData('cpvs', '/contracts/cpvs', controller);
-  // },
-
-  /* Hooks */
 
   activate() {
     this.notifications.clearAll();
@@ -53,11 +32,8 @@ export default Ember.Route.extend({
 
   setupController(controller) {
     let self = this;
-
     _.each(['countries', 'years'], function(item) {
       self.setAvailable(controller, item);
     });
-
-    // this.refreshAllData(controller);
   }
 });
