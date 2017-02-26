@@ -10,7 +10,7 @@ export default Component.extend({
   showSelected: false,
   searchTerm: '',
   searchTree: '',
-  isDisabled: computed('searchTerm.length', () => {
+  isDisabled: computed('searchTerm.length', function() {
     if (this.get('searchTerm.length') > 4) {
       return false;
     } else {

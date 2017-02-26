@@ -24,7 +24,6 @@ export default Component.extend({
 
   // reset all variables regarding search if search input has no value
   contentObserver: observer('search', () => {
-    console.log('search = ', this.get('search'));
     if (!this.get('search')) {
       this.set('searchField', '');
       this.set('searchLabel', '');

@@ -1,6 +1,6 @@
 module.exports = {
   globals: {
-    "_": true
+    '_': true
   },
   root: true,
   parserOptions: {

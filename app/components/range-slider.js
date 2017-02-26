@@ -6,8 +6,8 @@ const { $ } = Ember;
 export default RangeSlider.extend({
 
   didInsertElement() {
-    Ember.$('span.left-year').appendTo('.noUi-handle-lower');
-    Ember.$('span.right-year').appendTo('.noUi-handle-upper');
+    $('span.left-year').appendTo('.noUi-handle-lower');
+    $('span.right-year').appendTo('.noUi-handle-upper');
   },
 
   didRender() {

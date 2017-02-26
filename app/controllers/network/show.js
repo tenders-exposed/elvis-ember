@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Controller, $ } = Ember;
+const { Controller, $, Logger } = Ember;
 
 export default Controller.extend({
   height: window.innerHeight - 100,
@@ -127,24 +127,24 @@ export default Controller.extend({
   actions: {
     startStabilizing() {
       this.set('startStabilizing', performance.now());
-      console.log('start stabilizing');
+      Logger.info('start stabilizing');
     },
     stabilizationIterationsDone() {
       this.showNetworkInfo();
 
-      console.log('stabilization iterations done');
+      Logger.info('stabilization iterations done');
       this.set('stabilizationPercent', 100);
       $('div#stabilization-info').fadeOut();
     },
     stabilizationProgress(amount) {
       this.set('stIterations', amount.total);
       this.set('stabilizationPercent', (amount.iterations / amount.total) * 100);
-      console.log(`Stabilization progress: ${amount.iterations} / ${amount.total}`);
+      Logger.info(`Stabilization progress: ${amount.iterations} / ${amount.total}`);
     },
     stabilized(event) {
       if (event.iterations > this.get('stIterations')) {
         let diff = event.iterations - this.get('stIterations');
-        console.log(`Network was stabilized using ${diff} iterations more than assumed (${this.get('stIterations')})`);
+        Logger.info(`Network was stabilized using ${diff} iterations more than assumed (${this.get('stIterations')})`);
       }
     }
   }

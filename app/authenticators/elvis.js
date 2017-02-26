@@ -15,8 +15,6 @@ export default Base.extend({
       if (!isEmpty(tokenAttribute) && !isEmpty(identificationAttribute)) {
         resolve(data);
       } else {
-        console.log('authenticator data: ', data);
-        console.log('authenticator tokenAttribute: ', tokenAttribute);
         reject();
       }
     });

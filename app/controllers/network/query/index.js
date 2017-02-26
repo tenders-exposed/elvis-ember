@@ -8,7 +8,8 @@ const {
   run,
   Object,
   A,
-  $
+  $,
+  Logger
 } = Ember;
 
 export default Controller.extend({
@@ -19,8 +20,10 @@ export default Controller.extend({
   optionsModalIsOpen: false,
 
   selectedCodes: A([]),
-  selectedCodesCount: computed('selectedCodes', () => {
-    let count = _.sumBy(this.get('selectedCodes'), (o) => {
+
+  selectedCodesCount: computed('selectedCodes', function() {
+    let codes = this.get('selectedCodes');
+    let count = _.sumBy(codes, (o) => {
       return o.original.doc_count;
     });
     return count;
@@ -38,8 +41,9 @@ export default Controller.extend({
   countries: [],
 
   rangeDisableClass: '',
-  rangeIsDisabled: computed('query.countries', () => {
-    if (this.get('query.countries').length > 0) {
+  rangeIsDisabled: computed('query.countries', function() {
+    let countries = this.get('query.countries');
+    if (countries.length > 0) {
       this.set('rangeDisableClass', '');
       return false;
     } else {
@@ -50,9 +54,10 @@ export default Controller.extend({
 
   yearsStart: [],
 
-  yearsRange: computed('years', () => {
-    let yearMin = _.minBy(this.get('years'), 'id').id;
-    let yearMax = _.maxBy(this.get('years'), 'id').id;
+  yearsRange: computed('years', function() {
+    let years = this.get('years');
+    let yearMin = _.minBy(years, 'id').id;
+    let yearMax = _.maxBy(years, 'id').id;
     let yearsRange = { 'min': yearMin, 'max': yearMax };
 
     this.set('yearsStart', [yearMin, yearMax]);
@@ -67,7 +72,7 @@ export default Controller.extend({
 
   jsTreeRefresh: observer('selectedCodes', () => {
     // @TODO: Is this still needed for anything?
-    console.log('tree: ', this.get('jsTree'));
+    // Logger.info('tree: ', this.get('jsTree'));
     // this.get('jsTree').send('redraw');
   }),
 
@@ -179,7 +184,7 @@ export default Controller.extend({
         self.transitionToRoute('network.show', data.id);
       }).catch((data) => {
         // TODO: Catch the actual reason sent by the API (for some reason it's not pulled in, will check later)
-        console.log(`Error: ${data}`);
+        Logger.error(`Error: ${data}`);
         self.set('isLoading', false);
         self.notifications.clearAll();
         self.notifications.error('You need to <a href="/">sign in</a> or <a href="/">sign up</a> before continuing.', {
