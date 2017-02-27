@@ -34,6 +34,7 @@ ElvisRouter.map(function() {
     });
   });
   this.route('welcome', { path: '' });
+  this.route('about');
 });
 
 export default ElvisRouter;
