@@ -79,6 +79,7 @@
     "ember-validations": "2.0.0-alpha.5",
     "ember-watson": "^0.8.5",
     "ember-world-flags": "git+https://github.com/tenders-exposed/ember-world-flags.git",
+    "eslint-plugin-ember-suave": "^1.0.0",
     "loader.js": "^4.0.10",
     "node-sass": "^4.5.0",
     "yamlparser": "0.0.2"
