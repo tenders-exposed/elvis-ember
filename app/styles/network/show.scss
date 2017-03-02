@@ -1,6 +1,6 @@
-#visjs {
-  width: 100%;
-  height: 100%;
+//@todo: not sure from where it comes
+.drag-target{
+  width: 1px !important;
 }
 
 div#network-container {
@@ -11,391 +11,36 @@ div#network-container {
   flex-direction: row;
   top: 0;
 
-  .contracts{
-    .data-table{
-      th.award  { width: 35%; padding-left: 0px; margin-left: -15px; }
-      th.parties{ width: 32%;}
-      th.value  { width: 20%; text-align: right;}
-      th.bids   { width: 13%; text-align: right;  padding-right: 0px !important;}
+  h5 {margin-top: 0;}
 
-      td.award  { width: 34%; padding-left: 0px !important; }
-      td.parties{ width: 30%; i {color: deepskyblue;} }
-      td.value  { width: 20%; color: white; font-family: Serif; text-align: right; font-size: 1.2rem; padding-right: 0px !important; }
-      td.bids   { width: 14%; color: white; font-family: Serif; text-align: right; font-size: 1.2rem; }
-    }
-  }
-  .procurers{
-    .data-table{
-      th.procurer { width: 35%; padding-left: 0px; margin-left: -15px; }
-      th.contracts{ width: 32%;}
-      th.income   { width: 20%; text-align: right;}
-      th.bids     { width: 13%; text-align: right;  padding-right: 0px !important;}
+  div.network-canvas {height: 100%;}
 
-      td.procurer { width: 34%; padding-left: 0px !important; i { color: deeppink;} }
-      td.contracts{ width: 35%; }
-      td.income   { width: 15%; color: white; font-family: Serif; text-align: right; font-size: 1.2rem; padding-right: 0px !important; }
-      td.bids     { width: 14%; color: white; font-family: Serif; text-align: right; font-size: 1.2rem; }
-    }
-  }
-
-  .suppliers, .relationships {
-    tbody, tr{
-      display: block !important;
-    }
-    td,th {
-      display: inline-block;
-      vertical-align: bottom;
-    }
-    .flags{
-      margin-top: 5px !important;
-    }
-  }
-
-  .suppliers {
-    th {padding: 10px 0px !important;}
-    th.id{width: 15% !important; }
-    th.label{width: 65% !important;}
-    th.flags{width: 2% !important;}
-    th.value{width: 15% !important;}
-
-    td.id {width: 15% !important; text-align: center;}
-    td.label {width: 67% !important;}
-    td.flags {width: 5% !important; text-align: right;}
-    td.value {width: 8% !important; text-align: right;}
-  }
-
-  .relationships{
-    th {padding: 10px 0px !important;}
-
-    th.fromLabel {width: 40% !important;}
-    th.toLabel {width: 43% !important;}
-    th.flags {width: 3% !important;}
-    th.value {width: 11% !important;}
-
-    td.fromLabel {width: 43% !important;}
-    td.toLabel {width: 44% !important;}
-    td.value {width: 3% !important; text-align: right;}
-    td.flags {width: 3% !important; text-align: right;}
-  }
-  // for other controls
-  .controls{
-    /*right: -113px;
-    height: 50px;
-    width: 100px;
-    border: 1px solid grey;
-    border-radius: 5px;*/
-  }
-  tr{
-    .toggle-controls{
-      color: darkgrey;
-      top: 0px;
-      right: -18px;
-      display: none;
-      padding-top: 3px !important;
-      font-size: 1.1rem;
-      width: 55px;
-      text-align: right;
-      padding-right: 8px !important;
-    }
-    &:hover .toggle-controls{
-      display: block;
-      &:hover i{
-        cursor: pointer;
-        color: whitesmoke;
-      }
-    }
-  }
-
-  thead {
-    display: block;
-    th{
-      cursor: pointer;
-    }
-  }
-
-  .data-table .ps-container {
-    position: relative;
-    margin: 0px auto;
-    padding: 0px;
-    width: 103%;
-    height: 400px;
-    overflow: hidden;
-    padding-right: 10px !important;
-
-
-    .ps-scrollbar-y-rail{
-      background-color: #1A1A1C !important;
-      opacity: 0.2;
-      margin-left: 10px !important;
-      width: 1px !important;
-
-      .ps-scrollbar-y{
-        width: 1px !important;
-        right: 0px !important;
-        background-color: whitesmoke;
-      }
-    }
-  }
-
-  h5 {
-    margin-top: 0;
-  }
-
-  div.network-canvas {
-    height: 100%;
-  }
-
-   div#visjs-network {
+  div#visjs-network {
     position: fixed;
     width: 100%;
   }
 
+  #visjs {
+    width: 100%;
+    height: 100%;
+  }
+
   .ember-view { height: 100%; }
 
-  div#box-details-container{
-    z-index: 999;
-    position: absolute;
-    top: 35px;
-    right: 0px;
-    width: 225px;
-    height: 50px;
-    display: block;
-
-    div#box-details-card{
-      position: relative;
-      width: 100%;
-      float: right;
-      top: 0;
-      opacity: 0.9;
-      background: #171719;
-      margin-right: 5%;
-      border-radius: 5px;
-      border: 1px solid #2f2f35;
-      padding: 10px;
-
-      .close{
-        position: absolute;
-        top: 3px;
-        right: 3px;
-        cursor: pointer !important;
-        width: 18px;
-        opacity: 0.2;
-      }
-      .close:hover {
-        opacity: 1;
-      }
-
-
-      span.color-pink{
-        color:deeppink;
-      }
-      span.color-blue{
-        color:deepskyblue;
-      }
-
-      h1{
-        font-size: 1.5em;
-        margin: 0px;
-        margin-bottom: 0.2em;
-      }
-      h2{
-        font-size: 1.3em;
-        margin: 0px;
-        margin-bottom: 0.2em;
-      }
-
-      h5{
-        font-size: 0.6em;
-        font-weight: bold;
-        text-transform: uppercase;
-        margin: 0px;
-        margin-bottom: 0.1em;
-      }
-      div.col{
-        padding: 0px;
-      }
-    }
-  }
-  div.flags,
-  span.flags{
-    font-size: 0.6em;
-    color: orangered;
-    i{
-      margin-right: 3px;
-      &:hover{
-        color: #ff6802;
-      }
-    }
-
-  }
-
-  table .flags{
-    font-size: 0.9em;
-    line-height: 0.9em;
-    i{ height: 0%;}
-  }
   div#details-container > * {
     margin: 0; padding: 0; border: 0;
   }
+
   div#details-container {
     z-index: 100;
     position: absolute;
     pointer-events: none;
-    /* width: 30%; */
     height: 100%;
     display: flex;
-
-    div#details-sidebar {
-      pointer-events: all;
-      width: 40%;
-      min-width: 300px;
-      min-height: 400px;
-      height: 100%;
-      /* float: left; */
-      top: 0;
-      background: #171719;
-      opacity: .9;
-      clear: both;
-      border-right: 1px solid #1d1d21;
-      .tabs__nav {
-        .tab-button--active,
-        .tabs-button--active2 {
-          a {
-            border-bottom: 2px solid whitesmoke;
-          }
-        }
-
-        .tab-button {
-          display: inline-block;
-          font-weight: bold;
-
-          a {
-            color: whitesmoke;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            padding-bottom: 10px;
-
-            span {
-              font-size: 0.9rem;
-            }
-          }
-        }
-      }
-    }
-    .searchIcon{
-      top: 4px;
-      right: 4px;
-      cursor: pointer;
-    }
-
-    div#details-info {
-      height: 100%;
-      width: 100%;
-      pointer-events: none;
-      border-left: 1px dashed rgba(100, 100, 100, .1);
-
-      .details-info-wrapper {
-        pointer-events: all;
-        width: 100%;
-        height: 100%;
-        right: 0px;
-        height: 100%;
-        background: rgba(23, 23, 25, .9);
-
-        .close {
-          cursor: pointer;
-          opacity: 0.5;
-          right: 30px;
-          top: 30px;
-          &:hover{
-            opacity: 1;
-          }
-        }
-        .s3 {
-          width: 30%;
-        }
-        .container-entity {
-          width: 80%;
-
-          .title {
-            margin-top: 40px;
-            font-size: 0.9rem;
-            .supplier i{
-              color: deepskyblue;
-            }
-            .type {
-              text-transform: uppercase;
-              color: grey;
-              font-weight: bold;
-              font-family: Roboto;
-            }
-            .name {
-              font-family: Serif;
-              font-weight: bold;
-              font-size: 1.7rem;
-              color: white;
-              .years {
-                font-size: 1.1rem;
-                color: grey;
-              }
-            }
-          }
-          .flag {
-            color: orangered;
-          }
-          .second-row {
-            .title {
-              text-transform: uppercase;
-              font-weight: bold;
-              color: grey;
-              margin-top: 0px !important;
-              font-size: 0.7rem;
-            }
-            .value {
-              font-family: Serif;
-              font-size: 2rem;
-              font-weight: bold;
-              color: whitesmoke;
-            }
-
-          }
-
-        }
-      }
-    }
   }
 }
 
-div#sidebar-toggle {
-  z-index: 100;
-  position: absolute;
-  min-height: 500px;
-  height: 90%;
-  div#sidebar-toggle-border {
-    display: block;
-    height: 100%;
-    width: .2em;
-    background: #888;
-      filter: blur(1px);
-      -webkit-filter: blur(1px);
-    &:hover {
-      cursor: pointer;
-      filter: blur(5px);
-      -webkit-filter: blur(5px);
-    }
-  }
-  i {
-    position: absolute;
-    color: #888;
-    top: 20%;
-    left: .15em;
-    opacity: 0.9;
-    &:hover {
-      cursor: pointer;
-      color: whitesmoke;
-    }
-  }
-}
+
 
 /* ember-cli-materialize hacks */
 .ember-modal-overlay {
@@ -412,9 +57,7 @@ div#sidebar-toggle {
   }
 }
 
-.ember-cli-visks-network > .ember-view {
-  display: none;
-}
+.ember-cli-visks-network > .ember-view { display: none;}
 
 div#stabilization-info {
   z-index: 999;
@@ -434,35 +77,6 @@ div#stabilization-info {
       font-family: Roboto;
       //font-weight: normal;
       font-size: 2rem;
-    }
-  }
-}
-
-
-/*details-entity*/
-#details-info {
-}
-
-/*network info notification*/
-#network-info{
-  p{margin: 0px; margin-bottom: 5px;}
-
-  .info{
-    margin-bottom: 5px;
-    clear: both;
-
-    * {
-      display: inline-block;
-      font-size: 80%;
-      line-height: 1.4rem;
-    }
-    .info-val{
-      text-align: right;
-      float: right;
-      padding-left: 36px;
-    }
-    .info-name{
-      float: left;
     }
   }
 }

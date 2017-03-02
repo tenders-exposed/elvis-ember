@@ -4,7 +4,7 @@
   <div id="details-sidebar"  style="height: {{height}}px;">
     <div class="row">
       <div class="col s12">
-        <h5 class={{if networkInput "hide" "show-block details"}}>
+        <h2 class={{if networkInput "hide" "show-block details"}}>
           <span {{action "toggleInput" on="click"}}>
             {{fa-icon 'cog' size=1}}
           </span>
@@ -13,20 +13,20 @@
           {{else}}
             MyProjectName
           {{/if}}
-        </h5>
+        </h2>
         <div class={{if networkInput "show-block network-input row" "hide"}}>
           <span class="col s10">
             {{input type="text" value=model.name placeholder="My Project Name"}}
           </span>
           <div class="controls col s2">
-            <span {{action "saveNetworkName"}}>{{fa-icon 'check' size=1}}</span>
-            <span {{action "toggleInput"}}>{{fa-icon 'close' size=1 }} </span>
+            <span {{action "saveNetworkName"}}>{{fa-icon 'check' class="control-icon-light" size=1}}</span>
+            <span {{action "toggleInput"}}>{{fa-icon 'close' class="control-icon-light" size=1 }} </span>
           </div>
         </div>
       </div>
       <div class="col s12 relative">
         <a {{action 'closeDetails' model.id}} class="right closeDetails absolute" style="cursor: pointer;">
-          <i class="material-icons">{{fa-icon 'arrow-circle-left' size=1}}</i>
+          <i class="control-icon material-icons">{{fa-icon 'arrow-circle-left' size=1}}</i>
         </a>
         {{#tabbed-content active=activeTab on-change="changeTab" active-class="tab-button--active" as |manager|}}
           <div class="tabs__nav">
