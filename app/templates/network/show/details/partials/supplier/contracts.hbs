@@ -1,6 +1,8 @@
 <td class="award">
-  {{fa-icon 'file-text' size=1}}
-  {{row.award.title}}
+  {{#link-to "network.show.details.contract" route row.id}}
+    {{fa-icon 'file-text' size=1}}
+    {{row.award.title}}
+  {{/link-to}}
 </td>
 <td class="parties">
   {{#each row.suppliers as |supplier|}}
@@ -8,6 +10,7 @@
     {{supplier.name}}
     <br>
   {{/each}}
+  <br>
 </td>
 <td class="value">{{row.award.value.x_amount_eur}} M</td>
 <td class="bids">{{row.number_of_tenderers}}</td>
