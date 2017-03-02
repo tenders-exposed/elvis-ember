@@ -1,16 +1,18 @@
 <div class="container container-entity relative">
   <div class="row">
-    <div class="col s12 title">
-      <div class="type supplier">
+    <div class="col s12 title fs1">
+      <div class="el-label-dark fs2 procurer">
         {{fa-icon 'circle' size=1}} procurer
       </div>
-      <div class="name">
+      <div class="el-title fs5">
         {{model.name}}
-        <span class="years">( {{model.firstYear}} - {{model.lastYear}} )</span>
+        <span class="fs3 dark-text">( {{model.firstYear}} - {{model.lastYear}} )</span>
       </div>
       <hr>
     </div>
   </div>
+
+
   <div class="row second-row">
     <div class="col s3">
       <div class="flag">
@@ -21,16 +23,17 @@
       </div>
     </div>
     <div class="col s3">
-      <div class="title">total income</div>
-      <div class="value">{{model.total_earnings}} <small>M</small></div>
+      <div class="el-label-dark fs1">total income</div>
+      <div class="el-title fs5">{{model.total_earnings}} <span class="fs5 bold">M</span></div>
+    </div>
+    <div class="col s3">
+      <div class="el-label-dark fs1">avg competition</div>
+      <div class="el-title fs5">1.7</div>
     </div>
     <div class="col s2">
-      <div class="title">avg competition</div>
-      <div class="value">1.7</div>
+      <div class="el-label-dark fs1">data missing</div>
+      <div class="el-title fs5">{{model.missing_values}}%</div>
     </div>
-    <div class="col s2">
-      <div class="title">data missing</div>
-      <div class="value">{{model.missing_values}}%</div>
-    </div>
+
   </div>
 </div>

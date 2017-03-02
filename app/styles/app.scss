@@ -9,14 +9,19 @@
 @import "variables";
 @import "helpers";
 @import "components";
+@import "application";
 
 /* Components */
 @import "components/cpv-selector";
 @import "components/cpv-chip";
 @import "components/range-slider";
+@import "components/elvis-data-table";
+@import "components/details-data-table";
+@import "components/box-details";
 
 /* Network */
 @import "network/query";
+@import "network/show";
 @import "network/show/details";
 @import "network/show/details/show";
 @import "network/show/details/contract";
@@ -28,38 +33,5 @@
 @import "loading";
 @import "footer";
 @import "projects";
-
-/* To move / remove / change / split */
-@import "sidebar";
-@import "network/show";
-
-
-html, body, .container,
-body > .ember-view
-{
-  height: 100%;
-  color: #eee;
-}
-
-h1 {
-  font-size: 2.3em;
-  font-family: serif;
-  font-weight: 600;
-}
-
-
-/* Theme colors */
-.mainbg {
-  background-color: $main-bg;
-}
-
-.search-input {
-  background-color: #151517 !important;
-  height: 2rem !important;
-  width: 95% !important;
-  border: 1px solid #313030 !important;
-  padding: 0px 16px !important;
-  color: #615f5f !important;
-}
-
+@import "account";
 

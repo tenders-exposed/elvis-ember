@@ -16,5 +16,6 @@
 .hide { display: none !important; }
 .show-block{ display: block !important; }
 
-.absolute { position: absolute; }
-.relative { position: relative; }
+.absolute { position: absolute !important; }
+.relative { position: relative !important; }
+.bold {font-weight: bold;}
