@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
+const { Controller, $, Logger } = Ember;
+
+export default Controller.extend({
   height: window.innerHeight - 100,
   selectedNodes: [],
   networkOptions: {
@@ -82,27 +84,67 @@ export default Ember.Controller.extend({
   },
 
   didInsertElement() {
-    Ember.$('div#stabilization-info').height(window.innnerHeight - 200);
+    $('div#stabilization-info').height(window.innnerHeight - 200);
+  },
+
+  showNetworkInfo() {
+    let start = this.get('startStabilizing');
+    let end = performance.now();
+    let timeS = _.ceil((end - start), 2);
+    let iterations = this.get('stIterations');
+    let nodes = this.get('model.graph.nodes').length;
+    let edges = this.get('model.graph.edges').length;
+
+    let message =
+      `
+          <div id="network-info">
+            <p>Netowrk info</p>
+            <div class="info">
+              <div class="info-name">Stabilization</div>
+              <div class="info-val">${timeS} ms</div>
+            </div>
+            <div class="info">
+              <div class="info-name">Iterations</div>
+              <div class="info-val">${iterations}</div>
+            </div>
+            <div class="info">
+              <div class="info-name">Nodes</div>
+              <div class="info-val">${nodes}</div>
+            </div>
+            <div class="info">
+              <div class="info-name">Edges</div>
+              <div class="info-val">${edges}</div>
+            </div>
+          </div>
+        `;
+    this.notifications.success(message, {
+      autoClear: false,
+      htmlContent: true
+    });
+
   },
 
   actions: {
     startStabilizing() {
-      console.log('start stabilizing');
+      this.set('startStabilizing', performance.now());
+      Logger.info('start stabilizing');
     },
     stabilizationIterationsDone() {
-      console.log('stabilization iterations done');
+      this.showNetworkInfo();
+
+      Logger.info('stabilization iterations done');
       this.set('stabilizationPercent', 100);
-      Ember.$('div#stabilization-info').fadeOut();
+      $('div#stabilization-info').fadeOut();
     },
     stabilizationProgress(amount) {
       this.set('stIterations', amount.total);
       this.set('stabilizationPercent', (amount.iterations / amount.total) * 100);
-      console.log(`Stabilization progress: ${amount.iterations} / ${amount.total}`);
+      Logger.info(`Stabilization progress: ${amount.iterations} / ${amount.total}`);
     },
     stabilized(event) {
       if (event.iterations > this.get('stIterations')) {
         let diff = event.iterations - this.get('stIterations');
-        console.log(`Network was stabilized using ${diff} iterations more than assumed (${this.get('stIterations')})`);
+        Logger.info(`Network was stabilized using ${diff} iterations more than assumed (${this.get('stIterations')})`);
       }
     }
   }

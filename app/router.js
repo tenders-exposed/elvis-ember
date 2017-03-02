@@ -1,12 +1,14 @@
 import Ember from 'ember';
 import config from './config/environment';
 
-const Router = Ember.Router.extend({
+const { Router } = Ember;
+
+const ElvisRouter = Router.extend({
   location: config.locationType,
   rootURL: config.rootURL
 });
 
-Router.map(function() {
+ElvisRouter.map(function() {
   this.route('account', {}, function() {
     this.route('confirm');
     this.route('recover', function() {
@@ -26,7 +28,7 @@ Router.map(function() {
       this.route('config', {});
     });
     this.route('show', { path: ':network_id' }, function() {
-      this.route('details', {path: ':tab'}, function(){
+      this.route('details', { path: ':tab' }, function() {
         this.route('show', { path: ':id' });
       });
     });
@@ -34,4 +36,4 @@ Router.map(function() {
   this.route('welcome', { path: '' });
 });
 
-export default Router;
+export default ElvisRouter;

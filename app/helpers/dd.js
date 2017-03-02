@@ -1,9 +1,10 @@
 import Ember from 'ember';
 
+const { Helper } = Ember;
+
 export function dd(params/*, hash*/) {
-  let rowData = params[0];
-  let col = params[1];
+  let [ rowData, col ] = params;
   return rowData[col];
 }
 
-export default Ember.Helper.helper(dd);
+export default Helper.helper(dd);

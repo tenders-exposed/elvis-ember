@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
-export default Ember.Route.extend({
+const { Route } = Ember;
+
+export default Route.extend({
 
   activeTab: '',
 
@@ -8,28 +10,35 @@ export default Ember.Route.extend({
     this.activeTab = params.tab;
   },
 
+  activate() {
+  },
+
   setupController(controller) {
 
     controller.set('activeTab', this.get('activeTab'));
 
-    let valueFormat   = (value) => {
-      if(typeof value !== 'string'){
+    let valueFormat = (value) => {
+      if (typeof value !== 'string') {
         value = value.toFixed();
-        value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       }
       return value;
     };
     let graphNodes    = this.controllerFor('network.show').get('model.graph.nodes');
     let relationships = this.controllerFor('network.show').get('model.graph.edges');
 
-    _.forEach(relationships, function(value, key) {
-      const idFrom = value.from;
-      const idTo = value.to;
-      const fromObj =  _.find(graphNodes, function(o) { return o.id === idFrom; });
-      const toObj =  _.find(graphNodes, function(o) { return o.id === idTo; });
-      value['fromLabel'] = fromObj.label;
-      value['toLabel'] = toObj.label;
-      value['value'] = valueFormat(value.value);
+    _.forEach(relationships, (value) => {
+      let idFrom = value.from;
+      let idTo = value.to;
+      let fromObj =  _.find(graphNodes, (o) => {
+        return o.id === idFrom;
+      });
+      let toObj =  _.find(graphNodes, (o) => {
+        return o.id === idTo;
+      });
+      value.fromLabel = fromObj.label;
+      value.toLabel = toObj.label;
+      value.value = valueFormat(value.value);
     });
 
     controller.set(
@@ -38,7 +47,7 @@ export default Ember.Route.extend({
     controller.set(
       'gridOptions.suppliers.rowData',
         _.filter(graphNodes, (o) => {
-          if(o.type === 'supplier'){
+          if (o.type === 'supplier') {
             o.value = valueFormat(o.value);
             return o;
           }
@@ -47,7 +56,7 @@ export default Ember.Route.extend({
     controller.set(
       'gridOptions.procurers.rowData',
       _.filter(graphNodes, (o) => {
-        if(o.type === 'procuring_entity'){
+        if (o.type === 'procuring_entity') {
           o.value = valueFormat(o.value);
           return o;
         }
@@ -56,5 +65,5 @@ export default Ember.Route.extend({
     controller.set(
       'gridOptions.relationships.rowData', relationships
     );
-  },
+  }
 });

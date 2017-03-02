@@ -1,8 +1,10 @@
 import Ember from 'ember';
 import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
 
-export default Ember.Route.extend(UnauthenticatedRouteMixin, {
-  ajax: Ember.inject.service(),
+const { Route, inject } = Ember;
+
+export default Route.extend(UnauthenticatedRouteMixin, {
+  ajax: inject.service(),
   queryParams: {
     t: {
     }
