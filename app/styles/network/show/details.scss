@@ -1,7 +1,7 @@
 div#details-sidebar {
   @include bg-dark;
   z-index: 9;
-  border-right: 1px solid #292929;
+ /* border-right: 1px solid #292929;*/
   pointer-events: all;
   width: 40%;
   min-width: 300px;
@@ -11,7 +11,9 @@ div#details-sidebar {
   clear: both;
 
   .details{
-    margin-top: 65px;
+    margin-top: 40px;
+    margin-left: 10px;
+    i{cursor: pointer;}
   }
 
   /*arrow close sidebar*/
@@ -22,9 +24,10 @@ div#details-sidebar {
 
   /*change network name*/
   div.network-input {
+    margin-bottom: 0px;
     margin-top: 20px;
-    input { height:  50px !important;}
-    .controls { line-height: 60px;}
+    input { height:  35px !important; margin-bottom: 0px}
+    .controls { line-height: 44px;}
   }
 
   /*tab navigations buttons*/
