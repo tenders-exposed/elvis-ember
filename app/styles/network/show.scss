@@ -28,7 +28,7 @@ div#network-container {
   .ember-view { height: 100%; }
 
   div#details-container > * {
-    margin: 0; padding: 0; border: 0;
+    margin: 0; padding: 0; /*border: 0;*/
   }
 
   div#details-container {
