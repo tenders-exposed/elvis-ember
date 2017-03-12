@@ -7,7 +7,7 @@ export default Route.extend({
   activeTab: '',
 
   model(params) {
-    this.activeTab = params.tab;
+    this.set('activeTab', params.tab);
   },
 
   activate() {

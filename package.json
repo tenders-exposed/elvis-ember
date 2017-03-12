@@ -42,6 +42,7 @@
     "ember-cli-materialize": "0.22.0-beta.0",
     "ember-cli-notifications": "^4.1.6",
     "ember-cli-nouislider": "^0.11.0",
+    "ember-cli-numeral": "0.2.0",
     "ember-cli-qunit": "^3.0.1",
     "ember-cli-release": "^1.0.0-beta.2",
     "ember-cli-sass": "^6.1.1",
