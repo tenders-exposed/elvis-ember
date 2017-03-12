@@ -42,8 +42,7 @@
       <div class="col s2">
         <div class="el-label-dark fs01 center-align">contract award</div>
         <div class="el-title fs4 center-align">
-          {{model.award.value.x_amount_eur}}
-          <span class="fs4">M</span>
+          {{format-amount model.award.value.x_amount_eur}}
         </div>
         <div class="el-label-dark fs01 center-align">
           ({{model.award.value.x_vatbool}}. {{model.award.value.x_vat}}%)
@@ -107,7 +106,7 @@
               <div>
                 <div class="el-label-dark fs01">contract value</div>
                 <div class="el-title fs5">
-                  {{model.tender.value.x_amount_eur}}M
+                  {{format-amount model.tender.value.x_amount_eur}}
                 </div>
               </div>
             </div>
