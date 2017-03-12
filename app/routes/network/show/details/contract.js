@@ -43,7 +43,6 @@ export default Route.extend({
           };
 
           results.award.date.x_month = dateHash[results.award.date.x_month];
-          console.log("month", results.award.date.x_month);
           results.x_eu_project = String(results.x_eu_project);
           results.x_framework = String(results.x_framework);
           results.x_subcontracted = String(results.x_subcontracted);
@@ -53,7 +52,6 @@ export default Route.extend({
           results.framework = details[results.x_framework]  ? details[results.x_framework] : "check" ;
           results.subcontracted = details[results.x_subcontracted] ? details[results.x_subcontracted] : "check" ;
 
-          console.log("results", results);
           return results;
         }, (response) => {
 
