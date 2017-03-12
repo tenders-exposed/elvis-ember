@@ -85,7 +85,7 @@
       <div class="col s4">
         <div class="el-label-dark fs01">award date</div>
         <div class="el-title fs3">
-          {{model.award.date.x_day}}.{{model.award.date.x_month}} {{model.award.date.x_year}}
+          {{moment-format model.award.date.full 'DD MMM YYYY' 'YYYY-MM-DD'}}
         </div>
       </div>
       <div class="col s1">

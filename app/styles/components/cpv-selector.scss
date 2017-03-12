@@ -1,9 +1,8 @@
-div#selected-cpvs-container{
+div#selected-cpvs-container {
   background: #1A1A1C;
 }
 div#cpv-container,
-div#selected-cpvs-container
-{
+div#selected-cpvs-container {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -77,7 +76,7 @@ ul.selected-cpvs {
   .search {
     margin-bottom: 20px;
 
-    .search-input{
+    .search-input {
       @include search-input;
       width: 95%;
     }
@@ -86,7 +85,7 @@ ul.selected-cpvs {
 
 .cpv-tree,
 .cpv-selector-selected-codes-container ,
-.selected-codes{
+.selected-codes {
   .jstree-default-dark-small {
     height: 500px;
   }
@@ -106,18 +105,18 @@ ul.selected-cpvs {
   background-color: grey !important;
   width: 10px !important;
 
-  .ps-scrollbar-y{
+  .ps-scrollbar-y {
     margin-top: 10px;
   }
 }
 
-.ps-scrollbar-y-rail:hover{
+.ps-scrollbar-y-rail:hover {
   width: 10px !important;
   .ps-scrollbar-y {
     width: 6px !important;
   }
 }
-.ps-scrollbar-y:hover{
+.ps-scrollbar-y:hover {
   width: 6px !important;
 }
 

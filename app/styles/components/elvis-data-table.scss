@@ -1,4 +1,4 @@
-div#details-sidebar .tab-panel{
+div#details-sidebar .tab-panel {
 
   .data-table-header {
     padding: 10px 5px;
@@ -32,13 +32,13 @@ div#details-sidebar .tab-panel{
       padding-right: 10px !important;
 
 
-      .ps-scrollbar-y-rail{
+      .ps-scrollbar-y-rail {
         background-color: #1A1A1C !important;
         opacity: 0.2;
         margin-left: 10px !important;
         width: 1px !important;
 
-        .ps-scrollbar-y{
+        .ps-scrollbar-y {
           width: 1px !important;
           right: 0px !important;
           background-color: whitesmoke;
@@ -47,11 +47,11 @@ div#details-sidebar .tab-panel{
     }
 
 
-    thead, tbody, tr{
+    thead, tbody, tr {
       position: relative;
       display: block !important;
     }
-    td, th{
+    td, th {
       display: inline-block;
       cursor: pointer;
       position: relative;
@@ -81,10 +81,9 @@ div#details-sidebar .tab-panel{
       max-height: 400px !important;
     }
     tr {
-      .toggle-controls{
+      .toggle-controls {
         color: $color-text-dark;
         font-size: $fs3;
-
         top: 1px;
         right: -17px;
         display: none;
@@ -93,27 +92,27 @@ div#details-sidebar .tab-panel{
         text-align: right;
         padding-right: 8px !important;
       }
-       &:hover .toggle-controls{
+       &:hover .toggle-controls {
         display: block;
-        &:hover i{
+        &:hover i {
           cursor: pointer;
           color: $color-text-main;
         }
       }
 
-      .flags{
+      .flags {
         margin-top: 5px !important;
         font-size: 0.9em;
         line-height: 0.9em;
-        i{ height: 0%;}
+        i { height: 0%; }
       }
-      td{
+      td {
         vertical-align: top !important;
         padding: 5px !important;
 
-        a{
+        a {
           color: whitesmoke;
-          &:hover{color: deepskyblue;}
+          &:hover { color: deepskyblue; }
         }
       }
     }
@@ -137,11 +136,11 @@ div#details-sidebar .tab-panel{
 
 
   .suppliers {
-    th {padding: 10px 0px !important;}
-    th.id{width: 15% !important; }
-    th.label{width: 65% !important;}
-    th.flags{width: 2% !important;}
-    th.value{width: 15% !important;}
+    th { padding: 10px 0px !important; }
+    th.id    { width: 15% !important; }
+    th.label { width: 65% !important; }
+    th.flags { width: 2% !important; }
+    th.value { width: 15% !important; }
 
     td.id {width: 15% !important; text-align: center;}
     td.label {width: 67% !important;}

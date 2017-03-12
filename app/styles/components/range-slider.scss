@@ -10,9 +10,9 @@
 
 .noUi-target {
   height: 2px;
-  &, * {border: none;}
+  &, * { border: none; }
 }
-.noUi-background, .noUi-base {background: #2A2A2B; box-shadow: none;}
+.noUi-background, .noUi-base { background: #2A2A2B; box-shadow: none; }
 .noUi-connect { background: #eee; }
 .noUi-origin { }
 
@@ -30,6 +30,6 @@
 form span.year-label {
   color: rgba(255,255,255,.7);
   position: absolute;
-  &.left-year {bottom: 20px; left: -7px;}
-  &.right-year {bottom: 20px; right: -7px;}
+  &.left-year { bottom: 20px; left: -7px; }
+  &.right-year { bottom: 20px; right: -7px; }
 }

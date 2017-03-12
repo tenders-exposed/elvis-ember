@@ -1,7 +1,6 @@
 div#details-sidebar {
   @include bg-dark;
   z-index: 9;
- /* border-right: 1px solid #292929;*/
   pointer-events: all;
   width: 40%;
   min-width: 300px;
@@ -13,11 +12,11 @@ div#details-sidebar {
   .details{
     margin-top: 40px;
     margin-left: 10px;
-    i{cursor: pointer;}
+    i { cursor: pointer; }
   }
 
   /*arrow close sidebar*/
-  .closeDetails{
+  .closeDetails {
     right: -7px;
     top: 37px;
   }
@@ -26,8 +25,8 @@ div#details-sidebar {
   div.network-input {
     margin-bottom: 0px;
     margin-top: 20px;
-    input { height:  35px !important; margin-bottom: 0px}
-    .controls { line-height: 44px;}
+    input { height:  35px !important; margin-bottom: 0px; }
+    .controls { line-height: 44px; }
   }
 
   /*tab navigations buttons*/
@@ -53,34 +52,32 @@ div#details-sidebar {
       text-align: left;
       padding-top: 10px;
 
-      &:first-child {padding-left: 12px;}
-      &:hover a {border-bottom: 2px solid dimgrey; }
+      &:first-child { padding-left: 12px; }
+      &:hover a { border-bottom: 2px solid dimgrey; }
       a {
         position: relative;
         @include label;
         color: $color-text-main;
         font-size: $fs1;
         padding-bottom: 10px;
-
         span {
           font-size: $fs2;
         }
       }
 
-      .circle{
+      .circle {
         right: 42%;
         top: -33px;
-        &.supplier{ color: $color-supplier; }
-        &.procurer{ color: $color-procurer; }
-        &.relationship{ color: $color-relationship; }
-        &.rel1{ right: 30%; }
-        &.rel2{ right: 60%; }
+        &.supplier { color: $color-supplier; }
+        &.procurer { color: $color-procurer; }
+        &.relationship { color: $color-relationship; }
+        &.rel1 { right: 30%; }
+        &.rel2 { right: 60%; }
 
         &.relationship-line {
           width: 30%;
           right: 37%;
           top: -24px;
-
           hr {
             width: 100%;
             color: #868686;
@@ -102,12 +99,12 @@ div#details-sidebar {
     .ag-cell, .ag-body-viewport {
       background: $main-bg;
     }
-    .searchIcon{
+    .searchIcon {
       top: 4px;
       right: 4px;
       cursor: pointer;
     }
-    .search-input{
+    .search-input {
       @include search-input;
       width: 92% !important;
       opacity: 0.5;
