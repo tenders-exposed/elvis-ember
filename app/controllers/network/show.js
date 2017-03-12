@@ -132,6 +132,12 @@ export default Controller.extend({
     stabilizationIterationsDone() {
       this.showNetworkInfo();
 
+      this.get('network').setOptions({
+        'physics': {
+          'enabled': false
+        }
+      });
+
       Logger.info('stabilization iterations done');
       this.set('stabilizationPercent', 100);
       $('div#stabilization-info').fadeOut();
