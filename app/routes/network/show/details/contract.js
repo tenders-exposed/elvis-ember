@@ -7,17 +7,11 @@ export default Route.extend({
   store: inject.service(),
 
   model(params){
-    //str.split(" ");
-    let paramsArr = params.id.split("-");
-    let contractId = paramsArr[0];
-    let entityId = paramsArr[1];
-    console.log("supplier", entityId);
-
+    let contractId = params.contract_id;
+    let entityId = params.node_id;
     let self = this;
     let token     = this.get('me.data.authentication_token');
     let email     = this.get('me.data.email');
-
-    console.log(`params-id ${contractId}`);
 
     return this.get('ajax')
       .request(`/contracts/${contractId}`, {

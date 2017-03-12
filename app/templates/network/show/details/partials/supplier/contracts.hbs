@@ -1,5 +1,5 @@
 <td class="award">
-  {{#link-to "network.show.details.contract" route (concat row.id "-" supplierId)}}
+  {{#link-to "network.show.details.contract" route supplierId row.id}}
     {{fa-icon 'file-text' size=1}}
     {{row.award.title}}
   {{/link-to}}
