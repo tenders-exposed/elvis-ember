@@ -10,7 +10,6 @@ div#details-info {
     height: 100%;
     right: 0px;
     height: 100%;
-    //background: rgba(23, 23, 25, .9);
     @include bg-dark;
 
     .close {
@@ -18,18 +17,28 @@ div#details-info {
       opacity: 0.5;
       right: 30px;
       top: 30px;
-      &:hover{
+      &:hover {
         opacity: 1;
       }
     }
-    .s3 {
-      width: 30%;
-    }
+
     .container-entity {
       width: 80%;
+
+      .second-row {
+        .s2 { width: 19%; }
+        .s3 { width: 27%; }
+        .col:first-child {
+          padding-left: 0px;
+        }
+        .col:last-child {
+          padding-right: 0px;
+        }
+      }
       .title {
         margin-top: 40px;
-        .supplier i{
+        padding: 0px;
+        .supplier i {
           color: $color-supplier;
         }
       }

@@ -1,5 +1,5 @@
 /*@todo: css data-table from  _siderbar.scss*/
-.container-entity{
+.container-entity {
   div.tabs__nav {
     line-height: 2.5rem;
     margin-bottom: 10px;
@@ -14,7 +14,7 @@
       text-align: left;
       padding-top: 10px;
 
-      a{
+      a {
         color: $color-text-dark;
         @include label;
         font-size: $fs1;
@@ -25,14 +25,13 @@
       }
     }
 
-    .tab-button--active a{
+    .tab-button--active a {
       color: $color-text-main;
       border-bottom: 2px solid $color-text-main;
     }
   }
 
   .data-table {
-
     .ps-container {
       position: relative;
       margin: 0px auto;
@@ -43,13 +42,13 @@
       padding-right: 10px !important;
 
 
-      .ps-scrollbar-y-rail{
+      .ps-scrollbar-y-rail {
         background-color: #1A1A1C !important;
         opacity: 0.2;
         margin-left: 10px !important;
         width: 1px !important;
 
-        .ps-scrollbar-y{
+        .ps-scrollbar-y {
           width: 1px !important;
           right: 0px !important;
           background-color: whitesmoke;
@@ -57,7 +56,7 @@
       }
     }
 
-    thead, tr, tbody{
+    thead, tr, tbody {
       display: block;
       width: 100%;
     }
@@ -72,34 +71,42 @@
     td {
       padding: 10px !important;
       font-size: $fs1;
-      i{height: 0%;}
+      i{ height: 0%; }
     }
   }
   /*tabs - tables*/
-  .contracts{
-    .data-table{
-      th.award  { width: 35%; padding-left: 0px; margin-left: -15px; }
-      th.parties{ width: 32%;}
-      th.value  { width: 20%; text-align: right;}
-      th.bids   { width: 13%; text-align: right;  padding-right: 0px !important;}
+  .contracts {
+    .data-table {
+      th.award   { width: 35%; padding-left: 0px; margin-left: -15px; }
+      th.parties { width: 32%; }
+      th.value   { width: 20%; text-align: right; }
+      th.bids    { width: 13%; text-align: right;  padding-right: 0px !important; }
 
-      td.award  { width: 34%; padding-left: 0px !important; }
-      td.parties{ width: 30%; i {color: $color-supplier;} }
-      td.value  { width: 20%; color: $color-text-main; text-align: right; @include title; font-size: $fs3; padding-right: 0px !important; }
-      td.bids   { width: 14%; color: $color-text-main; text-align: right; @include title; font-size: $fs3;}
+      td.award {
+        width: 34%; padding-left: 0px !important;
+        a {
+          color: $color-text-dark;
+          &:hover {
+            color: $color-text-main;
+          }
+        }
+      }
+      td.parties { width: 30%; i { color: $color-supplier; } }
+      td.value   { width: 20%; color: $color-text-main; text-align: right; @include title; font-size: $fs3; padding-right: 0px !important; }
+      td.bids    { width: 14%; color: $color-text-main; text-align: right; @include title; font-size: $fs3; }
     }
   }
-  .procurers{
-    .data-table{
-      th.procurer { width: 35%; padding-left: 0px; margin-left: -15px; }
-      th.contracts{ width: 32%;}
-      th.income   { width: 20%; text-align: right;}
-      th.bids     { width: 13%; text-align: right;  padding-right: 0px !important;}
+  .procurers {
+    .data-table {
+      th.procurer  { width: 35%; padding-left: 0px; margin-left: -15px; }
+      th.contracts { width: 32%; }
+      th.income    { width: 20%; text-align: right; }
+      th.bids      { width: 13%; text-align: right;  padding-right: 0px !important; }
 
-      td.procurer { width: 34%; padding-left: 0px !important; i { color: $color-procurer;} }
-      td.contracts{ width: 35%; }
-      td.income   { width: 15%; color: $color-text-main; text-align: right; @include title; font-size: $fs3; padding-right: 0px !important; }
-      td.bids     { width: 14%; color: $color-text-main; text-align: right; @include title; font-size: $fs3; }
+      td.procurer  { width: 34%; padding-left: 0px !important; i { color: $color-procurer; } }
+      td.contracts { width: 35%; }
+      td.income    { width: 15%; color: $color-text-main; text-align: right; @include title; font-size: $fs3; padding-right: 0px !important; }
+      td.bids      { width: 14%; color: $color-text-main; text-align: right; @include title; font-size: $fs3; }
     }
   }
 }

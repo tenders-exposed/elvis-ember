@@ -4,6 +4,7 @@
 
 $main-bg: #1A1A1C;
 $bg-dark: #171719;
+$color-darker: #464646;
 $color-text-main: #eee;
 $color-text-dark: grey;
 $color-small-text: #444446;
@@ -16,13 +17,13 @@ $color-box-border: #2f2f35;
 $color-icon: dimgray;
 $color-icon-hover: darkgrey;
 
-@mixin bg-dark{
+@mixin bg-dark {
   opacity: 0.9;
   background: $bg-dark;
 }
 
 /*elements*/
-@mixin box{
+@mixin box {
   border-radius: 5px;
   border: 1px solid $color-box-border;
   padding: 10px;
@@ -42,7 +43,7 @@ $color-icon-hover: darkgrey;
     }
   }
 }
-@mixin search-input{
+@mixin search-input {
   background-color: #151517 !important;
   height: 2rem !important;
   width: 100% !important;
@@ -52,16 +53,16 @@ $color-icon-hover: darkgrey;
 }
 
 /*fonts and text*/
-@mixin default-font{
+@mixin default-font {
   font-family: "Roboto";
   font-weight: normal;
 }
-@mixin title{
+@mixin title {
   font-family: serif;
   font-weight: 600;
   margin-bottom: 0;
 }
-@mixin label{
+@mixin label {
   font-family: "Roboto";
   font-weight: bold;
   text-transform: uppercase;
@@ -73,11 +74,11 @@ $fs4 : 1.3rem;
 $fs3 : 1.1rem;
 $fs2 : 1rem;
 $fs1 : 0.8rem;
+$fs01 : 0.7rem;
 $fs0 : 0.6rem;
 
 
-@mixin compound-style-text{
-
+@mixin compound-style-text {
 
 }
 

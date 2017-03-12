@@ -1,5 +1,5 @@
 //@todo: not sure from where it comes
-.drag-target{
+.drag-target {
   width: 1px !important;
 }
 
@@ -11,9 +11,9 @@ div#network-container {
   flex-direction: row;
   top: 0;
 
-  h5 {margin-top: 0;}
+  h5 { margin-top: 0; }
 
-  div.network-canvas {height: 100%;}
+  div.network-canvas { height: 100%; }
 
   div#visjs-network {
     position: fixed;
@@ -28,7 +28,7 @@ div#network-container {
   .ember-view { height: 100%; }
 
   div#details-container > * {
-    margin: 0; padding: 0; border: 0;
+    margin: 0; padding: 0;
   }
 
   div#details-container {
@@ -57,7 +57,7 @@ div#network-container {
   }
 }
 
-.ember-cli-visks-network > .ember-view { display: none;}
+.ember-cli-visks-network > .ember-view { display: none; }
 
 div#stabilization-info {
   z-index: 999;
@@ -75,7 +75,6 @@ div#stabilization-info {
       text-align: center;
       position: fixed;
       font-family: Roboto;
-      //font-weight: normal;
       font-size: 2rem;
     }
   }

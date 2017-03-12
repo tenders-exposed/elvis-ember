@@ -29,6 +29,7 @@ ElvisRouter.map(function() {
     });
     this.route('show', { path: ':network_id' }, function() {
       this.route('details', { path: ':tab' }, function() {
+        this.route('contract', {path: '/:node_id/:contract_id'});
         this.route('show', { path: ':id' });
       });
     });

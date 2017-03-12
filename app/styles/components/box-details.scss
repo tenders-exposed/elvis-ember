@@ -1,4 +1,4 @@
-div#box-details-container{
+div#box-details-container {
   z-index: 999;
   position: absolute;
   top: 35px;  right: 0px;
@@ -6,7 +6,7 @@ div#box-details-container{
   height: 50px;
   display: block;
 
-  div#box-details-card{
+  div#box-details-card {
     @include bg-dark;
     @include box;
     width: 100%;
@@ -14,8 +14,8 @@ div#box-details-container{
     top: 0;
     margin-right: 5%;
 
-    span.color-pink{ color: $color-procurer; }
-    span.color-blue{ color: $color-supplier; }
-    div.col{ padding: 0px; }
+    span.color-pink { color: $color-procurer; }
+    span.color-blue { color: $color-supplier; }
+    div.col { padding: 0px; }
   }
 }

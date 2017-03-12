@@ -1,66 +1,89 @@
-
 html, body, .container,
-body > .ember-view
-{
+body > .ember-view {
   height: 100%;
   color: $color-text-main;
 
-  p{
-    font-size: $fs2;
-  }
-  .el-title{@include title;}
-  .light-text{color: $color-text-main;}
-  .dark-text{color: $color-text-dark;}
+  p { font-size: $fs2; }
+  .el-title { @include title; }
+  .light-text { color: $color-text-main; }
+  .dark-text { color: $color-text-dark; }
 
-  .el-label{@include label; color: $color-text-main;}
-  .el-label-dark{ @include label; color: $color-text-dark;}
+  .el-label { @include label; color: $color-text-main; }
+  .el-label-dark { @include label; color: $color-text-dark; }
+/*
+$fs6 : 2.3rem;
+$fs5 : 1.5rem;
+$fs4 : 1.3rem;
+$fs3 : 1.1rem;
+$fs2 : 1rem;
+$fs1 : 0.8rem;
+$fs0 : 0.6rem;
+*/
+  h1, h2,h3, h4 { @include title; }
+  .fs6, h1 { font-size: $fs6; } //h1
+  .fs5, h2 { font-size: $fs5; } //h2
+  .fs4, h3 { font-size: $fs4; } //h3
+  .fs3, h4 { font-size: $fs3; } //h4
+  .fs2 { font-size: $fs2; }
+  .fs1 { font-size: $fs1; }
+  .fs01 { font-size: $fs01; }
+  .fs0 { font-size: $fs0; }
 
-  h1, h2,h3, h4{@include title;}
-  .fs6, h1 { font-size: $fs6;} //h1
-  .fs5, h2 { font-size: $fs5;} //h2
-  .fs4, h3 { font-size: $fs4;} //h3
-  .fs3, h4 { font-size: $fs3;} //h4
-  .fs2 { font-size: $fs2;}
-  .fs1 { font-size: $fs1;}
-  .fs0 { font-size: $fs0;}
-
-  small{
+  small {
     font-size: $fs1;
     color: $color-small-text;
-
-    hr{
-      border: 0.3px solid $color-small-text;
-    }
+    hr { border: 0.3px solid $color-small-text; }
   }
 
-
-  i.control-icon{
+  .procurer-color { color: $color-procurer; }
+  .supplier-color { color: $color-supplier; }
+  i.control-icon {
     color: $color-icon;
     cursor: pointer;
     font-size: 1em;
-    &:hover{
+    &:hover {
       color: $color-icon-hover;
     }
   }
-  i.control-icon-light{
+  i.control-icon-light {
     opacity: 0.7;
     cursor: pointer;
-    &:hover{opacity: 1;}
+    &:hover { opacity: 1; }
   }
 
   /*general styles*/
-  .flags{
+  .flags {
     font-size: 0.6em;
     color: orangered;
-    i{
+    i {
       margin-right: 3px;
-      &:hover{
+      &:hover {
         color: #ff6802;
       }
     }
-
   }
 }
 .mainbg {
   background-color: $main-bg;
+}
+
+#network-info {
+  margin-bottom: 10px;
+  p {
+    margin-top: 0px;
+  }
+  .info {
+    clear: both;
+    .info-name {
+      width: 100px;
+      float: left;
+      font-size: $fs1;
+    }
+    .info-val {
+      font-size: $fs1;
+      width: 100px;
+      float: right;
+      text-align: right;
+    }
+  }
 }

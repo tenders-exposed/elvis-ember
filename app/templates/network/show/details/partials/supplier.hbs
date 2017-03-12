@@ -28,7 +28,7 @@
       <div class="el-label-dark fs1">avg competition</div>
       <div class="el-title fs5">1.7</div>
     </div>
-    <div class="col s2">
+    <div class="col s2 right-align">
       <div class="el-label-dark fs1">data missing</div>
       <div class="el-title fs5">{{model.missing_values}}%</div>
     </div>
@@ -50,6 +50,8 @@
           content=model.contracts
           fields=fields.contracts
           partialPath="network/show/details/partials/supplier/contracts"
+          route="suppliers"
+          supplierId=params.id
       }}
     {{/tab-panel}}
     {{#tab-panel manager=manager name="procurers" class='tab-panel'}}
