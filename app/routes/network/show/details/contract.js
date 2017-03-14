@@ -7,7 +7,8 @@ export default Route.extend({
   ajax: inject.service(),
   store: inject.service(),
 
-  model(params){
+  model(params, transition){
+    let tab = transition.params["network.show.details"].tab;
     let contractId = params.contract_id;
     let entityId = params.node_id;
     let self = this;
@@ -26,6 +27,8 @@ export default Route.extend({
           let results = data.search.results[0];
           results.supplier = results.suppliers[0];
           results.entityId = entityId;
+          //results.nodeType = tab;
+          results.tab = tab;
 
           let details = {'yes' : 'check', 'no' : 'close', 'null' : 'question'};
 
@@ -58,3 +61,4 @@ export default Route.extend({
     }
   }
 });
+

@@ -75,34 +75,55 @@ export default Route.extend({
     controller.set('currentlyLoading', false);
   },
 
-  setupController(controller, model) {
+  setupController(controller, model,transition) {
     let activeTab = this.controllerFor('network.show.details').get('activeTab');
     controller.set('activeTab', activeTab);
 
-    let procurers = [];
+    let tab = transition.params["network.show.details"].tab;
+    let nodeModel = {id: 0, name: '', contracts: [], income: 0, tenderers: [], median: 0, nodeType:'procurer'};
     let ids = [];
+    let nodes = {};
 
-    _.forEach(model.contracts, (contract) => {
-      let id = contract.procuring_entity.x_slug_id;
+    if(tab == 'procurers'){
 
-      if (typeof procurers[id] === 'undefined') {
-        procurers[id] = {};
-        procurers[id].id = contract.procuring_entity.x_slug_id;
-        procurers[id].name = contract.procuring_entity.name;
-        procurers[id].contracts = [];
-        procurers[id].income = 0;
-        procurers[id].tenderers = [];
-        procurers[id].median = 0;
-        ids.push(id);
-      }
-      procurers[id].contracts.push(contract.award.title);
-      procurers[id].income += contract.award.value.x_amount_eur;
-      procurers[id].tenderers.push(contract.number_of_tenderers);
+      nodeModel.nodeType = 'supplier';
+      _.forEach(model.contracts, (contract) => {
+        _.forEach(contract.suppliers, (supplier) => {
+           let id = supplier.x_slug_id;
+           if(typeof nodes[id] === 'undefined'){
+             nodes[id] = nodeModel;
+             nodes[id].id = id;
+             nodes[id].name = supplier.name;
+             ids.push(id);
+           }
+           if(contract.award.title){
+             nodes[id].contracts.push(contract.award.title);
+           }
+            nodes[id].income += contract.award.value.x_amount_eur;
+            nodes[id].tenderers.push(contract.number_of_tenderers);
+        });
+      });
+    } else {
+      console.log("supplier details");
+      _.forEach(model.contracts, (contract) => {
+        let id = contract.procuring_entity.x_slug_id;
+        if (typeof nodes[id] === 'undefined') {
+          nodes[id] = nodeModel;
+          nodes[id].id = id;
+          nodes[id].name = contract.procuring_entity.name;
+          ids.push(id);
+        }
+        if(contract.award.title){
+          nodes[id].contracts.push(contract.award.title);
+        }
+        nodes[id].income += contract.award.value.x_amount_eur;
+        nodes[id].tenderers.push(contract.number_of_tenderers);
 
-    });
+      });
+    }
     // avg bids
     _.forEach(ids, (id) => {
-        let sorted = _.sortBy(procurers[id].tenderers);
+        let sorted = _.sortBy(nodes[id].tenderers);
         let { length } = sorted;
         if (length) {
           let poz = length / 2;
@@ -112,10 +133,19 @@ export default Route.extend({
             median = (median + sorted[poz - 1]) / 2;
             median = _.round(median, 1);
           }
-          procurers[id].median = median;
+          nodes[id].median = median;
         }
       });
-    model.procurers = procurers;
+
+    //transform it into an array
+    let nodesArray= [];
+    _.forEach(nodes,(node) => {
+      console.log(node);
+      nodesArray.push(node);
+    });
+    model.nodes = nodesArray;
+    console.log('nodes',model.nodes);
+    console.log('contracts',model.contracts);
     controller.set('model', model);
   },
 
