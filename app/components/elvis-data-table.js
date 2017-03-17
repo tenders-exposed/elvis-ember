@@ -79,7 +79,6 @@ export default Component.extend({
         }
         return match;
       });
-
       // set the new filtered content
       this.set('content', content);
     }

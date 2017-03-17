@@ -65,6 +65,7 @@
     "ember-localforage-adapter": "2.2.1",
     "ember-material-design-icons-shim": "0.1.10",
     "ember-materialize-shim": "^0.4.1",
+    "ember-math-helpers": "2.0.5",
     "ember-mb-tabs": "0.1.3",
     "ember-modal-dialog": "^0.9.1",
     "ember-model-validator": "^2.10.0",

@@ -8,7 +8,7 @@ export default Route.extend({
   store: inject.service(),
 
   model(params, transition){
-    let tab = transition.params["network.show.details"].tab;
+    let tab = transition.params['network.show.details'].tab;
     let contractId = params.contract_id;
     let entityId = params.node_id;
     let self = this;

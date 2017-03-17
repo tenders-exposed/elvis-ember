@@ -26,17 +26,14 @@ export default Controller.extend({
       contracts: 'Contracts',
       income: 'Income',
       bids: 'Avg bids'
-    },
-
+    }
   },
 
   actions: {
     changeTabDetails(tab) {
-      console.log("whatever");
       this.set('activeTabDetails', tab);
     },
-    changeTabProcurer(tab){
-      console.log("whatever2");
+    changeTabProcurer(tab) {
       this.set('activeTabProcurer', tab);
     }
   }

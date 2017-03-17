@@ -75,55 +75,66 @@ export default Route.extend({
     controller.set('currentlyLoading', false);
   },
 
-  setupController(controller, model,transition) {
+  setupController(controller, model, transition) {
     let activeTab = this.controllerFor('network.show.details').get('activeTab');
     controller.set('activeTab', activeTab);
 
-    let tab = transition.params["network.show.details"].tab;
-    let nodeModel = {id: 0, name: '', contracts: [], income: 0, tenderers: [], median: 0, nodeType:'procurer'};
+    let tab = transition.params['network.show.details'].tab;
     let ids = [];
     let nodes = {};
 
-    if(tab == 'procurers'){
-
-      nodeModel.nodeType = 'supplier';
-      _.forEach(model.contracts, (contract) => {
-        _.forEach(contract.suppliers, (supplier) => {
-           let id = supplier.x_slug_id;
-           if(typeof nodes[id] === 'undefined'){
-             nodes[id] = nodeModel;
-             nodes[id].id = id;
-             nodes[id].name = supplier.name;
-             ids.push(id);
-           }
-           if(contract.award.title){
-             nodes[id].contracts.push(contract.award.title);
-           }
-            nodes[id].income += contract.award.value.x_amount_eur;
-            nodes[id].tenderers.push(contract.number_of_tenderers);
+    if(tab === 'procurers'){
+        _.forEach(model.contracts, (contract) => {
+          _.forEach(contract.suppliers, (supplier) => {
+            const idSup = `id_${supplier.x_slug_id}`;
+            if (typeof nodes[idSup] === 'undefined') {
+              ids.push(idSup);
+              nodes[idSup] = {
+                name: supplier.name,
+                id: supplier.x_slug_id,
+                contracts: [],
+                contractsCount: 0,
+                income: 0,
+                tenderers: [],
+                median: 0,
+                nodeType: 'supplier',
+              };
+            }
+            if(contract.award.title){
+              nodes[idSup].contracts.push({'id': contract.id, 'name': contract.award.title});
+              nodes[idSup].contractsCount += 1;
+            }
+            nodes[idSup].income += contract.award.value.x_amount_eur;
+            nodes[idSup].tenderers.push(contract.number_of_tenderers);
+          });
         });
-      });
     } else {
-      console.log("supplier details");
       _.forEach(model.contracts, (contract) => {
-        let id = contract.procuring_entity.x_slug_id;
-        if (typeof nodes[id] === 'undefined') {
-          nodes[id] = nodeModel;
-          nodes[id].id = id;
-          nodes[id].name = contract.procuring_entity.name;
-          ids.push(id);
+        const idSup = `id_${contract.procuring_entity.x_slug_id}`;
+        if (typeof nodes[idSup] === 'undefined') {
+          ids.push(idSup);
+          nodes[idSup] = {
+            id: contract.procuring_entity.x_slug_id,
+            name: contract.procuring_entity.name,
+            contracts: [],
+            contractsCount: 0,
+            income: 0,
+            tenderers: [],
+            median: 0,
+            nodeType: 'procurer',
+          };
         }
         if(contract.award.title){
-          nodes[id].contracts.push(contract.award.title);
+          nodes[idSup].contracts.push({'id': contract.id, 'name': contract.award.title});
+          nodes[idSup].contractsCount += 1;
         }
-        nodes[id].income += contract.award.value.x_amount_eur;
-        nodes[id].tenderers.push(contract.number_of_tenderers);
-
+        nodes[idSup].income += contract.award.value.x_amount_eur;
+        nodes[idSup].tenderers.push(contract.number_of_tenderers);
       });
     }
     // avg bids
-    _.forEach(ids, (id) => {
-        let sorted = _.sortBy(nodes[id].tenderers);
+    _.forEach(ids, (idNode) => {
+        let sorted = _.sortBy(nodes[idNode].tenderers);
         let { length } = sorted;
         if (length) {
           let poz = length / 2;
@@ -133,19 +144,12 @@ export default Route.extend({
             median = (median + sorted[poz - 1]) / 2;
             median = _.round(median, 1);
           }
-          nodes[id].median = median;
+          nodes[idNode].median = median;
         }
       });
 
     //transform it into an array
-    let nodesArray= [];
-    _.forEach(nodes,(node) => {
-      console.log(node);
-      nodesArray.push(node);
-    });
-    model.nodes = nodesArray;
-    console.log('nodes',model.nodes);
-    console.log('contracts',model.contracts);
+    model.nodes = _.values(nodes);
     controller.set('model', model);
   },
 

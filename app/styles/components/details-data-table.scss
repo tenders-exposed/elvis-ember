@@ -86,9 +86,7 @@
         width: 34%; padding-left: 0px !important;
         a {
           color: $color-text-dark;
-          &:hover {
-            color: $color-text-main;
-          }
+          &:hover { color: $color-text-main; }
         }
       }
       td.parties { width: 30%; i { color: $color-supplier; } }
@@ -98,15 +96,41 @@
   }
   .procurers, .suppliers {
     .data-table {
-      th.procurer  { width: 35%; padding-left: 0px; margin-left: -15px; }
+      th.procurer,
+      th.supplier { width: 35%; padding-left: 0px; margin-left: -15px; }
       th.contracts { width: 32%; }
       th.income    { width: 20%; text-align: right; }
       th.bids      { width: 13%; text-align: right;  padding-right: 0px !important; }
 
       td { vertical-align: top; }
-      td.procurer  { width: 34%; padding-left: 0px !important; i { color: $color-procurer; } }
+      td.procurer,
+      th.supplier  { width: 34%; padding-left: 0px !important; i { color: $color-procurer; } }
       td.supplier  { width: 34%; padding-left: 0px !important; i { color: $color-supplier; } }
-      td.contracts { width: 35%; }
+      td.contracts {
+        width: 35%;
+        line-height: $fs2;
+        div {
+          padding-bottom: 4px;
+        }
+        .show-contracts {
+          .contracts-count {
+            background: $color-text-dark;
+            color: $main-bg;
+            padding: 1px 4px;
+            font-size: $fs0;
+            border-radius: 2px;
+          }
+          .show-more {
+            width: 10px;
+            font-size: $fs2;
+            i { vertical-align: top; }
+          }
+        }
+        a {
+          color: $color-text-dark;
+          &:hover { color: $color-text-main; }
+        }
+      }
       td.income    { width: 15%; color: $color-text-main; text-align: right; @include title; font-size: $fs3; padding-right: 0px !important; }
       td.bids      { width: 14%; color: $color-text-main; text-align: right; @include title; font-size: $fs3; }
     }

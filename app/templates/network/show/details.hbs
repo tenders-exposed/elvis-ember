@@ -28,21 +28,21 @@
         <a {{action 'closeDetails' model.id}} class="right closeDetails absolute" style="cursor: pointer;">
           <i class="control-icon material-icons">{{fa-icon 'arrow-circle-left' size=1}}</i>
         </a>
-        {{#tabbed-content active=activeTab on-change="changeTab" active-class="tab-button--active" as |manager|}}
+        {{#tabbed-content active=activeTab on-change="changeTab" active-class="tab-button--active" as |sidebarTabManager|}}
           <div class="tabs__nav">
-            {{#tab-button class="tab-button"  manager=manager name="suppliers"}}
+            {{#tab-button class="tab-button"  manager=sidebarTabManager name="suppliers"}}
               <a>
                 <span class="absolute circle supplier"> {{fa-icon 'circle' size=1}} </span>
                 Suppliers
               </a>
             {{/tab-button}}
-            {{#tab-button class="tab-button"  manager=manager  name="procurers"}}
+            {{#tab-button class="tab-button"  manager=sidebarTabManager  name="procurers"}}
               <a>
                 <span class="absolute circle procurer"> {{fa-icon 'circle' size=1}} </span>
                 Procurers
               </a>
             {{/tab-button}}
-            {{#tab-button class="tab-button"  manager=manager name="relationships" active-class="tabs-button--active2"}}
+            {{#tab-button class="tab-button"  manager=sidebarTabManager name="relationships" active-class="tabs-button--active2"}}
               <a>
                 <span class="absolute circle relationship-line"> <hr/> </span>
                 <span class="absolute circle relationship rel1"> {{fa-icon 'circle' size=1}} </span>
@@ -51,7 +51,7 @@
               </a>
             {{/tab-button}}
           </div>
-          {{#tab-panel manager=manager name="suppliers" class='tab-panel'}}
+          {{#tab-panel manager=sidebarTabManager name="suppliers" class='tab-panel'}}
           {{!--Tab suppliers--}}
             {{#if model.graph.nodes}}
               {{!--
@@ -71,7 +71,7 @@
             {{/if}}
           {{/tab-panel}}
 
-          {{#tab-panel manager=manager name="procurers" class='tab-panel'}}
+          {{#tab-panel manager=sidebarTabManager name="procurers" class='tab-panel'}}
             {{#if model.graph.nodes}}
               {{elvis-data-table
                   class="suppliers"
@@ -88,7 +88,7 @@
             {{/if}}
           {{/tab-panel}}
 
-          {{#tab-panel manager=manager name="relationships" class='tab-panel'}}
+          {{#tab-panel manager=sidebarTabManager name="relationships" class='tab-panel'}}
             {{#if model.graph.nodes}}
               {{elvis-data-table
                   class="relationships"
