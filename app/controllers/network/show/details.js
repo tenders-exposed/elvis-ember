@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Controller, inject } = Ember;
+const { Controller, observer, inject } = Ember;
 
 export default Controller.extend({
   me: inject.service(),
@@ -32,8 +32,66 @@ export default Controller.extend({
   gridOptions: {
     suppliers: {},
     procurers: {},
-    relationships: {}
+    relationships: {},
+    loaded: false
   },
+
+  networkModelLoaded: observer('model', function() {
+    if (this.get('model.options')) {
+      this.set('fields.suppliers.value', _.capitalize(this.get('model.options.nodes')));
+      this.set('fields.relationships.value', _.capitalize(this.get('model.options.edges')));
+    }
+    if (this.get('model.graph')) {
+      let model = this.get('model');
+
+      let valueFormat = (value) => {
+        if (typeof value !== 'string') {
+          value = value.toFixed();
+          value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+        return value;
+      };
+      let graphNodes    = model.get('graph.nodes');
+      let relationships = model.get('graph.edges');
+
+      _.forEach(relationships, (value) => {
+        let idFrom = value.from;
+        let idTo = value.to;
+        let fromObj =  _.find(graphNodes, (o) => {
+          return o.id === idFrom;
+        });
+        let toObj =  _.find(graphNodes, (o) => {
+          return o.id === idTo;
+        });
+        value.fromLabel = fromObj.label;
+        value.toLabel = toObj.label;
+        value.value = valueFormat(value.value);
+      });
+
+      this.set(
+        'gridOptions.suppliers.rowData',
+        _.filter(graphNodes, (o) => {
+          if (o.type === 'supplier') {
+            o.value = valueFormat(o.value);
+            return o;
+          }
+        })
+      );
+      this.set(
+        'gridOptions.procurers.rowData',
+        _.filter(graphNodes, (o) => {
+          if (o.type === 'procuring_entity') {
+            o.value = valueFormat(o.value);
+            return o;
+          }
+        })
+      );
+      this.set(
+        'gridOptions.relationships.rowData', relationships
+      );
+      this.set('gridOptions.loaded', true);
+    }
+  }),
 
   onFilterChanged(value) {
     this.gridOptions.api.setQuickFilter(value);

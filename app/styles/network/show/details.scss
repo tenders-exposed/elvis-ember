@@ -1,15 +1,16 @@
 div#details-sidebar {
   @include bg-dark;
+  display: inline-block;
   z-index: 9;
   pointer-events: all;
-  width: 40%;
+  width: 30%;
   min-width: 300px;
   min-height: 400px;
   height: 100%;
   top: 0;
   clear: both;
 
-  .details{
+  .details {
     margin-top: 40px;
     margin-left: 10px;
     i { cursor: pointer; }
@@ -108,6 +109,13 @@ div#details-sidebar {
       @include search-input;
       width: 92% !important;
       opacity: 0.5;
+    }
+    #loader {
+      margin-top: 60px;
+      .preloader-wrapper.ember-view {
+        height: 48px;
+        width: 48px;
+      }
     }
     /*tabs - tables: elvis-data-table.scss*/
   }

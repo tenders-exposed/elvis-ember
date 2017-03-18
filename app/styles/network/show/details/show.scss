@@ -1,9 +1,4 @@
 div#details-info {
-  height: 100%;
-  width: 100%;
-  pointer-events: none;
-  border-left: 1px dashed rgba(100, 100, 100, .1);
-
   .details-info-wrapper {
     pointer-events: all;
     width: 100%;
@@ -38,13 +33,10 @@ div#details-info {
       .title {
         margin-top: 40px;
         padding: 0px;
-        .supplier i {
-          color: $color-supplier;
-        }
+        .supplier i { color: $color-supplier; }
+        .procurer i { color: $color-procurer; }
       }
-      .flag {
-        color: $color-flags;
-      }
+      .flag { color: $color-flags; }
     }
   }
 }
