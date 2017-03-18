@@ -34,35 +34,36 @@
     </div>
   </div>
   <div class="row">
-  {{#tabbed-content active=activeTabDetails on-change="changeTabDetails" active-class="tab-button--active" as |manager|}}
+  {{#tabbed-content active=activeTabDetails on-change="changeTabDetails" active-class="tab-button--active" as |supplierTabManager|}}
       <div class="tabs__nav">
-      {{#tab-button class="tab-button"  manager=manager name="contracts"}}
+      {{#tab-button class="tab-button"  manager=supplierTabManager name="contracts"}}
         <a>contracts</a>
       {{/tab-button}}
-      {{#tab-button class="tab-button"  manager=manager name="procurers"}}
+      {{#tab-button class="tab-button"  manager=supplierTabManager name="procurers"}}
         <a>procurers</a>
       {{/tab-button}}
 
       </div>
-    {{#tab-panel manager=manager name="contracts" class='tab-panel'}}
+    {{#tab-panel manager=supplierTabManager name="contracts" class='tab-panel'}}
       {{details-data-table
           class="contracts"
           content=model.contracts
           fields=fields.contracts
-          partialPath="network/show/details/partials/supplier/contracts"
+          partialPath="network/show/details/partials/tables/contracts"
           route="suppliers"
-          supplierId=params.id
+          nodeId=params.id
       }}
     {{/tab-panel}}
-    {{#tab-panel manager=manager name="procurers" class='tab-panel'}}
+    {{#tab-panel manager=supplierTabManager name="procurers" class='tab-panel'}}
       {{details-data-table
           class="procurers"
-          content=model.procurers
+          content=model.nodes
           fields=fields.procurers
-          partialPath="network/show/details/partials/supplier/procurers"
+          partialPath="network/show/details/partials/tables/suppliers-procurers"
+          route="suppliers"
+          nodeId=params.id
       }}
     {{/tab-panel}}
-
   {{/tabbed-content}}
   </div>
 </div>
