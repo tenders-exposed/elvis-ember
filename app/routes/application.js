@@ -30,7 +30,7 @@ export default Route.extend(ApplicationRouteMixin, {
   },
 
   setupLoader() {
-    this.controllerFor('loading').set('loaderWords', ['Loading']);
+    this.controllerFor('loading').get('loaderWords').pushObject('network');
   },
 
   actions: {
