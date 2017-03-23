@@ -4,21 +4,21 @@
     </div>
     <div class="row">
       <div class="el-label fs0">
-        <span class="{{color}}">
+        <span class="{{class}}">
           {{fa-icon 'circle' size=1}}
         </span>
-        {{nodeDetails.type}}
+        {{model.type}}
       </div>
 
-      <div class="co-name fs3">{{nodeDetails.label}}</div>
-      {{#each-in nodeDetails.flags as |keyValue value|}}
+      <div class="co-name fs3">{{model.label}}</div>
+      {{#each-in model.flags as |keyValue value|}}
         <div class="flags">{{fa-icon 'flag' size=1}}{{keyValue}}</div>
       {{/each-in}}
     </div>
     <div class="row" style="margin-bottom: 0px">
       <div class="col s6 left-align">
         <div class="el-label fs0">Total flow</div>
-        <div class="el-title fs5">{{format-amount nodeDetails.value '0,0[.]00 a'}}</div>
+        <div class="el-title fs5">{{format-amount model.value '0,0[.]00 a'}}</div>
       </div>
       <div class="col s6 left-align" >
         <div class="el-label fs0">Competition</div>

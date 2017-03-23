@@ -49,8 +49,20 @@
     {{#if network.selectedNodes.length}}
       {{#each network.selectedNodes as |node|}}
         {{box-details
-            node=node
-            nodesSet=model.graph.nodes
+            graphElementType='node'
+            graphElementId=node
+            graph=model.graph
+            id="box-details-container"
+            network=network
+        }}
+      {{/each}}
+    {{/if}}
+    {{#if network.selectedEdges.length}}
+      {{#each network.selectedEdges as |edge|}}
+        {{box-details
+            graphElementType='edge'
+            graphElementId=edge
+            graph=model.graph
             id="box-details-container"
             network=network
         }}

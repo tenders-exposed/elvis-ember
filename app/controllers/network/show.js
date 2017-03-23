@@ -5,6 +5,7 @@ const { Controller, $, Logger } = Ember;
 export default Controller.extend({
   height: window.innerHeight - 100,
   selectedNodes: [],
+  selectedEdges: [],
   networkOptions: {
     'nodes': {
       'shape': 'dot',
@@ -100,7 +101,7 @@ export default Controller.extend({
     let message =
       `
           <div id="network-info">
-            <p>Netowrk info</p>
+            <p>Network info</p>
             <div class="info">
               <div class="info-name">Stabilization</div>
               <div class="info-val">${timeS} ms</div>
