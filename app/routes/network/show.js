@@ -7,6 +7,7 @@ export default Route.extend({
     this.store.unloadAll('network');
   },
   activate() {
+    this.controllerFor('loading').get('loaderWords').pushObject('network');
     this.notifications.clearAll();
   },
 
