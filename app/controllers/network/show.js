@@ -74,7 +74,9 @@ export default Controller.extend({
       }
     },
     'interaction': {
-      'hover': false
+      'hover': false,
+      'navigationButtons': true,
+      'keyboard': true
     }
   },
 
