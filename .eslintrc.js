@@ -7,10 +7,7 @@ module.exports = {
     ecmaVersion: 6,
     sourceType: 'module'
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:ember-suave/recommended'
-  ],
+  extends: 'eslint:recommended',
   env: {
     browser: true
   },
