@@ -35,6 +35,11 @@ ElvisRouter.map(function() {
     });
   });
   this.route('welcome', { path: '' });
+  this.route('about');
+  this.route('examples');
+  this.route('features');
+  this.route('terms-conditions');
+  this.route('contact');
 });
 
 export default ElvisRouter;
