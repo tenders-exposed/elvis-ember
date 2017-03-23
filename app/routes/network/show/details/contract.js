@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import moment from 'moment';
 const { Route, inject } = Ember;
 
 export default Route.extend({
