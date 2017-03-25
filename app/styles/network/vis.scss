@@ -533,6 +533,7 @@ div.vis-network div.vis-manipulation {
 }
 
 div.vis-network div.vis-edit-mode {
+  display: none !important;
   position:absolute;
   left: 0;
   top: 5px;
@@ -549,8 +550,8 @@ div.vis-network div.vis-close {
   height: 30px;
 
   background-position: 20px 3px;
-  background-repeat: no-repeat;
-  background-image: url("img/network/cross.png");
+  //background-repeat: no-repeat;
+  //background-image: url("img/network/cross.png");
   cursor: pointer;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -596,7 +597,7 @@ div.vis-network div.vis-manipulation div.vis-button:active {
 }
 
 div.vis-network div.vis-manipulation div.vis-button.vis-back {
-  background-image: url("img/network/backIcon.png");
+  //background-image: url("img/network/backIcon.png");
 }
 
 div.vis-network div.vis-manipulation div.vis-button.vis-none:hover {
@@ -615,12 +616,12 @@ div.vis-network div.vis-manipulation div.notification {
 }
 
 div.vis-network div.vis-manipulation div.vis-button.vis-add {
-  background-image: url("img/network/addNodeIcon.png");
+  //background-image: url("img/network/addNodeIcon.png");
 }
 
 div.vis-network div.vis-manipulation div.vis-button.vis-edit,
 div.vis-network div.vis-edit-mode div.vis-button.vis-edit {
-  background-image: url("img/network/editIcon.png");
+  //background-image: url("img/network/editIcon.png");
 }
 
 div.vis-network div.vis-edit-mode div.vis-button.vis-edit.vis-edit-mode {
@@ -629,11 +630,11 @@ div.vis-network div.vis-edit-mode div.vis-button.vis-edit.vis-edit-mode {
 }
 
 div.vis-network div.vis-manipulation div.vis-button.vis-connect {
-  background-image: url("img/network/connectIcon.png");
+  //background-image: url("img/network/connectIcon.png");
 }
 
 div.vis-network div.vis-manipulation div.vis-button.vis-delete {
-  background-image: url("img/network/deleteIcon.png");
+ // background-image: url("img/network/deleteIcon.png");
 }
 /* top right bottom left */
 div.vis-network div.vis-manipulation div.vis-label,
@@ -663,7 +664,7 @@ div.vis-network div.vis-navigation {
   top: 0px;
   right: 0px;
   width: 30px;
-  height: 100%;
+  height: 100px;
 }
 div.vis-network div.vis-navigation div.vis-button {
   /*width:34px;
@@ -721,17 +722,17 @@ div.vis-network div.vis-navigation div.vis-button.vis-up {
   }
 }
 div.vis-network div.vis-navigation div.vis-button.vis-down {
-  background-image: url("img/network/downArrow.png");
+ // background-image: url("img/network/downArrow.png");
   bottom:10px;
   left:55px;
 }
 div.vis-network div.vis-navigation div.vis-button.vis-left {
-  background-image: url("img/network/leftArrow.png");
+  //background-image: url("img/network/leftArrow.png");
   bottom:10px;
   left:15px;
 }
 div.vis-network div.vis-navigation div.vis-button.vis-right {
-  background-image: url("img/network/rightArrow.png");
+  //background-image: url("img/network/rightArrow.png");
   bottom:10px;
   left:95px;
 }

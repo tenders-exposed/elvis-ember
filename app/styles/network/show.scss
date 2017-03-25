@@ -11,6 +11,47 @@ div#network-container {
   flex-direction: row;
   top: 0;
 
+  #network-controls {
+    position: absolute;
+    right: 10px;
+    top: 100px;
+    z-index: 9;
+    .cogs {
+      position: absolute;
+      top: 30px;
+    }
+    i {
+      cursor: pointer;
+      border: 2px solid $color-icon;
+      color: $color-icon;
+      padding: 4px 3px 2px 3px;
+      border-radius: 14px;
+      font-size: $fs01;
+      &:hover {
+        border-color: $color-icon-hover;
+        color: $color-icon-hover;
+      }
+    }
+  }
+  #modalNetworkLink {
+    position: absolute;
+    top: 40%;
+    right: 16%;
+    width: 40%;
+    z-index: 9;
+    .modal-container {
+      @include box;
+      width: 100%;
+      .modal-content {
+        input {
+          @include search-input;
+          width: 90% !important;
+          margin-left: 9px;
+          text-align: center;
+        }
+      }
+    }
+  }
   h5 { margin-top: 0; }
 
   div.network-canvas { height: 100%; }
