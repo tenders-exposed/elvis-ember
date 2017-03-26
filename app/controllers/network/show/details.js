@@ -55,6 +55,7 @@ export default Controller.extend({
       let relationships = model.get('graph.edges');
 
       _.forEach(relationships, (value) => {
+
         let idFrom = value.from;
         let idTo = value.to;
         let fromObj =  _.find(graphNodes, (o) => {
