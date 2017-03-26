@@ -1,0 +1,12 @@
+{
+  "name": "elvis-ember",
+  "scripts": {},
+  "env": {},
+  "formation": {},
+  "addons": [],
+  "buildpacks": [
+    {
+      "url": "https://codon-buildpacks.s3.amazonaws.com/buildpacks/heroku/emberjs.tgz"
+    }
+  ]
+}
