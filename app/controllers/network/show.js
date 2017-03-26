@@ -80,6 +80,7 @@ export default Controller.extend({
       'keyboard': true
     }
   },
+  networkLinkModal: false,
 
   init() {
     this._super();
@@ -128,6 +129,20 @@ export default Controller.extend({
   },
 
   actions: {
+    stopPhysics() {
+      let physics = this.get('networkOptions.physics.enabled') ? false : true;
+      this.set('networkOptions.physics.enabled', physics);
+      this.get('network').setOptions({ 'physics': { 'enabled': physics } });
+    },
+    modalNetworkLink() {
+      if (this.get('networkLinkModal')) {
+        this.set('networkLinkModal', false);
+      } else {
+        this.set('networkLinkModal', true);
+        let networkId = this.get('model.id');
+        this.set('networkLink', `${document.location.origin}/network/${networkId}`);
+      }
+    },
     startStabilizing() {
       this.set('startStabilizing', performance.now());
       Logger.info('start stabilizing');
