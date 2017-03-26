@@ -19,7 +19,6 @@ div#network-container {
     position: fixed;
     width: 100%;
   }
-
   #visjs {
     width: 100%;
     height: 100%;
@@ -45,6 +44,7 @@ div#network-container {
       display: inline-block;
       pointer-events: none;
       border-left: 1px dashed rgba(100, 100, 100, .1);
+
 
       #loader {
         margin: 0 auto;

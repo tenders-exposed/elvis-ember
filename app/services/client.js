@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Service } = Ember;
+const { Service, Logger } = Ember;
 
 export default Service.extend({
 
@@ -9,7 +9,7 @@ export default Service.extend({
     let client = new ClientJS();
 
     if (client) {
-      console.log('Client features detection loaded');
+      Logger.info('Client features detection loaded');
     }
 
     let properties = [
