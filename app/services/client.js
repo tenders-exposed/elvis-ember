@@ -6,6 +6,7 @@ export default Service.extend({
 
   init() {
     let _this = this;
+    // eslint-disable-next-line no-undef
     let client = new ClientJS();
 
     if (client) {

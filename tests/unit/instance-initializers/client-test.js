@@ -3,15 +3,17 @@ import { initialize } from 'elvis-ember/instance-initializers/client';
 import { module, test } from 'qunit';
 import destroyApp from '../../helpers/destroy-app';
 
+const { Application, run } = Ember;
+
 module('Unit | Instance Initializer | client', {
   beforeEach: function() {
-    Ember.run(() => {
-      this.application = Ember.Application.create();
+    run(() => {
+      this.application = Application.create();
       this.appInstance = this.application.buildInstance();
     });
   },
   afterEach: function() {
-    Ember.run(this.appInstance, 'destroy');
+    run(this.appInstance, 'destroy');
     destroyApp(this.application);
   }
 });

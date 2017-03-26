@@ -14,7 +14,6 @@ export default Route.extend({
   },
 
   beforeModel() {
-    let controller = this.controllerFor('network.show.details.show');
     return this.modelFor('network.show');
   },
 
@@ -69,46 +68,42 @@ export default Route.extend({
         });
   },
 
-  afterModel() {
-    let controller = this.controllerFor('network.show.details.show');
-  },
-
   setupController(controller, model, transition) {
     let activeTab = this.controllerFor('network.show.details').get('activeTab');
     controller.set('activeTab', activeTab);
 
-    let tab = transition.params['network.show.details'].tab;
+    let { tab } = transition.params['network.show.details'];
     let ids = [];
     let nodes = {};
 
-    if(tab === 'procurers'){
-        _.forEach(model.contracts, (contract) => {
-          _.forEach(contract.suppliers, (supplier) => {
-            const idSup = `id_${supplier.x_slug_id}`;
-            if (typeof nodes[idSup] === 'undefined') {
-              ids.push(idSup);
-              nodes[idSup] = {
-                name: supplier.name,
-                id: supplier.x_slug_id,
-                contracts: [],
-                contractsCount: 0,
-                income: 0,
-                tenderers: [],
-                median: 0,
-                nodeType: 'supplier',
-              };
-            }
-            if(contract.award.title){
-              nodes[idSup].contracts.push({'id': contract.id, 'name': contract.award.title});
-              nodes[idSup].contractsCount += 1;
-            }
-            nodes[idSup].income += contract.award.value.x_amount_eur;
-            nodes[idSup].tenderers.push(contract.number_of_tenderers);
-          });
+    if (tab === 'procurers') {
+      _.forEach(model.contracts, (contract) => {
+        _.forEach(contract.suppliers, (supplier) => {
+          let idSup = `id_${supplier.x_slug_id}`;
+          if (typeof nodes[idSup] === 'undefined') {
+            ids.push(idSup);
+            nodes[idSup] = {
+              name: supplier.name,
+              id: supplier.x_slug_id,
+              contracts: [],
+              contractsCount: 0,
+              income: 0,
+              tenderers: [],
+              median: 0,
+              nodeType: 'supplier'
+            };
+          }
+          if (contract.award.title) {
+            nodes[idSup].contracts.push({ 'id': contract.id, 'name': contract.award.title });
+            nodes[idSup].contractsCount += 1;
+          }
+          nodes[idSup].income += contract.award.value.x_amount_eur;
+          nodes[idSup].tenderers.push(contract.number_of_tenderers);
         });
+      });
     } else {
       _.forEach(model.contracts, (contract) => {
-        const idSup = `id_${contract.procuring_entity.x_slug_id}`;
+        let idSup = `id_${contract.procuring_entity.x_slug_id}`;
         if (typeof nodes[idSup] === 'undefined') {
           ids.push(idSup);
           nodes[idSup] = {
@@ -119,11 +114,11 @@ export default Route.extend({
             income: 0,
             tenderers: [],
             median: 0,
-            nodeType: 'procurer',
+            nodeType: 'procurer'
           };
         }
-        if(contract.award.title){
-          nodes[idSup].contracts.push({'id': contract.id, 'name': contract.award.title});
+        if (contract.award.title) {
+          nodes[idSup].contracts.push({ 'id': contract.id, 'name': contract.award.title });
           nodes[idSup].contractsCount += 1;
         }
         nodes[idSup].income += contract.award.value.x_amount_eur;
@@ -146,7 +141,7 @@ export default Route.extend({
         }
       });
 
-    //transform it into an array
+    // transform it into an array
     model.nodes = _.values(nodes);
     controller.set('model', model);
   },

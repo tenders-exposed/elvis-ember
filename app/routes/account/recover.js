@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Route, inject } = Ember;
+const { Route, inject, Logger } = Ember;
 
 export default Route.extend({
   ajax: inject.service(),
@@ -27,7 +27,7 @@ export default Route.extend({
         this.controller.transitionToRoute('welcome');
       }, (response) => {
         // @TODO: show error messages from server
-        console.log(response);
+        Logger.info(response);
       });
     },
 
@@ -42,12 +42,12 @@ export default Route.extend({
           data,
           headers
         }).then((response) => {
-          console.log(response);
+          Logger.info(response);
           this.controller.set('emailSent', true);
 
         }, (response) => {
           // @TODO: show error messages from server
-          console.log(response);
+          Logger.info(response);
         });
       }, (response) => {
         let [error] = response.email;
