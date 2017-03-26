@@ -76,7 +76,28 @@ div#network-container {
     position: absolute;
     pointer-events: none;
     height: 100%;
-    display: flex;
+    width: 100%;
+
+    div#details-info {
+      height: 100%;
+      width: 70%;
+      float: right;
+      display: inline-block;
+      pointer-events: none;
+      border-left: 1px dashed rgba(100, 100, 100, .1);
+
+
+      #loader {
+        margin: 0 auto;
+        top: 50%;
+        position: absolute;
+        right: 41%;
+        .preloader-wrapper {
+          height: 64px;
+        }
+      }
+
+    }
   }
 }
 
@@ -98,7 +119,7 @@ div#network-container {
 .ember-cli-visks-network > .ember-view { display: none; }
 
 div#stabilization-info {
-  z-index: 999;
+
   width: 100%;
   height: 100%;
   overflow: hidden;

@@ -15,7 +15,6 @@ export default Route.extend({
 
   beforeModel() {
     let controller = this.controllerFor('network.show.details.show');
-    controller.set('currentlyLoading', true);
     return this.modelFor('network.show');
   },
 
@@ -72,7 +71,6 @@ export default Route.extend({
 
   afterModel() {
     let controller = this.controllerFor('network.show.details.show');
-    controller.set('currentlyLoading', false);
   },
 
   setupController(controller, model, transition) {

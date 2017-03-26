@@ -1,9 +1,4 @@
 div#details-info {
-  height: 100%;
-  width: 100%;
-  pointer-events: none;
-  border-left: 1px dashed rgba(100, 100, 100, .1);
-
   .contract-info-wrapper {
     position: relative;
     pointer-events: all;
@@ -15,19 +10,19 @@ div#details-info {
 
     .row1 {
       padding-top: 40px;
-      hr{
+      hr {
         margin-top: 20px;
         margin-bottom: 30px;
       }
     }
     .row2 {
       margin-bottom: 10px;
-      hr{
+      hr {
         margin-top: 40px;
       }
     }
     .row3 {
-      hr{
+      hr {
         margin-top: 10px;
       }
     }
