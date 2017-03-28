@@ -155,6 +155,7 @@ export default Controller.extend({
 
       if (nodesCount > 150) {
         network.setOptions({ physics: { enabled: false } });
+        this.set('networkOptions.physics.enabled', false);
         Logger.info(`Network bigger than 150 nodes (${nodesCount}).`);
         Logger.info(`Physics disabled on rendering.`);
       }
@@ -172,6 +173,7 @@ export default Controller.extend({
       let nodesCount = network.nodesSet.length;
       if (nodesCount > 100) {
         network.setOptions({ physics: { enabled: false } });
+        this.set('networkOptions.physics.enabled', false);
         Logger.info(`Network bigger than 100 nodes (${nodesCount}).`);
         Logger.info(`Physics disabled after stabilizing.`);
       }
