@@ -692,6 +692,7 @@ div.vis-network div.vis-navigation div.vis-button {
     font-size: $fs01;
     font-family: FontAwesome;
     position: absolute;
+    background: $main-bg;
 
   }
   &:hover:before {

@@ -23,7 +23,7 @@ export default Component.extend({
   class: '',
 
   // reset all variables regarding search if search input has no value
-  contentObserver: observer('search', () => {
+  contentObserver: observer('search', function() {
     if (!this.get('search')) {
       this.set('searchField', '');
       this.set('searchLabel', '');
@@ -31,7 +31,7 @@ export default Component.extend({
     }
   }),
   // sort - a property passed from data-table
-  sortTable: observer('sort', () => {
+  sortTable: observer('sort', function() {
     let order = _.startsWith(this.get('sort'), '-') ? 'asc' : 'desc';
     let field = _.trimStart(this.get('sort'), '-');
 
@@ -66,16 +66,22 @@ export default Component.extend({
       let searchWord = _.toLower(_.toString(this.get('search')));
       let self = this;
 
-      let content = _.filter(this.get('defaultContent'), (o) => {
+      let mkRegex = (str) => {
+        let ex = str.replace('*', '.*')
+          .replace('?', '.{0,1}');
+        return new RegExp(`^.*${ex}.*$`, 'gi');
+      };
+
+      let content = _.filter(self.get('defaultContent'), (o) => {
         let match = false;
         if (!searchField) {
           _.forEach(self.get('fields'), (value, fieldName) => {
             let fieldValue = _.toLower(_.toString(o[fieldName]));
-            match = match || fieldValue.indexOf(searchWord) >= 0;
+            match = match || fieldValue.match(mkRegex(searchWord));
           });
         } else {
           let fieldValue = _.toLower(_.toString(o[searchField]));
-          match = fieldValue.indexOf(searchWord) >= 0;
+          match = match || fieldValue.match(mkRegex(searchWord));
         }
         return match;
       });

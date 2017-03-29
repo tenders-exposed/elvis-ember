@@ -109,6 +109,7 @@ div#details-sidebar {
       @include search-input;
       width: 92% !important;
       opacity: 0.5;
+      &:focus { opacity: 0.8;}
     }
     #loader {
       margin-top: 60px;
