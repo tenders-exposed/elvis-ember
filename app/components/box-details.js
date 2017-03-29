@@ -19,9 +19,14 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     let type = this.get('graphElementType');
+    let graph = this.get('networkModel.graph');
 
-    let [modelDetails] = _.filter(this.get('graph')[`${type}s`], { 'id': this.get('graphElementId') });
+    let [modelDetails] = _.filter(graph[`${type}s`], { 'id': this.get('graphElementId') });
     this.set('model', modelDetails);
+
+    if (type === 'edge') {
+      this.set('model.valueType', this.get('networkModel.options').edges);
+    }
   },
   actions: {
     close() {

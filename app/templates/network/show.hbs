@@ -51,22 +51,23 @@
         {{box-details
             graphElementType='node'
             graphElementId=node
-            graph=model.graph
+            networkModel=model
             id="box-details-container"
             network=network
         }}
       {{/each}}
-    {{/if}}
-    {{#if network.selectedEdges.length}}
-      {{#each network.selectedEdges as |edge|}}
-        {{box-details
-            graphElementType='edge'
-            graphElementId=edge
-            graph=model.graph
-            id="box-details-container"
-            network=network
-        }}
-      {{/each}}
+    {{else}}
+      {{#if network.selectedEdges.length}}
+        {{#each network.selectedEdges as |edge|}}
+          {{box-details
+              graphElementType='edge'
+              graphElementId=edge
+              networkModel=model
+              id="box-details-container"
+              network=network
+          }}
+        {{/each}}
+      {{/if}}
     {{/if}}
     <div id="network-controls">
       <span {{action "modalNetworkLink" on="click"}}>
@@ -103,6 +104,7 @@
     stabilizationProgressAction=(action 'stabilizationProgress')
     storeAs=network
     selectedNodes=selectedNodes
+    selectedEdges=selectedEdges
   }}
   {{/visjs-network}}
 </div>
