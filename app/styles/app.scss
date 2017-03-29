@@ -31,6 +31,9 @@
 @import "partials/main-nav";
 
 /* Top level templates */
+@import "static";
+@import "welcome";
+
 @import "loading";
 @import "footer";
 @import "projects";
