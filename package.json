@@ -52,7 +52,6 @@
     "ember-cli-test-loader": "^1.1.0",
     "ember-cli-uglify": "^1.2.0",
     "ember-composability": "0.3.7",
-    "ember-computed-size": "0.0.5",
     "ember-data": "^2.11.0",
     "ember-data-table": "^0.3.0",
     "ember-disable-proxy-controllers": "^1.0.1",
