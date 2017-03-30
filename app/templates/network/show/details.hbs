@@ -8,13 +8,15 @@
     <div class="row">
       <div class="col s12">
         <h2 class={{if networkInput "hide" "show-block details"}}>
-          <span {{action "toggleInput" on="click"}}>
-            {{fa-icon 'cog' size=1}}
-          </span>
+          {{#if session.isAuthenticated}}
+            <span {{action "toggleInput" on="click"}}>
+              {{fa-icon 'cog' size=1}}
+            </span>
+          {{/if}}
           {{#if model.name}}
             {{model.name}}
           {{else}}
-            MyProjectName
+            unnamed network
           {{/if}}
         </h2>
         <div class={{if networkInput "show-block network-input row" "hide"}}>
