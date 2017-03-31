@@ -35,10 +35,10 @@ ElvisRouter.map(function() {
     });
   });
   this.route('welcome', { path: '' });
-  this.route('about');
-  this.route('examples');
-  this.route('features');
-  this.route('terms-conditions');
+  this.route('static', { path: 'about'});
+  this.route('static', { path: 'examples'});
+  this.route('static', { path: 'features'});
+  this.route('static', { path: 'terms-conditions'});
   this.route('contact');
 });
 
