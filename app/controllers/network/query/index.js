@@ -3,7 +3,6 @@ import Ember from 'ember';
 const {
   Controller,
   inject,
-  observer,
   computed,
   run,
   Object,
@@ -20,14 +19,6 @@ export default Controller.extend({
   optionsModalIsOpen: false,
 
   selectedCodes: A([]),
-
-  selectedCodesCount: computed('selectedCodes', function() {
-    let codes = this.get('selectedCodes');
-    let count = _.sumBy(codes, (o) => {
-      return o.original.doc_count;
-    });
-    return count;
-  }),
 
   query: new Object({
     'nodes': 'count',
@@ -53,7 +44,6 @@ export default Controller.extend({
   }),
 
   yearsStart: [],
-
   yearsRange: computed('years', function() {
     let years = this.get('years');
     let yearMin = _.minBy(years, 'id').id;
@@ -70,12 +60,6 @@ export default Controller.extend({
 
   network: {},
 
-  jsTreeRefresh: observer('selectedCodes', () => {
-    // @TODO: Is this still needed for anything?
-    // Logger.info('tree: ', this.get('jsTree'));
-    // this.get('jsTree').send('redraw');
-  }),
-
   jsTreeConfig: {
     core: {
       'worker': false,
@@ -88,7 +72,8 @@ export default Controller.extend({
     plugins: 'checkbox, search, contextmenu',
     searchOptions: { 'show_only_matches': true },
     checkbox: {
-      'cascade': 'up+down'
+      'three_state': false,
+      'cascade': ''
     }
   },
   searchTerm: '',
