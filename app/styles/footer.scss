@@ -12,3 +12,69 @@ $footer-line-height: 50px;
     &:hover { color: whitesmoke; }
   }
 }
+
+#footer-pages {
+  height: 330px;
+  clear: both;
+
+  .section-links-footer {
+    padding: 40px 0px 0px 0px !important;
+
+    .container {
+      border-top: 2px solid  $color-darker;
+      padding: 40px 0px;
+    }
+    i {
+      color: $color-text-dark !important;
+    }
+    a {
+      color: $color-text-dark !important;
+      border-color: $color-text-dark !important;
+      &:hover {
+        color: $color-text-main  !important;
+      }
+    }
+  }
+}
+#footer-welcome, #footer-pages{
+  .section-links-footer {
+    font-weight: normal;
+    padding: 90px 0px;
+    .row { margin-bottom: 0px; }
+    .logo-footer {
+      img { width: 80px;}
+    }
+
+    div.footer-links > div {
+      margin-bottom: 15px;
+    }
+    div.social-links {
+      font-size: $fs4;
+    }
+    a {
+      cursor: pointer;
+      font-weight: normal !important;
+      color: $color-text-main;
+      border-bottom: 1px solid $color-text-main;
+      margin-left: 10px;
+      &:hover {
+        color: #50787a;
+        border-bottom: none;
+      }
+    }
+  }
+  .section-sponsors {
+    padding: 50px 0px;
+    background: white;
+    height: 220px;
+    .row { margin-bottom: 0px; height: 100%; }
+    .col { height: 100%; }
+    .valign-wrapper {
+      height: 100%;
+      img {
+        width: 90%;
+        margin: 0 auto;
+      }
+    }
+  }
+}
