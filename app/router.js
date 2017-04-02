@@ -22,6 +22,7 @@ ElvisRouter.map(function() {
     });
     this.route('show', { path: ':id' });
   });
+
   this.route('projects');
   this.route('network', function() {
     this.route('query', function() {

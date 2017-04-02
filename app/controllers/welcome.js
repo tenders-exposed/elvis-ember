@@ -45,6 +45,6 @@ export default Controller.extend({
           return;
         }
       });
-    }
+    },
   }
 });

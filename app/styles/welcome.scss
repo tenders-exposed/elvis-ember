@@ -111,20 +111,25 @@
     border-top: 1px solid #1a1a1c;
     .container {
       color: #26f0fc;
+      .row { margin-bottom: 0px; }
       .text-newsletter {
+        padding-top: 15px;
         font-size: 2rem;
       }
       a {
+        display: inline-block;
         font-size: 1.5rem;
         font-weight: normal;
         color: #26f0fc;
         padding: 20px 50px;
         border: 1px solid #26f0fc;
+
+        &:hover {
+          color: white;
+          border-color: white;
+        }
       }
     }
   }
-  .section-sponsors {
-//    padding: 20px 0px;
 
-  }
 }

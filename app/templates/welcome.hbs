@@ -1,5 +1,4 @@
 {{#if session.isAuthenticated}}
-
     <div class="container hide">
         <div class="row">
             <div class="col s12">
@@ -8,75 +7,6 @@
             </div>
         </div>
     </div>
-
-{{else}}
-
-    <div class="container hide">
-        <div class="row">
-            <div id="login" class="col m6">
-                <div class="row">
-                    <div class="col m10 offset-m1">
-                        <form {{action 'authenticate' on='submit'}} autocomplete="off">
-                            <div class="row">
-
-                            </div>
-                            <div class="col s12">
-                                <h3>Log in to your account</h3>
-                                <p>el.vis is for registered users only.</p>
-                            </div>
-                            <div class="input-field col s12">
-                              {{input id='identification' value=identification type='email' autocomplete='off'}}
-                                <label for="inputEmail">Email address</label>
-                            </div>
-                            <div class="input-field col s12">
-                              {{input id='password' type='password' value=password autocomplete='off'}}
-                                <label for="password">Password</label>
-                            </div>
-                          {{#link-to "account.recover"}}Lost password{{/link-to}}
-                          {{!<p>
-                            <input type="checkbox" value="remember-me" id="rememberme">
-                            <label for="rememberme">Remember me</label>
-                          </p>}}
-                          {{!--{{input type="submit" value="Sign in" class="btn btn-lg btn-primary btn-block"}}--}}
-                          {{async-button action=(action "authenticate" fakeUser) default="Sign in" pending="Logging in..." class="btn btn-lg btn-primary btn-block"}}
-
-                          {{#if errorMessage}}
-                              <p>{{errorMessage}}</p>
-                          {{/if}}
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div id="register" class="col m6">
-                <div class="col m10 offset-m1">
-                    <form id="register" class="form-signin" {{action 'register' on='submit'}} autocomplete="off">
-                        <div class="row">
-                            <div class="col s12">
-                                <h3>Don't have an account?</h3>
-                                <p>Create one here. We will send the further instructions to your email. Your data are safe with us.</p>
-                            </div>
-                            <div class="input-field col s12">
-                                <label for="email" class="sr-only">Email address</label>
-                              {{input id="email" value=fakeUser.email}}
-                            </div>
-                            <div class="input-field col s12">
-                                <label for="registerPassword">Your password here</label>
-                              {{input id="registerPassword" type="password" value=fakeUser.password}}
-                            </div>
-                            <div class="input-field col s12">
-                                <label for="registerPasswordConfirmation">...again, please?</label>
-                              {{input id="registerPasswordConfirmation" type="password" value=fakeUser.password_confirmation}}
-                            </div>
-                            <div class="input-field col s12">
-                              {{async-button action=(action "register" fakeUser) default="Create an account" pending="Sending..." class="btn btn-lg btn-primary btn-block"}}
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
 {{/if}}
 {{outlet}}
 <div id="welcome-page">
@@ -218,14 +148,11 @@
       <div class="row">
         <div class="col s6 text-newsletter"> Sign-up for email updates</div>
         <div class="col s6 right-align">
-          <a href="#">Sign up for Newsletter</a>
+          <div>
+            <a href="#" >Sign up for Newsletter</a>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="full-width section-sponsors">
-    <div class="container">
-      sponsors
     </div>
   </div>
 </div>
