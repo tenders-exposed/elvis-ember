@@ -7,8 +7,19 @@ div.nav-wrapper>div.row {
 .navbar-fixed {
   height: 80px;
 }
+div.menu-container.fullMenu {
+  .nav-wrapper {
+    border-bottom: 2px solid $color-darker;
+  }
+  .container {
+    border-bottom: none !important;
+  }
+}
 
 div#main-navbar {
+  .main-nav {
+    top: -1px;
+  }
   .container {
     border-bottom: 2px solid $color-darker;
   }
