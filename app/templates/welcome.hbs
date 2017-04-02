@@ -1,14 +1,14 @@
+{{outlet}}
 {{#if session.isAuthenticated}}
     <div class="container hide">
         <div class="row">
             <div class="col s12">
               <h4>You're authenticated as {{me.data.email}}</h4>
-
             </div>
         </div>
     </div>
 {{/if}}
-{{outlet}}
+
 <div id="welcome-page">
   <div class="full-width section-begin center-align">
     <div class="container">

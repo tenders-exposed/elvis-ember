@@ -67,6 +67,15 @@ div#main-navbar {
     padding-top: 15px;
     color: $color-text-dark;
 
+    &.slash-after:after {
+      content: '/';
+      float: right;
+      margin-right: -30%;
+    }
+    &.slash-after:after:hover {
+      color: #000 !important;
+    }
+
     i {
       height: inherit;
       line-height: inherit;

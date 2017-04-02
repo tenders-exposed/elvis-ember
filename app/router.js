@@ -21,6 +21,7 @@ ElvisRouter.map(function() {
       this.route('delete', {});
     });
     this.route('show', { path: ':id' });
+    this.route('new');
   });
 
   this.route('projects');
@@ -35,7 +36,9 @@ ElvisRouter.map(function() {
       });
     });
   });
-  this.route('welcome', { path: '' });
+  this.route('welcome', { path: '' }, function(){
+    this.route('login');
+  });
   this.route('static', { path: 'about'});
   this.route('static', { path: 'examples'});
   this.route('static', { path: 'features'});
