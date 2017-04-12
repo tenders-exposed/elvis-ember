@@ -1,12 +1,42 @@
 import Ember from 'ember';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-const { Route } = Ember;
+const { Route, inject } = Ember;
 
 export default Route.extend(AuthenticatedRouteMixin, {
+  me: inject.service(),
+  ajax: inject.service(),
 
   model() {
-    return this.get('store').findAll('network');
+    let networks = this.get('store').findAll('network');
+    return networks;
+  },
+
+  setupController(controller, model) {
+    this._super(controller, model);
+
+    let self = this;
+    let token     = this.get('me.data.authentication_token');
+    let email     = this.get('me.data.email');
+    let networkId = '58b3291a2dcb561384000003';
+
+    let networkDemo = this.get('ajax').request(`/networks/${networkId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-User-Email': `${email}`,
+        'X-User-Token': `${token}`
+      }
+    }).then((data) => {
+      let network = data.network;
+      console.log('datademo',network);
+      let demo = {};
+
+      network.firstYear = _.first(network.query.years);
+      network.lastYear = _.last(network.query.years);
+      network.cpvsCount = network.query.cpvs.length;
+      controller.set('demoNetwork', network);
+      return data;
+    });
   },
   activate() {
     this.notifications.clearAll();

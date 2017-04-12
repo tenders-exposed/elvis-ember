@@ -36,16 +36,49 @@
                 </p>
               </div>
               <div class="card-reveal">
-                <span class="card-title ">
-                  IT Procurement Project
+                <span class="card-title  el-title">
+                  {{#if network.name}}
+                    {{network.name}}
+                  {{else}}
+                    My Project
+                  {{/if}}
                 </span>
-                <p class="grey-text">
-                  Here is some more information about this project that is only revealed once clicked on.
-                  <br>
-                  {{#link-to 'network.show' network.id}}
-                    Load project
-                  {{/link-to}}
+                <p class="el-title grey-text project-query">
+                  <span class="project-countries">
+                    {{#each demoNetwork.query.countries as |country|}}
+                      {{world-flag country 32}}
+                    {{/each}}
+                  </span>
+                  <span class="project-years">( {{demoNetwork.firstYear}} - {{demoNetwork.lastYear}} )</span>
                 </p>
+
+                <p class="grey-text project-description">
+                  Here is some more information about this project that is only revealed once clicked on.
+                </p>
+
+                <div class="relative project-cpvs">
+                  <div class="show-cpvs"> {{demoNetwork.cpvsCount}} CPVS selected...</div>
+                  <div class="absolute project-listCpvs hide">
+                    {{#each demoNetwork.query.cpvs as |cpv|}}
+                       <span class="cpv-selected"> {{cpv}}</span>
+                    {{/each}}
+                  </div>
+                </div>
+                <div class="row project-counting">
+                  <div>
+                    <div class="col s6">Edges <span class="fs0">({{demoNetwork.options.edges}})</span> </div>
+                    <div class="col s6 right-align bold">{{demoNetwork.count.edges_count}}</div>
+                  </div>
+                  <div>
+                    <div class="col s6">Nodes <span class="fs0">({{demoNetwork.options.nodes}})</span></div>
+                    <div class="col s6 right-align  bold">{{demoNetwork.count.nodes_count}}</div>
+                  </div>
+
+                </div>
+                <br>
+                {{#link-to 'network.show' network.id}}
+                  Load project
+                {{/link-to}}
               </div>
             </div>
           </div>

@@ -13,6 +13,8 @@ export default Route.extend({
 
   setupController(controller, model) {
     controller.set('model', model);
+    console.log('graph', model.get('graph'));
+    console.log('graph', model.get('query'));
   },
 
   actions: {

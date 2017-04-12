@@ -13,6 +13,66 @@ div#mygraphs {
       @include box;
       position: absolute !important;
       height: 99%;
+      overflow-y: visible !important;
+
+      .project-query {
+        margin-top: 0px;
+      }
+      .project-description {
+        margin-top: 0px;
+      }
+
+      .project-years {
+        margin-left: 5px;
+        line-height: 32px;
+        display: inline-block;
+        vertical-align: top;
+        color: $color-text-main;
+      }
+      .project-cpvs {
+        font-size: $fs1;
+        font-weight: bold;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        cursor: pointer;
+        .show-cpvs {
+          display: inline-block;
+          background: $color-icon;
+          border: 1px solid $color-small-text;
+          color: $color-text-main;
+          border-radius: 6px;
+          padding: 2px 5px;
+          opacity: 0.6;
+        }
+        &:hover{
+          .show-cpvs {
+            opacity: 1;
+          }
+          .project-listCpvs {
+            font-size: $fs0;
+            font-weight: bold;
+            display: block !important;
+            background: $bg-dark;
+            padding: 5px 3px;
+            padding-bottom: 15px;
+            top: 20px;
+            left: 0px;
+            width: 230px;
+
+            span {
+              padding: 3px 5px;
+              font-size: $fs1;
+              font-weight: normal;
+            }
+          }
+        }
+      }
+
+      .project-counting {
+         margin-top: 10px;
+         font-size: $fs1;
+         color: $color-text-dark;
+      }
     }
   }
 }
