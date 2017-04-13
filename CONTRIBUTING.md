@@ -1,4 +1,5 @@
-/!\ This document is still a work in progress /!\
+CONTRIBUTING TO ELVIS FRONTEND
+---
 
 # Git workflow
 
@@ -30,10 +31,10 @@ Other reccommended tools would be:
 * [nvm](https://gtihub.com/creationix/nvm) - a Node Version Manager
 * A code editor capable of ES6 highlighting and linting
 
-## Running 
+## Running
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+* `ember serve` (or just `ember s`)
+* Visit your app at [localhost:4200](http://localhost:4200).
 
 ## Development
 
@@ -42,6 +43,20 @@ The `app` directory contains all the frontend logic, following the Ember convent
 The web app should restart automatically **if** the Ember server is started at
 the moment of saving any of the project files. If it doesn't, make sure your
 browser is up to date and behaves properly.
+
+### Editing a template
+
+In order to edit the template of any page, you will have to (all steps listed, assuming your node version is already set up – if it isn't, see the section about `nvm` above):
+
+* `git clone https://github.com/tenders-exposed/elvis-ember && cd elvis-ember`
+* `npm install`
+* `git checkout -b feature/your-new-branch-name`
+* `ember s`
+* edit whatever you want
+* when you are ready to share your work, `git add .`
+* `git commit -m "One short phrase about what you did"`
+* `git push -u origin feature/your-new-branch-name`
+* then on GitHub, open a new Pull Request, comparing `develop` branch with your own
 
 ## Communication
 
