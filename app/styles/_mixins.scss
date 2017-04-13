@@ -1,0 +1,56 @@
+@mixin bg-dark{
+  opacity: 0.9;
+  background: $bg-dark;
+}
+
+/*elements*/
+@mixin box{
+  border-radius: 5px;
+  border: 1px solid $color-box-border;
+  padding: 10px;
+  position: relative;
+  color: $color-text-main;
+  background: $bg-dark;
+
+  .close{
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    cursor: pointer !important;
+    width: 18px;
+    opacity: 0.2;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+@mixin search-input{
+  background-color: #151517 !important;
+  height: 2rem !important;
+  width: 100% !important;
+  border-bottom: 1px solid #313030 !important;
+  padding: 0px 16px !important;
+  color: #615f5f !important;
+}
+
+/*fonts and text*/
+@mixin default-font{
+  font-family: "Roboto";
+  font-weight: normal;
+}
+@mixin title{
+  font-family: serif;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+@mixin label{
+  font-family: "Roboto";
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+
+@mixin compound-style-text{
+
+
+}
