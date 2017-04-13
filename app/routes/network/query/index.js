@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Route, inject } = Ember;
+const { Route, inject, Logger } = Ember;
 
 export default Route.extend({
   ajax: inject.service(),
@@ -18,7 +18,7 @@ export default Route.extend({
         controller.set(item, data.search.results);
       });
     } else {
-      console.error(`Unknown set '${item}'`);
+      Logger.error(`Unknown set '${item}'`);
     }
   },
 

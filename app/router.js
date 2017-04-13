@@ -21,6 +21,7 @@ ElvisRouter.map(function() {
       this.route('delete', {});
     });
     this.route('show', { path: ':id' });
+    this.route('new');
   });
 
   this.route('projects');

@@ -46,6 +46,13 @@
                       Account<i class="material-icons right">arrow_drop_down</i>
                     </a>
                   </li>
+                  {{else}}
+                    {{#link-to 'welcome.login' tagName='li'}}
+                      {{#link-to 'welcome.login' class="slash-after"}} Sign in {{/link-to}}
+                    {{/link-to}}
+                    {{#link-to 'account.new' tagName='li'}}
+                      {{#link-to 'account.new'}} Sign up {{/link-to}}
+                    {{/link-to}}
                   {{/if}}
                 </ul>
                 <ul class="side-nav" id="mobile-demo">

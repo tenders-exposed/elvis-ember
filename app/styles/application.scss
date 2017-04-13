@@ -67,6 +67,17 @@ $fs0 : 0.6rem;
   background-color: $main-bg;
 }
 
+#login-modal {
+  width: 100% !important;
+  left: auto !important;
+  right: 0 !important;
+  position: absolute;
+  .login {
+    background-color: darken($main-bg, 10);
+    padding: 30px;
+  }
+}
+
 #network-info {
   margin-bottom: 10px;
   p {
