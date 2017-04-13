@@ -3,7 +3,7 @@ import Ember from 'ember';
 const { Route } = Ember;
 
 export default Route.extend({
-  model(params, transition) {
+  model(params) {
     let model = params;
     return model;
   },
