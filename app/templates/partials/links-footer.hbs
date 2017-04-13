@@ -7,16 +7,15 @@
         <span class="dark-text">public spendig visualisation tool</span>
       </div>
       <div class="col s2 footer-links">
-        <div> <a href="/about">About</a> </div>
-        <div> {{link-to 'About' 'static'}} </div>
-        <div> <a href="#">Gallery</a> </div>
+        <div> {{link-to 'About' 'static' 'about'}} </div>
+        <div> {{#link-to 'static' 'gallery'}} Gallery {{/link-to}} </div>
         <div> <a href="https://talk.tenders.exposed">Community</a> </div>
         <div> <a href="http://v3.sk/~naberacka/social_network_analysis_public_procurement_data_journalism.pdf">Methodology</a> </div>
       </div>
       <div class="col s3 footer-links">
-        <div> <a href="#">Terms and Conditions</a> </div>
+        <div> {{link-to 'Terms and Conditions' 'static' 'terms-conditions'}} </div>
         <div> <a href="https://github.com/tenders-exposed/elvis-ember/blob/develop/LICENSE">Data License</a> </div>
-        <div> <a href="#">Contact</a> </div>
+        <div> {{link-to 'Contact' 'static' 'contact'}} </div>
       </div>
       <div class="col s3 footer-links social-links right-align">
         <div class="left-align float-right">
