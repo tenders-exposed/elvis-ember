@@ -1,0 +1,172 @@
+div#details-sidebar .tab-panel {
+
+  .data-table-header {
+    padding: 10px 5px;
+
+    a {
+      @extend .waves-effect;
+      @extend .waves-light;
+      @extend .btn-flat;
+      padding: 0 1rem;
+    }
+
+    .item-count {
+      padding-left: 10px;
+      padding-right: 15px;
+    }
+  }
+
+  table.data-table {
+    position: relative;
+    font-size: 80%;
+    color: whitesmoke;
+    table-layout: fixed;
+
+    .ps-container {
+      position: relative;
+      margin: 0px auto;
+      padding: 0px;
+      width: 103%;
+      height: 400px;
+      overflow: hidden;
+      padding-right: 10px !important;
+
+
+      .ps-scrollbar-y-rail {
+        background-color: #1A1A1C !important;
+        opacity: 0.2;
+        margin-left: 10px !important;
+        width: 1px !important;
+
+        .ps-scrollbar-y {
+          width: 1px !important;
+          right: 0px !important;
+          background-color: whitesmoke;
+        }
+      }
+    }
+
+
+    thead, tbody, tr {
+      position: relative;
+      display: block !important;
+    }
+    td, th {
+      display: inline-block;
+      cursor: pointer;
+      position: relative;
+    }
+
+    thead {
+      color: $color-text-main;
+      th { vertical-align: bottom; }
+      .sorted {
+        color: $color-text-main;
+      }
+      .sortable {
+        i {
+          position: relative;
+          top: 2px;
+        }
+
+        &:not(.sorted):hover {
+          i::before {
+            color: $color-text-main;
+            content: 'arrow_downward';
+          }
+        }
+      }
+    }
+    tbody {
+      max-height: 400px !important;
+    }
+    tr {
+      .toggle-controls {
+        color: $color-text-dark;
+        font-size: $fs3;
+        top: 1px;
+        right: -17px;
+        display: none;
+        padding-top: 3px !important;
+        width: 55px;
+        text-align: right;
+        padding-right: 8px !important;
+      }
+       &:hover .toggle-controls {
+        display: block;
+        &:hover i {
+          cursor: pointer;
+          color: $color-text-main;
+        }
+      }
+
+      .flags {
+        margin-top: 5px !important;
+        font-size: 0.9em;
+        line-height: 0.9em;
+        i { height: 0%; }
+      }
+      td {
+        vertical-align: top !important;
+        padding: 5px !important;
+
+        a {
+          color: whitesmoke;
+          &:hover { color: deepskyblue; }
+        }
+      }
+    }
+
+    /*??? not sure what are for*/
+    input[type="checkbox"] + label {
+      padding-left: 5px;
+      height: 15px;
+    }
+
+    input[type="checkbox"] + label:before {
+      height: 14px;
+      width: 14px;
+    }
+
+    input[type="checkbox"]:checked + label:before {
+      height: 18px;
+      width: 10px;
+    }
+  }
+
+
+  .suppliers {
+    th { padding: 10px 0px !important; }
+    th.id    { width: 15% !important; }
+    th.label { width: 65% !important; }
+    th.flags { width: 2% !important; }
+    th.value { width: 15% !important; }
+
+    td.id {width: 15% !important; text-align: center;}
+    td.label {width: 67% !important;}
+    td.flags {width: 5% !important; text-align: right;}
+    td.value {width: 8% !important; text-align: right;}
+  }
+
+  .relationships{
+    th {padding: 10px 0px !important;}
+
+    th.fromLabel {width: 40% !important;}
+    th.toLabel {width: 43% !important;}
+    th.flags {width: 3% !important;}
+    th.value {width: 11% !important;}
+
+    td.fromLabel {width: 43% !important;}
+    td.toLabel {width: 44% !important;}
+    td.value {width: 3% !important; text-align: right;}
+    td.flags {width: 3% !important; text-align: right;}
+  }
+  // for other controls
+  .controls{
+    /*right: -113px;
+    height: 50px;
+    width: 100px;
+    border: 1px solid grey;
+    border-radius: 5px;*/
+  }
+}

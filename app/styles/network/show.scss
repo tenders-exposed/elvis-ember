@@ -1,0 +1,141 @@
+//@todo: not sure from where it comes
+.drag-target {
+  width: 1px !important;
+}
+
+div#network-container {
+  position: relative;
+  height: 100% !important;
+  width: 100%;
+  display: block;
+  flex-direction: row;
+  top: 0;
+
+  #network-controls {
+    position: absolute;
+    right: 10px;
+    top: 100px;
+    z-index: 9;
+    .cogs {
+      position: absolute;
+      top: 30px;
+    }
+    i {
+      cursor: pointer;
+      border: 2px solid $color-icon;
+      color: $color-icon;
+      background: $main-bg;
+      padding: 4px 3px 2px 3px;
+      border-radius: 14px;
+      font-size: $fs01;
+      &:hover {
+        border-color: $color-icon-hover;
+        color: $color-icon-hover;
+      }
+    }
+  }
+  #modalNetworkLink {
+    position: absolute;
+    top: 40%;
+    right: 16%;
+    width: 40%;
+    z-index: 9;
+    .modal-container {
+      @include box;
+      width: 100%;
+      .modal-content {
+        input {
+          @include search-input;
+          width: 90% !important;
+          margin-left: 9px;
+          text-align: center;
+        }
+      }
+    }
+  }
+  h5 { margin-top: 0; }
+
+  div.network-canvas { height: 100%; }
+
+  div#visjs-network {
+    position: fixed;
+    width: 100%;
+  }
+  #visjs {
+    width: 100%;
+    height: 100%;
+  }
+
+  .ember-view { height: 100%; }
+
+  div#details-container > * {
+    margin: 0; padding: 0;
+  }
+
+  div#details-container {
+    z-index: 100;
+    position: absolute;
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
+
+    div#details-info {
+      height: 100%;
+      width: 70%;
+      float: right;
+      display: inline-block;
+      pointer-events: none;
+      border-left: 1px dashed rgba(100, 100, 100, .1);
+
+
+      #loader {
+        margin: 0 auto;
+        top: 50%;
+        position: absolute;
+        right: 41%;
+        .preloader-wrapper {
+          height: 64px;
+        }
+      }
+
+    }
+  }
+}
+
+/* ember-cli-materialize hacks */
+.ember-modal-overlay {
+  opacity: 1 !important;
+}
+
+.modal {
+  top: 80px !important;
+  &, & .modal-footer {
+    box-shadow: none;
+    color: #eee;
+    background-color: #1A1A1C;
+    width: 100%;
+  }
+}
+
+.ember-cli-visks-network > .ember-view { display: none; }
+
+div#stabilization-info {
+
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  color: black;
+  text-shadow: 0 0 20px rgba(99, 172, 255, 1);
+  div.align-center {
+    b {
+      padding-top: 25%;
+      width: 100%;
+      text-align: center;
+      position: fixed;
+      font-family: Roboto;
+      font-size: 2rem;
+    }
+  }
+}

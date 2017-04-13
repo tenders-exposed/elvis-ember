@@ -1,0 +1,25 @@
+div#box-details-container {
+  z-index: 999;
+  position: absolute;
+  top: 35px;
+  right: 40px;
+  width: 225px;
+  height: 50px;
+  display: block;
+
+  div#box-details-card {
+    @include bg-dark;
+    @include box;
+    width: 100%;
+    float: right;
+    top: 0;
+
+    span.color-pink { color: $color-procurer; }
+    span.color-blue { color: $color-supplier; }
+    div.col { padding: 0px; }
+  }
+  .edge {
+    .flags { margin-top: 5px;}
+    .row { margin-bottom: 10px;}
+  }
+}

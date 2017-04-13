@@ -16,10 +16,15 @@
                 <img class="activator" src="/network_demo.jpg">
               </div>
               <div class="card-content">
-                <span class="card-title activator ">
-                  IT Procurement Project
-                  <small class="grey-text">{{network.id}}</small>
-                </span>
+                <h3 class="card-title activator ">
+                  {{#if network.name}}
+                    {{network.name}}
+                  {{else}}
+                    My Project
+                  {{/if}}
+                </h3>
+                <small>{{network.id}}</small>
+
                 <p class="row">
                   <small class="left">14 days ago</small>
                   <small class="right">
@@ -58,7 +63,7 @@
                 <span class="card-title">
                  New visualisation
                   <br>
-                  <small class="grey-text">start right now</small>
+                  <small>start right now</small>
                 </span>
               </div>
             </div>

@@ -1,0 +1,16 @@
+<td class="award">
+  {{#link-to "network.show.details.contract" route nodeId row.id}}
+    {{fa-icon 'file-text' size=1}}
+    {{row.award.title}}
+  {{/link-to}}
+</td>
+<td class="parties">
+  {{#each row.suppliers as |supplier|}}
+    <span class="circle supplier"> {{fa-icon 'circle' size=1}} </span>
+    {{supplier.name}}
+    <br>
+  {{/each}}
+  <br>
+</td>
+<td class="value">{{format-amount row.award.value.x_amount_eur '0,0.00'}} €</td>
+<td class="bids">{{row.number_of_tenderers}}</td>

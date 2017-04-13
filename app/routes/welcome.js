@@ -1,4 +1,12 @@
 import Ember from 'ember';
 
-export default Ember.Route.extend({
+const { Route } = Ember;
+
+export default Route.extend({
+  actions: {
+    didTransition() {
+      this.controllerFor('application').set('dropMenu', 'fullMenu');
+      this.controllerFor('application').set('footer', 'partials/welcome-footer');
+    }
+  }
 });

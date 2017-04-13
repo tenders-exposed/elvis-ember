@@ -1,91 +1,42 @@
+/* 3rd party styles */
 @import 'materialize';
 @import 'ember-cli-materialize';
 
 @import "ember-modal-dialog/ember-modal-structure";
 @import "ember-modal-dialog/ember-modal-appearance";
 
+/* Settings and general tweaks */
 @import "variables";
+@import "elvis-materialize";
+@import "helpers";
 @import "components";
-@import "forms";
-@import "sidebar";
-@import "navbar";
-@import "network";
-@import "cpv";
-@import "query";
+@import "application";
+
+/* Components */
+@import "components/cpv-selector";
+@import "components/cpv-chip";
+@import "components/range-slider";
+@import "components/elvis-data-table";
+@import "components/details-data-table";
+@import "components/box-details";
+
+/* Network */
+@import "network/query";
+@import "network/show";
+@import "network/vis";
+@import "network/show/details";
+@import "network/show/details/show";
+@import "network/show/details/contract";
+
+/* Partials */
+@import "partials/main-nav";
+
+/* Top level templates */
+@import "static";
+@import "welcome";
+
 @import "loading";
-@import "cpv-chip";
+@import "footer";
 @import "projects";
-// @import "ag-grid";
-@import "spinner";
+@import "account";
 
-/* Helper styles */
-.h50 { display: block; height: 50px; }
-.radius { border-radius: 5px; }
-.noflow { overflow: hidden; }
-.outer-wrapper { position: relative; left: 50%; float: left; }
-.inner-wrapper { position: relative; left: -50%; float: left; }
-.overlay {position: absolute;}
-.full-screen {}
-.full-height {height: 100%;}
-.blur {
-  -webkit-filter: blur(5px);
-  -ms-filter: blur(5px);
-  filter: blur(5px);
-}
-
-html, body, .container,
-body > .ember-view
-{
-  height: 100%;
-  color: #eee;
-}
-
-h1 {
-  font-size: 2.3em;
-  font-family: serif;
-  font-weight: 600;
-}
-
-/* Notifications */
-.c-notifications__container {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 9999;
-}
-
-/* Theme colors */
-.mainbg {
-  background-color: $main-bg;
-}
-
-.search-input {
-  background-color: #151517 !important;
-  height: 2rem !important;
-  width: 95% !important;
-  border: 1px solid #313030 !important;
-  padding: 0px 16px !important;
-  color: #615f5f !important;
-}
-.absolute {
-  position: absolute;
-}
-.relative {
-  position: relative;
-}
-
-.footer-container .container {
-  border-top: 1px solid #252527;
-  background: #161618;
-
-  .col {
-    line-height: 50px;
-  }
-  a {
-    font-size: 0.9rem;
-    cursor: pointer;
-    color: #555;
-    &:hover { color: whitesmoke;}
-  }
-
-}

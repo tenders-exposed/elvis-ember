@@ -1,0 +1,73 @@
+<div class="container container-entity relative">
+  <div class="row">
+    <div class="col s12 title fs1">
+      <div class="el-label-dark fs2 procurer">
+        {{fa-icon 'circle' size=1}} procurer
+      </div>
+      <div class="el-title fs5">
+        {{model.name}}
+        <span class="fs3 dark-text">( {{model.firstYear}} - {{model.lastYear}} )</span>
+      </div>
+      <hr>
+    </div>
+  </div>
+
+
+  <div class="row second-row">
+    <div class="col s3">
+      {{#each-in model.flags as |flName flValue|}}
+        <div class="flag">
+          {{fa-icon 'flag' size=1}} {{flName}} {{fa-icon 'question-circle' size=1}}
+        </div>
+      {{/each-in}}
+    </div>
+    <div class="col s3">
+      <div class="el-label-dark fs1">total income</div>
+      <div class="el-title fs5">{{format-amount model.total_earnings}}</div>
+    </div>
+    <div class="col s3">
+      <div class="el-label-dark fs1">avg competition</div>
+      <div class="el-title fs5">1.7</div>
+    </div>
+    <div class="col s2 right-align">
+      <div class="el-label-dark fs1">data missing</div>
+      <div class="el-title fs5">{{model.missing_values}}%</div>
+    </div>
+  </div>
+
+  <div class="row">
+    {{#tabbed-content active=activeTabProcurer on-change="changeTabProcurer" active-class="tab-button--active" as |procurerTabManager|}}
+      <div class="tabs__nav">
+        {{#tab-button class="tab-button"  manager=procurerTabManager name="contracts"}}
+          <a>contracts</a>
+        {{/tab-button}}
+        {{#tab-button class="tab-button"  manager=procurerTabManager name="suppliers"}}
+          <a>suppliers</a>
+        {{/tab-button}}
+      </div>
+
+      {{#tab-panel manager=procurerTabManager name="contracts" class='tab-panel'}}
+        {{details-data-table
+            class="contracts"
+            content=model.contracts
+            fields=fields.contracts
+            partialPath="network/show/details/partials/tables/contracts"
+            route="procurers"
+            nodeId=params.id
+        }}
+      {{/tab-panel}}
+      {{#tab-panel manager=procurerTabManager name="suppliers" class='tab-panel'}}
+        {{details-data-table
+            class="suppliers"
+            content=model.nodes
+            fields=fields.suppliers
+            partialPath="network/show/details/partials/tables/suppliers-procurers"
+            route="procurers"
+            nodeId=params.id
+        }}
+      {{/tab-panel}}
+    {{/tabbed-content}}
+  </div>
+
+
+</div>

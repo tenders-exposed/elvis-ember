@@ -1,0 +1,18 @@
+div#mygraphs {
+  .card-container {
+    padding: 0 2.5rem !important;
+  }
+  .card-title {
+      line-height: 1.3em;
+  }
+  .card {
+    background: none;
+    color: $color-text-main;
+    box-shadow: none;
+    .card-reveal {
+      @include box;
+      position: absolute !important;
+      height: 99%;
+    }
+  }
+}

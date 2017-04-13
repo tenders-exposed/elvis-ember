@@ -1,0 +1,42 @@
+div#details-info {
+  .details-info-wrapper {
+    pointer-events: all;
+    width: 100%;
+    height: 100%;
+    right: 0px;
+    height: 100%;
+    @include bg-dark;
+
+    .close {
+      cursor: pointer;
+      opacity: 0.5;
+      right: 30px;
+      top: 30px;
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .container-entity {
+      width: 80%;
+
+      .second-row {
+        .s2 { width: 19%; }
+        .s3 { width: 27%; }
+        .col:first-child {
+          padding-left: 0px;
+        }
+        .col:last-child {
+          padding-right: 0px;
+        }
+      }
+      .title {
+        margin-top: 40px;
+        padding: 0px;
+        .supplier i { color: $color-supplier; }
+        .procurer i { color: $color-procurer; }
+      }
+      .flag { color: $color-flags; }
+    }
+  }
+}

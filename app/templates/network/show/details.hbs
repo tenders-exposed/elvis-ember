@@ -1,85 +1,110 @@
+{{outlet "details"}}
+
 {{#network-container id='details-container'}}
+  <div id="details-info">
+    {{outlet}}
+  </div>
   <div id="details-sidebar"  style="height: {{height}}px;">
     <div class="row">
       <div class="col s12">
-        <h5 class="details">{{fa-icon 'bars' size=1}} MyProjectName {{fa-icon 'cog' size=1}}</h5>
+        <h2 class={{if networkInput "hide" "show-block details"}}>
+          {{#if session.isAuthenticated}}
+            <span {{action "toggleInput" on="click"}}>
+              {{fa-icon 'cog' size=1}}
+            </span>
+          {{/if}}
+          {{#if model.name}}
+            {{model.name}}
+          {{else}}
+            unnamed network
+          {{/if}}
+        </h2>
+        <div class={{if networkInput "show-block network-input row" "hide"}}>
+          <span class="col s10">
+            {{input type="text" value=model.name placeholder="My Project Name"}}
+          </span>
+          <div class="controls col s2 right-align">
+            <span {{action "saveNetworkName"}}>{{fa-icon 'check' class="control-icon-light" size=1}}</span>
+            <span {{action "toggleInput"}}>{{fa-icon 'close' class="control-icon-light" size=1 }} </span>
+          </div>
+        </div>
       </div>
       <div class="col s12 relative">
         <a {{action 'closeDetails' model.id}} class="right closeDetails absolute" style="cursor: pointer;">
-          <i class="material-icons">{{fa-icon 'arrow-circle-left' size=1}}</i>
+          <i class="control-icon material-icons">{{fa-icon 'arrow-circle-left' size=1}}</i>
         </a>
-        {{#tabbed-content active=active on-change="changeTab" active-class="tab-button--active" as |manager|}}
+        {{#tabbed-content active=activeTab on-change="changeTab" active-class="tab-button--active" as |sidebarTabManager|}}
           <div class="tabs__nav">
-            {{#tab-button class="tab-button"  manager=manager name="suppliers"}}
-              {{#link-to 'network.show.details.detail' 'suppliers'}}
+            {{#tab-button class="tab-button"  manager=sidebarTabManager name="suppliers"}}
+              <a>
                 <span class="absolute circle supplier"> {{fa-icon 'circle' size=1}} </span>
                 Suppliers
-              {{/link-to}}
+              </a>
             {{/tab-button}}
-            {{#tab-button class="tab-button"  manager=manager  name="procurers"}}
-              {{#link-to 'network.show.details.detail' 'procurers'}}
+            {{#tab-button class="tab-button"  manager=sidebarTabManager  name="procurers"}}
+              <a>
                 <span class="absolute circle procurer"> {{fa-icon 'circle' size=1}} </span>
                 Procurers
-              {{/link-to}}
+              </a>
             {{/tab-button}}
-            {{#tab-button class="tab-button"  manager=manager name="relationships" active-class="tabs-button--active2"}}
-              {{#link-to 'network.show.details.detail' 'relationships'}}
+            {{#tab-button class="tab-button"  manager=sidebarTabManager name="relationships" active-class="tabs-button--active2"}}
+              <a>
                 <span class="absolute circle relationship-line"> <hr/> </span>
                 <span class="absolute circle relationship rel1"> {{fa-icon 'circle' size=1}} </span>
                 <span class="absolute circle relationship rel2"> {{fa-icon 'circle' size=1}} </span>
                 Relationships
-              {{/link-to}}
+              </a>
             {{/tab-button}}
           </div>
-          {{#tab-panel manager=manager name="suppliers" class='tab-panel'}}
-          {{!--Tab suppliers--}}
-            {{#if model.graph.nodes}}
-              {{!--
-              {{ ag-grid gridOptions=gridOptions.suppliers width="100%" theme="ag-material" network=network }}
-              --}}
+          {{#tab-panel manager=sidebarTabManager name="suppliers" class='tab-panel'}}
+
+            {{#render-later load=gridOptions.suppliers.rowData wait=5 message="Loading data grid..."}}
               {{elvis-data-table
                   class="suppliers"
                   action="nodeRowClick"
                   tableContent=gridOptions.suppliers.rowData
                   fields=fields.suppliers
+                  flags=flags.suppliers
                   network=network
+                  networkId=model.id
+                  route="suppliers"
               }}
-            {{else}}
-              {{fa-icon 'plus' spin=true}} Loading data grid...
-            {{/if}}
+            {{/render-later}}
           {{/tab-panel}}
 
-          {{#tab-panel manager=manager name="procurers" class='tab-panel'}}
-            {{#if model.graph.nodes}}
+          {{#tab-panel manager=sidebarTabManager name="procurers" class='tab-panel'}}
+            {{#render-later load=gridOptions.procurers.rowData wait=50 message="Loading data grid..."}}
               {{elvis-data-table
                   class="suppliers"
                   action="nodeRowClick"
                   tableContent=gridOptions.procurers.rowData
                   fields=fields.suppliers
+                  flags=flags.suppliers
                   network=network
+                  networkId=model.id
+                  route="procurers"
               }}
-            {{else}}
-              {{fa-icon 'plus' spin=true}} Loading data grid...
-            {{/if}}
+            {{/render-later}}
           {{/tab-panel}}
 
-          {{#tab-panel manager=manager name="relationships" class='tab-panel'}}
-            {{#if model.graph.nodes}}
+          {{#tab-panel manager=sidebarTabManager name="relationships" class='tab-panel'}}
+            {{#render-later load=gridOptions.relationships.rowData wait=50 message="Loading data grid..."}}
               {{elvis-data-table
                   class="relationships"
                   action="edgeRowClick"
                   tableContent=gridOptions.relationships.rowData
                   fields=fields.relationships
+                  flags=flags.relationships
                   network=network
+                  networkId=model.id
+                  route="relationships"
               }}
-            {{else}}
-              {{fa-icon 'plus' spin=true}} Loading data grid...
-            {{/if}}
+            {{/render-later}}
           {{/tab-panel}}
-        {{/tabbed-content}}
 
+        {{/tabbed-content}}
       </div>
     </div>
   </div>
-  <div id="details-info">{{outlet}}</div>
+
 {{/network-container}}

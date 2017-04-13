@@ -1,8 +1,10 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
+const { Controller, A } = Ember;
+
+export default Controller.extend({
   loaderText: '',
-  loaderWords: Ember.A(),
+  loaderWords: A(),
 
   init() {
     this.get('loaderWords').pushObject('loading');

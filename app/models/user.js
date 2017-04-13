@@ -1,18 +1,21 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 
-const User = DS.Model.extend({
-  email: DS.attr('string'),
-  name: DS.attr('string'),
-  country: DS.attr('string'),
-  authentication_token: DS.attr('string'),
+const { computed } = Ember;
+const { Model, attr, hasMany } = DS;
 
-  password: DS.attr('string'),
-  password_confirmation: DS.attr('string'),
+const User = Model.extend({
+  email: attr('string'),
+  name: attr('string'),
+  country: attr('string'),
+  authentication_token: attr('string'),
 
-  networks: DS.hasMany('network'),
+  password: attr('string'),
+  password_confirmation: attr('string'),
 
-  token: Ember.computed('authentication_token', function() {
+  networks: hasMany('network'),
+
+  token: computed('authentication_token', function() {
     return this.get('authentication_token');
   })
 

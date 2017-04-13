@@ -1,12 +1,14 @@
 import Ember from 'ember';
 import config from './config/environment';
 
-const Router = Ember.Router.extend({
+const { Router } = Ember;
+
+const ElvisRouter = Router.extend({
   location: config.locationType,
   rootURL: config.rootURL
 });
 
-Router.map(function() {
+ElvisRouter.map(function() {
   this.route('account', {}, function() {
     this.route('confirm');
     this.route('recover', function() {
@@ -19,41 +21,25 @@ Router.map(function() {
       this.route('delete', {});
     });
     this.route('show', { path: ':id' });
+    this.route('new');
   });
+
   this.route('projects');
   this.route('network', function() {
     this.route('query', function() {
       this.route('config', {});
     });
     this.route('show', { path: ':network_id' }, function() {
-     this.route('details', function () {
-       this.route('detail', {path: ':type'});
-     });
-     //this.route('details', {path: 'details/:type'}, function(){});
-     /* this.route('details', function() {
-        this.route('suppliers', function() {
-          this.route('show', { path: ':supplier_id' }, function() {
-            this.route('contracts', function() {
-              this.route('show', { path: ':contract_id' });
-            });
-            this.route('procurers', {});
-            this.route('stats', {});
-          });
-        });
-        this.route('procurers', function() {
-          this.route('show', { path: ':procurer_id' }, function() {
-            this.route('contracts', function() {
-              this.route('show', { path: ':id' });
-            });
-            this.route('procurers', {});
-            this.route('stats', {});
-          });
-        });
-        this.route('relationships', {});
-      });*/
+      this.route('details', { path: ':tab' }, function() {
+        this.route('contract', { path: '/:node_id/:contract_id' });
+        this.route('show', { path: ':id' });
+      });
     });
   });
-  this.route('welcome', { path: '' });
+  this.route('welcome', { path: '/' }, function() {
+    this.route('login');
+  });
+  this.route('static', { path: ':target' });
 });
 
-export default Router;
+export default ElvisRouter;

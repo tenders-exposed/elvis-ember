@@ -1,8 +1,11 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
+const { Controller, $, Logger } = Ember;
+
+export default Controller.extend({
   height: window.innerHeight - 100,
   selectedNodes: [],
+  selectedEdges: [],
   networkOptions: {
     'nodes': {
       'shape': 'dot',
@@ -72,9 +75,12 @@ export default Ember.Controller.extend({
       }
     },
     'interaction': {
-      'hover': false
+      'hover': false,
+      'navigationButtons': true,
+      'keyboard': true
     }
   },
+  networkLinkModal: false,
 
   init() {
     this._super();
@@ -82,27 +88,98 @@ export default Ember.Controller.extend({
   },
 
   didInsertElement() {
-    Ember.$('div#stabilization-info').height(window.innnerHeight - 200);
+    $('div#stabilization-info').height(window.innnerHeight - 200);
+  },
+
+  showNetworkInfo() {
+    let start = this.get('startStabilizing');
+    let end = performance.now();
+    let timeS = _.ceil((end - start), 2);
+    let iterations = this.get('stIterations');
+    let nodes = this.get('model.graph.nodes').length;
+    let edges = this.get('model.graph.edges').length;
+
+    let message =
+      `
+          <div id="network-info">
+            <p>Network info</p>
+            <div class="info">
+              <div class="info-name">Stabilization</div>
+              <div class="info-val">${timeS} ms</div>
+            </div>
+            <div class="info">
+              <div class="info-name">Iterations</div>
+              <div class="info-val">${iterations}</div>
+            </div>
+            <div class="info">
+              <div class="info-name">Nodes</div>
+              <div class="info-val">${nodes}</div>
+            </div>
+            <div class="info">
+              <div class="info-name">Edges</div>
+              <div class="info-val">${edges}</div>
+            </div>
+          </div>
+        `;
+    this.notifications.success(message, {
+      autoClear: false,
+      htmlContent: true
+    });
+
   },
 
   actions: {
+    stopPhysics() {
+      let physics = this.get('networkOptions.physics.enabled') ? false : true;
+      this.set('networkOptions.physics.enabled', physics);
+      this.get('network').setOptions({ 'physics': { 'enabled': physics } });
+    },
+    modalNetworkLink() {
+      if (this.get('networkLinkModal')) {
+        this.set('networkLinkModal', false);
+      } else {
+        this.set('networkLinkModal', true);
+        let networkId = this.get('model.id');
+        this.set('networkLink', `${document.location.origin}/network/${networkId}`);
+      }
+    },
     startStabilizing() {
-      console.log('start stabilizing');
+      this.set('startStabilizing', performance.now());
+      Logger.info('start stabilizing');
     },
     stabilizationIterationsDone() {
-      console.log('stabilization iterations done');
+      let network = this.get('network');
+      let nodesCount = network.nodesSet.length;
+
+      this.showNetworkInfo();
+
+      if (nodesCount > 150) {
+        network.setOptions({ physics: { enabled: false } });
+        this.set('networkOptions.physics.enabled', false);
+        Logger.info(`Network bigger than 150 nodes (${nodesCount}).`);
+        Logger.info(`Physics disabled on rendering.`);
+      }
+      Logger.info('stabilization iterations done');
       this.set('stabilizationPercent', 100);
-      Ember.$('div#stabilization-info').fadeOut();
+      $('div#stabilization-info').fadeOut();
     },
     stabilizationProgress(amount) {
       this.set('stIterations', amount.total);
       this.set('stabilizationPercent', (amount.iterations / amount.total) * 100);
-      console.log(`Stabilization progress: ${amount.iterations} / ${amount.total}`);
+      Logger.info(`Stabilization progress: ${amount.iterations} / ${amount.total}`);
     },
     stabilized(event) {
+      let network = this.get('network');
+      let nodesCount = network.nodesSet.length;
+      if (nodesCount > 100) {
+        network.setOptions({ physics: { enabled: false } });
+        this.set('networkOptions.physics.enabled', false);
+        Logger.info(`Network bigger than 100 nodes (${nodesCount}).`);
+        Logger.info(`Physics disabled after stabilizing.`);
+      }
       if (event.iterations > this.get('stIterations')) {
         let diff = event.iterations - this.get('stIterations');
-        console.log(`Network was stabilized using ${diff} iterations more than assumed (${this.get('stIterations')})`);
+        Logger.info(`Network was stabilized using ${diff} iterations more than assumed (${this.get('stIterations')})`);
       }
     }
   }

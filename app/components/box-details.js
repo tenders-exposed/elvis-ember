@@ -1,29 +1,37 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
-  typesColor: {
-    'supplier': 'color-blue',
-    'procuring_entity': 'color-pink'
+const { Component, computed } = Ember;
+
+export default Component.extend({
+  typeClasses: {
+    supplier: 'color-blue',
+    procuring_entity: 'color-pink',
+    edge: 'color-gray'
   },
 
-  color: Ember.computed('nodeDetails.type', function() {
-    let color = this.get('typesColor')[this.get('nodeDetails.type')];
-    console.log('color', color);
+  class: computed('model', function() {
+    let color = this.get('model.type') ?
+        this.get('typeClasses')[this.get('model.type')] :
+        this.get('typeClasses').edge;
     return color;
   }),
 
   init() {
     this._super(...arguments);
-    this.set('nodeId', this.get('node'));
+    let type = this.get('graphElementType');
+    let graph = this.get('networkModel.graph');
 
-    let [nodeDetails] = _.filter(this.get('nodesSet'), { 'id': this.get('node') });
-    this.set('nodeDetails', nodeDetails);
+    let [modelDetails] = _.filter(graph[`${type}s`], { 'id': this.get('graphElementId') });
+    this.set('model', modelDetails);
+
+    if (type === 'edge') {
+      this.set('model.valueType', this.get('networkModel.options').edges);
+    }
   },
-  actions:{
-    close(){
-      console.log('close box-detaisl');
-      console.log('networkselected = ', this.get('network.selectedNodes'));
+  actions: {
+    close() {
       this.set('network.selectedNodes', []);
+      this.set('network.selectedEdges', []);
     }
   }
 });

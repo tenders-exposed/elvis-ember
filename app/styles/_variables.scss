@@ -3,3 +3,89 @@
 
 
 $main-bg: #1A1A1C;
+$bg-dark: #171719;
+$color-darker: #464646;
+$color-text-main: #eee;
+$color-text-dark: grey;
+$color-small-text: #444446;
+
+$color-supplier: deepskyblue;
+$color-procurer: deeppink;
+$color-relationship: #c0c0c0;
+$color-light-grey: #c0c0c0;
+$color-flags: orangered;
+$color-box-border: #2f2f35;
+$color-icon: dimgray;
+$color-icon-hover: darkgrey;
+
+@mixin bg-dark {
+  opacity: 0.9;
+  background: $bg-dark;
+}
+
+/*elements*/
+@mixin box {
+  border-radius: 5px;
+  border: 1px solid $color-box-border;
+  padding: 10px;
+  position: relative;
+  color: $color-text-main;
+  background: $bg-dark;
+
+  .close{
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    cursor: pointer !important;
+    width: 18px;
+    opacity: 0.2;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+@mixin search-input {
+  background-color: #151517 !important;
+  height: 2rem !important;
+  width: 100% !important;
+  border-bottom: 1px solid #313030 !important;
+  padding: 0px 16px !important;
+  color: #615f5f !important;
+  &:focus { color: $color-text-main !important; box-shadow: none;}
+}
+
+/*fonts and text*/
+@mixin default-font {
+  font-family: "Roboto";
+  font-weight: normal;
+}
+@mixin title {
+  font-family: serif;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+@mixin label {
+  font-family: "Roboto";
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+$fs6 : 2.3rem;
+$fs5 : 1.5rem;
+$fs4 : 1.3rem;
+$fs3 : 1.1rem;
+$fs2 : 1rem;
+$fs1 : 0.8rem;
+$fs01 : 0.7rem;
+$fs0 : 0.6rem;
+
+
+@mixin compound-style-text {
+
+}
+
+
+
+
+
+

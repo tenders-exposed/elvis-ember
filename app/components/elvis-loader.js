@@ -1,9 +1,11 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
-  message: "",
-  size: "big",
-  mode: "circular",
-  loading: "",
+const { Component } = Ember;
 
+export default Component.extend({
+  message: '',
+  size: 'big',
+  color: 'blue',
+  mode: 'circular',
+  loading: ''
 });

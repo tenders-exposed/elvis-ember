@@ -1,90 +1,153 @@
-{{#elvis-slider}}
-    <li>
-        <img>
-        <div class="caption center-align">
-            <h3>Howdy, data journalists</h3>
-            <h5 class="light grey-text text-lighten-3">el.vis is an investigative visualisation tool to help you find patterns in public procurement contracts.</h5>
-        </div>
-    </li>
-{{/elvis-slider}}
-
+{{outlet}}
 {{#if session.isAuthenticated}}
-
-    <div class="container">
+    <div class="container hide">
         <div class="row">
             <div class="col s12">
-                <h5>You're authenticated as {{me.data.email}}</h5>
+              <h4>You're authenticated as {{me.data.email}}</h4>
             </div>
         </div>
     </div>
-
-{{else}}
-
-    <div class="container">
-        <div class="row">
-            <div id="login" class="col m6">
-                <div class="row">
-                    <div class="col m10 offset-m1">
-                        <form {{action 'authenticate' on='submit'}} autocomplete="off">
-                            <div class="row">
-
-                            </div>
-                            <div class="col s12">
-                                <h3>Log in to your account</h3>
-                                <p>el.vis is for registered users only.</p>
-                            </div>
-                            <div class="input-field col s12">
-                              {{input id='identification' value=identification type='email' autocomplete='off'}}
-                                <label for="inputEmail">Email address</label>
-                            </div>
-                            <div class="input-field col s12">
-                              {{input id='password' type='password' value=password autocomplete='off'}}
-                                <label for="password">Password</label>
-                            </div>
-                          {{#link-to "account.recover"}}Lost password{{/link-to}}
-                          {{!<p>
-                            <input type="checkbox" value="remember-me" id="rememberme">
-                            <label for="rememberme">Remember me</label>
-                          </p>}}
-                          {{!--{{input type="submit" value="Sign in" class="btn btn-lg btn-primary btn-block"}}--}}
-                          {{async-button action=(action "authenticate" fakeUser) default="Sign in" pending="Logging in..." class="btn btn-lg btn-primary btn-block"}}
-
-                          {{#if errorMessage}}
-                              <p>{{errorMessage}}</p>
-                          {{/if}}
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div id="register" class="col m6">
-                <div class="col m10 offset-m1">
-                    <form id="register" class="form-signin" {{action 'register' on='submit'}} autocomplete="off">
-                        <div class="row">
-                            <div class="col s12">
-                                <h3>Don't have an account?</h3>
-                                <p>Create one here. We will send the further instructions to your email. Your data are safe with us.</p>
-                            </div>
-                            <div class="input-field col s12">
-                                <label for="email" class="sr-only">Email address</label>
-                              {{input id="email" value=fakeUser.email}}
-                            </div>
-                            <div class="input-field col s12">
-                                <label for="registerPassword">Your password here</label>
-                              {{input id="registerPassword" type="password" value=fakeUser.password}}
-                            </div>
-                            <div class="input-field col s12">
-                                <label for="registerPasswordConfirmation">...again, please?</label>
-                              {{input id="registerPasswordConfirmation" type="password" value=fakeUser.password_confirmation}}
-                            </div>
-                            <div class="input-field col s12">
-                              {{async-button action=(action "register" fakeUser) default="Create an account" pending="Sending..." class="btn btn-lg btn-primary btn-block"}}
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
 {{/if}}
-{{outlet}}
+
+<div id="welcome-page">
+  <div class="full-width section-begin center-align">
+    <div class="container">
+      <div class="title el-title">
+        Visualisation tool for public spending data has arrived
+      </div>
+      <div class="content  el-title">
+        Raw and dirty public spending data visualised into a sexy, tidy, <br>
+        filterable node network. That’s Elvis. <br>
+        He’s not finished yet, but if you are adventurous, try him out!
+      </div>
+      <div class="network-links align-center">
+          <a href="#" class="el-title">Use ready-made network</a>
+          <a href="#" class="el-title">Create a new network</a>
+      </div>
+      <div class="node-types">
+        <div class="row">
+          <div class="col s4 center-align">
+            <div class="relative circle-img">
+              <span class="absolute circle procurer"> {{fa-icon 'circle' size=2}} </span>
+            </div>
+            <div class="el-label">
+              Procurer Nodes
+            </div>
+            <div class="description italic grey-text">
+              goverment institutions <br> lorem impsum <br> dolor sit amet
+            </div>
+          </div>
+          <div class="col s4 center-align">
+            <div class="relative circle-img">
+              <span class="absolute circle supplier"> {{fa-icon 'circle' size=2}} </span>
+            </div>
+            <div class="el-label">Supplier Nodes</div>
+            <div class="description italic">
+              suspicious companies <br> favorite goverment contractors <br> lorem impsum
+            </div>
+          </div>
+          <div class="col s4 center-align">
+            <div class="relative circle-img">
+              <span class="absolute circle relationship-line"> <hr/> </span>
+              <span class="absolute circle relationship rel1"> {{fa-icon 'circle' size=2}} </span>
+              <span class="absolute circle relationship rel2"> {{fa-icon 'circle' size=2}} </span>
+            </div>
+            <div class="el-label">Relationships</div>
+            <div class="description italic">
+              money flow <br>  amount of contracts  <br> lorem impsum
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="full-width section-about">
+    <div class="container el-title">
+        <div class="row">
+          <div class="col s12"></div>
+            <div class="big-title">
+              A tool for revealing corruption
+            </div>
+            <div class="big-content">
+              Use Elvis to visualise public spending in specific EU country, sector and year range. Reveal suspicious relationships between government and companies. Visually answer questions like
+              ""Who is dominatig IT market in Netherlands?" or "Which companies earn most money from public spending in Slovakia?"
+            </div>
+        </div>
+        <div class="row">
+          <div class="col s6">
+            <div class="title">
+              Under development
+            </div>
+            <div class="content">
+              Please be aware this is not a finish product. The core features are still under heavy developement. We are working on it and you are welcome to join us in developement or discuss your ideas.
+            </div>
+            <div class="links">
+              <div class="link">
+                <!--incont-->
+                {{fa-icon 'smile-o'}}<a href="https://talk.tenders.exposed">Join the Elvis community</a>
+                <br>
+                {{fa-icon 'envelope-o'}}<a href="mailto:tech@tenders.exposed">Contact us</a>
+              </div>
+            </div>
+          </div>
+          <div class="col s6">
+            <div class="title">
+              Free and Open-source
+            </div>
+            <div class="content">
+              Elvis is developed as an open source tool and all code is published on GitHub. We are looking to creare a framework for the community to play with.
+            </div>
+            <div class="links">
+              <div class="link">
+                <!--incont-->
+                {{fa-icon 'github'}}<a href="https://github.com/tenders-exposed">Elvis on GitHub</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6">
+            <div class="title">
+              Data source
+            </div>
+            <div class="content">
+              Currently we are using TED data for all network visualisations. Future plan is to provide custom and other data sources to work with.
+            </div>
+            <div class="links">
+              <div class="link">
+                <!--incont-->
+                {{! {{fa-icon 'arrow-right'}\}<a href="#">About TED data</a> }}
+              </div>
+            </div>
+          </div>
+          <div class="col s6">
+            <div class="title">
+              Based on research
+            </div>
+            <div class="content">
+              It's no mumbo-jumbo. There is an interesting research behind this idea. Learn about Red Flags and how we evaluate the data.
+            </div>
+            <div class="links">
+              <div class="link">
+                <!--incont-->
+                {{fa-icon 'arrow-right'}}<a href="http://v3.sk/~naberacka/social_network_analysis_public_procurement_data_journalism.pdf">Read the thesis</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="full-width section-newsletter">
+    <div class="container el-title">
+      <div class="row">
+        <div class="col s6 text-newsletter"> Sign-up for email updates</div>
+        <div class="col s6 right-align">
+          <div>
+            <a href="#" >Sign up for Newsletter</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

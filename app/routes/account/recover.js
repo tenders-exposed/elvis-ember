@@ -1,7 +1,9 @@
 import Ember from 'ember';
 
-export default Ember.Route.extend({
-  ajax: Ember.inject.service(),
+const { Route, inject, Logger } = Ember;
+
+export default Route.extend({
+  ajax: inject.service(),
 
   actions: {
     deviseSendChange(password, password_confirmation, token) {
@@ -25,7 +27,7 @@ export default Ember.Route.extend({
         this.controller.transitionToRoute('welcome');
       }, (response) => {
         // @TODO: show error messages from server
-        console.log(response);
+        Logger.info(response);
       });
     },
 
@@ -40,12 +42,12 @@ export default Ember.Route.extend({
           data,
           headers
         }).then((response) => {
-          console.log(response);
+          Logger.info(response);
           this.controller.set('emailSent', true);
 
         }, (response) => {
           // @TODO: show error messages from server
-          console.log(response);
+          Logger.info(response);
         });
       }, (response) => {
         let [error] = response.email;
