@@ -31,19 +31,15 @@ ElvisRouter.map(function() {
     });
     this.route('show', { path: ':network_id' }, function() {
       this.route('details', { path: ':tab' }, function() {
-        this.route('contract', {path: '/:node_id/:contract_id'});
+        this.route('contract', { path: '/:node_id/:contract_id' });
         this.route('show', { path: ':id' });
       });
     });
   });
-  this.route('welcome', { path: '' }, function(){
+  this.route('welcome', { path: '/' }, function() {
     this.route('login');
   });
-  this.route('static', { path: 'about'});
-  this.route('static', { path: 'examples'});
-  this.route('static', { path: 'features'});
-  this.route('static', { path: 'terms-conditions'});
-  this.route('contact');
+  this.route('static', { path: ':target' });
 });
 
 export default ElvisRouter;
