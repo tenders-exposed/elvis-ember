@@ -163,7 +163,7 @@ export default Controller.extend({
         }
       }).save().then((data) => {
         // self.send('finished');
-        // self.transitionToRoute('network.query.show', data.id)
+        // self.transitionToRoute('network.show', data.id)
         self.set('isLoading', false);
         self.toggleProperty('optionsModalIsOpen');
         self.transitionToRoute('network.show', data.id);
