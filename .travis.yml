@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "6"
+  - "7"
+git:
+  depth: 1
+branches:
+  except:
+    - /^experiment.*/
+before_script:
+  - npm install -g bower ember-cli@2.11.1
+  - bower install
+  - npm install
+script:
+   ember build
