@@ -111,15 +111,15 @@ div#main-navbar {
       width: 25px;
       height: 25px;
       &.new-graph-icon {
-        background-image: url('/new-visualisation-icon-inactive.png');
+        background-image: url('images/new-visualisation-icon-inactive.png');
         background-color: transparent; background-repeat: no-repeat;
       }
       &.my-projects-icon {
-        background-image: url('/my-projects-icon-inactive.png');
+        background-image: url('images/my-projects-icon-inactive.png');
         background-color: transparent; background-repeat: no-repeat;
       }
       &.account-settings-icon {
-        background-image: url('/account-settings-icon-inactive.png');
+        background-image: url('images/account-settings-icon-inactive.png');
         background-color: transparent; background-repeat: no-repeat;
       }
     }
@@ -134,15 +134,15 @@ div#main-navbar {
       }
       .link-icon {
         &.new-graph-icon {
-          background-image: url('/new-visualisation-icon-active.png');
+          background-image: url('images/new-visualisation-icon-active.png');
           background-color: transparent; background-repeat: no-repeat;
         }
         &.my-projects-icon {
-          background-image: url('/my-projects-icon-active.png');
+          background-image: url('images/my-projects-icon-active.png');
           background-color: transparent; background-repeat: no-repeat;
         }
         &.account-settings-icon {
-          background-image: url('/account-settings-icon-active.png');
+          background-image: url('images/account-settings-icon-active.png');
           background-color: transparent; background-repeat: no-repeat;
         }
       }
