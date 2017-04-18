@@ -25,15 +25,14 @@
             <div class="row">
               <div class="col s12">
                 {{#link-to 'application' class="left logo-container"}}
-                  <img alt="Logo" class="logo" src="/elvis-logo-light.png"/>
+                  <img alt="Logo" class="logo" src="/images/elvis-logo-light.png"/>
                 {{/link-to}}
 
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul class="left hide-on-med-and-down main-menu">
                   <!--left links-->
-                  <li><a href="https://tenders.exposed/about" target="_blank">About</a></li>
+                  <li> {{link-to 'About' 'static' 'about'}} </li>
                   <li><a href="https://talk.tenders.exposed/" target="_blank">Community</a></li>
-                  <li><a href="https://tenders.exposed/blog" target="_blank">Blog</a></li>
                 </ul>
                 <ul class="right hide-on-med-and-down main-menu">
                   {{#link-to 'network.query' tagName='li'}}
@@ -46,6 +45,13 @@
                       Account<i class="material-icons right">arrow_drop_down</i>
                     </a>
                   </li>
+                  {{else}}
+                    {{#link-to 'welcome.login' tagName='li'}}
+                      {{#link-to 'welcome.login' class="slash-after"}} Sign in {{/link-to}}
+                    {{/link-to}}
+                    {{#link-to 'account.new' tagName='li'}}
+                      {{#link-to 'account.new'}} Sign up {{/link-to}}
+                    {{/link-to}}
                   {{/if}}
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
@@ -72,7 +78,7 @@
                       </a>
                     </li>
                   {{/if}}
-                  <li><a href="https://tenders.exposed/about" target="_blank">{{fa-icon "question-circle" class="left"}} About</a></li>
+                  <li><a href="/about">{{fa-icon "question-circle" class="left"}} About</a></li>
                   <li><a href="https://talk.tenders.exposed/" target="_blank">{{fa-icon "group" class="left"}}Community</a></li>
                   <li><a href="https://tenders.exposed/blog" target="_blank">{{fa-icon "server" class="left"}} Blog</a></li>
                 </ul>

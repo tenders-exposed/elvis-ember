@@ -7,10 +7,21 @@ div.nav-wrapper>div.row {
 .navbar-fixed {
   height: 80px;
 }
+div.menu-container.fullMenu {
+  .nav-wrapper {
+    border-bottom: 2px solid $color-darker;
+  }
+  .container {
+    border-bottom: none !important;
+  }
+}
 
 div#main-navbar {
-  .container{
-    border-bottom: 2px solid #464646;
+  .main-nav {
+    top: -1px;
+  }
+  .container {
+    border-bottom: 2px solid $color-darker;
   }
   a.logo-container {
     height: 80px;
@@ -25,16 +36,15 @@ div#main-navbar {
     top: 80px !important;;
     right: 15% !important;;
     left: auto !important;
-    background: #1a1a1c !important;
-    color: whitesmoke !important;
+    background: $main-bg !important;
+    color: $color-text-main !important;
 
-    a{
+    a {
       font-size: 1rem !important;
     }
-
-    a:hover, a.active{
+    a:hover, a.active {
       border-bottom: none !important;
-      color: #636363 !important;
+      color: $color-text-dark !important;
     }
   }
 
@@ -55,11 +65,17 @@ div#main-navbar {
   nav ul.main-menu a {
     line-height: 63px;
     padding-top: 15px;
-    color: #636363;
-    /*font-family: serif
-      font-size: 1rem;
-      font-weight: bold;
-    ;*/
+    color: $color-text-dark;
+
+    &.slash-after:after {
+      content: '/';
+      float: right;
+      margin-right: -30%;
+    }
+    &.slash-after:after:hover {
+      color: #000 !important;
+    }
+
     i {
       height: inherit;
       line-height: inherit;
@@ -67,8 +83,8 @@ div#main-navbar {
   }
   nav ul.main-menu a:hover,
   nav ul.main-menu a.active {
-    color: whitesmoke;
-    border-bottom: 2px solid whitesmoke;
+    color: $color-text-main;
+    border-bottom: 2px solid $color-text-main;
   }
 
   nav.main-nav, div.nav-wrapper {
@@ -84,10 +100,7 @@ div#main-navbar {
   ul#external-links {
     li {
       padding-top: 10px;
-      //padding-bottom: 10px;
-      a {
-        height: 60px;
-      }
+      a { height: 60px; }
     }
   }
   ul#main-links {
@@ -98,15 +111,15 @@ div#main-navbar {
       width: 25px;
       height: 25px;
       &.new-graph-icon {
-        background-image: url('/new-visualisation-icon-inactive.png');
+        background-image: url('images/new-visualisation-icon-inactive.png');
         background-color: transparent; background-repeat: no-repeat;
       }
       &.my-projects-icon {
-        background-image: url('/my-projects-icon-inactive.png');
+        background-image: url('images/my-projects-icon-inactive.png');
         background-color: transparent; background-repeat: no-repeat;
       }
       &.account-settings-icon {
-        background-image: url('/account-settings-icon-inactive.png');
+        background-image: url('images/account-settings-icon-inactive.png');
         background-color: transparent; background-repeat: no-repeat;
       }
     }
@@ -121,15 +134,15 @@ div#main-navbar {
       }
       .link-icon {
         &.new-graph-icon {
-          background-image: url('/new-visualisation-icon-active.png');
+          background-image: url('images/new-visualisation-icon-active.png');
           background-color: transparent; background-repeat: no-repeat;
         }
         &.my-projects-icon {
-          background-image: url('/my-projects-icon-active.png');
+          background-image: url('images/my-projects-icon-active.png');
           background-color: transparent; background-repeat: no-repeat;
         }
         &.account-settings-icon {
-          background-image: url('/account-settings-icon-active.png');
+          background-image: url('images/account-settings-icon-active.png');
           background-color: transparent; background-repeat: no-repeat;
         }
       }
@@ -142,11 +155,9 @@ div#main-navbar {
       text-transform: uppercase;
     }
   }
-  ul#secondary-links{
-    li{
-      a{
-      color: #757172;
-      }
+  ul#secondary-links {
+    li {
+      a{ color: $color-text-dark; }
     }
   }
 }
@@ -157,72 +168,63 @@ div#main-navbar {
 
   z-index: 9999;
   height: 20px;
-  border-top: 2px solid #616161;
+  border-top: 2px solid $color-text-dark;
   position: relative;
-  background: #1a1a1c;
+  background: $main-bg;
 
-    .handle{
-      /*height: 25px;
-      width: 25px;*/
+    .handle {
       position: absolute;
       left: 50%;
       top: -6px;
       cursor: pointer;
-      color: #616161;
-
-      i{
-        cursor: pointer;
-      }
-    }
-    .handle:hover{
-      color: whitesmoke;
+      color: $color-text-dark;
+      i { cursor: pointer; }
+      &:hover { color: $color-text-main; }
     }
 }
 .menu-container.hideMenu,
-.menu-container.showMenu{
+.menu-container.showMenu {
   position: absolute;
   top: 0px;
   width: 100%;
   right: 0px;
   z-index: 9999;
 
-  .toggleMenu{
+  .toggleMenu {
     display: block !important;
   }
 }
 
-.menu-container.hideMenu .toggleMenu{
+.menu-container.hideMenu .toggleMenu {
   height: 0px;
   border-top: 3px solid #616161;
   margin-top: 0px !important;
 
-  .down-arrow {display: block;}
-  .up-arrow {display: none;}
+  .down-arrow { display: block; }
+  .up-arrow { display: none; }
 }
 .menu-container.showMenu .toggleMenu {
   margin-top: -2px !important;
-  .down-arrow {display: none;}
-  .up-arrow {display: block;}
+  .down-arrow { display: none; }
+  .up-arrow { display: block; }
 }
 
-.menu-container.hideMenu .navbar-fixed{
+.menu-container.hideMenu .navbar-fixed {
   overflow-y: hidden;
   max-height: 0px; /* approximate max height */
   transition-property: all;
   transition-duration: 3s;
   transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 
-  .main-nav {height: 0px !important;}
-  .nav-wrapper{height: 0px !important;}
-
-  .col {display: none;}
+  .main-nav { height: 0px !important; }
+  .nav-wrapper { height: 0px !important; }
+  .col { display: none; }
 }
-.menu-container.showMenu .navbar-fixed{
+.menu-container.showMenu .navbar-fixed {
   height: 80px; /* approximate max height */
   transition-property: all;
   transition-duration: 3s;
   transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 
-  .main-nav {height: 80px;}
+  .main-nav { height: 80px; }
 }
-/* ----- */
