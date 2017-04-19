@@ -1,3 +1,7 @@
+.ember-tether {
+  height: auto !important;
+  z-index: 99999;
+}
 html, body, .container,
 body > .ember-view {
   height: 100%;
@@ -66,6 +70,7 @@ $fs0 : 0.6rem;
 .mainbg {
   background-color: $main-bg;
 }
+
 
 #login-modal {
   width: 100% !important;

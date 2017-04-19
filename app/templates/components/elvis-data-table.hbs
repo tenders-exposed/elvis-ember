@@ -41,9 +41,24 @@
         {{#each-in fields as |name label|}}
           <td class="{{name}}" >
             {{#if (eq name "flags")}}
-              {{#each-in row.flags as |flName flValue|}}
-                <span class="flags"> {{fa-icon 'flag' size=1 title=flName}}</span>
-              {{/each-in}}
+              {{#if (gt row.flagsCount 0)}}
+                  <span class="flags">
+                    {{#if (gt row.flagsCount 3)}}
+                      {{row.flagsCount}}
+                    {{/if}}
+                    {{fa-icon 'flag' size=1}}
+
+                    {{#tooltip-on-element enableLazyRendering=true}}
+                      {{#each-in row.flags as |flName flValue|}}
+                        <div class="flag-details">
+                          <div class="flag-name">{{flName}}</div>
+                          <div class="flag-value">{{flValue}}</div>
+                        </div>
+                      {{/each-in}}
+                    {{/tooltip-on-element}}
+                  </span>
+               {{/if}}
+
             {{else}}
               {{#link-to "network.show.details.show" route row.id}}
                 {{dd row name}}
