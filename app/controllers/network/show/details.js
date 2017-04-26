@@ -126,11 +126,13 @@ export default Controller.extend({
     },
     saveNetworkName() {
       let networkName = this.get('model.name');
+      let networkDescription = this.get('model.description');
+      console.log('networkDescr', networkDescription);
       let networkId = this.get('model.id');
       let token = this.get('me.data.authentication_token');
       let email = this.get('me.data.email');
 
-      let data = `{"network": { "name": "${networkName}"}}`;
+      let data = `{"network": { "name": "${networkName}", "description": "${networkDescription}"}}`;
       let self = this;
 
       this.get('ajax')
