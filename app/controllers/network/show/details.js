@@ -67,6 +67,7 @@ export default Controller.extend({
         value.fromLabel = fromObj.label;
         value.toLabel = toObj.label;
         value.value = valueFormat(value.value);
+        value.flagsCount = Object.keys(value.flags).length;
       });
 
       this.set(
@@ -74,6 +75,7 @@ export default Controller.extend({
         _.filter(graphNodes, (o) => {
           if (o.type === 'supplier') {
             o.value = valueFormat(o.value);
+            o.flagsCount = Object.keys(o.flags).length;
             return o;
           }
         })
@@ -83,6 +85,7 @@ export default Controller.extend({
         _.filter(graphNodes, (o) => {
           if (o.type === 'procuring_entity') {
             o.value = valueFormat(o.value);
+            o.flagsCount = Object.keys(o.flags).length;
             return o;
           }
         })
@@ -107,19 +110,6 @@ export default Controller.extend({
       this.set('activeTab', tab);
     },
 
-    nodeRowClick(selection) {
-      this.get('network').moveTo(selection.id);
-      this.get('network').network.selectNodes([selection.id]);
-      this.set('network.selectedNodes', [selection.id]);
-    },
-
-    edgeRowClick(selection) {
-      this.network.network.fit({
-        nodes: [selection.from, selection.to],
-        animation: true
-      });
-      this.network.network.selectEdges([selection.id]);
-    },
     toggleInput() {
       this.toggleProperty('networkInput');
       return false;
@@ -127,7 +117,6 @@ export default Controller.extend({
     saveNetworkName() {
       let networkName = this.get('model.name');
       let networkDescription = this.get('model.description');
-      console.log('networkDescr', networkDescription);
       let networkId = this.get('model.id');
       let token = this.get('me.data.authentication_token');
       let email = this.get('me.data.email');
