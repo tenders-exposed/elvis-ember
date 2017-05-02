@@ -21,7 +21,8 @@
 @import "components/box-details";
 
 /* Network */
-@import "network/query";
+@import "network/list";
+@import "network/new";
 @import "network/show";
 @import "network/vis";
 @import "network/show/details";
@@ -37,6 +38,4 @@
 
 @import "loading";
 @import "footer";
-@import "projects";
 @import "account";
-
