@@ -1,5 +1,4 @@
 div#details-sidebar {
-  @include bg-dark;
   display: inline-block;
   z-index: 9;
   pointer-events: all;
@@ -22,12 +21,28 @@ div#details-sidebar {
     top: 37px;
   }
 
+  .network-name-sidebar, .table-sidebar{
+    @include bg-dark;
+  }
+
   /*change network name*/
+  div.show-form-description {
+    border-bottom: 1px dashed $color-box-border;
+    background: $bg-dark;
+    opacity: 1;
+  }
   div.network-input {
+    position: relative;
     margin-bottom: 0px;
     margin-top: 20px;
+    padding-bottom: 0px;
     input { height:  35px !important; margin-bottom: 0px; }
     .controls { line-height: 44px; }
+    .close {
+      top: -10px;
+      right: 0px;
+    }
+    textarea { padding-top: 5px !important; }
   }
 
   /*tab navigations buttons*/
