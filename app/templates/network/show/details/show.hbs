@@ -3,7 +3,7 @@
     {{fa-icon 'times-circle' size=3}}
   </div>
 
-  {{#render-later load=model wait=50 message="Loading..."}}
+  {{#render-later load=model loading=currentlyLoading wait=50 message="Loading..."}}
     {{#if model}}
       {{#if (eq activeTab 'suppliers')}}
         {{partial 'network/show/details/partials/supplier'}}
