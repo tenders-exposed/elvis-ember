@@ -1,0 +1,179 @@
+<div id="contracts-stat" class="{{if showContracts 'hide' ''}}">
+</div>
+
+{{#if showContracts}}
+<div id="details-graph-contracts">
+    <div class="close absolute" {{action "close" on="click"}}>
+      <span>Go back to Timeline</span>
+      {{fa-icon 'close' size=1 class="control-icon"}}
+
+    </div>
+    <div class="label el-title fs4">
+      {{labelFilteredContracts}}
+      <span class="dark-text fs3">
+        ({{moment-format dateFilteredContracts 'MMM YYYY' 'DD-MM-YYYY'}})
+      </span>
+    </div>
+    {{details-data-table
+        class="contracts"
+        content=filteredContracts
+        fields=fields
+        partialPath=partialPath
+        route=route
+        nodeId=nodeId
+    }}
+</div>
+{{/if}}
+
+{{#if statistics.exists}}
+<div id="details-graph-statistic">
+  <div class="row fs0">
+    <div class="col s10 el-label-dark right-align">Value</div>
+    <div class="col s2 el-label-dark right-align">Count</div>
+  </div>
+  <!--Monthly income statistics-->
+  {{#if statistics.month_income}}
+  <div class="row">
+    <div class="col s12 el-title relative title-stat">
+      {{fa-icon 'pie-chart' size=2 class="absolute"}}
+      Month Income
+    </div>
+  </div>
+
+  <div class="row  dark-text ">
+    <div class="col s3 fs1">
+      <span class="show-filtered-contracts"
+        {{action "showContractsMonthly"
+                 statistics.month_income.highest.year
+                 statistics.month_income.highest.month
+                 "Highest Month Income"
+        }}>
+        highest
+      </span>
+    </div>
+    <div class="col s3 center-align el-title fs2">Apr 2016</div>
+    <div class="col s4 right-align el-title  fs2">
+      {{format-amount statistics.month_income.highest.sum}}
+    </div>
+    <div class="col s2 right-align el-title  fs2">
+      {{statistics.month_income.highest.count}}
+    </div>
+  </div>
+
+  <div class="row  dark-text fs1">
+    <div class="col s3">
+      <span class="show-filtered-contracts"
+        {{action "showContractsMonthly"
+                 statistics.month_income.lowest.year
+                 statistics.month_income.lowest.month
+                 "Lowest Month Income"
+        }}>
+        lowest
+      </span>
+    </div>
+    <div class="col s3 center-align el-title fs2">Mar 2016</div>
+    <div class="col s4 right-align el-title fs2">
+      {{format-amount statistics.month_income.lowest.sum}}
+    </div>
+    <div class="col s2 right-align el-title fs2">
+      {{statistics.month_income.lowest.count}}
+    </div>
+  </div>
+  {{/if}}
+
+  <!--Statistics on frequency-->
+  {{#if statistics.month_frequency}}
+  <div class="row">
+    <div class="col s12 el-title relative title-stat">
+      {{fa-icon 'th-list' size=2 class="absolute"}}
+      Month Frequency
+    </div>
+  </div>
+
+  <div class="row  dark-text ">
+    <div class="col s3 fs1">
+      <span class="show-filtered-contracts"
+        {{action "showContractsMonthly"
+                 statistics.month_frequency.highest.year
+                 statistics.month_frequency.highest.month
+                 "Highest Month Frequency"
+        }}>
+        highest
+      </span>
+    </div>
+    <div class="col s3 center-align el-title fs2">Apr 2016</div>
+    <div class="col s4 right-align el-title  fs2">
+      {{format-amount statistics.month_frequency.highest.sum}}
+    </div>
+    <div class="col s2 right-align el-title  fs2">
+      {{statistics.month_frequency.highest.count}}
+    </div>
+  </div>
+
+  <div class="row  dark-text fs1">
+    <div class="col s3">
+      <span class="show-filtered-contracts"
+        {{action "showContractsMonthly"
+                 statistics.month_frequency.lowest.year
+                 statistics.month_frequency.lowest.month
+                 "Lowest Month Frequency"
+        }}>
+        lowest
+      </span>
+    </div>
+    <div class="col s3 center-align el-title fs2">Mar 2016</div>
+    <div class="col s4 right-align el-title fs2">
+      {{format-amount statistics.month_frequency.lowest.sum}}
+    </div>
+    <div class="col s2 right-align el-title fs2">
+      {{statistics.month_frequency.lowest.count}}
+    </div>
+  </div>
+  {{/if}}
+
+  <!--procurer /supplier statistics-->
+  {{#if statistics.node}}
+  <div class="row">
+    <div class="col s12 el-title relative title-stat">
+      {{fa-icon 'user-secret' size=2 class="absolute"}}
+      procurer
+    </div>
+  </div>
+
+  {{#if statistics.node.most_frequent}}
+  <div class="row  dark-text ">
+    <div class="col s3 fs1">most frequent</div>
+    <div class="col s3 center-align el-title fs2">
+      {{#link-to "network.show.details.show" "procurers" statistics.node.most_frequent.id}}
+        {{statistics.node.most_frequent.node_name}}
+      {{/link-to}}
+    </div>
+    <div class="col s4 right-align el-title  fs2">
+      {{format-amount statistics.node.most_frequent.sum}}
+    </div>
+    <div class="col s2 right-align el-title  fs2">
+      {{statistics.node.most_frequent.count}}
+    </div>
+  </div>
+  {{/if}}
+
+  {{#if statistics.node.highest_income}}
+  <div class="row  dark-text fs1">
+    <div class="col s3">highest income</div>
+    <div class="col s3 center-align el-title fs2">
+      {{#link-to "network.show.details.show" "procurers" statistics.node.highest_income.id}}
+        {{statistics.node.highest_income.node_name}}
+      {{/link-to}}
+    </div>
+    <div class="col s4 right-align el-title fs2">
+      {{statistics.node.highest_income.sum}}
+    </div>
+    <div class="col s2 right-align el-title fs2">
+      {{statistics.node.highest_income.count}}
+    </div>
+  </div>
+  {{/if}}
+  {{/if}}
+
+</div>
+{{/if}}
