@@ -6,6 +6,7 @@ div#details-info {
     right: 0px;
     height: 100%;
     @include bg-dark;
+    box-flex: 1;
 
     .close {
       cursor: pointer;
