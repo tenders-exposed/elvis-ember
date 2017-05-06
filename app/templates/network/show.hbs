@@ -45,28 +45,32 @@
 
   {{outlet}}
 
-  {{#if network}}
-    {{#if network.selectedNodes.length}}
-      {{#each network.selectedNodes as |node|}}
-        {{box-details
-            graphElementType='node'
-            graphElementId=node
-            networkModel=model
-            id="box-details-container"
-            network=network
-        }}
-      {{/each}}
-    {{else}}
-      {{#if network.selectedEdges.length}}
-        {{#each network.selectedEdges as |edge|}}
+  {{#if model}}
+    {{#if network.selectedNodes}}
+      {{#if network.selectedNodes.length}}
+        {{#each network.selectedNodes as |node|}}
           {{box-details
-              graphElementType='edge'
-              graphElementId=edge
+              graphElementType='node'
+              graphElementId=node
               networkModel=model
               id="box-details-container"
               network=network
           }}
         {{/each}}
+      {{/if}}
+    {{else}}
+      {{#if network.selectedEdges}}
+        {{#if network.selectedEdges.length}}
+          {{#each network.selectedEdges as |edge|}}
+            {{box-details
+                graphElementType='edge'
+                graphElementId=edge
+                networkModel=model
+                id="box-details-container"
+                network=network
+            }}
+          {{/each}}
+        {{/if}}
       {{/if}}
     {{/if}}
     <div id="network-controls">
@@ -92,19 +96,20 @@
       </div>
     </div>
     {{/if}}
-  {{/if}}
 
-  {{#visjs-network
-    options=networkOptions
-    nodesSet=model.graph.nodes
-    edgesSet=model.graph.edges
-    startStabilizingAction=(action 'startStabilizing')
-    stabilizationIterationsDoneAction=(action 'stabilizationIterationsDone')
-    stabilizedAction=(action 'stabilized')
-    stabilizationProgressAction=(action 'stabilizationProgress')
-    storeAs=network
-    selectedNodes=selectedNodes
-    selectedEdges=selectedEdges
-  }}
-  {{/visjs-network}}
+    {{#visjs-network
+      options=networkOptions
+      nodesSet=model.graph.nodes
+      edgesSet=model.graph.edges
+      startStabilizingAction=(action 'startStabilizing')
+      stabilizationIterationsDoneAction=(action 'stabilizationIterationsDone')
+      stabilizedAction=(action 'stabilized')
+      stabilizationProgressAction=(action 'stabilizationProgress')
+      storeAs=network
+      selectedNodes=selectedNodes
+      selectedEdges=selectedEdges
+    }}
+    {{/visjs-network}}
+
+  {{/if}}
 </div>

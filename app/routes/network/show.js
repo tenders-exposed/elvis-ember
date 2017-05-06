@@ -3,16 +3,22 @@ import Ember from 'ember';
 const { Route } = Ember;
 
 export default Route.extend({
-  beforeModel() {
-    this.store.unloadAll('network');
-  },
-
   activate() {
     this.notifications.clearAll();
   },
 
+  // beforeModel() {
+  // },
+
+  model(params) {
+    return this.get('store').findRecord('network', params.network_id);
+  },
+
   setupController(controller, model) {
+    // console.log(`network ${model.id} should be`, model);
+    controller.set('network', undefined);
     controller.set('model', model);
+    controller.set('stabilizationPercent', 0);
   },
 
   actions: {

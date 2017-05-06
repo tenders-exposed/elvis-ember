@@ -44,6 +44,10 @@ let ElvisAdapter = Adapter.extend(BuildURLMixin, {
   },
 
   coalesceFindRequests: false,
+  //
+  // shouldReloadAll(store, snapshotArray) {
+  //   return true;
+  // },
 
   findRecord(store, type, id, snapshot) {
     if (isEnabled('ds-improved-ajax') && !this._hasCustomizedAjax()) {
