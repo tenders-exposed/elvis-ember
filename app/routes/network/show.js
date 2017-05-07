@@ -7,18 +7,21 @@ export default Route.extend({
     this.notifications.clearAll();
   },
 
-  // beforeModel() {
-  // },
-
   model(params) {
-    return this.get('store').findRecord('network', params.network_id);
+    return this.get('store').findRecord(
+      'network',
+      params.network_id,
+      { reload: true }
+    );
   },
 
   setupController(controller, model) {
-    // console.log(`network ${model.id} should be`, model);
-    controller.set('network', undefined);
     controller.set('model', model);
     controller.set('stabilizationPercent', 0);
+  },
+
+  resetController(controller) {
+    controller.set('network', undefined);
   },
 
   actions: {
