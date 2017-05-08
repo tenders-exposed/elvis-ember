@@ -4,8 +4,8 @@
       <!-- Dropdown Structure -->
       {{#if session.isAuthenticated}}
       <ul id="dropdown1" class="dropdown-content">
-        {{#link-to 'projects' tagName='li'}}
-          {{#link-to 'projects'}}
+        {{#link-to 'network.list' tagName='li'}}
+          {{#link-to 'network.list'}}
             My projects
           {{/link-to}}
         {{/link-to}}
@@ -36,8 +36,8 @@
                   <li><a href="https://tenders.exposed/blog" target="_blank">Blog</a></li>
                 </ul>
                 <ul class="right hide-on-med-and-down main-menu">
-                  {{#link-to 'network.query' tagName='li'}}
-                    {{#link-to 'network.query'}} New visualisation {{/link-to}}
+                  {{#link-to 'network.new' tagName='li'}}
+                    {{#link-to 'network.new'}} New visualisation {{/link-to}}
                   {{/link-to}}
                   {{#if session.isAuthenticated}}
                   <!-- Dropdown Trigger -->
@@ -56,14 +56,14 @@
                   {{/if}}
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
-                  {{#link-to 'network.query' tagName='li'}}
-                    {{#link-to 'network.query'}}
+                  {{#link-to 'network.new' tagName='li'}}
+                    {{#link-to 'network.new'}}
                       {{fa-icon "snowflake-o" class="left" }} New visualisation
                     {{/link-to}}
                   {{/link-to}}
                   {{#if session.isAuthenticated}}
-                    {{#link-to 'projects' tagName='li'}}
-                      {{#link-to 'projects'}}
+                    {{#link-to 'network.list' tagName='li'}}
+                      {{#link-to 'network.list'}}
                         {{fa-icon "folder-open" class="left"}} My projects
                       {{/link-to}}
                     {{/link-to}}

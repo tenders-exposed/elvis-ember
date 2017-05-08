@@ -1,3 +1,27 @@
+.ember-tooltip {
+  font-size: $fs1 !important;
+  background: $main-bg !important;
+  border: 1px solid $color-box-border;
+
+  .flag-details {
+    position: relative;
+    clear: both;
+    color: $color-text-dark !important;
+
+    .flag-name {
+      margin-right: 20px;
+      float: left;
+    }
+    .flag-value {
+      float: right;
+      text-align: right;
+    }
+  }
+  &:after {
+    border-right: 1px solid $color-box-border;
+    border-bottom: 1px solid $color-box-border;
+  }
+}
 div#details-sidebar .tab-panel {
 
   .data-table-header {
@@ -88,7 +112,7 @@ div#details-sidebar .tab-panel {
         right: -17px;
         display: none;
         padding-top: 3px !important;
-        width: 55px;
+        width: 30px;
         text-align: right;
         padding-right: 8px !important;
       }
@@ -101,6 +125,7 @@ div#details-sidebar .tab-panel {
       }
 
       .flags {
+        padding: 0px !important;
         margin-top: 5px !important;
         font-size: 0.9em;
         line-height: 0.9em;
@@ -144,7 +169,7 @@ div#details-sidebar .tab-panel {
 
     td.id {width: 15% !important; text-align: center;}
     td.label {width: 67% !important;}
-    td.flags {width: 5% !important; text-align: right;}
+    td.flags {width: 6% !important; text-align: right;}
     td.value {width: 8% !important; text-align: right;}
   }
 
@@ -159,7 +184,7 @@ div#details-sidebar .tab-panel {
     td.fromLabel {width: 43% !important;}
     td.toLabel {width: 44% !important;}
     td.value {width: 3% !important; text-align: right;}
-    td.flags {width: 3% !important; text-align: right;}
+    td.flags {width: 4% !important; text-align: right; padding: 0px !important;}
   }
   // for other controls
   .controls{
