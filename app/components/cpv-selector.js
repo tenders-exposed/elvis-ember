@@ -20,7 +20,7 @@ export default Component.extend({
   }),
 
   treeObserver: observer('cpvs', function() {
-    this.createTree();
+    this.createTree3();
   }),
 
   flattenCpvs(cpvs) {
@@ -31,7 +31,157 @@ export default Component.extend({
 
   init() {
     this._super();
-    this.createTree();
+    this.createTree3();
+  },
+
+  createTree3() {
+    let cpvs = _.sortBy(
+      _.cloneDeep(this.get('cpvs')),
+      ['id']
+    );
+    let tree = [];
+
+    // let divisions = [];
+    // _.filter(cpvs, (cpv) => cpv.number_digits <= 2)
+    //   .map((node) => {
+    //     node.division = node.id.slice(0, 2);
+    //     node.root = true;
+    //     divisions.push(node.division);
+    //   });
+
+    // let divisions = _.filter(cpvs, (cpv) => cpv.number_digits <= 2)
+    //     .map((node) => node.id.slice(0, node.number_digits || 1));
+    // let groups = _.filter(cpvs, (cpv) => cpv.number_digits == 3)
+    //     .map((node) => node.id.slice(0, 3));
+    // let classes = _.filter(cpvs, (cpv) => cpv.number_digits == 4)
+    //     .map((node) => node.id.slice(0, 4));
+
+    // console.log(divisions);
+
+    cpvs.map((cpv) => {
+      let {
+        number_digits,
+        id,
+        doc_count,
+        text
+      } = cpv;
+      let result = {};
+
+      result.id = id;
+      result.count = doc_count;
+      result.name = text;
+      result.state = { opened: false };
+      result.text = '<span class="details"><small>';
+      result.text += `${id} (${doc_count} / 0)`;
+      result.text += `</small><br><div>${text}</div></span>`;
+
+      let parent, cpvGroup, cpvDivision;
+
+      switch (number_digits) {
+        case 0:
+        case 2:
+          result.parent = '#';
+          break;
+        case 3:
+          cpvDivision = id.slice(0, 2);
+          // parent = _.find(cpvs, { id: `${cpvGroup}00000` });
+          parent = cpvs.find((cpv) => cpv.id == `${cpvDivision}00000`);
+          result.parent = parent ?
+            parent.id :
+            '#';
+          break;
+        case 4:
+        default:
+          cpvDivision = id.slice(0, 2);
+          cpvGroup = id.slice(0, 3);
+          // parent = _.find(cpvs, { id: `${cpvClass}0000` }) ||
+          //   _.find(cpvs, { id: `${cpvGroup}00000` });
+          parent = cpvs.find((cpv) => cpv.id == `${cpvGroup}00000`) ||
+            cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`);
+          result.parent = parent ?
+            parent.id :
+            '#';
+          break;
+      }
+
+      tree.push(result);
+    });
+
+    // console.table(tree);
+    this.set('tree', tree);
+  },
+
+  collectChildren(node, cpvs) {
+    let division = node.id.slice(0, 2);
+
+    return _.filter(cpvs, (cpv) => cpv.id.indexOf(division) === 0);
+  },
+
+  createTree2() {
+    let cpvs = _.sortBy(this.get('cpvs'), ['id']);
+    let tree = [];
+
+    let lastparent2, lastparent3;
+
+    cpvs.map((cpv) => {
+      let {
+        number_digits,
+        id,
+        doc_count,
+        text
+      } = cpv;
+      let result = {};
+
+      result.id = id;
+      result.count = doc_count;
+      result.name = text;
+      result.state = { opened: false };
+
+      if (number_digits == 0 || number_digits == 2) {
+        result.parent = '#';
+        lastparent2 = cpv.id;
+      } else if (number_digits == 3) {
+        result.parent = lastparent2 ?
+          lastparent2 :
+          '#';
+        lastparent3 = cpv.id;
+      } else if (number_digits >= 4) {
+        result.parent = lastparent3 ?
+          lastparent3 :
+          '#';
+      } else {
+        result.parent = '#';
+      }
+
+      tree.push(result);
+    });
+
+    tree.map((cpv) => {
+      console.log('getting count for ', cpv.id);
+      cpv.subtreeCount = this.getChildrenCount(cpv.id);
+      cpv.text = '<span class="details"><small>';
+      cpv.text += `${cpv.id} (${cpv.count} / ${cpv.subtreeCount})`;
+      cpv.text += `</small><br><div>${cpv.name}</div></span>`;
+    });
+
+    // console.log(tree);
+    this.set('tree', tree);
+  },
+
+  getChildrenCount(nodeId) {
+    let tree = this.get('tree');
+    let children = _.filter(tree, { 'parent': nodeId });
+    console.log('nodeId is ', nodeId);
+    console.log('children are ', children);
+    let sum = 0;
+
+    if (children) {
+      children.map((child) => this.getChildrenCount(child.id));
+    } else {
+      sum = _.sumBy(children, (child) => child.count);
+    }
+
+    return sum;
   },
 
   createTree() {

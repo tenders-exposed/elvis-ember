@@ -118,6 +118,12 @@ export default Controller.extend({
     toggleCpvModal() {
       $('.cpv-modal-open').css('pointer-events', 'none');
       let self = this;
+      let fixtures = `{
+        "query": {
+            "countries": ["UK"],
+            "years": [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]
+        }
+      }`;
       let options = `{
         "query": {
             "countries": ["${self.get('query.countries').join('", "')}"],
@@ -126,7 +132,7 @@ export default Controller.extend({
       }`;
       this.toggleProperty('cpvModalIsOpen');
       this.get('ajax')
-        .post('/contracts/cpvs', { data: options, headers: { 'Content-Type': 'application/json' } })
+        .post('/contracts/cpvs', { data: fixtures, headers: { 'Content-Type': 'application/json' } })
         .then((data) => {
           self.set('cpvs', data.search.results);
           $('.cpv-modal-open').css('pointer-events', 'inherit');
