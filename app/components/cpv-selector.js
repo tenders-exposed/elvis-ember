@@ -77,40 +77,74 @@ export default Component.extend({
       result.text += `${id} (${doc_count} / 0)`;
       result.text += `</small><br><div>${text}</div></span>`;
 
-      let parent, cpvGroup, cpvDivision;
+      let parent, cpvGroup, cpvDivision, regex;
 
       switch (number_digits) {
-        case 0:
-        case 2:
+      case null:
+        result.parent = '#';
+        break;
+
+      case 0:
+      case 2:
+        result.parent = '#';
+        break;
+
+      case 3:
+        cpvDivision = id.slice(0, 2);
+        // parent = cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`);
+        result.parent = `${cpvDivision}000000`;
+        if (!cpvDivision) {
+          console.warn(`Cannot compute division for ${id}`, cpv);
           result.parent = '#';
-          break;
-        case 3:
-          cpvDivision = id.slice(0, 2);
-          parent = cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`);
-          result.parent = `${cpvDivision}000000`;
+        } else {
           if (!cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`)) {
+            console.warn('Trying to get division', cpvDivision);
             missingCodes.push(result.parent);
           }
-          break;
-        case 4:
-        default:
-          cpvDivision = id.slice(0, 2);
-          cpvGroup = id.slice(0, 3);
-          parent = cpvs.find((cpv) => cpv.id == `${cpvGroup}00000`);
-          if (parent) {
-            result.parent = parent.id;
+        }
+        // if (!cpvDivision) {
+        //   console.warn(`Cannot compute division for ${id}`, cpv);
+        //   result.parent = '#';
+        // } else {
+        //   // if (!cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`)) {
+        //   let regex = `${cpvDivision}0+$`;
+        //   if (!cpvs.find((cpv) => cpv.id.match(new RegExp(regex, 'g')))) {
+        //     missingCodes.push(result.parent);
+        //   }
+        // }
+        break;
+
+      case 4:
+      default:
+        // Make sure we get a _real_ division here
+        cpvGroup = id.slice(0, 3);
+        parent = cpvs.find((cpv) => cpv.id == `${cpvGroup}00000`);
+        if (parent) {
+          result.parent = parent.id;
+        } else {
+          cpvDivision = this.get('cpvService').getDivisions().find(
+            (div) => div == id.slice(0, 2)
+          );
+          if (!cpvDivision) {
+            console.warn(`Cannot compute division for ${id}`, cpv);
+            result.parent = '#';
           } else {
+            // if (!cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`)) {
             result.parent = `${cpvDivision}000000`;
-            if (!cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`)) {
+            regex = `${cpvDivision}0+$`;
+            if (!cpvs.find((cpv) => cpv.id.match(new RegExp(regex, 'g')))) {
               missingCodes.push(result.parent);
             }
           }
-          break;
+        }
+        break;
       }
 
       tree.push(result);
     });
 
+    missingCodes = _.uniq(missingCodes);
+    console.log('missing', missingCodes);
     missingCodes.map((missingCode) => tree.push(
       this.get('cpvService')
         .getCode(missingCode)
