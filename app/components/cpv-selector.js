@@ -116,25 +116,28 @@ export default Component.extend({
 
       case 4:
       default:
-        // Make sure we get a _real_ division here
+        // First attempt to find a CPV group (level 2, 3 digits)
         cpvGroup = id.slice(0, 3);
         parent = cpvs.find((cpv) => cpv.id == `${cpvGroup}00000`);
         if (parent) {
           result.parent = parent.id;
+          break;
+        }
+
+        // If we're here, we're looking for a major division
+        cpvDivision = this.get('cpvService').getDivisions().find(
+          (div) => div == id.slice(0, 2)
+        );
+        if (!cpvDivision) {
+          console.warn(`Cannot find division ${cpvDivision} for ${id}`, cpv);
+          result.parent = '#';
         } else {
-          cpvDivision = this.get('cpvService').getDivisions().find(
-            (div) => div == id.slice(0, 2)
-          );
-          if (!cpvDivision) {
-            console.warn(`Cannot compute division for ${id}`, cpv);
-            result.parent = '#';
-          } else {
-            // if (!cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`)) {
-            result.parent = `${cpvDivision}000000`;
-            regex = `${cpvDivision}0+$`;
-            if (!cpvs.find((cpv) => cpv.id.match(new RegExp(regex, 'g')))) {
-              missingCodes.push(result.parent);
-            }
+          // if (!cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`)) {
+          result.parent = `${cpvDivision}000000`;
+          regex = `${cpvDivision}0+$`;
+          if (!cpvs.find((c) => c.id.match(new RegExp(regex, 'g'))) ||
+              !cpvs.find((c) => c.id == result.parent)) {
+            missingCodes.push(result.parent);
           }
         }
         break;
@@ -149,6 +152,14 @@ export default Component.extend({
       this.get('cpvService')
         .getCode(missingCode)
     ));
+
+    // Tree health check!
+    tree.map((node) => {
+      if (!tree.find((n) => n.id == node.parent) && node.parent !== '#') {
+        console.error(`Parent with id ${node.parent} is missing!`, cpvs.find((n) => n.id == node.id));
+      }
+    });
+    console.log('Got past checking missing codes');
 
     // console.table(tree);
     this.set('tree', tree);
