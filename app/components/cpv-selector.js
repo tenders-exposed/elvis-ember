@@ -1,8 +1,9 @@
 import Ember from 'ember';
 
-const { Component, computed, observer } = Ember;
+const { Component, computed, observer, inject } = Ember;
 
 export default Component.extend({
+  cpvService: inject.service('cpv'),
   classNames: ['cpv-selector'],
   classNameBindings: ['visible:visible:hide'],
   refresh: true,
@@ -40,6 +41,7 @@ export default Component.extend({
       ['id']
     );
     let tree = [];
+    let missingCodes = [];
 
     // let divisions = [];
     // _.filter(cpvs, (cpv) => cpv.number_digits <= 2)
@@ -84,28 +86,35 @@ export default Component.extend({
           break;
         case 3:
           cpvDivision = id.slice(0, 2);
-          // parent = _.find(cpvs, { id: `${cpvGroup}00000` });
-          parent = cpvs.find((cpv) => cpv.id == `${cpvDivision}00000`);
-          result.parent = parent ?
-            parent.id :
-            '#';
+          parent = cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`);
+          result.parent = `${cpvDivision}000000`;
+          if (!cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`)) {
+            missingCodes.push(result.parent);
+          }
           break;
         case 4:
         default:
           cpvDivision = id.slice(0, 2);
           cpvGroup = id.slice(0, 3);
-          // parent = _.find(cpvs, { id: `${cpvClass}0000` }) ||
-          //   _.find(cpvs, { id: `${cpvGroup}00000` });
-          parent = cpvs.find((cpv) => cpv.id == `${cpvGroup}00000`) ||
-            cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`);
-          result.parent = parent ?
-            parent.id :
-            '#';
+          parent = cpvs.find((cpv) => cpv.id == `${cpvGroup}00000`);
+          if (parent) {
+            result.parent = parent.id;
+          } else {
+            result.parent = `${cpvDivision}000000`;
+            if (!cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`)) {
+              missingCodes.push(result.parent);
+            }
+          }
           break;
       }
 
       tree.push(result);
     });
+
+    missingCodes.map((missingCode) => tree.push(
+      this.get('cpvService')
+        .getCode(missingCode)
+    ));
 
     // console.table(tree);
     this.set('tree', tree);

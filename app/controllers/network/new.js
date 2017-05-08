@@ -132,7 +132,7 @@ export default Controller.extend({
       }`;
       this.toggleProperty('cpvModalIsOpen');
       this.get('ajax')
-        .post('/contracts/cpvs', { data: fixtures, headers: { 'Content-Type': 'application/json' } })
+        .post('/contracts/cpvs', { data: options, headers: { 'Content-Type': 'application/json' } })
         .then((data) => {
           self.set('cpvs', data.search.results);
           $('.cpv-modal-open').css('pointer-events', 'inherit');

@@ -1,0 +1,1362 @@
+[
+  {
+    "code": "66600000",
+    "number_digits": 3,
+    "text": "Treasury services"
+  },
+  {
+    "code": "09100000",
+    "number_digits": 3,
+    "text": "Fuels"
+  },
+  {
+    "code": "18300000",
+    "number_digits": 3,
+    "text": "Garments"
+  },
+  {
+    "code": "44200000",
+    "number_digits": 3,
+    "text": "Structural products"
+  },
+  {
+    "code": "35800000",
+    "number_digits": 3,
+    "text": "Individual and support equipment"
+  },
+  {
+    "code": "18500000",
+    "number_digits": 3,
+    "text": "Jewellery, watches and related articles"
+  },
+  {
+    "code": "92300000",
+    "number_digits": 3,
+    "text": "Entertainment services"
+  },
+  {
+    "code": "32300000",
+    "number_digits": 3,
+    "text": "Television and radio receivers, and sound or video recording or reproducing apparatus"
+  },
+  {
+    "code": "39500000",
+    "number_digits": 3,
+    "text": "Textile articles"
+  },
+  {
+    "code": "42400000",
+    "number_digits": 3,
+    "text": "Lifting and handling equipment and parts"
+  },
+  {
+    "code": "44600000",
+    "number_digits": 3,
+    "text": "Tanks, reservoirs and containers; central-heating radiators and boilers"
+  },
+  {
+    "code": "42600000",
+    "number_digits": 3,
+    "text": "Machine tools"
+  },
+  {
+    "code": "35700000",
+    "number_digits": 3,
+    "text": "Military electronic systems"
+  },
+  {
+    "code": "14400000",
+    "number_digits": 3,
+    "text": "Salt and pure sodium chloride"
+  },
+  {
+    "code": "30100000",
+    "number_digits": 3,
+    "text": "Office machinery, equipment and supplies except computers, printers and furniture"
+  },
+  {
+    "code": "64100000",
+    "number_digits": 3,
+    "text": "Post and courier services"
+  },
+  {
+    "code": "39300000",
+    "number_digits": 3,
+    "text": "Miscellaneous equipment"
+  },
+  {
+    "code": "63100000",
+    "number_digits": 3,
+    "text": "Cargo handling and storage services"
+  },
+  {
+    "code": "15900000",
+    "number_digits": 3,
+    "text": "Beverages, tobacco and related products"
+  },
+  {
+    "code": "44500000",
+    "number_digits": 3,
+    "text": "Tools, locks, keys, hinges, fasteners, chain and springs"
+  },
+  {
+    "code": "51700000",
+    "number_digits": 3,
+    "text": "Installation services of fire protection equipment"
+  },
+  {
+    "code": "92400000",
+    "number_digits": 3,
+    "text": "News-agency services"
+  },
+  {
+    "code": "80300000",
+    "number_digits": 3,
+    "text": "Higher education services"
+  },
+  {
+    "code": "42300000",
+    "number_digits": 3,
+    "text": "Industrial or laboratory furnaces, incinerators and ovens"
+  },
+  {
+    "code": "24600000",
+    "number_digits": 3,
+    "text": "Explosives"
+  },
+  {
+    "code": "16100000",
+    "number_digits": 3,
+    "text": "Agricultural and forestry machinery for soil preparation or cultivation"
+  },
+  {
+    "code": "22500000",
+    "number_digits": 3,
+    "text": "Printing plates or cylinders or other media for use in printing"
+  },
+  {
+    "code": "85200000",
+    "number_digits": 3,
+    "text": "Veterinary services"
+  },
+  {
+    "code": "60400000",
+    "number_digits": 3,
+    "text": "Air transport services"
+  },
+  {
+    "code": "34700000",
+    "number_digits": 3,
+    "text": "Aircraft and spacecraft"
+  },
+  {
+    "code": "42500000",
+    "number_digits": 3,
+    "text": "Cooling and ventilation equipment"
+  },
+  {
+    "code": "76500000",
+    "number_digits": 3,
+    "text": "Onshore and offshore services"
+  },
+  {
+    "code": "85100000",
+    "number_digits": 3,
+    "text": "Health services"
+  },
+  {
+    "code": "33100000",
+    "number_digits": 3,
+    "text": "Medical equipments"
+  },
+  {
+    "code": "77300000",
+    "number_digits": 3,
+    "text": "Horticultural services"
+  },
+  {
+    "code": "50700000",
+    "number_digits": 3,
+    "text": "Repair and maintenance services of building installations"
+  },
+  {
+    "code": "15100000",
+    "number_digits": 3,
+    "text": "Animal products, meat and meat products"
+  },
+  {
+    "code": "18200000",
+    "number_digits": 3,
+    "text": "Outerwear"
+  },
+  {
+    "code": "15700000",
+    "number_digits": 3,
+    "text": "Animal feedstuffs"
+  },
+  {
+    "code": "35500000",
+    "number_digits": 3,
+    "text": "Warships and associated parts"
+  },
+  {
+    "code": "18800000",
+    "number_digits": 3,
+    "text": "Footwear"
+  },
+  {
+    "code": "33600000",
+    "number_digits": 3,
+    "text": "Pharmaceutical products"
+  },
+  {
+    "code": "48400000",
+    "number_digits": 3,
+    "text": "Business transaction and personal business software package"
+  },
+  {
+    "code": "60200000",
+    "number_digits": 3,
+    "text": "Railway transport services"
+  },
+  {
+    "code": "51200000",
+    "number_digits": 3,
+    "text": "Installation services of equipment for measuring, checking, testing and navigating"
+  },
+  {
+    "code": "31500000",
+    "number_digits": 3,
+    "text": "Lighting equipment and electric lamps"
+  },
+  {
+    "code": "50300000",
+    "number_digits": 3,
+    "text": "Repair, maintenance and associated services related to personal computers, office equipment, telecommunications and audio-visual equipment"
+  },
+  {
+    "code": "65300000",
+    "number_digits": 3,
+    "text": "Electricity distribution and related services"
+  },
+  {
+    "code": "51500000",
+    "number_digits": 3,
+    "text": "Installation services of machinery and equipment"
+  },
+  {
+    "code": "32200000",
+    "number_digits": 3,
+    "text": "Transmission apparatus for radiotelephony, radiotelegraphy, radio broadcasting and television"
+  },
+  {
+    "code": "14800000",
+    "number_digits": 3,
+    "text": "Miscellaneous non-metallic mineral products"
+  },
+  {
+    "code": "80200000",
+    "number_digits": 3,
+    "text": "Secondary education services"
+  },
+  {
+    "code": "42900000",
+    "number_digits": 3,
+    "text": "Miscellaneous general and special-purpose machinery"
+  },
+  {
+    "code": "16300000",
+    "number_digits": 3,
+    "text": "Harvesting machinery"
+  },
+  {
+    "code": "35200000",
+    "number_digits": 3,
+    "text": "Police equipment"
+  },
+  {
+    "code": "22200000",
+    "number_digits": 3,
+    "text": "Newspapers, journals, periodicals and magazines"
+  },
+  {
+    "code": "34600000",
+    "number_digits": 3,
+    "text": "Railway and tramway locomotives and rolling stock and associated parts"
+  },
+  {
+    "code": "73100000",
+    "number_digits": 3,
+    "text": "Research and experimental development services"
+  },
+  {
+    "code": "45400000",
+    "number_digits": 3,
+    "text": "Building completion work"
+  },
+  {
+    "code": "16600000",
+    "number_digits": 3,
+    "text": "Specialist agricultural or forestry machinery"
+  },
+  {
+    "code": "90600000",
+    "number_digits": 3,
+    "text": "Cleaning and sanitation services in urban or rural areas, and related services"
+  },
+  {
+    "code": "15300000",
+    "number_digits": 3,
+    "text": "Fruit, vegetables and related products"
+  },
+  {
+    "code": "51600000",
+    "number_digits": 3,
+    "text": "Installation services of computers and office equipment"
+  },
+  {
+    "code": "73400000",
+    "number_digits": 3,
+    "text": "Research and Development services on security and defence materials"
+  },
+  {
+    "code": "14500000",
+    "number_digits": 3,
+    "text": "Related mining and quarrying products"
+  },
+  {
+    "code": "45100000",
+    "number_digits": 3,
+    "text": "Site preparation work"
+  },
+  {
+    "code": "80400000",
+    "number_digits": 3,
+    "text": "Adult and other education services"
+  },
+  {
+    "code": "92100000",
+    "number_digits": 3,
+    "text": "Motion picture and video services"
+  },
+  {
+    "code": "63500000",
+    "number_digits": 3,
+    "text": "Travel agency, tour operator and tourist assistance services"
+  },
+  {
+    "code": "34300000",
+    "number_digits": 3,
+    "text": "Parts and accessories for vehicles and their engines"
+  },
+  {
+    "code": "77700000",
+    "number_digits": 3,
+    "text": "Services incidental to fishing"
+  },
+  {
+    "code": "92600000",
+    "number_digits": 3,
+    "text": "Sporting services"
+  },
+  {
+    "code": "90900000",
+    "number_digits": 3,
+    "text": "Cleaning and sanitation services"
+  },
+  {
+    "code": "42700000",
+    "number_digits": 3,
+    "text": "Machinery for textile, apparel and leather production"
+  },
+  {
+    "code": "92200000",
+    "number_digits": 3,
+    "text": "Radio and television services"
+  },
+  {
+    "code": "75100000",
+    "number_digits": 3,
+    "text": "Administration services"
+  },
+  {
+    "code": "79700000",
+    "number_digits": 3,
+    "text": "Investigation and security services"
+  },
+  {
+    "code": "34900000",
+    "number_digits": 3,
+    "text": "Miscellaneous transport equipment and spare parts"
+  },
+  {
+    "code": "09200000",
+    "number_digits": 3,
+    "text": "Petroleum, coal and oil products"
+  },
+  {
+    "code": "48500000",
+    "number_digits": 3,
+    "text": "Communication and multimedia software package"
+  },
+  {
+    "code": "33900000",
+    "number_digits": 3,
+    "text": "Post-mortem and mortuary equipment and supplies"
+  },
+  {
+    "code": "16500000",
+    "number_digits": 3,
+    "text": "Self-loading or unloading trailers and semi-trailers for agriculture"
+  },
+  {
+    "code": "65200000",
+    "number_digits": 3,
+    "text": "Gas distribution and related services"
+  },
+  {
+    "code": "19500000",
+    "number_digits": 3,
+    "text": "Rubber and plastic materials"
+  },
+  {
+    "code": "98300000",
+    "number_digits": 3,
+    "text": "Miscellaneous services"
+  },
+  {
+    "code": "42200000",
+    "number_digits": 3,
+    "text": "Machinery for food, beverage and tobacco processing and associated parts"
+  },
+  {
+    "code": "63700000",
+    "number_digits": 3,
+    "text": "Support services for land, water and air transport"
+  },
+  {
+    "code": "15400000",
+    "number_digits": 3,
+    "text": "Animal or vegetable oils and fats"
+  },
+  {
+    "code": "55900000",
+    "number_digits": 3,
+    "text": "Retail trade services"
+  },
+  {
+    "code": "03200000",
+    "number_digits": 3,
+    "text": "Cereals, potatoes, vegetables, fruits and nuts"
+  },
+  {
+    "code": "30200000",
+    "number_digits": 3,
+    "text": "Computer equipment and supplies"
+  },
+  {
+    "code": "43700000",
+    "number_digits": 3,
+    "text": "Machinery for metallurgy and associated parts"
+  },
+  {
+    "code": "79100000",
+    "number_digits": 3,
+    "text": "Legal services"
+  },
+  {
+    "code": "76100000",
+    "number_digits": 3,
+    "text": "Professional services for the gas industry"
+  },
+  {
+    "code": "38900000",
+    "number_digits": 3,
+    "text": "Miscellaneous evaluation or testing instruments"
+  },
+  {
+    "code": "14700000",
+    "number_digits": 3,
+    "text": "Basic metals"
+  },
+  {
+    "code": "39800000",
+    "number_digits": 3,
+    "text": "Cleaning and polishing products"
+  },
+  {
+    "code": "72500000",
+    "number_digits": 3,
+    "text": "Computer-related services"
+  },
+  {
+    "code": "70100000",
+    "number_digits": 3,
+    "text": "Real estate services with own property"
+  },
+  {
+    "code": "71700000",
+    "number_digits": 3,
+    "text": "Monitoring and control services"
+  },
+  {
+    "code": "77800000",
+    "number_digits": 3,
+    "text": "Aquaculture services"
+  },
+  {
+    "code": "38200000",
+    "number_digits": 3,
+    "text": "Geological and geophysical instruments"
+  },
+  {
+    "code": "32400000",
+    "number_digits": 3,
+    "text": "Networks"
+  },
+  {
+    "code": "50100000",
+    "number_digits": 3,
+    "text": "Repair, maintenance and associated services of vehicles and related equipment"
+  },
+  {
+    "code": "34500000",
+    "number_digits": 3,
+    "text": "Ships and boats"
+  },
+  {
+    "code": "31400000",
+    "number_digits": 3,
+    "text": "Accumulators, primary cells and primary batteries"
+  },
+  {
+    "code": "24200000",
+    "number_digits": 3,
+    "text": "Dyes and pigments"
+  },
+  {
+    "code": "79600000",
+    "number_digits": 3,
+    "text": "Recruitment services"
+  },
+  {
+    "code": "18900000",
+    "number_digits": 3,
+    "text": "Luggage, saddlery, sacks and bags"
+  },
+  {
+    "code": "18400000",
+    "number_digits": 3,
+    "text": "Special clothing and accessories"
+  },
+  {
+    "code": "70200000",
+    "number_digits": 3,
+    "text": "Renting or leasing services of own property"
+  },
+  {
+    "code": "38700000",
+    "number_digits": 3,
+    "text": "Time registers and the like; parking meters"
+  },
+  {
+    "code": "43100000",
+    "number_digits": 3,
+    "text": "Mining equipment"
+  },
+  {
+    "code": "90500000",
+    "number_digits": 3,
+    "text": "Refuse and waste related services"
+  },
+  {
+    "code": "37300000",
+    "number_digits": 3,
+    "text": "Musical instruments and parts"
+  },
+  {
+    "code": "79400000",
+    "number_digits": 3,
+    "text": "Business and management consultancy and related services"
+  },
+  {
+    "code": "65400000",
+    "number_digits": 3,
+    "text": "Other sources of energy supplies and distribution"
+  },
+  {
+    "code": "50800000",
+    "number_digits": 3,
+    "text": "Miscellaneous repair and maintenance services"
+  },
+  {
+    "code": "19700000",
+    "number_digits": 3,
+    "text": "Synthetic rubber and fibres"
+  },
+  {
+    "code": "44300000",
+    "number_digits": 3,
+    "text": "Cable, wire and related products"
+  },
+  {
+    "code": "98500000",
+    "number_digits": 3,
+    "text": "Private households with employed persons"
+  },
+  {
+    "code": "15600000",
+    "number_digits": 3,
+    "text": "Grain mill products, starches and starch products"
+  },
+  {
+    "code": "72100000",
+    "number_digits": 3,
+    "text": "Hardware consultancy services"
+  },
+  {
+    "code": "79200000",
+    "number_digits": 3,
+    "text": "Accounting, auditing and fiscal services"
+  },
+  {
+    "code": "48700000",
+    "number_digits": 3,
+    "text": "Software package utilities"
+  },
+  {
+    "code": "44100000",
+    "number_digits": 3,
+    "text": "Construction materials and associated items"
+  },
+  {
+    "code": "31700000",
+    "number_digits": 3,
+    "text": "Electronic, electromechanical and electrotechnical supplies"
+  },
+  {
+    "code": "19400000",
+    "number_digits": 3,
+    "text": "Textile yarn and thread"
+  },
+  {
+    "code": "90700000",
+    "number_digits": 3,
+    "text": "Environmental services"
+  },
+  {
+    "code": "35600000",
+    "number_digits": 3,
+    "text": "Military aircrafts, missiles and spacecrafts"
+  },
+  {
+    "code": "55200000",
+    "number_digits": 3,
+    "text": "Camping sites and other non-hotel accommodation"
+  },
+  {
+    "code": "55100000",
+    "number_digits": 3,
+    "text": "Hotel services"
+  },
+  {
+    "code": "03300000",
+    "number_digits": 3,
+    "text": "Farming, hunting and fishing products"
+  },
+  {
+    "code": "39100000",
+    "number_digits": 3,
+    "text": "Furniture"
+  },
+  {
+    "code": "22800000",
+    "number_digits": 3,
+    "text": "Paper or paperboard registers, account books, binders, forms and other articles of printed stationery"
+  },
+  {
+    "code": "22100000",
+    "number_digits": 3,
+    "text": "Printed books, brochures and leaflets"
+  },
+  {
+    "code": "18600000",
+    "number_digits": 3,
+    "text": "Furs and articles of fur"
+  },
+  {
+    "code": "48600000",
+    "number_digits": 3,
+    "text": "Database and operating software package"
+  },
+  {
+    "code": "51400000",
+    "number_digits": 3,
+    "text": "Installation services of medical and surgical equipment"
+  },
+  {
+    "code": "71400000",
+    "number_digits": 3,
+    "text": "Urban planning and landscape architectural services"
+  },
+  {
+    "code": "43400000",
+    "number_digits": 3,
+    "text": "Mineral-processing and foundry mould-forming machinery"
+  },
+  {
+    "code": "37500000",
+    "number_digits": 3,
+    "text": "Games and toys; fairground amusements"
+  },
+  {
+    "code": "60100000",
+    "number_digits": 3,
+    "text": "Road transport services"
+  },
+  {
+    "code": "55400000",
+    "number_digits": 3,
+    "text": "Beverage-serving services"
+  },
+  {
+    "code": "44400000",
+    "number_digits": 3,
+    "text": "Miscellaneous fabricated products and related items"
+  },
+  {
+    "code": "77600000",
+    "number_digits": 3,
+    "text": "Hunting services"
+  },
+  {
+    "code": "55300000",
+    "number_digits": 3,
+    "text": "Restaurant and food-serving services"
+  },
+  {
+    "code": "24900000",
+    "number_digits": 3,
+    "text": "Fine and various chemical products"
+  },
+  {
+    "code": "60300000",
+    "number_digits": 3,
+    "text": "Pipeline transport services"
+  },
+  {
+    "code": "64200000",
+    "number_digits": 3,
+    "text": "Telecommunications services"
+  },
+  {
+    "code": "71900000",
+    "number_digits": 3,
+    "text": "Laboratory services"
+  },
+  {
+    "code": "48900000",
+    "number_digits": 3,
+    "text": "Miscellaneous software package and computer systems"
+  },
+  {
+    "code": "48200000",
+    "number_digits": 3,
+    "text": "Networking, Internet and intranet software package"
+  },
+  {
+    "code": "16400000",
+    "number_digits": 3,
+    "text": "Spraying machinery for agriculture or horticulture"
+  },
+  {
+    "code": "33700000",
+    "number_digits": 3,
+    "text": "Personal care products"
+  },
+  {
+    "code": "39700000",
+    "number_digits": 3,
+    "text": "Domestic appliances"
+  },
+  {
+    "code": "45500000",
+    "number_digits": 3,
+    "text": "Hire of construction and civil engineering machinery and equipment with operator"
+  },
+  {
+    "code": "38300000",
+    "number_digits": 3,
+    "text": "Measuring instruments"
+  },
+  {
+    "code": "71500000",
+    "number_digits": 3,
+    "text": "Construction-related services"
+  },
+  {
+    "code": "38800000",
+    "number_digits": 3,
+    "text": "Industrial process control equipment and remote-control equipment"
+  },
+  {
+    "code": "80100000",
+    "number_digits": 3,
+    "text": "Primary education services"
+  },
+  {
+    "code": "09300000",
+    "number_digits": 3,
+    "text": "Electricity, heating, solar and nuclear energy"
+  },
+  {
+    "code": "76200000",
+    "number_digits": 3,
+    "text": "Professional services for the oil industry"
+  },
+  {
+    "code": "71300000",
+    "number_digits": 3,
+    "text": "Engineering services"
+  },
+  {
+    "code": "65500000",
+    "number_digits": 3,
+    "text": "Meter reading service"
+  },
+  {
+    "code": "75300000",
+    "number_digits": 3,
+    "text": "Compulsory social security services"
+  },
+  {
+    "code": "24400000",
+    "number_digits": 3,
+    "text": "Fertilisers and nitrogen compounds"
+  },
+  {
+    "code": "03400000",
+    "number_digits": 3,
+    "text": "Forestry and logging products"
+  },
+  {
+    "code": "60600000",
+    "number_digits": 3,
+    "text": "Water transport services"
+  },
+  {
+    "code": "50200000",
+    "number_digits": 3,
+    "text": "Repair, maintenance and associated services related to aircraft, railways, roads and marine equipment"
+  },
+  {
+    "code": "24300000",
+    "number_digits": 3,
+    "text": "Basic inorganic and organic chemicals"
+  },
+  {
+    "code": "66700000",
+    "number_digits": 3,
+    "text": "Reinsurance services"
+  },
+  {
+    "code": "65100000",
+    "number_digits": 3,
+    "text": "Water distribution and related services"
+  },
+  {
+    "code": "80500000",
+    "number_digits": 3,
+    "text": "Training services"
+  },
+  {
+    "code": "35300000",
+    "number_digits": 3,
+    "text": "Weapons, ammunition and associated parts"
+  },
+  {
+    "code": "98100000",
+    "number_digits": 3,
+    "text": "Membership organisation services"
+  },
+  {
+    "code": "19600000",
+    "number_digits": 3,
+    "text": "Leather, textile, rubber and plastic waste"
+  },
+  {
+    "code": "24500000",
+    "number_digits": 3,
+    "text": "Plastics in primary forms"
+  },
+  {
+    "code": "38100000",
+    "number_digits": 3,
+    "text": "Navigational and meteorological instruments"
+  },
+  {
+    "code": "92500000",
+    "number_digits": 3,
+    "text": "Library, archives, museums and other cultural services"
+  },
+  {
+    "code": "55500000",
+    "number_digits": 3,
+    "text": "Canteen and catering services"
+  },
+  {
+    "code": "38500000",
+    "number_digits": 3,
+    "text": "Checking and testing apparatus"
+  },
+  {
+    "code": "76600000",
+    "number_digits": 3,
+    "text": "Pipeline-inspection services"
+  },
+  {
+    "code": "48800000",
+    "number_digits": 3,
+    "text": "Information systems and servers"
+  },
+  {
+    "code": "66500000",
+    "number_digits": 3,
+    "text": "Insurance and pension services"
+  },
+  {
+    "code": "14900000",
+    "number_digits": 3,
+    "text": "Recovered secondary raw materials"
+  },
+  {
+    "code": "43300000",
+    "number_digits": 3,
+    "text": "Construction machinery and equipment"
+  },
+  {
+    "code": "50400000",
+    "number_digits": 3,
+    "text": "Repair and maintenance services of medical and precision equipment"
+  },
+  {
+    "code": "15800000",
+    "number_digits": 3,
+    "text": "Miscellaneous food products"
+  },
+  {
+    "code": "22600000",
+    "number_digits": 3,
+    "text": "Ink"
+  },
+  {
+    "code": "72200000",
+    "number_digits": 3,
+    "text": "Software programming and consultancy services"
+  },
+  {
+    "code": "31200000",
+    "number_digits": 3,
+    "text": "Electricity distribution and control apparatus"
+  },
+  {
+    "code": "32500000",
+    "number_digits": 3,
+    "text": "Telecommunications equipment and supplies"
+  },
+  {
+    "code": "03100000",
+    "number_digits": 3,
+    "text": "Agricultural and horticultural products"
+  },
+  {
+    "code": "48300000",
+    "number_digits": 3,
+    "text": "Document creation, drawing, imaging, scheduling and productivity software package"
+  },
+  {
+    "code": "79500000",
+    "number_digits": 3,
+    "text": "Office-support services"
+  },
+  {
+    "code": "22900000",
+    "number_digits": 3,
+    "text": "Miscellaneous printed matter"
+  },
+  {
+    "code": "42800000",
+    "number_digits": 3,
+    "text": "Machinery for paper or paperboard production"
+  },
+  {
+    "code": "15200000",
+    "number_digits": 3,
+    "text": "Prepared and preserved fish"
+  },
+  {
+    "code": "19100000",
+    "number_digits": 3,
+    "text": "Leather"
+  },
+  {
+    "code": "71200000",
+    "number_digits": 3,
+    "text": "Architectural and related services"
+  },
+  {
+    "code": "44900000",
+    "number_digits": 3,
+    "text": "Stone for construction, limestone, gypsum and slate"
+  },
+  {
+    "code": "90400000",
+    "number_digits": 3,
+    "text": "Sewage services"
+  },
+  {
+    "code": "35100000",
+    "number_digits": 3,
+    "text": "Emergency and security equipment"
+  },
+  {
+    "code": "18100000",
+    "number_digits": 3,
+    "text": "Occupational clothing, special workwear and accessories"
+  },
+  {
+    "code": "42100000",
+    "number_digits": 3,
+    "text": "Machinery for the production and use of mechanical power"
+  },
+  {
+    "code": "72800000",
+    "number_digits": 3,
+    "text": "Computer audit and testing services"
+  },
+  {
+    "code": "37800000",
+    "number_digits": 3,
+    "text": "Handicraft and art supplies"
+  },
+  {
+    "code": "43800000",
+    "number_digits": 3,
+    "text": "Workshop equipment"
+  },
+  {
+    "code": "76300000",
+    "number_digits": 3,
+    "text": "Drilling services"
+  },
+  {
+    "code": "79900000",
+    "number_digits": 3,
+    "text": "Miscellaneous business and business-related services"
+  },
+  {
+    "code": "98200000",
+    "number_digits": 3,
+    "text": "Equal opportunities consultancy services"
+  },
+  {
+    "code": "14200000",
+    "number_digits": 3,
+    "text": "Sand and clay"
+  },
+  {
+    "code": "79300000",
+    "number_digits": 3,
+    "text": "Market and economic research; polling and statistics"
+  },
+  {
+    "code": "34400000",
+    "number_digits": 3,
+    "text": "Motorcycles, bicycles and sidecars"
+  },
+  {
+    "code": "77400000",
+    "number_digits": 3,
+    "text": "Zoological services"
+  },
+  {
+    "code": "16800000",
+    "number_digits": 3,
+    "text": "Parts of agricultural and forestry machinery"
+  },
+  {
+    "code": "14600000",
+    "number_digits": 3,
+    "text": "Metal ores and alloys"
+  },
+  {
+    "code": "75200000",
+    "number_digits": 3,
+    "text": "Provision of services to the community"
+  },
+  {
+    "code": "48100000",
+    "number_digits": 3,
+    "text": "Industry specific software package"
+  },
+  {
+    "code": "72900000",
+    "number_digits": 3,
+    "text": "Computer back-up and catalogue conversion services"
+  },
+  {
+    "code": "43500000",
+    "number_digits": 3,
+    "text": "Track-laying vehicles"
+  },
+  {
+    "code": "71800000",
+    "number_digits": 3,
+    "text": "Consulting services for water-supply and waste consultancy"
+  },
+  {
+    "code": "73300000",
+    "number_digits": 3,
+    "text": "Design and execution of research and development"
+  },
+  {
+    "code": "51300000",
+    "number_digits": 3,
+    "text": "Installation services of communications equipment"
+  },
+  {
+    "code": "39200000",
+    "number_digits": 3,
+    "text": "Furnishing"
+  },
+  {
+    "code": "77900000",
+    "number_digits": 3,
+    "text": "Apiculture services"
+  },
+  {
+    "code": "37400000",
+    "number_digits": 3,
+    "text": "Sports goods and equipment"
+  },
+  {
+    "code": "72600000",
+    "number_digits": 3,
+    "text": "Computer support and consultancy services"
+  },
+  {
+    "code": "70300000",
+    "number_digits": 3,
+    "text": "Real estate agency services on a fee or contract basis"
+  },
+  {
+    "code": "60500000",
+    "number_digits": 3,
+    "text": "Space transport services"
+  },
+  {
+    "code": "14300000",
+    "number_digits": 3,
+    "text": "Chemical and fertiliser minerals"
+  },
+  {
+    "code": "80600000",
+    "number_digits": 3,
+    "text": "Training services in defence and security materials"
+  },
+  {
+    "code": "45300000",
+    "number_digits": 3,
+    "text": "Building installation work"
+  },
+  {
+    "code": "73200000",
+    "number_digits": 3,
+    "text": "Research and development consultancy services"
+  },
+  {
+    "code": "85300000",
+    "number_digits": 3,
+    "text": "Social work and related services"
+  },
+  {
+    "code": "44800000",
+    "number_digits": 3,
+    "text": "Paints, varnishes and mastics"
+  },
+  {
+    "code": "22300000",
+    "number_digits": 3,
+    "text": "Postcards, greeting cards and other printed matter"
+  },
+  {
+    "code": "43600000",
+    "number_digits": 3,
+    "text": "Parts of machinery for mining, quarrying and construction"
+  },
+  {
+    "code": "24100000",
+    "number_digits": 3,
+    "text": "Gases"
+  },
+  {
+    "code": "50600000",
+    "number_digits": 3,
+    "text": "Repair and maintenance services of security and defence materials"
+  },
+  {
+    "code": "31300000",
+    "number_digits": 3,
+    "text": "Insulated wire and cable"
+  },
+  {
+    "code": "72300000",
+    "number_digits": 3,
+    "text": "Data services"
+  },
+  {
+    "code": "16700000",
+    "number_digits": 3,
+    "text": "Tractors"
+  },
+  {
+    "code": "31100000",
+    "number_digits": 3,
+    "text": "Electric motors, generators and transformers"
+  },
+  {
+    "code": "71600000",
+    "number_digits": 3,
+    "text": "Technical testing, analysis and consultancy services"
+  },
+  {
+    "code": "35400000",
+    "number_digits": 3,
+    "text": "Military vehicles and associated parts"
+  },
+  {
+    "code": "43200000",
+    "number_digits": 3,
+    "text": "Earthmoving and excavating machinery, and associated parts"
+  },
+  {
+    "code": "77100000",
+    "number_digits": 3,
+    "text": "Agricultural services"
+  },
+  {
+    "code": "72400000",
+    "number_digits": 3,
+    "text": "Internet services"
+  },
+  {
+    "code": "77200000",
+    "number_digits": 3,
+    "text": "Forestry services"
+  },
+  {
+    "code": "51100000",
+    "number_digits": 3,
+    "text": "Installation services of electrical and mechanical equipment"
+  },
+  {
+    "code": "19200000",
+    "number_digits": 3,
+    "text": "Textile fabrics and related items"
+  },
+  {
+    "code": "22400000",
+    "number_digits": 3,
+    "text": "Stamps, cheque forms, banknotes, stock certificates, trade advertising material, catalogues and manuals"
+  },
+  {
+    "code": "77500000",
+    "number_digits": 3,
+    "text": "Animal husbandry services"
+  },
+  {
+    "code": "34100000",
+    "number_digits": 3,
+    "text": "Motor vehicles"
+  },
+  {
+    "code": "98900000",
+    "number_digits": 3,
+    "text": "Services provided by extra-territorial organisations and bodies"
+  },
+  {
+    "code": "72700000",
+    "number_digits": 3,
+    "text": "Computer network services"
+  },
+  {
+    "code": "45200000",
+    "number_digits": 3,
+    "text": "Works for complete or part construction and civil engineering work"
+  },
+  {
+    "code": "31600000",
+    "number_digits": 3,
+    "text": "Electrical equipment and apparatus"
+  },
+  {
+    "code": "50500000",
+    "number_digits": 3,
+    "text": "Repair and maintenance services for pumps, valves, taps and metal containers and machinery"
+  },
+  {
+    "code": "76400000",
+    "number_digits": 3,
+    "text": "Rig-positioning services"
+  },
+  {
+    "code": "38400000",
+    "number_digits": 3,
+    "text": "Instruments for checking physical characteristics"
+  },
+  {
+    "code": "51900000",
+    "number_digits": 3,
+    "text": "Installation services of guidance and control systems"
+  },
+  {
+    "code": "66100000",
+    "number_digits": 3,
+    "text": "Banking and investment services"
+  },
+  {
+    "code": "15500000",
+    "number_digits": 3,
+    "text": "Dairy products"
+  },
+  {
+    "code": "51800000",
+    "number_digits": 3,
+    "text": "Installation services of metal containers"
+  },
+  {
+    "code": "34200000",
+    "number_digits": 3,
+    "text": "Vehicle bodies, trailers or semi-trailers"
+  },
+  {
+    "code": "79800000",
+    "number_digits": 3,
+    "text": "Printing and related services"
+  },
+  {
+    "code": "92700000",
+    "number_digits": 3,
+    "text": "Cybercafé services"
+  },
+  {
+    "code": "41100000",
+    "number_digits": 3,
+    "text": "Natural water"
+  },
+  {
+    "code": "38600000",
+    "number_digits": 3,
+    "text": "Optical instruments"
+  }
+]
