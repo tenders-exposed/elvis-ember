@@ -1,0 +1,43 @@
+fieldset {
+  background: lighten($bg-color,2.5%);
+  padding: $padding-large;
+  border: none;
+  border-radius: $border-radius-base;
+  margin-bottom: 4rem;
+}
+
+// labels
+.input-field label {
+  left: auto;
+}
+
+// input fields
+.input-field {
+  padding-right: 32px !important;
+
+  textarea {
+    margin-bottom: 0px !important;
+  }
+
+  .box-input {
+    background-color: #151517 !important;
+    border-bottom: 1px solid #313030 !important;
+    padding: 0px 16px !important;
+    font-size: $fs1;
+    color: #615f5f !important;
+    width: 100% !important;
+    &:focus { color: $text-color !important; box-shadow: none;}
+  }
+
+}
+
+// input validation text
+.text-success {
+  color: $success-color;
+}
+.text-error {
+  color: $error-color;
+}
+
+
+

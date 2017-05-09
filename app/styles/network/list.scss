@@ -7,7 +7,7 @@ div#mygraphs {
   }
   .card {
     background: none;
-    color: $color-text-main;
+    color: $text-color;
     box-shadow: none;
     .card-reveal {
       @include box;

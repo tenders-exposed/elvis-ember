@@ -1,12 +1,12 @@
 .ember-tooltip {
   font-size: $fs1 !important;
   background: $main-bg !important;
-  border: 1px solid $color-box-border;
+  border: 1px solid $box-border-color;
 
   .flag-details {
     position: relative;
     clear: both;
-    color: $color-text-dark !important;
+    color: $text-dark-color !important;
 
     .flag-name {
       margin-right: 20px;
@@ -18,8 +18,8 @@
     }
   }
   &:after {
-    border-right: 1px solid $color-box-border;
-    border-bottom: 1px solid $color-box-border;
+    border-right: 1px solid $box-border-color;
+    border-bottom: 1px solid $box-border-color;
   }
 }
 div#details-sidebar .tab-panel {
@@ -82,10 +82,10 @@ div#details-sidebar .tab-panel {
     }
 
     thead {
-      color: $color-text-main;
+      color: $text-color;
       th { vertical-align: bottom; }
       .sorted {
-        color: $color-text-main;
+        color: $text-color;
       }
       .sortable {
         i {
@@ -95,7 +95,7 @@ div#details-sidebar .tab-panel {
 
         &:not(.sorted):hover {
           i::before {
-            color: $color-text-main;
+            color: $text-color;
             content: 'arrow_downward';
           }
         }
@@ -106,7 +106,7 @@ div#details-sidebar .tab-panel {
     }
     tr {
       .toggle-controls {
-        color: $color-text-dark;
+        color: $text-dark-color;
         font-size: $fs3;
         top: 1px;
         right: -17px;
@@ -120,7 +120,7 @@ div#details-sidebar .tab-panel {
         display: block;
         &:hover i {
           cursor: pointer;
-          color: $color-text-main;
+          color: $text-color;
         }
       }
 

@@ -1,12 +1,5 @@
-//<<<<<<< HEAD
-/** Small adjustment for Roboto font path **/
-$roboto-font-path: "../assets/";
-//=======
 // include materialize color mixins before setting the variables
 @import 'components/color';
-
-// custom elvis + materialize variables
-@import "variables";
 
 //>>>>>>> f4fe0ad... - basic typography component styles: headings, links, lists, paragraphs
 /* 3rd party styles */
@@ -17,12 +10,8 @@ $roboto-font-path: "../assets/";
 @import "ember-modal-dialog/ember-modal-appearance";
 
 /* Settings and general tweaks */
-//<<<<<<< HEAD
 @import "mixins";
-@import "variables";
-@import "elvis-materialize";
-//=======
-//>>>>>>> f4fe0ad... - basic typography component styles: headings, links, lists, paragraphs
+@import "variables"; // custom elvis variables + materialize variables
 @import "helpers";
 @import "components";
 @import "application";
@@ -45,10 +34,12 @@ $roboto-font-path: "../assets/";
 @import "network/show/details/contract";
 
 /* Partials */
-@import "partials/typography";
+@import "general/typography";
+@import "general/forms";
+@import "general/buttons";
 @import "partials/main-nav";
-@import "partials/navbar";
-@import "partials/page";
+@import "general/navbar";
+@import "general/page";
 
 /* Top level templates */
 @import "static";
@@ -62,37 +53,3 @@ $roboto-font-path: "../assets/";
 /* To move / remove / change / split */
 //@import "sidebar";
 @import "network/show";
-
-// default body typography
-body {
-  // font smoothing
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  font-family: $font-family-sans;
-  font-size: $base-font-size;
-  line-height: $base-line-height;
-  background-color: $base-bg-color;
-}
-
-// what is this?
-html, body, .container,
-body > .ember-view {
-  height: 100%;
-  color: #eee;
-}
-
-/* Theme colors */
-.mainbg {
-  background-color: $main-bg;
-}
-
-// TODO: create separate component
-.search-input {
-  background-color: #151517 !important;
-  height: 2rem !important;
-  width: 95% !important;
-  border: 1px solid #313030 !important;
-  padding: 0px 16px !important;
-  color: #615f5f !important;
-}

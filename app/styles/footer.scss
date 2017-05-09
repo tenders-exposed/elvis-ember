@@ -21,17 +21,17 @@ $footer-line-height: 50px;
     padding: 40px 0px 0px 0px !important;
 
     .container {
-      border-top: 2px solid  $color-darker;
+      border-top: 2px solid  $color-dark;
       padding: 40px 0px;
     }
     i {
-      color: $color-text-dark !important;
+      color: $text-dark-color !important;
     }
     a {
-      color: $color-text-dark !important;
-      border-color: $color-text-dark !important;
+      color: $text-dark-color !important;
+      border-color: $text-dark-color !important;
       &:hover {
-        color: $color-text-main  !important;
+        color: $text-color  !important;
       }
     }
   }
@@ -54,8 +54,8 @@ $footer-line-height: 50px;
     a {
       cursor: pointer;
       font-weight: normal !important;
-      color: $color-text-main;
-      border-bottom: 1px solid $color-text-main;
+      color: $text-color;
+      border-bottom: 1px solid $text-color;
       margin-left: 10px;
       &:hover {
         color: #50787a;
