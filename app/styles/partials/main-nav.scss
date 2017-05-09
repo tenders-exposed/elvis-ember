@@ -9,7 +9,7 @@ div.nav-wrapper>div.row {
 }
 div.menu-container.fullMenu {
   .nav-wrapper {
-    border-bottom: 2px solid $color-darker;
+    border-bottom: 2px solid $color-dark;
   }
   .container {
     border-bottom: none !important;
@@ -21,7 +21,7 @@ div#main-navbar {
     top: -1px;
   }
   .container {
-    border-bottom: 2px solid $color-darker;
+    border-bottom: 2px solid $color-dark;
   }
   a.logo-container {
     height: 80px;
@@ -37,14 +37,14 @@ div#main-navbar {
     right: 15% !important;;
     left: auto !important;
     background: $main-bg !important;
-    color: $color-text-main !important;
+    color: $text-color !important;
 
     a {
       font-size: 1rem !important;
     }
     a:hover, a.active {
       border-bottom: none !important;
-      color: $color-text-dark !important;
+      color: $text-dark-color !important;
     }
   }
 
@@ -65,7 +65,7 @@ div#main-navbar {
   nav ul.main-menu a {
     line-height: 63px;
     padding-top: 15px;
-    color: $color-text-dark;
+    color: $text-dark-color;
 
     &.slash-after:after {
       content: '/';
@@ -83,8 +83,8 @@ div#main-navbar {
   }
   nav ul.main-menu a:hover,
   nav ul.main-menu a.active {
-    color: $color-text-main;
-    border-bottom: 2px solid $color-text-main;
+    color: $text-color;
+    border-bottom: 2px solid $text-color;
   }
 
   nav.main-nav, div.nav-wrapper {
@@ -157,7 +157,7 @@ div#main-navbar {
   }
   ul#secondary-links {
     li {
-      a{ color: $color-text-dark; }
+      a{ color: $text-dark-color; }
     }
   }
 }
@@ -168,7 +168,7 @@ div#main-navbar {
 
   z-index: 9999;
   height: 20px;
-  border-top: 2px solid $color-text-dark;
+  border-top: 2px solid $text-dark-color;
   position: relative;
   background: $main-bg;
 
@@ -177,9 +177,9 @@ div#main-navbar {
       left: 50%;
       top: -6px;
       cursor: pointer;
-      color: $color-text-dark;
+      color: $text-dark-color;
       i { cursor: pointer; }
-      &:hover { color: $color-text-main; }
+      &:hover { color: $text-color; }
     }
 }
 .menu-container.hideMenu,

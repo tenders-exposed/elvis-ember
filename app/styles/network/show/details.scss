@@ -28,8 +28,8 @@ div#details-sidebar {
 
   /*change network name*/
   div.show-form-description {
-    border-bottom: 1px dashed $color-box-border;
-    background: $bg-dark;
+    border-bottom: 1px dashed $box-border-color;
+    background: $bg-dark-color;
     opacity: 1;
   }
   div.network-input {
@@ -74,7 +74,7 @@ div#details-sidebar {
       a {
         position: relative;
         @include label;
-        color: $color-text-main;
+        color: $text-color;
         font-size: $fs1;
         padding-bottom: 10px;
         span {
@@ -165,7 +165,7 @@ div#sidebar-toggle {
     opacity: 0.9;
     &:hover {
       cursor: pointer;
-      color: $color-text-main;
+      color: $text-color;
     }
   }
 }

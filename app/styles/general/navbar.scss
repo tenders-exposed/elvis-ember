@@ -6,12 +6,15 @@ nav {
   $navbar-bg: transparent;
   $navbar-font-family: $font-family-serif;
   $navbar-font-size: 1.28rem;
-  $navbar-text-color: $color-text-main;
-
+  $navbar-text-color: $text-color;
 
   background: $navbar-bg;
   border-bottom: 1px solid rgba(255,255,255,0.1);
 
+  .nav-wrapper {
+    padding-left: $padding-base;
+    padding-right: $padding-base;
+  }
   a {
     color: $navbar-text-color;
     text-decoration: none;
@@ -21,11 +24,11 @@ nav {
   ul li a {
     font-family: $navbar-font-family;
     font-size: $navbar-font-size;
-    letter-spacing: 0.1em;
   }
 
   ul li a,
   .brand-logo {
+    max-height: 70px;
     opacity: 0.6;
     &:hover { opacity: .9; }
   }

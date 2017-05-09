@@ -5,15 +5,15 @@
 html, body, .container,
 body > .ember-view {
   height: 100%;
-  color: $color-text-main;
+  color: $text-color;
 
-  p { font-size: $fs2; }
+  //p { font-size: $fs2; }
   .el-title { @include title; }
-  .light-text { color: $color-text-main; }
-  .dark-text { color: $color-text-dark; }
+  .light-text { color: $text-color; }
+  .dark-text { color: $text-dark-color; }
 
-  .el-label { @include label; color: $color-text-main; }
-  .el-label-dark { @include label; color: $color-text-dark; }
+  .el-label { @include label; color: $text-color; }
+  .el-label-dark { @include label; color: $text-dark-color; }
 /*
 $fs6 : 2.3rem;
 $fs5 : 1.5rem;
@@ -23,7 +23,7 @@ $fs2 : 1rem;
 $fs1 : 0.8rem;
 $fs0 : 0.6rem;
 */
-  h1, h2,h3, h4 { @include title; }
+  /*h1, h2,h3, h4 { @include title; }
   .fs6, h1 { font-size: $fs6; } //h1
   .fs5, h2 { font-size: $fs5; } //h2
   .fs4, h3 { font-size: $fs4; } //h3
@@ -31,13 +31,13 @@ $fs0 : 0.6rem;
   .fs2 { font-size: $fs2; }
   .fs1 { font-size: $fs1; }
   .fs01 { font-size: $fs01; }
-  .fs0 { font-size: $fs0; }
+  .fs0 { font-size: $fs0; }*/
 
-  small {
+  /*small {
     font-size: $fs1;
-    color: $color-small-text;
-    hr { border: 0.3px solid $color-small-text; }
-  }
+    color: $text-small-color;
+    hr { border: 0.3px solid $text-small-color; }
+  }*/
 
   .procurer-color { color: $color-procurer; }
   .supplier-color { color: $color-supplier; }
@@ -55,26 +55,6 @@ $fs0 : 0.6rem;
     &:hover { opacity: 1; }
   }
 
-  .input-field {
-    padding-right: 32px !important;
-    textarea {
-      margin-bottom: 0px !important;
-    }
-    label {
-      font-size: $fs1;
-    }
-    .box-input {
-      background-color: #151517 !important;
-      border-bottom: 1px solid #313030 !important;
-      padding: 0px 16px !important;
-      font-size: $fs1;
-      color: #615f5f !important;
-      width: 100% !important;
-      &:focus { color: $color-text-main !important; box-shadow: none;}
-    }
-
-  }
-
   /*general styles*/
   .flags {
     font-size: 0.6em;
@@ -90,7 +70,6 @@ $fs0 : 0.6rem;
 .mainbg {
   background-color: $main-bg;
 }
-
 
 #login-modal {
   width: 100% !important;

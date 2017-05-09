@@ -7,8 +7,8 @@
 
   &:before {
     content: "";
-    background-color: $bg-dark;
-    background-image: linear-gradient(rgba(255,255,255,0) 0%, $bg-dark 70vw),
+    background-color: $bg-dark-color;
+    background-image: linear-gradient(rgba(255,255,255,0) 0%, $bg-dark-color 70vw),
                       url(../images/journalists-filmnoir-scene.jpg);
     background-repeat: no-repeat;
 

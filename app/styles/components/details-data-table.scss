@@ -15,7 +15,7 @@
       padding-top: 10px;
 
       a {
-        color: $color-text-dark;
+        color: $text-dark-color;
         @include label;
         font-size: $fs1;
         padding-bottom: 10px;
@@ -26,8 +26,8 @@
     }
 
     .tab-button--active a {
-      color: $color-text-main;
-      border-bottom: 2px solid $color-text-main;
+      color: $text-color;
+      border-bottom: 2px solid $text-color;
     }
   }
 
@@ -61,7 +61,7 @@
       width: 100%;
     }
     th, td {
-      color: $color-text-dark;
+      color: $text-dark-color;
       display: inline-block;
     }
     th {
@@ -85,13 +85,13 @@
       td.award {
         width: 34%; padding-left: 0px !important;
         a {
-          color: $color-text-dark;
-          &:hover { color: $color-text-main; }
+          color: $text-dark-color;
+          &:hover { color: $text-color; }
         }
       }
       td.parties { width: 30%; i { color: $color-supplier; } }
-      td.value   { width: 20%; color: $color-text-main; text-align: right; @include title; font-size: $fs3; padding-right: 0px !important; }
-      td.bids    { width: 14%; color: $color-text-main; text-align: right; @include title; font-size: $fs3; }
+      td.value   { width: 20%; color: $text-color; text-align: right; @include title; font-size: $fs3; padding-right: 0px !important; }
+      td.bids    { width: 14%; color: $text-color; text-align: right; @include title; font-size: $fs3; }
     }
   }
   .procurers, .suppliers {
@@ -114,7 +114,7 @@
         }
         .show-contracts {
           .contracts-count {
-            background: $color-text-dark;
+            background: $text-dark-color;
             color: $main-bg;
             padding: 1px 4px;
             font-size: $fs0;
@@ -127,12 +127,12 @@
           }
         }
         a {
-          color: $color-text-dark;
-          &:hover { color: $color-text-main; }
+          color: $text-dark-color;
+          &:hover { color: $text-color; }
         }
       }
-      td.income    { width: 15%; color: $color-text-main; text-align: right; @include title; font-size: $fs3; padding-right: 0px !important; }
-      td.bids      { width: 14%; color: $color-text-main; text-align: right; @include title; font-size: $fs3; }
+      td.income    { width: 15%; color: $text-color; text-align: right; @include title; font-size: $fs3; padding-right: 0px !important; }
+      td.bids      { width: 14%; color: $text-color; text-align: right; @include title; font-size: $fs3; }
     }
   }
 }

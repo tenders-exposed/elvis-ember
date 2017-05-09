@@ -1,6 +1,20 @@
 /* Typography
   --------------------- */
 
+// default body typography
+body {
+  // font smoothing
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  font-family: $font-family-sans;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  background-color: $base-bg-color;
+}
+
+
+// headings
 h1,h2,h3,h4,h5,h6 {
   font-family: $font-family-serif;
 
@@ -21,6 +35,10 @@ h2 {
 h3 {
   font-size: $h3-fontsize;
   font-weight: 400;
+}
+h4 {
+  font-size: $h4-fontsize;
+  font-weight: bold;
 }
 h5 {
   font-size: $h5-fontsize;
@@ -48,12 +66,12 @@ p {
   font-family: $font-family-serif;
   font-size: $font-size-large;
   letter-spacing: 0.025em;
-  color: fade-out($color-text-main,0.5);
+  color: fade-out($text-color,0.25);
 }
 
 b,strong {
   font-weight: bold;
-  color: fade-out($color-text-main,0.25);
+  color: fade-out($text-color,0.125);
 }
 
 code {
