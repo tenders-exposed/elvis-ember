@@ -89,9 +89,9 @@ div#details-info {
       top: 30px;
       left: 30px;
       a {
-        color: $color-text-dark;
+        color: $text-dark-color;
         &:hover {
-          color: $color-text-main;
+          color: $text-color;
         }
       }
     }

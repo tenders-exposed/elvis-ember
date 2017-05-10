@@ -4,7 +4,7 @@
   </div>
 
   {{#render-later load=model wait=50 message="Loading..."}}
-    {{#if model}}
+    {{#if network}}
       {{#if (eq activeTab 'suppliers')}}
         {{partial 'network/show/details/partials/supplier'}}
       {{else if (eq activeTab 'procurers')}}

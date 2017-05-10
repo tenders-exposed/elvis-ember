@@ -1,0 +1,95 @@
+/* Typography
+  --------------------- */
+
+// default body typography
+body {
+  // font smoothing
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  font-family: $font-family-sans;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  background-color: $base-bg-color;
+}
+
+
+// headings
+h1,h2,h3,h4,h5,h6 {
+  font-family: $font-family-serif;
+
+  small {
+    font-size: 75%;
+    opacity: .7;
+  }
+}
+
+h1 {
+  font-size: $h1-fontsize;
+  font-weight: 700;
+}
+h2 {
+  font-size: $h2-fontsize;
+  font-weight: 400;
+}
+h3 {
+  font-size: $h3-fontsize;
+  font-weight: 400;
+}
+h4 {
+  font-size: $h4-fontsize;
+  font-weight: bold;
+}
+h5 {
+  font-size: $h5-fontsize;
+  font-family: $font-family-sans;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+}
+h6 {
+  font-size: $h6-fontsize;
+  opacity: .5;
+  font-style: italic;
+  text-transform: lowercase;
+  letter-spacing: .05em;
+}
+
+a {
+  color: $link-color;
+  &:hover { color: $link-color-hover; }
+}
+
+
+// paragraph. slightly bigger font
+p {
+  font-family: $font-family-serif;
+  font-size: $font-size-large;
+  letter-spacing: 0.025em;
+  color: fade-out($text-color,0.25);
+}
+
+b,strong {
+  font-weight: bold;
+  color: fade-out($text-color,0.125);
+}
+
+code {
+  background-color: rgba(255,255,255,0.1);
+}
+
+ul li {
+  font-size: $font-size-large;
+  font-family: $font-family-serif;
+  margin: $gutter-width/2 0;
+
+  // list with icons
+  > .fa:first-child,
+  > a > .fa:first-child {
+    width: 1em;
+    text-align: center;
+    margin-right: .5em;
+  }
+}
+
+

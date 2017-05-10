@@ -64,7 +64,7 @@ export default Controller.extend({
     core: {
       'worker': false,
       'themes': {
-        'url': '/assets/jstree/photonui/style.css',
+        'url': '/assets/photonui/style.css',
         'name': 'photonui',
         'theme': 'photonui'
       }
