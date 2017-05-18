@@ -1,5 +1,6 @@
 div#details-sidebar {
   display: inline-block;
+  box-flex: 0;
   z-index: 9;
   pointer-events: all;
   width: 30%;
@@ -27,8 +28,8 @@ div#details-sidebar {
 
   /*change network name*/
   div.show-form-description {
-    border-bottom: 1px dashed $color-box-border;
-    background: $bg-dark;
+    border-bottom: 1px dashed $box-border-color;
+    background: $bg-dark-color;
     opacity: 1;
   }
   div.network-input {
@@ -73,7 +74,7 @@ div#details-sidebar {
       a {
         position: relative;
         @include label;
-        color: $color-text-main;
+        color: $text-color;
         font-size: $fs1;
         padding-bottom: 10px;
         span {
@@ -107,6 +108,7 @@ div#details-sidebar {
   /*tabs*/
   .tab-panel {
     width: 100%;
+    height: 100%;
     margin-top: 20px;
 
     .ag-body-container {
@@ -163,7 +165,7 @@ div#sidebar-toggle {
     opacity: 0.9;
     &:hover {
       cursor: pointer;
-      color: $color-text-main;
+      color: $text-color;
     }
   }
 }

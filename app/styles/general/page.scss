@@ -1,0 +1,31 @@
+/* general page template */
+.page {
+  // page default background
+  position: relative;
+  z-index: 0;
+  min-height: 200vh;
+
+  &:before {
+    content: "";
+    background-color: $bg-dark-color;
+    background-image: linear-gradient(rgba(255,255,255,0) 0%, $bg-dark-color 70vw),
+                      url(../images/journalists-filmnoir-scene.jpg);
+    background-repeat: no-repeat;
+
+    background-size: contain;
+    opacity: 0.1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  /* Scaffoling
+  ------------------------ */
+
+  .hero {
+    font-size: 125%;
+  }
+}
