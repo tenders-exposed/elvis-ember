@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Service } = Ember;
+const { Service, Logger } = Ember;
 const rootCodes = [
   {
     id: '09000000',
@@ -234,7 +234,7 @@ export default Service.extend({
   getCode(id) {
     let result = this.get('data').find((code) => code.id === id);
     if (!result) {
-      console.warn(`No result for ${id}`);
+      Logger.warn(`No result for ${id}`);
       return { id, text: null };
     }
     result.doc_count = 0;
@@ -250,6 +250,5 @@ export default Service.extend({
 
   init() {
     this.set('data', rootCodes);
-    console.log(this.getDivisions());
   }
 });

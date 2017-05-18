@@ -131,12 +131,16 @@ export default Controller.extend({
         }
       }`;
       this.toggleProperty('cpvModalIsOpen');
-      this.get('ajax')
-        .post('/contracts/cpvs', { data: options, headers: { 'Content-Type': 'application/json' } })
-        .then((data) => {
-          self.set('cpvs', data.search.results);
-          $('.cpv-modal-open').css('pointer-events', 'inherit');
-        });
+      if(this.get('cpvModalIsOpen')) {
+        this.get('ajax')
+          .post('/contracts/cpvs', { data: options, headers: { 'Content-Type': 'application/json' } })
+          .then((data) => {
+            self.set('cpvs', data.search.results);
+            $('.cpv-modal-open').css('pointer-events', 'inherit');
+          });
+      } else {
+        this.get('jsTree').send('destroy');
+      }
     },
 
     toggleSelectedCodesModal() {
