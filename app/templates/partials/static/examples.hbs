@@ -1,1 +1,121 @@
-<p>Here i am in <b>examples</b></p>
+
+<!-- Page component -->
+<div class="page">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-wrapper">
+            <a class="brand-logo" href="#!"><img height="80" src="images/elvis-logo-white.png"></a>
+            <ul class="center">
+                <li><a href="sass.html">Start here</a></li>
+                <li><a href="badges.html">Gallery</a></li>
+                <li class="active"><a href="collapsible.html">About</a></li>
+                <li><a href="badges.html">Community</a></li>
+            </ul>
+            <div class="right">
+                <a class="btn link" href="#">Sign in</a>
+                <a class="btn transparent" href="#">Sign up</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container">
+        <!-- basic typography -->
+        <h1>Heading h1</h1>
+        <p class="flow-text">This is <code>.flow-text</code>, a lead paragraph style. Lorem ipsum dolor sit amet, <a href="#">link inside paragraph</a> consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. </p>
+
+        <h2>Heading h2</h2>
+        <p><strong>This is a normal paragraph.</strong> Sed dignissim lacinia nunc. <b>Praesent mauris</b>. Curabitur tortor. Pellentesque nibh. Aenean quam. <i>In scelerisque sem at dolor</i>. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. <b>Curabitur tortor</b>. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. </p>
+        <blockquote>Heads up! This is an example quotation that uses the blockquote tag.</blockquote>
+        <h3>Heading h3 <small>Small inside heading</small></h3>
+        <h4>Heading h4</h4>
+        <h5>Heading h5</h5>
+        <h6>Heading h6</h6>
+
+        <div class="row">
+            <div class="col s6">
+                <h3>Under development</h3>
+                <p>Please be aware this is not a finished product. The core features are still under heavy development. We are working on it and you are welcome to join us in development or discuss your ideas.</p>
+                <ul>
+                    <li><a href="#"><i class="fa fa-smile-o"></i> Join our Discourse community</a></li>
+                    <li><a href="#"><i class="fa fa-envelope-o"></i> Contact us</a></li>
+                </ul>
+            </div>
+            <div class="col s6">
+                <h3>Free and <a href="https://en.wikipedia.org/wiki/Open-source_model">Open-source</a></h3>
+                <p>Elvis is developed as an open source tool and all code is published on GitHub. We are looking to create a framework for the community to play with. </p>
+            </div>
+        </div>
+
+        <!-- forms -->
+        <form id="register" autocomplete="off" class="form-signin" data-ember-action="" data-ember-action-699="699">
+            <fieldset>
+                <div class="input-field">
+                    <label for="email" data-error="wrong" data-success="right">Email address</label>
+                    <input class="validate" type="text" id="email" value="mchudada@gmail.com" >
+		                <span class="text-error">
+				                <i class="fa fa-times-circle"></i> Sorry, this e-mail is already taken. Want to <a href="#">login</a> or recover your password?
+		                </span>
+                </div>
+
+                <div class="input-field">
+                    <label for="registerPassword" class="">Your password here</label>
+                    <input type="password" id="registerPassword" class="ember-text-field ember-view">
+                </div>
+
+                <div class="input-field">
+                    <label for="registerPasswordConfirmation">...again, please?</label>
+                    <input type="password" id="registerPasswordConfirmation" class="ember-text-field ember-view">
+                </div>
+
+                <div class="input-field">
+                    <button type="submit" id="ember700" class="btn btn-lg btn-primary btn-block async-button default ember-view">  Register
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+
+        <!-- Buttons -->
+        <h1>Buttons</h1>
+        <hr>
+
+        <h4>Color Buttons</h4>
+        <a class="btn">Default .btn</a>
+        <a class="btn primary">Primary</a>
+        <a class="btn secondary"><i class="fa fa-plus"></i> Secondary</a>
+        <a class="btn success">Success</a>
+        <a class="btn error">Error</a>
+
+        <h4>Transparent Buttons</h4>
+        <a class="btn transparent">.transparent</a>
+        <a class="btn transparent primary">Primary .transparent</a>
+        <a class="btn transparent secondary">Secondary .transparent</a>
+        <a class="btn transparent success">Success .transparent</a>
+        <a class="btn transparent error">Error .transparent</a>
+
+        <h4>Link Buttons</h4>
+        <a class="btn link">.link</a>
+        <a class="btn link primary">Primary .link</a>
+        <a class="btn link secondary">Secondary .link</a>
+        <a class="btn link success">Success .link</a>
+        <a class="btn link error">Error .link</a>
+
+        <h4>Other Buttons</h4>
+        <a class="btn-flat transparent">.btn-flat</a>
+        <a class="btn-large transparent">.btn-large</a>
+        <a class="btn-floating transparent"><i class="fa fa-plus"></i></a>
+
+        <div class="fixed-action-btn vertical click-to-toggle">
+            <a class="btn-floating btn-large">
+                <i class="material-icons">menu</i>
+            </a>
+            <ul>
+                <li><a class="btn-floating primary"><i class="fa fa-file"></i></a></li>
+                <li><a class="btn-floating secondary"><i class="fa fa-flag"></i></a></li>
+                <li><a class="btn-floating transparent"><i class="fa fa-plus"></i></a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>

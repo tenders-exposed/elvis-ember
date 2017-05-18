@@ -4,8 +4,8 @@
       <!-- Dropdown Structure -->
       {{#if session.isAuthenticated}}
       <ul id="dropdown1" class="dropdown-content">
-        {{#link-to 'projects' tagName='li'}}
-          {{#link-to 'projects'}}
+        {{#link-to 'network.list' tagName='li'}}
+          {{#link-to 'network.list'}}
             My projects
           {{/link-to}}
         {{/link-to}}
@@ -25,19 +25,18 @@
             <div class="row">
               <div class="col s12">
                 {{#link-to 'application' class="left logo-container"}}
-                  <img alt="Logo" class="logo" src="/elvis-logo-light.png"/>
+                  <img alt="Logo" class="logo" src="/images/elvis-logo-light.png"/>
                 {{/link-to}}
 
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul class="left hide-on-med-and-down main-menu">
                   <!--left links-->
-                  <li><a href="https://tenders.exposed/about" target="_blank">About</a></li>
+                  <li> {{link-to 'About' 'static' 'about'}} </li>
                   <li><a href="https://talk.tenders.exposed/" target="_blank">Community</a></li>
-                  <li><a href="https://tenders.exposed/blog" target="_blank">Blog</a></li>
                 </ul>
                 <ul class="right hide-on-med-and-down main-menu">
-                  {{#link-to 'network.query' tagName='li'}}
-                    {{#link-to 'network.query'}} New visualisation {{/link-to}}
+                  {{#link-to 'network.new' tagName='li'}}
+                    {{#link-to 'network.new'}} New visualisation {{/link-to}}
                   {{/link-to}}
                   {{#if session.isAuthenticated}}
                   <!-- Dropdown Trigger -->
@@ -56,14 +55,14 @@
                   {{/if}}
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
-                  {{#link-to 'network.query' tagName='li'}}
-                    {{#link-to 'network.query'}}
+                  {{#link-to 'network.new' tagName='li'}}
+                    {{#link-to 'network.new'}}
                       {{fa-icon "snowflake-o" class="left" }} New visualisation
                     {{/link-to}}
                   {{/link-to}}
                   {{#if session.isAuthenticated}}
-                    {{#link-to 'projects' tagName='li'}}
-                      {{#link-to 'projects'}}
+                    {{#link-to 'network.list' tagName='li'}}
+                      {{#link-to 'network.list'}}
                         {{fa-icon "folder-open" class="left"}} My projects
                       {{/link-to}}
                     {{/link-to}}
@@ -79,7 +78,7 @@
                       </a>
                     </li>
                   {{/if}}
-                  <li><a href="https://tenders.exposed/about" target="_blank">{{fa-icon "question-circle" class="left"}} About</a></li>
+                  <li><a href="/about">{{fa-icon "question-circle" class="left"}} About</a></li>
                   <li><a href="https://talk.tenders.exposed/" target="_blank">{{fa-icon "group" class="left"}}Community</a></li>
                   <li><a href="https://tenders.exposed/blog" target="_blank">{{fa-icon "server" class="left"}} Blog</a></li>
                 </ul>

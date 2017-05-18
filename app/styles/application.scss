@@ -1,15 +1,19 @@
+.ember-tether {
+  height: auto !important;
+  z-index: 99999;
+}
 html, body, .container,
 body > .ember-view {
   height: 100%;
-  color: $color-text-main;
+  color: $text-color;
 
-  p { font-size: $fs2; }
+  //p { font-size: $fs2; }
   .el-title { @include title; }
-  .light-text { color: $color-text-main; }
-  .dark-text { color: $color-text-dark; }
+  .light-text { color: $text-color; }
+  .dark-text { color: $text-dark-color; }
 
-  .el-label { @include label; color: $color-text-main; }
-  .el-label-dark { @include label; color: $color-text-dark; }
+  .el-label { @include label; color: $text-color; }
+  .el-label-dark { @include label; color: $text-dark-color; }
 /*
 $fs6 : 2.3rem;
 $fs5 : 1.5rem;
@@ -19,7 +23,7 @@ $fs2 : 1rem;
 $fs1 : 0.8rem;
 $fs0 : 0.6rem;
 */
-  h1, h2,h3, h4 { @include title; }
+  /*h1, h2,h3, h4 { @include title; }
   .fs6, h1 { font-size: $fs6; } //h1
   .fs5, h2 { font-size: $fs5; } //h2
   .fs4, h3 { font-size: $fs4; } //h3
@@ -27,13 +31,13 @@ $fs0 : 0.6rem;
   .fs2 { font-size: $fs2; }
   .fs1 { font-size: $fs1; }
   .fs01 { font-size: $fs01; }
-  .fs0 { font-size: $fs0; }
+  .fs0 { font-size: $fs0; }*/
 
-  small {
+  /*small {
     font-size: $fs1;
-    color: $color-small-text;
-    hr { border: 0.3px solid $color-small-text; }
-  }
+    color: $text-small-color;
+    hr { border: 0.3px solid $text-small-color; }
+  }*/
 
   .procurer-color { color: $color-procurer; }
   .supplier-color { color: $color-supplier; }
