@@ -69,7 +69,7 @@ export default Controller.extend({
         'theme': 'photonui'
       }
     },
-    plugins: 'checkbox, search, contextmenu',
+    plugins: 'checkbox, search',
     searchOptions: { 'show_only_matches': true },
     checkbox: {
       'three_state': false,
