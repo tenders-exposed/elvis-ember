@@ -27,7 +27,7 @@ div#mygraphs {
         line-height: 32px;
         display: inline-block;
         vertical-align: top;
-        color: $color-text-main;
+        color: $text-color;
       }
       .project-cpvs {
         font-size: $fs1;
@@ -38,8 +38,8 @@ div#mygraphs {
         .show-cpvs {
           display: inline-block;
           background: $color-icon;
-          border: 1px solid $color-small-text;
-          color: $color-text-main;
+          border: 1px solid $text-dark-color;
+          color: $text-color;
           border-radius: 6px;
           padding: 2px 5px;
           opacity: 0.6;
@@ -52,7 +52,7 @@ div#mygraphs {
             font-size: $fs0;
             font-weight: bold;
             display: block !important;
-            background: $bg-dark;
+            background: $bg-dark-color;
             padding: 5px 3px;
             padding-bottom: 15px;
             top: 20px;
@@ -71,7 +71,7 @@ div#mygraphs {
       .project-counting {
          margin-top: 10px;
          font-size: $fs1;
-         color: $color-text-dark;
+         color: $text-dark-color;
       }
     }
   }

@@ -45,40 +45,31 @@
                 </span>
                 <p class="el-title grey-text project-query">
                   <span class="project-countries">
-                    {{#each demoNetwork.query.countries as |country|}}
+                    {{#each network.query.countries as |country|}}
                       {{world-flag country 32}}
                     {{/each}}
                   </span>
-                  <span class="project-years">( {{demoNetwork.firstYear}} - {{demoNetwork.lastYear}} )</span>
+                  <span class="project-years">( {{network.firstYear}} - {{network.lastYear}} )</span>
                 </p>
 
                 <p class="grey-text project-description">
-                  Here is some more information about this project that is only revealed once clicked on.
+                  {{network.description}}
                 </p>
 
                 <div class="relative project-cpvs">
-                  <div class="show-cpvs"> {{demoNetwork.cpvsCount}} CPVS selected...</div>
+                  <div class="show-cpvs"> {{network.cpvsCount}} CPVS selected...</div>
                   <div class="absolute project-listCpvs hide">
-                    {{#each demoNetwork.query.cpvs as |cpv|}}
+                    {{#each network.query.cpvs as |cpv|}}
                        <span class="cpv-selected"> {{cpv}}</span>
                     {{/each}}
                   </div>
                 </div>
-                <div class="row project-counting">
-                  <div>
-                    <div class="col s6">Edges <span class="fs0">({{demoNetwork.options.edges}})</span> </div>
-                    <div class="col s6 right-align bold">{{demoNetwork.count.edges_count}}</div>
-                  </div>
-                  <div>
-                    <div class="col s6">Nodes <span class="fs0">({{demoNetwork.options.nodes}})</span></div>
-                    <div class="col s6 right-align  bold">{{demoNetwork.count.nodes_count}}</div>
-                  </div>
 
-                </div>
                 <br>
                 {{#link-to 'network.show' network.id}}
                   Load project
                 {{/link-to}}
+
               </div>
             </div>
           </div>
