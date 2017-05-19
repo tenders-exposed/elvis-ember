@@ -66,9 +66,22 @@
                 </div>
 
                 <br>
-                {{#link-to 'network.show' network.id}}
-                  Load project
-                {{/link-to}}
+                <div class="controls-projects">
+                  <div class="row">
+                    <div class="col s9 control-icon-light">
+                      <h6 class="el-label" {{action "deleteNetwork" network.id on="click"}}>
+                        {{fa-icon 'trash' size=1}}
+                        <small>DELETE NETWORK</small>
+                      </h6>
+                    </div>
+                    <div class="col s3 right-align">
+                      {{#link-to 'network.show' network.id}}
+                        {{fa-icon 'arrow-circle-right' size=3}}
+                      {{/link-to}}
+                    </div>
+                  </div>
+
+                </div>
 
               </div>
             </div>
