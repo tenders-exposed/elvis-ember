@@ -78,7 +78,6 @@
             {{/tab-button}}
           </div>
           {{#tab-panel manager=sidebarTabManager name="suppliers" class='tab-panel'}}
-
             {{#render-later load=gridOptions.suppliers.rowData wait=5 message="Loading data grid..."}}
               {{elvis-data-table
                   class="suppliers"

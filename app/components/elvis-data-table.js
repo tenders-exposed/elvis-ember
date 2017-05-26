@@ -39,7 +39,13 @@ export default Component.extend({
     this.set('content', ordered);
   }),
 
-  didInsertElement() {
+  didUpdateAttrs() {
+    console.log('*****didUpdate attrs in elvis-data-table');
+    this.set('content', this.get('tableContent'));
+    this.set('defaultContent', this.get('tableContent'));
+  },
+
+  didReceiveAttrs() {
     this.set('content', this.get('tableContent'));
     this.set('defaultContent', this.get('tableContent'));
   },

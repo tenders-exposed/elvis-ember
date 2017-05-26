@@ -39,7 +39,7 @@
 
       {{#c.body as |row|}}
         {{#each-in fields as |name label|}}
-          <td class="{{name}}" >
+          <td class="{{if row.cluster (concat 'cluster ' name) name}}" >
             {{#if (eq name "flags")}}
               {{#if (gt row.flagsCount 0)}}
                   <span class="flags">

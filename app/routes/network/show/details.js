@@ -12,8 +12,9 @@ export default Route.extend({
 
   setupController(controller) {
     controller.set('model', this.controllerFor('network.show').get('model'));
-    controller.set('network', this.controllerFor('network.show').get('network'));
     controller.set('activeTab', this.get('activeTab'));
+
+    console.log('!!!!********network on details', this.controllerFor('network.show').get('network'));
   },
 
   actions: {

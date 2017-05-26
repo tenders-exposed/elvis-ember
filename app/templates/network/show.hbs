@@ -80,6 +80,10 @@
       <span class="cogs" {{action "stopPhysics" on="click"}}>
         {{fa-icon 'cogs' size=1}}
       </span>
+      <span class="clustering" {{action "showClustering" on="click"}}>
+        {{fa-icon 'th-large' size=1}}
+      </span>
+
     </div>
     {{#if networkLinkModal}}
     <div id="modalNetworkLink" >
@@ -95,6 +99,16 @@
         </div>
       </div>
     </div>
+    {{/if}}
+
+    {{#if networkClusteringModal}}
+      {{network-clustering
+          action="closeClustering"
+          class="clustering"
+          nodes=model.graph.nodes
+          clusters = model.clusters
+          notifications = notifications
+      }}
     {{/if}}
 
     {{#visjs-network
