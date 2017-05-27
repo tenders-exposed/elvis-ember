@@ -1,0 +1,49 @@
+/* Navbar component */
+nav {
+  ul li { margin: 0;}
+}
+.navbar {
+  $navbar-bg: transparent;
+  $navbar-font-family: $font-family-serif;
+  $navbar-font-size: 1.28rem;
+  $navbar-text-color: $text-color;
+
+  background: $navbar-bg;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+
+  .nav-wrapper {
+    padding-left: $padding-base;
+    padding-right: $padding-base;
+  }
+  a {
+    color: $navbar-text-color;
+    text-decoration: none;
+  }
+
+  // navbar nav
+  ul li a {
+    font-family: $navbar-font-family;
+    font-size: $navbar-font-size;
+  }
+
+  ul li a,
+  .brand-logo {
+    max-height: 70px;
+    opacity: 0.6;
+    &:hover { opacity: .9; }
+  }
+
+  // make logo img fit into navbar's height
+  .brand-logo,
+  .brand-logo img { height: 100%; vertical-align: middle; }
+
+
+  // centering a nav
+  // @note: this avoids the rules as navigation should not be centered according to material design guidelines
+  .center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+

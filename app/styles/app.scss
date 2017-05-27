@@ -1,3 +1,7 @@
+// include materialize color mixins before setting the variables
+@import 'components/color';
+
+//>>>>>>> f4fe0ad... - basic typography component styles: headings, links, lists, paragraphs
 /* 3rd party styles */
 @import 'materialize';
 @import 'ember-cli-materialize';
@@ -6,8 +10,8 @@
 @import "ember-modal-dialog/ember-modal-appearance";
 
 /* Settings and general tweaks */
-@import "variables";
-@import "elvis-materialize";
+@import "mixins";
+@import "variables"; // custom elvis variables + materialize variables
 @import "helpers";
 @import "components";
 @import "application";
@@ -22,7 +26,8 @@
 @import "components/details-graph";
 
 /* Network */
-@import "network/query";
+@import "network/list";
+@import "network/new";
 @import "network/show";
 @import "network/vis";
 @import "network/show/details";
@@ -30,7 +35,12 @@
 @import "network/show/details/contract";
 
 /* Partials */
+@import "general/typography";
+@import "general/forms";
+@import "general/buttons";
 @import "partials/main-nav";
+@import "general/navbar";
+@import "general/page";
 
 /* Top level templates */
 @import "static";
@@ -38,6 +48,9 @@
 
 @import "loading";
 @import "footer";
-@import "projects";
 @import "account";
+//@import "projects";
 
+/* To move / remove / change / split */
+//@import "sidebar";
+@import "network/show";

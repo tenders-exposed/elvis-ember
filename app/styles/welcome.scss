@@ -15,20 +15,20 @@
       font-size: 1.7rem;
       line-height: 2.8rem;
       font-weight: normal;
-      color: $color-text-dark;
+      color: $text-dark-color;
       margin-bottom: 70px;
     }
     a {
       cursor: pointer;
       padding: 10px 20px;
-      border: 1px solid $color-text-dark;
-      color: $color-text-dark;
+      border: 1px solid $text-dark-color;
+      color: $text-dark-color;
       font-weight: normal;
       font-size: $fs5;
       margin-right: 5px;
       &:hover{
-        color: $color-text-main;
-        border-color: $color-text-main;
+        color: $text-color;
+        border-color: $text-color;
       }
     }
     .network-links {
@@ -65,7 +65,7 @@
           margin-bottom: 20px;
        }
       .description {
-        color: $color-text-dark;
+        color: $text-dark-color;
         font-size: $fs1;
       }
     }

@@ -27,7 +27,7 @@ export default Route.extend(UnauthenticatedRouteMixin, {
           clearDuration: 5000
         });
       });
-      self.controller.transitionToRoute('network.query');
+      self.controller.transitionToRoute('network.new');
     });
   }
 });
