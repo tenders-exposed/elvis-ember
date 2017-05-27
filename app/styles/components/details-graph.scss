@@ -10,11 +10,11 @@ $text: #4d4d4d;
 $gray1: #38383e;
 //linii secundare
 $gray2: #232328;
-$gray3: $color-text-main;
+$gray3: $text-color;
 $gray4: red;
-$gray5: $color-text-dark;
+$gray5: $text-dark-color;
 $fill: #ffffff;
-$text: $color-text-dark;
+$text: $text-dark-color;
 
 #details-graph-statistic {
 
@@ -27,14 +27,14 @@ $text: $color-text-dark;
   .show-filtered-contracts {
     cursor: pointer;
     &:hover {
-      color: $color-text-main !important;
+      color: $text-color !important;
     }
   }
   .row {
     margin: 0px;
 
     .title-stat {
-      border-bottom: 1px solid $color-box-border;
+      border-bottom: 1px solid $box-border-color;
       margin-bottom: 15px;
       padding-left: 0px;
     }
@@ -42,7 +42,7 @@ $text: $color-text-dark;
       left: -30px;
       top: 0px;
       font-size: $fs4;
-      color: $color-text-dark;
+      color: $text-dark-color;
     }
   }
 }
@@ -54,7 +54,7 @@ $text: $color-text-dark;
   .close {
     right: 0px !important;
     top: 5px  !important;
-    color: $color-text-dark;
+    color: $text-dark-color;
     span {
       font-size: $fs1;
     }
@@ -73,7 +73,7 @@ $text: $color-text-dark;
   }
 
   .vis-active{
-    box-shadow: 0 0 4px $color-text-main;
+    box-shadow: 0 0 4px $text-color;
   }
 
   .vis-panel.vis-background.vis-horizontal .vis-grid.vis-minor {
