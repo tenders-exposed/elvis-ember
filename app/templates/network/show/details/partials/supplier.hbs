@@ -33,11 +33,15 @@
       <div class="el-title fs5">{{model.missing_values}}%</div>
     </div>
   </div>
+
   <div class="row">
   {{#tabbed-content active=activeTabDetails on-change="changeTabDetails" active-class="tab-button--active" as |supplierTabManager|}}
       <div class="tabs__nav">
       {{#tab-button class="tab-button"  manager=supplierTabManager name="contracts"}}
         <a>contracts</a>
+      {{/tab-button}}
+      {{#tab-button class="tab-button"  manager=supplierTabManager name="contractsGraph"}}
+        <a>timeline</a>
       {{/tab-button}}
       {{#tab-button class="tab-button"  manager=supplierTabManager name="procurers"}}
         <a>procurers</a>
@@ -54,6 +58,18 @@
           nodeId=params.id
       }}
     {{/tab-panel}}
+
+    {{#tab-panel manager=supplierTabManager name="contractsGraph" class='tab-panel'}}
+      {{details-graph
+          id="details-graph-id"
+          contracts=model.contracts
+          fields=fields.contracts
+          partialPath="network/show/details/partials/tables/contracts"
+          route="suppliers"
+          nodeId=params.id
+      }}
+    {{/tab-panel}}
+
     {{#tab-panel manager=supplierTabManager name="procurers" class='tab-panel'}}
       {{details-data-table
           class="procurers"
@@ -66,4 +82,5 @@
     {{/tab-panel}}
   {{/tabbed-content}}
   </div>
+
 </div>
