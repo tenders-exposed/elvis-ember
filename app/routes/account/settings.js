@@ -4,7 +4,9 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 const { Route, inject, Logger } = Ember;
 
 export default Route.extend(AuthenticatedRouteMixin, {
+  classNames: ['body-page'],
   ajax: inject.service(),
+
   actions: {
     settings(model) {
       // @TODO: implement save model

@@ -4,6 +4,7 @@ import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-
 const { Route, inject } = Ember;
 
 export default Route.extend(UnauthenticatedRouteMixin, {
+  classNames: ['body-page'],
   ajax: inject.service(),
   queryParams: {
     t: {
@@ -29,5 +30,5 @@ export default Route.extend(UnauthenticatedRouteMixin, {
       });
       self.controller.transitionToRoute('network.new');
     });
-  }
+  },
 });

@@ -4,6 +4,7 @@ const { Route } = Ember;
 
 export default Route.extend({
 
+  classNames: ['body-network'],
   activeTab: '',
 
   model(params) {
@@ -13,7 +14,6 @@ export default Route.extend({
   setupController(controller) {
     controller.set('model', this.controllerFor('network.show').get('model'));
     controller.set('network', this.controllerFor('network.show').get('network'));
-    controller.set('activeTab', this.get('activeTab'));
   },
 
   actions: {
