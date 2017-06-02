@@ -16,7 +16,11 @@
 
     {{content-for "head-footer"}}
   </head>
-  <body>
+  <!-- TODO: populate viewType variable.
+    if( isNetworkView ) viewType = body-network
+    if( isOtherView ) viewType = body-page
+    -->
+  <body class="{{viewType}}">
     {{content-for "body"}}
 
 

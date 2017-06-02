@@ -28,8 +28,9 @@ nav {
 
   ul li a,
   .brand-logo {
-    max-height: 70px;
+    max-height: $navbar-height;
     opacity: 0.6;
+    position: relative;
     &:hover { opacity: .9; }
   }
 
@@ -38,12 +39,32 @@ nav {
   .brand-logo img { height: 100%; vertical-align: middle; }
 
 
+  .button-collapse {
+    position: absolute;
+    left: $padding-base;
+  }
+
   // centering a nav
   // @note: this avoids the rules as navigation should not be centered according to material design guidelines
   .center {
     position: absolute;
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
+  }
+}
+
+// mobile sidenav
+.navbar .side-nav {
+  background: $bg-color;
+  li:hover a { background-color: rgba(0,0,0,0.7); }
+}
+
+// logged user menu
+.navbar .user-nav {
+  li a { font-size: 1rem; }
+  li a span {
+    display: none;
   }
 }
 

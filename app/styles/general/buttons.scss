@@ -5,7 +5,7 @@ $button-types:
         (success,$success-color),
         (error,$error-color);
 
-// mixins to generate buttons
+// button type mixins
 @mixin button-color($bg: $button-bg, $text: $button-color, $border: transparent) {
   background: fade-out($bg,0.2);
   color: $text;
@@ -104,6 +104,7 @@ $button-types:
 .data-table-header a {
   i.fa {
     font-size: inherit;
+    line-height: inherit;
   }
 }
 
