@@ -5,6 +5,7 @@ const { Route } = Ember;
 export default Route.extend({
   model(params) {
     let model = params;
+    this.titleToken = _.capitalize(params.target);
     return model;
   },
   renderTemplate(controller, model) {

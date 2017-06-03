@@ -4,6 +4,7 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 const { Route, inject, Logger } = Ember;
 
 export default Route.extend(AuthenticatedRouteMixin, {
+  titleToken: 'Account settings',
   ajax: inject.service(),
   actions: {
     settings(model) {
