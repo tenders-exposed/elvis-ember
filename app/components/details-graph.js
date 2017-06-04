@@ -160,12 +160,14 @@ export default Component.extend({
       $('#contracts-stat').html('');
       let container = $('#contracts-stat').get(0);
 
+      // eslint-disable-next-line no-undef
       let groups = new vis.DataSet();
       groups.add({ id: 0, content: 'group0' });
       groups.add({ id: 1, content: 'group1', options: { yAxisOrientation: 'right' } });
 
       let items = graphItems;
 
+      // eslint-disable-next-line no-undef, no-unused-vars
       let dataset = new vis.DataSet(items);
       let options = {
         style: 'bar',
@@ -193,6 +195,7 @@ export default Component.extend({
         end: maxDate.x,
         zoomMin: 20000000000
       };
+      // eslint-disable-next-line no-undef
       let graph2d = new vis.Graph2d(container, items, groups, options);
 
       let self = this;

@@ -4,6 +4,7 @@ const { Route, inject, Logger } = Ember;
 
 export default Route.extend({
   ajax: inject.service(),
+  titleToken: 'Create a new network',
 
   endpoints: {
     'countries': '/contracts/countries',
