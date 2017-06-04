@@ -65,7 +65,7 @@ export default Route.extend({
           dataEntity.firstYear = firstYear;
           dataEntity.lastYear = lastYear;
           dataEntity.flags = node.flags;
-          // console.log("dataEntity", dataEntity);
+          this.titleToken = dataEntity.name;
           return dataEntity;
 
         }, (response) => {
@@ -79,6 +79,7 @@ export default Route.extend({
 
   setupController(controller, model, transition) {
     let activeTab = this.controllerFor('network.show.details').get('activeTab');
+
     controller.set('activeTab', activeTab);
     //reset to default tabs
     controller.set('activeTabDetails', 'contracts');

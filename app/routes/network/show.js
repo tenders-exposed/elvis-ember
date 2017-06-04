@@ -4,6 +4,8 @@ const { Route } = Ember;
 
 export default Route.extend({
   classNames: ['body-network'],
+  titleToken: 'Network - ',
+
   activate() {
     this.notifications.clearAll();
   },
@@ -14,6 +16,10 @@ export default Route.extend({
       params.network_id,
       { reload: true }
     );
+  },
+
+  afterModel(model) {
+    this.titleToken = `${this.titleToken} ${model.get('name') || model.id}`;
   },
 
   setupController(controller, model) {

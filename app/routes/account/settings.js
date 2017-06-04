@@ -5,6 +5,7 @@ const { Route, inject, Logger } = Ember;
 
 export default Route.extend(AuthenticatedRouteMixin, {
   classNames: ['body-page'],
+  titleToken: 'Account settings',
   ajax: inject.service(),
 
   actions: {

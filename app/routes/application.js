@@ -16,6 +16,11 @@ export default Route.extend(ApplicationRouteMixin, BodyClassMixin, {
   ajax: inject.service(),
   session: inject.service(),
   me: inject.service(),
+  title: function(tokens) {
+    return tokens.length ?
+      tokens.join(' - ') + ' - el.vis' :
+      'el.vis';
+  },
 
   model() {
     if (this.get('session.isAuthenticated')) {

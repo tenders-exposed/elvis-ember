@@ -6,6 +6,7 @@ export default Route.extend({
   classNames: ['body-page'],
   model(params) {
     let model = params;
+    this.titleToken = _.capitalize(params.target);
     return model;
   },
   renderTemplate(controller, model) {
