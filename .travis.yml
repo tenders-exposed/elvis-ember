@@ -7,8 +7,8 @@ branches:
   except:
     - /^experiment.*/
 before_script:
-  - npm install -g bower ember-cli@2.11.1
+  - npm install -g bower ember-cli@2.11.1 yarn
   - bower install
-  - npm install
+  - yarn
 script:
    ember build
