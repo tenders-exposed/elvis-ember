@@ -27,7 +27,7 @@ export default Component.extend({
       return promise;
     };
     this._renderTimer = run.later(this, function() {
-      if(!this.get('loading')) {
+      if (!this.get('loading')) {
         loadData(this.get('load')).then((data) => {
           if (!this.get('isDestroyed')) {
             this.set('shouldRender', true);

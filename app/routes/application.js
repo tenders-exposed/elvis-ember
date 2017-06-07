@@ -12,10 +12,10 @@ export default Route.extend(ApplicationRouteMixin, {
   ajax: inject.service(),
   session: inject.service(),
   me: inject.service(),
-  title: function(tokens) {
+  title: (tokens) => {
     return tokens.length ?
-      tokens.join(' - ') + ' - el.vis' :
-      'el.vis';
+      `${tokens.join(' - ')} - Elvis` :
+      'Elvis';
   },
 
   model() {
