@@ -17,7 +17,6 @@ export default Route.extend({
 
   actions: {
     nodeRowClick(selection) {
-      //console.log('network', this.controllerFor('network.show').get('network'));
       this.controllerFor('network.show').set('network.selectedNodes', []);
       this.controllerFor('network.show').set('network.selectedEdges', []);
 

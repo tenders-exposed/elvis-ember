@@ -6,13 +6,13 @@ import destroyApp from '../../helpers/destroy-app';
 const { Application, run } = Ember;
 
 module('Unit | Instance Initializer | client', {
-  beforeEach: function() {
+  beforeEach() {
     run(() => {
       this.application = Application.create();
       this.appInstance = this.application.buildInstance();
     });
   },
-  afterEach: function() {
+  afterEach() {
     run(this.appInstance, 'destroy');
     destroyApp(this.application);
   }

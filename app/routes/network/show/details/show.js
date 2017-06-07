@@ -32,8 +32,6 @@ export default Route.extend({
     let { years } = networkModel.get('query');
     let { countries } = networkModel.get('query');
     let { cpvs } = networkModel.get('query');
-    // console.log('cpvs-show',cpvs);
-    // console.log('years-show',years);
     let token     = this.get('me.data.authentication_token');
     let email     = this.get('me.data.email');
 
@@ -80,7 +78,7 @@ export default Route.extend({
     let activeTab = this.controllerFor('network.show.details').get('activeTab');
 
     controller.set('activeTab', activeTab);
-    //reset to default tabs
+    // reset to default tabs
     controller.set('activeTabDetails', 'contracts');
     controller.set('activeTabProcurer', 'contracts');
 
