@@ -3,6 +3,8 @@ import Ember from 'ember';
 const { Route } = Ember;
 
 export default Route.extend({
+  titleToken: 'Network - ',
+
   activate() {
     this.notifications.clearAll();
   },
@@ -16,6 +18,8 @@ export default Route.extend({
   },
 
   afterModel(model){
+    this.titleToken = `${this.titleToken} ${model.get('name') || model.id}`;
+
     // should do the clustering thing
     // let's say the model has the several clusters
     // [ {id: "uniqueId",name: "", empty: true, type: '', nodesId: [id1, id2, id3]}, ]

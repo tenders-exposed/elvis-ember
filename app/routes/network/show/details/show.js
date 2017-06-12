@@ -30,6 +30,8 @@ export default Route.extend({
     let endpointQ = this.endpoints[endpoint];
 
     let { years } = networkModel.get('query');
+    let { countries } = networkModel.get('query');
+    let { cpvs } = networkModel.get('query');
     let token     = this.get('me.data.authentication_token');
     let email     = this.get('me.data.email');
 
@@ -39,7 +41,10 @@ export default Route.extend({
     // @TODO: query does not contain the years & countries
     let entityQuery = `{
         "query": {
-          "${endpointQ}": [${params.id}]
+          "${endpointQ}": [${params.id}],
+          "years": [${years}],
+          "countries": ["${countries}"],
+          "cpvs": ["${cpvs}"]
         }
       }`;
 
@@ -57,6 +62,7 @@ export default Route.extend({
           dataEntity.firstYear = firstYear;
           dataEntity.lastYear = lastYear;
           dataEntity.flags = node.flags;
+          this.titleToken = dataEntity.name;
           return dataEntity;
 
         }, (response) => {
@@ -70,7 +76,11 @@ export default Route.extend({
 
   setupController(controller, model, transition) {
     let activeTab = this.controllerFor('network.show.details').get('activeTab');
+
     controller.set('activeTab', activeTab);
+    // reset to default tabs
+    controller.set('activeTabDetails', 'contracts');
+    controller.set('activeTabProcurer', 'contracts');
 
     let { tab } = transition.params['network.show.details'];
     let ids = [];
@@ -147,6 +157,13 @@ export default Route.extend({
   },
 
   actions: {
+    loading(transition) {
+      let controller = this.controllerFor('network.show.details');
+      controller.set('currentlyLoading', true);
+      transition.promise.finally(function() {
+        controller.set('currentlyLoading', false);
+      });
+    },
     closeDetails() {
       this.transitionTo(
         'network.show.details',

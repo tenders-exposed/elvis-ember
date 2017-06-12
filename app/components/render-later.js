@@ -13,6 +13,7 @@ export default Component.extend({
   _renderTimer: null,
   load: null,
   model: null,
+  loading: false,
 
   didInsertElement() {
     let loadData = function(data) {
@@ -26,12 +27,14 @@ export default Component.extend({
       return promise;
     };
     this._renderTimer = run.later(this, function() {
-      loadData(this.get('load')).then((data) => {
-        if (!this.get('isDestroyed')) {
-          this.set('shouldRender', true);
-          this.set('model', data);
-        }
-      });
+      if (!this.get('loading')) {
+        loadData(this.get('load')).then((data) => {
+          if (!this.get('isDestroyed')) {
+            this.set('shouldRender', true);
+            this.set('model', data);
+          }
+        });
+      }
       /*.catch(function(error) {
          // @todo:catch the error
         console.error('error', error);

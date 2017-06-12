@@ -4,7 +4,7 @@ const { Route } = Ember;
 
 export default Route.extend({
   setupController(controller) {
-    if(controller.get('session.isAuthenticated')) {
+    if (controller.get('session.isAuthenticated')) {
       this.transitionTo('welcome');
     }
   },
