@@ -22,19 +22,28 @@
 						        {{#link-to 'network.list' class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip"}}
 								        <i class="fa fa-th"></i>
 								        <span>My Projects</span>
+								        {{#tooltip-on-component enableLazyRendering=true side='bottom'}}
+                            My Projects
+								        {{/tooltip-on-component}}
 						        {{/link-to}}
                     </li>
 						        <li>
 						        {{#link-to 'account.settings' class=""}}
 								        <i class="fa fa-cog"></i>
 		                    <span>Settings</span>
+								        {{#tooltip-on-component enableLazyRendering=true side='bottom'}}
+                            Settings
+								        {{/tooltip-on-component}}
 						        {{/link-to}}
                     </li>
 						        <li>
-		                <a {{action 'invalidateSession'}} class="">
-				                <i class="fa fa-power-off"></i>
-		                    <span class="sr-only">Log Out</span>
-		                </a>
+				                <a {{action 'invalidateSession'}} id="navbarLogout">
+						                <i class="fa fa-power-off"></i>
+				                    <span class="sr-only">Log Out</span>
+				                </a>
+								        {{#tooltip-on-component enableLazyRendering=true side='bottom' target='#navbarLogout'}}
+                            Log Out
+								        {{/tooltip-on-component}}
                     </li>
 				        </ul>
 		        {{else}}
