@@ -2,6 +2,12 @@
 nav {
   ul li { margin: 0;}
 }
+
+// hide navbar on network view
+body.body-network #main-navbar {
+  display: none;
+}
+
 .navbar {
   $navbar-bg: transparent;
   $navbar-font-family: $font-family-serif;
@@ -54,7 +60,8 @@ nav {
   }
 }
 
-// mobile sidenav
+// mobile sidenav style
+// TODO: add logo, border/shadow. make visually more interesting
 .navbar .side-nav {
   background: $bg-color;
   li:hover a { background-color: rgba(0,0,0,0.7); }
@@ -62,7 +69,7 @@ nav {
 
 // logged user menu
 .navbar .user-nav {
-  li a { font-size: 1rem; }
+  li a { font-size: 1.28rem; } // make the icons slightly bigger
   li a span {
     display: none;
   }

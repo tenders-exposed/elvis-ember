@@ -299,8 +299,8 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
 /* Navigation Bar
    ========================================================================== */
 
-$navbar-height: 120px;
-$navbar-height-mobile: 80px;
+$navbar-height: 80px !default;
+$navbar-height-mobile: 80px !default;
 $navbar-font-color: #fff;
 $navbar-brand-font-size: 1rem;
 
