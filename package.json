@@ -25,6 +25,7 @@
     "ember-ag-grid": "tenders-exposed/ember-ag-grid",
     "ember-ajax": "^2.4.1",
     "ember-async-button": "^1.0.2",
+    "ember-body-class": "^0.4.0",
     "ember-cli": "^2.11.1",
     "ember-cli-app-version": "^2.0.0",
     "ember-cli-babel": "^5.1.7",
@@ -82,5 +83,6 @@
     "loader.js": "^4.0.10",
     "node-sass": "^4.5.0",
     "yamlparser": "0.0.2"
-  }
+  },
+  "ember-addon": {}
 }

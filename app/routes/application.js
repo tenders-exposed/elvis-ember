@@ -1,11 +1,15 @@
 import Ember from 'ember';
 import ENV from '../config/environment';
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
+import BodyClassMixin from 'ember-body-class/mixins/body-class';
 
 const { Route, inject } = Ember;
 const { APP } = ENV;
 
-export default Route.extend(ApplicationRouteMixin, {
+export default Route.extend(ApplicationRouteMixin, BodyClassMixin, {
+
+  classNames: ['body-page'],
+
   host: APP.apiHost,
   namespace: APP.apiNamespace,
   dbVersion: APP.dbVersion,
@@ -28,6 +32,7 @@ export default Route.extend(ApplicationRouteMixin, {
 
   setupController(controller, model) {
     this._super(controller, model);
+    controller.set('bodyType', 'body-page');
   },
 
   init() {

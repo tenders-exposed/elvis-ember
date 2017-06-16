@@ -3,6 +3,7 @@ import Ember from 'ember';
 const { Route, inject, Logger } = Ember;
 
 export default Route.extend({
+  classNames: ['body-page'],
   titleToken: 'Recover your password',
   ajax: inject.service(),
 

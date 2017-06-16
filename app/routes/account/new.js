@@ -1,8 +1,7 @@
 import Ember from 'ember';
 
-const { Route } = Ember;
-
-export default Route.extend({
+export default Ember.Route.extend({
+  classNames: ['body-page'],
   titleToken: 'Create an account',
   model() {
     return this.store.createRecord('user');
