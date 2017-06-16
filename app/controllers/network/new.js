@@ -125,7 +125,7 @@ export default Controller.extend({
         }
       }`;
       this.toggleProperty('cpvModalIsOpen');
-      if(this.get('cpvModalIsOpen')) {
+      if (this.get('cpvModalIsOpen')) {
         this.get('ajax')
           .post('/contracts/cpvs', { data: options, headers: { 'Content-Type': 'application/json' } })
           .then((data) => {

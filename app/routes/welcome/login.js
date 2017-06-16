@@ -5,7 +5,7 @@ const { Route } = Ember;
 export default Route.extend({
   classNames: ['body-page'],
   setupController(controller) {
-    if(controller.get('session.isAuthenticated')) {
+    if (controller.get('session.isAuthenticated')) {
       this.transitionTo('welcome');
     }
   },
