@@ -6,6 +6,10 @@ html, body, .container,
 body > .ember-view {
   color: $text-color;
 }
+html, body,
+body > .ember-view {
+  height: 100%;
+}
 
 //p { font-size: $fs2; }
 .el-title { @include title; }

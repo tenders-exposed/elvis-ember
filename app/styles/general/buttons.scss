@@ -92,6 +92,27 @@ $button-types:
   }
 }
 
+// disabled state by Bootstrap
+.btn,
+.btn-flat {
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &,&:hover {
+      cursor: not-allowed;
+      opacity: .45 !important;
+      box-shadow: none;
+    }
+  }
+
+  a & {
+    &.disabled,
+    fieldset[disabled] & {
+      pointer-events: none; // Future-proof disabling of clicks on `<a>` elements
+    }
+  }
+}
+
 // font awesome fixes
 // -------------------------
 
