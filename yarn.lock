@@ -2435,14 +2435,14 @@ electron-to-chromium@^1.2.7, electron-to-chromium@^1.3.11:
   version "1.3.13"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.13.tgz#1b3a5eace6e087bb5e257a100b0cbfe81b2891fc"
 
-elvis-network@^0.2.0:
+elvis-network@tenders-exposed/elvis-network:
   version "0.2.0"
-  resolved "https://registry.yarnpkg.com/elvis-network/-/elvis-network-0.2.0.tgz#f3db22dbff5bd887e420991ef87e6f0ec9102b4f"
+  resolved "https://codeload.github.com/tenders-exposed/elvis-network/tar.gz/e3f26de8ecbc163a3f9202926eb8d28cd6863eb3"
   dependencies:
     ember-cli-babel "^5.1.5"
     ember-cli-htmlbars "^1.0.1"
     ember-cli-node-assets "^0.2.2"
-    vis "^4.20.0"
+    vis tenders-exposed/vis#fix/join-clustered-edges
 
 ember-ag-grid@tenders-exposed/ember-ag-grid:
   version "0.2.2"
@@ -8092,9 +8092,9 @@ viewport-dimensions@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/viewport-dimensions/-/viewport-dimensions-0.2.0.tgz#de740747db5387fd1725f5175e91bac76afdf36c"
 
-vis@^4.20.0:
+vis@tenders-exposed/vis#fix/join-clustered-edges:
   version "4.20.0"
-  resolved "https://registry.yarnpkg.com/vis/-/vis-4.20.0.tgz#816eb8394dabd648a4a805efa9800b4640602a0c"
+  resolved "https://codeload.github.com/tenders-exposed/vis/tar.gz/5c7e4b9d88db0ac2f962cb87d07ed37ef84038c8"
   dependencies:
     emitter-component "^1.1.1"
     hammerjs "^2.0.8"
