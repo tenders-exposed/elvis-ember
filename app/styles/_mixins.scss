@@ -49,6 +49,17 @@
   text-transform: uppercase;
 }
 
+@mixin vis-button {
+  background-image: none !important;
+  width: auto;
+  height: auto;
+  bottom: auto;
+  right: auto;
+  &:hover {
+    box-shadow: none !important;
+  }
+}
+
 
 @mixin compound-style-text{
 
