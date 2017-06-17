@@ -51,6 +51,7 @@ export default Service.extend({
   ajax: inject.service(),
   me: inject.service(),
   endpoint: '',
+  data: {},
 
   init() {
     this.reset();
@@ -72,7 +73,7 @@ export default Service.extend({
   },
 
   store(item, value) {
-    this.set(data[item], value)
+    this.set('data[item]', value);
   },
 
   save() {
