@@ -3,16 +3,32 @@ import Ember from 'ember';
 const { Route } = Ember;
 
 export default Route.extend({
-  beforeModel() {
-    this.store.unloadAll('network');
-  },
+  classNames: ['body-network'],
+  titleToken: 'Network - ',
 
   activate() {
     this.notifications.clearAll();
   },
 
+  model(params) {
+    return this.get('store').findRecord(
+      'network',
+      params.network_id,
+      { reload: true }
+    );
+  },
+
+  afterModel(model) {
+    this.titleToken = `${this.titleToken} ${model.get('name') || model.id}`;
+  },
+
   setupController(controller, model) {
     controller.set('model', model);
+    controller.set('stabilizationPercent', 0);
+  },
+
+  resetController(controller) {
+    controller.set('network', undefined);
   },
 
   actions: {

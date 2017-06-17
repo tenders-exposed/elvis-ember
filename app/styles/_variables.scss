@@ -1,91 +1,381 @@
-@import 'components/color';
-@import 'components/variables';
+/*
+  @created: 13-04-2017
+
+  All variables used in elvis go here.
+  This file contains all variables merged from materializecss and elvis custom variables.
+
+  @NOTE: [matej]: I did some tidy up here. I copypasted contents of _variables.scss from materialize.
+                  This way we can customize any variable values originally defined by materialize and
+                  mix them with our own variables. Later might be wise to separate variables into more files
 
 
-$main-bg: #1A1A1C;
-$bg-dark: #171719;
-$color-darker: #464646;
-$color-text-main: #eee;
-$color-text-dark: grey;
-$color-small-text: #444446;
+  In general, we want to make use of already defined materializecss variables and components (e.g. $input-height or $h1-fontsize etc).
+  Also, we want to capture the most general variables specific for elvis which could be further used in other custom components
+  Example: $color-procurer, $color-supplier
 
-$color-supplier: deepskyblue;
-$color-procurer: deeppink;
-$color-relationship: #c0c0c0;
-$color-light-grey: #c0c0c0;
-$color-flags: orangered;
-$color-box-border: #2f2f35;
-$color-icon: dimgray;
-$color-icon-hover: darkgrey;
+  For custom elvis components, we will define custom variables, but they should be related to the values of already predefined variables.
+  Example: we want all inputs inside header to be 75% of the default $input-height variable defined in materializecss;
+           @header-input-height: 0.75*@input-height;
+  This way we can later adjust the system design by rewriting less code.
 
-@mixin bg-dark {
-  opacity: 0.9;
-  background: $bg-dark;
-}
+  Variable naming rules:
+  --------
+  We are not totally strict, but lets make variable names intuitive, so they can be easily guessed without knowing all of them.
+  It should be clear from variable name what the variable is used for.
 
-/*elements*/
-@mixin box {
-  border-radius: 5px;
-  border: 1px solid $color-box-border;
-  padding: 10px;
-  position: relative;
-  color: $color-text-main;
-  background: $bg-dark;
+  ${objectName}-{attribute}-{subAttribute}
 
-  .close{
-    position: absolute;
-    top: 3px;
-    right: 3px;
-    cursor: pointer !important;
-    width: 18px;
-    opacity: 0.2;
-    &:hover {
-      opacity: 1;
-    }
-  }
-}
-@mixin search-input {
-  background-color: #151517 !important;
-  height: 2rem !important;
-  width: 100% !important;
-  border-bottom: 1px solid #313030 !important;
-  padding: 0px 16px !important;
-  color: #615f5f !important;
-  &:focus { color: $color-text-main !important; box-shadow: none;}
-}
+  variable examples:
+    basic attributes like colors or sizes: $color-supplier, $font-family-serif, $padding-horizontal-small
+    generally used variables: $base-font-size, $base-bg
+    input component attributes: $input-height, $input-font-size
+ */
 
-/*fonts and text*/
-@mixin default-font {
-  font-family: "Roboto";
-  font-weight: normal;
-}
-@mixin title {
-  font-family: serif;
-  font-weight: 600;
-  margin-bottom: 0;
-}
-@mixin label {
-  font-family: "Roboto";
-  font-weight: bold;
-  text-transform: uppercase;
-}
 
+
+/* ==========================================================================
+   Materialize + ELVIS variables
+   - ordered by ± frequency of use
+   ========================================================================== */
+
+
+/* Colors
+   ========================================================================== */
+
+// general colors
+$primary-color:           #27f0fc;
+$primary-color-light:     lighten($primary-color, 15%);
+$primary-color-dark:      darken($primary-color, 15%);
+
+$secondary-color:         #f0308e;
+
+$error-color:             #ff533c;
+$success-color:           #00ff7e;
+
+$color-supplier:          $primary-color;
+$color-procurer:          $secondary-color;
+$color-relationship:      #c0c0c0; // should be rgba(255,255,255,-.2);
+$color-flags:             orangered;
+
+$color-dark:              #444;
+
+$link-color:              fade-out($primary-color,.25);
+$link-color-hover:        $primary-color;
+
+// TODO: all these variables should be compressed to just one
+$base-bg-color:       #1A1A1C;
+$main-bg:                 #1A1A1C;
+$bg-color:                #1A1A1C;
+$bg-dark-color:           #1A1A1C;
+
+$text-color:              #fff;
+$text-dark-color:         grey;
+
+$box-border-color:        #2f2f35;
+
+// here i collect variables which we should create more useful names for.
+// example: component color is rarely related to its size. therefore $text-small-color lack logic. maybe $input-help-text-color could be more useful definition
+
+// example2:there will be many icons in the system, and they will have various colors in various contexts.
+//          therefore defining $color-icon variable seems too general. maybe $nav-icon-color or $list-icon-color would be a better solution
+$color-icon:              dimgray;
+$color-icon-hover:        darkgrey;
+$text-small-color:        #444446;
+$off-black:               rgba(0, 0, 0, 0.87);
+
+
+/* Grid
+   ========================================================================== */
+$num-cols: 12;
+$gutter-width: 1.5rem;
+$element-top-margin: $gutter-width/3;
+$element-bottom-margin: ($gutter-width*2)/3;
+
+/* Sizing
+   ========================================================================== */
+$padding-base:            $gutter-width;
+$padding-large:           2*$gutter-width;
+$padding-small:           $gutter-width/2;
+
+/* Typography
+   ========================================================================== */
+$roboto-font-path: "../assets/";
+
+// Elvis fonts
+$font-family-serif:          'PlayFair Display',Georgia,serif;
+$font-family-sans:           'Roboto Condensed',Arial,sans-serif;
+
+$font-size-large: 1.28rem;
+
+// Heading Sizing
+$h1-fontsize: 3.42rem;
+$h2-fontsize: 2.85rem;
+$h3-fontsize: 1.71rem;
+$h4-fontsize: 1.28rem;
+$h5-fontsize: 1rem;
+$h6-fontsize: 1rem;
+
+// TODO: delete these variables and use "$hX-fontsize" everywhere
 $fs6 : 2.3rem;
 $fs5 : 1.5rem;
 $fs4 : 1.3rem;
 $fs3 : 1.1rem;
 $fs2 : 1rem;
 $fs1 : 0.8rem;
-$fs01 : 0.7rem;
 $fs0 : 0.6rem;
+$fs01 : 0.6rem;
 
 
-@mixin compound-style-text {
+/* General
+   ========================================================================== */
 
-}
+$base-font-size:      14px;
+$base-line-height:    1.5;
+
+$border-radius-base:  5px;
+$border-width-base:   1px;
 
 
 
+/* Badges
+   ========================================================================== */
+
+$badge-bg-color: $primary-color;
 
 
+/* Buttons
+   ========================================================================== */
 
+// Shared styles
+$button-bg: $primary-color;
+$button-border: none;
+$button-background-focus: lighten($primary-color, 4%);
+$button-font-size: 1.3rem;
+$button-color:  $bg-color;
+$button-height: 36px;
+$button-padding: 0 2rem;
+$button-radius: 4px;
+
+// Disabled styles
+$button-disabled-background: #DFDFDF;
+$button-disabled-color: #9F9F9F;
+
+// Raised buttons
+$button-raised-background: $primary-color;
+$button-raised-background-hover: lighten($button-raised-background, 5%);
+$button-raised-color: #fff;
+
+// Large buttons
+$button-large-icon-font-size: 1.6rem;
+$button-large-height: $button-height * 1.5;
+
+// Small buttons
+$button-small-font-size: 0.75rem;
+$button-small-icon-font-size: 0.75rem;
+$button-small-height: $button-height * 0.75;
+
+// Flat buttons
+$button-flat-color: #343434;
+$button-flat-disabled-color: lighten(#999, 10%);
+
+// Floating buttons
+$button-floating-background: $primary-color;
+$button-floating-background-hover: $button-floating-background;
+$button-floating-color: #fff;
+$button-floating-size: 37px;
+$button-floating-large-size: $button-floating-size * 1.5;
+$button-floating-radius: 50%;
+
+
+/* Cards
+   ========================================================================== */
+
+$card-padding: 20px;
+$card-bg-color: rgba(255,255,255,0.05);
+$card-link-color: color("orange", "accent-2");
+$card-link-color-light: lighten($card-link-color, 20%);
+
+
+/* Collapsible
+   ========================================================================== */
+
+$collapsible-height: 3rem;
+$collapsible-header-color: #fff;
+$collapsible-border-color: #ddd;
+
+
+/* Chips
+   ========================================================================== */
+
+$chip-bg-color: #e4e4e4;
+
+
+/* Date Picker
+   ========================================================================== */
+
+$datepicker-weekday-bg: darken($secondary_color, 7%);
+$datepicker-date-bg: $secondary_color;
+$datepicker-year: rgba(255, 255, 255, .4);
+$datepicker-focus: rgba(0,0,0, .05);
+$datepicker-selected: $primary-color;
+$datepicker-selected-outfocus: desaturate(lighten($primary-color, 35%), 15%);
+
+
+/* Dropdown
+   ========================================================================== */
+
+$dropdown-bg-color: #fff;
+$dropdown-hover-bg-color: #eee;
+$dropdown-color: $primary-color;
+$dropdown-item-height: 50px;
+
+
+/* Forms
+   ========================================================================== */
+
+// Text Inputs + Textarea
+$input-height: 3rem;
+$input-border-color: fade-out($text-color,0.8);
+$input-border: 1px solid $input-border-color;
+$input-background: #fff;
+$input-error-color: $error-color;
+$input-success-color: $success-color;
+$input-focus-color: $primary-color;
+$input-font-size: 1.28rem;
+$input-margin: 0 0 15px 0;
+$input-padding: 0;
+$input-transition: all .3s;
+$label-font-size: .8rem;
+$input-disabled-color: rgba(0,0,0, .26);
+$input-disabled-solid-color: #BDBDBD;
+$input-disabled-border: 1px dotted $input-disabled-color;
+$input-invalid-border: 1px solid $input-error-color;
+$placeholder-text-color: lighten($input-border-color, 20%);
+
+// Radio Buttons
+$radio-fill-color: $primary-color;
+$radio-empty-color: #5a5a5a;
+$radio-border: 2px solid $radio-fill-color;
+
+// Range
+$range-height: 14px;
+$range-width: 14px;
+$track-height: 3px;
+
+// Select
+$select-border: 1px solid #f2f2f2;
+$select-background: rgba(255, 255, 255, 0.90);
+$select-focus: 1px solid lighten($primary-color, 47%);
+$select-padding: 5px;
+$select-radius: 2px;
+$select-disabled-color: rgba(0,0,0,.3);
+
+// Switches
+$switch-bg-color: $primary-color;
+$switch-checked-lever-bg: desaturate(lighten($primary-color, 25%), 25%);
+$switch-unchecked-bg: #F1F1F1;
+$switch-unchecked-lever-bg: #818181;
+$switch-radius: 15px;
+
+
+/* Global
+   ========================================================================== */
+
+// Media Query Ranges
+$small-screen-up: 601px;
+$medium-screen-up: 993px;
+$large-screen-up: 1201px;
+$small-screen: 600px;
+$medium-screen: 992px;
+$large-screen: 1200px;
+
+$medium-and-up: "only screen and (min-width : #{$small-screen-up})";
+$large-and-up: "only screen and (min-width : #{$medium-screen-up})";
+$small-and-down: "only screen and (max-width : #{$small-screen})";
+$medium-and-down: "only screen and (max-width : #{$medium-screen})";
+$medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width : #{$medium-screen})";
+
+
+/* Navigation Bar
+   ========================================================================== */
+
+$navbar-height: 80px !default;
+$navbar-height-mobile: 80px !default;
+$navbar-font-color: #fff;
+$navbar-brand-font-size: 1rem;
+
+
+/* Side Navigation
+   ========================================================================== */
+
+$sidenav-font-color: #444;
+$sidenav-bg-color: #fff;
+$sidenav-padding-right: 30px;
+$sidenav-item-height: 64px;
+
+
+/* Photo Slider
+   ========================================================================== */
+
+$slider-bg-color: color('grey', 'base');
+$slider-bg-color-light: color('grey', 'lighten-2');
+$slider-indicator-color: color('green', 'base');
+
+
+/* Spinners | Loaders
+   ========================================================================== */
+
+$spinner-default-color: $primary-color;
+
+
+/* Tabs
+   ========================================================================== */
+
+$tabs-underline-color: $primary-color-light;
+$tabs-text-color: $primary-color;
+$tabs-bg-color: #fff;
+
+
+/* Tables
+   ========================================================================== */
+
+$table-border-color: #d0d0d0;
+$table-striped-color: #f2f2f2;
+
+
+/* Toasts
+   ========================================================================== */
+
+$toast-height: 48px;
+$toast-color: #323232;
+$toast-text-color: #fff;
+
+/* Footer
+   ========================================================================== */
+
+$footer-bg-color: $primary-color;
+
+
+/* Flow Text
+   ========================================================================== */
+
+$range : $large-screen - $small-screen;
+$intervals: 20;
+$interval-size: $range / $intervals;
+
+
+/* Collections
+   ========================================================================== */
+
+$collection-border-color: #e0e0e0;
+$collection-bg-color: #fff;
+$collection-active-bg-color: $primary-color;
+$collection-active-color: lighten($primary-color, 55%);
+$collection-hover-bg-color: #ddd;
+$collection-link-color: $primary-color;
+
+
+/* Progress Bar
+   ========================================================================== */
+
+$progress-bar-color: $primary-color;

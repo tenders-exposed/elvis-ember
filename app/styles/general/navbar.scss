@@ -1,0 +1,77 @@
+/* Navbar component */
+nav {
+  ul li { margin: 0;}
+}
+
+// hide navbar on network view
+body.body-network #main-navbar {
+  display: none;
+}
+
+.navbar {
+  $navbar-bg: transparent;
+  $navbar-font-family: $font-family-serif;
+  $navbar-font-size: 1.28rem;
+  $navbar-text-color: $text-color;
+
+  background: $navbar-bg;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+
+  .nav-wrapper {
+    padding-left: $padding-base;
+    padding-right: $padding-base;
+  }
+  a {
+    color: $navbar-text-color;
+    text-decoration: none;
+  }
+
+  // navbar nav
+  ul li a {
+    font-family: $navbar-font-family;
+    font-size: $navbar-font-size;
+  }
+
+  ul li a,
+  .brand-logo {
+    max-height: $navbar-height;
+    opacity: 0.6;
+    position: relative;
+    &:hover { opacity: .9; }
+  }
+
+  // make logo img fit into navbar's height
+  .brand-logo,
+  .brand-logo img { height: 100%; vertical-align: middle; }
+
+
+  .button-collapse {
+    position: absolute;
+    left: $padding-base;
+  }
+
+  // centering a nav
+  // @note: this avoids the rules as navigation should not be centered according to material design guidelines
+  .center {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+// mobile sidenav style
+// TODO: add logo, border/shadow. make visually more interesting
+.navbar .side-nav {
+  background: $bg-color;
+  li:hover a { background-color: rgba(0,0,0,0.7); }
+}
+
+// logged user menu
+.navbar .user-nav {
+  li a { font-size: 1.28rem; } // make the icons slightly bigger
+  li a span {
+    display: none;
+  }
+}
+

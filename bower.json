@@ -1,6 +1,6 @@
 {
   "name": "elvis-ember",
-  "version": "0.0.1",
+  "version": "0.2.1",
   "authors": [
     "Matej Chudada",
     "Victor Nițu",
@@ -22,7 +22,6 @@
     "nouislider": "^8.0.1",
     "jstree": "^3.3.3",
     "ember-cli-list-view": ">=0.0.3",
-    "vis": "^4.16.0",
     "ag-grid": "^5.3.1",
     "lodash": "^4.16.4",
     "perfect-scrollbar": "^0.6.14",

@@ -41,6 +41,9 @@
         {{#tab-button class="tab-button"  manager=procurerTabManager name="contracts"}}
           <a>contracts</a>
         {{/tab-button}}
+        {{#tab-button class="tab-button"  manager=procurerTabManager name="contractsGraph"}}
+          <a>timeline</a>
+        {{/tab-button}}
         {{#tab-button class="tab-button"  manager=procurerTabManager name="suppliers"}}
           <a>suppliers</a>
         {{/tab-button}}
@@ -50,6 +53,16 @@
         {{details-data-table
             class="contracts"
             content=model.contracts
+            fields=fields.contracts
+            partialPath="network/show/details/partials/tables/contracts"
+            route="procurers"
+            nodeId=params.id
+        }}
+      {{/tab-panel}}
+      {{#tab-panel manager=procurerTabManager name="contractsGraph" class='tab-panel'}}
+        {{details-graph
+            id="details-graph-id"
+            contracts=model.contracts
             fields=fields.contracts
             partialPath="network/show/details/partials/tables/contracts"
             route="procurers"

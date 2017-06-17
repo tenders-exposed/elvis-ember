@@ -75,9 +75,12 @@ div#network-container {
   div#details-container {
     z-index: 100;
     position: absolute;
+    overflow: hidden;
     pointer-events: none;
     height: 100%;
     width: 100%;
+    display: box;
+    box-orient: horizontal;
 
     div#details-info {
       height: 100%;

@@ -1,8 +1,9 @@
 import Ember from 'ember';
 
-const { Component, computed, observer } = Ember;
+const { Component, Logger, computed, observer, inject } = Ember;
 
 export default Component.extend({
+  cpvService: inject.service('cpv'),
   classNames: ['cpv-selector'],
   classNameBindings: ['visible:visible:hide'],
   refresh: true,
@@ -35,59 +36,109 @@ export default Component.extend({
   },
 
   createTree() {
-    let cpvs = this.get('cpvs');
-    _.map(_.groupBy(cpvs, (obj) => obj.id[0]), (group) => {
-      group = _.sortBy(group, 'id');
-      _.map(group, (obj) => {
-        let patternBase = obj.id.replace(/0+$/, '').slice(0, -1);
-        let parent = { id: '#' };
-        let matcher = (o) => o.id.match(new RegExp(`^${patternBase}0+$`));
-        while (patternBase.length > 0 && parent.id === '#') {
-          let found = _.findLast(group, matcher);
-          if (found) {
-            parent = found;
-            break;
+    let cpvs = _.sortBy(
+      _.cloneDeep(this.get('cpvs')),
+      ['id']
+    );
+    let tree = [];
+    let missingCodes = [];
+
+    cpvs.map((cpv) => {
+      let {
+        number_digits,
+        id,
+        doc_count,
+        text
+      } = cpv;
+      let result = {};
+
+      result.id = id;
+      result.count = doc_count;
+      result.name = text;
+      result.state = { opened: false };
+      result.text = '<span class="details"><small>';
+      result.text += `${id} (${doc_count} / 0)`;
+      result.text += `</small><br><div>${text}</div></span>`;
+
+      let parent, cpvGroup, cpvDivision, regex;
+
+      switch (number_digits) {
+      case null:
+        result.parent = '#';
+        break;
+
+      case 0:
+      case 2:
+        result.parent = '#';
+        break;
+
+      case 3:
+        cpvDivision = id.slice(0, 2);
+        // parent = cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`);
+        result.parent = `${cpvDivision}000000`;
+        if (!cpvDivision) {
+          Logger.warn(`Cannot compute division for ${id}`, cpv);
+          result.parent = '#';
+        } else {
+          if (!cpvs.find((cpv) => cpv.id === `${cpvDivision}000000`)) {
+            Logger.warn('Trying to get division', cpvDivision);
+            missingCodes.push(result.parent);
           }
-          patternBase = patternBase.slice(0, -1);
         }
-        obj.parent = String(parent.id);
-        obj.state = { opened: false };
-        obj.name = `${obj.text}`;
-      });
-    });
+        break;
 
-    let count = (obj) => {
-      if (obj.count) {
-        return obj.count;
-      } else {
-        return _.sumBy(
-          cpvs,
-          (cpv) => {
-            if (cpv.id === obj.id) {
-              return cpv.doc_count;
-            } else if (cpv.parent === obj.id) {
-              return count(cpv);
-            } else {
-              return 0;
-            }
-          }
+      case 4:
+      default:
+        // First attempt to find a CPV group (level 2, 3 digits)
+        cpvGroup = id.slice(0, 3);
+        parent = cpvs.find((cpv) => cpv.id === `${cpvGroup}00000`);
+        if (parent) {
+          result.parent = parent.id;
+          break;
+        }
+
+        // If we're here, we're looking for a major division
+        cpvDivision = this.get('cpvService').getDivisions().find(
+          (div) => div === id.slice(0, 2)
         );
+        if (!cpvDivision) {
+          Logger.warn(`Cannot find division ${cpvDivision} for ${id}`, cpv);
+          result.parent = '#';
+        } else {
+          // if (!cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`)) {
+          result.parent = `${cpvDivision}000000`;
+          regex = `${cpvDivision}0+$`;
+          if (!cpvs.find((c) => c.id.match(new RegExp(regex, 'g'))) ||
+              !cpvs.find((c) => c.id === result.parent)) {
+            missingCodes.push(result.parent);
+          }
+        }
+        break;
       }
-    };
 
-    _.map(cpvs, (obj) =>    {
-      obj.count = count(obj);
-      obj.text = `<span class="details">
-                    <small>
-                        ${obj.id} ( ${obj.count} / ${obj.doc_count})
-                    </small>
-                    <br>
-                    <div>
-                      ${obj.text}
-                    </div>
-                  </span>
-                  `;
+      tree.push(result);
     });
+
+    missingCodes = _.uniq(missingCodes);
+    missingCodes.map((missingCode) => tree.push(
+      this.get('cpvService')
+        .getCode(missingCode)
+    ));
+
+    // // Tree health check!
+    // tree.map((node) => {
+    //   if (!tree.find((n) => n.id == node.parent) && node.parent !== '#') {
+    //     Logger.error(`Parent with id ${node.parent} is missing!`, cpvs.find((n) => n.id == node.id));
+    //   }
+    // });
+
+    this.set('tree', tree);
+  },
+
+  collectChildren(node, cpvs) {
+    let division = node.id.slice(0, 2);
+
+    return _.filter(cpvs, (cpv) => cpv.id.indexOf(division) === 0);
   },
 
   actions: {

@@ -16,6 +16,10 @@ module.exports = function(environment) {
         Date: false
       }
     },
+    googleFonts: [
+      'Roboto+Condensed:400,700',
+      'Playfair+Display:400,400i,700,700i,900,900i'
+    ],
 
     APP: {
       // Here you can pass flags/options to your application instance
@@ -74,10 +78,10 @@ module.exports = function(environment) {
     'default-src': "'self' http://api.elvis.tenders.exposed http://toto.tenders.exposed",
     'child-src': "blob: * 'self'",
     'script-src': "'self' 'unsafe-inline' 'unsafe-eval' http://api.elvis.tenders.exposed http://toto.tenders.exposed",
-    'font-src': "'self' http://fonts.gstatic.com",
+    'font-src': "'self' fonts.gstatic.com",
     'connect-src': "'self' * http://192.168.0.111:3000 http://0.0.0.0:3000 https://api.mixpanel.com http://localhost:3000 http://localhost:35729 blob: http://api.elvis.tenders.exposed http://toto.tenders.exposed",
     'img-src': "'self' 'unsafe-inline' 'unsafe-eval' data: *",
-    'style-src': "'self' 'unsafe-inline' http://fonts.googleapis.com",
+    'style-src': "'self' 'unsafe-inline' fonts.googleapis.com",
     'media-src': "'self'",
     'report-uri': "http://localhost:4200"
   };

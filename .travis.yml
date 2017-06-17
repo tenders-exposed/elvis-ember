@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "7.9.0"
+git:
+  depth: 1
+branches:
+  except:
+    - /^experiment.*/
+before_script:
+  - npm install -g bower ember-cli@2.11.1 yarn node-sass
+  - bower install
+  - yarn
+script:
+   ember build

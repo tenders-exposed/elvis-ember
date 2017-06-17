@@ -1,0 +1,118 @@
+// list of all button types
+$button-types:
+        (primary, $primary-color),
+        (secondary, $secondary-color),
+        (success,$success-color),
+        (error,$error-color);
+
+// button type mixins
+@mixin button-color($bg: $button-bg, $text: $button-color, $border: transparent) {
+  background: fade-out($bg,0.2);
+  color: $text;
+  border: 1px solid $border;
+  &:hover {
+    background:$bg;
+    color: $text;
+    transition: all 0.3s ease;
+  }
+  &:active {
+    background:$bg;
+  }
+}
+@mixin button-transparent ($color: $text-color) {
+  background: transparent;
+  color: fade-out($color,0.4);
+  border: 1px solid fade-out($color,0.4);
+  &:hover {
+    color:$color;
+    border-color: $color;
+    transition: all 0.3s ease;
+    background: transparent;
+  }
+  &:active {
+    color:$color;
+  }
+}
+@mixin button-link ($color: $link-color) {
+  color: fade-out($color,0.4);
+  background: none;
+  box-shadow: none;
+  border-color: transparent;
+  &:hover {
+    color: $color;
+  }
+}
+
+
+
+// button sizing
+// -------------------------
+.btn-small {
+  font-size: $button-small-font-size;
+  height: $button-small-height;
+  padding: $padding-small;
+
+}
+
+// generate buttons
+// -------------------------
+.btn,
+.btn-large,
+.btn-small,
+.btn-floating,
+.btn-flat {
+  font-weight: bold;
+  box-sizing: content-box;
+
+  // default values for buttons
+  & {
+    @include button-color($text-color);
+  }
+  &.transparent {
+    @include button-transparent($text-color);
+  }
+  &.link {
+    @include button-link($text-color);
+  }
+
+  // other color versions
+  @each $type, $color in $button-types {
+    // btn with background
+    &.#{$type} {
+      @include button-color($color);
+    }
+    // transparent btn with border
+    &.transparent.#{$type} {
+      @include button-transparent($color);
+    }
+    // link btn
+    &.link.#{$type} {
+      @include button-link($color);
+    }
+  }
+}
+
+// font awesome fixes
+// -------------------------
+
+// fa inside btn
+.btn,
+.btn-large,
+.btn-floating,
+.btn-large,
+.btn-flat,
+.data-table-header a {
+  i.fa {
+    font-size: inherit;
+    line-height: inherit;
+  }
+}
+
+// font awesome icons inside floating buttons
+.fixed-action-btn .btn-floating i.fa {
+  margin-right: 0 !important;
+  font-size: 1rem;
+  position: relative;
+  top: -.125rem;
+}
+

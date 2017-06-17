@@ -23,6 +23,8 @@ machine you plan to use for development:
 
 * [Git](http://git-scm.com/)
 * [Node.js](http://nodejs.org/) (with NPM)
+  * Version `7.9.x` is reccommended
+  * `yarn` is also reccommended over `npm`
 * [Bower](http://bower.io/)
 * [Ember CLI](http://ember-cli.com/)
 
