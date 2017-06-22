@@ -107,6 +107,8 @@ $font-family-sans:           'Roboto Condensed',Arial,sans-serif;
 
 $font-size-large: 1.28rem;
 
+$text-muted-color:    fade-out($text-color,0.5);
+
 // Heading Sizing
 $h1-fontsize: 3.42rem;
 $h2-fontsize: 2.85rem;
@@ -134,6 +136,8 @@ $base-line-height:    1.5;
 
 $border-radius-base:  5px;
 $border-width-base:   1px;
+
+$border-base: $border-width-base solid rgba(255,255,255,0.07);
 
 
 

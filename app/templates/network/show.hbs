@@ -74,11 +74,11 @@
       {{/if}}
     {{/if}}
     <div id="network-controls">
-      <span {{action "modalNetworkLink" on="click"}}>
-        {{fa-icon "link" size=1}}
+      <span class="vis-button" {{action "modalNetworkLink" on="click"}}>
+        {{fa-icon "link"}}
       </span>
-      <span class="cogs" {{action "stopPhysics" on="click"}}>
-        {{fa-icon 'cogs' size=1}}
+      <span class="vis-button" {{action "stopPhysics" on="click"}}>
+        {{fa-icon 'cogs'}}
       </span>
     </div>
     {{#if networkLinkModal}}

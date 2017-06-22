@@ -4,21 +4,24 @@
   <div id="details-info">
     {{outlet}}
   </div>
-  <div id="details-sidebar"  style="height: {{height}}px;">
-    <div class="row">
-      <div class="col s12 {{if networkInput "show-form-description" "network-name-sidebar"}}">
-        <h2 class={{if networkInput "hide" "show-block details"}}>
-          {{#if session.isAuthenticated}}
-            <span {{action "toggleInput" on="click"}}>
-              {{fa-icon 'cog' size=1}}
-            </span>
-          {{/if}}
-          {{#if model.name}}
-            {{model.name}}
-          {{else}}
-            unnamed network
-          {{/if}}
-        </h2>
+  <div id="details-sidebar">
+      <div class="sidebar-header">
+          <h4 class="network-title {{if networkInput "hide" "show-block details"}}">
+		          {{!-- TODO: this is a button for showing the side nav once ready
+		          <a class="sidebar-nav-toggle" href="#"><i class="fa fa-bars"></i></a>  --}}
+						  {{#if model.name}}
+								  {{model.name}}
+						  {{else}}
+                  Untitled Network 1
+						  {{/if}}
+						  {{#if session.isAuthenticated}}
+                  <a href="#" class="network-title-settings-toggle" {{action "toggleInput" on="click"}}>
+										  {{fa-icon 'cog'}}
+                  </a>
+						  {{/if}}
+          </h4>
+      </div>
+      <div class="{{if networkInput "show-form-description" "network-name-sidebar"}}">
         <div class={{if networkInput "show-block network-input" "hide"}}>
           <div class="close absolute">
             <span {{action "toggleInput"}}>
@@ -46,37 +49,33 @@
               </span>
             </div>
           </div>
-
         </div>
-
       </div>
-      <div class="col s12 relative table-sidebar">
-        <a {{action 'closeDetails' model.id}} class="right closeDetails absolute" style="cursor: pointer;">
-          <i class="control-icon material-icons">{{fa-icon 'arrow-circle-left' size=1}}</i>
-        </a>
+      <div class="table-sidebar">
         {{#tabbed-content active=activeTab on-change="changeTab" active-class="tab-button--active" as |sidebarTabManager|}}
           <div class="tabs__nav">
             {{#tab-button class="tab-button"  manager=sidebarTabManager name="suppliers"}}
               <a>
-                <span class="absolute circle supplier"> {{fa-icon 'circle' size=1}} </span>
+                <span class="tab-icon supplier"></span>
                 Suppliers
               </a>
             {{/tab-button}}
             {{#tab-button class="tab-button"  manager=sidebarTabManager  name="procurers"}}
               <a>
-                <span class="absolute circle procurer"> {{fa-icon 'circle' size=1}} </span>
+                <span class="tab-icon procurer"></span>
                 Procurers
               </a>
             {{/tab-button}}
             {{#tab-button class="tab-button"  manager=sidebarTabManager name="relationships" active-class="tabs-button--active2"}}
               <a>
-                <span class="absolute circle relationship-line"> <hr/> </span>
-                <span class="absolute circle relationship rel1"> {{fa-icon 'circle' size=1}} </span>
-                <span class="absolute circle relationship rel2"> {{fa-icon 'circle' size=1}} </span>
+                <span class="tab-icon relationship"></span>
                 Relationships
               </a>
             {{/tab-button}}
           </div>
+          <a {{action 'closeDetails' model.id}} class="closeDetails sidebar-toggle">
+            <i class="control-icon material-icons">{{fa-icon 'arrow-circle-left' size=1}}</i>
+          </a>
           {{#tab-panel manager=sidebarTabManager name="suppliers" class='tab-panel'}}
 
             {{#render-later load=gridOptions.suppliers.rowData wait=5 message="Loading data grid..."}}
@@ -126,6 +125,5 @@
         {{/tabbed-content}}
       </div>
     </div>
-  </div>
 
 {{/network-container}}

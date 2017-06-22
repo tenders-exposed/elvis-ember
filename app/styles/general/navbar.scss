@@ -4,8 +4,11 @@ nav {
 }
 
 // hide navbar on network view
-body.body-network #main-navbar {
-  display: none;
+// TODO: delete second and third selector after inproper body class issue is resolved
+body.body-network #main-navbar,
+body:not(.body-page) #main-navbar,
+body.body-page.network-show #main-navbar{
+  display: none !important;
 }
 
 .navbar {

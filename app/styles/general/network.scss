@@ -1,0 +1,53 @@
+// general network components
+
+// network entities
+// ------------------
+
+// mixin for generating a circle representing a network entity
+@mixin network-entity ($size: 1em) {
+  display: inline-block;
+  border-radius: 50%;
+  height: $size;
+  width: $size;
+  text-align: center;
+  line-height: $size;
+  box-shadow: 1px 1px $size/5 rgba(0,0,0,0.5);
+  background: $text-color;
+}
+.procurer,
+.supplier {
+  @include network-entity(1em);
+}
+.procurer {
+  background: $color-procurer;
+}
+.supplier {
+  background: $color-supplier;
+}
+.relationship {
+  position: relative;
+  top: .25em;
+  z-index: 0;
+  display: inline-block;
+  overflow: visible;
+  width: 3em;
+  height: 1em;
+  background: transparent;
+  border-top: .5em solid fade-out($color-relationship,0.2);
+
+  &:after,
+  &:before {
+    content: ' ';
+    position: absolute;
+    top: -.75em;
+    z-index: 1;
+    @include network-entity(1em);
+    background: $color-relationship;
+  }
+  &:before {
+    left: -.5em;
+  }
+  &:after {
+    right: -.5em;
+  }
+}

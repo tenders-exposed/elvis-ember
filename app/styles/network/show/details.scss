@@ -1,32 +1,123 @@
-div#details-sidebar {
+// Network details
+// -------------------------
+
+// TODO: consider less missleading naming: #network-sidebar, #network-infowindow
+
+$network-sidebar-width: 30%;
+$network-sidebar-padding: 20px;
+$network-infowindow-width: -$network-sidebar-width+100%;
+$network-border: $border-base;
+
+$zindex-network-sidebar: 9;
+$zindex-network-sidebar-toggle: 91;
+
+// network sidebar
+#details-sidebar {
   display: inline-block;
-  box-flex: 0;
-  z-index: 9;
+  z-index: $zindex-network-sidebar;
   pointer-events: all;
-  width: 30%;
+  width: $network-sidebar-width;
   min-width: 300px;
   min-height: 400px;
+  position: absolute;
   height: 100%;
   top: 0;
   clear: both;
+  border-right: $network-border;
+  //background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 
-  .details {
-    margin-top: 40px;
-    margin-left: 10px;
-    i { cursor: pointer; }
+  font-family: $font-family-sans;
+
+  .sidebar-header {
+    padding: 0.5*$network-sidebar-padding $network-sidebar-padding;
   }
 
-  /*arrow close sidebar*/
-  .closeDetails {
+  .sidenav-toggle {
+    color: $text-color;
+    float: left;
+  }
+
+  .network-title {
+    font-size: $h4-fontsize;
+    font-weight: normal;
+  }
+
+  .network-title-settings-toggle {
+    margin-left: 1em;
+    color: $text-color;
+    opacity: .4;
+    &:hover {
+      opacity: .8;
+    }
+  }
+
+  //tab navigations buttons
+  // TODO: correct naming of these css classes. we need consistency all over the system: use only dashes
+  .tabs__nav {
+    border-bottom: 1px solid #484848;
+    display: flex;
+    align-items: flex-start;
+    padding: 0 0.5*$network-sidebar-padding;
+    width: 100%;
+
+    // single tab
+    .tab-button {
+      display: inline-block;
+      flex-grow: 1;
+      padding: 0 0.5*$network-sidebar-padding;
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: .83em;
+      letter-spacing: .05em;
+      cursor: pointer;
+
+      // tab icon
+      .tab-icon {
+        display: block;
+        margin: 1em auto;
+      }
+
+      // tab label text
+      a {
+        display: inline-block;
+        color: $text-muted-color;
+        padding-bottom: 1em;
+        position: relative;
+        bottom: -2px;
+        cursor: pointer;
+      }
+
+      // active and hovered tab
+      &.tab-button--active a,
+      &.tabs-button--active2 a,
+      &:hover a {
+        border-bottom: 2px solid whitesmoke;
+        color: $text-color;
+      }
+    }
+  }
+
+  // sidebar toggle button (circle arrow)
+  .sidebar-toggle {
+    height: 0px;
+    overflow: visible;
+    float: right;
+    position: relative;
     right: -7px;
-    top: 37px;
+    top: -11px;
+    z-index: $zindex-network-sidebar-toggle;
+    cursor: pointer;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
   }
 
   .network-name-sidebar, .table-sidebar{
     @include bg-dark;
   }
 
-  /*change network name*/
+  //change network name
   div.show-form-description {
     border-bottom: 1px dashed $box-border-color;
     background: $bg-dark-color;
@@ -46,66 +137,7 @@ div#details-sidebar {
     textarea { padding-top: 5px !important; }
   }
 
-  /*tab navigations buttons*/
-  div.tabs__nav {
-    line-height: 2.5rem;
-    border-bottom: 1px solid #484848;
-    margin-bottom: 10px;
-    margin-top: 30px;
-
-    .tab-button--active,
-    .tabs-button--active2 {
-      a {
-        border-bottom: 2px solid whitesmoke;
-      }
-    }
-
-    div.tab-button {
-      display: inline-block;
-      font-weight: bold;
-      position: relative;
-      width: 33%;
-      cursor: pointer;
-      text-align: left;
-      padding-top: 10px;
-
-      &:first-child { padding-left: 12px; }
-      &:hover a { border-bottom: 2px solid dimgrey; }
-      a {
-        position: relative;
-        @include label;
-        color: $text-color;
-        font-size: $fs1;
-        padding-bottom: 10px;
-        span {
-          font-size: $fs2;
-        }
-      }
-
-      .circle {
-        right: 42%;
-        top: -33px;
-        &.supplier { color: $color-supplier; }
-        &.procurer { color: $color-procurer; }
-        &.relationship { color: $color-relationship; }
-        &.rel1 { right: 30%; }
-        &.rel2 { right: 60%; }
-
-        &.relationship-line {
-          width: 30%;
-          right: 37%;
-          top: -24px;
-          hr {
-            width: 100%;
-            color: #868686;
-            border: {width: 2px; style:solid; }
-          }
-        }
-      }
-    }
-  }
-
-  /*tabs*/
+  //tabs
   .tab-panel {
     width: 100%;
     height: 100%;
@@ -135,11 +167,10 @@ div#details-sidebar {
         width: 48px;
       }
     }
-    /*tabs - tables: elvis-data-table.scss*/
+    //tabs - tables: elvis-data-table.scss
   }
 }
-
-div#sidebar-toggle {
+#sidebar-toggle {
   z-index: 100;
   position: absolute;
   min-height: 500px;
