@@ -4,6 +4,7 @@
 }
 html, body, .container,
 body > .ember-view {
+  height: 100%;
   color: $text-color;
 }
 html, body,

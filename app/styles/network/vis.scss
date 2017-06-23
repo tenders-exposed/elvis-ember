@@ -715,6 +715,7 @@ div.vis-network div.vis-navigation div.vis-button.vis-up {
   /*background-image: url("img/network/upArrow.png");
   bottom:50px;
   left:55px;*/
+  @include vis-button();
   position: relative;
   &:before {
     content: "\f0a8";
@@ -724,33 +725,39 @@ div.vis-network div.vis-navigation div.vis-button.vis-up {
 }
 div.vis-network div.vis-navigation div.vis-button.vis-down {
  // background-image: url("img/network/downArrow.png");
+  @include vis-button();
   bottom:10px;
   left:55px;
 }
 div.vis-network div.vis-navigation div.vis-button.vis-left {
   //background-image: url("img/network/leftArrow.png");
+  @include vis-button();
   bottom:10px;
   left:15px;
 }
 div.vis-network div.vis-navigation div.vis-button.vis-right {
   //background-image: url("img/network/rightArrow.png");
+  @include vis-button();
   bottom:10px;
   left:95px;
 }
 div.vis-network div.vis-navigation div.vis-button.vis-zoomIn {
+  @include vis-button();
   top: 40px;
   &:before {
-    content: "\f067";
+    content: "\f067" !important;
 
   }
 }
 div.vis-network div.vis-navigation div.vis-button.vis-zoomOut {
+  @include vis-button();
   top: 70px;
   &:before {
-    content: "\f068";
+    content: "\f068" !important;
   }
 }
 div.vis-network div.vis-navigation div.vis-button.vis-zoomExtends {
+  @include vis-button();
   top: 10px;
   &:before {
     border: none;
