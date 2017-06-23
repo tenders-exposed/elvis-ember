@@ -1,4 +1,16 @@
-// general network components
+// general network styles
+
+.body-network {
+  // make links less disturbing in networks
+  a {
+    color: fade-out($text-color,.5);
+    &:hover {
+      color: $text-color;
+    }
+  }
+
+}
+
 
 // network entities
 // ------------------

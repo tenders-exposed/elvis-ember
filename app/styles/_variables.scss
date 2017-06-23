@@ -106,6 +106,8 @@ $font-family-serif:          'PlayFair Display',Georgia,serif;
 $font-family-sans:           'Roboto Condensed',Arial,sans-serif;
 
 $font-size-large: 1.28rem;
+$font-size-base: 1rem;
+$font-size-small: .78rem;
 
 $text-muted-color:    fade-out($text-color,0.5);
 
@@ -131,6 +133,7 @@ $fs01 : 0.6rem;
 /* General
    ========================================================================== */
 
+// body font
 $base-font-size:      14px;
 $base-line-height:    1.5;
 
