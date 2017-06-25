@@ -3,6 +3,7 @@ import Ember from 'ember';
 const { Route } = Ember;
 
 export default Route.extend({
+  classNames: ['body-network'],
   titleToken: 'Network - ',
 
   activate() {

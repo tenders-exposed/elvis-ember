@@ -1,7 +1,9 @@
 // include materialize color mixins before setting the variables
 @import 'components/color';
 
-//>>>>>>> f4fe0ad... - basic typography component styles: headings, links, lists, paragraphs
+// custom elvis variables + materialize variables
+@import "variables"; // NOTE: must be included before materialize
+
 /* 3rd party styles */
 @import 'materialize';
 @import 'ember-cli-materialize';
@@ -11,7 +13,6 @@
 
 /* Settings and general tweaks */
 @import "mixins";
-@import "variables"; // custom elvis variables + materialize variables
 @import "helpers";
 @import "components";
 @import "application";

@@ -2464,6 +2464,12 @@ ember-async-button@^1.0.2:
     ember-cli-babel "^5.1.6"
     ember-cli-htmlbars "^1.0.3"
 
+ember-body-class@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/ember-body-class/-/ember-body-class-0.4.0.tgz#0994243f9d4978ccaec287cfdbedcb78b46e28c5"
+  dependencies:
+    ember-cli-babel "^5.0.0"
+
 ember-cli-app-version@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/ember-cli-app-version/-/ember-cli-app-version-2.0.2.tgz#aaeede608e92fae6c2e11f63d28a373c1cc3f070"
