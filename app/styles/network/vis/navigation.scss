@@ -1,0 +1,75 @@
+// BUTTON NAVIGATION
+// -----------------------
+div.vis-network div.vis-navigation {
+  position: absolute;
+  top: 15px;
+  right: 0px;
+  width: 1.2*$button-height;
+  height: 100%;
+
+  // button
+  .vis-button {
+    display: inline-block;
+    position: static !important;
+    text-align: center;
+    line-height: $button-height;
+
+    // basic style for transparent button
+    @include button-transparent($text-color);
+
+    background-image: none !important;
+    bottom: auto;
+    right: auto;
+    margin-bottom: 5px;
+
+    background-position: 2px 2px;
+    background-repeat: no-repeat;
+
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    &:hover {
+      box-shadow: none !important;
+    }
+
+    // use font awesome icons inside these buttons
+    &:before {
+      font-family: FontAwesome;
+    }
+
+    // these are useless, lets hide 'em
+    &.vis-up,
+    &.vis-down,
+    &.vis-right,
+    &.vis-left {
+      display: none !important;
+    }
+
+    &.vis-zoomIn {
+      &:before {
+        content: "\f067" !important;
+      }
+    }
+
+    &.vis-zoomOut {
+      &:before {
+        content: "\f068" !important;
+      }
+    }
+
+    &.vis-zoomExtends {
+      border: none;
+
+      &:before {
+        content: "\f0b2";
+      }
+    }
+
+  }
+
+}

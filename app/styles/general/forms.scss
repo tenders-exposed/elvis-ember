@@ -1,25 +1,29 @@
-fieldset {
+// boxed fieldset
+fieldset.box {
   background: lighten($bg-color,2.5%);
   padding: $padding-large;
   border: none;
   border-radius: $border-radius-base;
   margin-bottom: 4rem;
+  box-shadow: 0px 3px 25px rgba(0,0,0,0.2);
 }
 
 // labels
+label {
+  font-weight: bold;
+}
 .input-field label {
-  left: auto;
+  left: auto; // what does this do??
 }
 
 // input fields
+// -------------
 .input-field {
-  padding-right: 32px !important;
-
   textarea {
     margin-bottom: 0px !important;
   }
 
-  .box-input {
+  .box-input { // what is this for??
     background-color: #151517 !important;
     border-bottom: 1px solid #313030 !important;
     padding: 0px 16px !important;
@@ -28,8 +32,30 @@ fieldset {
     width: 100% !important;
     &:focus { color: $text-color !important; box-shadow: none;}
   }
-
 }
+// small
+.input-field.small {
+  &,& input {  font-size: .78*$input-font-size; }
+}
+
+// input prefix
+.input-field {
+  position: relative;
+  > .input-prefix + input {
+    padding-left: 2em;
+    box-sizing: border-box;
+  }
+  > .input-prefix {
+    position: absolute;
+    left: 0;
+    width: 2em;
+    text-align: center;
+    height: $input-height;
+    line-height: $input-height;
+    color: $text-muted-color;
+  }
+}
+
 
 // input validation text
 .text-success {
@@ -38,6 +64,13 @@ fieldset {
 .text-error {
   color: $error-color;
 }
+
+
+// switch
+.switch {
+  label { font-size: $font-size-base; }
+}
+
 
 
 

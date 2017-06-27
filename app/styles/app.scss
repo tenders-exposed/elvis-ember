@@ -17,6 +17,15 @@
 @import "components";
 @import "application";
 
+/* Partials */
+@import "general/typography";
+@import "general/forms";
+@import "general/buttons";
+@import "partials/main-nav";
+@import "general/navbar";
+@import "general/page";
+@import "general/network";
+
 /* Components */
 @import "components/cpv-selector";
 @import "components/cpv-chip";
@@ -34,14 +43,6 @@
 @import "network/show/details";
 @import "network/show/details/show";
 @import "network/show/details/contract";
-
-/* Partials */
-@import "general/typography";
-@import "general/forms";
-@import "general/buttons";
-@import "partials/main-nav";
-@import "general/navbar";
-@import "general/page";
 
 /* Top level templates */
 @import "static";
