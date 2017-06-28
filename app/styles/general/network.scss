@@ -23,9 +23,9 @@
   width: $size;
   text-align: center;
   line-height: $size;
-  box-shadow: 1px 1px $size/5 rgba(0,0,0,0.5);
+  box-shadow: 1px 1px $size/4 rgba(0,0,0,0.7);
   background: $text-color;
-  vertical-align: sub;
+  vertical-align: middle;
 }
 .procurer,
 .supplier {
@@ -47,7 +47,7 @@
   height: 1em;
   background: transparent;
   border-top: .5em solid fade-out($color-relationship,0.2);
-  vertical-align: sub;
+  vertical-align: middle;
 
   &:after,
   &:before {

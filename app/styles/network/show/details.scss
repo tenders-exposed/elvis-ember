@@ -4,8 +4,8 @@
 // TODO: consider less missleading naming: #network-sidebar, #network-infowindow
 
 $network-sidebar-width: 30%;
-$network-sidebar-padding: 20px;
-$network-sidebar-bg: rgba(0,0,0,0.4);
+$network-sidebar-padding: $padding-base;
+$network-sidebar-bg: fade-out(lighten($bg-color,5%), 0.1);
 $network-infowindow-width: -$network-sidebar-width+100%;
 $network-sidebar-border: $border-base;
 
@@ -122,7 +122,6 @@ $zindex-network-sidebar-toggle: 91;
   .tab-panel {
     width: 100%;
     height: 100%;
-    margin-top: 20px;
 
     .ag-body-container {
       width: 100%;
@@ -130,17 +129,7 @@ $zindex-network-sidebar-toggle: 91;
     .ag-cell, .ag-body-viewport {
       background: $main-bg;
     }
-    .searchIcon {
-      top: 4px;
-      right: 4px;
-      cursor: pointer;
-    }
-    .search-input {
-      @include search-input;
-      width: 92% !important;
-      opacity: 0.5;
-      &:focus { opacity: 0.8;}
-    }
+
     #loader {
       margin-top: 60px;
       .preloader-wrapper.ember-view {
@@ -203,6 +192,8 @@ $zindex-network-sidebar-toggle: 91;
     left: 0;
   }
 }
+// default toggle state
 body.network-show-details #sidebar-toggle {
   display: none;
 }
+

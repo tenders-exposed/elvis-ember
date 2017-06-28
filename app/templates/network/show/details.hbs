@@ -40,7 +40,7 @@
             </span>
             {{input type="text" id="projectName" value=model.name placeholder="My Project Name"}}
           </div>
-	        {{!-- READY: switch for setting the network public or private
+	        {{!-- READY: on/off switch for setting the network public or private
 	        <div class="network-settings-privacy">
               <div class="switch">
                   <label>
@@ -91,7 +91,7 @@
 
             {{#render-later load=gridOptions.suppliers.rowData wait=5 message="Loading data grid..."}}
               {{elvis-data-table
-                  class="suppliers"
+                  class="sidebar-suppliers"
                   action="nodeRowClick"
                   tableContent=gridOptions.suppliers.rowData
                   fields=fields.suppliers
@@ -106,7 +106,7 @@
           {{#tab-panel manager=sidebarTabManager name="procurers" class='tab-panel'}}
             {{#render-later load=gridOptions.procurers.rowData wait=50 message="Loading data grid..."}}
               {{elvis-data-table
-                  class="suppliers"
+                  class="sidebar-procurers"
                   action="nodeRowClick"
                   tableContent=gridOptions.procurers.rowData
                   fields=fields.suppliers
@@ -121,7 +121,7 @@
           {{#tab-panel manager=sidebarTabManager name="relationships" class='tab-panel'}}
             {{#render-later load=gridOptions.relationships.rowData wait=50 message="Loading data grid..."}}
               {{elvis-data-table
-                  class="relationships"
+                  class="sidebar-relationships"
                   action="edgeRowClick"
                   tableContent=gridOptions.relationships.rowData
                   fields=fields.relationships
