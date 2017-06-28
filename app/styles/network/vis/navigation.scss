@@ -13,6 +13,7 @@ div.vis-network div.vis-navigation {
     position: static !important;
     text-align: center;
     line-height: $button-height;
+    box-sizing: content-box;
 
     // basic style for transparent button
     @include button-transparent($text-color);
@@ -63,7 +64,7 @@ div.vis-network div.vis-navigation {
     }
 
     &.vis-zoomExtends {
-      border: none;
+      border-color: transparent !important;
 
       &:before {
         content: "\f0b2";

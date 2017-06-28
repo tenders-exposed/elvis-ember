@@ -13,14 +13,16 @@ div#network-container {
 
   #network-controls {
     position: absolute;
-    right: 3px;
-    top: 130px;
+    right: 1px;
+    top: 140px;
     max-width: 1.2*$button-height;
     z-index: 9;
     > .vis-button {
       @extend .btn-floating;
       @extend .transparent;
       margin-bottom: 5px;
+      width: $button-height;
+      height: $button-height;
     }
   }
   #modalNetworkLink {
