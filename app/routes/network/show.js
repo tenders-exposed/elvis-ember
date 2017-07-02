@@ -1,20 +1,22 @@
 import Ember from 'ember';
 
-const { Route } = Ember;
+const { Route, inject } = Ember;
 
 export default Route.extend({
   titleToken: 'Network - ',
+  networkService: inject.service(),
 
   activate() {
     this.notifications.clearAll();
   },
 
   model(params) {
-    return this.get('store').findRecord(
+    let modelShow = this.get('store').findRecord(
       'network',
       params.network_id,
       { reload: true }
     );
+    return modelShow;
   },
 
   afterModel(model){
@@ -23,34 +25,16 @@ export default Route.extend({
     // should do the clustering thing
     // let's say the model has the several clusters
     // [ {id: "uniqueId",name: "", empty: true, type: '', nodesId: [id1, id2, id3]}, ]
-    let clusters = [
-      {id: 1, name: 'cluster Suppliers', type: 'supplier', nodesId: ['1175701', '1173838']},
-      {id: 2, name: 'cluster procurer', type: 'procuring_entity', nodesId: ['37389', '36921', '34292']}
+    /*let clusters = [
+      {id: 123456789, name: 'cluster Suppliers', type: 'supplier', nodesId: ['1175701', '1173838']},
+      {id: 987654321, name: 'cluster procurer', type: 'procuring_entity', nodesId: ['37389', '36921', '34292']}
     ];
-    model.set('clusters', clusters);
-    if(model.get('clusters')) {
-      _.forEach(model.get('clusters'), function (cluster, clusterIndex) {
-        cluster.emty = false;
-        cluster.nodes = _.filter(model.get('graph.nodes'), function (node) {
+    model.set('clusters', clusters);*/
+    model.set('clusters', []);
+    model = this.get('networkService').setModel(model);
 
-          let indexCheck = _.findIndex(cluster.nodesId, function (o) {
-            return  o == node.id;
-          });
-
-          if(indexCheck !== -1) {
-            console.log(`nodul ${node.id} face parte din ${clusterIndex}`);
-            node.cluster = clusterIndex;
-            return true;
-          } else  {
-            return false;
-          }
-        });
-      });
-      //model.get('clusters').pushObject({ name: '', empty: true, type: '',  nodes: [], nodesId: []});
-      // put the nodes in clusters
-      //process the nodes;
-    }
     console.log('modelShow', model);
+
     return model;
   },
 

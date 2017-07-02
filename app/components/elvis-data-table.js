@@ -40,7 +40,6 @@ export default Component.extend({
   }),
 
   didUpdateAttrs() {
-    console.log('*****didUpdate attrs in elvis-data-table');
     this.set('content', this.get('tableContent'));
     this.set('defaultContent', this.get('tableContent'));
   },

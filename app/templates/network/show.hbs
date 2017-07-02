@@ -55,6 +55,7 @@
               networkModel=model
               id="box-details-container"
               network=network
+              networkService=networkService
           }}
         {{/each}}
       {{/if}}
@@ -68,6 +69,7 @@
                 networkModel=model
                 id="box-details-container"
                 network=network
+                networkService=networkService
             }}
           {{/each}}
         {{/if}}
@@ -105,16 +107,16 @@
       {{network-clustering
           action="closeClustering"
           class="clustering"
-          nodes=model.graph.nodes
-          clusters = model.clusters
+          nodes=networkService.nodes
+          clusters = networkService.clusters
           notifications = notifications
       }}
     {{/if}}
 
     {{#visjs-network
       options=networkOptions
-      nodesSet=model.graph.nodes
-      edgesSet=model.graph.edges
+      nodesSet=networkService.nodes
+      edgesSet=networkService.edges
       startStabilizingAction=(action 'startStabilizing')
       stabilizationIterationsDoneAction=(action 'stabilizationIterationsDone')
       stabilizedAction=(action 'stabilized')

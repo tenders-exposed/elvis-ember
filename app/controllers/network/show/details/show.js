@@ -27,9 +27,16 @@ export default Controller.extend({
       contracts: 'Contracts',
       income: 'Income',
       bids: 'Avg bids'
-    }
+    },
+    contractsRelationship: {
+      award: 'contract name' ,
+      value: 'contract value',
+      bids: 'bids'
+    },
   },
 
+  readyToRender: false,
+  modelDetails: undefined,
   actions: {
     changeTabDetails(tab) {
       this.set('activeTabDetails', tab);

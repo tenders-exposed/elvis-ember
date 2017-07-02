@@ -11,17 +11,6 @@
 
 </div>
 {{#data-table content=content sort=sort page=page as |t|}}
-{{!--
-{{#t.menu as |menu|}}
-  {{#menu.general}}
-    <a {{action 'export'}}>Export</a>
-    <a>Print</a>
-  {{/menu.general}}
-  {{#menu.selected as |selection|}}
-    <a {{action 'selectRow' selection}}>Delete</a>
-  {{/menu.selected}}
-{{/t.menu}}
---}}
   {{#t.content as |c|}}
     {{#c.header}}
       {{#each-in fields as |name label|}}
@@ -37,7 +26,9 @@
     {{/c.header}}
     {{#perfect-scroll scrollTop=100 includePadding=true suppressScrollX=true}}
 
-      {{#c.body as |row|}}
+      {{#each content as |row|}}
+        <tr class="{{if row.isSelected 'selected'}}">
+        {{#link-to "network.show.details.show" route row.link}}
         {{#each-in fields as |name label|}}
           <td class="{{if row.cluster (concat 'cluster ' name) name}}" >
             {{#if (eq name "flags")}}
@@ -58,19 +49,18 @@
                     {{/tooltip-on-element}}
                   </span>
                {{/if}}
-
             {{else}}
-              {{#link-to "network.show.details.show" route row.id}}
                 {{dd row name}}
-              {{/link-to}}
             {{/if}}
           </td>
         {{/each-in}}
-        <!--<td class="absolute controls">something</td>-->
-        <td class="absolute  toggle-controls" {{action "selectRow" row on="click"}}>
-            {{fa-icon 'dot-circle-o' size=1}}
-        </td>
-      {{/c.body}}
+          <!--<td class="absolute controls">something</td>-->
+        {{/link-to}}
+          <td class="absolute  toggle-controls" {{action "selectRow" row on="click"}}>
+              {{fa-icon 'dot-circle-o' size=1}}
+          </td>
+        </tr>
+      {{/each}}
 
     {{/perfect-scroll}}
   {{/t.content}}

@@ -1,45 +1,46 @@
 import Ember from 'ember';
 
 const { Component } = Ember;
-//const resetCluster = { name: "", empty: true, type: '', nodes: [], nodesId: []};
 
 export default Component.extend({
   clusters: [],
+  addEmptyCluster(){
+    this.get('clusters').pushObject({
+      'id': 'c'+Date.now(),
+      'name': '',
+      'empty': true,
+      'type': '',
+      'nodes': []
+    });
+  },
   didReceiveAttrs() {
-    console.log('net-clustering-length', this.get('clusters').length);
+    // console.log('net-clustering-length', this.get('clusters').length);
     if(this.get('clusters').length >  0) {
       let notClusteredNodes = _.filter(this.get('nodes'), function (node) {
         return (typeof node.cluster === 'undefined') || node.cluster === '' ;
-      })
+      });
       this.set('nodes', notClusteredNodes);
-      this.get('clusters').pushObject({ name: "", empty: true, type: '', nodes: [], nodesId: []});
-
-
-      console.log('clusters', this.get('clusters'));
-
-    } else {
-      this.get('clusters').pushObject({ name: "", empty: true, type: '', nodes: [], nodesId: []});
     }
-    console.log('clusters', this.get('clusters'));
-    console.log('nodes', this.get('nodes'));
-
+    this.addEmptyCluster();
+    // console.log('clusters', this.get('clusters'));
+    // console.log('nodes', this.get('nodes'));
   },
   actions: {
     editCluster(clusterIndex) {
-      console.log(`tring to edit cluster ${clusterIndex}`);
+      // console.log(`tring to edit cluster ${clusterIndex}`);
       $(`.cluster${clusterIndex} .cluster-name`).addClass('hide');
       $(`.cluster${clusterIndex} .edit-cluster-input`).removeClass('hide');
     },
     saveClusterName(clusterName, clusterIndex) {
 
-      console.log(`tring to save clustername with ${clusterName} at index ${clusterIndex}`);
+      // console.log(`tring to save clustername with ${clusterName} at index ${clusterIndex}`);
       this.set(`clusters.${clusterIndex}.name`, clusterName);
       $(`.cluster${clusterIndex} .cluster-name`).removeClass('hide');
       $(`.cluster${clusterIndex} .edit-cluster-input`).addClass('hide');
 
     },
     closeClusterEdit(clusterIndex) {
-      console.log(`tring to close edit cluster ${clusterIndex}`);
+      // console.log(`tring to close edit cluster ${clusterIndex}`);
       $(`.cluster${clusterIndex} .cluster-name`).removeClass('hide');
       $(`.cluster${clusterIndex} .edit-cluster-input`).addClass('hide');
     },
@@ -53,7 +54,7 @@ export default Component.extend({
       if(this.get('clusters')[clusterIndex].nodes.length === 0) {
         this.set(`clusters.${clusterIndex}.empty`, false);
         this.set(`clusters.${clusterIndex}.type`, nodeType);
-        this.get('clusters').pushObject({ name: '', empty: true, type: '',  nodes: []});
+        this.addEmptyCluster();
       }
 
       let clusterType = this.get('clusters')[clusterIndex].type;
@@ -70,13 +71,13 @@ export default Component.extend({
         // remove the node from the node list
         this.get('nodes').removeAt(nodeIndex);
 
-        console.log('nodeIndex', nodeIndex);
-        console.log('nodes', this.get('nodes'));
-        console.log('clusters' , this.get('clusters'));
+        // console.log('nodeIndex', nodeIndex);
+        // console.log('nodes', this.get('nodes'));
+        // console.log('clusters' , this.get('clusters'));
 
       } else {
         // if is not then add a notification
-        console.log('this node is not the same type with the other');
+        // console.log('this node is not the same type with the other');
         this.notifications.clearAll();
         this.notifications.warning('You need to add the same type of node to the cluster!', {
           autoClear: true
@@ -84,7 +85,7 @@ export default Component.extend({
       }
     },
     removeNode(node, nodeIndex, clusterIndex) {
-      console.log(`nodeId ${nodeIndex} clusterName ${clusterIndex}`);
+      // console.log(`nodeId ${nodeIndex} clusterName ${clusterIndex}`);
 
       // add the node back to the nodes array;
       _.unset(node,'cluster');
@@ -94,18 +95,14 @@ export default Component.extend({
 
       if(this.get('clusters')[clusterIndex].nodes.length === 0 ){
         this.get('clusters').removeAt(clusterIndex);
-       /* if(this.get('clusters').length === 1) {
-          console.log('resetClusters');
-          this.get('clusters')[0] = { name: "", empty: true, type: '', nodes: [], nodesId: []};
-        }*/
       }
 
-      console.log('cluster after empty', this.get('clusters'));
+      // console.log('cluster after empty', this.get('clusters'));
     },
     deleteCluster(clusterIndex) {
       // put all nodes back in node list
       // delete cluster
-      //erase the clusterIndex from all nodes before putting them back
+      // erase the clusterIndex from all nodes before putting them back
 
       let clusterNodes = this.get('clusters')[clusterIndex].nodes;
       _.map(clusterNodes, function (node) {
@@ -126,19 +123,18 @@ export default Component.extend({
         // if the cluster has a single node erase that cluster from the cluster array
         cluster.nodesId = [];
         _.each(cluster.nodes, function (node) {
-          console.log('here', node);
+          // console.log('here', node);
           node.cluster = index;
-          console.log('here cluster', cluster);
-
+          // console.log('here cluster', cluster);
           cluster.nodesId.push(node.id);
         })
         nodesConcat.pushObjects(cluster.nodes);
       });
       nodesConcat.pushObjects(this.get('nodes'));
-      console.log('nodesConcat at exit-clusteredNodes - nodes', nodesConcat);
-      console.log('nodesConcat at exit-clusteredNodes - nodes', nodesConcat.length);
-      console.log('clusters at exit', this.get('clusters'));
-      console.log('clusters at exit', this.get('clusters').length);
+      // console.log('nodesConcat at exit-clusteredNodes - nodes', nodesConcat);
+      // console.log('nodesConcat at exit-clusteredNodes - nodes', nodesConcat.length);
+      // console.log('clusters at exit', this.get('clusters'));
+      // console.log('clusters at exit', this.get('clusters').length);
 
       this.sendAction('action', nodesConcat, this.get('clusters'));
     }

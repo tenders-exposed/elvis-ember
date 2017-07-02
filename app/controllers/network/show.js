@@ -1,8 +1,9 @@
 import Ember from 'ember';
 
-const { Controller, observer, $, Logger } = Ember;
+const { Controller, observer, $, Logger, inject } = Ember;
 
 export default Controller.extend({
+  networkService: inject.service(),
   height: window.innerHeight - 100,
   selectedNodes: [],
   selectedEdges: [],
@@ -80,16 +81,13 @@ export default Controller.extend({
       'keyboard': true
     }
   },
-  notClusteredNodes: {},
+
+  networkInfoShown: false,
   clusters: {},
 
   networkLinkModal: false,
   networkClusteringModal: false,
   networkStabilization: false,
-
-  modelChanged: observer('model.graph.nodes', function () {
-    console.log('model on show has changed');
-  }),
 
   init() {
     this._super();
@@ -158,69 +156,15 @@ export default Controller.extend({
       this.set('networkClusteringModal', true);
     },
     closeClustering(clusteredNodes, clusters) {
-      // clusters [ {id: "uniqueId",name: "", empty: true, type: '', nodes: []}, ]
-      // notClusteredNodes - nodes that have no cluster
-      // clusteredNodes all nodes (clustered and notClustered)
+      // here we should save the clusters
       // model.clusters  = [ {id: "uniqueId",name: "", empty: true, type: '', nodes: [id1, id2, id3]}, ]
       this.set('networkClusteringModal', false);
+      // ?
       this.set('model.clusters', clusters);
       this.set('model.graph.nodes', clusteredNodes);
 
-       console.log('show-clusteredNodes', clusteredNodes);
-       console.log('show-clusteredNodes', clusteredNodes.length);
-       console.log('show-clusters', clusters);
-       console.log('show-clusters', clusters.length);
+      this.get('networkService').makeClusteredNetwork(clusteredNodes, clusters) ;
 
-      this.set('model.graph.nodes', clusteredNodes);
-
-      this.get('network.network').setData({
-        nodes: clusteredNodes,
-        edges: this.get('network.edges')
-      });
-
-      // console.log('edges', this.get('network.edges'));
-      let self = this;
-      let clusterOptionsByData = {};
-      _.each(clusters, function (cluster, clusterIndex) {
-        let clusterNameIndex = clusterIndex + 1;
-        let clusterNodesCount = cluster.nodes.length;
-        let clusterName = cluster.name ? `${cluster.name} (${clusterNodesCount})` : `cluster ${clusterIndex} (${clusterNodesCount})`;
-        let nodeColor = cluster.type === 'supplier' ? "#27f0fc" : "#f0308e";
-
-        let count = 0;
-        let childEdgesOut = [];
-        clusterOptionsByData = {
-          joinCondition: function (childOptions) {
-            count++;
-            //console.log('joinCondition condition first', count);
-            let condition  = (childOptions.cluster == clusterIndex && childOptions.cluster !== "");
-            return condition;
-          },
-          processProperties: (clusterOptions,
-                                       childNodes, childEdges)  => {
-            childEdgesOut = childEdges;
-            //console.log('processProperties - childEdges', childEdges);
-            //console.log('processProperties- clusterOptions', clusterOptions);
-            return clusterOptions;
-          },
-          clusterNodeProperties: {
-            id: `cluster-${clusterIndex}`,
-            label: clusterName,
-            shape: 'icon',
-            icon: {
-              face: 'FontAwesome',
-              code: '\uf0c0',
-              size: 40,
-              color: nodeColor
-            }
-          }
-        };
-        self.get('network.network').cluster(clusterOptionsByData);
-
-      });
-
-      // console.log('clusterOptionsByData', clusterOptionsByData);
-      // console.log('nodes',  this.get('network.nodes'));
     },
     startStabilizing() {
       this.set('startStabilizing', performance.now());
@@ -230,7 +174,10 @@ export default Controller.extend({
       let network = this.get('network');
       let nodesCount = network.nodesSet.length;
 
-      this.showNetworkInfo();
+      if(!this.get('networkStabilization')) {
+        this.showNetworkInfo();
+        this.set('networkStabilization', true);
+      }
 
       if (nodesCount > 150) {
         network.setOptions({ physics: { enabled: false } });
@@ -243,6 +190,8 @@ export default Controller.extend({
       $('div#stabilization-info').fadeOut();
 
       this.set('networkStabilization', true);
+      console.log('***networkstabilized');
+      this.get('networkService').setNetwork(this.get('network'));
 
     },
     stabilizationProgress(amount) {
@@ -263,6 +212,7 @@ export default Controller.extend({
         let diff = event.iterations - this.get('stIterations');
         Logger.info(`Network was stabilized using ${diff} iterations more than assumed (${this.get('stIterations')})`);
       }
+
     }
   }
 });
