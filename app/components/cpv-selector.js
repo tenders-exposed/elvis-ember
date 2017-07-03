@@ -114,7 +114,7 @@ export default Component.extend({
           }
         }
         break;
-      }
+    }
 
       tree.push(result);
     });
@@ -132,6 +132,7 @@ export default Component.extend({
     //   }
     // });
 
+    this.get('benchmark').store('performance.cpvs.count', 1234);
     this.set('tree', tree);
   },
 

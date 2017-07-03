@@ -55,7 +55,7 @@ export default Service.extend({
 
   init() {
     this.reset();
-    Logger.info('data', this.get('data'));
+    // Logger.info('data', this.get('data'));
   },
 
   reset() {
@@ -73,7 +73,21 @@ export default Service.extend({
   },
 
   store(item, value) {
-    this.set('data[item]', value);
+    this.set(`data.${item}`, value);
+    Logger.info(`${item}: ${value}`);
+    // Logger.info('Performance data now: ', this.get('data'));
+  },
+
+  storeMultiple(items) {
+    Object.keys(items).forEach((item) => {
+      this.store(item, items[item]);
+    });
+  },
+
+  fakeSave() {
+    Logger.info('Performance data saved: ', this.get('data'));
+    this.reset();
+    Logger.info('Performance data was reset');
   },
 
   save() {
