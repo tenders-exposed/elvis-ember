@@ -1,139 +1,140 @@
 {{outlet "details"}}
 
 {{#network-container id='details-container'}}
+  <div id="details-sidebar" class="{{if networkInput "network-settings-open"}}">
+    <div class="sidebar-header">
+      <h4 class="network-title">
+        {{!-- TODO: this is a button for showing the side nav once ready
+        <a class="sidebar-nav-toggle" href="#"><i class="fa fa-bars"></i></a>  --}}
+          {{#if model.name}}
+            {{model.name}}
+          {{else}}
+            Untitled Network 1
+          {{/if}}
+
+          {{#if session.isAuthenticated}}
+            <a href="#" class="network-title-settings-toggle" {{action "toggleInput" on="click"}}>
+              {{fa-icon 'cog'}}
+            </a>
+          {{/if}}
+      </h4>
+    </div>
+    <div class="network-settings {{if networkInput "show-block network-input" "hide"}}">
+
+      {{!-- NOTE: save button will act instead of close
+      <a href="#" class="close" {{action "toggleInput"}}>
+        {{fa-icon 'check'}}
+      </a>
+      --}}
+      <span {{action "saveNetworkName"}}>
+        <button class="network-settings-save">
+          {{fa-icon 'check'}}
+        </button>
+      </span>
+      <h4>Network Settings</h4>
+      <div class="network-settings-name input-field small">
+        <span class="input-prefix">
+          {{fa-icon 'pencil'}}
+        </span>
+        {{input type="text" id="projectName" value=model.name placeholder="My Project Name"}}
+      </div>
+      {{!-- READY: on/off switch for setting the network public or private
+      <div class="network-settings-privacy">
+        <div class="switch">
+          <label>
+            Public
+            <input type="checkbox">
+              <span class="lever"></span>
+              Private
+          </label>
+        </div>
+      </div>
+      --}}
+
+      {{!-- NOTE: for now, lets drop network description, there is little use for it until we have embed and export
+      <div class="row">
+        <div class="input-field col s12">
+          {{textarea value=model.description  id="textarea1" class="materialize-textarea box-input"}}
+          <label class="active" for="textarea1">My Project Description</label>
+        </div>
+      </div>
+      --}}
+    </div>
+    <div class="table-sidebar">
+      {{#tabbed-content active=activeTab on-change="changeTab" active-class="tab-button--active" as |sidebarTabManager|}}
+      <div class="tabs__nav">
+        {{#tab-button class="tab-button"  manager=sidebarTabManager name="suppliers"}}
+        <a>
+          <span class="tab-icon supplier"></span>
+          Suppliers
+        </a>
+        {{/tab-button}}
+          {{#tab-button class="tab-button"  manager=sidebarTabManager  name="procurers"}}
+          <a>
+            <span class="tab-icon procurer"></span>
+            Procurers
+          </a>
+        {{/tab-button}}
+        {{#tab-button class="tab-button"  manager=sidebarTabManager name="relationships" active-class="tabs-button--active2"}}
+          <a>
+            <span class="tab-icon relationship"></span>
+            Relationships
+          </a>
+        {{/tab-button}}
+      </div>
+      <a {{action 'closeDetails' model.id}} class="closeDetails sidebar-toggle">
+        <i class="control-icon material-icons">{{fa-icon 'arrow-circle-left' size=1}}</i>
+      </a>
+      {{#tab-panel manager=sidebarTabManager name="suppliers" class='tab-panel'}}
+        {{#render-later load=gridOptions.suppliers.rowData wait=50 message="Loading data grid..."}}
+          {{elvis-data-table
+            class="sidebar-suppliers"
+            action="nodeRowClick"
+            tableContent=gridOptions.suppliers.rowData
+            fields=fields.suppliers
+            flags=flags.suppliers
+            network=network
+            networkId=model.id
+            route="suppliers"
+          }}
+        {{/render-later}}
+      {{/tab-panel}}
+
+      {{#tab-panel manager=sidebarTabManager name="procurers" class='tab-panel'}}
+        {{#render-later load=gridOptions.procurers.rowData wait=50 message="Loading data grid..."}}
+          {{elvis-data-table
+            class="sidebar-procurers"
+            action="nodeRowClick"
+            tableContent=gridOptions.procurers.rowData
+            fields=fields.suppliers
+            flags=flags.suppliers
+            network=network
+            networkId=model.id
+            route="procurers"
+          }}
+        {{/render-later}}
+      {{/tab-panel}}
+
+      {{#tab-panel manager=sidebarTabManager name="relationships" class='tab-panel'}}
+        {{#render-later load=gridOptions.relationships.rowData wait=50 message="Loading data grid..."}}
+          {{elvis-data-table
+            class="sidebar-relationships"
+            action="edgeRowClick"
+            tableContent=gridOptions.relationships.rowData
+            fields=fields.relationships
+            flags=flags.relationships
+            network=network
+            networkId=model.id
+            route="relationships"
+          }}
+        {{/render-later}}
+      {{/tab-panel}}
+
+    {{/tabbed-content}}
+    </div>
+  </div>
+
   <div id="details-info">
     {{outlet}}
   </div>
-  <div id="details-sidebar" class="{{if networkInput "network-settings-open"}}">
-      <div class="sidebar-header">
-          <h4 class="network-title">
-		          {{!-- TODO: this is a button for showing the side nav once ready
-		          <a class="sidebar-nav-toggle" href="#"><i class="fa fa-bars"></i></a>  --}}
-						  {{#if model.name}}
-								  {{model.name}}
-						  {{else}}
-                  Untitled Network 1
-						  {{/if}}
-						  {{#if session.isAuthenticated}}
-                  <a href="#" class="network-title-settings-toggle" {{action "toggleInput" on="click"}}>
-										  {{fa-icon 'cog'}}
-                  </a>
-						  {{/if}}
-          </h4>
-      </div>
-      <div class="network-settings {{if networkInput "show-block network-input" "hide"}}">
-
-	        {{!-- NOTE: save button will act instead of close
-	        <a href="#" class="close" {{action "toggleInput"}}>
-		        {{fa-icon 'check'}}
-          </a>
-          --}}
-	        <span {{action "saveNetworkName"}}>
-          <button class="network-settings-save">
-              {{fa-icon 'check'}}
-          </button>
-		        </span>
-		      <h4>Network Settings</h4>
-          <div class="network-settings-name input-field small">
-            <span class="input-prefix">
-		            {{fa-icon 'pencil'}}
-            </span>
-            {{input type="text" id="projectName" value=model.name placeholder="My Project Name"}}
-          </div>
-	        {{!-- READY: on/off switch for setting the network public or private
-	        <div class="network-settings-privacy">
-              <div class="switch">
-                  <label>
-                      Public
-                      <input type="checkbox">
-                      <span class="lever"></span>
-                      Private
-                  </label>
-              </div>
-	        </div>
-	        --}}
-
-	        {{!-- NOTE: for now, lets drop network description, there is little use for it until we have embed and export
-          <div class="row">
-            <div class="input-field col s12">
-              {{textarea value=model.description  id="textarea1" class="materialize-textarea box-input"}}
-              <label class="active" for="textarea1">My Project Description</label>
-            </div>
-          </div>
-          --}}
-      </div>
-      <div class="table-sidebar">
-        {{#tabbed-content active=activeTab on-change="changeTab" active-class="tab-button--active" as |sidebarTabManager|}}
-          <div class="tabs__nav">
-            {{#tab-button class="tab-button"  manager=sidebarTabManager name="suppliers"}}
-              <a>
-                <span class="tab-icon supplier"></span>
-                Suppliers
-              </a>
-            {{/tab-button}}
-            {{#tab-button class="tab-button"  manager=sidebarTabManager  name="procurers"}}
-              <a>
-                <span class="tab-icon procurer"></span>
-                Procurers
-              </a>
-            {{/tab-button}}
-            {{#tab-button class="tab-button"  manager=sidebarTabManager name="relationships" active-class="tabs-button--active2"}}
-              <a>
-                <span class="tab-icon relationship"></span>
-                Relationships
-              </a>
-            {{/tab-button}}
-          </div>
-          <a {{action 'closeDetails' model.id}} class="closeDetails sidebar-toggle">
-            <i class="control-icon material-icons">{{fa-icon 'arrow-circle-left' size=1}}</i>
-          </a>
-          {{#tab-panel manager=sidebarTabManager name="suppliers" class='tab-panel'}}
-            {{#render-later load=gridOptions.suppliers.rowData wait=50 message="Loading data grid..."}}
-              {{elvis-data-table
-                  class="sidebar-suppliers"
-                  action="nodeRowClick"
-                  tableContent=gridOptions.suppliers.rowData
-                  fields=fields.suppliers
-                  flags=flags.suppliers
-                  network=network
-                  networkId=model.id
-                  route="suppliers"
-              }}
-            {{/render-later}}
-          {{/tab-panel}}
-
-          {{#tab-panel manager=sidebarTabManager name="procurers" class='tab-panel'}}
-            {{#render-later load=gridOptions.procurers.rowData wait=50 message="Loading data grid..."}}
-              {{elvis-data-table
-                  class="sidebar-procurers"
-                  action="nodeRowClick"
-                  tableContent=gridOptions.procurers.rowData
-                  fields=fields.suppliers
-                  flags=flags.suppliers
-                  network=network
-                  networkId=model.id
-                  route="procurers"
-              }}
-            {{/render-later}}
-          {{/tab-panel}}
-
-          {{#tab-panel manager=sidebarTabManager name="relationships" class='tab-panel'}}
-            {{#render-later load=gridOptions.relationships.rowData wait=50 message="Loading data grid..."}}
-              {{elvis-data-table
-                  class="sidebar-relationships"
-                  action="edgeRowClick"
-                  tableContent=gridOptions.relationships.rowData
-                  fields=fields.relationships
-                  flags=flags.relationships
-                  network=network
-                  networkId=model.id
-                  route="relationships"
-              }}
-            {{/render-later}}
-          {{/tab-panel}}
-
-        {{/tabbed-content}}
-      </div>
-    </div>
-
 {{/network-container}}
