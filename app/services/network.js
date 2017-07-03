@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
-export default Ember.Service.extend({
+const { Logger, Service } = Ember;
+
+export default Service.extend({
   edges: [],
   nodes: [],
   clusters: [],
@@ -50,12 +52,12 @@ export default Ember.Service.extend({
   },
 
   getNodeById(nodeId) {
-    //check if in network is clustered then take it from clusters
-    //else from nodes
+    // check if in network is clustered then take it from clusters
+    // else from nodes
     let node = _.find(this.get('suppliers'), (o) => {
       return o.id == nodeId;
     });
-    if(!node) {
+    if (!node) {
       node = _.find(this.get('procurers'), (o) => {
         return o.id == nodeId;
       });
@@ -64,11 +66,11 @@ export default Ember.Service.extend({
   },
 
   // taken from network
-  getEdgeById(edgeId){
-    let edge = _.find(this.get('relationships'), (o)=>{
+  getEdgeById(edgeId) {
+    let edge = _.find(this.get('relationships'), (o) => {
       return o.id == edgeId;
     });
-    if(typeof edge !== 'undefined') {
+    if (typeof edge !== 'undefined') {
       edge.valueType = this.get('model.options').edges;
     }
 
@@ -76,29 +78,28 @@ export default Ember.Service.extend({
   },
 
   setModel(model) {
-    if(model.get('clusters')) {
-      _.forEach(model.get('clusters'), function (cluster, clusterIndex) {
+    if (model.get('clusters')) {
+      _.forEach(model.get('clusters'), function(cluster, clusterIndex) {
         cluster.emty = false;
-        cluster.nodes = _.filter(model.get('graph.nodes'), function (node) {
+        cluster.nodes = _.filter(model.get('graph.nodes'), function(node) {
 
-          let indexCheck = _.findIndex(cluster.nodesId, function (o) {
-            return  o == node.id;
+          let indexCheck = _.findIndex(cluster.nodesId, function(o) {
+            return o == node.id;
           });
 
-          if(indexCheck !== -1) {
-            //console.log(`nodul ${node.id} face parte din ${clusterIndex}`);
+          if (indexCheck !== -1) {
             node.cluster = clusterIndex;
             return true;
-          } else  {
+          } else {
             return false;
           }
         });
       });
     }
-    this.set('model',model);
-    this.set('edges',model.get('graph.edges'));
-    this.set('nodes',model.get('graph.nodes'));
-    this.set('clusters',model.get('clusters'));
+    this.set('model', model);
+    this.set('edges', model.get('graph.edges'));
+    this.set('nodes', model.get('graph.nodes'));
+    this.set('clusters', model.get('clusters'));
 
     return model;
   },
@@ -116,25 +117,25 @@ export default Ember.Service.extend({
     let suppliers = [];
     let procurers = [];
     let nodes = this.get('network.network.body.nodes');
-    _.each(this.get('network.network.body.nodeIndices'), function (nodeId) {
+    _.each(this.get('network.network.body.nodeIndices'), function(nodeId) {
       let node = nodes[nodeId];
       let nodeDetails = {
-        'type': node.options.type,
-        'id': node.id,
-        'value': valueFormat(node.options.value),
-        'label': node.options.label,
-        'flags': node.options.flags,
-        'flagsCount': node.options.flags.length,
-        'nodeId' : nodeId,
-        'link': node.id
+        type: node.options.type,
+        id: node.id,
+        value: valueFormat(node.options.value),
+        label: node.options.label,
+        flags: node.options.flags,
+        flagsCount: node.options.flags.length,
+        link: node.id,
+        nodeId
       };
 
-      if(nodeDetails.type == 'supplier') {
+      if (nodeDetails.type == 'supplier') {
         suppliers.pushObject(nodeDetails);
       } else {
         procurers.pushObject(nodeDetails);
       }
-    })
+    });
 
     this.set('suppliers', suppliers);
     this.set('procurers', procurers);
@@ -151,7 +152,7 @@ export default Ember.Service.extend({
 
     let relationships = [];
     let edges = this.get('network.network.body.edges');
-    _.each(this.get('network.network.body.edgeIndices'), function (edgeId) {
+    _.each(this.get('network.network.body.edgeIndices'), function(edgeId) {
       let edge = edges[edgeId];
       let edgeDetails = {
         'flags': edge.options.flags ? edge.options.flags : [],
@@ -167,11 +168,11 @@ export default Ember.Service.extend({
       relationships.pushObject(edgeDetails);
     });
 
-    this.set('relationships',relationships);
-    console.log('service - relationships', relationships);
+    this.set('relationships', relationships);
+    Logger.debug('service - relationships', relationships);
   },
 
-  makeClusteredNetwork(clusteredNodes, clusters){
+  makeClusteredNetwork(clusteredNodes, clusters) {
     // clusters [ {id: "uniqueId",name: "", empty: true, type: '', nodes: []}, ]
     // clusteredNodes all nodes (clustered and notClustered)
 
@@ -186,35 +187,34 @@ export default Ember.Service.extend({
       edges: this.get('network.edges')
     });
 
-
     let self = this;
     let clusterOptionsByData = {};
-    _.each(clusters, function (cluster, clusterIndex) {
-      let clusterNameIndex = clusterIndex + 1;
+    _.each(clusters, function(cluster, clusterIndex) {
+      // let clusterNameIndex = clusterIndex + 1;
       let clusterId = cluster.id;
 
       let clusterNodesCount = cluster.nodes.length;
       let clusterName = cluster.name ? `${cluster.name} (${clusterNodesCount})` : `cluster ${clusterIndex} (${clusterNodesCount})`;
-      let nodeColor = cluster.type === 'supplier' ? "#27f0fc" : "#f0308e";
+      let nodeColor = cluster.type === 'supplier' ? '#27f0fc' : '#f0308e';
 
-      let count = 0;
-      let childEdgesOut = [];
+      let count = 0;           // eslint-disable-line no-unused-vars
+      let childEdgesOut = [];  // eslint-disable-line no-unused-vars
       clusterOptionsByData = {
-        joinCondition: function (childOptions) {
+        joinCondition: (childOptions) => {
           count++;
           // console.log('joinCondition condition first', count);
-          let condition  = (childOptions.cluster == clusterIndex && childOptions.cluster !== "");
+          let condition  = (childOptions.cluster == clusterIndex && childOptions.cluster !== '');
           return condition;
         },
         processProperties: (clusterOptions,
-                            childNodes, childEdges)  => {
+                            childNodes/*, childEdges*/)  => {
 
-          let flagsCount = 0;
+          // let flagsCount = 0;
           let flags = [];
           let value = 0;
           for (let i = 0; i < childNodes.length; i++) {
             value += childNodes[i].value;
-            if(childNodes[i].flags.length) {
+            if (childNodes[i].flags.length) {
               flags.pushObject(childNodes[i].flags);
             }
           }
@@ -241,18 +241,17 @@ export default Ember.Service.extend({
     });
     this.set('checkClustered', false);
 
-
     // console.log('clusterOptionsByData', clusterOptionsByData);
     // console.log('nodes',  this.get('network.nodes'));
   },
 
   setNetwork(network) {
     // make isReady false.. and recalculate
-    if(this.checkReady()) {
+    if (this.checkReady()) {
       this.deactivate();
     }
 
-    if(this.get('clusters').length > 0 && !this.get('checkClustered')) {
+    if (this.get('clusters').length > 0 && !this.get('checkClustered')) {
       this.set('network', network);
       this.makeClusteredNetwork(this.get('nodes'), this.get('clusters'));
       this.set('checkClustered', true);

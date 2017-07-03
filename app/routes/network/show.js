@@ -34,8 +34,6 @@ export default Route.extend({
     model.set('clusters', []);
     model = this.get('networkService').setModel(model);
 
-    console.log('modelShow', model);
-
     return model;
   },
 

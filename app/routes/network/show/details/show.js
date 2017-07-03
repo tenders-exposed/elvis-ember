@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Route, observer, inject, computed } = Ember;
+const { Route, observer, inject, computed, Logger } = Ember;
 
 export default Route.extend({
   classNames: ['body-network'],
@@ -141,7 +141,7 @@ export default Route.extend({
               let check = _.indexOf(filterById, String(contract.procuring_entity.x_slug_id));
               if(check === -1 ) {
                 return false;
-              } else {}
+              }
               return true;
             });
           };
@@ -232,7 +232,7 @@ export default Route.extend({
 
         // console.log('modelDetails', controller.get('modelDetails'));
       }).catch((error) => {
-        console.error('error', error);
+        Logger.error('Error:', error);
 
       });
 
@@ -266,7 +266,7 @@ export default Route.extend({
     }
   },
 
-  setupController(controller, model, transition) {
+  setupController(controller/*, model, transition*/) {
     let activeTab = this.controllerFor('network.show.details').get('activeTab');
     controller.set('activeTab', activeTab);
     // reset to default tabs

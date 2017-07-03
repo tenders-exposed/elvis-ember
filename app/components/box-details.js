@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Component, computed } = Ember;
+const { Component, computed, Logger } = Ember;
 
 export default Component.extend({
 
@@ -30,8 +30,8 @@ export default Component.extend({
     if(typeSelected === 'edge') {
       let edgeDetails = this.get('networkService').getEdgeById(elementId);
       this.set('model', edgeDetails);
-      console.log('selected edge', edgeDetails);
-      console.log('edgeId', elementId);
+      Logger.debug('selected edge', edgeDetails);
+      Logger.debug('edgeId', elementId);
     }
   },
 

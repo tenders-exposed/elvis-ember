@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Controller, observer, $, Logger, inject } = Ember;
+const { Controller, $, Logger, inject } = Ember;
 
 export default Controller.extend({
   networkService: inject.service(),
@@ -152,7 +152,7 @@ export default Controller.extend({
       }
     },
     showClustering() {
-      console.log('show Clustering');
+      Logger.debug('show Clustering');
       this.set('networkClusteringModal', true);
     },
     closeClustering(clusteredNodes, clusters) {
@@ -190,7 +190,7 @@ export default Controller.extend({
       $('div#stabilization-info').fadeOut();
 
       this.set('networkStabilization', true);
-      console.log('***networkstabilized');
+      Logger.info('Network stabilized');
       this.get('networkService').setNetwork(this.get('network'));
 
     },
