@@ -3,6 +3,7 @@ import Ember from 'ember';
 const { Route, inject } = Ember;
 
 export default Route.extend({
+  classNames: ['body-network'],
   titleToken: 'Network - ',
   networkService: inject.service(),
 

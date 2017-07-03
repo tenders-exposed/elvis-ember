@@ -13,8 +13,9 @@ div#network-container {
 
   #network-controls {
     position: absolute;
-    right: 10px;
-    top: 100px;
+    right: 1px;
+    top: 140px;
+    max-width: 1.2*$button-height;
     z-index: 9;
     .cogs {
       position: absolute;
@@ -36,6 +37,12 @@ div#network-container {
         border-color: $color-icon-hover;
         color: $color-icon-hover;
       }
+    > .vis-button {
+      @extend .btn-floating;
+      @extend .transparent;
+      margin-bottom: 5px;
+      width: $button-height;
+      height: $button-height;
     }
   }
   #modalNetworkLink {
@@ -70,7 +77,7 @@ div#network-container {
     height: 100%;
   }
 
-  .ember-view { height: 100%; }
+  > .ember-view { height: 100%; }
 
   div#details-container > * {
     margin: 0; padding: 0;

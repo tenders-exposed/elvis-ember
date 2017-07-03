@@ -1,3 +1,14 @@
+/*
+
+  vis.js styles
+
+  TODO: one by one, we will improve these styles and split them into subcomponents. our goal is to have completely
+
+   NOTE:
+   1. network navigation buttons moved to vis/navigation.scss. included on line #644 under .vis-timeline
+
+*/
+
 .vis .overlay {
   position: absolute;
   top: 0;
@@ -462,12 +473,11 @@ div.vis-color-picker div.vis-button {
   position:absolute;
   width:68px;
   height:25px;
-  border-radius:10px;
   vertical-align: middle;
   text-align:center;
   line-height: 25px;
   top:410px;
-  border:2px solid #d9d9d9;
+  border:1px solid #d9d9d9;
   background-color: #f7f7f7;
   cursor:pointer;
 }
@@ -651,113 +661,8 @@ div.vis-network div.vis-manipulation div.vis-separator-line {
   margin: 0px 7px 0 15px; /*top right bottom left*/
 }
 
- //TODO: is this redundant?
-/*div.network-navigation_wrapper {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  width: 30px;
-  height: 100%;
-}*/
-div.vis-network div.vis-navigation {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  width: 30px;
-  height: 100px;
-}
-div.vis-network div.vis-navigation div.vis-button {
-  /*width:34px;
-  height:34px;*/
-  -moz-border-radius: 17px;
-  border-radius: 17px;
-  position:absolute;
-  display:inline-block;
-  background-position: 2px 2px;
-  background-repeat:no-repeat;
-  cursor: pointer;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+@import 'vis/navigation.scss';
 
-
-  &:before {
-    border: 2px solid $color-icon;
-    color: $color-icon;
-    padding: 0px 3px;
-    border-radius: 14px;
-    font-size: $fs01;
-    font-family: FontAwesome;
-    position: absolute;
-    background: $main-bg;
-
-  }
-  &:hover:before {
-    border-color: $color-icon-hover;
-    color: $color-icon-hover;
-  }
-}
-
-/*
-div.vis-network div.vis-navigation div.vis-button:hover {
-  box-shadow: 0 0 3px 3px rgba(56, 207, 21, 0.30);
-}
-
-div.vis-network div.vis-navigation div.vis-button:active {
-  box-shadow: 0 0 1px 3px rgba(56, 207, 21, 0.95);
-}
-*/
-
-div.vis-network div.vis-navigation div.vis-button.vis-up {
-  /*background-image: url("img/network/upArrow.png");
-  bottom:50px;
-  left:55px;*/
-  position: relative;
-  &:before {
-    content: "\f0a8";
-    left: 500px;
-    bottom: 56px;
-  }
-}
-div.vis-network div.vis-navigation div.vis-button.vis-down {
- // background-image: url("img/network/downArrow.png");
-  bottom:10px;
-  left:55px;
-}
-div.vis-network div.vis-navigation div.vis-button.vis-left {
-  //background-image: url("img/network/leftArrow.png");
-  bottom:10px;
-  left:15px;
-}
-div.vis-network div.vis-navigation div.vis-button.vis-right {
-  //background-image: url("img/network/rightArrow.png");
-  bottom:10px;
-  left:95px;
-}
-div.vis-network div.vis-navigation div.vis-button.vis-zoomIn {
-  top: 40px;
-  &:before {
-    content: "\f067";
-
-  }
-}
-div.vis-network div.vis-navigation div.vis-button.vis-zoomOut {
-  top: 70px;
-  &:before {
-    content: "\f068";
-  }
-}
-div.vis-network div.vis-navigation div.vis-button.vis-zoomExtends {
-  top: 10px;
-  &:before {
-    border: none;
-    content: "\f0b2";
-    font-size: 1rem;
-  }
-}
 .vis-timeline {
   /*
   -webkit-transition: height .4s ease-in-out;

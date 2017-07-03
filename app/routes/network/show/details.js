@@ -3,6 +3,8 @@ import Ember from 'ember';
 const { Route, inject } = Ember;
 
 export default Route.extend({
+
+  classNames: ['body-network'],
   activeTab: '',
   networkService: inject.service(),
 
@@ -13,6 +15,7 @@ export default Route.extend({
   setupController(controller) {
     controller.set('model', this.controllerFor('network.show').get('model'));
     controller.set('activeTab', this.get('activeTab'));
+    controller.set('network', this.controllerFor('network.show').get('network'));
   },
 
   actions: {

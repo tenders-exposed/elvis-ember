@@ -4,16 +4,20 @@
 }
 html, body, .container,
 body > .ember-view {
-  height: 100%;
   color: $text-color;
+}
+html, body,
+body > .ember-view {
+  height: 100%;
+}
 
-  //p { font-size: $fs2; }
-  .el-title { @include title; }
-  .light-text { color: $text-color; }
-  .dark-text { color: $text-dark-color; }
+//p { font-size: $fs2; }
+.el-title { @include title; }
+.light-text { color: $text-color; }
+.dark-text { color: $text-dark-color; }
 
-  .el-label { @include label; color: $text-color; }
-  .el-label-dark { @include label; color: $text-dark-color; }
+.el-label { @include label; color: $text-color; }
+.el-label-dark { @include label; color: $text-dark-color; }
 /*
 $fs6 : 2.3rem;
 $fs5 : 1.5rem;
@@ -23,47 +27,46 @@ $fs2 : 1rem;
 $fs1 : 0.8rem;
 $fs0 : 0.6rem;
 */
-  /*h1, h2,h3, h4 { @include title; }
-  .fs6, h1 { font-size: $fs6; } //h1
-  .fs5, h2 { font-size: $fs5; } //h2
-  .fs4, h3 { font-size: $fs4; } //h3
-  .fs3, h4 { font-size: $fs3; } //h4
-  .fs2 { font-size: $fs2; }
-  .fs1 { font-size: $fs1; }
-  .fs01 { font-size: $fs01; }
-  .fs0 { font-size: $fs0; }*/
+/*h1, h2,h3, h4 { @include title; }
+.fs6, h1 { font-size: $fs6; } //h1
+.fs5, h2 { font-size: $fs5; } //h2
+.fs4, h3 { font-size: $fs4; } //h3
+.fs3, h4 { font-size: $fs3; } //h4
+.fs2 { font-size: $fs2; }
+.fs1 { font-size: $fs1; }
+.fs01 { font-size: $fs01; }
+.fs0 { font-size: $fs0; }*/
 
-  /*small {
-    font-size: $fs1;
-    color: $text-small-color;
-    hr { border: 0.3px solid $text-small-color; }
-  }*/
+/*small {
+  font-size: $fs1;
+  color: $text-small-color;
+  hr { border: 0.3px solid $text-small-color; }
+}*/
 
-  .procurer-color { color: $color-procurer; }
-  .supplier-color { color: $color-supplier; }
-  i.control-icon {
-    color: $color-icon;
-    cursor: pointer;
-    font-size: 1em;
+.procurer-color { color: $color-procurer; }
+.supplier-color { color: $color-supplier; }
+i.control-icon {
+  color: $color-icon;
+  cursor: pointer;
+  font-size: 1em;
+  &:hover {
+    color: $color-icon-hover;
+  }
+}
+i.control-icon-light {
+  opacity: 0.7;
+  cursor: pointer;
+  &:hover { opacity: 1; }
+}
+
+/*general styles*/
+.flags {
+  font-size: 0.6em;
+  color: orangered;
+  i {
+    margin-right: 3px;
     &:hover {
-      color: $color-icon-hover;
-    }
-  }
-  i.control-icon-light {
-    opacity: 0.7;
-    cursor: pointer;
-    &:hover { opacity: 1; }
-  }
-
-  /*general styles*/
-  .flags {
-    font-size: 0.6em;
-    color: orangered;
-    i {
-      margin-right: 3px;
-      &:hover {
-        color: #ff6802;
-      }
+      color: #ff6802;
     }
   }
 }

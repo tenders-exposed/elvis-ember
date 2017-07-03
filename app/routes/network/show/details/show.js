@@ -3,6 +3,7 @@ import Ember from 'ember';
 const { Route, observer, inject, computed } = Ember;
 
 export default Route.extend({
+  classNames: ['body-network'],
   me: inject.service(),
   ajax: inject.service(),
   store: inject.service(),
