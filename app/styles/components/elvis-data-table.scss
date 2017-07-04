@@ -239,6 +239,12 @@ div#details-sidebar .tab-panel {
       max-height: 400px !important;
     }
     tr {
+      a {
+        color: $text-color !important;
+        &:hover {
+          color: $text-dark-color !important;
+        }
+      }
       .toggle-controls {
         color: $text-dark-color;
         font-size: $fs3;
@@ -301,7 +307,7 @@ div#details-sidebar .tab-panel {
     th.flags { width: 2% !important; }
     th.value { width: 15% !important; }
 
-    td.id {width: 15% !important; text-align: center;}
+    td.id {width: 15% !important; overflow-x: hidden; text-align: center;}
     td.label {width: 67% !important;}
     td.flags {width: 6% !important; text-align: right;}
     td.value {width: 8% !important; text-align: right;}

@@ -1,25 +1,40 @@
 import Ember from 'ember';
 
-const { Route } = Ember;
+const { Route, inject } = Ember;
 
 export default Route.extend({
   classNames: ['body-network'],
   titleToken: 'Network - ',
+  networkService: inject.service(),
 
   activate() {
     this.notifications.clearAll();
   },
 
   model(params) {
-    return this.get('store').findRecord(
+    let modelShow = this.get('store').findRecord(
       'network',
       params.network_id,
       { reload: true }
     );
+    return modelShow;
   },
 
-  afterModel(model) {
+  afterModel(model){
     this.titleToken = `${this.titleToken} ${model.get('name') || model.id}`;
+
+    // should do the clustering thing
+    // let's say the model has the several clusters
+    // [ {id: "uniqueId",name: "", empty: true, type: '', nodesId: [id1, id2, id3]}, ]
+    /*let clusters = [
+      {id: 123456789, name: 'cluster Suppliers', type: 'supplier', nodesId: ['1175701', '1173838']},
+      {id: 987654321, name: 'cluster procurer', type: 'procuring_entity', nodesId: ['37389', '36921', '34292']}
+    ];
+    model.set('clusters', clusters);*/
+    model.set('clusters', []);
+    model = this.get('networkService').setModel(model);
+
+    return model;
   },
 
   setupController(controller, model) {
@@ -29,6 +44,7 @@ export default Route.extend({
 
   resetController(controller) {
     controller.set('network', undefined);
+    controller.set('clusters', undefined);
   },
 
   actions: {

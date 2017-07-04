@@ -1,8 +1,9 @@
 import Ember from 'ember';
 
-const { Controller, $, Logger } = Ember;
+const { Controller, $, Logger, inject } = Ember;
 
 export default Controller.extend({
+  networkService: inject.service(),
   height: window.innerHeight - 100,
   selectedNodes: [],
   selectedEdges: [],
@@ -80,11 +81,18 @@ export default Controller.extend({
       'keyboard': true
     }
   },
+
+  networkInfoShown: false,
+  clusters: {},
+
   networkLinkModal: false,
+  networkClusteringModal: false,
+  networkStabilization: false,
 
   init() {
     this._super();
     this.set('stabilizationPercent', 0);
+    this.set('network', undefined);
   },
 
   didInsertElement() {
@@ -143,6 +151,21 @@ export default Controller.extend({
         this.set('networkLink', `${document.location.origin}/network/${networkId}`);
       }
     },
+    showClustering() {
+      Logger.debug('show Clustering');
+      this.set('networkClusteringModal', true);
+    },
+    closeClustering(clusteredNodes, clusters) {
+      // here we should save the clusters
+      // model.clusters  = [ {id: "uniqueId",name: "", empty: true, type: '', nodes: [id1, id2, id3]}, ]
+      this.set('networkClusteringModal', false);
+      // ?
+      this.set('model.clusters', clusters);
+      this.set('model.graph.nodes', clusteredNodes);
+
+      this.get('networkService').makeClusteredNetwork(clusteredNodes, clusters) ;
+
+    },
     startStabilizing() {
       this.set('startStabilizing', performance.now());
       Logger.info('start stabilizing');
@@ -151,7 +174,10 @@ export default Controller.extend({
       let network = this.get('network');
       let nodesCount = network.nodesSet.length;
 
-      this.showNetworkInfo();
+      if(!this.get('networkStabilization')) {
+        this.showNetworkInfo();
+        this.set('networkStabilization', true);
+      }
 
       if (nodesCount > 150) {
         network.setOptions({ physics: { enabled: false } });
@@ -162,6 +188,11 @@ export default Controller.extend({
       Logger.info('stabilization iterations done');
       this.set('stabilizationPercent', 100);
       $('div#stabilization-info').fadeOut();
+
+      this.set('networkStabilization', true);
+      Logger.info('Network stabilized');
+      this.get('networkService').setNetwork(this.get('network'));
+
     },
     stabilizationProgress(amount) {
       this.set('stIterations', amount.total);
@@ -181,6 +212,7 @@ export default Controller.extend({
         let diff = event.iterations - this.get('stIterations');
         Logger.info(`Network was stabilized using ${diff} iterations more than assumed (${this.get('stIterations')})`);
       }
+
     }
   }
 });

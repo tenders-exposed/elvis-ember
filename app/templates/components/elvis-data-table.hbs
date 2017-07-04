@@ -13,17 +13,6 @@
 		</div>
 </div>
 {{#data-table content=content sort=sort page=page as |t|}}
-{{!--
-{{#t.menu as |menu|}}
-  {{#menu.general}}
-    <a {{action 'export'}}>Export</a>
-    <a>Print</a>
-  {{/menu.general}}
-  {{#menu.selected as |selection|}}
-    <a {{action 'selectRow' selection}}>Delete</a>
-  {{/menu.selected}}
-{{/t.menu}}
---}}
   {{#t.content as |c|}}
     {{#c.header}}
       {{#each-in fields as |name label|}}
@@ -38,91 +27,62 @@
       {{/each-in}}
     {{/c.header}}
 
+
     {{#ember-scrollable}}
 
-      {{#c.body as |row|}}
-        <td class="item-figure">
-          <figure>
-	          {{row.value}}
-            <a class="item-zoom-to" {{action "selectRow" row on="click"}}>
-		          {{fa-icon 'crosshairs'}}
-            </a>
-          </figure>
+      {{#each content as |row|}}
+        <tr class="{{if row.isSelected 'selected'}}">
+            <td class="{{if row.cluster (concat 'cluster ' name) name}} item-figure">
+              <figure>
+	              {{row.value}}
+                <a class="item-zoom-to" {{action "selectRow" row on="click"}}>
+                  {{fa-icon 'crosshairs'}}
+                </a>
+              </figure>
+            </td>
 
-        </td>
-	      <td class="item-name">
-		      {{!-- relationships --}}
-		      {{#if row.toLabel}}
-			      {{#link-to "network.show.details.show" route row.id}}
-				      <small class="item-entity"><span class="procurer"></span>&nbsp;{{row.toLabel}}</small><br>
-              <small class="item-entity"><span class="supplier"></span>&nbsp;{{row.fromLabel}}</small>
-			      {{/link-to}}
-          {{/if}}
-		      {{!-- procurers / suppliers --}}
-          {{#if row.label}}
-						{{#link-to "network.show.details.show" route row.id}}
-							{{row.label}}<br>
-							<small class="item-id">{{row.id}}</small>
-						{{/link-to}}
-          {{/if}}
-				</td>
-				<td class="item-flags">
-					{{#link-to "network.show.details.show" route row.id}}
-						{{#if (gt row.flagsCount 0)}}
-								<span class="flags">
-									{{#if (gt row.flagsCount 3)}}
-										{{row.flagsCount}}
-									{{/if}}
-									{{fa-icon 'flag'}}
+	          <td class="item-name">
+              {{#link-to "network.show.details.show" route row.link}}
+                {{!-- relationships --}}
+                {{#if row.toLabel}}
+                  {{#link-to "network.show.details.show" route row.link}}
+                    <small class="item-entity"><span class="procurer"></span>&nbsp;{{row.toLabel}}</small><br>
+                    <small class="item-entity"><span class="supplier"></span>&nbsp;{{row.fromLabel}}</small>
+                  {{/link-to}}
+                {{/if}}
+                {{!-- procurers / suppliers --}}
+                {{#if row.label}}
+                  {{#link-to "network.show.details.show" route row.link}}
+                    {{row.label}}<br>
+                    <small class="item-id">{{row.id}}</small>
+                  {{/link-to}}
+                {{/if}}
+              {{/link-to}}
+            </td>
 
-									{{#tooltip-on-element enableLazyRendering=true}}
-										{{#each-in row.flags as |flName flValue|}}
-												<div class="flag-details">
-														<div class="flag-name">{{flName}}</div>
-														<div class="flag-value">{{flValue}}</div>
-												</div>
-										{{/each-in}}
-									{{/tooltip-on-element}}
-								</span>
-						{{/if}}
-					{{/link-to}}
-				</td>
-				{{!-- OLD DATA TABLE follows
-				{{#each-in fields as |name label|}}
-					<td class="{{name}}" >
-						{{#if (eq name "flags")}}
-							{{#if (gt row.flagsCount 0)}}
-									<span class="flags">
-										{{#if (gt row.flagsCount 3)}}
-											{{row.flagsCount}}
-										{{/if}}
-										{{fa-icon 'flag' size=1}}
+            <td class="item-flags">
+              {{#link-to "network.show.details.show" route row.link}}
+                {{#if (gt row.flagsCount 0)}}
+                    <span class="flags">
+                      {{#if (gt row.flagsCount 3)}}
+                        {{row.flagsCount}}
+                      {{/if}}
+                      {{fa-icon 'flag'}}
 
-										{{#tooltip-on-element enableLazyRendering=true}}
-											{{#each-in row.flags as |flName flValue|}}
-												<div class="flag-details">
-													<div class="flag-name">{{flName}}</div>
-													<div class="flag-value">{{flValue}}</div>
-												</div>
-											{{/each-in}}
-										{{/tooltip-on-element}}
-									</span>
-							 {{/if}}
-
-						{{else}}
-							{{#link-to "network.show.details.show" route row.id}}
-								{{dd row name}}
-							{{/link-to}}
-						{{/if}}
-					</td>
-				{{/each-in}}
-
-				<!--<td class="absolute controls">something</td>-->
-				<td class="absolute  toggle-controls" {{action "selectRow" row on="click"}}>
-						{{fa-icon 'dot-circle-o' size=1}}
-				</td>
-				--}}
-      {{/c.body}}
+                      {{#tooltip-on-element enableLazyRendering=true}}
+                        {{#each-in row.flags as |flName flValue|}}
+                            <div class="flag-details">
+                                <div class="flag-name">{{flName}}</div>
+                                <div class="flag-value">{{flValue}}</div>
+                            </div>
+                        {{/each-in}}
+                      {{/tooltip-on-element}}
+                    </span>
+                {{/if}}
+              {{/link-to}}
+    				</td>
+          </tr>
+        {{/each}}
 
     {{/ember-scrollable}}
   {{/t.content}}
