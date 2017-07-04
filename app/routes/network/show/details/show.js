@@ -136,13 +136,18 @@ export default Route.extend({
       }).then(
         (data) => {
           let dataEntity;
-          let filterCotracts = function (contracts, filterById) {
+          let filterContracts = function (contracts, filterById) {
+
             return  _.filter(contracts, (contract) => {
-              let check = _.indexOf(filterById, String(contract.procuring_entity.x_slug_id));
+              let check = _.findIndex(filterById, function(id) {
+                return id == contract.procuring_entity.x_slug_id;
+              });
+
               if(check === -1 ) {
                 return false;
+              } else {
+                return true;
               }
-              return true;
             });
           };
 
@@ -152,8 +157,9 @@ export default Route.extend({
             _.forEach(data.search.results, function (resultNode) {
               // filterContracts if requested
               if(filterById) {
-                resultNode.contracts = filterCotracts(resultNode.contracts, filterById);
+                resultNode.contracts = filterContracts(resultNode.contracts, filterById);
               }
+
               dataEntity.contracts.pushObjects(resultNode.contracts);
               dataEntity.median_tenderers += resultNode.median_tenderers;
               dataEntity.missing_values += resultNode.missing_values;
@@ -162,7 +168,7 @@ export default Route.extend({
           } else {
             [ dataEntity ] = data.search.results;
             if(filterById) {
-              dataEntity.contracts = filterCotracts(dataEntity.contracts, filterById);
+              dataEntity.contracts = filterContracts(dataEntity.contracts, filterById);
             }
           }
 
@@ -202,6 +208,7 @@ export default Route.extend({
       });
       requestedIds = clusterDetails.nodesId;
     }
+
     return this.getModelDetails(node, requestedIds, endpoint, filterContracts);
   },
 
@@ -230,7 +237,6 @@ export default Route.extend({
         controller.set('modelDetails', {'from': {'name': fromNode.label}, 'to': dataTo});
         controller.set('readyToRender',true);
 
-        // console.log('modelDetails', controller.get('modelDetails'));
       }).catch((error) => {
         Logger.error('Error:', error);
 
