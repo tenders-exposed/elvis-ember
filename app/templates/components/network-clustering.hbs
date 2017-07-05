@@ -1,0 +1,86 @@
+<div id="modalClustering" >
+  <div class="modal-container">
+
+    <div class="modal-content">
+      <div class="row">
+        <h4>Node Clustering</h4>
+        <span {{action "closeModal" on="click"}}>
+          {{fa-icon 'close' size=1 class="close"}}
+        </span>
+      </div>
+      <div class="row">
+        <div class="col s6 nodes">
+          <div class="col-label ">
+            <h5 class="center-align">NODES</h5>
+          </div>
+          <div class="nodes-lists">
+            {{#each nodes as |node|}}
+              {{#draggable-object content=node overrideClass="cluster-node list "}}
+                <span class="node-type">{{fa-icon 'circle' size=1 class=node.type}}</span>
+                <span class="node-label">{{node.label}}</span>
+              {{/draggable-object}}
+            {{/each}}
+          </div>
+
+        </div>
+        <div class="col s6 clusters">
+          <div class="col-label">
+            <h5 class="center-align">CLUSTERS</h5>
+          </div>
+          <div class="cluster-list">
+            {{#each clusters as |cluster index|}}
+
+              {{#draggable-object-target action="addToCluster" index=index overrideClass=(concat "cluster cluster" index)}}
+                {{#unless cluster.empty}}
+                  <span class="cluster-delete" {{action "deleteCluster" index on="click"}}>
+                    {{fa-icon "trash" size=1 class="control-icon"}}
+                  </span>
+                {{/unless}}
+                {{#if cluster.empty}}
+                  <div class="label-cluster">drag nodes here to create a cluster</div>
+                {{else}}
+                  <div class="cluster-name center-align">
+                    {{#if cluster.name}}
+                      {{cluster.name }}
+                    {{else}}
+                      cluster {{index}}
+                    {{/if}}
+                    <span class="edit-cluster" {{action "editCluster" index on="click"}}>
+                      {{fa-icon "pencil" size=1 class="control-icon"}}
+                    </span>
+
+                  </div>
+
+                  <div class="edit-cluster-input hide">
+                  <span class="input-field">
+                    {{input type="text" value=cluster.name placeholder=(concat "cluster " index) class="box-input cluster-text-input"}}
+                  </span>
+                    <div class="edit-cluster-controls">
+                    <span class="save-cluster-name" {{action "saveClusterName" cluster.name index on="click"}}>
+                      {{fa-icon "check" size=1 class="control-icon"}}
+                    </span>
+                      <span class="close-cluster-edit" {{action "closeClusterEdit" index on="click"}}>
+                        {{fa-icon "close" size=1 class="control-icon"}}
+                      </span>
+                    </div>
+                  </div>
+
+                {{/if}}
+                {{#each cluster.nodes as |node nodeIndex|}}
+                  <span class="cluster-node" id="{{node.id}}">
+                  <span class="node-type">{{fa-icon 'circle' size=1 class=node.type}}</span>
+                  <span class="node-label">{{node.label}}</span>
+                  <span {{action "removeNode" node nodeIndex index on="click"}} class="removeNode">
+                    {{fa-icon "close" size=1 class="control-icon"}}
+                  </span>
+                </span>
+                {{/each}}
+              {{/draggable-object-target}}
+
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,7 +2,19 @@
     <div class="close" {{action "close" on="click"}}>
       {{fa-icon 'close' size=1}}
     </div>
-    {{#if (eq graphElementType "node")}}
+    {{#if cluster}}
+      {{#each model as |node|}}
+        <div class="row">
+          <div class="co-name fs3">
+            <span class="supplier">
+              {{fa-icon 'circle' size=1}}
+            </span>
+            {{node.label}}
+          </div>
+        </div>
+      {{/each}}
+    {{else}}
+      {{#if (eq graphElementType "node")}}
     <div class="row">
       <div class="el-label fs0">
         <span class="{{class}}">
@@ -28,7 +40,7 @@
     </div>
   {{/if}}
 
-  {{#if (eq graphElementType "edge")}}
+      {{#if (eq graphElementType "edge")}}
     <div class="row">
       <div class="el-label fs0">
         relationship
@@ -60,4 +72,6 @@
       </div>
     </div>
   {{/if}}
+
+    {{/if}}
 </div>

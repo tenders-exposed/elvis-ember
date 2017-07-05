@@ -5,6 +5,7 @@ const { Controller, observer, inject } = Ember;
 export default Controller.extend({
   me: inject.service(),
   ajax: inject.service(),
+  networkService: inject.service(),
 
   networkInput: false,
   fields: {
@@ -36,65 +37,20 @@ export default Controller.extend({
     loaded: false
   },
 
-  networkModelLoaded: observer('model', function() {
+  graphChange: 0,
+  stabilizedNetwork : false,
+
+  showController: inject.controller('network.show'),
+
+  networkModelLoaded: observer('networkService.isReady','model', function() {
     if (this.get('model.options')) {
       this.set('fields.suppliers.value', _.capitalize(this.get('model.options.nodes')));
       this.set('fields.relationships.value', _.capitalize(this.get('model.options.edges')));
     }
-    if (this.get('model.graph')) {
-      let model = this.get('model');
-
-      let valueFormat = (value) => {
-        if (typeof value !== 'string') {
-          value = value.toFixed();
-          value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        }
-        return value;
-      };
-      let graphNodes    = model.get('graph.nodes');
-      let relationships = model.get('graph.edges');
-
-      _.forEach(relationships, (value) => {
-
-        let idFrom = value.from;
-        let idTo = value.to;
-        let fromObj =  _.find(graphNodes, (o) => {
-          return o.id === idFrom;
-        });
-        let toObj =  _.find(graphNodes, (o) => {
-          return o.id === idTo;
-        });
-        value.fromLabel = fromObj.label;
-        value.toLabel = toObj.label;
-        value.value = valueFormat(value.value);
-        value.flagsCount = Object.keys(value.flags).length;
-      });
-
-      this.set(
-        'gridOptions.suppliers.rowData',
-        _.filter(graphNodes, (o) => {
-          if (o.type === 'supplier') {
-            o.value = valueFormat(o.value);
-            o.flagsCount = Object.keys(o.flags).length;
-            return o;
-          }
-        })
-      );
-      this.set(
-        'gridOptions.procurers.rowData',
-        _.filter(graphNodes, (o) => {
-          if (o.type === 'procuring_entity') {
-            o.value = valueFormat(o.value);
-            o.flagsCount = Object.keys(o.flags).length;
-            return o;
-          }
-        })
-      );
-      this.set(
-        'gridOptions.relationships.rowData', relationships
-      );
-      this.set('gridOptions.loaded', true);
-    }
+    this.set('gridOptions.suppliers.rowData', this.get('networkService.suppliers'));
+    this.set('gridOptions.procurers.rowData', this.get('networkService.procurers'));
+    this.set('gridOptions.relationships.rowData', this.get('networkService.relationships'));
+    this.set('gridOptions.loaded', true);
   }),
 
   onFilterChanged(value) {

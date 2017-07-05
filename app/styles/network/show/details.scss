@@ -1,115 +1,127 @@
-div#details-sidebar {
+// Network details
+// -------------------------
+
+// TODO: consider less missleading naming: #network-sidebar, #network-infowindow
+
+$network-sidebar-width: 30%;
+$network-sidebar-padding: $padding-base;
+$network-sidebar-bg: fade-out(lighten($bg-color,5%), 0.1);
+$network-infowindow-width: -$network-sidebar-width+100%;
+$network-sidebar-border: $border-base;
+
+$zindex-network-sidebar: 9;
+$zindex-network-sidebar-toggle: 91;
+
+// network sidebar
+#details-sidebar {
   display: inline-block;
-  box-flex: 0;
-  z-index: 9;
+  z-index: $zindex-network-sidebar;
   pointer-events: all;
-  width: 30%;
+  width: $network-sidebar-width;
   min-width: 300px;
   min-height: 400px;
+  position: absolute;
   height: 100%;
   top: 0;
   clear: both;
+  border-right: $network-sidebar-border;
+  background: $network-sidebar-bg;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 
-  .details {
-    margin-top: 40px;
-    margin-left: 10px;
-    i { cursor: pointer; }
+  font-family: $font-family-sans;
+
+  .sidebar-header {
+    padding: 0.5*$network-sidebar-padding $network-sidebar-padding;
   }
 
-  /*arrow close sidebar*/
-  .closeDetails {
-    right: -7px;
-    top: 37px;
+  .sidenav-toggle {
+    color: $text-color;
+    float: left;
   }
 
-  .network-name-sidebar, .table-sidebar{
-    @include bg-dark;
+  .network-title {
+    font-size: $h4-fontsize;
+    font-weight: normal;
   }
 
-  /*change network name*/
-  div.show-form-description {
-    border-bottom: 1px dashed $box-border-color;
-    background: $bg-dark-color;
-    opacity: 1;
+  .networks-settings {
+    display: none;
   }
-  div.network-input {
-    position: relative;
-    margin-bottom: 0px;
-    margin-top: 20px;
-    padding-bottom: 0px;
-    input { height:  35px !important; margin-bottom: 0px; }
-    .controls { line-height: 44px; }
-    .close {
-      top: -10px;
-      right: 0px;
+
+  .network-title-settings-toggle {
+    margin-left: 1em;
+    color: $text-color;
+    opacity: .4;
+    &:hover {
+      opacity: .8;
     }
-    textarea { padding-top: 5px !important; }
   }
 
-  /*tab navigations buttons*/
-  div.tabs__nav {
-    line-height: 2.5rem;
+  //tab navigations buttons
+  // TODO: correct naming of these css classes. we need consistency all over the system: use only dashes
+  .tabs__nav {
     border-bottom: 1px solid #484848;
-    margin-bottom: 10px;
-    margin-top: 30px;
+    display: flex;
+    align-items: flex-start;
+    padding: 0 0.5*$network-sidebar-padding;
+    width: 100%;
 
-    .tab-button--active,
-    .tabs-button--active2 {
-      a {
-        border-bottom: 2px solid whitesmoke;
-      }
-    }
-
-    div.tab-button {
+    // single tab
+    .tab-button {
       display: inline-block;
+      flex-grow: 1;
+      padding: 0 0.5*$network-sidebar-padding;
       font-weight: bold;
-      position: relative;
-      width: 33%;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: .83em;
+      letter-spacing: .05em;
       cursor: pointer;
-      text-align: left;
-      padding-top: 10px;
 
-      &:first-child { padding-left: 12px; }
-      &:hover a { border-bottom: 2px solid dimgrey; }
-      a {
-        position: relative;
-        @include label;
-        color: $text-color;
-        font-size: $fs1;
-        padding-bottom: 10px;
-        span {
-          font-size: $fs2;
-        }
+      // tab icon
+      .tab-icon {
+        display: block;
+        margin: 1em auto;
       }
 
-      .circle {
-        right: 42%;
-        top: -33px;
-        &.supplier { color: $color-supplier; }
-        &.procurer { color: $color-procurer; }
-        &.relationship { color: $color-relationship; }
-        &.rel1 { right: 30%; }
-        &.rel2 { right: 60%; }
+      // tab label text
+      a {
+        display: inline-block;
+        color: $text-muted-color;
+        padding-bottom: 1em;
+        position: relative;
+        bottom: -2px;
+        cursor: pointer;
+      }
 
-        &.relationship-line {
-          width: 30%;
-          right: 37%;
-          top: -24px;
-          hr {
-            width: 100%;
-            color: #868686;
-            border: {width: 2px; style:solid; }
-          }
-        }
+      // active and hovered tab
+      &.tab-button--active a,
+      &.tabs-button--active2 a,
+      &:hover a {
+        border-bottom: 2px solid whitesmoke;
+        color: $text-color;
       }
     }
   }
 
-  /*tabs*/
+  // sidebar toggle button (circle arrow)
+  .sidebar-toggle {
+    height: 0px;
+    overflow: visible;
+    float: right;
+    position: relative;
+    right: -7px;
+    top: -11px;
+    z-index: $zindex-network-sidebar-toggle;
+    cursor: pointer;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+  }
+
+  //tabs
   .tab-panel {
     width: 100%;
     height: 100%;
-    margin-top: 20px;
 
     .ag-body-container {
       width: 100%;
@@ -117,17 +129,7 @@ div#details-sidebar {
     .ag-cell, .ag-body-viewport {
       background: $main-bg;
     }
-    .searchIcon {
-      top: 4px;
-      right: 4px;
-      cursor: pointer;
-    }
-    .search-input {
-      @include search-input;
-      width: 92% !important;
-      opacity: 0.5;
-      &:focus { opacity: 0.8;}
-    }
+
     #loader {
       margin-top: 60px;
       .preloader-wrapper.ember-view {
@@ -135,37 +137,63 @@ div#details-sidebar {
         width: 48px;
       }
     }
-    /*tabs - tables: elvis-data-table.scss*/
+    //tabs - tables: elvis-data-table.scss
   }
 }
 
-div#sidebar-toggle {
-  z-index: 100;
-  position: absolute;
-  min-height: 500px;
-  height: 90%;
-  div#sidebar-toggle-border {
+
+// network settings open
+#details-sidebar.network-settings-open {
+  > *:not(.network-settings) { // hide everything except of .network settings
+    display: none;
+  }
+  .network-settings {
     display: block;
     height: 100%;
-    width: .2em;
-    background: #888;
-    filter: blur(1px);
-    -webkit-filter: blur(1px);
-    &:hover {
-      cursor: pointer;
-      filter: blur(5px);
-      -webkit-filter: blur(5px);
-    }
+    padding: $network-sidebar-padding;
   }
-  i {
+  .network-settings-save {
+    @extend .btn-floating;
+    @include button-circle(1.78rem);
+    @include button-color($text-color);
+    float: right;
+    margin-top: .4em;
+  }
+  .network-settings-privacy {
+    .switch { margin: 0 auto; }
+  }
+
+}
+
+#sidebar-toggle {
+  z-index: $zindex-network-sidebar-toggle;
+  position: absolute;
+  left: -1em;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 2em;
+  border-right: $network-sidebar-border;
+  background: $network-sidebar-bg;
+  text-align: center;
+  opacity: .6;
+  transition: all .3s ease;
+
+  .fa {
+    color: $text-muted-color;
     position: absolute;
-    color: #888;
-    top: 20%;
-    left: .15em;
-    opacity: 0.9;
-    &:hover {
-      cursor: pointer;
-      color: $text-color;
-    }
+    top: $padding-base;
+    left: calc(100% - .5em);
+  }
+
+  &:hover {
+    cursor: pointer;
+    opacity: 1;
+    left: 0;
   }
 }
+// default toggle state
+body.network-show-details #sidebar-toggle {
+  display: none;
+}
+
