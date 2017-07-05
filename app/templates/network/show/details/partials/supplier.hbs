@@ -5,8 +5,8 @@
         {{fa-icon 'circle' size=1}} supplier
       </div>
       <div class="el-title fs5">
-        {{model.name}}
-        <span class="fs3 dark-text">( {{model.firstYear}} - {{model.lastYear}} )</span>
+        {{modelDetails.name}}
+        <span class="fs3 dark-text">( {{modelDetails.firstYear}} - {{modelDetails.lastYear}} )</span>
       </div>
       <hr>
     </div>
@@ -14,7 +14,7 @@
 
   <div class="row second-row">
     <div class="col s3">
-      {{#each-in model.flags as |flName flValue|}}
+      {{#each-in modelDetails.flags as |flName flValue|}}
         <div class="flag">
           {{fa-icon 'flag' size=1}} {{flName}} {{fa-icon 'question-circle' size=1}}
         </div>
@@ -22,7 +22,7 @@
     </div>
     <div class="col s3">
       <div class="el-label-dark fs1">total income</div>
-      <div class="el-title fs5">{{format-amount model.total_earnings}}</div>
+      <div class="el-title fs5">{{format-amount modelDetails.total_earnings}}</div>
     </div>
     <div class="col s3">
       <div class="el-label-dark fs1">avg competition</div>
@@ -30,34 +30,50 @@
     </div>
     <div class="col s2 right-align">
       <div class="el-label-dark fs1">data missing</div>
-      <div class="el-title fs5">{{model.missing_values}}%</div>
+      <div class="el-title fs5">{{modelDetails.missing_values}}%</div>
     </div>
   </div>
+
   <div class="row">
   {{#tabbed-content active=activeTabDetails on-change="changeTabDetails" active-class="tab-button--active" as |supplierTabManager|}}
       <div class="tabs__nav">
       {{#tab-button class="tab-button"  manager=supplierTabManager name="contracts"}}
-        <a>contracts</a>
+        <a>contracts ({{modelDetails.contractsCount}})</a>
+      {{/tab-button}}
+      {{#tab-button class="tab-button"  manager=supplierTabManager name="contractsGraph"}}
+        <a>timeline</a>
       {{/tab-button}}
       {{#tab-button class="tab-button"  manager=supplierTabManager name="procurers"}}
-        <a>procurers</a>
+        <a>procurers ({{modelDetails.nodesCount}})</a>
       {{/tab-button}}
 
       </div>
     {{#tab-panel manager=supplierTabManager name="contracts" class='tab-panel'}}
       {{details-data-table
           class="contracts"
-          content=model.contracts
+          content=modelDetails.contracts
           fields=fields.contracts
           partialPath="network/show/details/partials/tables/contracts"
           route="suppliers"
           nodeId=params.id
       }}
     {{/tab-panel}}
+
+    {{#tab-panel manager=supplierTabManager name="contractsGraph" class='tab-panel'}}
+      {{details-graph
+          id="details-graph-id"
+          contracts=modelDetails.contracts
+          fields=fields.contracts
+          partialPath="network/show/details/partials/tables/contracts"
+          route="suppliers"
+          nodeId=params.id
+      }}
+    {{/tab-panel}}
+
     {{#tab-panel manager=supplierTabManager name="procurers" class='tab-panel'}}
       {{details-data-table
           class="procurers"
-          content=model.nodes
+          content=modelDetails.nodes
           fields=fields.procurers
           partialPath="network/show/details/partials/tables/suppliers-procurers"
           route="suppliers"
@@ -66,4 +82,5 @@
     {{/tab-panel}}
   {{/tabbed-content}}
   </div>
+
 </div>

@@ -1,0 +1,169 @@
+/*
+$gray1: #bfbfbf;
+$gray2: #e5e5e5;
+$gray3: #bebebe;
+$gray4: #c2c2c2;
+$fill: #ffffff;
+$text: #4d4d4d;
+*/
+//linii principale
+$gray1: #38383e;
+//linii secundare
+$gray2: #232328;
+$gray3: $text-color;
+$gray4: red;
+$gray5: $text-dark-color;
+$fill: #ffffff;
+$text: $text-dark-color;
+
+#details-graph-statistic {
+
+  min-height: 70px;
+  width: 100%;
+  position: relative;
+  padding-top: 10px;
+  width: 95%;
+  margin-left: 5%;
+  .show-filtered-contracts {
+    cursor: pointer;
+    &:hover {
+      color: $text-color !important;
+    }
+  }
+  .row {
+    margin: 0px;
+
+    .title-stat {
+      border-bottom: 1px solid $box-border-color;
+      margin-bottom: 15px;
+      padding-left: 0px;
+    }
+    i {
+      left: -30px;
+      top: 0px;
+      font-size: $fs4;
+      color: $text-dark-color;
+    }
+  }
+}
+#details-graph-contracts {
+  width: 100%;
+  position: relative;
+  padding-top: 30px;
+
+  .close {
+    right: 0px !important;
+    top: 5px  !important;
+    color: $text-dark-color;
+    span {
+      font-size: $fs1;
+    }
+  }
+  .data-table {
+    .ps-container {
+        height: 200px !important;
+    }
+  }
+}
+#contracts-stat {
+
+  margin-top: -11px;
+  .vis-outline {
+    display: none;
+  }
+
+  .vis-active{
+    box-shadow: 0 0 4px $text-color;
+  }
+
+  .vis-panel.vis-background.vis-horizontal .vis-grid.vis-minor {
+    border-color: $gray2;
+
+  }
+  .vis-panel.vis-background.vis-horizontal .vis-grid.vis-major{
+    border-color: $gray5;
+    width: 95% ;
+    //border-width: 2px;
+  }
+
+  .vis-time-axis .vis-grid.vis-minor {
+    border-color: $gray2;
+  }
+
+  .vis-time-axis .vis-grid.vis-major {
+    border-color: $gray1;
+  }
+
+  .vis-time-axis .vis-text {
+    color: $text;
+    font-size: $fs1;
+  }
+
+
+  .vis-data-axis .vis-y-axis.vis-title {
+    font-size: $fs1;
+    font-weight: bold;
+  }
+  .vis-timeline .vis-outline {
+    fill: $fill;
+    stroke: $gray2;
+  }
+
+  .vis-timeline .vis-legend-background {
+    fill: $fill;
+    stroke: $gray4;
+  }
+
+  .vis-panel.vis-center,
+  .vis-panel.vis-left,
+  .vis-panel.vis-right,
+  .vis-panel.vis-top,
+  .vis-panel.vis-bottom {
+    border: 1px $gray1;
+  }
+
+  .vis-labelset .vis-label {
+    border-bottom: 1px solid $gray1;
+  }
+
+  .vis-labelset .vis-label {
+    color: $text;
+  }
+
+  .vis-foreground .vis-group {
+
+    border-bottom: 1px solid $gray1;
+  }
+
+  .vis-data-axis .vis-y-axis.vis-minor {
+    color: $gray3;
+    font-size: $fs01;
+  }
+
+  .vis-data-axis .vis-y-axis.vis-major {
+    color: $text;
+  }
+
+
+
+  .vis-timeline {
+    border: 1px solid $gray1;
+
+    .vis-bar {
+      fill-opacity: 0.4 !important;
+      &:hover {
+        cursor: pointer;
+        fill-opacity: 0.5 !important;
+      }
+    }
+  }
+  .vis-graph-group1 {
+    fill: $color-procurer !important;
+    stroke: $color-procurer !important;
+  }
+  .vis-graph-group0 {
+    fill: $color-supplier !important;
+    stroke: $color-supplier !important;
+  }
+
+}

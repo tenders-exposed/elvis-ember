@@ -3,7 +3,9 @@ import Ember from 'ember';
 const { Route, inject, Logger } = Ember;
 
 export default Route.extend({
+  classNames: ['body-page'],
   ajax: inject.service(),
+  titleToken: 'Create a new network',
 
   endpoints: {
     'countries': '/contracts/countries',

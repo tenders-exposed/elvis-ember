@@ -3,14 +3,14 @@
     {{fa-icon 'times-circle' size=3}}
   </div>
 
-  {{#render-later load=model wait=50 message="Loading..."}}
-    {{#if model}}
-      {{#if (eq activeTab 'suppliers')}}
+   {{#if readyToRender}}
+    {{#if modelDetails}}
+      {{#if (eq tab 'suppliers')}}
         {{partial 'network/show/details/partials/supplier'}}
-      {{else if (eq activeTab 'procurers')}}
+      {{else if (eq tab 'procurers')}}
         {{partial 'network/show/details/partials/procurer'}}
-      {{else if (eq activeTab 'relationships')}}
-        {{partial 'network/show/details/partials/supplier'}}
+      {{else if (eq tab 'relationships')}}
+        {{partial 'network/show/details/partials/relationship'}}
       {{else}}
         {{partial 'network/show/details/partials/null'}}
       {{/if}}
@@ -24,5 +24,8 @@
         </div>
       </div>
     {{/if}}
-  {{/render-later}}
+
+  {{else}}
+     {{elvis-loader shouldRender=readyToRender message="Loading.."}}
+   {{/if}}
 </div>

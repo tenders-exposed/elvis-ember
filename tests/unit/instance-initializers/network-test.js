@@ -1,19 +1,17 @@
 import Ember from 'ember';
-import { initialize } from 'elvis-ember/instance-initializers/client';
+import { initialize } from 'elvis-ember/instance-initializers/network';
 import { module, test } from 'qunit';
 import destroyApp from '../../helpers/destroy-app';
 
-const { Application, run } = Ember;
-
-module('Unit | Instance Initializer | client', {
+module('Unit | Instance Initializer | network', {
   beforeEach() {
-    run(() => {
-      this.application = Application.create();
+    Ember.run(() => {
+      this.application = Ember.Application.create();
       this.appInstance = this.application.buildInstance();
     });
   },
   afterEach() {
-    run(this.appInstance, 'destroy');
+    Ember.run(this.appInstance, 'destroy');
     destroyApp(this.application);
   }
 });

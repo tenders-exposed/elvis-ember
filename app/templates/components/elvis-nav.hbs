@@ -1,4 +1,90 @@
-<div class="menu-container {{dropMenu}}">
+<!-- new navbar -->
+<nav id="main-navbar" class="navbar navbar-fixed">
+    <div class="nav-wrapper">
+		    {{#link-to 'application' class="brand-logo"}}
+            <img alt="ELVIS - public spending visualisation tool" height="80" src="images/elvis-logo-white.png"/>
+		    {{/link-to}}
+        <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="center hide-on-med-and-down">
+            <li>
+				        {{#link-to 'network.new' class=""}}
+                    <span>New visualisation</span>
+				        {{/link-to}}
+            </li>
+            <li> {{link-to 'About' 'static' 'about'}} </li>
+            <li> {{link-to 'Gallery' 'static' 'gallery'}} </li>
+            <li><a href="https://talk.tenders.exposed/" target="_blank">Community</a></li>
+        </ul>
+        <div class="right hide-on-med-and-down">
+		        {{#if session.isAuthenticated}}
+				        <ul class="user-nav">
+						        <li>
+						        {{#link-to 'network.list' class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip"}}
+								        <i class="fa fa-th"></i>
+								        <span>My Projects</span>
+								        {{#tooltip-on-component enableLazyRendering=true side='bottom'}}
+                            My Projects
+								        {{/tooltip-on-component}}
+						        {{/link-to}}
+                    </li>
+						        <li>
+						        {{#link-to 'account.settings' class=""}}
+								        <i class="fa fa-cog"></i>
+		                    <span>Settings</span>
+								        {{#tooltip-on-component enableLazyRendering=true side='bottom'}}
+                            Settings
+								        {{/tooltip-on-component}}
+						        {{/link-to}}
+                    </li>
+						        <li>
+				                <a {{action 'invalidateSession'}} id="navbarLogout">
+						                <i class="fa fa-power-off"></i>
+				                    <span class="sr-only">Log Out</span>
+				                </a>
+								        {{#tooltip-on-component enableLazyRendering=true side='bottom' target='#navbarLogout'}}
+                            Log Out
+								        {{/tooltip-on-component}}
+                    </li>
+				        </ul>
+		        {{else}}
+		            {{#link-to 'welcome.login' class="btn link"}} Login {{/link-to}}
+		            {{#link-to 'account.new' class="btn transparent"}} Register {{/link-to}}
+		        {{/if}}
+        </div>
+        <ul id="mobile-nav" class="side-nav">
+            <li> {{link-to 'About' 'static' 'about'}} </li>
+            <li> {{link-to 'Gallery' 'static' 'gallery'}} </li>
+            <li><a href="https://talk.tenders.exposed/" target="_blank">Community</a></li>
+            <li>
+						    {{#link-to 'network.new'}}
+                    <i class="fa fa-plus"></i>
+                    <span>New visualisation</span>
+						    {{/link-to}}
+            </li>
+            <li>
+						    {{#link-to 'network.list' class=""}}
+                    <i class="fa fa-th"></i>
+                    <span>My Projects</span>
+						    {{/link-to}}
+            </li>
+            <li>
+						    {{#link-to 'account.settings' class=""}}
+                    <i class="fa fa-user"></i>
+                    <span>Account Settings</span>
+						    {{/link-to}}
+            </li>
+            <li>
+                <a {{action 'invalidateSession'}} class="">
+                    <i class="fa fa-power-off"></i>
+                    <span>Log Out</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- old navbar (hidden) -->
+<div class="menu-container hide">
 
   <div id="main-navbar" class="navbar-fixed ">
       <!-- Dropdown Structure -->
@@ -87,7 +173,7 @@
           </div>
         </div>
       </nav>
-</div>
+	</div>
 
   <div class="toggleMenu">
     <div class="container">

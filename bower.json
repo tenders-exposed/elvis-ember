@@ -22,14 +22,14 @@
     "nouislider": "^8.0.1",
     "jstree": "^3.3.3",
     "ember-cli-list-view": ">=0.0.3",
-    "vis": "^4.16.0",
     "ag-grid": "^5.3.1",
     "lodash": "^4.16.4",
-    "perfect-scrollbar": "^0.6.14",
+    "perfect-scrollbar": "^0.7.0",
     "clientjs": "^0.1.5"
   },
   "resolutions": {
     "qunit-notifications": "~0.1.0",
-    "ember-qunit-notifications": "0.1.0"
+    "ember-qunit-notifications": "0.1.0",
+    "perfect-scrollbar": "^0.7.0"
   }
 }

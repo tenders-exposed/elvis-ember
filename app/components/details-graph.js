@@ -159,13 +159,15 @@ export default Component.extend({
       // console.log('sortedProcurers', sortedProcurers);
       $('#contracts-stat').html('');
       let container = $('#contracts-stat').get(0);
+
       // eslint-disable-next-line no-undef
       let groups = new vis.DataSet();
       groups.add({ id: 0, content: 'group0' });
       groups.add({ id: 1, content: 'group1', options: { yAxisOrientation: 'right' } });
 
       let items = graphItems;
-      // eslint-disable-next-line no-undef
+
+      // eslint-disable-next-line no-undef, no-unused-vars
       let dataset = new vis.DataSet(items);
       let options = {
         style: 'bar',

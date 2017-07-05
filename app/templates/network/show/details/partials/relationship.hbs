@@ -1,0 +1,61 @@
+<div class="container container-entity relative">
+  <div class="row">
+    <div class="col s12 title">
+      <h5 class="el-label-dark">
+         Relationship Details
+        <span class="fs3 dark-text">( {{modelDetails.to.firstYear}} - {{modelDetails.to.lastYear}} )</span>
+      </h5>
+      <h4 class="el-title procurer">
+        {{fa-icon 'circle' size=1}} {{modelDetails.from.name}}
+      </h4>
+      <h4 class="el-title supplier">
+        {{fa-icon 'circle' size=1}}  {{modelDetails.to.name}}
+      </h4>
+      <hr>
+    </div>
+  </div>
+
+  <div class="row second-row">
+    <div class="col s3">
+      {{#each-in modelDetails.to.flags as |flName flValue|}}
+        <div class="flag">
+          {{fa-icon 'flag' size=1}} {{flName}} {{fa-icon 'question-circle' size=1}}
+        </div>
+      {{/each-in}}
+    </div>
+    <div class="col s3">
+      <div class="el-label-dark fs1">total income</div>
+      <div class="el-title fs5">{{format-amount modelDetails.to.total_earnings}}</div>
+    </div>
+    <div class="col s3">
+      <div class="el-label-dark fs1">avg competition</div>
+      <div class="el-title fs5">1.7</div>
+    </div>
+    <div class="col s2 right-align">
+      <div class="el-label-dark fs1">data missing</div>
+      <div class="el-title fs5">{{modelDetails.to.missing_values}}%</div>
+    </div>
+  </div>
+
+  <div class="row">
+    {{#tabbed-content active=activeTabDetails on-change="changeTabDetails" active-class="tab-button--active" as |supplierTabManager|}}
+      <div class="tabs__nav">
+        {{#tab-button class="tab-button"  manager=supplierTabManager name="contracts"}}
+          <a>Common contracts ({{modelDetails.to.contractsCount}})</a>
+        {{/tab-button}}
+
+      </div>
+      {{#tab-panel manager=supplierTabManager name="contracts" class='tab-panel'}}
+        {{details-data-table
+            class="contracts-relationship"
+            content=modelDetails.to.contracts
+            fields=fields.contractsRelationship
+            partialPath="network/show/details/partials/tables/contracts-relationship"
+            route="relationships"
+            nodeId=params.id
+        }}
+      {{/tab-panel}}
+    {{/tabbed-content}}
+  </div>
+
+</div>

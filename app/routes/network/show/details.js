@@ -1,10 +1,12 @@
 import Ember from 'ember';
 
-const { Route } = Ember;
+const { Route, inject } = Ember;
 
 export default Route.extend({
 
+  classNames: ['body-network'],
   activeTab: '',
+  networkService: inject.service(),
 
   model(params) {
     this.set('activeTab', params.tab);
@@ -12,31 +14,32 @@ export default Route.extend({
 
   setupController(controller) {
     controller.set('model', this.controllerFor('network.show').get('model'));
-    controller.set('network', this.controllerFor('network.show').get('network'));
     controller.set('activeTab', this.get('activeTab'));
+    controller.set('network', this.controllerFor('network.show').get('network'));
   },
 
   actions: {
     nodeRowClick(selection) {
-      //console.log('network', this.controllerFor('network.show').get('network'));
-      this.controllerFor('network.show').set('network.selectedNodes', []);
-      this.controllerFor('network.show').set('network.selectedEdges', []);
+      let network = this.get('networkService').getNetwork();
+      network.set('selectedNodes', []);
+      network.set('selectedEdges', []);
 
-      this.controllerFor('network.show').get('network').moveTo(selection.id);
-      this.controllerFor('network.show').get('network').network.selectNodes([selection.id]);
-      this.controllerFor('network.show').set('network.selectedNodes', [selection.id]);
+      network.moveTo(selection.id);
+      network.network.selectNodes([selection.id]);
+      network.set('selectedNodes', [selection.id]);
     },
     edgeRowClick(selection) {
-      this.controllerFor('network.show').set('network.selectedNodes', []);
-      this.controllerFor('network.show').set('network.selectedEdges', []);
+      let network = this.get('networkService').getNetwork();
+      network.set('selectedNodes', []);
+      network.set('selectedEdges', []);
 
-      this.controllerFor('network.show').get('network').network.fit({
+      network.network.fit({
         nodes: [selection.from, selection.to],
         animation: true
       });
 
-      this.controllerFor('network.show').get('network').network.selectEdges([selection.id]);
-      this.controllerFor('network.show').set('network.selectedEdges', [selection.id]);
+      network.network.selectEdges([selection.id]);
+      network.set('selectedEdges', [selection.id]);
     }
 
   }

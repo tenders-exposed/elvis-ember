@@ -1,7 +1,6 @@
-.static{
-  > * {
-    height: 100%;
-  }
+.container.static{
+  width: 100%;
+
   .about {
     .page-text {
       margin-bottom: 50px;

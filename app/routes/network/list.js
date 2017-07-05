@@ -6,6 +6,7 @@ const { Route, inject } = Ember;
 export default Route.extend(AuthenticatedRouteMixin, {
   me: inject.service(),
   ajax: inject.service(),
+  classNames: ['body-page'],
 
   model() {
     let networks = this.get('store').findAll('network');
@@ -13,6 +14,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
   },
 
   afterModel(model) {
+    this.titleToken = ` My projects (${model.get('length')})`;
+
     return model.map(function(network) {
       if(network.get('description') === 'null') {
         network.set('description','');
@@ -28,6 +31,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
   setupController(controller, model) {
     this._super(controller, model);
   },
+
   activate() {
     this.notifications.clearAll();
     this.notifications.warning('Warning, this page contains unfinished features!', {
