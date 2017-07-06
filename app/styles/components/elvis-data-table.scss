@@ -8,7 +8,7 @@
     width: 100%;
     height: calc(100vh - 250px);
     position: relative;
-    table-layout: fixed;
+    display: block;
 
     thead { display: none; }
     td {
