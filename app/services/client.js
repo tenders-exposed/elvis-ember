@@ -28,7 +28,6 @@ export default Service.extend({
       'Device',
       'DeviceType',
       'DeviceVendor',
-      // 'CPU',
       // 'ScreenPrint',
       // 'DeviceXDPI',
       // 'DeviceYDPI',
@@ -37,6 +36,7 @@ export default Service.extend({
       // 'Fonts',
       // 'TimeZone',
       // 'Language',
+      'CPU'
     ];
 
     let windowSize = {
@@ -56,7 +56,7 @@ export default Service.extend({
       'client.os.name': this.get('os'),
       'client.os.version': this.get('osversion'),
       'client.browser.name': this.get('browser'),
-      'client.browser.version': `${this.get('browsermajorversion')}.${this.get('browserminorversion')}`,
+      // 'client.browser.version': `${this.get('browsermajorversion')}.${this.get('browserminorversion')}`,
       'client.browser.version': this.get('engine'),
       'client.resolution.window': this.get('windowsize'),
       'client.device.type': this.get('devicetype'),
