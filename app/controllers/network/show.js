@@ -1,9 +1,8 @@
 import Ember from 'ember';
 
-const { Controller, $, Logger, inject } = Ember;
+const { Controller, $, Logger } = Ember;
 
 export default Controller.extend({
-  networkService: inject.service(),
   height: window.innerHeight - 100,
   selectedNodes: [],
   selectedEdges: [],

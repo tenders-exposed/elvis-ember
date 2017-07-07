@@ -7,7 +7,6 @@ export default Route.extend({
   me: inject.service(),
   ajax: inject.service(),
   store: inject.service(),
-  networkService: inject.service(),
 
   endpoints: {
     suppliers: 'suppliers',

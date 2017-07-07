@@ -5,7 +5,6 @@ const { Controller, observer, inject } = Ember;
 export default Controller.extend({
   me: inject.service(),
   ajax: inject.service(),
-  networkService: inject.service(),
 
   networkInput: false,
   fields: {

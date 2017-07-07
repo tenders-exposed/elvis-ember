@@ -1,11 +1,10 @@
 import Ember from 'ember';
 
-const { Route, inject } = Ember;
+const { Route } = Ember;
 
 export default Route.extend({
   classNames: ['body-network'],
   titleToken: 'Network - ',
-  networkService: inject.service(),
 
   activate() {
     this.notifications.clearAll();
