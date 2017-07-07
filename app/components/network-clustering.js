@@ -1,9 +1,28 @@
 import Ember from 'ember';
 
-const { Component, $ } = Ember;
+const { Component, $ , observer } = Ember;
 
 export default Component.extend({
   clusters: [],
+  searchNode: '',
+  searchCluster: '',
+
+  restNodesList : observer('searchNode', function () {
+    if(!this.get('searchNode')) {
+      console.log('resetNodeList');
+      _.forEach(this.get('nodes'), function (node) {
+        Ember.set(node,'hide', false);
+      });
+    }
+  }),
+  restClustersList : observer('searchCluster', function () {
+      if(!this.get('searchCluster')) {
+        _.forEach(this.get('clusters'), function (cluster) {
+          Ember.set(cluster,'hide', false);
+        });
+      }
+    }),
+
   addEmptyCluster(){
     this.get('clusters').pushObject({
       'id': 'c'+Date.now(),
@@ -26,6 +45,40 @@ export default Component.extend({
     // console.log('nodes', this.get('nodes'));
   },
   actions: {
+    searchNodeList(){
+      let mkRegex = (str) => {
+        let ex = str.replace('*', '.*')
+          .replace('?', '.{0,1}');
+        return new RegExp(`^.*${ex}.*$`, 'gi');
+      };
+
+      let searchWord = _.toLower(_.toString(this.get('searchNode')));
+      _.forEach(this.get('nodes'), function (node) {
+        let label =  _.toLower(_.toString(node.label));
+        if(label.match(mkRegex(searchWord))) {
+          Ember.set(node,'hide', false);
+        } else {
+          Ember.set(node,'hide', true);
+        }
+      });
+    },
+    searchClusterList(){
+      let mkRegex = (str) => {
+        let ex = str.replace('*', '.*')
+          .replace('?', '.{0,1}');
+        return new RegExp(`^.*${ex}.*$`, 'gi');
+      };
+
+      let searchWord = _.toLower(_.toString(this.get('searchCluster')));
+      _.forEach(this.get('clusters'), function (cluster) {
+        let label =  _.toLower(_.toString(cluster.name));
+        if(label.match(mkRegex(searchWord))) {
+          Ember.set(cluster,'hide', false);
+        } else {
+          Ember.set(cluster,'hide', true);
+        }
+      });
+    },
     editCluster(clusterIndex) {
       // console.log(`tring to edit cluster ${clusterIndex}`);
       $(`.cluster${clusterIndex} .cluster-name`).addClass('hide');
@@ -114,6 +167,9 @@ export default Component.extend({
 
     },
     closeModal(){
+      // reset searchWords before closing
+      this.set('searchNode','');
+      this.set('searchCluster','');
       // concat all the nodes together
       let nodesConcat = [];
       this.get('clusters').removeAt(this.get('clusters').length-1 );
