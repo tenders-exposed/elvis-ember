@@ -1,11 +1,10 @@
 import Ember from 'ember';
 
-const { Route, inject } = Ember;
+const { Route } = Ember;
 
 export default Route.extend({
   classNames: ['body-network'],
   titleToken: 'Network - ',
-  networkService: inject.service(),
 
   activate() {
     this.notifications.clearAll();
@@ -20,7 +19,7 @@ export default Route.extend({
     return modelShow;
   },
 
-  afterModel(model){
+  afterModel(model) {
     this.titleToken = `${this.titleToken} ${model.get('name') || model.id}`;
 
     // should do the clustering thing

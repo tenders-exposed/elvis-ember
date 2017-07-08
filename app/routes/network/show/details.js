@@ -1,12 +1,11 @@
 import Ember from 'ember';
 
-const { Route, inject } = Ember;
+const { Route } = Ember;
 
 export default Route.extend({
 
   classNames: ['body-network'],
   activeTab: '',
-  networkService: inject.service(),
 
   model(params) {
     this.set('activeTab', params.tab);

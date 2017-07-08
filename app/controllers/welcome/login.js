@@ -13,7 +13,7 @@ export default Controller.extend({
           if (typeof response === 'undefined') {
             location.reload();
           }
-      });
+        });
     }
   }
 });

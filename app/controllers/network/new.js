@@ -5,11 +5,12 @@ const {
   inject,
   computed,
   run,
-  Object,
   A,
   $,
   Logger
 } = Ember;
+
+const { Object: EmberObject } = Ember;
 
 export default Controller.extend({
   ajax: inject.service(),
@@ -20,7 +21,7 @@ export default Controller.extend({
 
   selectedCodes: A([]),
 
-  query: new Object({
+  query: new EmberObject({
     'nodes': 'count',
     'edges': 'count',
     'rawCountries': A([]),
