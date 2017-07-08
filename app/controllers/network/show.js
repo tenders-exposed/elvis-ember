@@ -162,7 +162,7 @@ export default Controller.extend({
       this.set('model.clusters', clusters);
       this.set('model.graph.nodes', clusteredNodes);
 
-      this.get('networkService').makeClusteredNetwork(clusteredNodes, clusters) ;
+      this.get('networkService').makeClusteredNetwork(clusteredNodes, clusters);
 
     },
     startStabilizing() {
@@ -173,7 +173,7 @@ export default Controller.extend({
       let network = this.get('network');
       let nodesCount = network.nodesSet.length;
 
-      if(!this.get('networkStabilization')) {
+      if (!this.get('networkStabilization')) {
         this.showNetworkInfo();
         this.set('networkStabilization', true);
       }

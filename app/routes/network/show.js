@@ -19,7 +19,7 @@ export default Route.extend({
     return modelShow;
   },
 
-  afterModel(model){
+  afterModel(model) {
     this.titleToken = `${this.titleToken} ${model.get('name') || model.id}`;
 
     // should do the clustering thing

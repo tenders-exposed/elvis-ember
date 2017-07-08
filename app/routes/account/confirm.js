@@ -31,5 +31,5 @@ export default Route.extend(UnauthenticatedRouteMixin, {
       });
       self.controller.transitionToRoute('network.new');
     });
-  },
+  }
 });
