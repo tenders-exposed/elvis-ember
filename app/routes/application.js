@@ -15,7 +15,6 @@ export default Route.extend(ApplicationRouteMixin, BodyClassMixin, {
   dbVersion: APP.dbVersion,
   ajax: inject.service(),
   session: inject.service(),
-  me: inject.service(),
   title: (tokens) => {
     return tokens.length ?
       `${tokens.join(' - ')} - Elvis` :

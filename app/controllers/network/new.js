@@ -10,7 +10,7 @@ const {
   Logger
 } = Ember;
 
-const EmberObject = Ember.Object;
+const { Object: EmberObject } = Ember;
 
 export default Controller.extend({
   ajax: inject.service(),

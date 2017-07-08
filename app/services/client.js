@@ -10,7 +10,7 @@ export default Service.extend({
     let client = new ClientJS();
 
     if (client) {
-      Logger.info('Client features detection loaded');
+      Logger.debug('Client features detection loaded');
     }
 
     let properties = [

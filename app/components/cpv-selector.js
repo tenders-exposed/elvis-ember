@@ -114,7 +114,7 @@ export default Component.extend({
           }
         }
         break;
-      }
+    }
 
       tree.push(result);
     });

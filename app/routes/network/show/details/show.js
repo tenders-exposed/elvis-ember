@@ -4,7 +4,6 @@ const { Route, observer, inject, computed, Logger } = Ember;
 
 export default Route.extend({
   classNames: ['body-network'],
-  me: inject.service(),
   ajax: inject.service(),
   store: inject.service(),
 
@@ -13,16 +12,16 @@ export default Route.extend({
     procurers: 'procuring_entities',
     relationships: ''
   },
-  controller:computed(function () {
+  controller: computed(function() {
     return this.controllerFor('network.show.details.show');
   }),
 
   // get the suppliers/ procurers based on contracts
-  processContracts( model, endpoint){
+  processContracts(model, endpoint) {
     let ids = [];
     let nodes = {};
 
-    //if is a procurer
+    // if is a procurer
     if (endpoint === 'procurers') {
       _.forEach(model.contracts, (contract) => {
         _.forEach(contract.suppliers, (supplier) => {
@@ -94,14 +93,14 @@ export default Route.extend({
     // transform it into an array
     model.nodes = _.values(nodes);
     model.nodesCount = model.nodes.length;
-    return model
-
+    return model;
   },
+
   // node = node or cluster
   // nodeId = node or node ids of cluster
   // endpoint = type of node
   // filterById in relationships = ids of the procuring entity to filter the contracts by
-  getModelDetails(node, nodeIds, endpoint, filterById){
+  getModelDetails(node, nodeIds, endpoint, filterById) {
     let self = this;
     let networkModel = this.modelFor('network.show');
     let { years } = networkModel.get('query');
@@ -135,14 +134,14 @@ export default Route.extend({
       }).then(
         (data) => {
           let dataEntity;
-          let filterContracts = function (contracts, filterById) {
+          let filterContracts = function(contracts, filterById) {
 
-            return  _.filter(contracts, (contract) => {
+            return _.filter(contracts, (contract) => {
               let check = _.findIndex(filterById, function(id) {
                 return id == contract.procuring_entity.x_slug_id;
               });
 
-              if(check === -1 ) {
+              if (check === -1) {
                 return false;
               } else {
                 return true;
@@ -150,12 +149,12 @@ export default Route.extend({
             });
           };
 
-          if(data.search.count > 1) {
+          if (data.search.count > 1) {
             // multiple ids of nodes requested, merge them in a single unit
-            dataEntity = {'contracts': [], 'median_tenderers': 0, 'missing_values': 0, 'total_earnings': 0};
-            _.forEach(data.search.results, function (resultNode) {
+            dataEntity = { 'contracts': [], 'median_tenderers': 0, 'missing_values': 0, 'total_earnings': 0 };
+            _.forEach(data.search.results, function(resultNode) {
               // filterContracts if requested
-              if(filterById) {
+              if (filterById) {
                 resultNode.contracts = filterContracts(resultNode.contracts, filterById);
               }
 
@@ -166,7 +165,7 @@ export default Route.extend({
             });
           } else {
             [ dataEntity ] = data.search.results;
-            if(filterById) {
+            if (filterById) {
               dataEntity.contracts = filterContracts(dataEntity.contracts, filterById);
             }
           }
@@ -179,7 +178,7 @@ export default Route.extend({
           dataEntity.queryIds = nodeIds;
           // only if we are not in a relationship
           // relationships do not requier the suppliers/ procurers
-          if(!filterById) {
+          if (!filterById) {
             dataEntity = self.processContracts(dataEntity, endpoint);
           }
           this.titleToken = dataEntity.name;
@@ -195,14 +194,14 @@ export default Route.extend({
         });
   },
 
-  setNodeDetails(nodeId, endpoint, filterContracts){
+  setNodeDetails(nodeId, endpoint, filterContracts) {
     let node =  this.get('networkService').getNodeById(nodeId);
     let requestedIds = [nodeId];
 
     // if it is a cluster get the ids of nodes in that cluster
-    if(this.get('networkService').get('network.network').clustering.isCluster(nodeId)){
+    if (this.get('networkService').get('network.network').clustering.isCluster(nodeId)) {
       // get the nodes in that cluster
-      let clusterDetails = _.find(this.get('networkService.clusters'),(o) => {
+      let clusterDetails = _.find(this.get('networkService.clusters'), (o) => {
         return o.id == nodeId;
       });
       requestedIds = clusterDetails.nodesId;
@@ -216,7 +215,7 @@ export default Route.extend({
     let params =  controller.get('params');
     let endpoint  = this.paramsFor('network.show.details').tab;
 
-    if(endpoint === 'relationships') {
+    if (endpoint === 'relationships') {
       let [from,to] = _.split(params.id, '-');
       let fromId = [from];
 
@@ -224,17 +223,17 @@ export default Route.extend({
       let fromNode = this.get('networkService').getNodeById(from);
 
       // determine if from is node or cluster
-      if(this.get('networkService').get('network.network').clustering.isCluster(from)){
-        let clusterDetails = _.find(this.get('networkService.clusters'),(o) => {
+      if (this.get('networkService').get('network.network').clustering.isCluster(from)) {
+        let clusterDetails = _.find(this.get('networkService.clusters'), (o) => {
           return o.id == from;
         });
         fromId = clusterDetails.nodesId;
       }
 
-      // & filterContracts by queryIds, by the procurer id or ids ( if cluster)
+      // & filterContracts by queryIds, by the procurer id or ids (if cluster)
       this.setNodeDetails(to, 'suppliers', fromId).then((dataTo) => {
-        controller.set('modelDetails', {'from': {'name': fromNode.label}, 'to': dataTo});
-        controller.set('readyToRender',true);
+        controller.set('modelDetails', { 'from': { 'name': fromNode.label }, 'to': dataTo });
+        controller.set('readyToRender', true);
 
       }).catch((error) => {
         Logger.error('Error:', error);
@@ -245,14 +244,14 @@ export default Route.extend({
       // for a single node
       this.setNodeDetails(params.id, endpoint, false).then((data) => {
         controller.set('modelDetails', data);
-        controller.set('readyToRender',true);
+        controller.set('readyToRender', true);
       });
     }
   },
-  networkLoaded: observer('networkService.isReady', function () {
+  networkLoaded: observer('networkService.isReady', function() {
     // if the network service is Ready and the data is not yet set
-    if(this.get('networkService.isReady')
-      && ! this.get('controller').get('readyToRender')
+    if (this.get('networkService.isReady')
+      && !this.get('controller').get('readyToRender')
     ) {
       this.setModelDetails();
     }
@@ -264,9 +263,9 @@ export default Route.extend({
     this.set('tab', tab);
     this.get('controller').set('tab', tab);
 
-    if(this.get('networkService.isReady')) {
+    if (this.get('networkService.isReady')) {
       this.get('controller').set('modelDetails', undefined);
-      this.get('controller').set('readyToRender',false);
+      this.get('controller').set('readyToRender', false);
       this.setModelDetails();
     }
   },
