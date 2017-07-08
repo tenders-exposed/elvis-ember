@@ -1,6 +1,5 @@
 import Ember from 'ember';
 
-
 const { Controller } = Ember;
 
 export default Controller.extend({
@@ -32,7 +31,7 @@ export default Controller.extend({
       award: 'contract name' ,
       value: 'contract value',
       bids: 'bids'
-    },
+    }
   },
 
   readyToRender: false,
