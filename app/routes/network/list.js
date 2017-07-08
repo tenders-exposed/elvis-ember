@@ -17,8 +17,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
     this.titleToken = ` My projects (${model.get('length')})`;
 
     return model.map(function(network) {
-      if(network.get('description') === 'null') {
-        network.set('description','');
+      if (network.get('description') === 'null') {
+        network.set('description', '');
       }
       network.set('firstYear', _.first(network.get('query.years')));
       network.set('lastYear', _.last(network.get('query.years')));
@@ -43,8 +43,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
     deleteNetwork(networkId) {
       let self = this;
       if (this.get('session.isAuthenticated')) {
-        console.log('deleteNetwork with id', networkId);
-        this.get('store').findRecord('network', networkId, { backgroundReload: false }).then(function (network) {
+        this.get('store').findRecord('network', networkId, { backgroundReload: false }).then(function(network) {
           network.deleteRecord();
           if (network.get('isDeleted')) {
             self.get('notifications').clearAll();
