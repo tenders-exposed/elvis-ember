@@ -27,17 +27,17 @@
   background: $text-color;
   vertical-align: middle;
 }
-.procurer,
-.supplier {
+.figure-procurer,
+.figure-supplier {
   @include network-entity(1em);
 }
-.procurer {
+.figure-procurer {
   background: $color-procurer;
 }
-.supplier {
+.figure-supplier {
   background: $color-supplier;
 }
-.relationship {
+.figure-relationship {
   position: relative;
   top: .25em;
   z-index: 0;
