@@ -22,12 +22,12 @@ export default Component.extend({
     let typeSelected = this.get('graphElementType');
     let elementId = this.get('graphElementId');
 
-    if(typeSelected === 'node') {
+    if (typeSelected === 'node') {
       let nodeDetails = this.get('networkService').getNodeById(elementId);
       this.set('model', nodeDetails);
       this.set('nodeId', elementId);
     }
-    if(typeSelected === 'edge') {
+    if (typeSelected === 'edge') {
       let edgeDetails = this.get('networkService').getEdgeById(elementId);
       this.set('model', edgeDetails);
       Logger.debug('selected edge', edgeDetails);

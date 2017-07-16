@@ -3,7 +3,6 @@ const { Route, inject } = Ember;
 
 export default Route.extend({
   classNames: ['body-network'],
-  me: inject.service(),
   ajax: inject.service(),
   store: inject.service(),
 
@@ -24,7 +23,7 @@ export default Route.extend({
         }
       }).then(
         (data) => {
-          let results = data.search.results[0];
+          let [results] = data.search.results;
           results.supplier = results.suppliers[0];
           results.entityId = entityId;
           results.tab = tab;

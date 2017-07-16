@@ -5,7 +5,6 @@ const { Controller, observer, inject } = Ember;
 export default Controller.extend({
   me: inject.service(),
   ajax: inject.service(),
-  networkService: inject.service(),
 
   networkInput: false,
   fields: {
@@ -38,11 +37,11 @@ export default Controller.extend({
   },
 
   graphChange: 0,
-  stabilizedNetwork : false,
+  stabilizedNetwork: false,
 
   showController: inject.controller('network.show'),
 
-  networkModelLoaded: observer('networkService.isReady','model', function() {
+  networkModelLoaded: observer('networkService.isReady', 'model', function() {
     if (this.get('model.options')) {
       this.set('fields.suppliers.value', _.capitalize(this.get('model.options.nodes')));
       this.set('fields.relationships.value', _.capitalize(this.get('model.options.edges')));
