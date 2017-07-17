@@ -56,6 +56,15 @@ label {
   }
 }
 
+// inline input field
+.input-field.inline {
+  width: 20vw;
+  display: inline-block;
+  + .input-field.inline {
+    margin-left: $gutter-width;
+  }
+}
+
 
 // input validation text
 .text-success {

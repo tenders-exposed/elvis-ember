@@ -20,6 +20,7 @@
 /* Partials */
 @import "general/typography";
 @import "general/forms";
+@import "general/ember-select-guru";
 @import "general/buttons";
 @import "partials/main-nav";
 @import "general/navbar";
@@ -35,6 +36,8 @@
 @import "components/box-details";
 @import "components/details-graph";
 @import "components/network-clustering";
+
+@import "components/query-builder";
 
 /* Network */
 @import "network/list";

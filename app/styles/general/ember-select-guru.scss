@@ -1,0 +1,24 @@
+/* select guru */
+.ember-select-guru__container {
+  border: none;
+  border-bottom: 1px solid #3E3E3F;
+  border-radius: 0;
+}
+.ember-select-guru {
+  z-index: 20 !important;
+}
+.ember-select-guru__dropdown {
+  background: #383838;
+  & div.ember-view ember-select-guru__option,
+  & div.is-active {
+    background: #383838;
+  }
+}
+.ember-select-guru__dropdown > .options-wrapper {
+  max-height: 200px;
+  overflow: auto;
+}
+.multi-value__option {
+  background: #383838;
+  border: none;
+}

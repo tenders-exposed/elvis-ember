@@ -1,14 +1,9 @@
-<div class="row valign-wrapper" style="margin: 0; overflow: auto;">
-  <div class="col s4 center-align valign">
-      {{world-flag option.key 32}}
-  </div>
-  <div class="col s8 valign">
+{{world-flag option.key 16}}
 
-    {{!--Hack for GB = UK, because TED data...--}}
-    {{#if (eq option.key 'UK')}}
-      United Kingdom
-    {{else}}
-      {{option.name}}
-    {{/if}}
-  </div>
-</div>
+{{!--Hack for GB = UK, because TED data...--}}
+{{#if (eq option.key 'UK')}}
+    United Kingdom
+{{else}}
+    {{option.name}}
+{{/if}}
+
