@@ -1,24 +1,135 @@
 /* select guru */
-.ember-select-guru__container {
-  border: none;
-  border-bottom: 1px solid #3E3E3F;
-  border-radius: 0;
-}
 .ember-select-guru {
   z-index: 20 !important;
-}
-.ember-select-guru__dropdown {
-  background: #383838;
-  & div.ember-view ember-select-guru__option,
-  & div.is-active {
-    background: #383838;
+
+  .ember-select-guru__container {
+    border: 1px solid transparent;
+    border-bottom: $input-border;
+    border-radius: 0;
+
+    &:hover {
+      border-bottom-color: $input-border-color-hover;
+      box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.8);
+    }
   }
 }
-.ember-select-guru__dropdown > .options-wrapper {
-  max-height: 200px;
-  overflow: auto;
+
+// trigger
+.ember-select-guru__trigger {
+  line-height: 2.3;
+
+  // replace messed up triangles with font awesome icon
+  &:before {
+    display: none;
+  }
+  &:after {
+    line-height: inherit;
+    @include fontawesome;
+    content: "\f0dc";
+    bottom: auto;
+    top: 1em;
+
+  }
+}
+
+// dropdown
+.ember-select-guru__dropdown {
+  z-index: 21;
+  background: rgba(0,0,0,0.6);
+
+  .ember-select-guru__dropdown > .options-wrapper {
+    max-height: 200px;
+    overflow: auto;
+  }
+
+  // search input
+  .ember-select-guru__search-wrapper {
+    position: relative;
+    &:before {
+      @include fontawesome;
+      content: "\f002";
+      position: absolute;
+      top: 1em;
+      left: 1em;
+    }
+  }
+  .ember-select-guru__search {
+    padding-left: 2em;
+    font-size: $base-font-size;
+    box-sizing: border-box;
+  }
+}
+
+// dropdown option
+.ember-select-guru__option {
+  padding: $padding-small/2 $padding-small;
+  cursor: pointer;
+  line-height: 1.5;
+
+  // hover
+  &:hover,
+  &.is-active {
+    background: fade-out($primary-color,.3);
+    color: $text-inverse-color;
+  }
+
+  // options with flags
+  [class*=flag] {
+    vertical-align: middle;
+  }
+}
+
+// expanded state
+.ember-select-guru.ember-select-guru__expanded {
+  box-shadow: 1px 1px 10px rgba(0,0,0,0.8);
+
+  .ember-select-guru__container {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid $input-border-color-hover;
+    border-radius: $border-radius-small;
+  }
+}
+
+
+// selected values
+.multi-value__selected {
+  line-height: 2.3;
 }
 .multi-value__option {
-  background: #383838;
-  border: none;
+  display: inline-block;
+  margin: 0;
+  padding: .2em .6em;
+  border-radius: $border-radius-small;
+  border: $input-border;
+  background: rgba(0,0,0,0.3);
+  color: $text-color;
+  font-size: $base-font-size;
+  font-family: $font-family-sans;
+  line-height: $base-line-height;
+  position: relative;
+}
+// remove btn
+.multi-value__remove {
+  display: inline-block;
+  @include circle(0.78rem);
+  font-size: 1rem;
+  background: #444;
+  color: $bg-color;
+  position: absolute;
+  top: -.39rem;
+  right: -.39rem;
+  &:hover {
+    color: rgba(0,0,0,0.6);
+    background: $error-color;
+  }
+}
+
+
+
+// Materialize fixes
+
+// ember select guru with label
+.ember-select-guru + label {
+  top: -1.5rem;
+  left: 0;
 }

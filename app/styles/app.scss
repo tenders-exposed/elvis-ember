@@ -28,6 +28,7 @@
 @import "general/network";
 
 /* Components */
+@import "components/wizard";
 @import "components/cpv-selector";
 @import "components/cpv-chip";
 @import "components/range-slider";
@@ -41,7 +42,6 @@
 
 /* Network */
 @import "network/list";
-@import "network/new";
 @import "network/show";
 @import "network/vis";
 @import "network/show/details";

@@ -1,62 +1,6 @@
-body {
-  counter-reset: wizard;
-}
 #query-builder {
-  .wizard-step {
-    padding: $gutter-width 0;
-    padding-left: 6rem;
-    position: relative;
 
-    // numbering for sections
-    &:before {
-      counter-increment: wizard;                 /* Increment the value of section counter by 1 */
-      content: counter(wizard);                  /* Display the value of section counter */
-      position: absolute;
-      left: 1rem;
-      display: block;
-      @include button-circle(3rem);
-      border: 2px solid $input-border-color;
-      line-height: 2.2rem;
-      box-sizing: padding-box;
-      border-radius: 100%;
-      font-family: $font-family-serif;
-    }
 
-    // line connecting the numbers
-    &:after {
-      content: "";
-      border-left: 2px solid $input-border-color;
-      display: block;
-      position: absolute;
-      left: 2.5rem;
-      top: 4.5rem;
-      bottom: -1.5rem;
-    }
-
-    &:last-child:after {
-      display: none;
-    }
-
-    h2,h3 {
-      margin-top: 0;
-    }
-
-    p {
-      font-size: 1rem;
-      font-family: $font-family-sans;
-    }
-  }
-
-  .wizard-finish {
-    margin-top: 1.5rem;
-    .btn.btn-floating {
-      margin-left: 1rem;
-      @include button-circle(3rem);
-    }
-    .btn.link {
-
-    }
-  }
   // range slider
   .wizard-step .noUi-target {
     margin: 1rem 1rem 0;
@@ -70,13 +14,10 @@ body {
     &.right-year { bottom: 20px; right: -7px; }
   }
 
+  // cpv selector. TODO: separate component
   .cpv-selector {
     max-height: 400px;
     position: relative;
   }
 
-  .qb-rendering-nodes,
-  .qb-rendering-edges {
-    text-align: center;
-  }
 }

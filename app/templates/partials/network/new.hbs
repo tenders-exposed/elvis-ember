@@ -6,25 +6,33 @@
 </header>
 
 <!-- NEW QUERY BUILDER HTML STARTS HERE
-		the HTML markup and CSS classes will be improved. .
+
 		TODO: for now we need to make the query builder function with real data.
+		TODO 2: wizard functionality (this will make it more beautiful, but is not that necessary):
+        .wizard-step has 3 states:
+		          1 .wizard-step.disabled - a step which cannot be completed because other inputs (from previous steps) need to be filled
+		          2 .wizard-step.current - a step which has not been completed, but can be interacted with
+		          3 .wizard-step.completed - this step is available for interaction AND all inputs inside this step which are necessary for the next step to be enabled, has been filled
+
 -->
 <div id="query-builder" class="wizard">
 
-    <!-- STEP 1: narrowing countries and companies
-    TODO: if it is possible, lets merge country and company into a single select. if a country/company is selected, options
-    will reload according to the current selection -->
-    <section class="wizard-step">
+    <!-- STEP 1: narrowing countries and companies -->
+    <section class="wizard-step completed">
         <div class="row">
             <div class="col s4">
                 <h3>Network Focus</h3>
                 <p>Only procurement from these countries and companies will be visualised</p>
             </div>
             <div class="col s8">
-                <!-- TODO: the placeholder for blank select should be "select countries or companies..."
-                    current "click to select..." says nothing and might be confusing
-                    the placeholder text should always describe the action and contents of the selectable list -->
+                <!-- TODO: current placeholder "click to select..." says nothing and might be confusing
+                        the placeholder text should always describe the action and contents of the selectable list.
+                        so in this case, placeholder text should be "Select countries/companies..."
+                    TODO 2:
+                        is it possible to display country flags in the collection of selected countries?
+                -->
                 <div class="input-field col s6">
+                    <span class="input-prefix"><i class="fa fa-globe"></i></span>
                     {{ember-select-guru
                     value=query.rawCountries
                     options=countries
@@ -32,9 +40,12 @@
                     multiple=true
                     optionComponent='country-option'
                     onSelect=(action "onSelectEvent")}}
+                    <label>Select countries</label>
                 </div>
                 <div class="input-field col s6">
-                    <!-- this is company select in case its not possible to merge both country and company into one select-->
+                    <span class="input-prefix"><i class="fa fa-briefcase"></i></span>
+                    <!-- this is company select
+                    TODO: fill the select with real dataset of company names. Matej will restyle the options once it is ready  -->
                     {{ember-select-guru
                     value=query.rawCountries
                     options=countries
@@ -42,13 +53,15 @@
                     multiple=true
                     optionComponent='country-option'
                     onSelect=(action "onSelectEvent")}}
+                    <label>Select companies</label>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- STEP 2: year range	 -->
-    <section class="wizard-step">
+    {{#if years}}
+    <section class="wizard-step current">
         <div class="row">
             <div class="col s4">
                 <h3>Year range</h3>
@@ -56,7 +69,6 @@
             </div>
             <div class="col s8">
                 <div class="input-field col s6">
-                    {{#if years}}
                     {{range-slider
                         range = yearsRange
                         start = yearsStart
@@ -66,14 +78,14 @@
                         disabled=rangeIsDisabled
                         class=(concat rangeDisableClass ' noUi-target noUi-ltr noUi-horizontal noUi-background' )
                         on-slide="slidingAction"}}
-                    {{/if}}
                 </div>
             </div>
         </div>
     </section>
+    {{/if}}
 
     <!-- STEP 3: specifying markets/industry fields-->
-    <section class="wizard-step">
+    <section class="wizard-step disabled">
         <div class="row">
             <div class="col s4">
                 <h3>Markets / Fields</h3>
@@ -96,7 +108,7 @@
     </section>
 
     <!-- STEP 4: rendering options for nodes and edges -->
-    <section class="wizard-step">
+    <section class="wizard-step disabled">
         <div class="row">
             <div class="col s4">
                 <h3>Rendering options</h3>
@@ -104,36 +116,28 @@
             </div>
             <div class="col s8">
                 <div class="qb-rendering-nodes col s6">
-                    <h5>Size of Nodes</h5>
-                    <div class="col s6">
-                        <input checked name="nodeSize" type="radio" id="nodeSizeCount" />
-                        <label for="nodeSizeCount">Count</label>
-                    </div>
-                    <div class="col s6">
-                        <input name="nodeSize" type="radio" id="nodeSizeSum" />
-                        <label for="nodeSizeSum">Sum</label>
-                    </div>
+                    <h5>Size of Nodes <span class="text-muted">represents</span></h5>
+                    <br>
+                    <input checked name="nodeSize" type="radio" id="nodeSizeCount" />
+                    <label class="node-size-count" for="nodeSizeCount">Number of contracts</label>
+                    <input name="nodeSize" type="radio" id="nodeSizeSum" />
+                    <label class="node-size-sum" for="nodeSizeSum">Money sum of all contracts</label>
                 </div>
                 <div class="qb-rendering-edges col s6">
-                    <h5>Thickness of Edges</h5>
-                    <div class="col s6">
-                        <input checked name="edgeSize" type="radio" id="edgeSizeCount" />
-                        <label for="edgeSizeCount">Count</label>
-                    </div>
-                    <div class="col s6">
-                        <input name="edgeSize" type="radio" id="edgeSizeSum" />
-                        <label for="edgeSizeSum">Sum</label>
-                    </div>
+                    <h5>Thickness of Edges <span class="text-muted">represents</span></h5>
+                    <br>
+                    <input checked name="edgeSize" type="radio" id="edgeSizeCount" />
+                    <label for="edgeSizeCount">Number of contracts</label>
+                    <input name="edgeSize" type="radio" id="edgeSizeSum" />
+                    <label for="edgeSizeSum">Money flow between entities</label>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="wizard-finish">
-        <a href="#">
-            <span class="btn btn-floating primary"><i class="fa fa-check"></i></span>
-            <span class="btn link primary">Visualise!</span>
-        </a>
+    <div class="wizard-finish center">
+        <!-- TODO: button should be have attribute disabled="disabled" if all wizard steps have not been passed -->
+        <button href="#" class="btn-large primary" disabled>Visualise!</button>
     </div>
 
 </div>
