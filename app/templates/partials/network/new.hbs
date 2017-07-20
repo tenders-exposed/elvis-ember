@@ -20,18 +20,18 @@
     <!-- STEP 1: narrowing countries and companies -->
     <section class="wizard-step completed">
         <div class="row">
-            <div class="col s4">
+            <div class="col m4 s12">
                 <h3>Network Focus</h3>
                 <p>Only procurement from these countries and companies will be visualised</p>
             </div>
-            <div class="col s8">
+            <div class="col m8 s12">
                 <!-- TODO: current placeholder "click to select..." says nothing and might be confusing
                         the placeholder text should always describe the action and contents of the selectable list.
                         so in this case, placeholder text should be "Select countries/companies..."
                     TODO 2:
                         is it possible to display country flags in the collection of selected countries?
                 -->
-                <div class="input-field col s6">
+                <div class="input-field col m6 s12">
                     <span class="input-prefix"><i class="fa fa-globe"></i></span>
                     {{ember-select-guru
                     value=query.rawCountries
@@ -42,7 +42,7 @@
                     onSelect=(action "onSelectEvent")}}
                     <label>Select countries</label>
                 </div>
-                <div class="input-field col s6">
+                <div class="input-field col m6 s12">
                     <span class="input-prefix"><i class="fa fa-briefcase"></i></span>
                     <!-- this is company select
                     TODO: fill the select with real dataset of company names. Matej will restyle the options once it is ready  -->
@@ -63,12 +63,12 @@
     {{#if years}}
     <section class="wizard-step current">
         <div class="row">
-            <div class="col s4">
+            <div class="col m4 s12">
                 <h3>Year range</h3>
                 <p>Only procurement in this year range will be visualised</p>
             </div>
-            <div class="col s8">
-                <div class="input-field col s6">
+            <div class="col m8 s12">
+                <div class="input-field col m6 s12">
                     {{range-slider
                         range = yearsRange
                         start = yearsStart
@@ -87,12 +87,12 @@
     <!-- STEP 3: specifying markets/industry fields-->
     <section class="wizard-step">
         <div class="row">
-            <div class="col s4">
+            <div class="col m4 s12">
                 <h3>Markets / Fields</h3>
                 <p>Only selected procurement markets will be visualised.</p>
                 <p><a href="https://simap.ted.europa.eu/cpv" target="_blank"><i class="fa fa-arrow-right"></i> Read more about CPV codes</a></p>
             </div>
-            <div class="col s8">
+            <div class="col m8 s12">
                 <!-- @NOTE: the following container contains CPV tree selector - the one which is currently in the modal.
                     i was unable to make it running easily just by copypasting the code. please make it work.
                     the height of the container is limited to 80% of viewport height (css: { height: 80vh }) -->
@@ -115,26 +115,28 @@
     <!-- STEP 4: rendering options for nodes and edges -->
     <section class="wizard-step disabled">
         <div class="row">
-            <div class="col s4">
+            <div class="col m4 s12">
                 <h3>Rendering options</h3>
                 <p>Select what type of data do network entities represent.</p>
             </div>
-            <div class="col s8">
-                <div class="qb-rendering-nodes col s6">
-                    <h5>Size of Nodes <span class="text-muted">represents</span></h5>
-                    <br>
-                    <input checked name="nodeSize" type="radio" id="nodeSizeCount" />
-                    <label class="node-size-count" for="nodeSizeCount">Number of contracts</label>
-                    <input name="nodeSize" type="radio" id="nodeSizeSum" />
-                    <label class="node-size-sum" for="nodeSizeSum">Money sum of all contracts</label>
-                </div>
-                <div class="qb-rendering-edges col s6">
-                    <h5>Thickness of Edges <span class="text-muted">represents</span></h5>
-                    <br>
-                    <input checked name="edgeSize" type="radio" id="edgeSizeCount" />
-                    <label for="edgeSizeCount">Number of contracts</label>
-                    <input name="edgeSize" type="radio" id="edgeSizeSum" />
-                    <label for="edgeSizeSum">Money flow between entities</label>
+            <div class="col m8 s12">
+                <div class="row">
+                    <div class="qb-rendering-nodes col m6 s12">
+                        <h5>Size of Nodes <span class="text-muted">represents</span></h5>
+                        <input checked name="nodeSize" type="radio" id="nodeSizeCount" />
+                        <label class="node-size-count" for="nodeSizeCount">Number of contracts</label>
+                        <br>
+                        <input name="nodeSize" type="radio" id="nodeSizeSum" />
+                        <label class="node-size-sum" for="nodeSizeSum">Money sum of all contracts</label>
+                    </div>
+                    <div class="qb-rendering-edges col m6 s12">
+                        <h5>Thickness of Edges <span class="text-muted">represents</span></h5>
+                        <input checked name="edgeSize" type="radio" id="edgeSizeCount" />
+                        <label for="edgeSizeCount">Number of contracts</label>
+                        <br>
+                        <input name="edgeSize" type="radio" id="edgeSizeSum" />
+                        <label for="edgeSizeSum">Money flow between entities</label>
+                    </div>
                 </div>
             </div>
         </div>

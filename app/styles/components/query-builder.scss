@@ -6,7 +6,7 @@
     margin: 1rem 1rem 0;
   }
 
-  // sections
+  // year select
   form span.year-label {
     color: rgba(255,255,255,.7);
     position: absolute;
@@ -21,4 +21,9 @@
     position: relative;
   }
 
+  // rendering options
+  .qb-rendering-edges,
+  .qb-rendering-nodes {
+    margin-bottom: 1.5em;
+  }
 }

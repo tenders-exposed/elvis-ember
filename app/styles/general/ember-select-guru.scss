@@ -1,6 +1,7 @@
 /* select guru */
 .ember-select-guru {
-  z-index: 20 !important;
+  margin-bottom: 2rem;
+  z-index: 900;
 
   .ember-select-guru__container {
     border: 1px solid transparent;
@@ -82,6 +83,7 @@
 // expanded state
 .ember-select-guru.ember-select-guru__expanded {
   box-shadow: 1px 1px 10px rgba(0,0,0,0.8);
+  z-index: 999;
 
   .ember-select-guru__container {
     background: rgba(0, 0, 0, 0.6);
@@ -129,7 +131,10 @@
 // Materialize fixes
 
 // ember select guru with label
-.ember-select-guru + label {
+.input-field .ember-select-guru + label {
   top: -1.5rem;
   left: 0;
+}
+.input-field label + .ember-select-guru {
+
 }

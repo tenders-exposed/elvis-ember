@@ -41,6 +41,7 @@ label {
 // input fields
 // -------------
 .input-field {
+  margin-top: 2em;
   &:hover {
     border-bottom-color: $primary-color;
   }
