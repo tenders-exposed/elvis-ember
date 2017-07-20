@@ -94,13 +94,20 @@ ul li {
   }
 }
 
+// less significant text
 .text-muted {
   color: $text-muted-color;
   font-weight: normal;
 }
 
+// smaller paragraph text
+p.small {
+  font-family: $font-family-sans;
+  font-size: $font-size-base;
+}
+
 header {
-  padding: 2rem;
+  padding: 2rem 0;
 }
 
 
