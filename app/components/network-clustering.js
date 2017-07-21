@@ -14,12 +14,19 @@ export default Component.extend({
     });
   },
   didReceiveAttrs() {
-    if (this.get('clusters').length >  0) {
-      let notClusteredNodes = _.filter(this.get('nodes'), function(node) {
+    let nodesClustering = _.cloneDeep(this.get('networkService.nodes'));
+    let clusters = _.cloneDeep(this.get('networkService.clusters'));
+
+    if (clusters.length >  0) {
+      let notClusteredNodes = _.filter(nodesClustering, function(node) {
         return (typeof node.cluster === 'undefined') || node.cluster === '';
       });
-      this.set('nodes', notClusteredNodes);
+      this.set('nodesClustering', notClusteredNodes);
+    } else {
+      this.set('nodesClustering', nodesClustering);
     }
+    this.set('clusters', clusters);
+
     this.addEmptyCluster();
   },
   actions: {
@@ -41,6 +48,7 @@ export default Component.extend({
     addToCluster(node, ops) {
       let nodeId = node.id;
       let nodeType = node.type;
+      let nodeLabel = node.label;
       let clusterIndex = ops.target.index;
 
       // if we add a node to a cluster that has no nodes then another
@@ -48,6 +56,7 @@ export default Component.extend({
       if (this.get('clusters')[clusterIndex].nodes.length === 0) {
         this.set(`clusters.${clusterIndex}.empty`, false);
         this.set(`clusters.${clusterIndex}.type`, nodeType);
+        this.set(`clusters.${clusterIndex}.name`, nodeLabel);
         this.addEmptyCluster();
       }
 
@@ -59,11 +68,11 @@ export default Component.extend({
         this.get('clusters')[clusterIndex].nodes.pushObject(node);
 
         // find the index of the node in nodes to remove it from the nodes list
-        let nodeIndex = _.findIndex(this.get('nodes'), function(o) {
+        let nodeIndex = _.findIndex(this.get('nodesClustering'), function(o) {
           return o.id == nodeId;
         });
         // remove the node from the node list
-        this.get('nodes').removeAt(nodeIndex);
+        this.get('nodesClustering').removeAt(nodeIndex);
 
       } else {
         // if is not then add a notification
@@ -76,7 +85,7 @@ export default Component.extend({
     removeNode(node, nodeIndex, clusterIndex) {
       // add the node back to the nodes array;
       _.unset(node, 'cluster');
-      this.get('nodes').pushObject(node);
+      this.get('nodesClustering').pushObject(node);
       // remove it from cluster
       this.get('clusters')[clusterIndex].nodes.removeAt(nodeIndex);
 
@@ -94,7 +103,7 @@ export default Component.extend({
         _.unset(node, 'cluster');
         return node;
       });
-      this.get('nodes').pushObjects(clusterNodes);
+      this.get('nodesClustering').pushObjects(clusterNodes);
       this.get('clusters').removeAt(clusterIndex);
 
     },
@@ -106,14 +115,14 @@ export default Component.extend({
       _.each(this.get('clusters'), function(cluster, index) {
         // check to see if the cluster has more than one node to be a cluster
         // if the cluster has a single node erase that cluster from the cluster array
-        cluster.nodesId = [];
+        cluster.node_ids = [];
         _.each(cluster.nodes, function(node) {
           node.cluster = index;
-          cluster.nodesId.push(node.id);
+          cluster.node_ids.push(node.id);
         });
         nodesConcat.pushObjects(cluster.nodes);
       });
-      nodesConcat.pushObjects(this.get('nodes'));
+      nodesConcat.pushObjects(this.get('nodesClustering'));
 
       this.sendAction('action', nodesConcat, this.get('clusters'));
     }

@@ -14,7 +14,7 @@
             <h5 class="center-align">NODES</h5>
           </div>
           <div class="nodes-lists">
-            {{#each nodes as |node|}}
+            {{#each nodesClustering as |node|}}
               {{#draggable-object content=node overrideClass="cluster-node list "}}
                 <span class="node-type">{{fa-icon 'circle' size=1 class=node.type}}</span>
                 <span class="node-label">{{node.label}}</span>

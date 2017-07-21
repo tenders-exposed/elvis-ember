@@ -1,8 +1,11 @@
 import Ember from 'ember';
 
-const { Controller, $, Logger } = Ember;
+const { Controller, $, Logger, inject } = Ember;
 
 export default Controller.extend({
+  me: inject.service(),
+  ajax: inject.service(),
+
   height: window.innerHeight - 100,
   selectedNodes: [],
   selectedEdges: [],
@@ -155,15 +158,60 @@ export default Controller.extend({
       this.set('networkClusteringModal', true);
     },
     closeClustering(clusteredNodes, clusters) {
-      // here we should save the clusters
-      // model.clusters  = [ {id: "uniqueId",name: "", empty: true, type: '', nodes: [id1, id2, id3]}, ]
-      this.set('networkClusteringModal', false);
-      // ?
-      this.set('model.clusters', clusters);
-      this.set('model.graph.nodes', clusteredNodes);
+      // model.clusters  = [ {id: 'uniqueId',name: '', empty: true, type: '', node_ids: [id1, id2, id3]}, ]
+      let clustersPayload = _.map(clusters, (c) => {
+        return {
+          'id': c.id,
+          'name': c.name,
+          'type': c.type,
+          'node_ids': c.node_ids
+        };
+      });
+      let nodesPayload = this.get('networkService.defaultNodes');
+      let edgesPayload = this.get('networkService.edges');
 
-      this.get('networkService').makeClusteredNetwork(clusteredNodes, clusters);
+      let networkId = this.get('model.id');
+      let token = this.get('me.data.authentication_token');
+      let email = this.get('me.data.email');
 
+      let data = `{'network': {
+                      'graph': {
+                        'nodes': ${JSON.stringify(nodesPayload)},
+                        'edges': ${JSON.stringify(edgesPayload)},
+                        'clusters': ${JSON.stringify(clustersPayload)} 
+                        } 
+                      } 
+                  }`;
+      let self = this;
+
+      this.get('ajax')
+        .patch(`/networks/${networkId}`, {
+          data,
+          headers: {
+            'Content-Type': 'application/json',
+            'X-User-Email': `${email}`,
+            'X-User-Token': `${token}`
+          }
+        }).then(
+        () => {
+          if (this.get('session.isAuthenticated')) {
+            // close clustering popup
+            this.set('networkClusteringModal', false);
+            self.set('model.clusters', clusters);
+            self.set('model.graph.nodes', clusteredNodes);
+
+            self.get('networkService').makeClusteredNetwork(clusteredNodes, clusters);
+            self.get('notifications').clearAll();
+            self.get('notifications').success('Done! Clusters saved.', { autoClear: true });
+          } else {
+            self.get('notifications').error(`Error: Please login to save your cluster!`);
+          }
+        }, (response) => {
+          self.get('notifications').clearAll();
+          _.forEach(response.errors, (error, index) => {
+            self.get('notifications').error(`Error: ${index } ${error.title}`);
+          });
+        });
     },
     startStabilizing() {
       this.set('startStabilizing', performance.now());
@@ -211,7 +259,6 @@ export default Controller.extend({
         let diff = event.iterations - this.get('stIterations');
         Logger.info(`Network was stabilized using ${diff} iterations more than assumed (${this.get('stIterations')})`);
       }
-
     }
   }
 });
