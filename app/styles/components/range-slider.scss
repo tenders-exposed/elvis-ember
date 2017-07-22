@@ -4,17 +4,18 @@
   top: -32px;
   left: -50%;
 }
-.noUi-target.disable-range {
-  opacity: 0.4;
-}
 
 .noUi-target {
   height: 2px;
   &, * { border: none; }
 }
-.noUi-background, .noUi-base { background: #2A2A2B; box-shadow: none; }
-.noUi-connect { background: #eee; }
+
+// slider line
+.noUi-background, .noUi-base { background: $input-border-color; box-shadow: none; }
+
+.noUi-connect { background: $text-muted-color; }
 .noUi-origin { }
+
 
 .noUi-handle-upper,
 .noUi-handle {
@@ -24,12 +25,23 @@
   margin-left: 3px;
   margin-top: -3px;
   box-shadow: none;
+  background: darken($primary-color,20);
   &:after, &:before { background-color: transparent; }
+
+  &:hover {
+    cursor: pointer;
+    background: $primary-color;
+    transform: scale(1.2);
+    transition: all .3s ease;
+  }
 }
 
-form span.year-label {
-  color: rgba(255,255,255,.7);
-  position: absolute;
-  &.left-year { bottom: 20px; left: -7px; }
-  &.right-year { bottom: 20px; right: -7px; }
+// disabled range slider
+.noUi-target.disable-range {
+  opacity: 0.2;
+
+  .noUi-handle,
+  .noUi-handle-upper {
+    background-color: $text-color;
+  }
 }

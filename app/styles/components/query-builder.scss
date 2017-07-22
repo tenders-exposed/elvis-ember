@@ -1,0 +1,23 @@
+#query-builder {
+
+
+  // range slider
+  .wizard-step .noUi-target {
+    margin: 1rem 1rem 0;
+  }
+
+  // sections
+  form span.year-label {
+    color: rgba(255,255,255,.7);
+    position: absolute;
+    &.left-year { bottom: 20px; left: -7px; }
+    &.right-year { bottom: 20px; right: -7px; }
+  }
+
+  // cpv selector. TODO: separate component
+  .cpv-selector {
+    max-height: 400px;
+    position: relative;
+  }
+
+}

@@ -11,14 +11,40 @@ fieldset.box {
 // labels
 label {
   font-weight: bold;
+  color: $label-color;
+  &:hover {
+    color: $label-color-hover;
+  }
 }
+// radio & checkbox labels highlight
+[type="radio"],
+[type="checkbox"] {
+  &:not(:checked) {
+    &:hover + label:before,
+    &:hover + label:after {
+        border-color: $label-color-hover;
+    }
+  }
+}
+
+
 .input-field label {
   left: auto; // what does this do??
+}
+
+// radio and checkbox
+[type="radio"]:checked + label,
+[type="checkbox"]:checked + label {
+  color: $primary-color;
 }
 
 // input fields
 // -------------
 .input-field {
+  &:hover {
+    border-bottom-color: $primary-color;
+  }
+
   textarea {
     margin-bottom: 0px !important;
   }
@@ -41,7 +67,9 @@ label {
 // input prefix
 .input-field {
   position: relative;
-  > .input-prefix + input {
+
+  > .input-prefix + input,
+  > .input-prefix + .ember-select-guru .ember-select-guru__trigger {
     padding-left: 2em;
     box-sizing: border-box;
   }
@@ -53,6 +81,19 @@ label {
     height: $input-height;
     line-height: $input-height;
     color: $text-muted-color;
+  }
+
+  > .input-prefix + .ember-select-guru {
+    left: -.8em;
+  }
+}
+
+// inline input field
+.input-field.inline {
+  width: 20vw;
+  display: inline-block;
+  + .input-field.inline {
+    margin-left: $gutter-width;
   }
 }
 

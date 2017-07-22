@@ -21,12 +21,11 @@
         }}
       {{/each-in}}
     {{/c.header}}
-    {{#perfect-scroll scrollTop=100 includePadding=true suppressScrollX=true}}
+
 
       {{#c.body as |row|}}
         {{partial partialPath}}
       {{/c.body}}
 
-    {{/perfect-scroll}}
   {{/t.content}}
 {{/data-table}}
