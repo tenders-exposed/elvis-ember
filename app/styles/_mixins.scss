@@ -55,16 +55,30 @@
 
 }
 
+@mixin fontawesome {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-// BUTTON variants
-// ---------------------
-
-@mixin button-circle ($size) {
+@mixin circle ($size) {
   width: $size;
   height: $size;
   text-align: center;
   line-height: $size;
   font-size: 0.56*$size;
+  border-radius: 100%;
+}
+
+
+// BUTTON variants
+// ---------------------
+
+@mixin button-circle ($size) {
+  @include circle ($size);
   font-weight: normal !important; // bold messes up the icon
 }
 

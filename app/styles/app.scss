@@ -20,6 +20,7 @@
 /* Partials */
 @import "general/typography";
 @import "general/forms";
+@import "general/ember-select-guru";
 @import "general/buttons";
 @import "partials/main-nav";
 @import "general/navbar";
@@ -27,6 +28,7 @@
 @import "general/network";
 
 /* Components */
+@import "components/wizard";
 @import "components/cpv-selector";
 @import "components/cpv-chip";
 @import "components/range-slider";
@@ -36,9 +38,10 @@
 @import "components/details-graph";
 @import "components/network-clustering";
 
+@import "components/query-builder";
+
 /* Network */
 @import "network/list";
-@import "network/new";
 @import "network/show";
 @import "network/vis";
 @import "network/show/details";
