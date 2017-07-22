@@ -1,29 +1,28 @@
 import Ember from 'ember';
 
-const { Component, $ , observer } = Ember;
+const { Component, $, observer, set: EmberSet } = Ember;
 
 export default Component.extend({
   clusters: [],
   searchNode: '',
   searchCluster: '',
 
-  restNodesList : observer('searchNode', function () {
-    if(!this.get('searchNode')) {
-      _.forEach(this.get('nodes'), function (node) {
-        Ember.set(node,'hide', false);
+  restNodesList: observer('searchNode', function() {
+    if (!this.get('searchNode')) {
+      _.forEach(this.get('nodes'), function(node) {
+        EmberSet(node, 'hide', false);
       });
     }
   }),
-  restClustersList : observer('searchCluster', function () {
-      if(!this.get('searchCluster')) {
-        _.forEach(this.get('clusters'), function (cluster) {
-          Ember.set(cluster,'hide', false);
+  restClustersList: observer('searchCluster', function() {
+      if (!this.get('searchCluster')) {
+        _.forEach(this.get('clusters'), function(cluster) {
+          EmberSet(cluster, 'hide', false);
         });
       }
     }),
 
-  addEmptyCluster(){
-
+  addEmptyCluster() {
     this.get('clusters').pushObject({
       'id': `c${Date.now()}`,
       'name': '',
@@ -42,7 +41,7 @@ export default Component.extend({
     this.addEmptyCluster();
   },
   actions: {
-    searchNodeList(){
+    searchNodeList() {
       let mkRegex = (str) => {
         let ex = str.replace('*', '.*')
           .replace('?', '.{0,1}');
@@ -50,16 +49,16 @@ export default Component.extend({
       };
 
       let searchWord = _.toLower(_.toString(this.get('searchNode')));
-      _.forEach(this.get('nodes'), function (node) {
+      _.forEach(this.get('nodes'), function(node) {
         let label =  _.toLower(_.toString(node.label));
-        if(label.match(mkRegex(searchWord))) {
-          Ember.set(node,'hide', false);
+        if (label.match(mkRegex(searchWord))) {
+          EmberSet(node, 'hide', false);
         } else {
-          Ember.set(node,'hide', true);
+          EmberSet(node, 'hide', true);
         }
       });
     },
-    searchClusterList(){
+    searchClusterList() {
       let mkRegex = (str) => {
         let ex = str.replace('*', '.*')
           .replace('?', '.{0,1}');
@@ -67,12 +66,12 @@ export default Component.extend({
       };
 
       let searchWord = _.toLower(_.toString(this.get('searchCluster')));
-      _.forEach(this.get('clusters'), function (cluster) {
+      _.forEach(this.get('clusters'), function(cluster) {
         let label =  _.toLower(_.toString(cluster.name));
-        if(label.match(mkRegex(searchWord))) {
-          Ember.set(cluster,'hide', false);
+        if (label.match(mkRegex(searchWord))) {
+          EmberSet(cluster, 'hide', false);
         } else {
-          Ember.set(cluster,'hide', true);
+          EmberSet(cluster, 'hide', true);
         }
       });
     },
