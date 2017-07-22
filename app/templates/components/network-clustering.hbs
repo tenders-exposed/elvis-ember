@@ -29,7 +29,7 @@
           </div>
           <div class="nodes-lists">
             {{#ember-scrollable}}
-            {{#each nodes as |node|}}
+            {{#each nodesClustering as |node|}}
               {{#unless node.hide}}
                 {{#draggable-object content=node overrideClass="cluster-node list "}}
                   <span class="node-type">{{fa-icon 'circle' size=1 class=node.type}}</span>
