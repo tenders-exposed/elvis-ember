@@ -29,17 +29,67 @@ export default Controller.extend({
 
   countries: [],
 
+  countriesStatus: computed('query.countries', function() {
+    if (this.get('query.countries').length > 0) {
+      return 'completed';
+    } else {
+      return 'current';
+    }
+  }),
+  yearsStatus: computed('query.countries', function() {
+    if (this.get('query.countries').length > 0) {
+      return 'completed';
+    } else {
+      return 'disabled';
+    }
+  }),
+  cpvsStatus: computed('query.{countries,years}', function() {
+    if (this.get('query.years').length > 0 && this.get('query.countries').length > 0) {
+      return 'current';
+    } else if (this.get('query.cpvs').length > 0) {
+      return 'completed';
+    } else {
+      return 'disabled';
+    }
+  }),
+  optionsStatus: computed('selectedCodes', function() {
+    if (this.get('selectedCodes').length > 0) {
+      return 'current';
+    } else {
+      return 'disabled';
+    }
+  }),
+  submitStatus: computed('selectedCodes', 'query.{nodes,edges}', function() {
+    if (this.get('selectedCodes') && this.get('query.nodes') && this.get('query.edges')) {
+      return '';
+    } else {
+      return 'disabled';
+    }
+  }),
+
   rangeDisableClass: '',
   rangeIsDisabled: computed('query.countries', function() {
     let countries = this.get('query.countries');
     if (countries.length > 0) {
-      this.set('rangeDisableClass', '');
       return false;
     } else {
-      this.set('rangeDisableClass', 'disable-range');
       return true;
     }
   }),
+
+  // queryObserver: observer('query.countries', function() {
+  //   let query = this.get('query');
+  //   Logger.info('Observing countries...', query.countries);
+  //   if (query.countries.length > 0) {
+  //     this.set('wizardStatus.countries', 'completed');
+  //     this.set('wizardStatus.years', 'current');
+  //     this.set('rangeDisableClass', '');
+  //   } else {
+  //     this.set('rangeDisableClass', 'disable-range');
+  //     this.set('wizardStatus.countries', 'current');
+  //     this.set('wizardStatus.years', 'disabled');
+  //   }
+  // }),
 
   yearsStart: [],
   yearsRange: computed('years', function() {
@@ -54,7 +104,9 @@ export default Controller.extend({
     return yearsRange;
   }),
 
-  height: window.innerHeight - 200,
+  treeObserver: observer('cpvs', function() {
+    this.createTree();
+  }),
 
   network: {},
 
@@ -76,11 +128,6 @@ export default Controller.extend({
   },
   cpvSearchTerm: '',
   cpvSearchTree: '',
-
-  treeObserver: observer('cpvs', function() {
-    Logger.info('Observing...');
-    this.createTree();
-  }),
 
   createTree() {
     let cpvs = _.sortBy(
