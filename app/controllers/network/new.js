@@ -10,14 +10,11 @@ const {
   Logger
 } = Ember;
 
-const { Object: EmberObject } = Ember;
+const { Object: EmberObject, observer } = Ember;
 
 export default Controller.extend({
   ajax: inject.service(),
-
-  cpvModalIsOpen: false,
-  selectedCodesModalIsOpen: false,
-  optionsModalIsOpen: false,
+  cpvService: inject.service('cpv'),
 
   selectedCodes: A([]),
 
@@ -52,7 +49,7 @@ export default Controller.extend({
     let yearsRange = { 'min': yearMin, 'max': yearMax };
 
     this.set('yearsStart', [yearMin, yearMax]);
-    this.send('slidingAction', [yearMin, yearMax]);
+    this.send('rangeChangeAction', [yearMin, yearMax]);
 
     return yearsRange;
   }),
@@ -77,7 +74,113 @@ export default Controller.extend({
       'cascade': ''
     }
   },
-  searchTerm: '',
+  cpvSearchTerm: '',
+  cpvSearchTree: '',
+
+  treeObserver: observer('cpvs', function() {
+    Logger.info('Observing...');
+    this.createTree();
+  }),
+
+  createTree() {
+    let cpvs = _.sortBy(
+      _.cloneDeep(this.get('cpvs')),
+      ['id']
+    );
+    let tree = [];
+    let missingCodes = [];
+
+    cpvs.map((cpv) => {
+      let {
+        number_digits,
+        id,
+        doc_count,
+        text
+      } = cpv;
+      let result = {};
+
+      result.id = id;
+      result.count = doc_count;
+      result.name = text;
+      result.state = { opened: false };
+      result.text = '<span class="details"><small>';
+      result.text += `${id} (${doc_count} / 0)`;
+      result.text += `</small><br><div>${text}</div></span>`;
+
+      let parent, cpvGroup, cpvDivision, regex;
+
+      switch (number_digits) {
+      case null:
+        result.parent = '#';
+        break;
+
+      case 0:
+      case 2:
+        result.parent = '#';
+        break;
+
+      case 3:
+        cpvDivision = id.slice(0, 2);
+        // parent = cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`);
+        result.parent = `${cpvDivision}000000`;
+        if (!cpvDivision) {
+          Logger.warn(`Cannot compute division for ${id}`, cpv);
+          result.parent = '#';
+        } else {
+          if (!cpvs.find((cpv) => cpv.id === `${cpvDivision}000000`)) {
+            Logger.warn('Trying to get division', cpvDivision);
+            missingCodes.push(result.parent);
+          }
+        }
+        break;
+
+      case 4:
+      default:
+        // First attempt to find a CPV group (level 2, 3 digits)
+        cpvGroup = id.slice(0, 3);
+        parent = cpvs.find((cpv) => cpv.id === `${cpvGroup}00000`);
+        if (parent) {
+          result.parent = parent.id;
+          break;
+        }
+
+        // If we're here, we're looking for a major division
+        cpvDivision = this.get('cpvService').getDivisions().find(
+          (div) => div === id.slice(0, 2)
+        );
+        if (!cpvDivision) {
+          Logger.warn(`Cannot find division ${cpvDivision} for ${id}`, cpv);
+          result.parent = '#';
+        } else {
+          // if (!cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`)) {
+          result.parent = `${cpvDivision}000000`;
+          regex = `${cpvDivision}0+$`;
+          if (!cpvs.find((c) => c.id.match(new RegExp(regex, 'g'))) ||
+              !cpvs.find((c) => c.id === result.parent)) {
+            missingCodes.push(result.parent);
+          }
+        }
+        break;
+    }
+
+      tree.push(result);
+    });
+
+    missingCodes = _.uniq(missingCodes);
+    missingCodes.map((missingCode) => tree.push(
+      this.get('cpvService')
+        .getCode(missingCode)
+    ));
+
+    // // Tree health check!
+    // tree.map((node) => {
+    //   if (!tree.find((n) => n.id == node.parent) && node.parent !== '#') {
+    //     Logger.error(`Parent with id ${node.parent} is missing!`, cpvs.find((n) => n.id == node.id));
+    //   }
+    // });
+
+    this.set('tree', tree);
+  },
 
   prepareQuery() {
     let self = this;
@@ -105,7 +208,21 @@ export default Controller.extend({
           });
     },
 
-    slidingAction(value) {
+    rangeSlideAction(value) {
+      run.scheduleOnce('afterRender', function() {
+        $('span.left-year').text(value[0]);
+        $('span.right-year').text(value[1]);
+      });
+    },
+    rangeChangeAction(value) {
+      let self = this;
+      let countries = this.get('query.countries');
+
+      // destroy the tree, if any
+      if (this.get('jsTree')) {
+        this.get('jsTree').destroy();
+      }
+
       this.set('query.years', []);
       this.get('query.years').push(value[0]);
       this.get('query.years').push(value[1]);
@@ -114,36 +231,20 @@ export default Controller.extend({
         $('span.right-year').text(value[1]);
       });
       this.set('query.years', _.range(this.get('query.years')[0], ++this.get('query.years')[1]));
-    },
 
-    toggleCpvModal() {
-      $('.cpv-modal-open').css('pointer-events', 'none');
-      let self = this;
-      let options = `{
+      if (countries.length > 0) {
+        let options = `{
         "query": {
             "countries": ["${self.get('query.countries').join('", "')}"],
             "years": [${self.get('query.years').join(', ')}]
         }
       }`;
-      this.toggleProperty('cpvModalIsOpen');
-      if (this.get('cpvModalIsOpen')) {
         this.get('ajax')
           .post('/contracts/cpvs', { data: options, headers: { 'Content-Type': 'application/json' } })
           .then((data) => {
             self.set('cpvs', data.search.results);
-            $('.cpv-modal-open').css('pointer-events', 'inherit');
           });
-      } else {
-        this.get('jsTree').send('destroy');
       }
-    },
-
-    toggleSelectedCodesModal() {
-      this.toggleProperty('selectedCodesModalIsOpen');
-    },
-
-    toggleOptionsModal() {
-      this.toggleProperty('optionsModalIsOpen');
     },
 
     submitQuery() {
@@ -186,6 +287,9 @@ export default Controller.extend({
 
     invalidateSession() {
       this.get('session').invalidate();
+    },
+    searchCpv() {
+      this.set('cpvSearchTree', this.get('cpvSearchTerm'));
     }
   }
 });
