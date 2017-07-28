@@ -43,9 +43,18 @@ body.body-page.network-show #main-navbar{
     &:hover { opacity: .9; }
   }
 
+  .brand-logo {
+    font-family: $font-family-serif;
+    font-style: italic;
+    letter-spacing: .1em;
+  }
+
   // make logo img fit into navbar's height
   .brand-logo,
-  .brand-logo img { height: 100%; vertical-align: middle; }
+  .brand-logo img {
+    //height: 100%;
+    vertical-align: middle;
+  }
 
 
   .button-collapse {
