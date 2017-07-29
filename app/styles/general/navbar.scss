@@ -3,14 +3,6 @@ nav {
   ul li { margin: 0;}
 }
 
-// hide navbar on network view
-// TODO: delete second and third selector after inproper body class issue is resolved
-body.body-network #main-navbar,
-body:not(.body-page) #main-navbar,
-body.body-page.network-show #main-navbar{
-  display: none !important;
-}
-
 .navbar {
   $navbar-bg: transparent;
   $navbar-font-family: $font-family-serif;
@@ -43,9 +35,18 @@ body.body-page.network-show #main-navbar{
     &:hover { opacity: .9; }
   }
 
+  .brand-logo {
+    font-family: $font-family-serif;
+    font-style: italic;
+    letter-spacing: .1em;
+  }
+
   // make logo img fit into navbar's height
   .brand-logo,
-  .brand-logo img { height: 100%; vertical-align: middle; }
+  .brand-logo img {
+    //height: 100%;
+    vertical-align: middle;
+  }
 
 
   .button-collapse {
@@ -63,12 +64,6 @@ body.body-page.network-show #main-navbar{
   }
 }
 
-// mobile sidenav style
-// TODO: add logo, border/shadow. make visually more interesting
-.navbar .side-nav {
-  background: $bg-color;
-  li:hover a { background-color: rgba(0,0,0,0.7); }
-}
 
 // logged user menu
 .navbar .user-nav {
@@ -78,3 +73,58 @@ body.body-page.network-show #main-navbar{
   }
 }
 
+// mobile sidenav style
+// TODO: add logo, border/shadow. make visually more interesting
+.navbar .side-nav {
+  background: $bg-color;
+  border-right: 1px solid rgba(255,255,255,0.1);
+
+  li:hover a {
+    background-color: rgba(0,0,0,0.7);
+  }
+
+}
+
+// hideable navbar on network view
+// TODO: delete second and third selector after inproper body class issue is resolved
+body.body-network #main-navbar,
+body:not(.body-page) #main-navbar,
+body.body-page.network-show #main-navbar{
+  top: 0;
+  margin-top: -$navbar-height;
+  transition: margin-top .3s ease;
+  .side-nav {
+    min-width: 240px;
+    width: 30vw;
+  }
+
+  &.open {
+    margin-top: 0;
+  }
+}
+// show only sidenav when toggling network button
+@media only screen and (max-width: $medium-screen) {
+  body.body-network,
+  body:not(.body-page),
+  body.body-page.network-show {
+
+    #details-sidebar .navbar-toggle {
+      display: none;
+    }
+    #main-navbar {
+      top: 0;
+      margin-top: 0;
+      background: $main-bg;
+
+      .side-nav {
+        transition: all .3s ease;
+        margin-top: $navbar-height;
+        width: 100vw;
+      }
+      &.open .side-nav {
+        transform: translateX(0) !important;
+        transition: all .3s ease;
+      }
+    }
+  }
+}

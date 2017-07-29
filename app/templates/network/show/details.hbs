@@ -4,19 +4,28 @@
   <div id="details-sidebar" class="{{if networkInput "network-settings-open"}}">
     <div class="sidebar-header">
       <h4 class="network-title">
-        {{!-- TODO: this is a button for showing the side nav once ready
-        <a class="sidebar-nav-toggle" href="#"><i class="fa fa-bars"></i></a>  --}}
-          {{#if model.name}}
+        <a href="#" class="navbar-toggle"><i class="material-icons">menu</i></a>
+        <script type="application/javascript">
+            $(document).ready( function () {
+                $(".navbar-toggle").click( function (e) {
+                    $("#main-navbar").toggleClass("open");
+                    e.stopPropagation();
+                    return false;
+                });
+            })
+        </script>
+        &nbsp;
+        {{#if model.name}}
             {{model.name}}
-          {{else}}
-            Untitled Network 1
-          {{/if}}
+        {{else}}
+            Untitled Network
+        {{/if}}
 
-          {{#if session.isAuthenticated}}
-            <a href="#" class="network-title-settings-toggle" {{action "toggleInput" on="click"}}>
-              {{fa-icon 'cog'}}
-            </a>
-          {{/if}}
+        {{#if session.isAuthenticated}}
+        <a href="#" class="network-title-settings-toggle" {{action "toggleInput" on="click"}}>
+          {{fa-icon 'cog'}}
+        </a>
+        {{/if}}
       </h4>
     </div>
     <div class="network-settings {{if networkInput "show-block network-input" "hide"}}">
