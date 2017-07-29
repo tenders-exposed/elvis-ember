@@ -39,7 +39,7 @@
             searchKey='text'
             multiple=true
             optionComponent='country-option'
-            onSelect=(action "onSelectEvent")
+            onSelect=(action "onCountrySelectEvent")
           }}
           <label>Select countries</label>
         </div>
@@ -48,12 +48,13 @@
           <!-- this is company select
             TODO: fill the select with real dataset of company names. Matej will restyle the options once it is ready  -->
           {{ember-select-guru
-            value=query.rawCountries
-            options=countries
-            searchKey='text'
+            value=query.rawActors
+            options=autocompleteActorsOptions
+            searchKey='name'
             multiple=true
-            optionComponent='country-option'
-            onSelect=(action "onSelectEvent")
+            optionComponent='actor-option'
+            onSearchInputChange=(action "actorTermChanged")
+            onSelect=(action "onAutocompleteSelectEvent")
           }}
           <label>Select companies</label>
         </div>

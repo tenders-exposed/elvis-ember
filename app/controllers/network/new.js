@@ -1,3 +1,4 @@
+// import ENV from '../config/environment';
 import Ember from 'ember';
 
 const {
@@ -22,12 +23,15 @@ export default Controller.extend({
     'nodes': 'count',
     'edges': 'count',
     'rawCountries': A([]),
+    'rawActors': A([]),
+    'actors': A([]),
     'countries': A([]),
     'years': A([2004, 2010]),
     'cpvs': A([])
   }),
 
   countries: [],
+  autocompleteActorsOptions: [],
 
   countriesStatus: computed('query.countries', function() {
     if (this.get('query.countries').length > 0) {
@@ -237,7 +241,7 @@ export default Controller.extend({
   },
 
   actions: {
-    onSelectEvent(value) {
+    onCountrySelectEvent(value) {
       this.set('query.countries', []);
       value.forEach((v) => {
         this.get('query.countries').push(v.id);
@@ -253,6 +257,27 @@ export default Controller.extend({
           .then((data) => {
             this.set('years', data.search.results);
           });
+    },
+    onAutocompleteSelectEvent(value) {
+      this.set('query.actors', []);
+      value.forEach((v) => {
+        this.get('query.actors').push(v.id);
+      });
+    },
+    actorTermChanged(queryTerm) {
+      let query = queryTerm || '';
+      let limit = 10;
+      // let host =`${ENV.APP.apiHost}/${ENV.APP.apiNamespace}`;
+      return this.get('ajax')
+        .request(`/actor_autocomplete?text=${query}&max_suggestions=${limit}`,
+              {
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              })
+        .then((data) => {
+          this.set('autocompleteActorsOptions', data.search.results);
+        });
     },
 
     rangeSlideAction(value) {
