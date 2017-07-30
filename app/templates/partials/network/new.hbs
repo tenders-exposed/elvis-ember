@@ -52,6 +52,7 @@
             searchKey='name'
             multiple=true
             optionComponent='actor-option'
+            multiValueComponent='actor-value'
             onSearchInputChange=(action "actorTermChanged")
             onSelect=(action "onAutocompleteSelectEvent")
           }}
@@ -62,7 +63,6 @@
   </section>
 
   <!-- STEP 2: year range	 -->
-  {{#if years}}
     <section class="wizard-step {{yearsStatus}}">
       <div class="row">
         <div class="col m4 s12">
@@ -70,23 +70,30 @@
           <p>Only procurement in this year range will be visualised</p>
         </div>
         <div class="col m8 s12">
-          <div class="input-field col m6 s12">
-            {{range-slider
-              range = yearsRange
-              start = yearsStart
-              step=1
-              connect=true
-              tooltips=true
-              disabled=rangeIsDisabled
-              class=(concat rangeDisableClass ' noUi-target noUi-ltr noUi-horizontal noUi-background' )
-              on-slide="rangeSlideAction"
-              on-change="rangeChangeAction"
-            }}
-          </div>
+          {{#if loading.years}}
+            Loading...
+          {{else}}
+            {{#if years.length}}
+              <div class="input-field col m6 s12">
+                {{range-slider
+                  range = yearsRange
+                  start = yearsStart
+                  step=1
+                  connect=true
+                  tooltips=true
+                  disabled=rangeIsDisabled
+                  class=(concat rangeDisableClass ' noUi-target noUi-ltr noUi-horizontal noUi-background' )
+                  on-slide="rangeSlideAction"
+                  on-change="rangeChangeAction"
+                }}
+              </div>
+            {{else}}
+              No years range is available for your selection.
+            {{/if}}
+          {{/if}}
         </div>
       </div>
     </section>
-  {{/if}}
 
   <!-- STEP 3: specifying markets/industry fields-->
   <section class="wizard-step {{cpvsStatus}}">
@@ -102,23 +109,31 @@
           the height of the container is limited to 80% of viewport height (css: { height: 80vh }) -->
         <div class="cpv-selector cpv-tree" style="height: 400px;">
           <!-- @NOTE: ember-scrollable scrollbar needs to be wrapping the long content, and its parent must have limited height  - in this case .cpv-selector { height: 400px; } -->
-          {{#if cpvs}}
-            {{#ember-scrollable}}
-              <div class="jstree-default-dark-small">
-                {{ember-jstree
-                  data=tree
-                  plugins=jsTreeConfig.plugins
-                  themes=jsTreeConfig.core.themes
-                  selectedNodes=selectedCodes
-                  searchOptions=jsTreeConfig.searchOptions
-                  checkboxOptions=jsTreeConfig.checkbox
-                  actionReceiver=jsTree
-                  searchTerm=cpvSearchTree
-                }}
-              </div>
-            {{/ember-scrollable}}
+          {{#if loading.cpvs}}
+            Loading...
           {{else}}
-            Available CPV codes will be shown here after completing steps 1 and 2.
+            {{#if cpvs}}
+              {{#ember-scrollable}}
+                <div class="jstree-default-dark-small">
+                  {{ember-jstree
+                    data=tree
+                    plugins=jsTreeConfig.plugins
+                    themes=jsTreeConfig.core.themes
+                    selectedNodes=selectedCodes
+                    searchOptions=jsTreeConfig.searchOptions
+                    checkboxOptions=jsTreeConfig.checkbox
+                    actionReceiver=jsTree
+                    searchTerm=cpvSearchTree
+                  }}
+                </div>
+              {{/ember-scrollable}}
+            {{else}}
+              {{#if years}}
+                Available CPV codes will be shown here after completing steps 1 and 2.
+              {{else}}
+                No CPV codes are available for your selection.
+              {{/if}}
+            {{/if}}
           {{/if}}
         </div>
       </div>
@@ -162,5 +177,4 @@
       text='Visualise!'
     }}
   </div>
-
 </div>

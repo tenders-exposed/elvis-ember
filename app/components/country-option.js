@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Component, computed, Logger } = Ember;
+const { Component, computed } = Ember;
 
 export default Component.extend({
   classNames: 'ember-select-guru__option',
@@ -14,8 +14,6 @@ export default Component.extend({
     this.set('option.name', this.get('option.text'));
   },
   click() {
-    Logger.info(this.get('option'));
-
     // Hack for GB = UK, because TED data...
     if (this.get('option.id') === 'UK') {
       this.set('option.name', 'United Kingdom');

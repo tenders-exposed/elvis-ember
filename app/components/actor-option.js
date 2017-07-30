@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Component, computed, Logger } = Ember;
+const { Component, computed } = Ember;
 
 export default Component.extend({
   classNames: 'ember-select-guru__option',
@@ -13,14 +13,13 @@ export default Component.extend({
     this.set('option.key', this.get('option.x_slug_id'));
 
     let type = this.get('option.type');
-    if(type === 'procuring_entity') {
+    if (type === 'procuring_entity') {
       this.set('option.type', 'procurer');
     } else {
       this.set('option.type', type);
     }
   },
   click() {
-    Logger.info(this.get('option'));
     this.sendAction('onClick', this.get('option'));
   }
 });

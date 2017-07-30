@@ -30,6 +30,11 @@ export default Controller.extend({
     'cpvs': A([])
   }),
 
+  loading: {
+    years: false,
+    cpvs: false
+  },
+
   countries: [],
   autocompleteActorsOptions: [],
 
@@ -40,15 +45,16 @@ export default Controller.extend({
       return 'current';
     }
   }),
-  yearsStatus: computed('query.countries', function() {
-    if (this.get('query.countries').length > 0) {
+  yearsStatus: computed('query.{countries,actors}', function() {
+    if (this.get('query.countries').length > 0 || this.get('query.actors').length > 0) {
       return 'completed';
     } else {
       return 'disabled';
     }
   }),
   cpvsStatus: computed('query.{countries,years}', function() {
-    if (this.get('query.years').length > 0 && this.get('query.countries').length > 0) {
+    if (this.get('query.years').length > 0 &&
+        (this.get('query.countries').length > 0) || this.get('query.actors').length > 0) {
       return 'current';
     } else if (this.get('query.cpvs').length > 0) {
       return 'completed';
@@ -72,34 +78,27 @@ export default Controller.extend({
   }),
 
   rangeDisableClass: '',
-  rangeIsDisabled: computed('query.countries', function() {
+  rangeIsDisabled: computed('query.{countries,actors}', function() {
     let countries = this.get('query.countries');
-    if (countries.length > 0) {
+    let actors = this.get('query.actors');
+    if (countries.length > 0 || actors.length > 0) {
       return false;
     } else {
       return true;
     }
   }),
 
-  // queryObserver: observer('query.countries', function() {
-  //   let query = this.get('query');
-  //   Logger.info('Observing countries...', query.countries);
-  //   if (query.countries.length > 0) {
-  //     this.set('wizardStatus.countries', 'completed');
-  //     this.set('wizardStatus.years', 'current');
-  //     this.set('rangeDisableClass', '');
-  //   } else {
-  //     this.set('rangeDisableClass', 'disable-range');
-  //     this.set('wizardStatus.countries', 'current');
-  //     this.set('wizardStatus.years', 'disabled');
-  //   }
-  // }),
-
   yearsStart: [],
   yearsRange: computed('years', function() {
     let years = this.get('years');
     let yearMin = _.minBy(years, 'id').id;
     let yearMax = _.maxBy(years, 'id').id;
+
+    // hacking the range so we won't crash the slider
+    // see https://github.com/leongersen/noUiSlider/issues/676 for more
+    if (yearMin === yearMax) {
+      yearMin -= 1;
+    }
     let yearsRange = { 'min': yearMin, 'max': yearMax };
 
     this.set('yearsStart', [yearMin, yearMax]);
@@ -240,29 +239,103 @@ export default Controller.extend({
     });
   },
 
+  fetchYears() {
+    this.set('loading.years', true);
+
+    let countries = this.get('query.countries');
+    let rawActors = this.get('query.rawActors');
+    let suppliers = _.filter(
+      rawActors,
+      (actor) => (actor.type === 'supplier')
+    );
+    let procurers = _.filter(
+      rawActors,
+      (actor) => (actor.type === 'procurer')
+    );
+    let options = { query: {} };
+    if (countries.length > 0) {
+      options.query.countries = countries;
+    }
+    if (procurers.length > 0) {
+      options.query.procuring_entities = _.map(procurers, (p) => p.x_slug_id);
+    }
+    if (suppliers.length > 0) {
+      options.query.suppliers = _.map(suppliers, (s) => s.x_slug_id);
+    }
+    this.get('ajax')
+      .post('/contracts/years', {
+        data: JSON.stringify(options),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then((data) => {
+        let years = data.search.results;
+        this.set('years', years);
+        this.set('loading.years', false);
+      });
+  },
+  fetchCpvs() {
+    this.set('loading.cpvs', true);
+
+    let self = this;
+    let countries = this.get('query.countries');
+    let rawActors = this.get('query.rawActors');
+    let actors = this.get('query.actors');
+    let years = this.get('query.years');
+    let suppliers = _.filter(
+      rawActors,
+      (actor) => (actor.type === 'supplier')
+    );
+    let procurers = _.filter(
+      rawActors,
+      (actor) => (actor.type === 'procurer')
+    );
+
+    let options = { query: {} };
+    if (countries.length > 0) {
+      options.query.countries = countries;
+    }
+    if (procurers.length > 0) {
+      options.query.procuring_entities = _.map(procurers, (p) => p.x_slug_id);
+    }
+    if (suppliers.length > 0) {
+      options.query.suppliers = _.map(suppliers, (s) => s.x_slug_id);
+    }
+    if (years.length > 0) {
+      options.query.years = years;
+    }
+
+    if (countries.length > 0 || actors.length > 0) {
+      self.get('ajax')
+        .post('/contracts/cpvs', {
+          data: JSON.stringify(options),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then((data) => {
+          self.set('cpvs', data.search.results);
+          self.set('loading.cpvs', false);
+        });
+    }
+  },
+
   actions: {
     onCountrySelectEvent(value) {
       this.set('query.countries', []);
       value.forEach((v) => {
         this.get('query.countries').push(v.id);
       });
-
-      let options = this.get('query.countries').length && `{
-        "query": {
-            "countries": ["${this.get('query.countries').join('", "')}"]
-        }
-      }`;
-      this.get('ajax')
-          .post('/contracts/years', { data: options, headers: { 'Content-Type': 'application/json' } })
-          .then((data) => {
-            this.set('years', data.search.results);
-          });
+      this.fetchYears();
+      this.fetchCpvs();
     },
     onAutocompleteSelectEvent(value) {
       this.set('query.actors', []);
       value.forEach((v) => {
         this.get('query.actors').push(v.id);
       });
+      this.fetchYears();
     },
     actorTermChanged(queryTerm) {
       let query = queryTerm || '';
@@ -287,9 +360,6 @@ export default Controller.extend({
       });
     },
     rangeChangeAction(value) {
-      let self = this;
-      let countries = this.get('query.countries');
-
       // destroy the tree, if any
       if (this.get('jsTree')) {
         this.get('jsTree').destroy();
@@ -304,23 +374,23 @@ export default Controller.extend({
       });
       this.set('query.years', _.range(this.get('query.years')[0], ++this.get('query.years')[1]));
 
-      if (countries.length > 0) {
-        let options = `{
-        "query": {
-            "countries": ["${self.get('query.countries').join('", "')}"],
-            "years": [${self.get('query.years').join(', ')}]
-        }
-      }`;
-        this.get('ajax')
-          .post('/contracts/cpvs', { data: options, headers: { 'Content-Type': 'application/json' } })
-          .then((data) => {
-            self.set('cpvs', data.search.results);
-          });
-      }
+      this.fetchCpvs();
     },
 
     submitQuery() {
       let self = this;
+      let countries = this.get('query.countries');
+      let rawActors = this.get('query.rawActors');
+      let cpvs = this.get('query.cpvs');
+      let years = this.get('query.years');
+      let suppliers = _.filter(
+        rawActors,
+        (actor) => (actor.type === 'supplier')
+      );
+      let procurers = _.filter(
+        rawActors,
+        (actor) => (actor.type === 'procurer')
+      );
 
       self.notifications.info('This is probably going to take a while...', {
         autoClear: false
@@ -329,16 +399,27 @@ export default Controller.extend({
       self.set('isLoading', true);
       self.prepareQuery();
 
+      let query = {
+        cpvs: cpvs.uniq(),
+        years: years.uniq()
+      };
+
+      if (countries.length > 0) {
+        query.countries = countries.uniq();
+      }
+      if (procurers.length > 0) {
+        query.procuring_entities = _.map(procurers, (p) => p.x_slug_id);
+      }
+      if (suppliers.length > 0) {
+        query.suppliers = _.map(suppliers, (s) => s.x_slug_id);
+      }
+
       this.get('store').createRecord('network', {
         options: {
           nodes: this.get('query.nodes'),
           edges: this.get('query.edges')
         },
-        query: {
-          cpvs: this.get('query.cpvs').uniq(),
-          countries: this.get('query.countries').uniq(),
-          years: this.get('query.years').uniq()
-        }
+        query
       }).save().then((data) => {
         // self.send('finished');
         // self.transitionToRoute('network.show', data.id)
