@@ -4,16 +4,7 @@
   <div id="details-sidebar" class="{{if networkInput "network-settings-open"}}">
     <div class="sidebar-header">
       <h4 class="network-title">
-        <a href="#" class="navbar-toggle"><i class="material-icons">menu</i></a>
-        <script type="application/javascript">
-            $(document).ready( function () {
-                $(".navbar-toggle").click( function (e) {
-                    $("#main-navbar").toggleClass("open");
-                    e.stopPropagation();
-                    return false;
-                });
-            })
-        </script>
+        <a {{action 'toggleMenu'}} class="navbar-toggle"><i class="material-icons">menu</i></a>
         &nbsp;
         {{#if model.name}}
             {{model.name}}
