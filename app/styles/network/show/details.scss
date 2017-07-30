@@ -3,14 +3,15 @@
 
 // TODO: consider less missleading naming: #network-sidebar, #network-infowindow
 
-$network-sidebar-width: 30%;
+$network-sidebar-width: 30vw;
 $network-sidebar-padding: $padding-base;
-$network-sidebar-bg: fade-out(lighten($bg-color,5%), 0.1);
-$network-infowindow-width: -$network-sidebar-width+100%;
+$network-sidebar-bg: fade-out(lighten($bg-color,2%), 0.1);
+$network-infowindow-width: calc(100% - $network-sidebar-width);
 $network-sidebar-border: $border-base;
 
-$zindex-network-sidebar: 9;
+$zindex-network-sidebar: 89;
 $zindex-network-sidebar-toggle: 91;
+$zindex-network-sidenav: 92;
 
 // network sidebar
 #details-sidebar {
@@ -30,6 +31,15 @@ $zindex-network-sidebar-toggle: 91;
   -webkit-backdrop-filter: blur(10px);
 
   font-family: $font-family-sans;
+
+  // button to show/hide the navbar
+  .navbar-toggle {
+    display: inline-block;
+    position: relative;
+    top: .3em;
+    height: 2em;
+    cursor: pointer;
+  }
 
   .sidebar-header {
     padding: 0.5*$network-sidebar-padding $network-sidebar-padding;
@@ -182,7 +192,7 @@ $zindex-network-sidebar-toggle: 91;
   .fa {
     color: $text-muted-color;
     position: absolute;
-    top: $padding-base;
+    top: 2*$navbar-height;
     left: calc(100% - .5em);
   }
 

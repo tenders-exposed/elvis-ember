@@ -52,36 +52,36 @@
 		            {{#link-to 'account.new' class="btn transparent"}} Register {{/link-to}}
 		        {{/if}}
         </div>
-        <ul id="mobile-nav" class="side-nav">
-            <li> {{link-to 'About' 'static' 'about'}} </li>
-            <li> {{link-to 'Gallery' 'static' 'gallery'}} </li>
-            <li><a href="https://talk.tenders.exposed/" target="_blank">Community</a></li>
-            <li>
-						    {{#link-to 'network.new'}}
-                    <i class="fa fa-plus"></i>
-                    <span>New visualisation</span>
-						    {{/link-to}}
-            </li>
-            <li>
-						    {{#link-to 'network.list' class=""}}
-                    <i class="fa fa-th"></i>
-                    <span>My Projects</span>
-						    {{/link-to}}
-            </li>
-            <li>
-						    {{#link-to 'account.settings' class=""}}
-                    <i class="fa fa-user"></i>
-                    <span>Account Settings</span>
-						    {{/link-to}}
-            </li>
-            <li>
-                <a {{action 'invalidateSession'}} class="">
-                    <i class="fa fa-power-off"></i>
-                    <span>Log Out</span>
-                </a>
-            </li>
-        </ul>
     </div>
+    <ul id="mobile-nav" class="side-nav">
+        <li> {{link-to 'About' 'static' 'about'}} </li>
+        <li> {{link-to 'Gallery' 'static' 'gallery'}} </li>
+        <li><a href="https://talk.tenders.exposed/" target="_blank">Community</a></li>
+        <li>
+          {{#link-to 'network.new'}}
+              <i class="fa fa-plus"></i>
+              <span>New visualisation</span>
+          {{/link-to}}
+        </li>
+        <li>
+          {{#link-to 'network.list' class=""}}
+              <i class="fa fa-th"></i>
+              <span>My Projects</span>
+          {{/link-to}}
+        </li>
+        <li>
+          {{#link-to 'account.settings' class=""}}
+              <i class="fa fa-user"></i>
+              <span>Account Settings</span>
+          {{/link-to}}
+        </li>
+        <li>
+            <a {{action 'invalidateSession'}} class="">
+                <i class="fa fa-power-off"></i>
+                <span>Log Out</span>
+            </a>
+        </li>
+    </ul>
 </nav>
 
 <!-- old navbar (hidden) -->
