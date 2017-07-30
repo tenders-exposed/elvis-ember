@@ -28,7 +28,7 @@ export default Route.extend({
           let idSup = `id_${supplier.x_slug_id}`;
           if (typeof nodes[idSup] === 'undefined') {
             ids.push(idSup);
-            // agregare if idSup is part of a cluster
+            // agregate if idSup is part of a cluster
             nodes[idSup] = {
               name: supplier.name,
               id: supplier.x_slug_id,
@@ -204,7 +204,7 @@ export default Route.extend({
       let clusterDetails = _.find(this.get('networkService.clusters'), (o) => {
         return o.id == nodeId;
       });
-      requestedIds = clusterDetails.nodesId;
+      requestedIds = clusterDetails.node_ids;
     }
 
     return this.getModelDetails(node, requestedIds, endpoint, filterContracts);
@@ -218,16 +218,14 @@ export default Route.extend({
     if (endpoint === 'relationships') {
       let [from,to] = _.split(params.id, '-');
       let fromId = [from];
-
       // find node
       let fromNode = this.get('networkService').getNodeById(from);
-
       // determine if from is node or cluster
       if (this.get('networkService').get('network.network').clustering.isCluster(from)) {
         let clusterDetails = _.find(this.get('networkService.clusters'), (o) => {
           return o.id == from;
         });
-        fromId = clusterDetails.nodesId;
+        fromId = clusterDetails.node_ids;
       }
 
       // & filterContracts by queryIds, by the procurer id or ids (if cluster)
@@ -237,7 +235,6 @@ export default Route.extend({
 
       }).catch((error) => {
         Logger.error('Error:', error);
-
       });
 
     } else {

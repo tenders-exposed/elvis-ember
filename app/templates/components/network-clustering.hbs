@@ -13,13 +13,31 @@
           <div class="col-label ">
             <h5 class="center-align">NODES</h5>
           </div>
+          <div class="search search-node-list">
+            <div class="input-field search">
+              <span class="input-prefix">
+                {{fa-icon 'search'}}
+              </span>
+              {{input
+                  type="text"
+                  placeholder="search node..."
+                  class="search-input"
+                  value=searchNode
+                  key-up="searchNodeList"
+              }}
+            </div>
+          </div>
           <div class="nodes-lists">
-            {{#each nodes as |node|}}
-              {{#draggable-object content=node overrideClass="cluster-node list "}}
-                <span class="node-type">{{fa-icon 'circle' size=1 class=node.type}}</span>
-                <span class="node-label">{{node.label}}</span>
-              {{/draggable-object}}
+            {{#ember-scrollable}}
+            {{#each nodesClustering as |node|}}
+              {{#unless node.hide}}
+                {{#draggable-object content=node overrideClass="cluster-node list "}}
+                  <span class="node-type">{{fa-icon 'circle' size=1 class=node.type}}</span>
+                  <span class="node-label">{{node.label}}</span>
+                {{/draggable-object}}
+              {{/unless}}
             {{/each}}
+            {{/ember-scrollable}}
           </div>
 
         </div>
@@ -27,9 +45,24 @@
           <div class="col-label">
             <h5 class="center-align">CLUSTERS</h5>
           </div>
+          <div class="search search-cluster-list">
+            <div class="input-field search">
+              <span class="input-prefix">
+                {{fa-icon 'search'}}
+              </span>
+              {{input
+                  type="text"
+                  placeholder="search cluster..."
+                  class="search-input"
+                  value=searchCluster
+                  key-up="searchClusterList"
+              }}
+            </div>
+          </div>
           <div class="cluster-list">
+            {{#ember-scrollable}}
             {{#each clusters as |cluster index|}}
-
+              {{#unless cluster.hide}}
               {{#draggable-object-target action="addToCluster" index=index overrideClass=(concat "cluster cluster" index)}}
                 {{#unless cluster.empty}}
                   <span class="cluster-delete" {{action "deleteCluster" index on="click"}}>
@@ -76,8 +109,9 @@
                 </span>
                 {{/each}}
               {{/draggable-object-target}}
-
+              {{/unless}}
             {{/each}}
+            {{/ember-scrollable}}
           </div>
         </div>
       </div>
