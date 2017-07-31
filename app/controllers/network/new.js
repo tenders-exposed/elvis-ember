@@ -404,7 +404,7 @@ export default Controller.extend({
         years: years.uniq()
       };
 
-      if (countries.length > 0) {
+      if (countries && countries.length > 0) {
         query.countries = countries.uniq();
       }
       if (procurers.length > 0) {
