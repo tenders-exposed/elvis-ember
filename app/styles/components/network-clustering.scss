@@ -1,0 +1,143 @@
+.ember-view.clustering{
+  background: rgba(26, 26, 28, 0.57);
+  width: 71%;
+  position: absolute;
+  right: 0px;
+  z-index: 99;
+}
+.ember-view.clustering {
+ //height: auto !important;
+  & .ember-view {
+    /*height: auto !important;*/
+  }
+}
+#modalClustering {
+  position: absolute;
+  top: 20%;
+  right: 22%;
+  width: 61%;
+  z-index: 9;
+  //height: 300px;
+  z-index: 9;
+  .modal-container {
+    @include box;
+    width: 100%;
+    //height: 400px;
+
+    .close {
+      top: 15px;
+      right: 15px;
+    }
+    .modal-content {
+      h4 { margin: 7px 0px;}
+    }
+  }
+  .nodes, .clusters {
+    height: 350px;
+    overflow: hidden;
+
+    .nodes-lists, .cluster-list {
+      height: 300px;
+    }
+
+    .col-label {
+      color: $text-dark-color;
+    }
+
+    .cluster-node {
+      border: 1px solid $box-border-color;
+      border-radius: 5px;
+      padding: 3px;
+      height: 30px !important;
+      overflow-y: hidden;
+
+      &.remove {
+        display: none;
+      }
+      .node-label {
+        color: $text-dark-color;
+        cursor: pointer;
+        &:hover { color: $text-color;}
+      }
+
+      .node-type {
+        i.supplier { color: $color-supplier;}
+        i.procuring_entity { color: $color-procurer;}
+      }
+    }
+  }
+  .nodes {
+    .cluster-node {
+      display: inline-block;
+      width: 100%;
+    }
+  }
+  .clusters {
+
+    .cluster {
+      min-height: 40px !important;
+      border: 1px inset $box-border-color;
+      border-radius: 4px;
+      margin-bottom: 5px;
+      position: relative;
+      .cluster-delete {
+        position: absolute;
+        top: 6px;
+        right: 10px
+      }
+
+      .label-cluster {
+        line-height: $h2-fontsize;
+        font-size: $h5-fontsize;
+        width: 100%;
+        text-align: center;
+        color: $text-dark-color;
+        opacity: 0.9;
+      }
+      .cluster-name {
+        position: relative;
+        width: 50%;
+        margin: 0 auto;
+        border: 1px dashed $box-border-color;
+        border-radius: 5px;
+        color: $text-dark-color;
+        margin-bottom: 10px;
+        margin-top: 5px;
+
+        .edit-cluster {
+          margin-left: 5px;
+        }
+      }
+
+      .edit-cluster-input {
+        position: relative;
+        .cluster-text-input {
+          width: 87% !important;
+          line-height: 2rem;
+          padding-right: 40px;
+        }
+        .edit-cluster-controls {
+          position: absolute;
+          right: 7px;
+          top: 3px;
+          background-color: #151517 !important;
+        }
+
+      }
+
+      .cluster-node {
+        display: inline-block;
+        position: relative;
+        padding-right: 20px;
+        margin-bottom: 5px;
+        margin-left: 3px;
+
+        .removeNode {
+          position: absolute;
+          right: 4px;
+          top: 3px;
+        }
+      }
+    }
+  }
+}

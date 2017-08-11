@@ -13,6 +13,7 @@ div#details-info {
       opacity: 0.5;
       right: 30px;
       top: 30px;
+      z-index: 102;
       &:hover {
         opacity: 1;
       }

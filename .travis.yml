@@ -1,14 +1,22 @@
+---
 language: node_js
 node_js:
-  - "7.9.0"
-git:
-  depth: 1
-branches:
-  except:
-    - /^experiment.*/
-before_script:
-  - npm install -g bower ember-cli@2.11.1 yarn node-sass
+  - "7.9"
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.npm
+
+before_install:
+  - npm config set spin false
+  - npm install -g phantomjs-prebuilt bower node-sass
+  - phantomjs --version
+
+install:
+  - npm install
   - bower install
-  - yarn
+
 script:
-   ember build
+  - npm test

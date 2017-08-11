@@ -2,7 +2,6 @@
   else will stay in sidebar's outlet --}}
 
 <div id="sidebar-toggle" {{action "openSidebar"}}>
-  <div id="sidebar-toggle-border"></div>
   <i class="fa fa-arrow-circle-right"></i>
 </div>
 
@@ -55,6 +54,7 @@
               networkModel=model
               id="box-details-container"
               network=network
+              networkService=networkService
           }}
         {{/each}}
       {{/if}}
@@ -68,18 +68,23 @@
                 networkModel=model
                 id="box-details-container"
                 network=network
+                networkService=networkService
             }}
           {{/each}}
         {{/if}}
       {{/if}}
     {{/if}}
     <div id="network-controls">
-      <span {{action "modalNetworkLink" on="click"}}>
-        {{fa-icon "link" size=1}}
+      <span class="vis-button" {{action "modalNetworkLink" on="click"}}>
+        {{fa-icon "link"}}
       </span>
-      <span class="cogs" {{action "stopPhysics" on="click"}}>
-        {{fa-icon 'cogs' size=1}}
+      <span class="vis-button" {{action "stopPhysics" on="click"}}>
+        {{fa-icon 'cogs'}}
       </span>
+      <span class="clustering" {{action "showClustering" on="click"}}>
+        {{fa-icon 'th-large' size=1}}
+      </span>
+
     </div>
     {{#if networkLinkModal}}
     <div id="modalNetworkLink" >
@@ -97,10 +102,19 @@
     </div>
     {{/if}}
 
+    {{#if networkClusteringModal}}
+      {{network-clustering
+          action="closeClustering"
+          class="clustering"
+          networkService = networkService
+          notifications = notifications
+      }}
+    {{/if}}
+
     {{#visjs-network
       options=networkOptions
-      nodesSet=model.graph.nodes
-      edgesSet=model.graph.edges
+      nodesSet=networkService.nodes
+      edgesSet=networkService.edges
       startStabilizingAction=(action 'startStabilizing')
       stabilizationIterationsDoneAction=(action 'stabilizationIterationsDone')
       stabilizedAction=(action 'stabilized')

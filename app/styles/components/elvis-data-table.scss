@@ -1,3 +1,137 @@
+// data table inside sidebar displaying list of procurers/suppliers/relationships
+// -------------------
+
+#details-sidebar {
+  $item-figure-size: 2em;
+
+  table.data-table {
+    width: 100%;
+    height: calc(100vh - 250px);
+    position: relative;
+    display: block;
+
+    thead { display: none; }
+    td {
+      vertical-align: top;
+      padding: 5px;
+    }
+  }
+
+  .data-table-filter,
+  .data-table .tse-content {
+    padding: 0 $padding-base;
+  }
+
+  // entity circle with number
+  .data-table td.item-figure {
+
+    width: $item-figure-size;
+    > a { display: inline-block; }
+
+    figure {
+      @include network-entity($item-figure-size);
+      color: $bg-color;
+      font-weight: 900;
+      margin: 0;
+    }
+  }
+  // circle colors for suppliers and procurers
+  .sidebar-suppliers td.item-figure figure { background: $color-supplier; }
+  .sidebar-procurers td.item-figure figure { background: $color-procurer; }
+
+  // entity name style
+  .data-table td.item-name,
+  .data-table td.item-name a,{
+    color: $text-muted-color;
+    line-height: 1.2em;
+    vertical-align: top;
+
+    .item-id {
+      font-weight: 900;
+      color: fade-out($text-muted-color,.2);
+      letter-spacing: .025em;
+      margin-top: -.1em;
+      display: block;
+    }
+  }
+
+  // red flags column
+  .data-table td.item-flags {
+    font-size: $font-size-large;
+    line-height: 1;
+    padding: 0;
+  }
+
+  // table row highlighting on mouse over
+  .data-table tr,
+  .data-table tr td.item-figure {
+    transition: all 1s ease;
+  }
+  .data-table:hover tr:not(:hover) {
+    opacity: .8;
+    transition: all 1s ease;
+  }
+  .data-table:hover tr:not(:hover) td.item-figure {
+    opacity: .6;
+    filter: grayscale(60%);
+    transition: all .4s ease;
+  }
+  .data-table tr:hover td.item-name a {
+    &,&:hover,&:focus {
+      color: $text-color !important;
+    }
+  }
+
+  // zoom-to item button
+  .data-table .item-figure .item-zoom-to {
+    position: absolute;
+    display: none;
+    cursor: pointer;
+  }
+
+  // make zoom-to button appear over the item figure
+  .data-table tr:hover {
+    .item-figure figure {
+      color: rgba(0,0,0,0) !important;
+      position: relative;
+
+      .item-zoom-to {
+        display: inline;
+        color: $bg-color !important;
+        text-align: center;
+        vertical-align: middle;
+        width: 100%;
+        left: 0;
+        line-height: $item-figure-size;
+      }
+
+      &:hover {
+        transform: scale(1.2);
+        transition: transform .3s ease;
+      }
+    }
+  }
+
+
+  // Relationships list design
+  // (is a bit different)
+  .sidebar-relationships .data-table {
+    .item-figure figure {
+      border-radius: 0;
+      box-shadow: none;
+      background: fade-out($color-relationship,0.2);
+    }
+    .item-name .item-entity {
+      font-size: $font-size-small;
+      .procurer,
+      .supplier {
+        font-size: 75%;
+      }
+    }
+  }
+}
+
+/*
 .ember-tooltip {
   font-size: $fs1 !important;
   background: $main-bg !important;
@@ -105,6 +239,12 @@ div#details-sidebar .tab-panel {
       max-height: 400px !important;
     }
     tr {
+      a {
+        color: $text-color !important;
+        &:hover {
+          color: $text-dark-color !important;
+        }
+      }
       .toggle-controls {
         color: $text-dark-color;
         font-size: $fs3;
@@ -142,7 +282,7 @@ div#details-sidebar .tab-panel {
       }
     }
 
-    /*??? not sure what are for*/
+    //??? not sure what are for
     input[type="checkbox"] + label {
       padding-left: 5px;
       height: 15px;
@@ -167,7 +307,7 @@ div#details-sidebar .tab-panel {
     th.flags { width: 2% !important; }
     th.value { width: 15% !important; }
 
-    td.id {width: 15% !important; text-align: center;}
+    td.id {width: 15% !important; overflow-x: hidden; text-align: center;}
     td.label {width: 67% !important;}
     td.flags {width: 6% !important; text-align: right;}
     td.value {width: 8% !important; text-align: right;}
@@ -188,10 +328,12 @@ div#details-sidebar .tab-panel {
   }
   // for other controls
   .controls{
-    /*right: -113px;
-    height: 50px;
-    width: 100px;
-    border: 1px solid grey;
-    border-radius: 5px;*/
+    //right: -113px;
+    //height: 50px;
+    //width: 100px;
+    //border: 1px solid grey;
+    //border-radius: 5px;
   }
 }
+
+*/

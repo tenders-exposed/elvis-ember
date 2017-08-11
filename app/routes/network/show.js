@@ -11,15 +11,19 @@ export default Route.extend({
   },
 
   model(params) {
-    return this.get('store').findRecord(
+    let modelShow = this.get('store').findRecord(
       'network',
       params.network_id,
       { reload: true }
     );
+    return modelShow;
   },
 
   afterModel(model) {
     this.titleToken = `${this.titleToken} ${model.get('name') || model.id}`;
+    model = this.get('networkService').setModel(model);
+
+    return model;
   },
 
   setupController(controller, model) {
@@ -29,6 +33,7 @@ export default Route.extend({
 
   resetController(controller) {
     controller.set('network', undefined);
+    controller.set('clusters', undefined);
   },
 
   actions: {

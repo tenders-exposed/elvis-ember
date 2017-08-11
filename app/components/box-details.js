@@ -1,8 +1,9 @@
 import Ember from 'ember';
 
-const { Component, computed } = Ember;
+const { Component, computed, Logger } = Ember;
 
 export default Component.extend({
+
   typeClasses: {
     supplier: 'color-blue',
     procuring_entity: 'color-pink',
@@ -18,16 +19,22 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    let type = this.get('graphElementType');
-    let graph = this.get('networkModel.graph');
+    let typeSelected = this.get('graphElementType');
+    let elementId = this.get('graphElementId');
 
-    let [modelDetails] = _.filter(graph[`${type}s`], { 'id': this.get('graphElementId') });
-    this.set('model', modelDetails);
-
-    if (type === 'edge') {
-      this.set('model.valueType', this.get('networkModel.options').edges);
+    if (typeSelected === 'node') {
+      let nodeDetails = this.get('networkService').getNodeById(elementId);
+      this.set('model', nodeDetails);
+      this.set('nodeId', elementId);
+    }
+    if (typeSelected === 'edge') {
+      let edgeDetails = this.get('networkService').getEdgeById(elementId);
+      this.set('model', edgeDetails);
+      Logger.debug('selected edge', edgeDetails);
+      Logger.debug('edgeId', elementId);
     }
   },
+
   actions: {
     close() {
       this.set('network.selectedNodes', []);

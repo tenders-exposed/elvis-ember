@@ -54,3 +54,70 @@
 
 
 }
+
+@mixin fontawesome {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin circle ($size) {
+  width: $size;
+  height: $size;
+  text-align: center;
+  line-height: $size;
+  font-size: 0.56*$size;
+  border-radius: 100%;
+}
+
+
+// BUTTON variants
+// ---------------------
+
+@mixin button-circle ($size) {
+  @include circle ($size);
+  font-weight: normal !important; // bold messes up the icon
+}
+
+// button with background
+@mixin button-color($bg: $button-bg, $text: $button-color, $border: transparent) {
+  background: fade-out($bg,0.2);
+  color: $text;
+  border: 1px solid $border !important;
+  &:hover {
+    background:$bg;
+    color: $text;
+    transition: all 0.3s ease;
+  }
+  &:active {
+    background:$bg;
+  }
+}
+// bordered button with transparent background
+@mixin button-transparent ($color: $text-color) {
+  background: transparent;
+  color: fade-out($color,0.4);
+  border: 1px solid fade-out($color,0.4) !important;
+  &:hover {
+    color:$color;
+    border-color: $color !important;
+    transition: all 0.3s ease;
+    background: transparent;
+  }
+  &:active {
+    color:$color;
+  }
+}
+// just a text button
+@mixin button-link ($color: $link-color) {
+  color: fade-out($color,0.4);
+  background: none;
+  box-shadow: none;
+  border-color: transparent;
+  &:hover {
+    color: $color;
+  }
+}

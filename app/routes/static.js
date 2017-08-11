@@ -11,7 +11,7 @@ export default Route.extend({
   },
   renderTemplate(controller, model) {
     this.render(`partials/static/${model.target}`, {
-      controller: controller
+      controller
     });
   }
 });

@@ -39,7 +39,12 @@ export default Component.extend({
     this.set('content', ordered);
   }),
 
-  didInsertElement() {
+  didUpdateAttrs() {
+    this.set('content', this.get('tableContent'));
+    this.set('defaultContent', this.get('tableContent'));
+  },
+
+  didReceiveAttrs() {
     this.set('content', this.get('tableContent'));
     this.set('defaultContent', this.get('tableContent'));
   },

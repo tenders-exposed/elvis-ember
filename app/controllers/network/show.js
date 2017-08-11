@@ -1,8 +1,11 @@
 import Ember from 'ember';
 
-const { Controller, $, Logger } = Ember;
+const { Controller, $, Logger, inject } = Ember;
 
 export default Controller.extend({
+  me: inject.service(),
+  ajax: inject.service(),
+
   height: window.innerHeight - 100,
   selectedNodes: [],
   selectedEdges: [],
@@ -80,11 +83,18 @@ export default Controller.extend({
       'keyboard': true
     }
   },
+
+  networkInfoShown: false,
+  clusters: {},
+
   networkLinkModal: false,
+  networkClusteringModal: false,
+  networkStabilization: false,
 
   init() {
     this._super();
     this.set('stabilizationPercent', 0);
+    this.set('network', undefined);
   },
 
   didInsertElement() {
@@ -143,6 +153,66 @@ export default Controller.extend({
         this.set('networkLink', `${document.location.origin}/network/${networkId}`);
       }
     },
+    showClustering() {
+      Logger.debug('show Clustering');
+      this.set('networkClusteringModal', true);
+    },
+    closeClustering(clusteredNodes, clusters) {
+      // model.clusters  = [ {id: 'uniqueId',name: '', empty: true, type: '', node_ids: [id1, id2, id3]}, ]
+      let clustersPayload = _.map(clusters, (c) => {
+        return {
+          'id': c.id,
+          'name': c.name,
+          'type': c.type,
+          'node_ids': c.node_ids
+        };
+      });
+      let nodesPayload = this.get('networkService.defaultNodes');
+      let edgesPayload = this.get('networkService.edges');
+
+      let networkId = this.get('model.id');
+      let token = this.get('me.data.authentication_token');
+      let email = this.get('me.data.email');
+
+      let data = `{'network': {
+                      'graph': {
+                        'nodes': ${JSON.stringify(nodesPayload)},
+                        'edges': ${JSON.stringify(edgesPayload)},
+                        'clusters': ${JSON.stringify(clustersPayload)} 
+                        } 
+                      } 
+                  }`;
+      let self = this;
+
+      this.get('ajax')
+        .patch(`/networks/${networkId}`, {
+          data,
+          headers: {
+            'Content-Type': 'application/json',
+            'X-User-Email': `${email}`,
+            'X-User-Token': `${token}`
+          }
+        }).then(
+        () => {
+          if (this.get('session.isAuthenticated')) {
+            // close clustering popup
+            this.set('networkClusteringModal', false);
+            self.set('model.clusters', clusters);
+            self.set('model.graph.nodes', clusteredNodes);
+
+            self.get('networkService').makeClusteredNetwork(clusteredNodes, clusters);
+            self.get('notifications').clearAll();
+            self.get('notifications').success('Done! Clusters saved.', { autoClear: true });
+          } else {
+            self.get('notifications').error(`Error: Please login to save your cluster!`);
+          }
+        }, (response) => {
+          self.get('notifications').clearAll();
+          _.forEach(response.errors, (error, index) => {
+            self.get('notifications').error(`Error: ${index } ${error.title}`);
+          });
+        });
+    },
     startStabilizing() {
       this.set('startStabilizing', performance.now());
       Logger.info('start stabilizing');
@@ -151,7 +221,10 @@ export default Controller.extend({
       let network = this.get('network');
       let nodesCount = network.nodesSet.length;
 
-      this.showNetworkInfo();
+      if (!this.get('networkStabilization')) {
+        this.showNetworkInfo();
+        this.set('networkStabilization', true);
+      }
 
       if (nodesCount > 150) {
         network.setOptions({ physics: { enabled: false } });
@@ -162,6 +235,11 @@ export default Controller.extend({
       Logger.info('stabilization iterations done');
       this.set('stabilizationPercent', 100);
       $('div#stabilization-info').fadeOut();
+
+      this.set('networkStabilization', true);
+      Logger.info('Network stabilized');
+      this.get('networkService').setNetwork(this.get('network'));
+
     },
     stabilizationProgress(amount) {
       this.set('stIterations', amount.total);

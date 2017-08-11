@@ -3,7 +3,8 @@ import Ember from 'ember';
 const {
   Component,
   run,
-  RSVP
+  RSVP,
+  Logger
 } = Ember;
 
 export default Component.extend({
@@ -16,16 +17,25 @@ export default Component.extend({
   loading: false,
 
   didInsertElement() {
+    let self = this;
     let loadData = function(data) {
       let promise = new RSVP.Promise(function(resolve, reject) {
         if (data) {
+          Logger.debug('render later got data', data);
+          Logger.debug('render later got data', self.get('wait'));
           resolve(data);
         } else {
+          Logger.debug('render later nope', self.get('wait'));
+
           reject('mesaj eroare');
         }
-      });
+      });/*.catch(function(error) {
+        // @todo:catch the error
+        console.error('error', error);
+      });*/
       return promise;
     };
+
     this._renderTimer = run.later(this, function() {
       if (!this.get('loading')) {
         loadData(this.get('load')).then((data) => {
@@ -34,11 +44,9 @@ export default Component.extend({
             this.set('model', data);
           }
         });
+      } else {
+        Logger.debug('renderlater this', this);
       }
-      /*.catch(function(error) {
-         // @todo:catch the error
-        console.error('error', error);
-      });*/
 
     }, this.get('wait'));
   },
