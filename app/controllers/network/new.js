@@ -133,6 +133,7 @@ export default Controller.extend({
   cpvSearchTree: '',
 
   createTree() {
+    let treeTimer = performance.now();
     let cpvs = _.sortBy(
       _.cloneDeep(this.get('cpvs')),
       ['id']
@@ -229,6 +230,9 @@ export default Controller.extend({
     //   }
     // });
 
+    treeTimer = performance.now() - treeTimer;
+    this.get('benchmark').store('performance.cpvs.count', cpvs.count);
+    this.get('benchmark').store('performance.cpvs.treeRender', treeTimer);
     this.set('tree', tree);
   },
 
@@ -277,6 +281,7 @@ export default Controller.extend({
   },
   fetchCpvs() {
     this.set('loading.cpvs', true);
+    let requestTimer = performance.now();
 
     let self = this;
     let countries = this.get('query.countries');
@@ -317,6 +322,7 @@ export default Controller.extend({
         .then((data) => {
           self.set('cpvs', data.search.results);
           self.set('loading.cpvs', false);
+          self.get('benchmark').store('performance.cpvs.loadTime', (performance.now() - requestTimer));
         });
     }
   },

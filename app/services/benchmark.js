@@ -50,7 +50,8 @@ const template = {
 export default Service.extend({
   ajax: inject.service(),
   me: inject.service(),
-  endpoint: '',
+  endpoint: '/performance_stats',
+  options: {},
   data: {},
 
   init() {
@@ -60,16 +61,6 @@ export default Service.extend({
 
   reset() {
     this.set('data',  template);
-    this.set('token', this.get('me.data.authentication_token'));
-    this.set('email', this.get('me.data.email'));
-
-    this.set('options', {
-      headers: {
-        'Content-Type': 'application/json',
-        'X-User-Email': `${this.get('email')}`,
-        'X-User-Token': `${this.get('token')}`
-      }
-    });
   },
 
   store(item, value) {
@@ -91,12 +82,18 @@ export default Service.extend({
   },
 
   save() {
+    Logger.info('Saving performance data: ', this.get('data'));
     let endpoint = this.get('endpoint');
     let options = this.get('options');
+    options.data = JSON.stringify({
+      'performance_stats': this.get('data')
+    });
     this.get('ajax')
       .post(endpoint, options)
       .then((response) => {
         Logger.info('Sent payload, got response', response);
+        this.reset();
+        Logger.info('Performance data was reset');
       });
   }
 });
