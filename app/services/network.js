@@ -78,15 +78,19 @@ export default Service.extend({
   },
 
   setModel(model) {
-    if (model.get('clusters')) {
-      _.forEach(model.get('clusters'), function(cluster, clusterIndex) {
-        cluster.emty = false;
+    if (!this.get('defaultNodes')) {
+      let nodes = _.cloneDeep(model.get('graph.nodes'));
+      this.set('defaultNodes', nodes);
+    }
+
+    if (model.get('graph.clusters')) {
+      _.forEach(model.get('graph.clusters'), function(cluster, clusterIndex) {
+        cluster.empty = false;
         cluster.nodes = _.filter(model.get('graph.nodes'), function(node) {
 
-          let indexCheck = _.findIndex(cluster.nodesId, function(o) {
+          let indexCheck = _.findIndex(cluster.node_ids, function(o) {
             return o == node.id;
           });
-
           if (indexCheck !== -1) {
             node.cluster = clusterIndex;
             return true;
@@ -96,10 +100,15 @@ export default Service.extend({
         });
       });
     }
+    let clusters = typeof model.get('graph.clusters') === 'undefined' ? [] : model.get('graph.clusters');
+    // necesary or not?
+    model.set('clusters', clusters);
+    // if clusters are emty set them as empty array
+    model.set('graph.clusters', clusters);
     this.set('model', model);
     this.set('edges', model.get('graph.edges'));
     this.set('nodes', model.get('graph.nodes'));
-    this.set('clusters', model.get('clusters'));
+    this.set('clusters', clusters);
 
     return model;
   },
@@ -250,11 +259,11 @@ export default Service.extend({
     if (this.checkReady()) {
       this.deactivate();
     }
-
     if (this.get('clusters').length > 0 && !this.get('checkClustered')) {
       this.set('network', network);
       this.makeClusteredNetwork(this.get('nodes'), this.get('clusters'));
       this.set('checkClustered', true);
+
     } else {
       this.set('network', network);
       // console.log('seting suppliers ,procurers after cluster', this.get('network'));
@@ -264,7 +273,6 @@ export default Service.extend({
       this.setRelationships();
       this.activate();
     }
-
   },
 
   getNetwork() {

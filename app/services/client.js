@@ -66,7 +66,7 @@ export default Service.extend({
           name: this.get('engine'),
           version: this.get('engineversion')
         }
-      }),
+      })
     });
   }
 });

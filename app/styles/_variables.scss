@@ -69,6 +69,7 @@ $bg-color:                #1A1A1C;
 $bg-dark-color:           #1A1A1C;
 
 $text-color:              #fff;
+$text-inverse-color:      #222;
 $text-dark-color:         grey;
 
 $box-border-color:        #2f2f35;
@@ -138,7 +139,10 @@ $base-font-size:      14px;
 $base-line-height:    1.5;
 
 $border-radius-base:  5px;
+$border-radius-small:  2px;
+
 $border-width-base:   1px;
+
 
 $border-base: $border-width-base solid rgba(255,255,255,0.07);
 
@@ -243,6 +247,7 @@ $dropdown-item-height: 50px;
 // Text Inputs + Textarea
 $input-height: 3rem;
 $input-border-color: fade-out($text-color,0.8);
+$input-border-color-hover: $link-color-hover;
 $input-border: 1px solid $input-border-color;
 $input-background: #fff;
 $input-error-color: $error-color;
@@ -253,6 +258,8 @@ $input-margin: 0 0 15px 0;
 $input-padding: 0;
 $input-transition: all .3s;
 $label-font-size: .8rem;
+$label-color: fade-out($text-color,0.6);
+$label-color-hover: fade-out($text-color,0.4);
 $input-disabled-color: rgba(0,0,0, .26);
 $input-disabled-solid-color: #BDBDBD;
 $input-disabled-border: 1px dotted $input-disabled-color;
@@ -318,7 +325,7 @@ $navbar-brand-font-size: 1rem;
 $sidenav-font-color: #444;
 $sidenav-bg-color: #fff;
 $sidenav-padding-right: 30px;
-$sidenav-item-height: 64px;
+$sidenav-item-height: 3em;
 
 
 /* Photo Slider

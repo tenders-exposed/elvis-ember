@@ -1,11 +1,180 @@
-<div class="col s12">
+<header class="center">
   <h1>Launch New Visualisation</h1>
-  <hr/>
-</div>
-<div class="col s12">
-  <p>
-    Select criteria you would like to visualise from the <a href="">TED data</a>.<br/>
-    Bare in mind that wider criteria will result in too much data to visualise which will make
-    the visualisation run slow.
-  </p>
+  <p>Select criteria you would like to visualise from the <a href="">TED data</a>.<br/>
+  Bare in mind that wider criteria will result in too much data to visualise which will make
+  the visualisation run slow.</p>
+</header>
+
+<!-- NEW QUERY BUILDER HTML STARTS HERE
+
+		TODO: for now we need to make the query builder function with real data.
+		TODO 2: wizard functionality (this will make it more beautiful, but is not that necessary):
+        .wizard-step has 3 states:
+		          1 .wizard-step.disabled - a step which cannot be completed because other inputs (from previous steps) need to be filled
+		          2 .wizard-step.current - a step which has not been completed, but can be interacted with
+		          3 .wizard-step.completed - this step is available for interaction AND all inputs inside this step which are necessary for the next step to be enabled, has been filled
+-->
+<div id="query-builder" class="wizard">
+
+  <!-- STEP 1: narrowing countries and companies -->
+  <section class="wizard-step {{countriesStatus}}">
+    <div class="row">
+      <div class="col m4 s12">
+        <h3>Network Focus</h3>
+        <p>Only procurement from these countries and companies will be visualised</p>
+      </div>
+      <div class="col m8 s12">
+        <!--
+          TODO: current placeholder "click to select..." says nothing and might be confusing
+              the placeholder text should always describe the action and contents of the selectable list.
+              so in this case, placeholder text should be "Select countries/companies..."
+          TODO 2: is it possible to display country flags in the collection of selected countries?
+        -->
+        <div class="input-field col m6 s12">
+          <span class="input-prefix"><i class="fa fa-globe"></i></span>
+          {{ember-select-guru
+            value=query.rawCountries
+            options=countries
+            searchKey='text'
+            multiple=true
+            optionComponent='country-option'
+            onSelect=(action "onCountrySelectEvent")
+          }}
+          <label>Select countries</label>
+        </div>
+        <div class="input-field col m6 s12">
+          <span class="input-prefix"><i class="fa fa-briefcase"></i></span>
+          <!-- this is company select
+            TODO: fill the select with real dataset of company names. Matej will restyle the options once it is ready  -->
+          {{ember-select-guru
+            value=query.rawActors
+            options=autocompleteActorsOptions
+            searchKey='name'
+            multiple=true
+            optionComponent='actor-option'
+            multiValueComponent='actor-value'
+            onSearchInputChange=(action "actorTermChanged")
+            onSelect=(action "onAutocompleteSelectEvent")
+          }}
+          <label>Select companies</label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 2: year range	 -->
+    <section class="wizard-step {{yearsStatus}}">
+      <div class="row">
+        <div class="col m4 s12">
+          <h3>Year range</h3>
+          <p>Only procurement in this year range will be visualised</p>
+        </div>
+        <div class="col m8 s12">
+          {{#if loading.years}}
+            Loading...
+          {{else}}
+            {{#if years.length}}
+              <div class="input-field col m6 s12">
+                {{range-slider
+                  range = yearsRange
+                  start = yearsStart
+                  step=1
+                  connect=true
+                  tooltips=true
+                  disabled=rangeIsDisabled
+                  class=(concat rangeDisableClass ' noUi-target noUi-ltr noUi-horizontal noUi-background' )
+                  on-slide="rangeSlideAction"
+                  on-change="rangeChangeAction"
+                }}
+              </div>
+            {{else}}
+              No years range is available for your selection.
+            {{/if}}
+          {{/if}}
+        </div>
+      </div>
+    </section>
+
+  <!-- STEP 3: specifying markets/industry fields-->
+  <section class="wizard-step {{cpvsStatus}}">
+    <div class="row">
+      <div class="col m4 s12">
+        <h3>Markets / Fields</h3>
+        <p>Only selected procurement markets will be visualised.</p>
+        <p><a href="https://simap.ted.europa.eu/cpv" target="_blank"><i class="fa fa-arrow-right"></i> Read more about CPV codes</a></p>
+      </div>
+      <div class="col m8 s12">
+        <!-- @NOTE: the following container contains CPV tree selector - the one which is currently in the modal.
+          i was unable to make it running easily just by copypasting the code. please make it work.
+          the height of the container is limited to 80% of viewport height (css: { height: 80vh }) -->
+        <div class="cpv-selector cpv-tree" style="height: 400px;">
+          <!-- @NOTE: ember-scrollable scrollbar needs to be wrapping the long content, and its parent must have limited height  - in this case .cpv-selector { height: 400px; } -->
+          {{#if loading.cpvs}}
+            Loading...
+          {{else}}
+            {{#if cpvs}}
+              {{#ember-scrollable}}
+                <div class="jstree-default-dark-small">
+                  {{ember-jstree
+                    data=tree
+                    plugins=jsTreeConfig.plugins
+                    themes=jsTreeConfig.core.themes
+                    selectedNodes=selectedCodes
+                    searchOptions=jsTreeConfig.searchOptions
+                    checkboxOptions=jsTreeConfig.checkbox
+                    actionReceiver=jsTree
+                    searchTerm=cpvSearchTree
+                  }}
+                </div>
+              {{/ember-scrollable}}
+            {{else}}
+              {{#if years}}
+                Available CPV codes will be shown here after completing steps 1 and 2.
+              {{else}}
+                No CPV codes are available for your selection.
+              {{/if}}
+            {{/if}}
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 4: rendering options for nodes and edges -->
+  <section class="wizard-step {{optionsStatus}}">
+    <div class="row">
+      <div class="col m4 s12">
+        <h3>Rendering options</h3>
+        <p>Select what type of data do network entities represent.</p>
+      </div>
+      <div class="col m8 s12">
+        <div class="row">
+          <div class="qb-rendering-nodes col m5 s12">
+            <h5>Node size<span class="text-muted">represents</span></h5>
+            <input checked name="nodes" type="radio" value="count" id="nodeSizeCount" />
+            <label class="node-size-count" for="nodeSizeCount">Number of contracts</label>
+            <br>
+            <input name="nodes" type="radio" value="sum" id="nodeSizeSum" />
+            <label class="node-size-sum" for="nodeSizeSum">Money sum of all contracts</label>
+          </div>
+          <div class="qb-rendering-edges col m7 s12">
+            <h5>Edge thickness<span class="text-muted">represents</span></h5>
+            <input checked name="edges" type="radio" value="count" id="edgeSizeCount" />
+            <label for="edgeSizeCount">Number of contracts</label>
+            <br>
+            <input name="edges" type="radio" value="sum" id="edgeSizeSum" />
+            <label for="edgeSizeSum">Money flow between entities</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wizard-finish center">
+    {{md-btn-submit
+      action='submitQuery'
+      class='btn-large primary'
+      text='Visualise!'
+    }}
+  </div>
 </div>

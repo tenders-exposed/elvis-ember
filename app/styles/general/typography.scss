@@ -46,6 +46,7 @@ h5 {
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: .1em;
+  margin-bottom: 1em;
 }
 h6 {
   font-size: $h6-fontsize;
@@ -91,6 +92,22 @@ ul li {
     text-align: center;
     margin-right: .5em;
   }
+}
+
+// less significant text
+.text-muted {
+  color: $text-muted-color;
+  font-weight: normal;
+}
+
+// smaller paragraph text
+p.small {
+  font-family: $font-family-sans;
+  font-size: $font-size-base;
+}
+
+header {
+  padding: 2rem 0;
 }
 
 
