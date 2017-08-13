@@ -78,6 +78,8 @@ export default Service.extend({
   },
 
   setModel(model) {
+    let edges = model.get('flaggedGraph.edges');
+
     if (!this.get('defaultNodes')) {
       let nodes = _.cloneDeep(model.get('graph.nodes'));
       this.set('defaultNodes', nodes);
@@ -106,7 +108,7 @@ export default Service.extend({
     // if clusters are emty set them as empty array
     model.set('graph.clusters', clusters);
     this.set('model', model);
-    this.set('edges', model.get('graph.edges'));
+    this.set('edges', edges);
     this.set('nodes', model.get('graph.nodes'));
     this.set('clusters', clusters);
 
