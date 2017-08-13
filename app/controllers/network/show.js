@@ -177,11 +177,11 @@ export default Controller.extend({
       let token = this.get('me.data.authentication_token');
       let email = this.get('me.data.email');
 
-      let data = `{'network': {
-                      'graph': {
-                        'nodes': ${JSON.stringify(nodesPayload)},
-                        'edges': ${JSON.stringify(edgesPayload)},
-                        'clusters': ${JSON.stringify(clustersPayload)}
+      let data = `{"network": {
+                      "graph": {
+                        "nodes": ${JSON.stringify(nodesPayload)},
+                        "edges": ${JSON.stringify(edgesPayload)},
+                        "clusters": ${JSON.stringify(clustersPayload)}
                         }
                       }
                   }`;
