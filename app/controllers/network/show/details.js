@@ -11,13 +11,11 @@ export default Controller.extend({
     suppliers: {
       id: 'ID',
       label: 'Name',
-      flags: ' ',
       value: 'Value'
     },
     relationships: {
       fromLabel: 'Procurer',
       toLabel: 'Supplier',
-      flags: ' ',
       value: 'Value'
     }
   },

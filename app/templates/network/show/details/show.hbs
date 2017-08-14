@@ -5,7 +5,6 @@
     </div>
     {{#if readyToRender}}
         <div style="height: 100vh">
-        {{#ember-scrollable}}
             <div class="container container-entity relative">
                 {{#if modelDetails}}
                   {{#if (eq tab 'suppliers')}}
@@ -26,10 +25,10 @@
                         </div>
                 {{/if}}
             </div>
-        {{/ember-scrollable}}
         </div>
 
     {{else}}
         {{elvis-loader shouldRender=readyToRender message="Loading.."}}
     {{/if}}
 </div>
+
