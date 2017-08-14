@@ -5,12 +5,14 @@ const { Route } = Ember;
 export default Route.extend({
   classNames: ['body-network'],
   titleToken: 'Network - ',
+  requestTimer: 0,
 
   activate() {
     this.notifications.clearAll();
   },
 
   model(params) {
+    this.set('requestTimer', performance.now());
     let modelShow = this.get('store').findRecord(
       'network',
       params.network_id,
@@ -20,6 +22,7 @@ export default Route.extend({
   },
 
   afterModel(model) {
+    this.get('benchmark').store('performance.network.save', (performance.now() - this.get('requestTimer')));
     this.titleToken = `${this.titleToken} ${model.get('name') || model.id}`;
     model = this.get('networkService').setModel(model);
 

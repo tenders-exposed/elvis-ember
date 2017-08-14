@@ -48,18 +48,15 @@ export default Component.extend({
     changeSortOrder() {
       let orderBy = this.get('orderBy') === 'asc' ? 'desc' : 'asc';
       this.set('orderBy', orderBy);
-      console.log('orderBy', orderBy);
-      if(this.get('sortBy')) {
+      if (this.get('sortBy')) {
         let ordered = _.orderBy(this.get('content'), this.get('sortBy'), orderBy);
         this.set('content', ordered);
       }
     },
     sortTable(sortBy) {
       this.set('sortBy', sortBy);
-      console.log('sortBy', sortBy);
-
       let ordered = _.orderBy(this.get('content'), sortBy, this.get('orderBy'));
-        this.set('content', ordered);
+      this.set('content', ordered);
 
     },
 

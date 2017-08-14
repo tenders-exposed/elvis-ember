@@ -248,11 +248,10 @@ export default Service.extend({
       };
       self.get('network.network').cluster(clusterOptionsByData);
     });
-    //this.set('checkClustered', true);
-    //this.setSuppliersProcurers();
-    //this.setRelationships();
-    //this.activate();
-
+    // this.set('checkClustered', true);
+    // this.setSuppliersProcurers();
+    // this.setRelationships();
+    // this.activate();
     // console.log('clusterOptionsByData', clusterOptionsByData);
     // console.log('nodes',  this.get('network.nodes'));
   },
@@ -263,13 +262,11 @@ export default Service.extend({
       this.deactivate();
     }
     if (this.get('clusters').length > 0 && !this.get('checkClustered')) {
-      console.log('setNetwork clustering');
       this.set('network', network);
       this.makeClusteredNetwork(this.get('nodes'), this.get('clusters'));
       this.set('checkClustered', true);
 
     } else {
-      console.log('setNetwork NOclustering');
 
       this.set('network', network);
       this.setSuppliersProcurers();

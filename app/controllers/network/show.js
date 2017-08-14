@@ -109,6 +109,9 @@ export default Controller.extend({
     let nodes = this.get('model.graph.nodes').length;
     let edges = this.get('model.graph.edges').length;
 
+    this.get('benchmark').store('performance.network.iterationsTime', timeS);
+    this.get('benchmark').save();
+
     let message =
       `
           <div id="network-info">
@@ -159,14 +162,14 @@ export default Controller.extend({
     },
     closeClustering(clusteredNodes, clusters, modified) {
       // check if clusters have been modified
-      if(!modified) {
+      if (!modified) {
         this.set('networkClusteringModal', false);
         this.set('model.clusters', clusters);
         this.set('model.graph.nodes', clusteredNodes);
       } else {
         this.set('networkClusteringModal', false);
         this.get('notifications').clearAll();
-        this.get('notifications').info('Network is being redrawn. This may take a while...', {autoClear: false});
+        this.get('notifications').info('Network is being redrawn. This may take a while...', { autoClear: false });
 
         // model.clusters  = [ {id: 'uniqueId',name: '', empty: true, type: '', node_ids: [id1, id2, id3]}, ]
         let clustersPayload = _.map(clusters, (c) => {
@@ -188,9 +191,9 @@ export default Controller.extend({
                       "graph": {
                         "nodes": ${JSON.stringify(nodesPayload)},
                         "edges": ${JSON.stringify(edgesPayload)},
-                        "clusters": ${JSON.stringify(clustersPayload)} 
-                        } 
-                      } 
+                        "clusters": ${JSON.stringify(clustersPayload)}
+                        }
+                      }
                   }`;
         let self = this;
 
@@ -211,7 +214,7 @@ export default Controller.extend({
 
               self.get('networkService').makeClusteredNetwork(clusteredNodes, clusters);
               self.get('notifications').clearAll();
-              self.get('notifications').success('Done! Clusters saved.', {autoClear: true});
+              self.get('notifications').success('Done! Clusters saved.', { autoClear: true });
             } else {
               self.get('notifications').error(`Error: Please login to save your cluster!`);
             }
@@ -247,7 +250,7 @@ export default Controller.extend({
       $('div#stabilization-info').fadeOut();
 
       this.set('networkStabilization', true);
-      Logger.info('Network stabilized**********************************************');
+      Logger.info('Network stabilized');
       this.get('networkService').setNetwork(this.get('network'));
 
     },
@@ -269,6 +272,7 @@ export default Controller.extend({
         let diff = event.iterations - this.get('stIterations');
         Logger.info(`Network was stabilized using ${diff} iterations more than assumed (${this.get('stIterations')})`);
       }
+      this.get('benchmark').store('performance.network.iterationsCount', event.iterations);
     }
   }
 });

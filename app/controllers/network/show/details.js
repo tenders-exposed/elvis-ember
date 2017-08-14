@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Controller, observer, inject } = Ember;
+const { Controller, observer, inject, $ } = Ember;
 
 export default Controller.extend({
   me: inject.service(),
@@ -55,6 +55,14 @@ export default Controller.extend({
   },
 
   actions: {
+    toggleMenu() {
+      $('.navbar-toggle').click(function(e) {
+        $('#main-navbar').toggleClass('open');
+        e.stopPropagation();
+        return false;
+      });
+    },
+
     closeDetails(networkId) {
       this.transitionToRoute('network.show', networkId);
     },

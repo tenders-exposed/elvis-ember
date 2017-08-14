@@ -49,7 +49,7 @@ export default Component.extend({
     this.addEmptyCluster();
   },
 
-  checkModified(){
+  checkModified() {
     this.set('modified', true);
   },
 

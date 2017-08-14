@@ -10,16 +10,16 @@ export default Component.extend({
   }),
   init() {
     this._super(...arguments);
-    this.set('option.key', this.get('option.id'));
-    this.set('option.name', this.get('option.text'));
+    this.set('option.key', this.get('option.x_slug_id'));
+
+    let type = this.get('option.type');
+    if (type === 'procuring_entity') {
+      this.set('option.type', 'procurer');
+    } else {
+      this.set('option.type', type);
+    }
   },
   click() {
-    // Hack for GB = UK, because TED data...
-    if (this.get('option.id') === 'UK') {
-      this.set('option.name', 'United Kingdom');
-      this.sendAction('onClick', this.get('option'));
-    } else {
-      this.sendAction('onClick', this.get('option'));
-    }
+    this.sendAction('onClick', this.get('option'));
   }
 });
