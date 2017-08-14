@@ -37,7 +37,7 @@
     overflow: hidden;
 
     .nodes-lists, .cluster-list {
-      height: 300px;
+      height: 245px;
     }
 
     .col-label {
@@ -70,6 +70,7 @@
     .cluster-node {
       display: inline-block;
       width: 100%;
+      overflow: hidden;
     }
   }
   .clusters {

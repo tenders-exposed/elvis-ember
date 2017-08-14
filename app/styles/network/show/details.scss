@@ -12,6 +12,16 @@ $network-sidebar-border: $border-base;
 $zindex-network-sidebar: 9;
 $zindex-network-sidebar-toggle: 91;
 
+.loading-network {
+  height: 5rem !important;
+  opacity: 0.6;
+  #details-sidebar .table-sidebar { display: none; }
+  .details-info-wrapper * {
+    height: 0px !important;
+  }
+
+}
+
 // network sidebar
 #details-sidebar {
   display: inline-block;

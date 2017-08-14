@@ -6,10 +6,11 @@ export default Component.extend({
   clusters: [],
   searchNode: '',
   searchCluster: '',
+  modified: false,
 
   restNodesList: observer('searchNode', function() {
     if (!this.get('searchNode')) {
-      _.forEach(this.get('nodes'), function(node) {
+      _.forEach(this.get('nodesClustering'), function(node) {
         EmberSet(node, 'hide', false);
       });
     }
@@ -47,6 +48,11 @@ export default Component.extend({
 
     this.addEmptyCluster();
   },
+
+  checkModified(){
+    this.set('modified', true);
+  },
+
   actions: {
     searchNodeList() {
       let mkRegex = (str) => {
@@ -56,7 +62,7 @@ export default Component.extend({
       };
 
       let searchWord = _.toLower(_.toString(this.get('searchNode')));
-      _.forEach(this.get('nodes'), function(node) {
+      _.forEach(this.get('nodesClustering'), function(node) {
         let label =  _.toLower(_.toString(node.label));
         if (label.match(mkRegex(searchWord))) {
           EmberSet(node, 'hide', false);
@@ -91,6 +97,7 @@ export default Component.extend({
       this.set(`clusters.${clusterIndex}.name`, clusterName);
       $(`.cluster${clusterIndex} .cluster-name`).removeClass('hide');
       $(`.cluster${clusterIndex} .edit-cluster-input`).addClass('hide');
+      this.checkModified();
 
     },
     closeClusterEdit(clusterIndex) {
@@ -133,6 +140,9 @@ export default Component.extend({
           autoClear: true
         });
       }
+
+      this.checkModified();
+
     },
     removeNode(node, nodeIndex, clusterIndex) {
       // add the node back to the nodes array;
@@ -144,6 +154,8 @@ export default Component.extend({
       if (this.get('clusters')[clusterIndex].nodes.length === 0) {
         this.get('clusters').removeAt(clusterIndex);
       }
+
+      this.checkModified();
     },
     deleteCluster(clusterIndex) {
       // put all nodes back in node list
@@ -157,6 +169,8 @@ export default Component.extend({
       });
       this.get('nodesClustering').pushObjects(clusterNodes);
       this.get('clusters').removeAt(clusterIndex);
+
+      this.checkModified();
 
     },
 
@@ -177,7 +191,8 @@ export default Component.extend({
       });
       nodesConcat.pushObjects(this.get('nodesClustering'));
 
-      this.sendAction('action', nodesConcat, this.get('clusters'));
+      this.sendAction('action', nodesConcat, this.get('clusters'), this.get('modified'));
+      this.set('modified', false);
     }
   }
 });
