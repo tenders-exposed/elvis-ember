@@ -18,37 +18,10 @@ div#network-container {
     max-width: 1.2*$button-height;
     z-index: 9;
 
-    .cogs {
-      position: absolute;
-      top: 30px;
-    }
-
-    .clustering {
-      position: absolute;
-      top: 60px;
-    }
-
-    i {
-      cursor: pointer;
-      border: 2px solid $color-icon;
-      color: $color-icon;
-      background: $main-bg;
-      padding: 4px 3px 2px 3px;
-      border-radius: 14px;
-      font-size: $fs01;
-
-      &:hover {
-        border-color: $color-icon-hover;
-        color: $color-icon-hover;
-      }
-
-      > .vis-button {
-        @extend .btn-floating;
-        @extend .transparent;
-        margin-bottom: 5px;
-        width: $button-height;
-        height: $button-height;
-      }
+    .vis-button {
+      @extend .btn-floating;
+      @extend .transparent;
+      margin-bottom: 5px;
     }
   }
 
