@@ -75,15 +75,24 @@
       {{/if}}
     {{/if}}
     <div id="network-controls">
-      <span class="vis-button" {{action "modalNetworkLink" on="click"}}>
-        {{fa-icon "link"}}
-      </span>
-      <span class="vis-button" {{action "stopPhysics" on="click"}}>
+      <a class="vis-button" {{action "modalNetworkLink" on="click"}}>
+        {{fa-icon "send"}}
+        {{#tooltip-on-component enableLazyRendering=true side='left'}}
+            Share link
+        {{/tooltip-on-component}}
+      </a>
+      <a class="vis-button" {{action "stopPhysics" on="click"}}>
         {{fa-icon 'cogs'}}
-      </span>
-      <span class="clustering" {{action "showClustering" on="click"}}>
-        {{fa-icon 'th-large' size=1}}
-      </span>
+        {{#tooltip-on-component enableLazyRendering=true side='left'}}
+            Stop physics
+        {{/tooltip-on-component}}
+      </a>
+      <a class="vis-button" {{action "showClustering" on="click"}}>
+        {{fa-icon 'circle-o' size=1}}
+        {{#tooltip-on-component enableLazyRendering=true side='left'}}
+            Node Clustering
+        {{/tooltip-on-component}}
+      </a>
 
     </div>
     {{#if networkLinkModal}}

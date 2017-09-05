@@ -11,6 +11,12 @@ body > .ember-view {
   height: 100%;
 }
 
+*::selection {
+  color: $text-color;
+  background-color: fade-out($primary-color,0.2);
+}
+
+
 //p { font-size: $fs2; }
 .el-title { @include title; }
 .light-text { color: $text-color; }
