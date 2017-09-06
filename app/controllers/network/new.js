@@ -154,9 +154,10 @@ export default Controller.extend({
       result.count = doc_count;
       result.name = text;
       result.state = { opened: false };
-      result.text = '<span class="details"><small>';
-      result.text += `${id} (${doc_count} / 0)`;
-      result.text += `</small><br><div>${text}</div></span>`;
+      result.text = '<div class="details">';
+      result.text += `<div class="cpv-title">${text}</div>`;
+      result.text += `<div class="cpv-code">${id} (${doc_count} / 0)</div>`;
+      result.text += `</div>`;
 
       let parent, cpvGroup, cpvDivision, regex;
 
