@@ -1,134 +1,115 @@
-div#selected-cpvs-container {
-  background: #1A1A1C;
-}
-div#cpv-container,
-div#selected-cpvs-container {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: block;
-  z-index: 1000;
-  ul#cpv-list {
-    &, & * {
-      background: #1A1A1C;
+/*
+ * Custom jstree theme
+*/
+
+.jstree-elvis {
+  $jstree-node-height:  $gutter-width;
+  $jstree-icon-width:   1.2rem;
+  $jstree-checkbox-width: $gutter-width;
+
+  margin-top: -1em;
+
+  .jstree-node {
+    font-size: $h4-fontsize;
+    padding: .3em 0em 1em 2rem;
+    position: relative;
+    border-bottom: 1px dotted rgba(255,255,255,0.1);
+
+    &:last-child {
+      border-bottom: none;
+      margin-bottom: -.5em;
     }
   }
-  >.btn {
-    margin-left: 10px;
-    margin-top: 10px;
-  }
-}
 
-ul.selected-cpvs {
-  i {
-    font-size: 17px !important;
-  }
-  i:hover {
-    color: orangered;
-    cursor: pointer;
-  }
-  li:hover {
-    span.details {
-      border-bottom: 1px solid orangered;
+  // text content
+  .jstree-anchor {
+    width: 100%;
+    font-size: $font-size-large;
+    padding-right: 3.5em;
+
+    color: fade-out($text-color,.6);
+    &:hover {
+      color: fade-out($text-color,.3);
     }
   }
-  li {
-    padding-top: 5px;
-    min-height: 20px;
-    line-height: 20px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    color: #d1d7df;
-    font-size: 34px;
-    line-height: 17px;
-    padding: 3px 0px;
+  .jstree-node .details {
+    white-space: initial;
+    small {
+      font-size: $font-size-small;
+      text-transform: uppercase;
+      font-weight: bold;
+      opacity: .4;
+    }
+  }
 
-    span.details {
-      display: inline-block;
-      width: 97%;
-      padding: 0px 3px 9px !important;
-      color: #d1d7df;
-      font-size: 14px;
-      line-height: 17px;
-      text-shadow: 0 2px 1px rgba(0, 0, 0, 0.3);
-      border-bottom: 1px solid grey;
+  // open/close area
+  .jstree-ocl {
+    height: 2em;
+    width: 2em;
+    text-align: center;
+    font-size: $font-size-large;
 
-      div {
-        font-family: serif;
-        font-size: 18px;
-        margin-bottom: 6px;
-        color: grey;
+    position: absolute;
+    left: -.5em;
+    top: 2.3rem;
+
+    &:hover {
+      color: $link-color;
+    }
+    // right caret if there are children
+    &:before {
+      @include fontawesome;
+      content: $fa-var-caret-right;
+    }
+  }
+  // down caret icon if node is open
+  .jstree-open > .jstree-ocl:before {
+    transition: transform .3s ease;
+    transform: rotate(90deg);
+  }
+  // do not display jstree-ocl if no children
+  .jstree-leaf > .jstree-ocl {
+    display: none;
+  }
+
+  // checkbox on right
+  .jstree-checkbox {
+    box-sizing: content-box;
+    position: absolute;
+    top: 2.5em;
+    right: 1rem;
+    width: $jstree-icon-width;
+    height: $jstree-icon-width;
+    line-height: $jstree-icon-width;
+    text-align: center;
+    font-size: $font-size-base;
+
+    border: 2px solid $text-muted-color;
+    border-radius: $border-radius-base;
+  }
+  .jstree-anchor:hover .jstree-checkbox {
+      border-color: $primary-color;
+  }
+
+
+  // selected node
+  // ------
+  .jstree-anchor.jstree-clicked {
+    color: $text-color;
+    .jstree-checkbox {
+      color: $bg-dark-color;
+      background-color: $primary-color;
+      border-color: $primary-color;
+      &:before {
+        @include fontawesome;
+        content: $fa-var-check;
       }
     }
-  }
-}
 
-.toggled { display: none; }
-
-.cpv-table-container {
-  .show-container {
-    display: block !important;
-  }
-  .search {
-    margin-bottom: 20px;
-
-    .search-input {
-      @include search-input;
-      width: 95%;
+    &:hover {
+      opacity: .6;
     }
   }
 }
 
-.cpv-tree,
-.cpv-selector-selected-codes-container ,
-.selected-codes {
-  .jstree-default-dark-small {
-    height: 500px;
-  }
-  .ps-container {
-    position:relative;
-    margin:0px auto;
-    padding:0px;
-    width: 100%;
-    height: 400px;
-    overflow: hidden;
-    padding-right: 20px;
-  }
-  .spacer { text-align:center }
-}
 
-.ps-scrollbar-y-rail {
-  background-color: grey !important;
-  width: 10px !important;
-
-  .ps-scrollbar-y {
-    margin-top: 10px;
-  }
-}
-
-.ps-scrollbar-y-rail:hover {
-  width: 10px !important;
-  .ps-scrollbar-y {
-    width: 6px !important;
-  }
-}
-.ps-scrollbar-y:hover {
-  width: 6px !important;
-}
-
-.cpv-ok-button {
-  margin-top: 0;
-  margin-bottom: 0;
-  width: 100px;
-  left: 50%;
-  margin-left: -50px;
-  color: white;
-}
-
-.jstree-photonui .jstree-icon {
-  background: url("/assets/photonui/d.png");
-}

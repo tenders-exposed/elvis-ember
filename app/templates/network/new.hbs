@@ -108,13 +108,10 @@
               <p><a href="https://simap.ted.europa.eu/cpv" target="_blank"><i class="fa fa-arrow-right"></i> Read more about CPV codes</a></p>
             </div>
             <div class="col m8 s12">
-              <!-- @NOTE: the following container contains CPV tree selector - the one which is currently in the modal.
-                i was unable to make it running easily just by copypasting the code. please make it work.
-                the height of the container is limited to 80% of viewport height (css: { height: 80vh }) -->
               <div class="cpv-selector cpv-tree">
                 <!-- @NOTE: ember-scrollable scrollbar needs to be wrapping the long content, and its parent must have limited height  - in this case .cpv-selector { height: 400px; } -->
                 {{#if loading.cpvs}}
-                  Loading...
+                  <i class="fa fa-spinner fa-pulse fa-fw"></i> Loading...
                 {{else}}
                   {{#if cpvs}}
                     {{#ember-scrollable}}

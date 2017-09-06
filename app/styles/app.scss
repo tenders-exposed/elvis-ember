@@ -8,6 +8,9 @@
 @import 'materialize';
 @import 'ember-cli-materialize';
 
+/* font awesome variables */
+@import 'bower_components/font-awesome/scss/_variables.scss';
+
 @import "ember-modal-dialog/ember-modal-structure";
 @import "ember-modal-dialog/ember-modal-appearance";
 
