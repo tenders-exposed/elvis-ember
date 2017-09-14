@@ -47,7 +47,7 @@ export default Route.extend(ApplicationRouteMixin, BodyClassMixin, {
     // resetting the toggled menu for all routes
     didTransition() {
       this.controllerFor('application').set('dropMenu', false);
-      this.controllerFor('application').set('footer', 'partials/main-footer');
+      this.controllerFor('application').set('footer', 'partials/footer');
     }
   }
 });
