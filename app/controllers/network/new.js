@@ -126,7 +126,7 @@ export default Controller.extend({
     searchOptions: { 'show_only_matches': true },
     checkbox: {
       'three_state': false,
-      'cascade': ''
+      'cascade': 'down'
     }
   },
   cpvSearchTerm: '',
