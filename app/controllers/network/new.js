@@ -117,7 +117,7 @@ export default Controller.extend({
     core: {
       'worker': false,
       'themes': {
-        //'url': '/assets/photonui/style.css',
+        // 'url': '/assets/photonui/style.css',
         'name': 'elvis',
         'theme': 'elvis'
       }
