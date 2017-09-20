@@ -55,13 +55,23 @@ $footer-line-height: 50px;
       }
     }
   }
-  .section-sponsors {
+  .section-partners {
     padding: 50px 0px;
     background: white;
-    .row { margin-bottom: 0px; height: 100%; }
-    .sponsor {
-      float: left;
-      img { max-height: 50px; }
+    .container {
+
+    }
+    .partners {
+      display: table;
+
+      > a {
+        display: table-cell;
+        padding: 0 10px;
+      }
+      > a > img {
+        width: 100%;
+        display: block;
+      }
     }
   }
 
