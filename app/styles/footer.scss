@@ -34,7 +34,14 @@ $footer-line-height: 50px;
     padding: 90px 0px;
     .row { margin-bottom: 0px; }
     .logo-footer {
-      img { width: 80px;}
+      text-align: center;
+      img { width: 150px;}
+      span {
+        font-family: $font-family-sans;
+        font-size: $font-size-small;
+        letter-spacing: .1em;
+        opacity: .5;
+      }
     }
 
     div.footer-links > div {
