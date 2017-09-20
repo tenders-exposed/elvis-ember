@@ -7,7 +7,7 @@ export default Route.extend({
   actions: {
     didTransition() {
       this.controllerFor('application').set('dropMenu', 'fullMenu');
-      this.controllerFor('application').set('footer', 'partials/welcome-footer');
+      this.controllerFor('application').set('footer', 'partials/footer');
     }
   }
 });
