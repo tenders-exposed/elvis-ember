@@ -189,8 +189,6 @@ export default Controller.extend({
 
         let data = `{"network": {
                       "graph": {
-                        "nodes": ${JSON.stringify(nodesPayload)},
-                        "edges": ${JSON.stringify(edgesPayload)},
                         "clusters": ${JSON.stringify(clustersPayload)}
                         }
                       }
