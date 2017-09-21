@@ -85,6 +85,7 @@ i.control-icon-light {
   left: auto !important;
   right: 0 !important;
   position: absolute;
+  z-index: 99;
   .login {
     background-color: darken($main-bg, 10);
     padding: 30px;
