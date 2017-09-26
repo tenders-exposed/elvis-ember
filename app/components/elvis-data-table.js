@@ -55,6 +55,9 @@ export default Component.extend({
     },
     sortTable(sortBy) {
       this.set('sortBy', sortBy);
+      if(sortBy === 'value') {
+        sortBy = 'unformatedValue';
+      }
       let ordered = _.orderBy(this.get('content'), sortBy, this.get('orderBy'));
       this.set('content', ordered);
 
