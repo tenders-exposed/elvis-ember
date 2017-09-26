@@ -42,6 +42,7 @@
 
     .col-label {
       color: $text-dark-color;
+      position: relative;
     }
 
     .cluster-node {
@@ -64,6 +65,15 @@
         i.supplier { color: $color-supplier;}
         i.procuring_entity { color: $color-procurer;}
       }
+    }
+  }
+  .nodes-filter-buttons {
+    position: absolute;
+    bottom: -1.5em;
+    left: 35%;
+    span {
+      margin-left: 5px;
+      cursor: pointer;
     }
   }
   .nodes {

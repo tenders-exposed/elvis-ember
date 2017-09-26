@@ -32,6 +32,11 @@ export default Component.extend({
       'nodes': []
     });
   },
+  sortNodes(nodes) {
+    return _.orderBy(nodes, ['type', 'label'], ['desc', 'asc']);
+
+  },
+
   didReceiveAttrs() {
     let nodesClustering = _.cloneDeep(this.get('networkService.nodes'));
     let clusters = _.cloneDeep(this.get('networkService.clusters'));
@@ -40,9 +45,9 @@ export default Component.extend({
       let notClusteredNodes = _.filter(nodesClustering, function(node) {
         return (typeof node.cluster === 'undefined') || node.cluster === '';
       });
-      this.set('nodesClustering', notClusteredNodes);
+      this.set('nodesClustering', this.sortNodes(notClusteredNodes));
     } else {
-      this.set('nodesClustering', nodesClustering);
+      this.set('nodesClustering', this.sortNodes(nodesClustering));
     }
     this.set('clusters', clusters);
 
@@ -54,6 +59,21 @@ export default Component.extend({
   },
 
   actions: {
+    filterNodes(filter) {
+      if(filter === 'all') {
+        _.forEach(this.get('nodesClustering'), function(node) {
+            EmberSet(node, 'filtered', false);
+        });
+      } else {
+        _.forEach(this.get('nodesClustering'), function(node) {
+          if(node.type != filter) {
+            EmberSet(node, 'filtered', true);
+          } else {
+            EmberSet(node, 'filtered', false);
+          }
+        });
+      }
+    },
     searchNodeList() {
       let mkRegex = (str) => {
         let ex = str.replace('*', '.*')

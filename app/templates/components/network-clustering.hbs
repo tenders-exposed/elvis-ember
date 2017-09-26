@@ -12,6 +12,11 @@
         <div class="col s6 nodes">
           <div class="col-label ">
             <h5 class="center-align">NODES</h5>
+            <div class="nodes-filter-buttons">
+              <span class="tab-icon figure-supplier" {{action "filterNodes" "supplier" on="click"}}></span>
+              <span class="tab-icon figure-procurer" {{action "filterNodes" "procuring_entity" on="click"}}></span>
+              <span class="tab-icon figure-all"  {{action "filterNodes" "all" on="click"}}></span>
+            </div>
           </div>
           <div class="search search-node-list">
             <div class="input-field search">
@@ -30,7 +35,7 @@
           <div class="nodes-lists">
             {{#ember-scrollable}}
             {{#each nodesClustering as |node|}}
-              {{#unless node.hide}}
+              {{#unless (or node.hide node.filtered)}}
                 {{#draggable-object content=node overrideClass="cluster-node list "}}
                   <span class="node-type">{{fa-icon 'circle' size=1 class=node.type}}</span>
                   <span class="node-label">{{node.label}}</span>
