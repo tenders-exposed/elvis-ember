@@ -50,7 +50,7 @@ export default Component.extend({
       this.set('orderBy', orderBy);
       if (this.get('sortBy')) {
         let sortBy = this.get('sortBy');
-        if(sortBy === 'value') {
+        if (sortBy === 'value') {
           sortBy = 'unformattedValue';
         }
         let ordered = _.orderBy(this.get('content'), sortBy, orderBy);
@@ -59,7 +59,7 @@ export default Component.extend({
     },
     sortTable(sortBy) {
       this.set('sortBy', sortBy);
-      if(sortBy === 'value') {
+      if (sortBy === 'value') {
         sortBy = 'unformattedValue';
       }
       let ordered = _.orderBy(this.get('content'), sortBy, this.get('orderBy'));
