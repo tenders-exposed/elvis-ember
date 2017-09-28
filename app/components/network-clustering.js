@@ -60,13 +60,13 @@ export default Component.extend({
 
   actions: {
     filterNodes(filter) {
-      if(filter === 'all') {
+      if (filter === 'all') {
         _.forEach(this.get('nodesClustering'), function(node) {
-            EmberSet(node, 'filtered', false);
+          EmberSet(node, 'filtered', false);
         });
       } else {
         _.forEach(this.get('nodesClustering'), function(node) {
-          if(node.type != filter) {
+          if (node.type != filter) {
             EmberSet(node, 'filtered', true);
           } else {
             EmberSet(node, 'filtered', false);
