@@ -2,6 +2,32 @@
 // -------------------
 
 #details-sidebar {
+  a.order {
+    margin-top: 2.5em;
+    cursor: pointer;
+  }
+  select {
+    cursor: pointer;
+    display: inline-block !important;
+    margin-top: 0px;
+    background-color: transparent;
+    width: 100%;
+    padding: 3px;
+    border: none;
+    border-bottom: 1px solid $color-dark;
+    border-radius: 2px;
+    height: 2rem;
+    &:focus {
+      outline: 0px;
+      border-bottom: 1px solid #f2f2f2;
+    }
+
+    option {
+      background: none;
+      background-color: transparent;
+    }
+  }
+
   $item-figure-size: 2em;
 
   table.data-table {

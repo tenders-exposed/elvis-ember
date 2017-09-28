@@ -22,6 +22,9 @@ export default Component.extend({
   // class for data-table element
   class: '',
 
+  sortBy: '',
+  orderBy: 'asc',
+
   // reset all variables regarding search if search input has no value
   contentObserver: observer('search', function() {
     if (!this.get('search')) {
@@ -29,14 +32,6 @@ export default Component.extend({
       this.set('searchLabel', '');
       this.set('content', this.get('defaultContent'));
     }
-  }),
-  // sort - a property passed from data-table
-  sortTable: observer('sort', function() {
-    let order = _.startsWith(this.get('sort'), '-') ? 'asc' : 'desc';
-    let field = _.trimStart(this.get('sort'), '-');
-
-    let ordered = _.orderBy(this.get('content'), field, order);
-    this.set('content', ordered);
   }),
 
   didUpdateAttrs() {
@@ -50,6 +45,21 @@ export default Component.extend({
   },
 
   actions: {
+    changeSortOrder() {
+      let orderBy = this.get('orderBy') === 'asc' ? 'desc' : 'asc';
+      this.set('orderBy', orderBy);
+      if (this.get('sortBy')) {
+        let ordered = _.orderBy(this.get('content'), this.get('sortBy'), orderBy);
+        this.set('content', ordered);
+      }
+    },
+    sortTable(sortBy) {
+      this.set('sortBy', sortBy);
+      let ordered = _.orderBy(this.get('content'), sortBy, this.get('orderBy'));
+      this.set('content', ordered);
+
+    },
+
     selectRow(selection) {
       this.sendAction('action', selection);
     },

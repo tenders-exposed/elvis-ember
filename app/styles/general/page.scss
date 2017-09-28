@@ -5,7 +5,6 @@
   z-index: 0;
 
   box-shadow: inset 0 -100px 120px -10px black;
-  padding-bottom: 2*$gutter-width;
 
   &:before {
     content: "";
@@ -16,7 +15,7 @@
 
     background-size: cover;
     opacity: 0.1;
-    top: -$navbar-height;
+    top: -25px-$navbar-height;
     left: 0;
     right: 0;
     bottom: 0;
@@ -29,5 +28,8 @@
 
   .hero {
     font-size: 125%;
+    padding: 2*$gutter-width 0;
+    max-width: 900px;
+    margin: 0 auto;
   }
 }

@@ -16,6 +16,19 @@ $gray5: $text-dark-color;
 $fill: #ffffff;
 $text: $text-dark-color;
 
+.details-graph-container{
+  height: calc(100vh - 250px);
+
+  .tse-scrollable {
+    border-right: 1px solid #1a1a1c;
+  }
+}
+#details-graph-id {
+  padding-top: 20px;
+  padding-right: 15px;
+  height: 100%;
+}
+
 #details-graph-statistic {
 
   min-height: 70px;

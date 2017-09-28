@@ -1,12 +1,15 @@
 // include materialize color mixins before setting the variables
-@import 'components/color';
+@import "components/color";
 
 // custom elvis variables + materialize variables
 @import "variables"; // NOTE: must be included before materialize
 
 /* 3rd party styles */
-@import 'materialize';
-@import 'ember-cli-materialize';
+@import "materialize";
+@import "ember-cli-materialize";
+
+/* font awesome variables */
+@import "fontawesome_variables.scss";
 
 @import "ember-modal-dialog/ember-modal-structure";
 @import "ember-modal-dialog/ember-modal-appearance";

@@ -11,6 +11,12 @@ body > .ember-view {
   height: 100%;
 }
 
+*::selection {
+  color: $text-color;
+  background-color: fade-out($primary-color,0.2);
+}
+
+
 //p { font-size: $fs2; }
 .el-title { @include title; }
 .light-text { color: $text-color; }
@@ -79,6 +85,7 @@ i.control-icon-light {
   left: auto !important;
   right: 0 !important;
   position: absolute;
+  z-index: 99;
   .login {
     background-color: darken($main-bg, 10);
     padding: 30px;

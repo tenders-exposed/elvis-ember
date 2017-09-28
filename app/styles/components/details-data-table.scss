@@ -39,6 +39,8 @@
   }
 
   .data-table {
+    height: calc(100vh - 350px);
+
     .ps-container {
       position: relative;
       margin: 0px auto;

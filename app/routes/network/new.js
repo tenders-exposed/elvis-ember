@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Route, inject, Logger } = Ember;
+const { Route, inject, Logger, A } = Ember;
 
 export default Route.extend({
   classNames: ['body-page'],
@@ -37,5 +37,6 @@ export default Route.extend({
     _.each(['countries', 'years'], function(item) {
       self.setAvailable(controller, item);
     });
+    controller.set('query.cpvs', A([]));
   }
 });

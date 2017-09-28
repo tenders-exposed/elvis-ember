@@ -60,14 +60,18 @@
     {{/tab-panel}}
 
     {{#tab-panel manager=supplierTabManager name="contractsGraph" class='tab-panel'}}
-      {{details-graph
-          id="details-graph-id"
-          contracts=modelDetails.contracts
-          fields=fields.contracts
-          partialPath="network/show/details/partials/tables/contracts"
-          route="suppliers"
-          nodeId=params.id
-      }}
+      <div class="details-graph-container">
+      {{#ember-scrollable}}
+        {{details-graph
+            id="details-graph-id"
+            contracts=modelDetails.contracts
+            fields=fields.contracts
+            partialPath="network/show/details/partials/tables/contracts"
+            route="suppliers"
+            nodeId=params.id
+        }}
+      {{/ember-scrollable}}
+      </div>
     {{/tab-panel}}
 
     {{#tab-panel manager=supplierTabManager name="procurers" class='tab-panel'}}

@@ -9,26 +9,27 @@
     </div>
 {{/if}}
 
-<div id="welcome-page">
-  <div class="full-width section-begin center-align">
-    <div class="container">
-      <div class="title el-title">
+<div id="welcome-page" class="page">
+  <div class="container">
+    <div class="hero center">
+      <h1>
         Visualisation tool for public spending data has arrived
+      </h1>
+      <p class="flow-text">
+        Raw and dirty public spending data visualised into a sexy, tidy, filterable node network. That’s Elvis. He’s not finished yet, but if you are adventurous, try him out!
+      </p>
+      <br>
+      <div>
+          <a href="#" class="btn-large transparent hide">Use ready-made network</a>
+          {{#link-to 'network.new' class="btn-large primary"}}Create a new network{{/link-to}}
       </div>
-      <div class="content  el-title">
-        Raw and dirty public spending data visualised into a sexy, tidy, <br>
-        filterable node network. That’s Elvis. <br>
-        He’s not finished yet, but if you are adventurous, try him out!
-      </div>
-      <div class="network-links align-center">
-          <a href="#" class="el-title">Use ready-made network</a>
-          <a href="#" class="el-title">Create a new network</a>
-      </div>
+      <br>
+      <br>
       <div class="node-types">
         <div class="row">
           <div class="col s4 center-align">
             <div class="figure-procurer"></div>
-            <h4 class="el-label">
+            <h4>
               Procurer Nodes
             </h4>
             <h6>
@@ -37,14 +38,14 @@
           </div>
           <div class="col s4 center-align">
             <div class="figure-supplier"></div>
-            <h4 class="el-label">Supplier Nodes</h4>
+            <h4>Supplier Nodes</h4>
             <h6>
               suspicious companies <br> favorite goverment contractors <br> lorem impsum
             </h6>
           </div>
           <div class="col s4 center-align">
             <div class="figure-relationship"></div>
-            <h4 class="el-label">Relationships</h4>
+            <h4>Relationships</h4>
             <h6>
               money flow <br>  amount of contracts  <br> lorem impsum
             </h6>
@@ -128,18 +129,6 @@
             </div>
           </div>
         </div>
-    </div>
-  </div>
-  <div class="full-width section-newsletter">
-    <div class="container el-title">
-      <div class="row">
-        <div class="col s6 text-newsletter"> Sign-up for email updates</div>
-        <div class="col s6 right-align">
-          <div>
-            <a href="#" >Sign up for Newsletter</a>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
