@@ -150,6 +150,7 @@ export default Service.extend({
         type: node.options.type,
         id: node.id,
         value: valueFormat(node.options.value),
+        unformattedValue: node.options.value,
         label: node.options.label,
         flags: node.options.flags,
         flagsCount: node.options.flags.length,
@@ -189,6 +190,7 @@ export default Service.extend({
         'from': edge.from.options.id,
         'to': edge.to.options.id,
         'value': valueFormat(edge.options.value),
+        'unformattedValue': edge.options.value,
         'valueType': edgeValueType,
         'id': edgeId,
         'link': `${edge.from.options.id}-${edge.to.options.id}`
