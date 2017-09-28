@@ -1,6 +1,5 @@
 $footer-line-height: 50px;
 .footer-container .container {
-  border-top: 1px solid #252527;
   background: #161618;
   .col {
     line-height: $footer-line-height;
@@ -13,17 +12,11 @@ $footer-line-height: 50px;
   }
 }
 
-#footer-pages {
-  height: 330px;
+#footer {
   clear: both;
 
   .section-links-footer {
-    padding: 40px 0px 0px 0px !important;
 
-    .container {
-      border-top: 2px solid  $color-dark;
-      padding: 40px 0px;
-    }
     i {
       color: $text-dark-color !important;
     }
@@ -35,14 +28,20 @@ $footer-line-height: 50px;
       }
     }
   }
-}
-#footer-welcome, #footer-pages{
+
   .section-links-footer {
     font-weight: normal;
     padding: 90px 0px;
     .row { margin-bottom: 0px; }
     .logo-footer {
-      img { width: 80px;}
+      text-align: center;
+      img { width: 150px;}
+      span {
+        font-family: $font-family-sans;
+        font-size: $font-size-small;
+        letter-spacing: .1em;
+        opacity: .5;
+      }
     }
 
     div.footer-links > div {
@@ -63,17 +62,49 @@ $footer-line-height: 50px;
       }
     }
   }
-  .section-sponsors {
+  .section-partners {
     padding: 50px 0px;
     background: white;
-    height: 220px;
-    .row { margin-bottom: 0px; height: 100%; }
-    .col { height: 100%; }
-    .valign-wrapper {
-      height: 100%;
-      img {
-        width: 90%;
-        margin: 0 auto;
+    .container {
+
+    }
+    .partners {
+      display: table;
+
+      > a {
+        display: table-cell;
+        padding: 0 10px;
+      }
+      > a > img {
+        width: 100%;
+        display: block;
+      }
+    }
+  }
+
+  .section-newsletter {
+    padding: 50px 0px;
+    background-color: #50787a;
+    border-top: 1px solid #1a1a1c;
+    .container {
+      color: #26f0fc;
+      .row { margin-bottom: 0px; }
+      .text-newsletter {
+        padding-top: 15px;
+        font-size: 2rem;
+      }
+      a {
+        display: inline-block;
+        font-size: 1.5rem;
+        font-weight: normal;
+        color: #26f0fc;
+        padding: 20px 50px;
+        border: 1px solid #26f0fc;
+
+        &:hover {
+          color: white;
+          border-color: white;
+        }
       }
     }
   }

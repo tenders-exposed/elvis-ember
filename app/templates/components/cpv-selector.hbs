@@ -35,7 +35,7 @@
            {{/if}}
            <br>
            <div class="cpv-selector-selected-codes-container">
-             {{#perfect-scroll scrollTop=100 includePadding=true suppressScrollX=true}}
+            {{#ember-scrollable}}
              <ul class="selected-cpvs">
              {{#if refresh}}
                {{#each selectedCodes as |selected|}}
@@ -52,7 +52,7 @@
                {{/each}}
              {{/if}}
              </ul>
-             {{/perfect-scroll}}
+            {{/ember-scrollable}}
            </div>
          </div>
       </div>
@@ -85,20 +85,20 @@
 
          {{elvis-loader loading=cpvs message="Loading Cpvs..."}}
         <div class="cpv-tree">
-          {{#perfect-scroll scrollTop=100 includePadding=true suppressScrollX=true}}
-           <div class="jstree-default-dark-small">
-             {{ember-jstree
-                 data=tree
-                 plugins=config.plugins
-                 themes=config.core.themes
-                 selectedNodes=selectedCodes
-                 searchOptions=config.searchOptions
-                 checkboxOptions=config.checkbox
-                 actionReceiver=jsTree
-                 searchTerm=searchTree
-             }}
-           </div>
-           {{/perfect-scroll}}
+          {{#ember-scrollable}}
+            <div class="jstree-default-dark-small">
+              {{ember-jstree
+                data=tree
+                plugins=config.plugins
+                themes=config.core.themes
+                selectedNodes=selectedCodes
+                searchOptions=config.searchOptions
+                checkboxOptions=config.checkbox
+                actionReceiver=jsTree
+                searchTerm=searchTree
+              }}
+            </div>
+          {{/ember-scrollable}}
         </div>
       </div>
     </div>

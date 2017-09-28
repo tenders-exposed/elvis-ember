@@ -70,14 +70,31 @@ export default Service.extend({
     let edge = _.find(this.get('relationships'), (o) => {
       return o.id == edgeId;
     });
-    if (typeof edge !== 'undefined') {
-      edge.valueType = this.get('model.options').edges;
-    }
 
     return edge;
   },
 
+  getFlaggedEdges(edges) {
+    let edgesFlagged = _.cloneDeep(edges);
+
+    _.map(edgesFlagged, (node) => {
+      if (Object.keys(node.flags).length > 0) {
+        let flags = '';
+        for (let i = 0; i < Object.keys(node.flags).length; i++) {
+          flags += '⚑';
+        }
+        node.label = flags;
+
+      }
+    });
+
+    return edgesFlagged;
+  },
+
   setModel(model) {
+    // let edges = model.get('flaggedGraph.edges');
+    // let nodesFl = model.get('flaggedGraph.nodes');
+
     if (!this.get('defaultNodes')) {
       let nodes = _.cloneDeep(model.get('graph.nodes'));
       this.set('defaultNodes', nodes);
@@ -108,6 +125,7 @@ export default Service.extend({
     this.set('model', model);
     this.set('edges', model.get('graph.edges'));
     this.set('nodes', model.get('graph.nodes'));
+    this.set('flaggedEdges', this.getFlaggedEdges(model.get('graph.edges')));
     this.set('clusters', clusters);
 
     return model;
@@ -132,7 +150,7 @@ export default Service.extend({
         type: node.options.type,
         id: node.id,
         value: valueFormat(node.options.value),
-        unformatedValue: node.options.value,
+        unformattedValue: node.options.value,
         label: node.options.label,
         flags: node.options.flags,
         flagsCount: node.options.flags.length,
@@ -159,7 +177,7 @@ export default Service.extend({
       }
       return value;
     };
-
+    let edgeValueType = this.get('model.options').edges;
     let relationships = [];
     let edges = this.get('network.network.body.edges');
     _.each(this.get('network.network.body.edgeIndices'), function(edgeId) {
@@ -172,7 +190,8 @@ export default Service.extend({
         'from': edge.from.options.id,
         'to': edge.to.options.id,
         'value': valueFormat(edge.options.value),
-        'unformatedValue': edge.options.value,
+        'unformattedValue': edge.options.value,
+        'valueType': edgeValueType,
         'id': edgeId,
         'link': `${edge.from.options.id}-${edge.to.options.id}`
       };
@@ -192,6 +211,7 @@ export default Service.extend({
 
     this.set('clusters', clusters);
     this.set('nodes', clusteredNodes);
+    // this.set('flaggedNodes', this.getFlaggedNodes(clusteredNodes));
 
     this.get('network.network').setData({
       nodes: clusteredNodes,
