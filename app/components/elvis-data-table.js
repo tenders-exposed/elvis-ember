@@ -49,12 +49,20 @@ export default Component.extend({
       let orderBy = this.get('orderBy') === 'asc' ? 'desc' : 'asc';
       this.set('orderBy', orderBy);
       if (this.get('sortBy')) {
-        let ordered = _.orderBy(this.get('content'), this.get('sortBy'), orderBy);
+        let sortBy = this.get('sortBy');
+        if(sortBy === 'value') {
+          sortBy = 'unformatedValue';
+        }
+
+        let ordered = _.orderBy(this.get('content'), sortBy, orderBy);
         this.set('content', ordered);
       }
     },
     sortTable(sortBy) {
       this.set('sortBy', sortBy);
+      if(sortBy === 'value') {
+        sortBy = 'unformatedValue';
+      }
       let ordered = _.orderBy(this.get('content'), sortBy, this.get('orderBy'));
       this.set('content', ordered);
 
