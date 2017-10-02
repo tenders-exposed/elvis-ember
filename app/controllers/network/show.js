@@ -14,7 +14,7 @@ export default Controller.extend({
       'shape': 'dot',
       'scaling': {
         'min': 5,
-        'max': 20
+        'max': 10
         // 'label': {
         //   'enabled': true
         // }
@@ -22,9 +22,7 @@ export default Controller.extend({
       'font': {
         'face': 'Roboto',
         'size': 10,
-        'color': 'rgba(255, 255, 255, .5)',
-        'strokeWidth': 2,
-        'strokeColor': 'rgba(50, 50, 50, .8)'
+        'color': 'rgba(255, 255, 255, .5)'
       }
     },
     'edges': {
@@ -46,6 +44,16 @@ export default Controller.extend({
       'color': {
         'color': '#313939',
         'highlight': '#b1b1b1'
+      },
+      'font': {
+        'face': 'Roboto',
+        'size': 9,
+        'color': 'rgba(255, 255, 255, .5)'
+      },
+      'scaling': {
+        'label': {
+          'enabled': false
+        }
       }
     },
     'layout': {
@@ -161,13 +169,15 @@ export default Controller.extend({
       this.set('networkClusteringModal', true);
     },
     closeClustering(clusteredNodes, clusters, modified) {
+
       // check if clusters have been modified
       if (!modified) {
-        self.get('networkService').deactivate();
+        //this.get('networkService').deactivate();
         this.set('networkClusteringModal', false);
         this.set('model.clusters', clusters);
         this.set('model.graph.nodes', clusteredNodes);
       } else {
+
         this.set('networkClusteringModal', false);
         this.get('notifications').clearAll();
         this.get('notifications').info('Network is being redrawn. This may take a while...', { autoClear: false });
@@ -181,6 +191,8 @@ export default Controller.extend({
             'node_ids': c.node_ids
           };
         });
+        let nodesPayload = this.get('networkService.defaultNodes');
+        let edgesPayload = this.get('networkService.edges');
 
         let networkId = this.get('model.id');
         let token = this.get('me.data.authentication_token');
@@ -188,6 +200,8 @@ export default Controller.extend({
 
         let data = `{"network": {
                       "graph": {
+                        "nodes": ${JSON.stringify(nodesPayload)},
+                        "edges": ${JSON.stringify(edgesPayload)},
                         "clusters": ${JSON.stringify(clustersPayload)}
                         }
                       }
@@ -215,7 +229,7 @@ export default Controller.extend({
             } else {
               self.get('notifications').error(`Error: Please login to save your cluster!`);
             }
-            self.get('networkService').activate();
+            //self.get('networkService').activate();
           }, (response) => {
             self.get('notifications').clearAll();
             _.forEach(response.errors, (error, index) => {

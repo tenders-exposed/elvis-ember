@@ -28,7 +28,8 @@
   vertical-align: middle;
 }
 .figure-procurer,
-.figure-supplier {
+.figure-supplier,
+.figure-all {
   @include network-entity(1em);
 }
 .figure-procurer {
@@ -36,6 +37,9 @@
 }
 .figure-supplier {
   background: $color-supplier;
+}
+.figure-all {
+  background: $color-relationship;
 }
 .figure-relationship {
   position: relative;

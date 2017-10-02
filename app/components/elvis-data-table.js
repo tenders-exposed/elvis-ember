@@ -53,7 +53,6 @@ export default Component.extend({
         if(sortBy === 'value') {
           sortBy = 'unformatedValue';
         }
-
         let ordered = _.orderBy(this.get('content'), sortBy, orderBy);
         this.set('content', ordered);
       }

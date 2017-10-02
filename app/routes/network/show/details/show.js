@@ -113,15 +113,23 @@ export default Route.extend({
 
     let endpointQ = this.endpoints[endpoint];
 
+    cpvs = _.map(cpvs, (cpv) => ('"' + cpv + '"'))
+      .join(', ');
+
+    let countriesQuery = (typeof countries === "undefined") ?
+      "" :
+      `"countries": ["${countries}"],`;
+
     // params from nodeIds
     let entityQuery = `{
         "query": {
           "${endpointQ}": [${nodeIds}],
           "years": [${years}],
-          "countries": ["${countries}"],
-          "cpvs": ["${cpvs}"]
+          ${countriesQuery}
+          "cpvs": [${cpvs}]
         }
       }`;
+    console.log("entityQuery ",entityQuery);
 
     return this.get('ajax')
       .post(`/contracts/${this.endpoints[endpoint]}_details`, {
