@@ -169,13 +169,14 @@ export default Controller.extend({
       this.set('networkClusteringModal', true);
     },
     closeClustering(clusteredNodes, clusters, modified) {
+
       // check if clusters have been modified
       if (!modified) {
-        self.get('networkService').deactivate();
         this.set('networkClusteringModal', false);
         this.set('model.clusters', clusters);
         this.set('model.graph.nodes', clusteredNodes);
       } else {
+
         this.set('networkClusteringModal', false);
         this.get('notifications').clearAll();
         this.get('notifications').info('Network is being redrawn. This may take a while...', { autoClear: false });
@@ -189,6 +190,8 @@ export default Controller.extend({
             'node_ids': c.node_ids
           };
         });
+        let nodesPayload = this.get('networkService.defaultNodes');
+        let edgesPayload = this.get('networkService.edges');
 
         let networkId = this.get('model.id');
         let token = this.get('me.data.authentication_token');
@@ -196,6 +199,8 @@ export default Controller.extend({
 
         let data = `{"network": {
                       "graph": {
+                        "nodes": ${JSON.stringify(nodesPayload)},
+                        "edges": ${JSON.stringify(edgesPayload)},
                         "clusters": ${JSON.stringify(clustersPayload)}
                         }
                       }
@@ -223,7 +228,6 @@ export default Controller.extend({
             } else {
               self.get('notifications').error(`Error: Please login to save your cluster!`);
             }
-            self.get('networkService').activate();
           }, (response) => {
             self.get('notifications').clearAll();
             _.forEach(response.errors, (error, index) => {
