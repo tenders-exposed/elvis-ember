@@ -28,7 +28,7 @@
         <div class="flags">{{fa-icon 'flag' size=1}}{{keyValue}}</div>
       {{/each-in}}
     </div>
-    <div class="row" style="margin-bottom: 0px">
+    <div class="row">
       <div class="col s6 left-align">
         <div class="el-label fs0">Total flow</div>
         <div class="el-title fs5">{{format-amount model.value '0,0[.]00 a'}}</div>
@@ -36,6 +36,13 @@
       <div class="col s6 left-align" >
         <div class="el-label fs0">Competition</div>
         <div class="el-title fs5">1.1</div>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 0px">
+      <div class="col s6 left-align">
+        {{#link-to "network.show.details.show" model.route model.link}}
+          show details
+        {{/link-to}}
       </div>
     </div>
   {{/if}}
@@ -65,10 +72,17 @@
       {{/each-in}}
     </div>
 
-    <div class="row" style="margin-bottom: 0px">
+    <div class="row">
       <div class="col s6 left-align">
         <span class="el-label fs0">{{model.valueType}}</span>
         <span class="el-title fs4">{{model.value}}</span>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 0px">
+      <div class="col s6 left-align">
+          {{#link-to "network.show.details.show" model.route model.link}}
+              show details
+          {{/link-to}}
       </div>
     </div>
   {{/if}}
