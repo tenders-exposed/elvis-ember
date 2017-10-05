@@ -33,3 +33,24 @@
     margin: 0 auto;
   }
 }
+
+
+
+/* Static pages */
+#page-about {
+  padding-bottom: 50px;
+
+  .team {
+    .card {
+      min-height: 160px;
+    }
+  }
+
+  .partners {
+    img {
+      max-width: 100%;
+      max-height: 50px;
+    }
+  }
+
+}
