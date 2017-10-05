@@ -187,7 +187,7 @@ export default Service.extend({
       let edge = edges[edgeId];
       let flags = {};
       let flagsCount = 0;
-      if(typeof edge.title !== 'undefined' && edge.title !== '') {
+      if (typeof edge.title !== 'undefined' && edge.title !== '') {
         let flagsLabels = _.split(edge.title, ', ');
         _.forEach(flagsLabels, (flagLabel) => {
           flags[flagLabel] = 1;
@@ -195,18 +195,18 @@ export default Service.extend({
         });
       }
       let edgeDetails = {
-        'flags': flags,
-        'flagsCount': flagsCount,
-        'fromLabel': edge.from.options.label,
-        'toLabel': edge.to.options.label,
-        'from': edge.from.options.id,
-        'to': edge.to.options.id,
-        'value': valueFormat(edge.options.value),
-        'unformattedValue': edge.options.value,
-        'valueType': edgeValueType,
-        'id': edgeId,
-        'link': `${edge.from.options.id}-${edge.to.options.id}`,
-        'route': 'relationships'
+        flags,
+        flagsCount,
+        fromLabel: edge.from.options.label,
+        toLabel: edge.to.options.label,
+        from: edge.from.options.id,
+        to: edge.to.options.id,
+        value: valueFormat(edge.options.value),
+        unformattedValue: edge.options.value,
+        valueType: edgeValueType,
+        id: edgeId,
+        link: `${edge.from.options.id}-${edge.to.options.id}`,
+        route: 'relationships'
       };
       relationships.pushObject(edgeDetails);
     });
