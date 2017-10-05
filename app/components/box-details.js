@@ -30,8 +30,8 @@ export default Component.extend({
     if (typeSelected === 'edge') {
       let edgeDetails = this.get('networkService').getEdgeById(elementId);
       this.set('model', edgeDetails);
-      Logger.debug('selected edge', edgeDetails);
-      Logger.debug('edgeId', elementId);
+      // Logger.debug('selected edge', edgeDetails);
+      // Logger.debug('edgeId', elementId);
     }
   },
 
