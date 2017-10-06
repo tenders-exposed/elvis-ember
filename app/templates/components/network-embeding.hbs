@@ -1,0 +1,26 @@
+<div id="modalEmbeding">
+  <div class="modal-container">
+    <div class="modal-content">
+      <div class="row">
+        <h4>Network Embeding</h4>
+        <span {{action "closeModal" on="click"}}>
+          {{fa-icon 'close' size=1 class="close"}}
+        </span>
+      </div>
+
+      <div class="row">
+        <div id="canvas-controls">
+          <span  {{action "zoom" "in" on="click"}}>
+            {{fa-icon "plus"}}
+          </span>
+          <span  {{action "zoom" "out" on="click"}}>
+            {{fa-icon "minus"}}
+          </span>
+        </div>
+        <div id="cloned-canvas">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

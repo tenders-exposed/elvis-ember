@@ -77,17 +77,16 @@
     <div id="network-controls">
       <a class="vis-button" {{action "modalNetworkLink" on="click"}}>
         {{fa-icon "send"}}
-
       </a>
       <a class="vis-button" {{action "stopPhysics" on="click"}}>
         {{fa-icon 'cogs'}}
-
       </a>
       <a class="vis-button" {{action "showClustering" on="click"}}>
         {{fa-icon 'circle-o' size=1}}
-        
       </a>
-
+      <a class="vis-button" {{action "showEmbeding" on="click"}}>
+        {{fa-icon 'link' size=1}}
+      </a>
     </div>
     {{#if networkLinkModal}}
     <div id="modalNetworkLink" >
@@ -109,6 +108,15 @@
       {{network-clustering
           action="closeClustering"
           class="clustering"
+          networkService = networkService
+          notifications = notifications
+      }}
+    {{/if}}
+    {{#if networkEmbedingModal}}
+      {{network-embeding
+          canvas = visCanvas
+          action="closeEmbeding"
+          class="embeding"
           networkService = networkService
           notifications = notifications
       }}
