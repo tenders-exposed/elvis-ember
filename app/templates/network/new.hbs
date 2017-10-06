@@ -152,19 +152,35 @@
               <div class="row">
                 <div class="qb-rendering-nodes col m5 s12">
                   <h5>Node size<span class="text-muted">represents</span></h5>
-                  <input checked name="nodes" type="radio" value="count" id="nodeSizeCount" />
+                  {{radio-button
+                      value="count"
+                      radioId="nodeSizeCount"
+                      groupValue=query.nodes
+                      }}
                   <label class="node-size-count" for="nodeSizeCount">Number of contracts</label>
                   <br>
-                  <input name="nodes" type="radio" value="sum" id="nodeSizeSum" />
+                  {{radio-button
+                      value="sum"
+                      radioId="nodeSizeSum"
+                      groupValue=query.nodes
+                      }}
                   <label class="node-size-sum" for="nodeSizeSum">Money sum of all contracts</label>
                 </div>
                 <div class="qb-rendering-edges col m7 s12">
                   <h5>Edge thickness<span class="text-muted">represents</span></h5>
-                  <input checked name="edges" type="radio" value="count" id="edgeSizeCount" />
-                  <label for="edgeSizeCount">Number of contracts</label>
+                  {{radio-button
+                      value="count"
+                      groupValue=query.edges
+                      radioId="edgeSizeCount"
+                      }}
+                    <label class="edge-size-count" for="edgeSizeCount"> Number of contracts </label>
                   <br>
-                  <input name="edges" type="radio" value="sum" id="edgeSizeSum" />
-                  <label for="edgeSizeSum">Money flow between entities</label>
+                  {{radio-button
+                      value="sum"
+                      groupValue=query.edges
+                      radioId="edgeSizeSum"
+                      }}
+                    <label class="edge-size-sum" for="edgeSizeSum"> Money flow between entities </label>
                 </div>
               </div>
             </div>
