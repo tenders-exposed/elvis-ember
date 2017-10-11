@@ -69,6 +69,7 @@
     "ember-models-table": "1.5.0",
     "ember-moment": "7.3.0",
     "ember-new-computed": "1.0.3",
+    "ember-radio-button": "^1.1.1",
     "ember-resolver": "^4.0.0",
     "ember-scrollable": "^0.4.9",
     "ember-select-guru": "1.1.2",

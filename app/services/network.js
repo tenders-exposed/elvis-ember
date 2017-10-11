@@ -77,17 +77,18 @@ export default Service.extend({
   getFlaggedEdges(edges) {
     let edgesFlagged = _.cloneDeep(edges);
 
-    _.map(edgesFlagged, (node) => {
-      if (Object.keys(node.flags).length > 0) {
+    _.map(edgesFlagged, (edge) => {
+      if (Object.keys(edge.flags).length > 0) {
         let flags = '';
-        for (let i = 0; i < Object.keys(node.flags).length; i++) {
+        for (let i = 0; i < Object.keys(edge.flags).length; i++) {
           flags += '⚑';
         }
-        node.label = flags;
+        edge.label = flags;
+        // hack because in vis-network the flags are not stored
+        edge.title = _.join(_.keys(edge.flags), ', ');
 
       }
     });
-
     return edgesFlagged;
   },
 
@@ -159,8 +160,10 @@ export default Service.extend({
       };
 
       if (nodeDetails.type == 'supplier') {
+        nodeDetails.route = 'suppliers';
         suppliers.pushObject(nodeDetails);
       } else {
+        nodeDetails.route = 'procurers';
         procurers.pushObject(nodeDetails);
       }
     });
@@ -182,18 +185,28 @@ export default Service.extend({
     let edges = this.get('network.network.body.edges');
     _.each(this.get('network.network.body.edgeIndices'), function(edgeId) {
       let edge = edges[edgeId];
+      let flags = {};
+      let flagsCount = 0;
+      if (typeof edge.title !== 'undefined' && edge.title !== '') {
+        let flagsLabels = _.split(edge.title, ', ');
+        _.forEach(flagsLabels, (flagLabel) => {
+          flags[flagLabel] = 1;
+          flagsCount++;
+        });
+      }
       let edgeDetails = {
-        'flags': edge.options.flags ? edge.options.flags : [],
-        'flagsCount': edge.options.flagsCount ? edge.options.flags.length : 0,
-        'fromLabel': edge.from.options.label,
-        'toLabel': edge.to.options.label,
-        'from': edge.from.options.id,
-        'to': edge.to.options.id,
-        'value': valueFormat(edge.options.value),
-        'unformattedValue': edge.options.value,
-        'valueType': edgeValueType,
-        'id': edgeId,
-        'link': `${edge.from.options.id}-${edge.to.options.id}`
+        flags,
+        flagsCount,
+        fromLabel: edge.from.options.label,
+        toLabel: edge.to.options.label,
+        from: edge.from.options.id,
+        to: edge.to.options.id,
+        value: valueFormat(edge.options.value),
+        unformattedValue: edge.options.value,
+        valueType: edgeValueType,
+        id: edgeId,
+        link: `${edge.from.options.id}-${edge.to.options.id}`,
+        route: 'relationships'
       };
       relationships.pushObject(edgeDetails);
     });
