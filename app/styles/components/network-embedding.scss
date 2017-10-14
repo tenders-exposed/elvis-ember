@@ -1,0 +1,87 @@
+.ember-view.embeding{
+  background: rgba(26, 26, 28, 0.57);
+  width: 71%;
+  position: absolute;
+  right: 0px;
+  z-index: 110;
+}
+#modalEmbeding {
+  position: absolute;
+  top: 10%;
+  right: 22%;
+  min-width: 61%;
+  padding: 20px;
+  z-index: 99;
+  //height: 300px;
+  .modal-container {
+    @include box;
+    width: 100%;
+    //height: 400px;
+
+    .close {
+      top: 15px;
+      right: 15px;
+    }
+    .modal-content {
+      h4 { margin: 7px 0px;}
+    }
+  }
+   #downloadLnk {
+     cursor: pointer;
+   }
+  #container-canvas {
+    position: relative;
+    display: inline-block;
+
+    #cloned-canvas {
+      width: 500px;
+      height: 300px;
+      overflow: hidden;
+
+      border: 1px solid $text-color;
+      position: relative;
+
+      canvas {
+        position: absolute;
+      }
+    }
+
+    #elvis-watermark {
+      position: absolute;
+      right: 7px;
+      bottom: 0px;
+      z-index: 9999;
+    }
+  }
+
+  #canvas-controls {
+    position: absolute;
+    left: 20px;
+    top: 77px;
+    z-index: 9999;
+    span {
+      padding: 1px 6px 0px 6px;
+      border: 1px solid #1a1a1c;
+      color: #1a1a1c;
+      display: block;
+      cursor: pointer;
+      background-color: $text-color;
+      font-size: 0.5rem;
+
+      &:hover {
+        background-color: whitesmoke;
+      }
+      &:first-child {
+        border-radius: 5px 5px 0px 0px;
+        border-bottom: none;
+        padding-top: 2px;
+      }
+      &:last-child {
+        border-radius: 0px 0px 5px 5px;
+        border-top: none;
+        padding-bottom: 2px;
+      }
+    }
+
+  }
+}

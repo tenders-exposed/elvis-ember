@@ -84,7 +84,7 @@
       <a class="vis-button" {{action "showClustering" on="click"}}>
         {{fa-icon 'circle-o' size=1}}
       </a>
-      <a class="vis-button" {{action "showEmbeding" on="click"}}>
+      <a class="vis-button" {{action "showEmbedding" on="click"}}>
         {{fa-icon 'link' size=1}}
       </a>
     </div>
@@ -112,13 +112,14 @@
           notifications = notifications
       }}
     {{/if}}
-    {{#if networkEmbedingModal}}
-      {{network-embeding
+    {{#if networkEmbeddingModal}}
+      {{network-embedding
           canvas = visCanvas
-          action="closeEmbeding"
+          action="closeEmbedding"
           class="embeding"
           networkService = networkService
           notifications = notifications
+          networkId = model.id
       }}
     {{/if}}
 

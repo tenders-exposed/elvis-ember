@@ -1,0 +1,64 @@
+<div id="modalEmbeding">
+  <div class="modal-container">
+    <div class="modal-content">
+      <div class="row">
+        <h4>Network Embeding</h4>
+        <span {{action "closeModal" on="click"}}>
+          {{fa-icon 'close' size=1 class="close"}}
+        </span>
+      </div>
+
+      <div class="row">
+        <div id="canvas-controls">
+          <span  {{action "zoom" "in" on="click"}}>
+            {{fa-icon "plus"}}
+          </span>
+          <span  {{action "zoom" "out" on="click"}}>
+            {{fa-icon "minus"}}
+          </span>
+        </div>
+        <div id="container-canvas">
+          <div id="cloned-canvas">
+
+          </div>
+          <div id="elvis-watermark">
+            <img src="/images/elvis-water-mark3.png" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4">
+          <h5 style="margin-bottom: 5px !important;"><small>width</small></h5>
+          <div class="input-field small" style="margin-top: 0px !important;">
+            {{input type="text" value=width id="canvasWidth"}}
+          </div>
+        </div>
+        <div class="col s4">
+          <h5 style="margin-bottom: 5px !important;"><small>height</small></h5>
+          <div class="input-field small" style="margin-top: 0px !important;">
+            {{input type="text" value=height id="canvasHeight"}}
+          </div>
+        </div>
+        <div class="col s4">
+          <a id="downloadLnk" class="btn-small primary" download="YourFileName.png"  >
+            Save image
+          </a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <h5 style="margin-bottom: 5px !important;"><small>Share Url</small></h5>
+          <div class="network-settings-name input-field small" style="margin-top: 0px !important;">
+            <span class="input-prefix">
+              {{fa-icon "link"}}
+            </span>
+            <input value="{{networkLink}}" id="network-link"
+                   type="text" autofocus onFocus="this.select()" onclick="this.select()" >
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

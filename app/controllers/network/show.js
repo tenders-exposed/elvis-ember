@@ -97,7 +97,7 @@ export default Controller.extend({
 
   networkLinkModal: false,
   networkClusteringModal: false,
-  networkEmbedingModal: false,
+  networkEmbeddingModal: false,
   networkStabilization: false,
 
   init() {
@@ -169,14 +169,14 @@ export default Controller.extend({
       this.set('networkClusteringModal', true);
     },
 
-    showEmbeding() {
-       let canvas = $('.vis-network canvas');
-       this.set('visCanvas', canvas);
-       this.set('networkEmbedingModal', true);
+    showEmbedding() {
+      let canvas = $('.vis-network canvas');
+      this.set('visCanvas', canvas);
+      this.set('networkEmbeddingModal', true);
     },
 
-    closeEmbeding() {
-      this.set('networkEmbedingModal', false);
+    closeEmbedding() {
+      this.set('networkEmbeddingModal', false);
 
     },
     closeClustering(clusteredNodes, clusters, modified) {
