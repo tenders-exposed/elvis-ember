@@ -147,6 +147,7 @@ export default Service.extend({
     let nodes = this.get('network.network.body.nodes');
     _.each(this.get('network.network.body.nodeIndices'), function(nodeId) {
       let node = nodes[nodeId];
+
       let nodeDetails = {
         type: node.options.type,
         id: node.id,
@@ -156,6 +157,8 @@ export default Service.extend({
         flags: node.options.flags,
         flagsCount: node.options.flags.length,
         link: node.id,
+        isCluster: node.isCluster,
+        containedNodesCount: node.isCluster && node.containedNodes ? Object.keys(node.containedNodes).length : 0,
         nodeId
       };
 
@@ -240,6 +243,7 @@ export default Service.extend({
       let clusterNodesCount = cluster.nodes.length;
       let clusterName = cluster.name ? `${cluster.name} (${clusterNodesCount})` : `cluster ${clusterIndex} (${clusterNodesCount})`;
       let nodeColor = cluster.type === 'supplier' ? '#27f0fc' : '#f0308e';
+      let nodeBorder = cluster.type === 'supplier' ? '#86F4FC' : '#FF69B4';
 
       let count = 0;           // eslint-disable-line no-unused-vars
       let childEdgesOut = [];  // eslint-disable-line no-unused-vars
@@ -272,13 +276,25 @@ export default Service.extend({
         clusterNodeProperties: {
           id: clusterId,
           label: clusterName,
-          shape: 'icon',
-          icon: {
+          shape: 'dot',
+          borderWidth: 1,
+          color: {
+            border: nodeBorder,
+            background: nodeColor
+          },
+          shadow: {
+            color: nodeColor,
+            size: 7,
+            x: 0,
+            y: 0
+          }
+
+          /*icon: {
             face: 'FontAwesome',
             code: '\uf0c0',
             size: 40,
             color: nodeColor
-          }
+          }*/
         }
       };
       self.get('network.network').cluster(clusterOptionsByData);

@@ -51,7 +51,23 @@
   // entity circle with number
   .data-table td.item-figure {
 
+    position: relative;
     width: $item-figure-size;
+
+    span.containedNodes {
+      top: 0px;
+      right: 0px;
+      position: absolute;
+      background: white;
+      border-radius: 7px;
+      padding: 1px 7px 0px 7px;
+      z-index: 99;
+      color: #1e1e20;
+      font-weight: bold;
+      font-size: 0.7rem;
+      line-height: 0.9rem;
+    }
+
     > a { display: inline-block; }
 
     figure {
