@@ -3,6 +3,7 @@
   // page default background
   position: relative;
   z-index: 0;
+  padding-bottom: 2*$gutter-width;
 
   box-shadow: inset 0 -100px 120px -10px black;
 
@@ -22,6 +23,17 @@
     position: absolute;
     z-index: -1;
   }
+
+
+  /* general typo */
+  ul {
+    padding-left: $gutter-width;
+    list-style-type: disc;
+  }
+  ul li {
+    list-style-type: disc;
+  }
+
 
   /* Scaffoling
   ------------------------ */
