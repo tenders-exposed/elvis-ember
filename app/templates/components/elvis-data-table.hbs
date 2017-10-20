@@ -36,6 +36,11 @@
       {{#each content as |row|}}
         <tr class="{{if row.isSelected 'selected'}}">
             <td class="{{if row.cluster (concat 'cluster ' name) name}} item-figure">
+              {{#if row.isCluster}}
+                <span class="containedNodes">
+                  {{row.containedNodesCount}}
+                </span>
+              {{/if}}
               <figure>
 	              <small>{{format-amount row.value "0,0[.]a"}}</small>
                 <a class="item-zoom-to" {{action "selectRow" row on="click"}}>
