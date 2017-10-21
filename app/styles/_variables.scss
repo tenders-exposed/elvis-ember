@@ -309,6 +309,18 @@ $small-and-down: "only screen and (max-width : #{$small-screen})";
 $medium-and-down: "only screen and (max-width : #{$medium-screen})";
 $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width : #{$medium-screen})";
 
+/* NETWORK vars
+  =========================================================================== */
+$network-sidebar-width: 30vw;
+$network-sidebar-padding: $padding-base;
+$network-sidebar-bg: fade-out(lighten($bg-color,2%), 0.1);
+$network-infowindow-width: calc(100% - $network-sidebar-width);
+$network-sidebar-border: $border-base;
+
+/* NETWORK vars
+  =========================================================================== */
+$modal-box-shadow:    0 10px 15px rgba(0,0,0,0.6);
+
 
 /* Navigation Bar
    ========================================================================== */
@@ -393,3 +405,14 @@ $collection-link-color: $primary-color;
    ========================================================================== */
 
 $progress-bar-color: $primary-color;
+
+
+/* Z-indexes
+  ==========
+ */
+$zindex-network-sidebar: 89;
+$zindex-network-sidebar-toggle: 91;
+$zindex-network-sidenav: 92;
+$zindex-navbar: 98;
+$zindex-modal:      999;
+$zindex-details-container:     89;

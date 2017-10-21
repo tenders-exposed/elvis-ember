@@ -109,14 +109,14 @@ export default Component.extend({
       });
     },
     editCluster(clusterIndex) {
-      $(`.cluster${clusterIndex} .cluster-name`).addClass('hide');
-      $(`.cluster${clusterIndex} .edit-cluster-input`).removeClass('hide');
+      $(`.cluster${clusterIndex} .edit-cluster-name`).addClass('hide');
+      $(`.cluster${clusterIndex} .save-cluster-name`).removeClass('hide');
+      $(`.cluster${clusterIndex} .cluster-text-input`).focus();
     },
     saveClusterName(clusterName, clusterIndex) {
-
       this.set(`clusters.${clusterIndex}.name`, clusterName);
-      $(`.cluster${clusterIndex} .cluster-name`).removeClass('hide');
-      $(`.cluster${clusterIndex} .edit-cluster-input`).addClass('hide');
+      $(`.cluster${clusterIndex} .save-cluster-name`).addClass('hide');
+      $(`.cluster${clusterIndex} .edit-cluster-name`).removeClass('hide');
       this.checkModified();
 
     },
@@ -138,6 +138,8 @@ export default Component.extend({
         this.set(`clusters.${clusterIndex}.name`, nodeLabel);
         this.addEmptyCluster();
       }
+
+
 
       let clusterType = this.get('clusters')[clusterIndex].type;
 
