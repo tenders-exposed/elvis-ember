@@ -3,16 +3,6 @@
 
 // TODO: consider less missleading naming: #network-sidebar, #network-infowindow
 
-$network-sidebar-width: 30vw;
-$network-sidebar-padding: $padding-base;
-$network-sidebar-bg: fade-out(lighten($bg-color,2%), 0.1);
-$network-infowindow-width: calc(100% - $network-sidebar-width);
-$network-sidebar-border: $border-base;
-
-$zindex-network-sidebar: 89;
-$zindex-network-sidebar-toggle: 91;
-$zindex-network-sidenav: 92;
-
 .loading-network {
   height: 5rem !important;
   opacity: 0.6;

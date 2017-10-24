@@ -1,154 +1,265 @@
+// modal backdrop
 .ember-view.clustering{
-  background: rgba(26, 26, 28, 0.57);
-  width: 71%;
+  background: fade-out(#000,0.3);
+  width: 100%;
+  height: 100vh;
   position: absolute;
   right: 0px;
-  z-index: 99;
-}
-.ember-view.clustering {
- //height: auto !important;
-  & .ember-view {
-    /*height: auto !important;*/
+  top: 0;
+  z-index: $zindex-modal;
+
+  @media (max-width: $medium-screen) {
+    top: -$navbar-height;
   }
 }
 #modalClustering {
   position: absolute;
-  top: 20%;
-  right: 22%;
-  width: 61%;
+  top: 10%;
+  width: 100%;
   z-index: 9;
-  //height: 300px;
-  z-index: 9;
+
   .modal-container {
     @include box;
-    width: 100%;
-    //height: 400px;
+    box-shadow: $modal-box-shadow;
+    width: 700px;
+    max-width: 90%;
+    margin: 0 auto;
 
     .close {
-      top: 15px;
-      right: 15px;
-    }
-    .modal-content {
-      h4 { margin: 7px 0px;}
+      position: absolute;
+      top: $gutter-width;
+      right: $gutter-width;
     }
   }
+
   .nodes, .clusters {
     height: 350px;
     overflow: hidden;
+    position: relative;
+    z-index: 4;
 
-    .nodes-lists, .cluster-list {
+    // slidght gradient at the bottom of each list
+    &:after {
+      content: ' ';
+      z-index: 5;
+      display: block;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 30px;
+      background: linear-gradient(to bottom, rgba(26,26,28,0) 0%,rgba(26,26,28,1) 100%);
+    }
+    .cluster-list-inner,
+    .cluster-node.list {
+      &:last-child { margin-bottom: 20px; } //so the gradient doesnt overlap with last item
+    }
+
+
+    .nodes-lists,
+    .cluster-list {
+      max-height: 245px;
+    }
+    .cluster-list-container,
+    .cluster-list-wrapper,
+    .nodes-lists {
       height: 245px;
     }
+  }
+  .col-label {
+    color: $text-dark-color;
+    position: relative;
+  }
 
-    .col-label {
-      color: $text-dark-color;
+  .cluster-node {
+    border: 1px solid $box-border-color;
+    background: rgba(255,255,255,0.05);
+    border-radius: 3px;
+    padding: 0 6px;
+    line-height: 1.6em;
+    margin: 5px 0;
+    display: block;
+    position: relative;
+
+    // truncate if the text is too long
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &:hover {
+      border-color: lighten($box-border-color,10%);
+      .node-label { color: $text-color; }
+    }
+
+    > .node-label {
+      color: $text-muted-color;
+    }
+
+    > .node-type {
+      font-size: .5em;
+      line-height: 1em;
       position: relative;
+      top: -.1em;
+      margin-right: .2em;
+      &.supplier { @extend .figure-supplier; }
+      &.procuring_entity { @extend .figure-procurer; }
     }
 
-    .cluster-node {
-      border: 1px solid $box-border-color;
-      border-radius: 5px;
-      padding: 3px;
-      height: 30px !important;
-      overflow-y: hidden;
-
-      &.remove {
-        display: none;
-      }
-      .node-label {
-        color: $text-dark-color;
-        cursor: pointer;
-        &:hover { color: $text-color;}
-      }
-
-      .node-type {
-        i.supplier { color: $color-supplier;}
-        i.procuring_entity { color: $color-procurer;}
-      }
-    }
   }
-  .nodes-filter-buttons {
-    position: absolute;
-    bottom: -1.5em;
-    left: 35%;
-    span {
-      margin-left: 5px;
-      cursor: pointer;
-    }
-  }
+
   .nodes {
+    padding-right: $gutter-width;
     .cluster-node {
-      display: inline-block;
+      cursor: move;
       width: 100%;
       overflow: hidden;
     }
   }
+
   .clusters {
+    padding-left: $gutter-width;
+    border-left: 1px solid rgba(255,255,255,0.1);
 
+    // reverse the order so the "drag here" is always on the top
+    .cluster-list-inner {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
+    @keyframes newCluster {
+       from { visibility: 0; max-height: 0; }
+       to { visibility: 1; max-height: 999em;  }
+     }
     .cluster {
-      min-height: 40px !important;
-      border: 1px inset $box-border-color;
+      overflow: hidden;
       border-radius: 4px;
-      margin-bottom: 5px;
+      background: rgba(0,0,0,0.3);
       position: relative;
-      .cluster-delete {
-        position: absolute;
-        top: 6px;
-        right: 10px
-      }
+      border: 1px solid rgba(255,255,255,0.15);
+      margin-bottom: 5px;
+      transition: all .3s ease;
 
-      .label-cluster {
-        line-height: $h2-fontsize;
-        font-size: $h5-fontsize;
-        width: 100%;
+      //empty cluster
+      &.isempty-true {
+        background: rgba(0,0,0,0.1);
+        border: 1px dashed rgba(255,255,255,0.15);
+        padding: .7em;
         text-align: center;
-        color: $text-dark-color;
-        opacity: 0.9;
-      }
-      .cluster-name {
-        position: relative;
-        width: 50%;
-        margin: 0 auto;
-        border: 1px dashed $box-border-color;
-        border-radius: 5px;
-        color: $text-dark-color;
-        margin-bottom: 10px;
-        margin-top: 5px;
 
-        .edit-cluster {
-          margin-left: 5px;
+        // empty cluster with drag here label
+        .cluster-drag-here {
+          text-align: center;
+          letter-spacing: .05em;
+          color: $text-muted-color;
+          display: inline;
+        }
+
+      }
+
+      &.isempty-false {
+        max-height: 999em;
+      }
+
+      // cluster style when node is being dragged over it
+      &.accepts-drag {
+        border: 1px dashed rgba(255,255,255,0.55);
+      }
+
+      .clustered-nodes {
+        animation: newCluster 5s ease;
+        padding: .5*$padding-small $padding-small;
+        transition: max-height .3s ease;
+        max-height: 999em;
+      }
+      .cluster-node {
+        padding-right: 20px;
+        cursor: default;
+
+
+        > .removeNode {
+          position: absolute;
+          right: .5em;
+
+          color: $text-muted-color;
+          &:hover {
+            cursor: pointer;
+            color: $text-color;
+          }
         }
       }
 
+      // header with editable cluster name
       .edit-cluster-input {
         position: relative;
-        .cluster-text-input {
-          width: 87% !important;
-          line-height: 2rem;
-          padding-right: 40px;
+        padding: .5*$padding-small $padding-small 0;
+        margin-bottom: -.25em;
+
+        .cluster-type {
+          position: absolute;
+          left: 1.5em;
+          top: 1em;
+          font-size: .78em;
+          z-index: 2;
+          &.supplier { color: $color-supplier; }
+          &.procuring_entity { color: $color-procurer; }
         }
+
+
+
+        .cluster-text-input,
+        .cluster-name-editable {
+          z-index: 1;
+          font-size: .9rem;
+          padding: .2em 1em .2em 1.5em;
+          line-height: 1.6em;
+          height: auto;
+          padding-right: 4em;
+          box-sizing: border-box;
+          display: inline-block;
+          position: relative;
+          margin-bottom: 0;
+          //background: rgba(0,0,0,0.9);
+          border: 1px dashed rgba(255,255,255,0);
+          box-shadow: none;
+          color: $text-muted-color;
+          &:focus {
+            border-color: rgba(255,255,255,0.3);
+            outline: none;
+            color: $text-color;
+          }
+        }
+
         .edit-cluster-controls {
+          z-index: 2;
           position: absolute;
-          right: 7px;
-          top: 3px;
-          background-color: #151517 !important;
+          right: 15px;
+          top: .5em;
+          > * {
+            padding: .2em;
+          }
+        }
+
+
+        .cluster-text-input:hover + .edit-cluster-controls .edit-cluster-name {
+          visibility: visible;
+        }
+
+        .cluster-delete:hover {
+          color: $error-color;
         }
 
       }
 
-      .cluster-node {
-        display: inline-block;
-        position: relative;
-        padding-right: 20px;
-        margin-bottom: 5px;
-        margin-left: 3px;
+    }
+  }
 
-        .removeNode {
-          position: absolute;
-          right: 4px;
-          top: 3px;
-        }
-      }
+
+  .nodes-filter-buttons {
+    text-align: center;
+    font-size: .5em;
+    span {
+      margin: 0 2px;
+      cursor: pointer;
     }
   }
 }

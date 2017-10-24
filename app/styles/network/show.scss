@@ -64,7 +64,7 @@ div#network-container {
   }
 
   div#details-container {
-    z-index: 100;
+    z-index: $zindex-details-container;
     position: absolute;
     overflow: hidden;
     pointer-events: none;
