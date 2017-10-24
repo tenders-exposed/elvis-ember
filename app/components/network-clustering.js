@@ -139,8 +139,6 @@ export default Component.extend({
         this.addEmptyCluster();
       }
 
-
-
       let clusterType = this.get('clusters')[clusterIndex].type;
 
       // check to see if the node that the user wants to add is the same type as the first node added
