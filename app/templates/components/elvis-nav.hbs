@@ -122,9 +122,11 @@
                   <li><a href="https://talk.tenders.exposed/" target="_blank">Community</a></li>
                 </ul>
                 <ul class="right hide-on-med-and-down main-menu">
-                  {{#link-to 'network.new' tagName='li'}}
-                    {{#link-to 'network.new'}} New visualisation {{/link-to}}
-                  {{/link-to}}
+                  {{#if session.isAuthenticated}}
+                    {{#link-to 'network.new' tagName='li'}}
+                      {{#link-to 'network.new'}} New visualisation {{/link-to}}
+                    {{/link-to}}
+                  {{/if}}
                   {{#if session.isAuthenticated}}
                   <!-- Dropdown Trigger -->
                   <li>
