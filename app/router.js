@@ -35,7 +35,13 @@ ElvisRouter.map(function() {
   this.route('welcome', { path: '/' }, function() {
     this.route('login');
   });
-  this.route('static', { path: ':target' });
+  this.route('about');
+  this.route('contact');
+  this.route('examples');
+  this.route('features');
+  this.route('gallery');
+  this.route('terms-conditions');
+  this.route('404', { path: '/*path' });
 });
 
 export default ElvisRouter;

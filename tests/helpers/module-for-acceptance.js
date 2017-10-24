@@ -9,12 +9,12 @@ export default function(name, options = {}) {
       this.application = startApp();
 
       if (options.beforeEach) {
-        return options.beforeEach.apply(this, arguments);
+        return options.beforeEach(this, ...arguments);
       }
     },
 
     afterEach() {
-      let afterEach = options.afterEach && options.afterEach.apply(this, arguments);
+      let afterEach = options.afterEach && options.afterEach(this, ...arguments);
       return resolve(afterEach).then(() => destroyApp(this.application));
     }
   });
