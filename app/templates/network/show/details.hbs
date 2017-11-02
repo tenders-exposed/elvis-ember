@@ -1,6 +1,6 @@
 {{outlet "details"}}
 
-{{#network-container id='details-container' class=(unless networkService.isReady "loading-network")}}
+{{#network-container id='details-container' class=(unless networkService.ready "loading-network")}}
   <div id="details-sidebar" class="{{if networkInput "network-settings-open"}}">
     <div class="sidebar-header">
       <h4 class="network-title">
