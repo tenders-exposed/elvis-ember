@@ -21,6 +21,9 @@ nav {
     text-decoration: none;
   }
 
+  ul, ul li {
+    list-style: none !important;
+  }
   // navbar nav
   ul li a {
     font-family: $navbar-font-family;

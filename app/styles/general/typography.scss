@@ -29,8 +29,9 @@ h1 {
   font-weight: 700;
 }
 h2 {
+  font-family: $font-family-sans;
   font-size: $h2-fontsize;
-  font-weight: 400;
+  font-weight: bold;
 }
 h3 {
   font-size: $h3-fontsize;

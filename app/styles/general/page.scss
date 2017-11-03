@@ -14,7 +14,7 @@
                       url(../images/journalists-filmnoir-scene.jpg);
     background-repeat: no-repeat;
 
-    background-size: cover;
+    background-size: contain;
     opacity: 0.1;
     top: -25px-$navbar-height;
     left: 0;
@@ -26,11 +26,11 @@
 
 
   /* general typo */
-  ul {
+  ul.list {
     padding-left: $gutter-width;
     list-style-type: disc;
   }
-  ul li {
+  ul.list li {
     list-style-type: disc;
   }
 
