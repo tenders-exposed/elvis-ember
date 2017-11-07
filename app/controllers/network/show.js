@@ -20,8 +20,8 @@ export default Controller.extend({
         // }
       },
       'font': {
-        'face': 'Roboto',
-        'size': 10,
+        'face': 'Roboto Condensed',
+        'size': 9,
         'color': 'rgba(255, 255, 255, .5)'
       }
     },
@@ -46,8 +46,8 @@ export default Controller.extend({
         'highlight': '#b1b1b1'
       },
       'font': {
-        'face': 'Roboto',
-        'size': 9,
+        'face': 'Roboto Condensed',
+        'size': 8,
         'color': 'rgba(255, 255, 255, .5)'
       },
       'scaling': {
@@ -86,9 +86,10 @@ export default Controller.extend({
       }
     },
     'interaction': {
-      'hover': false,
+      'hover': true,
+      'hoverConnectedEdges': true,
       'navigationButtons': true,
-      'keyboard': true
+      'keyboard': false
     }
   },
 
