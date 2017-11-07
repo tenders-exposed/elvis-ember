@@ -7,7 +7,10 @@ const ElvisRouter = EmberRouter.extend({
 });
 
 ElvisRouter.map(function() {
+  this.route('welcome', { path: '/' });
+
   this.route('account', {}, function() {
+    this.route('login');
     this.route('confirm');
     this.route('recover', function() {
       this.route('password', {});
@@ -31,9 +34,6 @@ ElvisRouter.map(function() {
         this.route('show', { path: ':id' });
       });
     });
-  });
-  this.route('welcome', { path: '/' }, function() {
-    this.route('login');
   });
   this.route('about');
   this.route('contact');

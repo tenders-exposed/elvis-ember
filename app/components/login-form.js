@@ -1,8 +1,11 @@
 import Ember from 'ember';
+import Component from '@ember/component';
 
-const { Controller } = Ember;
+const { inject } = Ember;
 
-export default Controller.extend({
+export default Component.extend({
+  session: inject.service('session'),
+
   actions: {
     authenticate() {
       let { identification, password } = this.getProperties('identification', 'password');

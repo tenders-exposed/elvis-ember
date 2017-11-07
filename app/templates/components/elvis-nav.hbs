@@ -48,8 +48,14 @@
                     </li>
 				        </ul>
 		        {{else}}
-		            {{#link-to 'welcome.login' class="btn link"}} Login {{/link-to}}
-		            {{#link-to 'account.new' class="btn transparent"}} Register {{/link-to}}
+              <ul class="user-nav">
+                <li>
+                  <a href="#" {{action 'toggleLoginModal'}}>Login</a>
+                </li>
+                <li>
+                  {{#link-to 'account.new' class="btn transparent"}} Register {{/link-to}}
+                </li>
+              </ul>
 		        {{/if}}
         </div>
     </div>
@@ -116,33 +122,35 @@
                 {{/link-to}}
 
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+
                 <ul class="left hide-on-med-and-down main-menu">
                   <!--left links-->
                   <li> {{link-to 'About' 'about'}} </li>
                   <li><a href="https://talk.tenders.exposed/" target="_blank">Community</a></li>
                 </ul>
+
                 <ul class="right hide-on-med-and-down main-menu">
                   {{#if session.isAuthenticated}}
                     {{#link-to 'network.new' tagName='li'}}
                       {{#link-to 'network.new'}} New visualisation {{/link-to}}
                     {{/link-to}}
-                  {{/if}}
-                  {{#if session.isAuthenticated}}
-                  <!-- Dropdown Trigger -->
-                  <li>
-                    <a class="dropdown-button" href="#!" data-activates="dropdown1">
-                      Account<i class="material-icons right">arrow_drop_down</i>
-                    </a>
-                  </li>
+
+                    <!-- Dropdown Trigger -->
+                    <li>
+                      <a class="dropdown-button" href="#!" data-activates="dropdown1">
+                        Account<i class="material-icons right">arrow_drop_down</i>
+                      </a>
+                    </li>
                   {{else}}
-                    {{#link-to 'welcome.login' tagName='li'}}
-                      {{#link-to 'welcome.login' class="slash-after"}} Sign in {{/link-to}}
-                    {{/link-to}}
+                    <li>
+                      <a href="#" {{action 'toggleLoginModal'}}>Login</a>
+                    </li>
                     {{#link-to 'account.new' tagName='li'}}
                       {{#link-to 'account.new'}} Sign up {{/link-to}}
                     {{/link-to}}
                   {{/if}}
                 </ul>
+
                 <ul class="side-nav" id="mobile-demo">
                   {{#link-to 'network.new' tagName='li'}}
                     {{#link-to 'network.new'}}
@@ -189,3 +197,8 @@
     </div>
   </div>
 </div>
+
+
+{{#if loginVisible}}
+  {{login-form modal=true}}
+{{/if}}
