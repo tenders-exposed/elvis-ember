@@ -44,6 +44,13 @@
 
   {{outlet}}
 
+  <div class="crop-fake">
+    <div class="go-back-crop" {{action "toggleCrop" on="click"}}>
+      {{fa-icon 'crop' size=1}}
+    </div>
+    <!--<div class="crop-box-fake"></div>-->
+  </div>
+
   {{#if model}}
     {{#if network.selectedNodes}}
       {{#if network.selectedNodes.length}}
@@ -87,6 +94,10 @@
       <a class="vis-button" {{action "showEmbedding" on="click"}}>
         {{fa-icon 'link' size=1}}
       </a>
+      <a class="vis-button" {{action "toggleCrop" on="click"}}>
+        {{fa-icon 'crop' size=1}}
+      </a>
+
     </div>
     {{#if networkLinkModal}}
     <div id="modalNetworkLink" >
@@ -138,4 +149,39 @@
     {{/visjs-network}}
 
   {{/if}}
+
+</div>
+
+<div class="crop-controls">
+  <div class="modal-container">
+    <div class="modal-content">
+      <div class="row">
+        <span {{action "closeCrop" on="click"}}>
+          {{fa-icon 'close' size=1 class="close"}}
+        </span>
+      </div>
+
+
+      <div class="row">
+        <div class="col s4">
+          <small>width</small>
+          <div class="small" style="margin-top: 0px !important;">
+            {{input type="text" value=cropWidth id="canvasWidth"}}
+          </div>
+        </div>
+        <div class="col s4">
+          <small>height</small>
+          <div class="small" style="margin-top: 0px !important;">
+            {{input type="text" value=cropHeight id="canvasHeight"}}
+          </div>
+        </div>
+        <div class="col s4">
+          <a id="downloadLnk" class="btn-small primary" download="YourFileName.png"  >
+            Save image
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
