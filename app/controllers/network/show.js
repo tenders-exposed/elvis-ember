@@ -180,6 +180,7 @@ export default Controller.extend({
     let $canvas = $(this.get('crop.container.cropper'));
 
     $canvas.cropper({
+      // eslint-disable-next-line require-enhanced-object-literals
       ready: function() {
 
         // if there are crop data the start croper with these settings
@@ -195,11 +196,13 @@ export default Controller.extend({
           .prepend('<div class="crop-edit">Edit network</div>')
           .find('.crop-edit').on('click', function() {
             self.cropEditNetwork();
-        });
+          });
       },
+      // eslint-disable-next-line require-enhanced-object-literals
       cropmove: function() {
         self.updateCropValues($canvas);
       },
+      // eslint-disable-next-line require-enhanced-object-literals
       zoom: function() {
         self.cropEditNetwork();
       }
@@ -264,8 +267,7 @@ export default Controller.extend({
           // get the canvas for the image to be saved
           let $canvas = $(self.get('crop.container.cropper'));
           let cropBoxData = $canvas.cropper('getCropBoxData');
-          let height = cropBoxData.height;
-          let width = cropBoxData.width;
+          let { height, width } = cropBoxData;
 
           // watermark coordinates
           let wx = width - 7;
@@ -274,7 +276,7 @@ export default Controller.extend({
           let croppedCanvas = $canvas.cropper('getCroppedCanvas', {
             imageSmoothingEnabled: false,
             imageSmoothingQuality: 'high',
-            fillColor:'#1A1A1C'
+            fillColor: '#1A1A1C'
           });
           let context = croppedCanvas.getContext('2d');
           context.drawImage(image, wx, wy, image.width, image.height);
