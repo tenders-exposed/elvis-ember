@@ -179,8 +179,8 @@ export default Controller.extend({
     let self = this;
     let $canvas = $(this.get('crop.container.cropper'));
 
+    // jscs:disable requireEnhancedObjectLiterals
     $canvas.cropper({
-      // eslint-disable-next-line requireEnhancedObjectLiterals
       ready: function() {
 
         // if there are crop data the start croper with these settings
@@ -198,15 +198,14 @@ export default Controller.extend({
             self.cropEditNetwork();
           });
       },
-      // eslint-disable-next-line requireEnhancedObjectLiterals
       cropmove: function() {
         self.updateCropValues($canvas);
       },
-      // eslint-disable-next-line requireEnhancedObjectLiterals
       zoom: function() {
         self.cropEditNetwork();
       }
     });
+    // jscs:enable requireEnhancedObjectLiterals
   },
 
   cropEditNetwork() {
