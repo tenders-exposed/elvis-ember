@@ -101,6 +101,21 @@ export default Controller.extend({
   networkEmbeddingModal: false,
   networkStabilization: false,
 
+  crop: {
+    container: {
+      cropper: '.vis-network > canvas',
+      widthInput: '.crop-controls #canvasWidth',
+      heightInput:  '.crop-controls #canvasHeight'
+    },
+    maxWidth: 100,
+    maxHeight: 100,
+    minWidth: 50,
+    minHeight: 50,
+    width: 100,
+    height: 100,
+    boxData: {}
+  },
+
   init() {
     this._super();
     this.set('stabilizationPercent', 0);
@@ -151,12 +166,192 @@ export default Controller.extend({
 
   },
 
+  // cropping
+  updateCropValues($canvas) {
+    let $widthInput = $(this.get('crop.container.widthInput'));
+    let $heightInput = $(this.get('crop.container.heightInput'));
+    let cropBoxData = $canvas.cropper('getCropBoxData');
+
+    $widthInput.val(_.ceil(cropBoxData.width));
+    $heightInput.val(_.ceil(cropBoxData.height));
+  },
+
+  cropNetwork() {
+    let self = this;
+    let $canvas = $(this.get('crop.container.cropper'));
+
+    // jscs:disable requireEnhancedObjectLiterals
+    $canvas.cropper({
+      ready: function() {
+
+        // if there are crop data the start croper with these settings
+        if (Object.keys(self.get('crop.boxData')).length > 0) {
+          $canvas.cropper('setCropBoxData', self.get('crop.boxData'));
+        } else {
+          self.set('crop.boxData', $canvas.cropper('getCropBoxData'));
+        }
+        self.setCropControls();
+        // set inputs values from copper
+        self.updateCropValues($canvas);
+        $('.cropper-container .cropper-crop-box')
+          .prepend('<div class="crop-edit">Edit network</div>')
+          .find('.crop-edit').on('click', function() {
+            self.cropEditNetwork();
+          });
+      },
+      cropmove: function() {
+        self.updateCropValues($canvas);
+      },
+      zoom: function() {
+        self.cropEditNetwork();
+      }
+    });
+    // jscs:enable requireEnhancedObjectLiterals
+  },
+
+  cropEditNetwork() {
+
+    // clone crop-box
+    let self = this;
+    let $cropBox = $('.cropper-container .cropper-crop-box').clone();
+    let $cropBoxFake = $('.crop-fake').show().append($($cropBox));
+    let $controlsCrop = $cropBoxFake.find('.cropper-line, .cropper-point');
+    $cropBoxFake.find('.crop-edit')
+      .text('Edit Crop')
+      .on('click', function() {
+      $('.crop-fake .go-back-crop').click();
+    });
+
+    $controlsCrop
+      .mouseover(function() {
+        $controlsCrop.not($(this)).addClass('hovered');
+      })
+      .mouseout(function() {
+        $controlsCrop.not($(this)).removeClass('hovered');
+      })
+      .click(function() {
+        self.goBackCropEdit();
+        $('.crop-fake .go-back-crop').click();
+      });
+
+    this.removeCrop();
+  },
+
+  goBackCropEdit() {
+    $('.crop-fake .cropper-crop-box').remove();
+    $('.crop-fake').hide();
+  },
+
+  removeCrop() {
+
+    $('.crop-controls').hide();
+    let $canvas = $(this.get('crop.container.cropper'));
+    this.set('crop.boxData', $canvas.cropper('getCropBoxData'));
+
+    $canvas.cropper('destroy');
+    this.set('croppingStatus', false);
+  },
+
+  setSaveControl() {
+    // save button
+    let self = this;
+
+    // load the watermark image
+    let image = new Image(55, 33);   // using optional size for image
+    image.src = `${document.location.origin}/images/elvis-water-mark3.png`;
+
+    // if the image is loaded add the eventListener to the save image link
+    image.onload = function() {
+      document.getElementById('downloadLnk')
+        .addEventListener('click', function() {
+          // get the canvas for the image to be saved
+          let $canvas = $(self.get('crop.container.cropper'));
+          let cropBoxData = $canvas.cropper('getCropBoxData');
+          let { height, width } = cropBoxData;
+
+          // watermark coordinates
+          let wx = width - 7;
+          let wy = height - 3;
+
+          let croppedCanvas = $canvas.cropper('getCroppedCanvas', {
+            imageSmoothingEnabled: false,
+            imageSmoothingQuality: 'high',
+            fillColor: '#1A1A1C'
+          });
+          let context = croppedCanvas.getContext('2d');
+          context.drawImage(image, wx, wy, image.width, image.height);
+
+          let dt = croppedCanvas.toDataURL();
+          $('#downloadLnk').attr('href', dt);
+        }, false);
+    };
+
+  },
+
+  setDimensionControls() {
+    let $widthInput = $(this.get('crop.container.widthInput'));
+    let $heightInput = $(this.get('crop.container.heightInput'));
+    let minWidth =  this.get('crop.minWidth');
+    let minHeight = this.get('crop.minHeight');
+
+    let $canvas = $(this.get('crop.container.cropper'));
+
+    // width input
+    // check to see if the input value is higher than min and update the cropper
+    $widthInput.focusout(function() {
+      let inputVal = Number($(this).val());
+      if (inputVal < minWidth || inputVal === '') {
+        inputVal = minWidth;
+        $(this).val(minWidth);
+      }
+      let cropBoxData = $canvas.cropper('getCropBoxData');
+      cropBoxData.width = inputVal;
+
+      $canvas.cropper('setCropBoxData', cropBoxData);
+    });
+
+    // height input
+    // check to see if the input value is higher than min and update the cropper
+    $heightInput.focusout(function() {
+      let inputVal = Number($(this).val());
+      if (inputVal < minHeight || inputVal === '') {
+        inputVal = minHeight;
+        $(this).val(minHeight);
+      }
+      let cropBoxData = $canvas.cropper('getCropBoxData');
+      cropBoxData.height = inputVal;
+      $canvas.cropper('setCropBoxData', cropBoxData);
+    });
+
+  },
+
+  setCropControls() {
+    this.setSaveControl();
+    this.setDimensionControls();
+  },
+
   actions: {
     stopPhysics() {
       let physics = this.get('networkOptions.physics.enabled') ? false : true;
       this.set('networkOptions.physics.enabled', physics);
       this.get('network').setOptions({ 'physics': { 'enabled': physics } });
     },
+
+    toggleCrop() {
+      this.goBackCropEdit();
+      if ((typeof this.get('croppingStatus') == 'undefined') || !this.get('croppingStatus')) {
+        this.cropNetwork();
+        $('.crop-controls').show();
+        this.set('croppingStatus', true);
+      } else {
+        this.removeCrop();
+      }
+    },
+
+    closeCrop() {
+      this.removeCrop();
+    },
+
     modalNetworkLink() {
       if (this.get('networkLinkModal')) {
         this.set('networkLinkModal', false);
@@ -166,6 +361,7 @@ export default Controller.extend({
         this.set('networkLink', `${document.location.origin}/network/${networkId}`);
       }
     },
+
     showClustering() {
       this.set('networkClusteringModal', true);
     },
@@ -180,6 +376,7 @@ export default Controller.extend({
       this.set('networkEmbeddingModal', false);
 
     },
+
     closeClustering(clusteredNodes, clusters, modified) {
 
       // check if clusters have been modified
@@ -248,10 +445,12 @@ export default Controller.extend({
           });
       }
     },
+
     startStabilizing() {
       this.set('startStabilizing', performance.now());
       Logger.info('start stabilizing');
     },
+
     stabilizationIterationsDone() {
       let network = this.get('network');
       let nodesCount = network.nodesSet.length;
@@ -276,11 +475,13 @@ export default Controller.extend({
       this.get('networkService').setNetwork(this.get('network'));
 
     },
+
     stabilizationProgress(amount) {
       this.set('stIterations', amount.total);
       this.set('stabilizationPercent', (amount.iterations / amount.total) * 100);
       Logger.info(`Stabilization progress: ${amount.iterations} / ${amount.total}`);
     },
+
     stabilized(event) {
       let network = this.get('network');
       let nodesCount = network.nodesSet.length;

@@ -3,6 +3,83 @@
   width: 1px !important;
 }
 
+.crop-controls {
+  display: none;
+  position: absolute;
+  z-index: 9999;
+  top: 0px;
+  right: 50%;
+
+  .modal-container {
+    @include box;
+    box-shadow: $modal-box-shadow;
+    width: 333px;
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 5px 41px 5px 6px!important;
+
+    .close {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
+    small {
+      text-transform: uppercase;
+      color: $color-dark;
+      font-weight: bold;
+    }
+  }
+
+  .row {
+    margin-bottom: 0px !important;
+  }
+  input[type="text"] {
+    height: 1rem;
+    width: 50px;
+    font-size: 0.8rem;
+  }
+  .shareUrl {
+    display: none;
+  }
+
+  #downloadLnk {
+    width: 100%;
+    display: block;
+    height: 1rem;
+    border-radius: 3px;
+    padding-right: 7px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 5px;
+  }
+}
+
+.cropper-crop-box {
+  .crop-edit {
+    pointer-events: initial !important;
+    z-index: 999;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 63px;
+    height: 15px;
+    background: dodgerblue;
+    color: wheat;
+    font-size: 0.5rem;
+    font-weight: bold;
+    line-height: 1.1rem;
+    padding-left: 10px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    opacity: 0.8;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
 div#network-container {
   position: relative;
   height: 100% !important;
@@ -10,6 +87,115 @@ div#network-container {
   display: block;
   flex-direction: row;
   top: 0;
+
+  .crop-fake{
+    display: none;
+    direction: ltr;
+    font-size: 0;
+    line-height: 0;
+    position: relative;
+
+    .go-back-crop {
+      position: relative;
+      i {
+        z-index: 9999;
+        position: absolute;
+        top:20px;
+        left: 20px;
+      }
+
+    }
+
+    .cropper-crop-box {
+      z-index: 999;
+      pointer-events: none;
+
+      .cropper-view-box {
+        border: 0px solid white;
+        outline: none;
+        outline-color: none;
+        img {
+          display: none;
+        }
+        &:hover {
+
+        }
+      }
+      .cropper-point {
+        width: 5px;
+        height: 5px;
+        border-radius: 5px;
+
+      }
+
+      .cropper-line.line-n {
+        height: 2px;
+        top: -2px
+      }
+      .cropper-line.line-s {
+        height: 2px;
+        bottom: -2px;
+      }
+      .cropper-line.line-e {
+        width: 2px;
+        right: -2px
+      }
+      .cropper-line.line-w {
+        width: 2px;
+        left: -2px;
+      }
+
+      .cropper-line, .cropper-point {
+        cursor: pointer;
+        pointer-events: initial !important;
+        opacity: 0.4;
+
+        &:hover, &.hovered {
+          opacity: 1;
+        }
+      }
+
+    }
+
+    .crop-box-fake {
+      z-index: 999;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      bottom: 0px;
+      right: 0px;
+      pointer-events: none;
+      border: 1px solid blue;
+      background: rgba(255, 255, 259, 0.08);
+
+    }
+  }
+
+
+  #crop-zoom-end {
+    position: absolute;
+    display: none;
+    z-index: 999;
+
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    background: deepskyblue;
+
+
+  }
+  .crop-zoom-ending {
+    width: 20px !important;
+    height: 20px !important;
+    background: none !important;
+    border: 2px solid deepskyblue;
+    cursor: pointer;
+  }
+  .crop-zoom-mouseDown {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
 
   #network-controls {
     position: absolute;
@@ -46,7 +232,15 @@ div#network-container {
   }
   h5 { margin-top: 0; }
 
-  div.network-canvas { height: 100%; }
+  div.network-canvas {
+    height: 100%;
+
+    // cropping
+    .cropper-bg {
+      background-image: none !important;
+      // background-color: $main-bg;
+    }
+  }
 
   div#visjs-network {
     position: fixed;

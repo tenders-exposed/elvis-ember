@@ -36,6 +36,7 @@
     "ember-cli-google-fonts": "^2.3.1",
     "ember-cli-htmlbars": "^2.0.1",
     "ember-cli-htmlbars-inline-precompile": "^1.0.0",
+    "ember-cli-image-cropper": "0.0.13",
     "ember-cli-inject-live-reload": "^1.4.1",
     "ember-cli-jstree": "tenders-exposed/ember-cli-jstree#feature/preselect-nodes",
     "ember-cli-materialize": "0.22.0-beta.0",
