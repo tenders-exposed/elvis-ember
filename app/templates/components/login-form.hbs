@@ -1,0 +1,28 @@
+<div id="{{if modal 'login-modal' ''}}">
+  <div class="container">
+    <div class="row">
+      <div class="col {{if modal 'm4 s12 offset-m8' 's10 offset-m1'}} login">
+        <form {{action 'authenticate' on='submit'}} autocomplete="off">
+          <div class="input-field">
+            {{input id='identification' value=identification type='email' autocomplete='off'}}
+            <label for="inputEmail">Email address</label>
+          </div>
+          <div class="input-field">
+            {{input id='password' type='password' value=password autocomplete='off'}}
+            <label for="password">Password</label>
+          </div>
+          {{#link-to "account.recover" class="pull-right"}}Lost password{{/link-to}}
+          <br>
+          {{async-button action=(action "authenticate" fakeUser) default="Sign in" pending="Logging in..." class="btn btn-lg btn-primary btn-block pull-right"}}
+          {{md-btn text='Cancel'
+            class='pull-left'
+            action='goHome'}}
+          {{#if errorMessage}}
+            <p>{{errorMessage}}</p>
+          {{/if}}
+        </form>
+      </div>
+    </div>
+    {{yield}}
+  </div>
+</div>
