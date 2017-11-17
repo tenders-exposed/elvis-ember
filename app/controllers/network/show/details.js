@@ -39,7 +39,7 @@ export default Controller.extend({
 
   showController: inject.controller('network.show'),
 
-  networkModelLoaded: observer('networkService.isReady', 'model', function() {
+  networkModelLoaded: observer('networkService.ready', 'model', function() {
     if (this.get('model.options')) {
       this.set('fields.suppliers.value', _.capitalize(this.get('model.options.nodes')));
       this.set('fields.relationships.value', _.capitalize(this.get('model.options.edges')));

@@ -134,19 +134,25 @@
       }}
     {{/if}}
 
-    {{#visjs-network
-      options=networkOptions
-      nodesSet=networkService.nodes
-      edgesSet=networkService.flaggedEdges
-      startStabilizingAction=(action 'startStabilizing')
-      stabilizationIterationsDoneAction=(action 'stabilizationIterationsDone')
-      stabilizedAction=(action 'stabilized')
-      stabilizationProgressAction=(action 'stabilizationProgress')
-      storeAs=network
-      selectedNodes=selectedNodes
-      selectedEdges=selectedEdges
-    }}
-    {{/visjs-network}}
+    {{#if model}}
+      {{#visjs-network
+        options=networkOptions
+        nodesSet=networkService.nodes
+        edgesSet=networkService.flaggedEdges
+        startStabilizingAction=(action 'startStabilizing')
+        stabilizationIterationsDoneAction=(action 'stabilizationIterationsDone')
+        stabilizedAction=(action 'stabilized')
+        stabilizationProgressAction=(action 'stabilizationProgress')
+        storeAs=network
+        selectedNodes=selectedNodes
+        selectedEdges=selectedEdges
+      }}
+      {{/visjs-network}}
+    {{else}}
+      <h3 class="center-align">
+        Network model not ready.
+      </h3>
+    {{/if}}
 
   {{/if}}
 

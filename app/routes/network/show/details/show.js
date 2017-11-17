@@ -251,9 +251,9 @@ export default Route.extend({
       });
     }
   },
-  networkLoaded: observer('networkService.isReady', function() {
+  networkLoaded: observer('networkService.ready', function() {
     // if the network service is Ready and the data is not yet set
-    if (this.get('networkService.isReady')
+    if (this.get('networkService.ready')
       && !this.get('controller').get('readyToRender')
     ) {
       this.setModelDetails();
@@ -266,7 +266,7 @@ export default Route.extend({
     this.set('tab', tab);
     this.get('controller').set('tab', tab);
 
-    if (this.get('networkService.isReady')) {
+    if (this.get('networkService.ready')) {
       this.get('controller').set('modelDetails', undefined);
       this.get('controller').set('readyToRender', false);
       this.setModelDetails();

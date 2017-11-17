@@ -12,7 +12,7 @@ export default Service.extend({
   procurers: [],
   relationships: [],
 
-  isReady: false,
+  ready: false,
   checkClustered: false,
 
   init() {
@@ -26,17 +26,17 @@ export default Service.extend({
 
   // make ready
   activate() {
-    this.set('isReady', true);
+    this.set('ready', true);
   },
 
   // make not ready
   deactivate() {
-    this.set('isReady', false);
+    this.set('ready', false);
   },
 
   // question is ready?
-  checkReady() {
-    return this.get('isReady');
+  isReady() {
+    return this.get('ready');
   },
 
   getModelClusters() {
@@ -102,6 +102,7 @@ export default Service.extend({
     }
 
     if (model.get('graph.clusters')) {
+
       _.forEach(model.get('graph.clusters'), function(cluster, clusterIndex) {
         cluster.empty = false;
         cluster.nodes = _.filter(model.get('graph.nodes'), function(node) {
@@ -300,26 +301,45 @@ export default Service.extend({
       self.get('network.network').cluster(clusterOptionsByData);
     });
     // this.set('checkClustered', true);
-    // this.setSuppliersProcurers();
-    // this.setRelationships();
-    // this.activate();
     // console.log('clusterOptionsByData', clusterOptionsByData);
     // console.log('nodes',  this.get('network.nodes'));
   },
 
   setNetwork(network) {
-    // make isReady false.. and recalculate
-    if (this.checkReady()) {
+    // make ready false.. and recalculate
+    if (this.isReady()) {
       this.deactivate();
     }
+
     if (this.get('clusters').length > 0 && !this.get('checkClustered')) {
       this.set('network', network);
+
       this.makeClusteredNetwork(this.get('nodes'), this.get('clusters'));
       this.set('checkClustered', true);
 
-    } else {
+      this.setSuppliersProcurers();
+      this.setRelationships();
 
+      network.setOptions(
+        {
+          'physics': {
+            'stabilization': {
+              'enabled': true,
+              'iterations': 1000,
+              'updateInterval': 100,
+              'onlyDynamicEdges': false,
+              'fit': true
+            }
+          }
+        }
+      );
+      network.network.redraw();
+
+      this.activate();
+
+    } else {
       this.set('network', network);
+
       this.setSuppliersProcurers();
       this.setRelationships();
 

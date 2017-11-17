@@ -17,19 +17,25 @@ export default Route.extend({
       'network',
       params.network_id,
       { reload: true }
-    );
+    ).then((model) => {
+      this.get('networkService').setModel(model);
+      return model;
+    });
     return modelShow;
   },
 
   afterModel(model) {
     this.get('benchmark').store('performance.network.save', (performance.now() - this.get('requestTimer')));
     this.titleToken = `${this.titleToken} ${model.get('name') || model.id}`;
-    model = this.get('networkService').setModel(model);
+    // model = this.get('networkService').setModel(model);
 
     return model;
   },
 
   setupController(controller, model) {
+    if (model.clusters) {
+      controller.set('networkOptions.physics.stabilization.iterations', 1);
+    }
     controller.set('model', model);
     controller.set('stabilizationPercent', 0);
   },
