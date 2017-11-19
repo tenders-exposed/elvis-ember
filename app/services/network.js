@@ -299,12 +299,7 @@ export default Service.extend({
       };
       self.get('network.network').cluster(clusterOptionsByData);
     });
-    // this.set('checkClustered', true);
-    // this.setSuppliersProcurers();
-    // this.setRelationships();
-    // this.activate();
-    // console.log('clusterOptionsByData', clusterOptionsByData);
-    // console.log('nodes',  this.get('network.nodes'));
+
   },
 
   setNetwork(network) {
@@ -316,7 +311,6 @@ export default Service.extend({
       this.set('network', network);
       this.makeClusteredNetwork(this.get('nodes'), this.get('clusters'));
       this.set('checkClustered', true);
-
     } else {
 
       this.set('network', network);
@@ -324,9 +318,8 @@ export default Service.extend({
       this.setRelationships();
 
       this.activate();
-      // console.log('seting suppliers ,procurers after cluster', this.get('network'));
       // make the clustering if there is anny to be made
-      //  if the network, the nodes, the edges are set but did change then recalculate them
+      // if the network, the nodes, the edges are set but did change then recalculate them
     }
 
   },
