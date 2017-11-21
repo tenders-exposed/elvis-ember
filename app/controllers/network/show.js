@@ -460,12 +460,6 @@ export default Controller.extend({
         this.set('networkStabilization', true);
       }
 
-      /*if (nodesCount > 150) {
-        network.setOptions({ physics: { enabled: false } });
-        this.set('networkOptions.physics.enabled', false);
-        Logger.info(`Network bigger than 150 nodes (${nodesCount}).`);
-        Logger.info(`Physics disabled on rendering.`);
-      }*/
       Logger.info('stabilization iterations done');
       this.set('stabilizationPercent', 100);
       $('div#stabilization-info').fadeOut();
@@ -483,14 +477,6 @@ export default Controller.extend({
     },
 
     stabilized(event) {
-      let network = this.get('network');
-      let nodesCount = network.nodesSet.length;
-      if (nodesCount > 100) {
-        network.setOptions({ physics: { enabled: false } });
-        this.set('networkOptions.physics.enabled', false);
-        Logger.info(`Network bigger than 100 nodes (${nodesCount}).`);
-        Logger.info(`Physics disabled after stabilizing.`);
-      }
       if (event.iterations > this.get('stIterations')) {
         let diff = event.iterations - this.get('stIterations');
         Logger.info(`Network was stabilized using ${diff} iterations more than assumed (${this.get('stIterations')})`);
