@@ -69,11 +69,11 @@ export default Controller.extend({
       return 'disabled';
     }
   }),
-  submitStatus: computed('selectedCodes', 'query.{nodes,edges}', function() {
-    if (this.get('selectedCodes') && this.get('query.nodes') && this.get('query.edges')) {
-      return '';
+  submitIsDisabled: computed('selectedCodes', function() {
+    if (this.get('selectedCodes').length > 0) {
+      return false;
     } else {
-      return 'disabled';
+      return true;
     }
   }),
 
@@ -278,6 +278,11 @@ export default Controller.extend({
         let years = data.search.results;
         this.set('years', years);
         this.set('loading.years', false);
+        if (this.get('selectedCodes').length > 0) {
+          this.set('loading.cpvs', true);
+          this.set('selectedCodes', []);
+          this.set('loading.cpvs', false);
+        }
       });
   },
   fetchCpvs() {
