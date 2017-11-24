@@ -23,6 +23,8 @@ $button-types:
 .btn-floating,
 .btn-flat {
   font-weight: bold;
+  text-transform: none;
+  letter-spacing: 0;
   box-sizing: content-box;
 
   // default values for buttons
