@@ -9,10 +9,17 @@ $button-types:
 // button sizing
 // -------------------------
 .btn-small {
-  font-size: $button-small-font-size;
-  height: $button-small-height;
-  padding: $padding-small;
+   font-size: $button-small-font-size;
+   height: $button-small-height;
+   padding: $padding-small;
+   border-radius: $border-radius-base;
+ }
 
+.btn-tiny {
+  font-size: $button-tiny-font-size;
+  height: $button-tiny-height;
+  padding: $padding-tiny;
+  border-radius: $border-radius-base;
 }
 
 // generate buttons
@@ -20,10 +27,12 @@ $button-types:
 .btn,
 .btn-large,
 .btn-small,
+.btn-tiny,
 .btn-floating,
 .btn-flat {
   font-weight: bold;
   box-sizing: content-box;
+  font-family: $font-family-sans;
 
   // default values for buttons
   & {
