@@ -5,9 +5,9 @@ const { Component, computed } = Ember;
 export default Component.extend({
 
   typeClasses: {
-    supplier: 'color-blue',
-    procuring_entity: 'color-pink',
-    edge: 'color-gray'
+    supplier: 'supplier',
+    procuring_entity: 'procurer',
+    edge: 'relationship'
   },
 
   class: computed('model', function() {
@@ -36,7 +36,7 @@ export default Component.extend({
   actions: {
     close() {
       this.set('network.selectedNodes', []);
-      this.set('network.selectedEdges', []);
+      this.set('network.selectedEdges', []); // why twice?!?!?!
     }
   }
 });

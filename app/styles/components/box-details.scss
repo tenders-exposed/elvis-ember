@@ -1,25 +1,88 @@
 div#box-details-container {
-  z-index: 999;
+  @keyframes slide-up {
+    from { top: -100%; }
+    to { top: 20px; }
+  }
+  animation: slide-up ease .4s;
+
+  z-index: $zindex-infobox;
   position: absolute;
-  top: 35px;
-  right: 40px;
-  width: 225px;
-  height: 50px;
+  top: 20px;
+  right: 60px;
+  width: 245px;
+  height: auto !important;
   display: block;
 
-  div#box-details-card {
-    @include bg-dark;
-    @include box;
+  #box-details-card {
+    border: 1px solid rgba(255,255,255,0.15);
+    background: fade-out($bg-color,0.1);
+    //box-shadow: 0 5px 20px rgba(0,0,0,0.75);
+    border-radius: $border-radius-base;
+    padding: $padding-base;
     width: 100%;
-    float: right;
-    top: 0;
+    position: absolute;
+    width: 100%;
 
-    span.color-pink { color: $color-procurer; }
-    span.color-blue { color: $color-supplier; }
-    div.col { padding: 0px; }
+    .actor {
+      position: relative;
+      padding-left: 1em;
+      color: $text-muted-color;
+      font-size: .8rem;
+      line-height: 1rem;
+      margin-bottom: .5em;
+
+      [class*=figure-] {
+        font-size: .6rem;
+        position: absolute;
+        left: 0;
+        top: .25em;
+      }
+
+    }
+
+    .flags {
+      font-size: .8rem;
+    }
+
+    hr {
+      margin: 1em 0;
+      opacity: .3;
+      border-bottom: 0px;
+    }
+
+    table {
+      width: auto;
+      td,th { padding: 2px 4px;}
+    }
+    .spec {
+
+      .value {
+        font-size: 1rem;
+        font-weight: bold;
+        width: auto;
+        text-align: right;
+      }
+      .label {
+        font-size: .8rem;
+        opacity: .6;
+      }
+    }
+
+    .action {
+      margin-top: 1.5em;
+      margin-bottom: .5em;
+    }
+
+    .close {
+      position: absolute;
+      top: .25em;
+      right: .5em;
+      cursor: pointer;
+      opacity: .5;
+      &:hover {
+        opacity: 1;
+      }
+    }
   }
-  .edge {
-    .flags { margin-top: 5px;}
-    .row { margin-bottom: 10px;}
-  }
+
 }
