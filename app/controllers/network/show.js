@@ -137,7 +137,6 @@ export default Controller.extend({
     this.get('benchmark').store('performance.network.iterationsTime', timeS);
     this.get('benchmark').save();
 
-
     let message =
       `
           <div id="network-info">
@@ -164,8 +163,6 @@ export default Controller.extend({
       autoClear: true,
       htmlContent: true
     });
-
-
   },
 
   // cropping
