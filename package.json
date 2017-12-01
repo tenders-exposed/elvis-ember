@@ -44,6 +44,7 @@
     "ember-cli-notifications": "^4.1.6",
     "ember-cli-nouislider": "^0.11.0",
     "ember-cli-numeral": "0.2.0",
+    "ember-cli-piwik": "0.0.5",
     "ember-cli-qunit": "^4.0.0",
     "ember-cli-release": "^1.0.0-beta.2",
     "ember-cli-sass": "^7.0.0",
