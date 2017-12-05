@@ -160,10 +160,9 @@ export default Controller.extend({
           </div>
         `;
     this.notifications.success(message, {
-      autoClear: false,
+      autoClear: true,
       htmlContent: true
     });
-
   },
 
   // cropping

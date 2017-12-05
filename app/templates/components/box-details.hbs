@@ -1,90 +1,64 @@
-<div id="box-details-card" class="row {{graphElementType}}">
+<div id="box-details-card" class="infobox {{graphElementType}}">
     <div class="close" {{action "close" on="click"}}>
       {{fa-icon 'close' size=1}}
     </div>
     {{#if cluster}}
+        <h5>cluster of {{model.type}}s</h5>
       {{#each model as |node|}}
-        <div class="row">
-          <div class="co-name fs3">
-            <span class="supplier">
-              {{fa-icon 'circle' size=1}}
-            </span>
+            <span class="figure-supplier"></span>
             {{node.label}}
-          </div>
-        </div>
       {{/each}}
     {{else}}
       {{#if (eq graphElementType "node")}}
-    <div class="row">
-      <div class="el-label fs0">
-        <span class="{{class}}">
-          {{fa-icon 'circle' size=1}}
-        </span>
-        {{model.type}}
-      </div>
 
-      <div class="co-name fs3">{{model.label}}</div>
-      {{#each-in model.flags as |keyValue value|}}
-        <div class="flags">{{fa-icon 'flag' size=1}}{{keyValue}}</div>
-      {{/each-in}}
-    </div>
-    <div class="row">
-      <div class="col s6 left-align">
-        <div class="el-label fs0">Total flow</div>
-        <div class="el-title fs5">{{format-amount model.value '0,0[.]00 a'}}</div>
-      </div>
-      <div class="col s6 left-align" >
-        <div class="el-label fs0">Competition</div>
-        <div class="el-title fs5">1.1</div>
-      </div>
-    </div>
-    <div class="row" style="margin-bottom: 0px">
-      <div class="col s6 left-align">
-        {{#link-to "network.show.details.show" model.route model.link}}
-          show details
-        {{/link-to}}
-      </div>
-    </div>
-  {{/if}}
+        <h5>{{model.type}}</h5>
+          <div class="actor"><span class="figure-{{class}}"></span> {{model.label}}</div>
+        <hr>
+        {{#each-in model.flags as |keyValue value|}}
+            <div class="flags">
+                <div class="flag">
+                    {{fa-icon 'flag' size=1}} {{keyValue}}
+                </div>
+            </div>
+        {{/each-in}}
+
+        <table class="spec">
+          <tr>
+            <td class="value">{{format-amount model.value '0,0[.]00 a'}}</td>
+            <td class="label">Total money flow</td>
+          </tr>
+        </table>
+        <div class="action">
+            {{#link-to "network.show.details.show" model.route model.link class="btn-tiny transparent primary"}}
+              Show details
+            {{/link-to}}
+        </div>
+      {{/if}}
 
   {{#if (eq graphElementType "edge")}}
-    <div class="row">
-      <div class="el-label fs0">
-        relationship
-      </div>
+    <h5>Relationship</h5>
 
-      <div class="el-label">
-        <span class="color-blue fs1">
-          {{fa-icon 'circle' size=1}}
-        </span>
-        <span class="co-name fs1">{{model.fromLabel}}</span>
-      </div>
+    <div class="actor"><span class="figure-supplier"></span> {{model.fromLabel}}</div>
+    <div class="actor"><span class="figure-procurer"></span> {{model.toLabel}}</div>
+      <hr>
+    {{#each-in model.flags as |keyValue value|}}
+        <div class="flags">
+            <div class="flag">{{fa-icon 'flag' size=1}} {{keyValue}}</div>
+        </div>
+    {{/each-in}}
 
-      <div class="el-label">
-        <span class="color-pink fs1">
-          {{fa-icon 'circle' size=1}}
-        </span>
-        <span class="co-name fs1">{{model.toLabel}}</span>
-      </div>
-
-      {{#each-in model.flags as |keyValue value|}}
-        <div class="flags">{{fa-icon 'flag' size=1}}{{keyValue}}</div>
-      {{/each-in}}
+    <table class="spec">
+        <tr>
+            <td class="value">{{format-amount model.value '0,0 a'}}</td>
+            <td class="label">{{model.valueType}}</td>
+        </tr>
+    </table>
+    <div class="action">
+        {{#link-to "network.show.details.show" model.route model.link class="btn-tiny transparent primary"}}
+            Show details
+        {{/link-to}}
     </div>
 
-    <div class="row">
-      <div class="col s6 left-align">
-        <span class="el-label fs0">{{model.valueType}}</span>
-        <span class="el-title fs4">{{model.value}}</span>
-      </div>
-    </div>
-    <div class="row" style="margin-bottom: 0px">
-      <div class="col s6 left-align">
-          {{#link-to "network.show.details.show" model.route model.link}}
-              show details
-          {{/link-to}}
-      </div>
-    </div>
   {{/if}}
 
     {{/if}}
