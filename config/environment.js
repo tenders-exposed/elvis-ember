@@ -32,7 +32,6 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    // ENV.APP.apiHost = 'http://toto.tenders.exposed/api';
     ENV.APP.apiHost = 'https://api.elvis.tenders.exposed/api';
     ENV.APP.apiNamespace = 'v1';
     // ENV.APP.LOG_RESOLVER = true;
@@ -40,6 +39,24 @@ module.exports = function(environment) {
     ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.piwik = {
+      sid: 4,
+      url: 'https://piwik.tenders.exposed/'
+    };
+  }
+
+  if (environment === 'heroku-development') {
+    ENV.APP.apiHost = 'https://api.elvis.tenders.exposed/api';
+    ENV.APP.apiNamespace = 'v1';
+    // ENV.APP.LOG_RESOLVER = true;
+    // ENV.APP.LOG_ACTIVE_GENERATION = true;
+    ENV.APP.LOG_TRANSITIONS = true;
+    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
+    ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.piwik = {
+      sid: 3,
+      url: 'https://piwik.tenders.exposed'
+    };
   }
 
   if (environment === 'test') {
@@ -56,14 +73,21 @@ module.exports = function(environment) {
   if (environment === 'staging') {
     ENV.APP.apiHost = 'https://api.elvis.tenders.exposed/api';
     ENV.APP.apiNamespace = 'v1';
-
+    ENV.piwik = {
+      sid: 2,
+      url: 'https://piwik.tenders.exposed'
+    };
   }
 
   if (environment === 'production') {
     ENV.APP.apiHost = 'https://api.elvis.tenders.exposed/api';
     ENV.APP.apiNamespace = 'v1';
-
+    ENV.piwik = {
+      sid: 1,
+      url: 'https://piwik.tenders.exposed'
+    };
   }
+
   ENV['ember-simple-auth'] = {
     authenticationRoute: 'welcome'
   };
