@@ -24,12 +24,12 @@
 
         <table class="spec">
           <tr>
+
             <td class="value">{{format-amount model.value '0,0[.]00 a'}} M</td>
             <td class="label">Total money flow</td>
           </tr>
           <tr>
-            <!-- TODO: real value is missing here. -->
-            <td class="value">1.1</td>
+            <td class="value">{{format-amount model.average_competition}}</td>
             <td class="label">Average competitors in contracts</td>
           </tr>
         </table>
@@ -54,7 +54,7 @@
 
     <table class="spec">
         <tr>
-            <td class="value">{{model.value}}</td>
+            <td class="value">{{format-amount model.value '0,0 a'}}</td>
             <td class="label">{{model.valueType}}</td>
         </tr>
     </table>
