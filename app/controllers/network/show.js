@@ -137,7 +137,6 @@ export default Controller.extend({
     this.get('benchmark').store('performance.network.iterationsTime', timeS);
     this.get('benchmark').save();
 
-
     let message =
       `
           <div id="network-info">
@@ -286,7 +285,6 @@ export default Controller.extend({
           $('#downloadLnk').attr('href', dt);
         }, false);
     };
-
   },
 
   setDimensionControls() {
@@ -323,7 +321,6 @@ export default Controller.extend({
       cropBoxData.height = inputVal;
       $canvas.cropper('setCropBoxData', cropBoxData);
     });
-
   },
 
   setCropControls() {
@@ -468,7 +465,6 @@ export default Controller.extend({
       this.set('networkStabilization', true);
       Logger.info('Network stabilized');
       this.get('networkService').setNetwork(this.get('network'));
-
     },
 
     stabilizationProgress(amount) {
