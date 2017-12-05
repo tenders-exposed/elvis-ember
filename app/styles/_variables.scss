@@ -97,6 +97,7 @@ $element-bottom-margin: ($gutter-width*2)/3;
 $padding-base:            $gutter-width;
 $padding-large:           2*$gutter-width;
 $padding-small:           $gutter-width/2;
+$padding-tiny:            $gutter-width/3;
 
 /* Typography
    ========================================================================== */
@@ -181,9 +182,13 @@ $button-large-icon-font-size: 1.6rem;
 $button-large-height: $button-height * 1.5;
 
 // Small buttons
-$button-small-font-size: 0.75rem;
-$button-small-icon-font-size: 0.75rem;
-$button-small-height: $button-height * 0.75;
+$button-small-font-size: 0.85rem;
+$button-small-icon-font-size: 0.85rem;
+$button-small-height: $button-height * 0.6;
+
+$button-tiny-font-size: 0.75rem;
+$button-tiny-icon-font-size: 0.75rem;
+$button-tiny-height: $button-height * 0.4;
 
 // Flat buttons
 $button-flat-color: #343434;
@@ -415,4 +420,6 @@ $zindex-network-sidebar-toggle: 91;
 $zindex-network-sidenav: 92;
 $zindex-navbar: 98;
 $zindex-modal:      999;
+$zindex-infobox:    70;
+$zindex-notification: 69;
 $zindex-details-container:     89;
