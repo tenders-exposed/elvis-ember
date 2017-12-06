@@ -33,6 +33,20 @@
   color: #615f5f !important;
 }
 
+// close button icon for modals and other boxes
+@mixin close {
+  font-size: $font-size-base;
+  color: $text-color;
+  opacity: .5;
+  position: absolute;
+  top: .5em;
+  right: .5em;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
+}
+
 /*fonts and text*/
 @mixin default-font{
   font-family: "Roboto";

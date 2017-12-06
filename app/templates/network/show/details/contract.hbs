@@ -1,168 +1,321 @@
-<div class="contract-info-wrapper">
-  <div class="absolute close" {{action "closeDetails"}}>
-    {{fa-icon 'times-circle' size=3}}
+<div class="detailview contract-info-wrapper">
+
+  <div class="detailview-head">
+
+    <div class="detailview-title">
+      <i class="fa fa-file"></i> Contract Details
+    </div>
+
+    <div class="close" {{action "closeDetails"}}>
+      {{fa-icon 'times-circle'}}
+    </div>
+
+    <div class="back">
+      {{#link-to "network.show.details.show" model.tab model.entityId}}
+        {{fa-icon 'fa-arrow-circle-left'}}
+      {{/link-to}}
+    </div>
   </div>
 
- <div class="absolute back-button">
-  {{#link-to "network.show.details.show" model.tab model.entityId}}
-    {{fa-icon 'fa-arrow-circle-left' size=3}}
-  {{/link-to}}
-  </div>
+  <div class="detailview-body-wrapper">
+    {{#ember-scrollable}}
 
-  <div class="container container-entity relative">
-    <div class="row row1">
-      <div class="col s12 fs01">
-        <div class="el-label-dark fs2">
-          {{fa-icon 'file-text-o' size=1}} contract
-        </div>
-        <div class="el-title fs5">
-          {{model.award.title}}
-        </div>
-        <div class="fs3 dark-text">
-          {{model.award.description}}
-        </div>
-        <hr>
-      </div>
-    </div>
-    <div class="row row2">
+      <div class="detailview-body">
+        <section class="external-links">
+          <a class="btn-small link primary" href="http://ted.europa.eu">view on ted.europa.eu <i class="fa fa-external-link"></i></a>
+          <a class="btn-small link primary" href="http://opented.eu">view on opented.eu <i class="fa fa-external-link"></i></a>
+        </section>
 
-      <div class="col s4">
-        <div class="el-label-dark fs01 right-align">procurer</div>
-        <div class="el-title fs4">
-          {{model.procuring_entity.name}}
-        </div>
-      </div>
+        <section>
+          <h5>Reference number</h5>
+          <div>{{model.award.id}}</div>
+        </section>
 
-      <div class="col s1 procurer">
-        {{fa-icon 'circle' size="2"}}
-        <span class="line"></span>
-      </div>
+        <section>
+          <h5>Title (English)</h5>
+          <div>{{model.award.descriptionEnglish}}</div>
+        </section>
 
-      <div class="col s2">
-        <div class="el-label-dark fs01 center-align">contract award</div>
-        <div class="el-title fs4 center-align">
-          {{format-amount model.award.value.x_amount_eur}}
-        </div>
-        <div class="el-label-dark fs01 center-align">
-          ({{model.award.value.x_vatbool}}. {{model.award.value.x_vat}}%)
-        </div>
-      </div>
+        <section>
+          <h5>Title</h5>
+          <h2>{{model.award.title}}</h2>
 
-      <div class="col s1 supplier right-align">
-        {{fa-icon 'circle' size="2"}}
-        <span class="line"></span>
-      </div>
+          <div class="tags">
+            {{#if model.award.country}}
+              <span class="tag">{{world-flag model.award.country 16}} {{model.award.country}}</span>
+            {{/if}}
 
-      <div class="col s4">
-        <div class="el-label-dark fs01">supplier</div>
-        <div class="el-title fs4">
-          {{model.supplier.name}}
-        </div>
-      </div>
+            {{#if model.award.xIsEuFunded}}
+              <span class="tag">EU Funded</span>
+            {{/if}}
 
-      <div class="col s12">
-        <small><hr></small>
-      </div>
-    </div>
+            {{#if model.award.isFrameworkAgreement}}
+              <span class="tag">Framework Agreement</span>
+            {{/if}}
+            {{#if model.award.isCoveredByGpa}}
+              <span class="tag">GPA Covered</span>
+            {{/if}}
+          </div>
+        </section>
 
-    <div class="row row3">
-      <div class="col s3">
-        <div class="el-label-dark fs01">winning condition</div>
-        <div class="el-title fs3">
-          {{fa-icon 'trophy'}}
-          best price
-        </div>
-      </div>
-      <div class="col s4">
-        <div class="el-label-dark fs01">execution</div>
-        <div class="el-title fs3">
-          {{fa-icon 'rocket'}}
-          open procedure
-        </div>
-      </div>
-      <div class="col s4">
-        <div class="el-label-dark fs01">award date</div>
-        <div class="el-title fs3">
-          {{moment-format model.award.date.full 'DD MMM YYYY' 'YYYY-MM-DD'}}
-        </div>
-      </div>
-      <div class="col s1">
-        <div class="el-label-dark fs01">bids</div>
-        <div class="el-title fs3">43</div>
-      </div>
-      <div class="col s12">
-        <small><hr></small>
-      </div>
-    </div>
+        <section class="row">
+          <div class="col s3 summary">
+            <h5 class="summary-title">Total price</h5>
+            <div class="summary-value">{{model.award.finalPrice}}</div>
+          </div>
+          <div class="col s3 summary">
+            <h5 class="summary-title">Award date</h5>
+            <div class="summary-value">{{moment-format model.award.date.full 'DD MMM YYYY' 'YYYY-MM-DD'}}</div>
+          </div>
+          <div class="col s3 summary">
+            <h5 class="summary-title">Procedure</h5>
+            <div class="summary-value">{{model.award.nationalProcedureType}}</div>
+          </div>
+          <div class="col s3 summary">
+            <h5 class="summary-title">Award criteria</h5>
+            <div class="summary-value">{{model.award.kju}}</div>
+          </div>
+        </section>
 
-    <div class="row row4">
-        <div class="col s4">
-            <div class="section">
-              <div class="el-title fs4"> Tender Details</div>
+        <section>
+          <h5>Description</h5>
+          <div>{{model.award.description}}</div>
+        </section>
+
+        <section class="row">
+          <div class="col s6">
+            <h5>Buyer</h5>
+            <span class="figure-procurer small"></span> <a href="#">{{model.procuring_entity.name}}</a>
+          </div>
+          <div class="col s6">
+            <h5>Winner(s)</h5>
+            <span class="figure-supplier small"></span> <a href="#">{{model.supplier.name}}</a>
+          </div>
+        </section>
+
+        <section>
+          <h5>Lots</h5>
+          {{#md-card-collapsible }}
+            {{#md-collapsible title="Lot 1"}}
+              <section class="row">
+                <div class="col s4">
+                  <h5>Lot Reference Number</h5>
+                  <div>365478976</div>
+                </div>
+                <div class="col s4">
+                  <h5>Estimated price</h5>
+                  <div>1 365 478 976 €</div>
+                </div>
+                <div class="col s4">
+                  <h5>Address of Implementation</h5>
+                  <address>
+                    Opatovská cesta 4<br>
+                    97201, Bojnice<br>
+                    Slovakia<br>
+                  </address>
+                </div>
+              </section>
+              <section>
+                <h5>Description</h5>
+                <div>Lorem ipsum dolor sit amet, consectetur
+                  adipiscing elit, sed do eiusmod tempor incididunt ut
+                  labore et dolore magna aliqua. Ut enim ad minim veniam,
+                  quis nostrud exercitation ullamco laboris nisi ut
+                  aliquip ex ea commodo consequat.</div>
+              </section>
+              <section>
+                <h5>Bids (47)</h5>
+                <table class="bids-table">
+                  <tr class="bid winner">
+                    <td class="bidder"><span class="figure-supplier small"></span> <a href="#">Supplier1</a></td>
+                    <td class="price">35768789 €</td>
+                  </tr>
+                  <tr class="bid">
+                    <td class="bidder"><span class="figure-supplier small"></span> <a href="#">Supplier2</a></td>
+                    <td class="price">568789 €</td>
+                  </tr>
+                  <tr class="bid">
+                    <td class="bidder"><span class="figure-supplier small"></span> <a href="#">Supplier3</a></td>
+                    <td class="price">1243589 €</td>
+                  </tr>
+                </table>
+              </section>
+            {{/md-collapsible}}
+            {{#md-collapsible title="Lot 2"}}
+
+              Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit, sed do eiusmod tempor incididunt ut
+              labore et dolore magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut
+              aliquip ex ea commodo consequat.
+            {{/md-collapsible}}
+            {{#md-collapsible title="Lot 3"}}
+
+              Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit, sed do eiusmod tempor incididunt ut
+              labore et dolore magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut
+              aliquip ex ea commodo consequat.
+            {{/md-collapsible}}
+          {{/md-card-collapsible}}
+        </section>
+
+        <!--
+        <div class="row row1">
+          <div class="col s12 fs01">
+            <div class="el-label-dark fs2">
+              {{fa-icon 'file-text-o' size=1}} contract
             </div>
+            <div class="el-title fs5">
+              {{model.award.title}}
+            </div>
+            <div class="fs3 dark-text">
+              {{model.award.description}}
+            </div>
+            <hr>
+          </div>
+        </div>
+        <div class="row row2">
 
-            <div class="section">
-              <div>
-                <div class="el-label-dark fs01">contract value</div>
-                <div class="el-title fs5">
-                  {{format-amount model.tender.value.x_amount_eur}}
+          <div class="col s4">
+            <div class="el-label-dark fs01 right-align">procurer</div>
+            <div class="el-title fs4">
+              {{model.procuring_entity.name}}
+            </div>
+          </div>
+
+          <div class="col s1 procurer">
+            {{fa-icon 'circle' size="2"}}
+            <span class="line"></span>
+          </div>
+
+          <div class="col s2">
+            <div class="el-label-dark fs01 center-align">contract award</div>
+            <div class="el-title fs4 center-align">
+              {{format-amount model.award.value.x_amount_eur}}
+            </div>
+            <div class="el-label-dark fs01 center-align">
+              ({{model.award.value.x_vatbool}}. {{model.award.value.x_vat}}%)
+            </div>
+          </div>
+
+          <div class="col s1 supplier right-align">
+            {{fa-icon 'circle' size="2"}}
+            <span class="line"></span>
+          </div>
+
+          <div class="col s4">
+            <div class="el-label-dark fs01">supplier</div>
+            <div class="el-title fs4">
+              {{model.supplier.name}}
+            </div>
+          </div>
+
+          <div class="col s12">
+            <small><hr></small>
+          </div>
+        </div>
+
+        <div class="row row3">
+          <div class="col s3">
+            <div class="el-label-dark fs01">winning condition</div>
+            <div class="el-title fs3">
+              {{fa-icon 'trophy'}}
+              best price
+            </div>
+          </div>
+          <div class="col s4">
+            <div class="el-label-dark fs01">execution</div>
+            <div class="el-title fs3">
+              {{fa-icon 'rocket'}}
+              open procedure
+            </div>
+          </div>
+          <div class="col s4">
+            <div class="el-label-dark fs01">award date</div>
+            <div class="el-title fs3">
+              {{moment-format model.award.date.full 'DD MMM YYYY' 'YYYY-MM-DD'}}
+            </div>
+          </div>
+          <div class="col s1">
+            <div class="el-label-dark fs01">bids</div>
+            <div class="el-title fs3">43</div>
+          </div>
+          <div class="col s12">
+            <small><hr></small>
+          </div>
+        </div>
+
+        <div class="row row4">
+            <div class="col s4">
+                <div class="section">
+                  <div class="el-title fs4"> Tender Details</div>
+                </div>
+
+                <div class="section">
+                  <div>
+                    <div class="el-label-dark fs01">contract value</div>
+                    <div class="el-title fs5">
+                      {{format-amount model.tender.value.x_amount_eur}}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="section dark-text tender-details">
+                  <div>
+                    <span class="status fs4">{{fa-icon model.eu_project size="1"}}</span>
+                    <span class="el-label-dark fs01">European Project</span>
+                  </div>
+                  <div>
+                    <span class="status  fs4">{{fa-icon model.framework size="1"}}</span>
+                    <span class="el-label-dark fs01">Framework agreement</span>
+                  </div>
+                  <div>
+                    <span class="status  fs4">{{fa-icon model.subcontracted size="1"}}</span>
+                    <span class="el-label-dark fs01">To be subcontracted</span>
+                  </div>
+                </div>
+            </div>
+            <div class="col s8">
+              <div class="section">
+                <div class="el-title fs4"> Other Contractors in this Tender</div>
+              </div>
+              <div class="section suppliers">
+
+                <div class="other-supplier">
+                  <div class="col s8">
+                    {{fa-icon "circle" size="1" class="fs3 supplier-color"}}
+                    <span class="dark-text fs3">Supplier Name</span>
+                  </div>
+                  <div class="col s4 right-align el-title ">
+                    <span class="fs5">12.4</span>
+                    <span class="fs3">M</span>
+                  </div>
+                </div>
+                <div class="other-supplier">
+                  <div class="col s8">
+                    {{fa-icon "circle" size="1" class="fs3 supplier-color"}}
+                    <span class="dark-text fs3">Supplier Name</span>
+                  </div>
+                  <div class="col s4 right-align el-title ">
+                    <span class="fs5">12.4</span>
+                    <span class="fs3">M</span>
+                  </div>
+                </div>
+                <div class="other-supplier">
+                  <div class="col s8">
+                    {{fa-icon "circle" size="1" class="fs3 supplier-color"}}
+                    <span class="dark-text fs3">Supplier Name</span>
+                  </div>
+                  <div class="col s4 right-align el-title ">
+                    <span class="fs5">12.4</span>
+                    <span class="fs3">M</span>
+                  </div>
                 </div>
               </div>
             </div>
-
-            <div class="section dark-text tender-details">
-              <div>
-                <span class="status fs4">{{fa-icon model.eu_project size="1"}}</span>
-                <span class="el-label-dark fs01">European Project</span>
-              </div>
-              <div>
-                <span class="status  fs4">{{fa-icon model.framework size="1"}}</span>
-                <span class="el-label-dark fs01">Framework agreement</span>
-              </div>
-              <div>
-                <span class="status  fs4">{{fa-icon model.subcontracted size="1"}}</span>
-                <span class="el-label-dark fs01">To be subcontracted</span>
-              </div>
-            </div>
-        </div>
-        <div class="col s8">
-          <div class="section">
-            <div class="el-title fs4"> Other Contractors in this Tender</div>
-          </div>
-          <div class="section suppliers">
-
-            <div class="other-supplier">
-              <div class="col s8">
-                {{fa-icon "circle" size="1" class="fs3 supplier-color"}}
-                <span class="dark-text fs3">Supplier Name</span>
-              </div>
-              <div class="col s4 right-align el-title ">
-                <span class="fs5">12.4</span>
-                <span class="fs3">M</span>
-              </div>
-            </div>
-            <div class="other-supplier">
-              <div class="col s8">
-                {{fa-icon "circle" size="1" class="fs3 supplier-color"}}
-                <span class="dark-text fs3">Supplier Name</span>
-              </div>
-              <div class="col s4 right-align el-title ">
-                <span class="fs5">12.4</span>
-                <span class="fs3">M</span>
-              </div>
-            </div>
-            <div class="other-supplier">
-              <div class="col s8">
-                {{fa-icon "circle" size="1" class="fs3 supplier-color"}}
-                <span class="dark-text fs3">Supplier Name</span>
-              </div>
-              <div class="col s4 right-align el-title ">
-                <span class="fs5">12.4</span>
-                <span class="fs3">M</span>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
+        </div>-->
+      </div>
+    {{/ember-scrollable}}
   </div>
 </div>

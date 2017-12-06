@@ -215,9 +215,9 @@ $card-link-color-light: lighten($card-link-color, 20%);
 /* Collapsible
    ========================================================================== */
 
-$collapsible-height: 3rem;
-$collapsible-header-color: #fff;
-$collapsible-border-color: #ddd;
+$collapsible-height: 2.5rem;
+$collapsible-header-color: rgba(255,255,255,0.05);
+$collapsible-border-color: rgba(0,0,0,0.5);
 
 
 /* Chips
@@ -423,3 +423,4 @@ $zindex-modal:      999;
 $zindex-infobox:    70;
 $zindex-notification: 69;
 $zindex-details-container:     89;
+$zindex-details:              90;

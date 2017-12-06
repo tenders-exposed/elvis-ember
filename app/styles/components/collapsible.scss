@@ -1,0 +1,14 @@
+.collapsible {
+  border-radius: $border-radius-base;
+
+  li {
+    margin: 0;
+  }
+
+  .collapsible-header {
+    font-family: $font-family-sans;
+    &:hover {
+      background: fade-in($collapsible-header-color,0.05);
+    }
+  }
+}

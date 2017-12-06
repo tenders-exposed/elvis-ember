@@ -1,31 +1,34 @@
-<div class="details-info-wrapper">
+<div class="detailview details-info-wrapper">
 
-    <div class="absolute close" {{action "closeDetails"}}>
-        {{fa-icon 'times-circle' size=3}}
-    </div>
     {{#if readyToRender}}
-        <div style="height: 100vh">
-            <div class="container container-entity relative">
-                {{#if modelDetails}}
-                  {{#if (eq tab 'suppliers')}}
-                    {{partial 'network/show/details/partials/supplier'}}
-                  {{else if (eq tab 'procurers')}}
-                    {{partial 'network/show/details/partials/procurer'}}
-                  {{else if (eq tab 'relationships')}}
-                    {{partial 'network/show/details/partials/relationship'}}
-                  {{else}}
-                    {{partial 'network/show/details/partials/null'}}
-                  {{/if}}
 
-                {{else}}
-                        <div class="row">
-                          <div class="col s12 title">
-                            {{fa-icon 'times-circle' size=3}}
-                          </div>
-                        </div>
-                {{/if}}
+        {{#if modelDetails}}
+          {{#if (eq tab 'suppliers')}}
+            {{partial 'network/show/details/partials/supplier'}}
+          {{else if (eq tab 'procurers')}}
+            {{partial 'network/show/details/partials/procurer'}}
+          {{else if (eq tab 'relationships')}}
+            {{partial 'network/show/details/partials/relationship'}}
+          {{else}}
+            {{partial 'network/show/details/partials/null'}}
+          {{/if}}
+
+        {{else}}
+          <div class="valign-wrapper" style="height: 100%;">
+            <div class="detailview-body center" style="margin: 0 auto">
+              <h1><i class="fa fa-frown-o"></i></h1>
+              <h2>Hoooray! ... I mean oops!</h2>
+              <p>Something went terribly wrong and data you requested cannot be loaded from the database. <br>We are sorry, perhaps try again later.</p>
+              <br>
+              <p>
+                <a href="#" class="btn-small transparent primary" {{action "closeDetails"}}>
+                Close this window.
+                </a>
+              </p>
             </div>
-        </div>
+          </div>
+        {{/if}}
+
 
     {{else}}
         {{elvis-loader shouldRender=readyToRender message="Loading.."}}
