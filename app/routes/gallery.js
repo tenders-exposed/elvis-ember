@@ -13,7 +13,7 @@ export default Route.extend({
       .findByIds('network', this.get('networksList'))
       .then((networks) => {
         return networks.map((n) => {
-          let name = n.name;
+          let { name } = n;
           let description = n.get('description');
 
           if (typeof name === 'undefined' || `${name}` === 'null') {
