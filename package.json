@@ -21,7 +21,7 @@
   "devDependencies": {
     "active-model-adapter": "2.1.1",
     "broccoli-asset-rev": "^2.4.5",
-    "elvis-network": "tenders-exposed/elvis-network",
+    "elvis-network": "github:tenders-exposed/elvis-network",
     "ember-ag-grid": "tenders-exposed/ember-ag-grid",
     "ember-ajax": "^3.0.0",
     "ember-async-button": "^1.0.2",

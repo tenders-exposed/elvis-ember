@@ -21,7 +21,7 @@ export default Component.extend({
     let loadData = function(data) {
       let promise = new RSVP.Promise(function(resolve, reject) {
         if (data) {
-          Logger.debug('render later got data', data);
+          // Logger.debug('render later got data', data);
           Logger.debug('render later got data', self.get('wait'));
           resolve(data);
         } else {

@@ -456,7 +456,7 @@ export default Controller.extend({
       // let nodesCount = network.nodesSet.length;
 
       if (!this.get('networkStabilization')) {
-        this.showNetworkInfo();
+        // this.showNetworkInfo();
         this.set('networkStabilization', true);
       }
 

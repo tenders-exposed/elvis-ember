@@ -92,6 +92,17 @@ export default Service.extend({
     return edgesFlagged;
   },
 
+  getTruncatedNodeLabels(nodes) {
+    let nodesTruncated = _.cloneDeep(nodes);
+
+    _.map(nodesTruncated, (node) => {
+      node.label = _.truncate(node.label, {'length': 24, 'separator': ' '});
+    });
+
+    return nodesTruncated;
+
+  },
+
   setModel(model) {
     // let edges = model.get('flaggedGraph.edges');
     // let nodesFl = model.get('flaggedGraph.nodes');
@@ -126,6 +137,7 @@ export default Service.extend({
     this.set('model', model);
     this.set('edges', model.get('graph.edges'));
     this.set('nodes', model.get('graph.nodes'));
+    this.set('nodesTruncated', this.getTruncatedNodeLabels(model.get('graph.nodes')));
     this.set('flaggedEdges', this.getFlaggedEdges(model.get('graph.edges')));
     this.set('clusters', clusters);
 
