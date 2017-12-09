@@ -1,3 +1,107 @@
+<div class="detailview-head">
+
+  <div class="detailview-title">
+    <span class="figure-relationship small"></span> Relationship<br>
+  </div>
+
+  <div class="close" {{action "closeDetails"}}>
+    {{fa-icon 'times-circle'}}
+  </div>
+
+</div>
+
+<div class="detailview-body-wrapper">
+  {{#ember-scrollable}}
+
+    <div class="detailview-body">
+
+      <h5 class="detailview-restriction">Displaying Period: <strong>2012-2016</strong></h5>
+
+      <section>
+        <br><br>
+        <h5>Actors</h5>
+        <div>
+          <span class="figure-procurer small"></span>
+          {{#link-to "network.show.details.show" "procurers" 13333}}Elvetino AG{{/link-to}}
+        </div>
+        <div>
+          <span class="figure-supplier small"></span>
+          {{#link-to "network.show.details.show" "suppliers" 995348}}Heineken Switzerland AG{{/link-to}}
+        </div>
+
+        <div class="tags">
+          <span class="tag redflag"><i class="fa fa-flag"></i> Same city</span>
+          <span class="tag redflag"><i class="fa fa-flag"></i> Low avg competition</span>
+        </div>
+      </section>
+
+      <section class="row">
+        <div class="col s4 summary">
+          <h5 class="summary-title">All awarded amounts</h5>
+          <div class="summary-value">12 351 732 €</div>
+        </div>
+        <div class="col s4 summary">
+          <h5 class="summary-title">Awarded amount unknown in</h5>
+          <div class="summary-value">47% <small>tenders</small></div>
+        </div>
+
+        <div class="col s3 summary">
+          <h5 class="summary-title">AVG. Competition</h5>
+          <div class="summary-value">1.2 <small>bids per tender</small></div>
+        </div>
+      </section>
+
+      <section>
+        <h5>Contracts</h5>
+
+        {{details-data-table
+          class="contracts-table"
+          content=modelDetails.to.contracts
+          fields=fields.contractsRelationship
+          partialPath="network/show/details/partials/tables/contracts-relationship"
+          route="relationships"
+          nodeId=params.id
+        }}
+
+        <table class="contracts-table">
+          <thead>
+          <tr>
+            <th class="name">Contract</th>
+            <th class="date">Date</th>
+            <th class="bids">Bids</th>
+            <th class="award">Awarded amount</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="contract">
+            <td class="name">{{#link-to "network.show.details.contract" "59312b352dcb567c94000003" "58275665c91dcf4f891e5cef"}}Beer delivery for railway catering at SBB.{{/link-to}}</td>
+            <td class="date">18 Dec 2016</td>
+            <td class="bids">47</td>
+            <td class="award">123 487 €</td>
+          </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!--section>
+        <h5>Tenders over time</h5>
+        <div>
+          {{details-graph
+            id="details-graph-id"
+            contracts=modelDetails.contracts
+            fields=fields.contracts
+            partialPath="network/show/details/partials/tables/contracts"
+            route="contract"
+            nodeId=params.id
+          }}
+        </div>
+      </section-->
+
+    </div>
+  {{/ember-scrollable}}
+</div>
+
+<!--
 <div class="container container-entity relative">
   <div class="row">
     <div class="col s12 title">
@@ -47,7 +151,7 @@
       </div>
       {{#tab-panel manager=supplierTabManager name="contracts" class='tab-panel'}}
         {{details-data-table
-            class="contracts-relationship"
+            class="contracts-table"
             content=modelDetails.to.contracts
             fields=fields.contractsRelationship
             partialPath="network/show/details/partials/tables/contracts-relationship"
@@ -59,3 +163,4 @@
   </div>
 
 </div>
+-->

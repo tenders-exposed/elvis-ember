@@ -17,86 +17,128 @@
     </div>
   </div>
 
+  <!-- TODO: replace old variables and hardcoded data by the new backend data:
+            here are all the available variables:
+            https://digiwhist.docs.apiary.io/#reference/0/master-tenders/get-tender
+
+            here are most variables of the data currently used in the Detail view:
+            https://talk.tenders.exposed/t/changest-to-tender-details-page/107/2
+
+            note that most of variables which are used here are from the old backend or just not working!
+
+            -->
   <div class="detailview-body-wrapper">
     {{#ember-scrollable}}
 
       <div class="detailview-body">
         <section class="external-links">
+          <!-- TODO: generate working links from the reference number -->
           <a class="btn-small link primary" href="http://ted.europa.eu">view on ted.europa.eu <i class="fa fa-external-link"></i></a>
           <a class="btn-small link primary" href="http://opented.eu">view on opented.eu <i class="fa fa-external-link"></i></a>
         </section>
 
+        <!-- TODO: output proper Reference number (not ID)-->
         <section>
           <h5>Reference number</h5>
           <div>{{model.award.id}}</div>
         </section>
 
+        <!-- TODO: output contract title in English -->
+        {{#if model.award.titleEnglish}}
         <section>
           <h5>Title (English)</h5>
-          <div>{{model.award.descriptionEnglish}}</div>
+          <div>Beer delivery for railway catering at SBB.</div>
         </section>
+        {{/if}}
 
+        <!-- TODO: output title in original language -->
         <section>
           <h5>Title</h5>
-          <h2>{{model.award.title}}</h2>
+          <h2>Beer delivery for railway catering at SBB.</h2>
 
+          <!-- TODO: output bool variables only if their value is TRUE -->
           <div class="tags">
-            {{#if model.award.country}}
-              <span class="tag">{{world-flag model.award.country 16}} {{model.award.country}}</span>
-            {{/if}}
-
-            {{#if model.award.xIsEuFunded}}
+              <!-- TODO: output proper country and flag-->
+              <span class="tag">{{world-flag 'DE' 16}} Germany</span>
+              <!-- TODO: output isEuFunded variable -->
               <span class="tag">EU Funded</span>
-            {{/if}}
-
-            {{#if model.award.isFrameworkAgreement}}
+              <!-- TODO: output isFrameWorkAgreement variable -->
               <span class="tag">Framework Agreement</span>
-            {{/if}}
-            {{#if model.award.isCoveredByGpa}}
+              <!-- TODO: output isGpaCovered variable -->
               <span class="tag">GPA Covered</span>
-            {{/if}}
           </div>
         </section>
 
         <section class="row">
           <div class="col s3 summary">
+            <!-- TODO: output total award of the contract -->
             <h5 class="summary-title">Total price</h5>
-            <div class="summary-value">{{model.award.finalPrice}}</div>
+            <div class="summary-value">589 741 €</div>
           </div>
           <div class="col s3 summary">
             <h5 class="summary-title">Award date</h5>
             <div class="summary-value">{{moment-format model.award.date.full 'DD MMM YYYY' 'YYYY-MM-DD'}}</div>
           </div>
           <div class="col s3 summary">
+            <!-- TODO: output procedureType variable -->
             <h5 class="summary-title">Procedure</h5>
-            <div class="summary-value">{{model.award.nationalProcedureType}}</div>
+            <div class="summary-value">OPEN</div>
           </div>
           <div class="col s3 summary">
+            <!-- TODO: output awardCriteria variable -->
             <h5 class="summary-title">Award criteria</h5>
-            <div class="summary-value">{{model.award.kju}}</div>
+            <div class="summary-value">Lowest Price</div>
           </div>
         </section>
 
         <section>
           <h5>Description</h5>
-          <div>{{model.award.description}}</div>
+          <p>Lieferung von Bier für SBB Fernverkehrs-Gastronomie von Elvetino AG.</p>
+        </section>
+
+        <section>
+          <h5>Description (English)</h5>
+          <p>Provision of a comprehensive range of beer to railway catering at SBB</p>
         </section>
 
         <section class="row">
           <div class="col s6">
+            <!-- TODO: output the Buyer and Winner(s) of the contract. -->
             <h5>Buyer</h5>
-            <span class="figure-procurer small"></span> <a href="#">{{model.procuring_entity.name}}</a>
+            <span class="figure-procurer small"></span> {{#link-to "network.show.details.show" "procurers" 13333}}Elvetino AG{{/link-to}}
           </div>
           <div class="col s6">
             <h5>Winner(s)</h5>
-            <span class="figure-supplier small"></span> <a href="#">{{model.supplier.name}}</a>
+            <span class="figure-supplier small"></span> {{#link-to "network.show.details.show" "suppliers" 995348}}Heineken Switzerland AG{{/link-to}}
           </div>
         </section>
 
+        <!-- TODO: output this section if the tender is not divided into lots -->
+        <div class="singlelot hide">
+          <section>
+            <h5>Bids (47)</h5>
+            <table class="bids-table">
+              <tr class="bid winner">
+                <td class="bidder"><span class="figure-supplier small"></span> {{#link-to "network.show.details.show" "suppliers" 995348}}Heineken Switzerland AG{{/link-to}}</td>
+                <td class="price">35768789 €</td>
+              </tr>
+              <tr class="bid">
+                <td class="bidder"><span class="figure-supplier small"></span> {{#link-to "network.show.details.show" "suppliers" 995348}}Pivovar Staropramen AG{{/link-to}}</td>
+                <td class="price">568789 €</td>
+              </tr>
+              <tr class="bid">
+                <td class="bidder"><span class="figure-supplier small"></span> {{#link-to "network.show.details.show" "suppliers" 995348}}Amstel Beer AG{{/link-to}}</td>
+                <td class="price">1243589 €</td>
+              </tr>
+            </table>
+          </section>
+        </div>
+
+        <!-- TODO: output Lots accordion only if the tender is divided into Lots -->
         <section>
           <h5>Lots</h5>
           {{#md-card-collapsible }}
-            {{#md-collapsible title="Lot 1"}}
+            {{#md-collapsible title="National, international and non-alcoholic beer"}}
               <section class="row">
                 <div class="col s4">
                   <h5>Lot Reference Number</h5>
@@ -124,38 +166,89 @@
                   aliquip ex ea commodo consequat.</div>
               </section>
               <section>
+                <h5>English Description</h5>
+                <div>Provision of efficient ITIL-based single point of contact (SPoC) help desk and technical support service, ad hoc activities and patch management. See also Internet address provided in Section I.3.</div>
+              </section>
+              <section>
                 <h5>Bids (47)</h5>
+                <!-- TODO: this table shows all bids inside this lot.
+                          - the winner is always first and has additional class "winner"
+                          - default order is by the price
+                          - the table is sortable (by price), but the winner should be always first.
+                          -->
                 <table class="bids-table">
                   <tr class="bid winner">
-                    <td class="bidder"><span class="figure-supplier small"></span> <a href="#">Supplier1</a></td>
+                    <td class="bidder"><span class="figure-supplier small"></span> {{#link-to "network.show.details.show" "suppliers" 995348}}Heineken Switzerland AG{{/link-to}}</td>
                     <td class="price">35768789 €</td>
                   </tr>
                   <tr class="bid">
-                    <td class="bidder"><span class="figure-supplier small"></span> <a href="#">Supplier2</a></td>
+                    <td class="bidder"><span class="figure-supplier small"></span> {{#link-to "network.show.details.show" "suppliers" 995348}}Pivovar Staropramen AG{{/link-to}}</td>
                     <td class="price">568789 €</td>
                   </tr>
                   <tr class="bid">
-                    <td class="bidder"><span class="figure-supplier small"></span> <a href="#">Supplier3</a></td>
+                    <td class="bidder"><span class="figure-supplier small"></span> {{#link-to "network.show.details.show" "suppliers" 995348}}Amstel Beer AG{{/link-to}}</td>
                     <td class="price">1243589 €</td>
                   </tr>
                 </table>
               </section>
             {{/md-collapsible}}
-            {{#md-collapsible title="Lot 2"}}
-
-              Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit, sed do eiusmod tempor incididunt ut
-              labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat.
-            {{/md-collapsible}}
-            {{#md-collapsible title="Lot 3"}}
-
-              Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit, sed do eiusmod tempor incididunt ut
-              labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat.
+            {{#md-collapsible title="Amber and weissbier"}}
+              <section class="row">
+                <div class="col s4">
+                  <h5>Lot Reference Number</h5>
+                  <div>365478976</div>
+                </div>
+                <div class="col s4">
+                  <h5>Estimated price</h5>
+                  <div>1 365 478 976 €</div>
+                </div>
+                <div class="col s4">
+                  <h5>Address of Implementation</h5>
+                  <address>
+                    Opatovská cesta 4<br>
+                    97201, Bojnice<br>
+                    Slovakia<br>
+                  </address>
+                </div>
+              </section>
+              <section>
+                <h5>Description</h5>
+                <div>Lorem ipsum dolor sit amet, consectetur
+                  adipiscing elit, sed do eiusmod tempor incididunt ut
+                  labore et dolore magna aliqua. Ut enim ad minim veniam,
+                  quis nostrud exercitation ullamco laboris nisi ut
+                  aliquip ex ea commodo consequat.</div>
+              </section>
+              <section>
+                <h5>English Description</h5>
+                <div>Lorem ipsum dolor sit amet, consectetur
+                  adipiscing elit, sed do eiusmod tempor incididunt ut
+                  labore et dolore magna aliqua. Ut enim ad minim veniam,
+                  quis nostrud exercitation ullamco laboris nisi ut
+                  aliquip ex ea commodo consequat.</div>
+              </section>
+              <section>
+                <h5>Bids (47)</h5>
+                <!-- TODO: this table shows all bids inside this lot.
+                          - the winner is always first and has additional class "winner"
+                          - default order is by the price
+                          - the table is sortable (by price), but the winner should be always first.
+                          -->
+                <table class="bids-table">
+                  <tr class="bid winner">
+                    <td class="bidder"><span class="figure-supplier small"></span> {{#link-to "network.show.details.show" "supplier" 995348}}Heineken Switzerland AG{{/link-to}}</td>
+                    <td class="price">35768789 €</td>
+                  </tr>
+                  <tr class="bid">
+                    <td class="bidder"><span class="figure-supplier small"></span> {{#link-to "network.show.details.show" "supplier" 995348}}Pivovar Staropramen AG{{/link-to}}</td>
+                    <td class="price">568789 €</td>
+                  </tr>
+                  <tr class="bid">
+                    <td class="bidder"><span class="figure-supplier small"></span> {{#link-to "network.show.details.show" "supplier" 995348}}Amstel Beer AG{{/link-to}}</td>
+                    <td class="price">1243589 €</td>
+                  </tr>
+                </table>
+              </section>
             {{/md-collapsible}}
           {{/md-card-collapsible}}
         </section>

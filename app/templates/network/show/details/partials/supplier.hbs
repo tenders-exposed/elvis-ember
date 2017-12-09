@@ -1,7 +1,7 @@
 <div class="detailview-head">
 
   <div class="detailview-title">
-    <span class="figure-supplier small"></span> Company details<br>
+    <span class="figure-supplier small"></span> Supplier Company details<br>
   </div>
 
   <div class="close" {{action "closeDetails"}}>
@@ -13,6 +13,12 @@
 <div class="detailview-body-wrapper">
   {{#ember-scrollable}}
 
+    <!-- TODO: replace old variables and hardcoded data by the new backend data:
+            https://digiwhist.docs.apiary.io/#reference/0/master-tenders/get-tender
+
+            note that most of variables which are used here are from the old backend or just not working!
+            -->
+
     <div class="detailview-body">
 
       <h5 class="detailview-restriction">Displaying Period: <strong>2012-2016</strong></h5>
@@ -23,15 +29,13 @@
 
       <section>
         <h5>Name</h5>
-        <h2>{{modelDetails.name}}</h2>
+        <h2>Heineken Switzerland AG</h2>
 
         <div class="tags">
-          {{#if modelDetails.country}}
-            <span class="tag">{{world-flag modelDetails.country 16}} {{modelDetails.country}}</span>
-          {{/if}}
+          <span class="tag">{{world-flag "CH" 16}} Switzerland</span>
 
-          <span class="tag redflag"><i class="fa fa-flag"></i> Red flag 1</span>
-          <span class="tag redflag"><i class="fa fa-flag"></i> Red flag 2</span>
+          <span class="tag redflag"><i class="fa fa-flag"></i> Low avg competition</span>
+          <span class="tag redflag"><i class="fa fa-flag"></i> Frequent winner</span>
 
         </div>
       </section>
@@ -39,11 +43,11 @@
       <section class="row">
         <div class="col s4 summary">
           <h5 class="summary-title">All awarded amounts</h5>
-          <div class="summary-value">12351 €</div>
+          <div class="summary-value">125 351 €</div>
         </div>
         <div class="col s4 summary">
-          <h5 class="summary-title">Awarded amount unknown</h5>
-          <div class="summary-value">50% <small>tenders</small></div>
+          <h5 class="summary-title">Awarded amount unknown in</h5>
+          <div class="summary-value">61% <small>tenders</small></div>
         </div>
 
         <div class="col s3 summary">
@@ -65,8 +69,8 @@
           </thead>
           <tbody>
             <tr class="contract">
-              <td class="name"><a href="#">Lieferung und Montage von Medientechnik für die Polizei NRW</a></td>
-              <td class="buyer"><span class="figure-procurer small"></span> <a href="#">German Police</a></td>
+              <td class="name">{{#link-to "network.show.details.contract" "59312b352dcb567c94000003" "58275665c91dcf4f891e5cef"}}Beer delivery for railway catering at SBB.{{/link-to}}</td>
+              <td class="buyer"><span class="figure-procurer small"></span> {{#link-to "network.show.details.show" "procurers" 13333}}Elvetino AG{{/link-to}}</td>
               <td class="bids">47</td>
               <td class="award">1234 €</td>
             </tr>
@@ -76,7 +80,7 @@
 
       <section>
         <h5>Contracted government institutions</h5>
-        <div><span class="figure-procurer small"></span> <a href="#">German Police</a></div>
+        <div><span class="figure-procurer small"></span> {{#link-to "network.show.details.show" "procurers" 13333}}Elvetino AG{{/link-to}}</div>
       </section>
 
       <section>
