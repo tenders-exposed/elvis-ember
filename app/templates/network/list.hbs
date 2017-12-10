@@ -59,7 +59,9 @@
                           </div>
                       </div>
                       <!-- TODO: number of companies -->
-                      <div class="project-other">3 companies</div>
+                      {{#if network.companies}}
+                        <div class="project-other">{{network.companies}} companies</div>
+                      {{/if}}
                   </div>
                   <div class="project-actions">
                       <a class="project-remove" {{action "deleteNetwork" network.id on="click"}} href="#"><i class="fa fa-trash"></i></a>

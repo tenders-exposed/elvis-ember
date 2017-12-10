@@ -20,6 +20,16 @@ export default Route.extend(AuthenticatedRouteMixin, {
       if (network.get('description') === 'null') {
         network.set('description', '');
       }
+
+      let companies = 0;
+      if(typeof network.get('suppliers') !== 'undefined') {
+        companies += network.get('suppliers').length;
+      }
+      if(typeof network.get('query.procuring_entities') !== 'undefined') {
+        companies += network.get('query.procuring_entities').length;
+      }
+      network.set('companies', companies);
+
       network.set('firstYear', _.first(network.get('query.years')));
       network.set('lastYear', _.last(network.get('query.years')));
       network.set('cpvsCount', network.get('query.cpvs').length);
