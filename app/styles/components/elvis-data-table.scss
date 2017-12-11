@@ -97,6 +97,11 @@
     }
   }
 
+  .sidebar-suppliers .data-table td.item-name a,
+  .sidebar-procurers .data-table td.item-name a{
+    line-height: 2em;
+  }
+
   // red flags column
   .data-table td.item-flags {
     font-size: $font-size-large;
