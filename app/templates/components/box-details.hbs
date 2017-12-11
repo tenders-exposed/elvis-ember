@@ -24,11 +24,11 @@
 
         <table class="spec">
           <tr>
-            <td class="value">{{format-amount model.value '0,0[.]00 a'}}</td>
+            <td class="value">{{format-amount model.value '0,0[.]00 a' '?'}}</td>
             <td class="label">Total money flow</td>
           </tr>
           <tr>
-            <td class="value">{{model.average_competition}}</td>
+            <td class="value">{{format-amount model.average_competition '0' '?'}}</td>
             <td class="label">Average competitors in contracts</td>
           </tr>
         </table>
@@ -53,7 +53,7 @@
 
     <table class="spec">
         <tr>
-            <td class="value">{{format-amount model.value '0,0 a'}}</td>
+            <td class="value">{{format-amount model.value '0,0 a' '?'}}</td>
             <td class="label">{{model.valueType}}</td>
         </tr>
     </table>
