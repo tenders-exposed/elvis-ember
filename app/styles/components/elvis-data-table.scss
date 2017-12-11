@@ -3,7 +3,7 @@
 
 #details-sidebar {
   a.order {
-    margin-top: 2.5em;
+    margin-top: 3.2em;
     cursor: pointer;
   }
   select {
@@ -83,7 +83,7 @@
 
   // entity name style
   .data-table td.item-name,
-  .data-table td.item-name a,{
+  .data-table td.item-name a {
     color: $text-muted-color;
     line-height: 1.2em;
     vertical-align: top;

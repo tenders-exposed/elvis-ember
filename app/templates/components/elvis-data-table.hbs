@@ -5,13 +5,13 @@
     </a>
 
     <div class="input-field sortby col s11">
-      <select onchange={{action "sortTable" value="target.value"}}>
-        <option value="" disabled selected>Sort by...</option>
-        {{#each-in fields as |name label|}}
-          <option value="{{name}}" selected={{eq sortBy name}}>{{label}}</option>
-        {{/each-in}}
+      {{ember-select-guru
+          value=sortBySelect
+          options=orderOptions
+          searchKey='text'
+          onSelect=(action "sortTable")
+      }}
 
-      </select>
     </div>
 </div>
 
