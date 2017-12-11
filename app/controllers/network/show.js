@@ -163,6 +163,7 @@ export default Controller.extend({
       autoClear: true,
       htmlContent: true
     });
+
   },
 
   // cropping
@@ -284,7 +285,6 @@ export default Controller.extend({
           $('#downloadLnk').attr('href', dt);
         }, false);
     };
-
   },
 
   setDimensionControls() {
@@ -321,7 +321,6 @@ export default Controller.extend({
       cropBoxData.height = inputVal;
       $canvas.cropper('setCropBoxData', cropBoxData);
     });
-
   },
 
   setCropControls() {
@@ -466,7 +465,6 @@ export default Controller.extend({
       this.set('networkStabilization', true);
       Logger.info('Network stabilized');
       this.get('networkService').setNetwork(this.get('network'));
-
     },
 
     stabilizationProgress(amount) {
