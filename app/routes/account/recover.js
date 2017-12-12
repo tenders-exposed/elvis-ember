@@ -7,6 +7,11 @@ export default Route.extend({
   titleToken: 'Recover your password',
   ajax: inject.service(),
 
+  activate() {
+    let applicationController = this.controllerFor('application');
+    applicationController.set('loginVisible', false);
+  },
+
   actions: {
     deviseSendChange(password, password_confirmation, token) {
 

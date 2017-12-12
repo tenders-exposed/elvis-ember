@@ -6,8 +6,6 @@ export default Component.extend({
   session: inject.service('session'),
   dropMenu: false,
 
-  loginVisible: false,
-
   didInsertElement() {
     $('#main-navbar .dropdown-button').dropdown();
     $('#main-navbar .button-collapse').sideNav();
