@@ -22,10 +22,10 @@ export default Route.extend(AuthenticatedRouteMixin, {
       }
 
       let companies = 0;
-      if(typeof network.get('suppliers') !== 'undefined') {
+      if (typeof network.get('suppliers') !== 'undefined') {
         companies += network.get('suppliers').length;
       }
-      if(typeof network.get('query.procuring_entities') !== 'undefined') {
+      if (typeof network.get('query.procuring_entities') !== 'undefined') {
         companies += network.get('query.procuring_entities').length;
       }
       network.set('companies', companies);
