@@ -3,15 +3,17 @@
     <div class="nav-wrapper">
 		    {{#link-to 'application' class="brand-logo"}}
             <img alt="ELVIS - public spending visualisation tool" height="60" src="images/elvis-logo-white.png"/>
-            <em>map me tender</em>
+            <em class="hide-on-med-and-down">map me tender</em>
 		    {{/link-to}}
         <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">menu</i></a>
         <ul class="center hide-on-med-and-down">
+            {{#if session.isAuthenticated}}
             <li>
 				        {{#link-to 'network.new' class=""}}
                     <span>New visualisation</span>
 				        {{/link-to}}
             </li>
+            {{/if}}
             <li> {{link-to 'About' 'about'}} </li>
             <li> {{link-to 'Gallery' 'gallery'}} </li>
             <li><a href="https://talk.tenders.exposed/" target="_blank">Community</a></li>
@@ -48,14 +50,10 @@
                     </li>
 				        </ul>
 		        {{else}}
-              <ul class="user-nav">
-                <li>
-                  <a href="#" {{action 'toggleLoginModal'}}>Login</a>
-                </li>
-                <li>
-                  {{#link-to 'account.new' class="btn transparent"}} Register {{/link-to}}
-                </li>
-              </ul>
+              <div class="right">
+                <a class="btn link" href="#" {{action 'toggleLoginModal'}}>Login</a>
+                {{#link-to 'account.new' class="btn transparent"}} Register {{/link-to}}
+              </div>
 		        {{/if}}
         </div>
     </div>
