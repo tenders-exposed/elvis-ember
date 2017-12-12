@@ -12,24 +12,24 @@ export default Controller.extend({
     contracts: {
       award: 'contract name' ,
       parties: 'other parties',
-      value: 'contract value',
+      value: 'contract value (€)',
       bids: 'bids'
     },
     procurers: {
       procurer: 'Procurer Name',
       contracts: 'Contracts',
-      income: 'Income',
+      income: 'Income (€)',
       bids: 'Avg bids'
     },
     suppliers: {
       supplier: 'Supplier Name',
       contracts: 'Contracts',
-      income: 'Income',
+      income: 'Income (€)',
       bids: 'Avg bids'
     },
     contractsRelationship: {
       award: 'contract name' ,
-      value: 'contract value',
+      value: 'contract value (€)',
       bids: 'bids'
     }
   },
