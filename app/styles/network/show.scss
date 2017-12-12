@@ -291,21 +291,6 @@ div#network-container {
   }
 }
 
-/* ember-cli-materialize hacks */
-.ember-modal-overlay {
-  opacity: 1 !important;
-}
-
-.modal {
-  top: 80px !important;
-  &, & .modal-footer {
-    box-shadow: none;
-    color: #eee;
-    background-color: #1A1A1C;
-    width: 100%;
-  }
-}
-
 .ember-cli-visks-network > .ember-view { display: none; }
 
 div#stabilization-info {

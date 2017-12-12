@@ -1,8 +1,8 @@
 import EmberRouter from '@ember/routing/router';
+import Trackable from 'ember-cli-analytics/mixins/trackable';
 import config from './config/environment';
-import Piwik from 'ember-cli-piwik/mixins/page-view-tracker';
 
-const ElvisRouter = EmberRouter.extend(Piwik, {
+const ElvisRouter = EmberRouter.extend(Trackable, {
   location: config.locationType,
   rootURL: config.rootURL
 });

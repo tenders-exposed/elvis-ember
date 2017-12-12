@@ -1,12 +1,74 @@
 <div class="page" id="mygraphs">
     <div class="container">
-      <h1>My Projects</h1>
-        <a href="#" class="btn primary"><i class="fa fa-plus"></i> New Visualisation</a>
-        <div class="row">
-            <div class="col md6"></div>
-          {{#each model as |network|}}
+        <div class="center">
+            <br>
+            <h1>My Projects</h1>
+            <br>
+            {{#link-to 'network.new' class='btn primary'}}<i class="fa fa-plus"></i> New Project{{/link-to}}
+            <br>
+            <br>
+        </div>
 
-          <div class="card-container col s3 m6 l4">
+        <div class="project-list">
+          {{#each model as |network|}}
+              <div class="project-item">
+                  <div class="project-body">
+                      <div class="project-name">
+                            {{#link-to 'network.show' network.id}}
+                              {{#if network.name}}
+                                {{network.name}}
+                              {{else}}
+                                  My Project <small>#{{network.id}}</small>
+                              {{/if}}
+                            {{/link-to}}
+                      </div>
+                      <div class="project-description">
+                          {{network.description}}
+                      </div>
+                      <div class="project-meta">
+                        <span class="meta-item">
+                            <span class="project-lastupdate">yesterday</span>
+                        </span>
+                        <span class="meta-item">
+                            <i class="fa fa-lock"></i> Private
+                        </span>
+                          <span class="meta-item">
+                            <i class="figure-procurer"></i> 17 Procurers
+                        </span>
+                          <span class="meta-item">
+                            <i class="figure-supplier"></i> 231 Suppliers
+                        </span>
+                          <span class="meta-item">
+                            <i class="figure-relationship"></i> 174 Connections
+                        </span>
+                      </div>
+                  </div>
+                  <div class="project-specs">
+                      <div class="project-countries">
+                          {{#each network.query.countries as |country|}}
+                            {{world-flag country 32}}
+                          {{/each}}
+                      </div>
+                      <div class="project-years">{{network.firstYear}} - {{network.lastYear}}</div>
+                      <div class="project-other">
+                          {{network.cpvsCount}} CPV markets
+                          <div class="hide"><!-- TODO: create popup with list of cpvs -->
+                              {{#each network.query.cpvs as |cpv|}}
+                                  <span class="cpv-selected"> {{cpv}}</span>
+                              {{/each}}
+                          </div>
+                      </div>
+                      <!-- TODO: number of companies -->
+                      {{#if network.companies}}
+                        <div class="project-other">{{network.companies}} companies</div>
+                      {{/if}}
+                  </div>
+                  <div class="project-actions">
+                      <a class="project-remove" {{action "deleteNetwork" network.id on="click"}} href="#"><i class="fa fa-trash"></i></a>
+                  </div>
+              </div>
+
+          <div class="card-container col s3 m6 l4 hide">
             <div class="card">
               <div class="card-image waves-effect waves-block waves-light">
                 {{!-- <img class="activator" src="http://lorempixel.com/400/200/animals/"> --}}
