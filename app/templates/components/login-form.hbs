@@ -1,17 +1,11 @@
 <div id="{{if modal 'login-modal' ''}}">
-    <!-- !!!TODO
-        couple of things do not work here:
-        1. closing the modal by clicking .modal-close, hitting ESC key or clicking outside modal
-        2. link to Register page
-        3. closing the modal when redirecting to Lost password or Register
-    -->
 
-
-    {{#md-modal close='closeModal'}}
-        <a class="modal-close" href="#" {{action 'closeModal'}}><i class="fa fa-close"></i></a>
+{{#if loginVisible}}
+    {{#md-modal}}
+        <a class="modal-close" {{action 'closeModal'}}><i class="fa fa-close"></i></a>
         <div class="modal-content">
             <h3>Sign in to your account</h3>
-            <p>Don'have an account? Register <a href="#" >here</a>.</p>
+            <p>Don'have an account? Register {{#link-to "account.new"}}here{{/link-to}}.</p>
             {{#if errorMessage}}
                 <p class="alert alert-error">{{errorMessage}}</p>
             {{/if}}
@@ -30,5 +24,6 @@
             </form>
         </div>
     {{/md-modal}}
+{{/if}}
 
 </div>
