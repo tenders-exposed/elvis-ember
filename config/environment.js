@@ -28,6 +28,22 @@ module.exports = function(environment) {
       'ember-cli-notifications': {
           includeFontAwesome: true
       },
+    },
+    analytics: {
+      integrations: [
+        {
+          name: 'GoogleAnalytics',
+          config: {
+            id: 'UA-70291550-1',
+            remarketing: false,
+            ecommerce: false,
+            enhancedEcommerce: false,
+            set: {
+              anonymizeIp: false
+            }
+          }
+        },
+      ]
     }
   };
 
@@ -39,10 +55,6 @@ module.exports = function(environment) {
     ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV.piwik = {
-      sid: 4,
-      url: 'https://piwik.tenders.exposed/'
-    };
   }
 
   if (environment === 'heroku-development') {
@@ -53,10 +65,6 @@ module.exports = function(environment) {
     ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV.piwik = {
-      sid: 3,
-      url: 'https://piwik.tenders.exposed'
-    };
   }
 
   if (environment === 'test') {
@@ -73,19 +81,11 @@ module.exports = function(environment) {
   if (environment === 'staging') {
     ENV.APP.apiHost = 'https://api.elvis.tenders.exposed/api';
     ENV.APP.apiNamespace = 'v1';
-    ENV.piwik = {
-      sid: 2,
-      url: 'https://piwik.tenders.exposed'
-    };
   }
 
   if (environment === 'production') {
     ENV.APP.apiHost = 'https://api.elvis.tenders.exposed/api';
     ENV.APP.apiNamespace = 'v1';
-    ENV.piwik = {
-      sid: 1,
-      url: 'https://piwik.tenders.exposed'
-    };
   }
 
   ENV['ember-simple-auth'] = {
@@ -100,11 +100,11 @@ module.exports = function(environment) {
   //   authenticationRoute: ENV.APP.apiHost + '/api/' + ENV.APP.apiNamespace + '/users/sign_in'
   // };
   ENV.contentSecurityPolicy = {
-    'default-src': "'self' http://api.elvis.tenders.exposed https://piwik.tenders.exposed",
+    'default-src': "'self' http://api.elvis.tenders.exposed https://www.google-analytics.com",
     'child-src': "blob: * 'self'",
-    'script-src': "'self' 'unsafe-inline' 'unsafe-eval' http://api.elvis.tenders.exposed https://piwik.tenders.exposed",
+    'script-src': "'self' 'unsafe-inline' 'unsafe-eval' http://api.elvis.tenders.exposed https://www.google-analytics.com",
     'font-src': "'self' fonts.gstatic.com",
-    'connect-src': "'self' * http://192.168.0.111:3000 http://0.0.0.0:3000 https://api.mixpanel.com http://localhost:3000 http://localhost:35729 blob: http://api.elvis.tenders.exposed https://piwik.tenders.exposed",
+    'connect-src': "'self' * http://192.168.0.111:3000 http://0.0.0.0:3000 https://api.mixpanel.com http://localhost:3000 http://localhost:35729 blob: http://api.elvis.tenders.exposed https://www.google-analytics.com",
     'img-src': "'self' 'unsafe-inline' 'unsafe-eval' data: *",
     'style-src': "'self' 'unsafe-inline' fonts.googleapis.com",
     'media-src': "'self'",
