@@ -14,7 +14,7 @@ export default Controller.extend({
       'shape': 'dot',
       'scaling': {
         'min': 5,
-        'max': 10
+        'max': 30
         // 'label': {
         //   'enabled': true
         // }

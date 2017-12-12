@@ -25,6 +25,8 @@ export default Component.extend({
   sortBy: '',
   orderBy: 'asc',
 
+  sortBySelect: undefined,
+
   // reset all variables regarding search if search input has no value
   contentObserver: observer('search', function() {
     if (!this.get('search')) {
@@ -45,6 +47,7 @@ export default Component.extend({
   },
 
   actions: {
+
     changeSortOrder() {
       let orderBy = this.get('orderBy') === 'asc' ? 'desc' : 'asc';
       this.set('orderBy', orderBy);
@@ -57,7 +60,10 @@ export default Component.extend({
         this.set('content', ordered);
       }
     },
-    sortTable(sortBy) {
+    sortTable(sortByObj) {
+      this.set('sortBySelect', sortByObj);
+      let sortBy = sortByObj.value;
+
       this.set('sortBy', sortBy);
       if (sortBy === 'value') {
         sortBy = 'unformattedValue';

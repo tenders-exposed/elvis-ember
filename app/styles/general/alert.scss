@@ -1,0 +1,10 @@
+.alert {
+  padding: $padding-base/2;
+  font-size: $font-size-small;
+  font-family: $font-family-sans;
+
+  &.alert-error {
+    background: $error-color;
+    color: white;
+  }
+}

@@ -37,12 +37,12 @@
               <div class="input-field col m6 s12">
                 <span class="input-prefix"><i class="fa fa-globe"></i></span>
                 {{ember-select-guru
-                  value=query.rawCountries
-                  options=countries
-                  searchKey='text'
-                  multiple=true
-                  optionComponent='country-option'
-                  onSelect=(action "onCountrySelectEvent")
+                    value=query.rawCountries
+                    options=countries
+                    searchKey='text'
+                    multiple=true
+                    optionComponent='country-option'
+                    onSelect=(action "onCountrySelectEvent")
                 }}
                 <label>Select countries</label>
               </div>
@@ -51,14 +51,14 @@
                 <!-- this is company select
                   TODO: fill the select with real dataset of company names. Matej will restyle the options once it is ready  -->
                 {{ember-select-guru
-                  value=query.rawActors
-                  options=autocompleteActorsOptions
-                  searchKey='name'
-                  multiple=true
-                  optionComponent='actor-option'
-                  multiValueComponent='actor-value'
-                  onSearchInputChange=(action "actorTermChanged")
-                  onSelect=(action "onAutocompleteSelectEvent")
+                    value=query.rawActors
+                    options=autocompleteActorsOptions
+                    searchKey='name'
+                    multiple=true
+                    optionComponent='actor-option'
+                    multiValueComponent='actor-value'
+                    onSearchInputChange=(action "actorTermChanged")
+                    onSelect=(action "onAutocompleteSelectEvent")
                 }}
                 <label>Select companies</label>
               </div>
@@ -80,15 +80,15 @@
                 {{#if years.length}}
                   <div class="input-field col m6 s12">
                     {{range-slider
-                      range = yearsRange
-                      start = yearsStart
-                      step=1
-                      connect=true
-                      tooltips=true
-                      disabled=rangeIsDisabled
-                      class=(concat rangeDisableClass ' noUi-target noUi-ltr noUi-horizontal noUi-background' )
-                      on-slide="rangeSlideAction"
-                      on-change="rangeChangeAction"
+                        range = yearsRange
+                        start = yearsStart
+                        step=1
+                        connect=true
+                        tooltips=true
+                        disabled=rangeIsDisabled
+                        class=(concat rangeDisableClass ' noUi-target noUi-ltr noUi-horizontal noUi-background' )
+                        on-slide="rangeSlideAction"
+                        on-change="rangeChangeAction"
                     }}
                   </div>
                 {{else}}
@@ -117,14 +117,14 @@
                     {{#ember-scrollable}}
                       <div class="jstree-default-dark-small">
                         {{ember-jstree
-                          data=tree
-                          plugins=jsTreeConfig.plugins
-                          themes=jsTreeConfig.core.themes
-                          selectedNodes=selectedCodes
-                          searchOptions=jsTreeConfig.searchOptions
-                          checkboxOptions=jsTreeConfig.checkbox
-                          actionReceiver=jsTree
-                          searchTerm=cpvSearchTree
+                            data=tree
+                            plugins=jsTreeConfig.plugins
+                            themes=jsTreeConfig.core.themes
+                            selectedNodes=selectedCodes
+                            searchOptions=jsTreeConfig.searchOptions
+                            checkboxOptions=jsTreeConfig.checkbox
+                            actionReceiver=jsTree
+                            searchTerm=cpvSearchTree
                         }}
                       </div>
                     {{/ember-scrollable}}
@@ -156,14 +156,14 @@
                       value="count"
                       radioId="nodeSizeCount"
                       groupValue=query.nodes
-                      }}
+                  }}
                   <label class="node-size-count" for="nodeSizeCount">Number of contracts</label>
                   <br>
                   {{radio-button
                       value="sum"
                       radioId="nodeSizeSum"
                       groupValue=query.nodes
-                      }}
+                  }}
                   <label class="node-size-sum" for="nodeSizeSum">Money sum of all contracts</label>
                 </div>
                 <div class="qb-rendering-edges col m7 s12">
@@ -172,15 +172,15 @@
                       value="count"
                       groupValue=query.edges
                       radioId="edgeSizeCount"
-                      }}
-                    <label class="edge-size-count" for="edgeSizeCount"> Number of contracts </label>
+                  }}
+                  <label class="edge-size-count" for="edgeSizeCount"> Number of contracts </label>
                   <br>
                   {{radio-button
                       value="sum"
                       groupValue=query.edges
                       radioId="edgeSizeSum"
-                      }}
-                    <label class="edge-size-sum" for="edgeSizeSum"> Money flow between entities </label>
+                  }}
+                  <label class="edge-size-sum" for="edgeSizeSum"> Money flow between entities </label>
                 </div>
               </div>
             </div>
@@ -189,10 +189,10 @@
 
         <div class="wizard-finish center">
           {{md-btn-submit
-            action='submitQuery'
-            class='btn-large primary'
-            text='Visualise!'
-            isDisabled=submitIsDisabled
+              action='submitQuery'
+              class='btn-large primary'
+              text='Visualise!'
+              isDisabled=submitIsDisabled
           }}
         </div>
       </div>

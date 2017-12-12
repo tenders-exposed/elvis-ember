@@ -1,10 +1,11 @@
-{{elvis-nav dropMenu=dropMenu}}
+{{elvis-nav dropMenu=dropMenu loginVisible=loginVisible}}
 
 <div class="c-notifications__container">
     {{#each notifications as |notification|}}
         {{notification-message notification=notification}}
     {{/each}}
 </div>
+
   {{outlet}}
 
 {{partial footer}}

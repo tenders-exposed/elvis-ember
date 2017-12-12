@@ -30,6 +30,7 @@ label {
 
 .input-field label {
   left: auto; // what does this do??
+  pointer-events: none;
 }
 
 // radio and checkbox
