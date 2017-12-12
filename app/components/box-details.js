@@ -24,6 +24,7 @@ export default Component.extend({
 
     if (typeSelected === 'node') {
       let nodeDetails = this.get('networkService').getNodeById(elementId);
+      nodeDetails.nodeType = nodeDetails.type == 'supplier' ? 'Company' : 'Government';
       this.set('model', nodeDetails);
       this.set('nodeId', elementId);
     }

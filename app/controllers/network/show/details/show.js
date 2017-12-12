@@ -16,13 +16,13 @@ export default Controller.extend({
       bids: 'bids'
     },
     procurers: {
-      procurer: 'Procurer Name',
+      procurer: 'Government Name',
       contracts: 'Contracts',
       income: 'Income (€)',
       bids: 'Avg bids'
     },
     suppliers: {
-      supplier: 'Supplier Name',
+      supplier: 'Company Name',
       contracts: 'Contracts',
       income: 'Income (€)',
       bids: 'Avg bids'

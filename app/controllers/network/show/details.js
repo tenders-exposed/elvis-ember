@@ -52,8 +52,15 @@ export default Controller.extend({
 
   networkModelLoaded: observer('networkService.isReady', 'model', function() {
     if (this.get('model.options') && !this.get('checkOptions')) {
-      let optNodes = _.capitalize(this.get('model.options.nodes'));
-      let optEdges = _.capitalize(this.get('model.options.edges'));
+      let optNodes = this.get('model.options.nodes') === 'count'
+                      ? 'Amount of tenders'
+                      : 'Value of tenders';
+      let optEdges = this.get('model.options.edges') === 'count'
+                      ? 'Amount of tenders'
+                      : 'Value of tenders';
+
+      // let optNodes = _.capitalize(this.get('model.options.nodes'));
+      // let optEdges = _.capitalize(this.get('model.options.edges'));
       this.set('fields.suppliers.value', optNodes);
       this.set('fields.relationships.value', optEdges);
 
