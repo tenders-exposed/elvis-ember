@@ -100,11 +100,11 @@ module.exports = function(environment) {
   //   authenticationRoute: ENV.APP.apiHost + '/api/' + ENV.APP.apiNamespace + '/users/sign_in'
   // };
   ENV.contentSecurityPolicy = {
-    'default-src': "'self' http://api.elvis.tenders.exposed http://toto.tenders.exposed",
+    'default-src': "'self' http://api.elvis.tenders.exposed https://piwik.tenders.exposed",
     'child-src': "blob: * 'self'",
-    'script-src': "'self' 'unsafe-inline' 'unsafe-eval' http://api.elvis.tenders.exposed http://toto.tenders.exposed",
+    'script-src': "'self' 'unsafe-inline' 'unsafe-eval' http://api.elvis.tenders.exposed https://piwik.tenders.exposed",
     'font-src': "'self' fonts.gstatic.com",
-    'connect-src': "'self' * http://192.168.0.111:3000 http://0.0.0.0:3000 https://api.mixpanel.com http://localhost:3000 http://localhost:35729 blob: http://api.elvis.tenders.exposed http://toto.tenders.exposed",
+    'connect-src': "'self' * http://192.168.0.111:3000 http://0.0.0.0:3000 https://api.mixpanel.com http://localhost:3000 http://localhost:35729 blob: http://api.elvis.tenders.exposed https://piwik.tenders.exposed",
     'img-src': "'self' 'unsafe-inline' 'unsafe-eval' data: *",
     'style-src': "'self' 'unsafe-inline' fonts.googleapis.com",
     'media-src': "'self'",
