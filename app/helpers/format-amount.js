@@ -1,19 +1,25 @@
-import Ember from 'ember';
+import { helper } from '@ember/component/helper';
 import numeral from 'numeral';
 
-const { Helper } = Ember;
 const defaultFormat = '0,0[.]00 a';
+const unicodeFruits = [
+  '🍓', '🍍', '🍋', '🍌', '🍇', '🍆', '🍉'
+];
 
-export function formatAmount(params/*, hash*/) {
-  let [value, format] = params;
-  let type = typeof value;
-  if (type !== 'undefined' && type !== 'NaN' && type !== 'object') {
+export function formatAmount(params/*, options*/) {
+  let [value, format, placeholder] = params;
+
+  if (value) {
     return numeral(value)
       .format(format || defaultFormat)
       .toUpperCase();
-  } else {
-    return 'n/a';
   }
+
+  if (placeholder) {
+    return placeholder;
+  }
+
+  return unicodeFruits[Math.floor(Math.random() * unicodeFruits.length)];
 }
 
-export default Helper.helper(formatAmount);
+export default helper(formatAmount);
