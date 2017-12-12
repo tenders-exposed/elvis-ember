@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Logger, Service } = Ember;
+const { Service } = Ember;
 
 export default Service.extend({
   edges: [],
@@ -172,8 +172,10 @@ export default Service.extend({
       }
     });
 
-    this.set('suppliers', suppliers);
-    this.set('procurers', procurers);
+    let orderedSuppliers = _.orderBy(suppliers, ['unformattedValue', 'label'], ['desc', 'asc']);
+    let orderedProducrers = _.orderBy(procurers, ['unformattedValue', 'label'], ['desc', 'asc']);
+    this.set('suppliers', orderedSuppliers);
+    this.set('procurers', orderedProducrers);
   },
 
   setRelationships() {
@@ -215,8 +217,8 @@ export default Service.extend({
       relationships.pushObject(edgeDetails);
     });
 
-    this.set('relationships', relationships);
-    Logger.debug('service - relationships', relationships);
+    let orderedRelationships = _.orderBy(relationships, 'unformattedValue', 'desc');
+    this.set('relationships', orderedRelationships);
   },
 
   makeClusteredNetwork(clusteredNodes, clusters) {
