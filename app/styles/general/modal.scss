@@ -1,0 +1,50 @@
+.ember-modal-dialog {
+
+  .modal,
+  .modal-footer,
+  .modal-content {
+    background: $main-bg;
+
+  }
+
+  .modal {
+    box-shadow: 0 5px 20px 5px rgba(0,0,0,0.9);
+  }
+
+  .modal-content {
+    padding: 2*$gutter-width;
+
+    .input-field + .input-field {
+      margin-top: 1em;
+    }
+
+    p {
+      font-size: $font-size-base;
+      font-family: $font-family-sans;
+    }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    font-size: $font-size-large;
+    color: $text-muted;
+
+    &:hover { color: $text-color; }
+  }
+
+}
+// overlay opacity
+.lean-modal {
+  background: rgba(0,0,0,0.75);
+}
+
+
+
+
+// specific modals
+#login-modal .modal {
+  max-width: 400px;
+
+}
