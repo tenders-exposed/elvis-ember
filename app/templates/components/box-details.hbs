@@ -3,7 +3,7 @@
       {{fa-icon 'close' size=1}}
     </div>
     {{#if cluster}}
-        <h5>cluster of {{model.type}}s</h5>
+        <h5>cluster of {{model.nodeType}}s</h5>
       {{#each model as |node|}}
             <span class="figure-supplier"></span>
             {{node.label}}
@@ -11,7 +11,7 @@
     {{else}}
       {{#if (eq graphElementType "node")}}
 
-        <h5>{{model.type}}</h5>
+        <h5>{{model.nodeType}}</h5>
           <div class="actor"><span class="figure-{{class}}"></span> {{model.label}}</div>
         <hr>
         {{#each-in model.flags as |keyValue value|}}
@@ -41,7 +41,7 @@
       {{/if}}
 
   {{#if (eq graphElementType "edge")}}
-    <h5>Relationship</h5>
+    <h5>Tender</h5>
 
     <div class="actor"><span class="figure-supplier"></span> {{model.fromLabel}}</div>
     <div class="actor"><span class="figure-procurer"></span> {{model.toLabel}}</div>
