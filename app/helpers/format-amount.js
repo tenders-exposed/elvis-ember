@@ -1,4 +1,4 @@
-import { helper } from "@ember/component/helper";
+import { helper } from '@ember/component/helper';
 import numeral from 'numeral';
 
 const defaultFormat = '0,0[.]00 a';
@@ -6,7 +6,7 @@ const unicodeFruits = [
   '🍓', '🍍', '🍋', '🍌', '🍇', '🍆', '🍉'
 ];
 
-export function formatAmount(params/*, hash*/) {
+export function formatAmount(params/*, options*/) {
   let [value, format, placeholder] = params;
 
   if (value) {
