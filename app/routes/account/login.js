@@ -6,5 +6,9 @@ export default Route.extend({
     if (this.get('session.isAuthenticated')) {
       this.transitionTo('welcome');
     }
+  },
+
+  setupController(controller) {
+    controller.set('loginVisible', true);
   }
 });
