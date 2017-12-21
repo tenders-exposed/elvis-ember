@@ -171,4 +171,12 @@
 </div>
 
 
-{{login-form modal=true loginVisible=loginVisible}}
+
+{{#if loginVisible}}
+    {{#md-modal}}
+        <a class="modal-close" {{action 'toggleLoginModal'}}><i class="fa fa-close"></i></a>
+        <div class="modal-content">
+          {{login-form}}
+        </div>
+    {{/md-modal}}
+{{/if}}

@@ -1,29 +1,18 @@
-<div id="{{if modal 'login-modal' ''}}">
-
-{{#if loginVisible}}
-    {{#md-modal}}
-        <a class="modal-close" {{action 'closeModal'}}><i class="fa fa-close"></i></a>
-        <div class="modal-content">
-            <h3>Sign in to your account</h3>
-            <p>Don'have an account? Register {{#link-to "account.new"}}here{{/link-to}}.</p>
-            {{#if errorMessage}}
-                <p class="alert alert-error">{{errorMessage}}</p>
-            {{/if}}
-            <form {{action 'authenticate' on='submit'}} autocomplete="off">
-                <div class="input-field">
-                    {{input id='identification' value=identification type='email' autocomplete='on'}}
-                    <label for="inputEmail">Email address</label>
-                </div>
-                <div class="input-field">
-                    {{input id='password' type='password' value=password autocomplete='on'}}
-                    <label for="password">Password</label>
-                </div>
-                <br>
-                {{async-button action=(action "authenticate" fakeUser) default="Sign in" pending="Logging in..." class="btn primary"}}
-                {{#link-to "account.recover" class="btn link primary"}}Lost password?{{/link-to}}
-            </form>
-        </div>
-    {{/md-modal}}
+<h3>Sign in to your account</h3>
+<p>Don'have an account? Register {{#link-to "account.new"}}here{{/link-to}}.</p>
+{{#if errorMessage}}
+    <p class="alert alert-error">{{errorMessage}}</p>
 {{/if}}
-
-</div>
+<form {{action 'authenticate' on='submit'}} autocomplete="off">
+    <div class="input-field">
+        {{input id='identification' value=identification type='email' autocomplete='on'}}
+        <label for="inputEmail">Email address</label>
+    </div>
+    <div class="input-field">
+        {{input id='password' type='password' value=password autocomplete='on'}}
+        <label for="password">Password</label>
+    </div>
+    <br>
+    {{async-button action=(action "authenticate" fakeUser) default="Sign in" pending="Logging in..." class="btn primary"}}
+    {{#link-to "account.recover" class="btn link primary"}}Lost password?{{/link-to}}
+</form>

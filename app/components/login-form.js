@@ -17,12 +17,6 @@ export default Component.extend({
             location.reload();
           }
         });
-    },
-    closeModal() {
-      this.set(
-        'loginVisible',
-        !(this.get('loginVisible'))
-      );
     }
   }
 });
