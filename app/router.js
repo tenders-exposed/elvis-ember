@@ -16,12 +16,6 @@ ElvisRouter.map(function() {
     this.route('recover', function() {
       this.route('password', {});
     });
-    this.route('settings', function() {
-      this.route('password', {});
-    });
-    this.route('disable', function() {
-      this.route('delete', {});
-    });
     this.route('show', { path: ':id' });
     this.route('new');
   });

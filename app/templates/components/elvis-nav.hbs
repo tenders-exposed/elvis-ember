@@ -31,15 +31,6 @@
 						        {{/link-to}}
                     </li>
 						        <li>
-						        {{#link-to 'account.settings' class=""}}
-								        <i class="fa fa-cog"></i>
-		                    <span>Settings</span>
-								        {{#tooltip-on-component enableLazyRendering=true side='bottom'}}
-                            Settings
-								        {{/tooltip-on-component}}
-						        {{/link-to}}
-                    </li>
-						        <li>
 				                <a {{action 'invalidateSession'}} id="navbarLogout">
 						                <i class="fa fa-power-off"></i>
 				                    <span class="sr-only">Log Out</span>
@@ -74,12 +65,6 @@
           {{/link-to}}
         </li>
         <li>
-          {{#link-to 'account.settings' class=""}}
-              <i class="fa fa-user"></i>
-              <span>Account Settings</span>
-          {{/link-to}}
-        </li>
-        <li>
             <a {{action 'invalidateSession'}} class="">
                 <i class="fa fa-power-off"></i>
                 <span>Log Out</span>
@@ -98,12 +83,6 @@
         {{#link-to 'network.list' tagName='li'}}
           {{#link-to 'network.list'}}
             My projects
-          {{/link-to}}
-        {{/link-to}}
-
-        {{#link-to 'account.settings' tagName='li'}}
-          {{#link-to 'account.settings'}}
-            Account Settings
           {{/link-to}}
         {{/link-to}}
         <li><a {{action 'invalidateSession'}}>Log out</a></li>
@@ -162,11 +141,6 @@
                       {{/link-to}}
                     {{/link-to}}
 
-                    {{#link-to 'account.settings' tagName='li'}}
-                      {{#link-to 'account.settings'}}
-                        {{fa-icon "cogs" class="left"}} Account Settings
-                      {{/link-to}}
-                    {{/link-to}}
                     <li>
                       <a {{action 'invalidateSession'}}>
                         {{fa-icon "power-off" class="left" }} Log out
