@@ -15,39 +15,46 @@
 
     <div class="detailview-body">
 
-      <h5 class="detailview-restriction">Displaying Period: <strong>2012-2016</strong></h5>
+      <h5 class="detailview-restriction">
+        Displaying Period: <strong>{{modelDetails.to.firstYear}} - {{modelDetails.to.lastYear}}</strong>
+      </h5>
 
       <section>
         <br><br>
         <h5>Actors</h5>
         <div>
           <span class="figure-procurer small"></span>
-          {{#link-to "network.show.details.show" "procurers" 13333}}Elvetino AG{{/link-to}}
+          {{#link-to "network.show.details.show" "procurers" 13333}}
+            {{modelDetails.from.name}}
+          {{/link-to}}
         </div>
         <div>
           <span class="figure-supplier small"></span>
-          {{#link-to "network.show.details.show" "suppliers" 995348}}Heineken Switzerland AG{{/link-to}}
+          {{#link-to "network.show.details.show" "suppliers" 995348}}
+            {{modelDetails.to.name}}
+          {{/link-to}}
         </div>
 
         <div class="tags">
-          <span class="tag redflag"><i class="fa fa-flag"></i> Same city</span>
-          <span class="tag redflag"><i class="fa fa-flag"></i> Low avg competition</span>
+          {{#each-in modelDetails.to.flags as |flName flValue|}}
+            <span class="tag redflag"><i class="fa fa-flag"></i> {{flName}}</span>
+          {{/each-in}}
         </div>
       </section>
 
       <section class="row">
         <div class="col s4 summary">
           <h5 class="summary-title">All awarded amounts</h5>
-          <div class="summary-value">12 351 732 €</div>
+          <div class="summary-value">{{format-amount modelDetails.to.total_earnings}}€</div>
         </div>
         <div class="col s4 summary">
           <h5 class="summary-title">Awarded amount unknown in</h5>
-          <div class="summary-value">47% <small>tenders</small></div>
+          <div class="summary-value">{{modelDetails.to.missing_values}}% <small>tenders</small></div>
         </div>
 
         <div class="col s3 summary">
           <h5 class="summary-title">AVG. Competition</h5>
-          <div class="summary-value">1.2 <small>bids per tender</small></div>
+          <div class="summary-value">{{modelDetails.to.average_competition}} <small>bids per tender</small></div>
         </div>
       </section>
 
@@ -61,9 +68,10 @@
           partialPath="network/show/details/partials/tables/contracts-relationship"
           route="relationships"
           nodeId=params.id
+          componentTable="contracts-relationship"
         }}
 
-        <table class="contracts-table">
+        <!--<table class="contracts-table">
           <thead>
           <tr>
             <th class="name">Contract</th>
@@ -80,7 +88,7 @@
             <td class="award">123 487 €</td>
           </tr>
           </tbody>
-        </table>
+        </table>-->
       </section>
 
       <!--section>
@@ -101,66 +109,3 @@
   {{/ember-scrollable}}
 </div>
 
-<!--
-<div class="container container-entity relative">
-  <div class="row">
-    <div class="col s12 title">
-      <h5 class="el-label-dark">
-         Relationship Details
-        <span class="fs3 dark-text">( {{modelDetails.to.firstYear}} - {{modelDetails.to.lastYear}} )</span>
-      </h5>
-      <h4 class="el-title procurer">
-        {{fa-icon 'circle' size=1}} {{modelDetails.from.name}}
-      </h4>
-      <h4 class="el-title supplier">
-        {{fa-icon 'circle' size=1}}  {{modelDetails.to.name}}
-      </h4>
-      <hr>
-    </div>
-  </div>
-
-  <div class="row second-row">
-    <div class="col s3">
-      {{#each-in modelDetails.to.flags as |flName flValue|}}
-        <div class="flag">
-          {{fa-icon 'flag' size=1}} {{flName}} {{fa-icon 'question-circle' size=1}}
-        </div>
-      {{/each-in}}
-    </div>
-    <div class="col s3">
-      <div class="el-label-dark fs1">total income</div>
-      <div class="el-title fs5">{{format-amount modelDetails.to.total_earnings}}</div>
-    </div>
-    <div class="col s3">
-      <div class="el-label-dark fs1">avg competition</div>
-      <div class="el-title fs5">{{modelDetails.to.average_competition}}</div>
-    </div>
-    <div class="col s2 right-align">
-      <div class="el-label-dark fs1">data missing</div>
-      <div class="el-title fs5">{{modelDetails.to.missing_values}}%</div>
-    </div>
-  </div>
-
-  <div class="row">
-    {{#tabbed-content active=activeTabDetails on-change="changeTabDetails" active-class="tab-button--active" as |supplierTabManager|}}
-      <div class="tabs__nav">
-        {{#tab-button class="tab-button"  manager=supplierTabManager name="contracts"}}
-          <a>Common contracts ({{modelDetails.to.contractsCount}})</a>
-        {{/tab-button}}
-
-      </div>
-      {{#tab-panel manager=supplierTabManager name="contracts" class='tab-panel'}}
-        {{details-data-table
-            class="contracts-table"
-            content=modelDetails.to.contracts
-            fields=fields.contractsRelationship
-            partialPath="network/show/details/partials/tables/contracts-relationship"
-            route="relationships"
-            nodeId=params.id
-        }}
-      {{/tab-panel}}
-    {{/tabbed-content}}
-  </div>
-
-</div>
--->

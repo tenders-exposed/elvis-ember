@@ -21,7 +21,9 @@
 
     <div class="detailview-body">
 
-      <h5 class="detailview-restriction">Displaying Period: <strong>2012-2016</strong></h5>
+      <h5 class="detailview-restriction">
+        Displaying Period: <strong>{{modelDetails.firstYear}} - {{modelDetails.lastYear}}</strong>
+      </h5>
 
       <section class="external-links">
         <a class="btn-small link primary" href="http://opented.eu">view on opentender.eu <i class="fa fa-external-link"></i></a>
@@ -29,57 +31,60 @@
 
       <section>
         <h5>Name</h5>
-        <h2>Elvetino AG</h2>
+        <h2>{{modelDetails.name}}</h2>
 
         <div class="tags">
-          <span class="tag">{{world-flag "CH" 16}} Switzerland</span>
+          {{#each modelDetails.countries as |country|}}
+            <span class="tag">
+              {{world-flag country 16}} Switzerland
+            </span>
+          {{/each}}
 
-          <span class="tag redflag"><i class="fa fa-flag"></i> Low avg competition</span>
-
+          {{#each-in modelDetails.flags as |flName flValue|}}
+            <span class="tag redflag"><i class="fa fa-flag"></i> {{flName}}</span>
+          {{/each-in}}
         </div>
       </section>
 
       <section class="row">
         <div class="col s4 summary">
           <h5 class="summary-title">All awarded amounts</h5>
-          <div class="summary-value">125 351 €</div>
+          <div class="summary-value">{{format-amount modelDetails.total_earnings}} €</div>
         </div>
         <div class="col s4 summary">
           <h5 class="summary-title">Awarded amount unknown in</h5>
-          <div class="summary-value">61% <small>tenders</small></div>
+          <div class="summary-value">{{modelDetails.missing_values}}% <small>tenders</small></div>
         </div>
 
         <div class="col s3 summary">
           <h5 class="summary-title">AVG. Competition</h5>
-          <div class="summary-value">1.7 <small>bids per tender</small></div>
+          <div class="summary-value">{{modelDetails.average_competition}} <small>bids per tender</small></div>
         </div>
       </section>
 
       <section>
         <h5>Contracts</h5>
-        <table class="contracts-table">
-          <thead>
-          <tr>
-            <th class="name">Contract</th>
-            <th class="supplier">Supplier</th>
-            <th class="bids">Bids</th>
-            <th class="award">Awarded amount</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr class="contract">
-            <td class="name">{{#link-to "network.show.details.contract" "59312b352dcb567c94000003" "58275665c91dcf4f891e5cef"}}Beer delivery for railway catering at SBB{{/link-to}}</td>
-            <td class="supplier"><span class="figure-supplier small"></span> {{#link-to "network.show.details.show" "suppliers" 995348}}Heineken Switzerland AG{{/link-to}}</td>
-            <td class="bids">47</td>
-            <td class="award">1234 €</td>
-          </tr>
-          </tbody>
-        </table>
+        {{details-data-table
+            class="contracts-table"
+            content=modelDetails.contracts
+            fields=fields.contractsProcurer
+            partialPath="network/show/details/partials/tables/contracts-supplier"
+            route="procurers"
+            nodeId=params.id
+            componentTable="contracts-procurer"
+        }}
       </section>
 
       <section>
         <h5>Contracted supplying companies</h5>
-        <div><span class="figure-supplier small"></span> {{#link-to "network.show.details.show" "suppliers" 995348}}Heineken Switzerland AG{{/link-to}}</div>
+        <div>
+          {{#each modelDetails.nodes as |node|}}
+            <div>
+              <span class="figure-supplier small"></span>
+              {{#link-to "network.show.details.show" "suppliers" node.id}}{{node.name}}{{/link-to}}
+            </div>
+          {{/each}}
+        </div>
       </section>
 
       <section>
@@ -97,99 +102,5 @@
       </section>
 
     </div>
-
-
-      <!--div class="container container-entity relative">
-        <div class="row">
-          <div class="col s12 title fs1">
-            <div class="el-label-dark fs2 procurer">
-              {{fa-icon 'circle' size=1}} procurer
-            </div>
-            <div class="el-title fs5">
-              {{modelDetails.name}}
-              <span class="fs3 dark-text">( {{modelDetails.firstYear}} - {{modelDetails.lastYear}} )</span>
-            </div>
-            <hr>
-          </div>
-        </div>
-
-
-        <div class="row second-row">
-          <div class="col s3">
-            {{#each-in modelDetails.flags as |flName flValue|}}
-              <div class="flag">
-                {{fa-icon 'flag' size=1}} {{flName}} {{fa-icon 'question-circle' size=1}}
-              </div>
-            {{/each-in}}
-          </div>
-          <div class="col s3">
-            <div class="el-label-dark fs1">total income</div>
-            <div class="el-title fs5">{{format-amount modelDetails.total_earnings}}</div>
-          </div>
-          <div class="col s3">
-            <div class="el-label-dark fs1">avg competition</div>
-            <div class="el-title fs5">{{modelDetails.average_competition}}</div>
-          </div>
-          <div class="col s2 right-align">
-            <div class="el-label-dark fs1">data missing</div>
-            <div class="el-title fs5">{{modelDetails.missing_values}}%</div>
-          </div>
-        </div>
-
-        <div class="row">
-          {{#tabbed-content active=activeTabProcurer on-change="changeTabProcurer" active-class="tab-button--active" as |procurerTabManager|}}
-            <div class="tabs__nav">
-              {{#tab-button class="tab-button"  manager=procurerTabManager name="contracts"}}
-                <a>contracts ({{modelDetails.contractsCount}})</a>
-              {{/tab-button}}
-            {{#tab-button class="tab-button"  manager=procurerTabManager name="contractsGraph"}}
-                <a>timeline</a>
-              {{/tab-button}}
-            {{#tab-button class="tab-button"  manager=procurerTabManager name="suppliers"}}
-                <a>suppliers ({{modelDetails.nodesCount}})</a>
-              {{/tab-button}}
-            </div>
-
-            {{#tab-panel manager=procurerTabManager name="contracts" class='tab-panel'}}
-              {{details-data-table
-                class="contracts"
-                content=modelDetails.contracts
-                fields=fields.contracts
-                partialPath="network/show/details/partials/tables/contracts"
-                route="procurers"
-                nodeId=params.id
-              }}
-            {{/tab-panel}}
-            {{#tab-panel manager=procurerTabManager name="contractsGraph" class='tab-panel'}}
-              <div class="details-graph-container">
-                {{#ember-scrollable}}
-              {{details-graph
-                id="details-graph-id"
-                contracts=modelDetails.contracts
-                fields=fields.contracts
-                partialPath="network/show/details/partials/tables/contracts"
-                route="procurers"
-                nodeId=params.id
-              }}
-            {{/ember-scrollable}}
-              </div>
-            {{/tab-panel}}
-            {{#tab-panel manager=procurerTabManager name="suppliers" class='tab-panel'}}
-              {{details-data-table
-                class="suppliers"
-                content=modelDetails.nodes
-                fields=fields.suppliers
-                partialPath="network/show/details/partials/tables/suppliers-procurers"
-                route="procurers"
-                nodeId=params.id
-              }}
-            {{/tab-panel}}
-          {{/tabbed-content}}
-        </div>
-
-
-      </div>-->
-
-
   {{/ember-scrollable}}
 </div>

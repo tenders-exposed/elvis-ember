@@ -23,7 +23,7 @@
     {{/c.header}}
 
     {{#c.body as |row|}}
-      {{partial partialPath}}
+        {{component componentTable route=route nodeId=nodeId row=row}}
     {{/c.body}}
 
   {{/t.content}}

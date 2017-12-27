@@ -1,7 +1,7 @@
 <div class="detailview details-info-wrapper">
 
     {{#if readyToRender}}
-
+        {{log modelDetails}}
         {{#if modelDetails}}
           {{#if (eq tab 'suppliers')}}
             {{partial 'network/show/details/partials/supplier'}}
