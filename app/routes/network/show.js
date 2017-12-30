@@ -9,6 +9,7 @@ export default Route.extend({
 
   activate() {
     this.notifications.clearAll();
+    this.openSidebar();
   },
 
   model(params) {
@@ -39,10 +40,13 @@ export default Route.extend({
     controller.set('clusters', undefined);
   },
 
+  openSidebar() {
+    let activeTab = this.controllerFor('network.show.details').get('activeTab');
+    this.transitionTo('network.show.details', activeTab);
+  },
   actions: {
     openSidebar() {
-      let activeTab = this.controllerFor('network.show.details').get('activeTab');
-      this.transitionTo('network.show.details', activeTab);
+      this.openSidebar();
     },
     // set toggled menu for show routes and subroutes
     didTransition() {
