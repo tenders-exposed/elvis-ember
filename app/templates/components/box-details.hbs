@@ -25,8 +25,14 @@
         <table class="spec">
           <tr>
 
-            <td class="value">{{format-amount model.value '0,0[.]00 a'}} M</td>
-            <td class="label">Total money flow</td>
+            <td class="value">{{format-amount model.value '0,0[.]00 a'}}</td>
+            <td class="label">
+              {{#if (eq model.valueType "count")}}
+                Tenders
+              {{else}}
+                Total money flow
+              {{/if}}
+            </td>
           </tr>
           <tr>
             <td class="value">{{format-amount model.average_competition '0'}}</td>
@@ -55,7 +61,13 @@
     <table class="spec">
         <tr>
             <td class="value">{{format-amount model.value '0,0 a'}}</td>
-            <td class="label">{{model.valueType}}</td>
+            <td class="label">
+              {{#if (eq model.valueType "count")}}
+                Tenders
+              {{else}}
+                Total money flow
+              {{/if}}
+            </td>
         </tr>
     </table>
     <div class="action">
