@@ -78,13 +78,17 @@ export default Controller.extend({
     this.gridOptions.api.setQuickFilter(value);
   },
 
+  toggleMenu() {
+    $('.navbar-toggle').click(function(e) {
+      $('#main-navbar').toggleClass('open');
+      e.stopPropagation();
+      return false;
+    });
+  },
+
   actions: {
     toggleMenu() {
-      $('.navbar-toggle').click(function(e) {
-        $('#main-navbar').toggleClass('open');
-        e.stopPropagation();
-        return false;
-      });
+      this.toggleMenu();
     },
 
     closeDetails(networkId) {
