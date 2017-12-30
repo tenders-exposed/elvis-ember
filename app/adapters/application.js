@@ -7,4 +7,3 @@ export default ElvisAdapter.extend(DataAdapterMixin, {
   namespace: ENV.APP.apiNamespace,
   authorizer: 'authorizer:elvis'
 });
-

@@ -75,7 +75,7 @@
     "ember-resolver": "^4.0.0",
     "ember-scrollable": "^0.4.9",
     "ember-select-guru": "1.1.2",
-    "ember-simple-auth": "1.1.0-beta.4",
+    "ember-simple-auth": "1.4.1",
     "ember-source": "~2.17.0",
     "ember-suave": "^4.0.1",
     "ember-tether": "^1.0.0-beta.0",

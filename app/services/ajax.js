@@ -10,15 +10,15 @@ export default AjaxService.extend({
     return this.get('session.session.content.authenticated');
   }),
   session: inject.service(),
-  headers: computed('session.session.content.authenticated', function() {
-    let userToken = this.get('session.session.content.authenticated.authentication_token');
-    let userIdentification = this.get('session.session.content.authenticated.email');
-    return {
-      'Content-Type': 'application/json',
-      'X-User-Email': `${userIdentification}`,
-      'X-User-Token': `${userToken}`
-    };
-  }),
+  // headers: computed('session.session.content.authenticated', function() {
+  //   let userToken = this.get('session.session.content.authenticated.authentication_token');
+  //   let userIdentification = this.get('session.session.content.authenticated.email');
+  //   return {
+  //     'Content-Type': 'application/json',
+  //     'X-User-Email': `${userIdentification}`,
+  //     'X-User-Token': `${userToken}`
+  //   };
+  // }),
 
   trustedHosts: [
     '/.*/',
