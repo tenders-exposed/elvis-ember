@@ -18,6 +18,17 @@
                     2 .wizard-step.current - a step which has not been completed, but can be interacted with
                     3 .wizard-step.completed - this step is available for interaction AND all inputs inside this step which are necessary for the next step to be enabled, has been filled
       -->
+
+      {{#if isMobile.any}}
+        <p class="center"><i>
+          Hi! You are using a mobile device. We get this.
+          However, Elvis is not yet optimized for small screens.
+          Therefore, in order to get most out of Elvis, please switch to a larger screen, such as a laptop or desktop computer.
+          <br>
+          Thank you!
+        </i></p>
+      {{/if}}
+
       <div id="query-builder" class="wizard">
 
         <!-- STEP 1: narrowing countries and companies -->
@@ -187,6 +198,9 @@
           </div>
         </section>
 
+      {{#if isMobile.any}}
+        <p class="center">Submit is disabled for mobile devices</p>
+      {{else}}
         <div class="wizard-finish center">
           {{md-btn-submit
               action='submitQuery'
@@ -195,6 +209,7 @@
               isDisabled=submitIsDisabled
           }}
         </div>
+      {{/if}}
       </div>
     </div>
   </div>
