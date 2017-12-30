@@ -21,8 +21,6 @@ export default Component.extend({
     this._super(...arguments);
     let typeSelected = this.get('graphElementType');
     let elementId = this.get('graphElementId');
-    let valueType = this.get('networkService.network.query.type');
-    console.log(valueType);
 
     if (typeSelected === 'node') {
       let nodeDetails = this.get('networkService').getNodeById(elementId);
