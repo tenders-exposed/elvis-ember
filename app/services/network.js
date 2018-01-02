@@ -153,7 +153,7 @@ export default Service.extend({
         id: node.id,
         value: valueFormat(node.options.value),
         unformattedValue: node.options.value,
-        label: node.options.label,
+        label: node.options.label ? node.options.label : 'n/a',
         flags: node.options.flags,
         flagsCount: node.options.flags.length,
         link: node.id,

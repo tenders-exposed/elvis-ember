@@ -83,19 +83,20 @@
     {{/if}}
     <div id="network-controls">
       <a class="vis-button" {{action "modalNetworkLink" on="click"}}>
-        {{fa-icon "send"}}
+        {{fa-icon 'link' size=1}}
+        <div class="tooltip"> Get link </div>
       </a>
       <a class="vis-button" {{action "stopPhysics" on="click"}}>
         {{fa-icon 'cogs'}}
+        <div class="tooltip"> Stop movement </div>
       </a>
       <a class="vis-button" {{action "showClustering" on="click"}}>
         {{fa-icon 'database' size=1}}
-      </a>
-      <a class="vis-button" {{action "showEmbedding" on="click"}}>
-        {{fa-icon 'link' size=1}}
+        <div class="tooltip"> Merge nodes </div>
       </a>
       <a class="vis-button" {{action "toggleCrop" on="click"}}>
         {{fa-icon 'crop' size=1}}
+        <div class="tooltip"> Export image </div>
       </a>
 
     </div>
