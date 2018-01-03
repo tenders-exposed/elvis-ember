@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Logger, Service } = Ember;
+const { Service } = Ember;
 
 export default Service.extend({
   edges: [],
@@ -135,7 +135,7 @@ export default Service.extend({
   setSuppliersProcurers() {
     // from network.network.body.nodesIndices & .nodes[nodeId]
     let valueFormat = (value) => {
-      if (typeof value !== 'string') {
+      if (typeof value !== 'string' && typeof value !== 'undefined') {
         value = value.toFixed();
         value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       }
@@ -152,6 +152,7 @@ export default Service.extend({
         type: node.options.type,
         id: node.id,
         value: valueFormat(node.options.value),
+        average_competition: valueFormat(node.options.average_competition),
         unformattedValue: node.options.value,
         label: node.options.label ? node.options.label : 'n/a',
         flags: node.options.flags,
@@ -171,8 +172,10 @@ export default Service.extend({
       }
     });
 
-    this.set('suppliers', suppliers);
-    this.set('procurers', procurers);
+    let orderedSuppliers = _.orderBy(suppliers, ['unformattedValue', 'label'], ['desc', 'asc']);
+    let orderedProducrers = _.orderBy(procurers, ['unformattedValue', 'label'], ['desc', 'asc']);
+    this.set('suppliers', orderedSuppliers);
+    this.set('procurers', orderedProducrers);
   },
 
   setRelationships() {
@@ -214,8 +217,8 @@ export default Service.extend({
       relationships.pushObject(edgeDetails);
     });
 
-    this.set('relationships', relationships);
-    Logger.debug('service - relationships', relationships);
+    let orderedRelationships = _.orderBy(relationships, 'unformattedValue', 'desc');
+    this.set('relationships', orderedRelationships);
   },
 
   makeClusteredNetwork(clusteredNodes, clusters) {
@@ -260,13 +263,17 @@ export default Service.extend({
           // let flagsCount = 0;
           let flags = [];
           let value = 0;
-          for (let i = 0; i < childNodes.length; i++) {
+          let average_competition = 0;
+          let childrenCount = childNodes.length;
+          for (let i = 0; i < childrenCount; i++) {
             value += childNodes[i].value;
+            average_competition += childNodes[i].average_competition;
             if (childNodes[i].flags.length) {
               flags.pushObject(childNodes[i].flags);
             }
           }
           clusterOptions.value = value;
+          clusterOptions.average_competition = average_competition / childrenCount;
           clusterOptions.flags = flags;
           clusterOptions.flagsCount = flags.length;
           clusterOptions.type = cluster.type;

@@ -1,5 +1,5 @@
 <!-- new navbar -->
-<nav id="main-navbar" class="navbar navbar-fixed">
+<nav id="main-navbar" class="navbar navbar-fixed open">
     <div class="nav-wrapper">
 		    {{#link-to 'application' class="brand-logo"}}
             <img alt="ELVIS - public spending visualisation tool" height="60" src="images/elvis-logo-white.png"/>
@@ -27,15 +27,6 @@
 								        <span>My Projects</span>
 								        {{#tooltip-on-component enableLazyRendering=true side='bottom'}}
                             My Projects
-								        {{/tooltip-on-component}}
-						        {{/link-to}}
-                    </li>
-						        <li>
-						        {{#link-to 'account.settings' class=""}}
-								        <i class="fa fa-cog"></i>
-		                    <span>Settings</span>
-								        {{#tooltip-on-component enableLazyRendering=true side='bottom'}}
-                            Settings
 								        {{/tooltip-on-component}}
 						        {{/link-to}}
                     </li>
@@ -74,12 +65,6 @@
           {{/link-to}}
         </li>
         <li>
-          {{#link-to 'account.settings' class=""}}
-              <i class="fa fa-user"></i>
-              <span>Account Settings</span>
-          {{/link-to}}
-        </li>
-        <li>
             <a {{action 'invalidateSession'}} class="">
                 <i class="fa fa-power-off"></i>
                 <span>Log Out</span>
@@ -100,12 +85,6 @@
             My projects
           {{/link-to}}
         {{/link-to}}
-
-        {{#link-to 'account.settings' tagName='li'}}
-          {{#link-to 'account.settings'}}
-            Account Settings
-          {{/link-to}}
-        {{/link-to}}
         <li><a {{action 'invalidateSession'}}>Log out</a></li>
       </ul>
       {{/if}}
@@ -116,7 +95,7 @@
             <div class="row">
               <div class="col s12">
                 {{#link-to 'application' class="left logo-container"}}
-                  <img alt="Logo" class="logo" src="/images/elvis-logo-light.png"/>
+                  <img alt="Logo" class="logo" src="/images/elvis-logo-white.png"/>
                 {{/link-to}}
 
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -162,11 +141,6 @@
                       {{/link-to}}
                     {{/link-to}}
 
-                    {{#link-to 'account.settings' tagName='li'}}
-                      {{#link-to 'account.settings'}}
-                        {{fa-icon "cogs" class="left"}} Account Settings
-                      {{/link-to}}
-                    {{/link-to}}
                     <li>
                       <a {{action 'invalidateSession'}}>
                         {{fa-icon "power-off" class="left" }} Log out
@@ -197,6 +171,12 @@
 </div>
 
 
+
 {{#if loginVisible}}
-  {{login-form modal=true}}
+  {{#md-modal}}
+    <a class="modal-close" {{action 'toggleLoginModal'}}><i class="fa fa-close"></i></a>
+    <div class="modal-content">
+      {{login-form}}
+    </div>
+  {{/md-modal}}
 {{/if}}

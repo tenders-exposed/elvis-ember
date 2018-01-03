@@ -7,6 +7,16 @@ export default Controller.extend({
   ajax: inject.service(),
 
   networkInput: false,
+  orderOptions: {
+    suppliers: [
+      { 'value': 'label', 'name': 'Name' }
+    ],
+    relationships: [
+      { 'value': 'fromLabel', 'name': 'Procurer' },
+      { 'value': 'toLabel', 'name': 'Supplier' }
+    ]
+
+  },
   fields: {
     suppliers: {
       id: 'ID',
@@ -36,13 +46,27 @@ export default Controller.extend({
 
   graphChange: 0,
   stabilizedNetwork: false,
+  checkOptions: false,
 
   showController: inject.controller('network.show'),
 
   networkModelLoaded: observer('networkService.isReady', 'model', function() {
-    if (this.get('model.options')) {
-      this.set('fields.suppliers.value', _.capitalize(this.get('model.options.nodes')));
-      this.set('fields.relationships.value', _.capitalize(this.get('model.options.edges')));
+    if (this.get('model.options') && !this.get('checkOptions')) {
+      let optNodes = this.get('model.options.nodes') === 'count'
+                      ? 'Amount of tenders'
+                      : 'Value of tenders';
+      let optEdges = this.get('model.options.edges') === 'count'
+                      ? 'Amount of tenders'
+                      : 'Value of tenders';
+
+      // let optNodes = _.capitalize(this.get('model.options.nodes'));
+      // let optEdges = _.capitalize(this.get('model.options.edges'));
+      this.set('fields.suppliers.value', optNodes);
+      this.set('fields.relationships.value', optEdges);
+
+      this.get('orderOptions.suppliers').push({ 'value': 'value', 'name': optNodes });
+      this.get('orderOptions.relationships').push({ 'value': 'value', 'name': optEdges });
+      this.set('checkOptions', true);
     }
     this.set('gridOptions.suppliers.rowData', this.get('networkService.suppliers'));
     this.set('gridOptions.procurers.rowData', this.get('networkService.procurers'));
@@ -54,13 +78,17 @@ export default Controller.extend({
     this.gridOptions.api.setQuickFilter(value);
   },
 
+  toggleMenu() {
+    $('.navbar-toggle').click(function(e) {
+      $('#main-navbar').toggleClass('open');
+      e.stopPropagation();
+      return false;
+    });
+  },
+
   actions: {
     toggleMenu() {
-      $('.navbar-toggle').click(function(e) {
-        $('#main-navbar').toggleClass('open');
-        e.stopPropagation();
-        return false;
-      });
+      this.toggleMenu();
     },
 
     closeDetails(networkId) {

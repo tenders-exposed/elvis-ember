@@ -152,6 +152,18 @@
     width: 100%;
     height: 100%;
 
+    .ember-select-guru {
+      margin-bottom: 0rem !important;
+    }
+
+    .sortby .ember-select-guru__dropdown {
+      .ember-select-guru__search-wrapper:before,
+      .ember-select-guru__search {
+        display: none !important;
+      }
+    }
+
+
     .ag-body-container {
       width: 100%;
     }

@@ -47,10 +47,12 @@
     display: block;
     height: 1rem;
     border-radius: 3px;
-    padding-right: 7px;
+    padding-right: 9px;
     text-transform: uppercase;
     cursor: pointer;
     margin-top: 5px;
+    font-size: 0.7rem;
+    margin-left: -10px;
   }
 }
 
@@ -303,21 +305,6 @@ div#network-container {
         }
       }
     }
-  }
-}
-
-/* ember-cli-materialize hacks */
-.ember-modal-overlay {
-  opacity: 1 !important;
-}
-
-.modal {
-  top: 80px !important;
-  &, & .modal-footer {
-    box-shadow: none;
-    color: #eee;
-    background-color: #1A1A1C;
-    width: 100%;
   }
 }
 

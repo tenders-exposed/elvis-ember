@@ -1,7 +1,8 @@
 import EmberRouter from '@ember/routing/router';
+import Trackable from 'ember-cli-analytics/mixins/trackable';
 import config from './config/environment';
 
-const ElvisRouter = EmberRouter.extend({
+const ElvisRouter = EmberRouter.extend(Trackable, {
   location: config.locationType,
   rootURL: config.rootURL
 });
@@ -14,12 +15,6 @@ ElvisRouter.map(function() {
     this.route('confirm');
     this.route('recover', function() {
       this.route('password', {});
-    });
-    this.route('settings', function() {
-      this.route('password', {});
-    });
-    this.route('disable', function() {
-      this.route('delete', {});
     });
     this.route('show', { path: ':id' });
     this.route('new');

@@ -31,7 +31,8 @@
     white-space: initial;
 
 
-    color: fade-out($text-color,.6);
+    /* color: fade-out($text-color,.6); */
+    color: #fff;
     &:hover {
       color: fade-out($text-color,.3);
     }
@@ -117,5 +118,3 @@
     }
   }
 }
-
-

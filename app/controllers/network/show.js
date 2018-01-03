@@ -14,7 +14,7 @@ export default Controller.extend({
       'shape': 'dot',
       'scaling': {
         'min': 5,
-        'max': 10
+        'max': 30
         // 'label': {
         //   'enabled': true
         // }
@@ -284,7 +284,6 @@ export default Controller.extend({
           $('#downloadLnk').attr('href', dt);
         }, false);
     };
-
   },
 
   setDimensionControls() {
@@ -321,7 +320,6 @@ export default Controller.extend({
       cropBoxData.height = inputVal;
       $canvas.cropper('setCropBoxData', cropBoxData);
     });
-
   },
 
   setCropControls() {
@@ -466,7 +464,6 @@ export default Controller.extend({
       this.set('networkStabilization', true);
       Logger.info('Network stabilized');
       this.get('networkService').setNetwork(this.get('network'));
-
     },
 
     stabilizationProgress(amount) {

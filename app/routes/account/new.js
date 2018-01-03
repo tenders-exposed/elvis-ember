@@ -10,5 +10,9 @@ export default Route.extend({
   },
   setupController(controller, model) {
     controller.set('model', model);
+  },
+  activate() {
+    let applicationController = this.controllerFor('application');
+    applicationController.set('loginVisible', false);
   }
 });

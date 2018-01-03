@@ -11,9 +11,6 @@
 /* font awesome variables */
 @import "fontawesome_variables.scss";
 
-@import "ember-modal-dialog/ember-modal-structure";
-@import "ember-modal-dialog/ember-modal-appearance";
-
 /* Settings and general tweaks */
 @import "mixins";
 @import "helpers";
@@ -30,6 +27,8 @@
 @import "general/navbar";
 @import "general/page";
 @import "general/network";
+@import "general/alert";
+@import "general/modal";
 
 /* Components */
 @import "components/collapsible";
