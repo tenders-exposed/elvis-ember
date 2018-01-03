@@ -3,15 +3,22 @@ import ENV from '../config/environment';
 import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
 import ElvisAdapter from './elvis';
 
+const { inject, computed } = Ember;
+
 export default ElvisAdapter.extend(DataAdapterMixin, {
-  me: Ember.inject.service(),
+  session: inject.service(),
   host: `${ENV.APP.apiHost}`,
   namespace: `account`,
   authorizer: 'authorizer:elvis',
 
-  headers: Ember.computed('me.access_token', function() {
+  token: computed('session.session.content.authenticated', function() {
+    return this.get('session.session.content.authenticated.access_token');
+  }),
+
+  headers: Ember.computed('token', function() {
+    console.log('token', this.get('token'));
     return {
-      'Authorization': this.get('me.access_token')
+      'Authorization': this.get('token')
     };
   }),
 

@@ -7,6 +7,7 @@ export default Service.extend({
 
   init() {
     this.set('data', computed('session.session.content.authenticated', function() {
+      // console.log('session', this.get('session.session.content.authenticated'));
       return this.get('session.session.content.authenticated');
     }));
   }

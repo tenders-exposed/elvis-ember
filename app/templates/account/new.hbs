@@ -6,6 +6,11 @@
 </div>
 <div class="row">
   <div id="register" class="col m4">
+{{#if errorMessage}}
+  {{#each errors as |err|}}
+    <p class="alert alert-error">{{err.message}}</p>
+  {{/each}}
+{{/if}}
     <form id="register" class="form-signin" {{action 'register' on='submit'}} autocomplete="off">
       <div class="row">
 

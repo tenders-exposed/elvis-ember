@@ -12,15 +12,19 @@ export default Controller.extend({
           autoClear: true
         });
         self.transitionToRoute('welcome');
-      },
-      (response) => {
-        self.notifications.clearAll();
-        _.forEach(response.errors, (error, index) => {
-          error.forEach((v) => {
-            self.notifications.error(`Error: ${index } ${v}!`);
-          });
+      })
+        .catch((reason) => {
+          console.error('CRĂPĂ!!');
+          this.set('errors', reason);
         });
-      });
+      // (response) => {
+      //   self.notifications.clearAll();
+      //   _.forEach(response.errors, (error, index) => {
+      //     error.forEach((v) => {
+      //       self.notifications.error(`Error: ${index } ${v}!`);
+      //     });
+      //   });
+      // });
     }
   }
 });
