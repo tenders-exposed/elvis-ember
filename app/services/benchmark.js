@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import Service from '@ember/service';
+import { inject as service } from '@ember/service';
 
-const { Logger, inject } = Ember;
+const { Logger } = Ember;
 const template = {
   version: '',    // frontend version
   created_at: '', // measurement timestamp
@@ -49,8 +50,8 @@ const template = {
 };
 
 export default Service.extend({
-  ajax: inject.service(),
-  me: inject.service(),
+  ajax: service(),
+  me: service(),
   endpoint: '/performance_stats',
   options: {},
   data: {},

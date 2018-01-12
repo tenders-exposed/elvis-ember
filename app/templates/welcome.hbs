@@ -22,7 +22,7 @@
       <div>
           <a href="#" class="btn-large transparent hide">Use ready-made network</a>
           {{#if session.isAuthenticated}}
-            {{#link-to 'network.new' class="btn-large primary"}}Create a new network{{/link-to}}
+            {{#link-to 'network.new' undefined class="btn-large primary"}}Create a new network{{/link-to}}
           {{else}}
             {{#link-to 'account.new' class="btn-large primary"}}Create an account{{/link-to}}
           {{/if}}

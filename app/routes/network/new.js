@@ -8,7 +8,7 @@ const { Logger } = Ember;
 
 export default Route.extend(AuthenticatedRouteMixin, {
   classNames: ['body-page'],
-  ajax: service(),
+  ajax: service('ajax'),
   titleToken: 'Create a new network',
 
   endpoints: {

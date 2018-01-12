@@ -1,11 +1,9 @@
-import Ember from 'ember';
 import Service from '@ember/service';
 import { computed } from '@ember/object';
-
-const { inject } = Ember;
+import { inject as service } from '@ember/service';
 
 export default Service.extend({
-  session: inject.service(),
+  session: service(),
 
   init() {
     this.set('data', computed('session.session.content.authenticated', function() {
