@@ -1,11 +1,14 @@
+import Route from '@ember/routing/route';
+import { computed, observer } from '@ember/object';
+import { inject as service } from '@ember/service';
 import Ember from 'ember';
 
-const { Route, observer, inject, computed, Logger } = Ember;
+const { Logger } = Ember;
 
 export default Route.extend({
   classNames: ['body-network'],
-  ajax: inject.service(),
-  store: inject.service(),
+  ajax: service(),
+  store: service(),
 
   endpoints: {
     suppliers: 'suppliers',

@@ -1,7 +1,5 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
 import EmberValidations from 'ember-validations';
-
-const { Controller } = Ember;
 
 export default Controller.extend(EmberValidations, {
   queryParams: ['t'],

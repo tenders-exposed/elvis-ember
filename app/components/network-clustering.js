@@ -1,6 +1,7 @@
-import Ember from 'ember';
-
-const { Component, $, observer, set: EmberSet } = Ember;
+import Component from '@ember/component';
+import $ from 'jquery';
+import { observer } from '@ember/object';
+import { set as EmberSet } from '@ember/object';
 
 export default Component.extend({
   clusters: [],

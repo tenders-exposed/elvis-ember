@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import $ from 'jquery';
 import numeral from 'numeral';
-
-const { Component, $ } = Ember;
 
 export default Component.extend({
   contracts: '',

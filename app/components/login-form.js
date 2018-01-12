@@ -1,10 +1,8 @@
-import Ember from 'ember';
 import Component from '@ember/component';
-
-const { inject } = Ember;
+import { inject as service } from '@ember/service';
 
 export default Component.extend({
-  session: inject.service('session'),
+  session: service('session'),
 
   actions: {
     authenticate() {

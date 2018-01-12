@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import Service from '@ember/service';
 
-const { Service, Logger, inject } = Ember;
+const { Logger, inject } = Ember;
 const template = {
   version: '',    // frontend version
   created_at: '', // measurement timestamp

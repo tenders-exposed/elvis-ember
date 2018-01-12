@@ -1,9 +1,12 @@
 import Ember from 'ember';
+import Component from '@ember/component';
+import { computed, observer } from '@ember/object';
+import { inject as service } from '@ember/service';
 
-const { Component, Logger, computed, observer, inject } = Ember;
+const { Logger } = Ember;
 
 export default Component.extend({
-  cpvService: inject.service('cpv'),
+  cpvService: service('cpv'),
   classNames: ['cpv-selector'],
   classNameBindings: ['visible:visible:hide'],
   refresh: true,

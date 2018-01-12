@@ -1,6 +1,6 @@
-import Ember from 'ember';
-
-const { Component, computed, observer, $ } = Ember;
+import Component from '@ember/component';
+import $ from 'jquery';
+import { computed, observer } from '@ember/object';
 
 export default Component.extend({
   tableContent: computed('content', function() {

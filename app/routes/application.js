@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import Route from '@ember/routing/route';
 import ENV from '../config/environment';
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 import BodyClassMixin from 'ember-body-class/mixins/body-class';
+import { inject as service } from '@ember/service';
 
-const { Route, inject } = Ember;
 const { APP } = ENV;
 
 export default Route.extend(ApplicationRouteMixin, BodyClassMixin, {
@@ -13,9 +13,9 @@ export default Route.extend(ApplicationRouteMixin, BodyClassMixin, {
   host: APP.apiHost,
   namespace: APP.apiNamespace,
   dbVersion: APP.dbVersion,
-  ajax: inject.service(),
-  session: inject.service(),
-  me: inject.service(),
+  ajax: service(),
+  session: service(),
+  me: service(),
   title: (tokens) => {
     return tokens.length ?
       `${tokens.join(' - ')} - Elvis` :
@@ -37,6 +37,7 @@ export default Route.extend(ApplicationRouteMixin, BodyClassMixin, {
   },
 
   init() {
+    this._super(...arguments);
     this.setupLoader();
   },
 

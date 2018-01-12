@@ -1,8 +1,10 @@
-import Ember from 'ember';
+import RSVP from 'rsvp';
+// import { isEmpty } from '@ember/utils';
+import { run } from '@ember/runloop';
+import $ from 'jquery';
+
 import OAuth2PasswordGrant from 'ember-simple-auth/authenticators/oauth2-password-grant';
 import ENV from '../config/environment';
-
-const { RSVP, isEmpty, run, $ } = Ember;
 
 export default OAuth2PasswordGrant.extend({
   serverTokenEndpoint: `${ENV.APP.apiHost}/auth/login`,

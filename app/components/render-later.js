@@ -1,11 +1,9 @@
 import Ember from 'ember';
+import Component from '@ember/component';
+import { run } from '@ember/runloop';
+import RSVP from 'rsvp';
 
-const {
-  Component,
-  run,
-  RSVP,
-  Logger
-} = Ember;
+const { Logger } = Ember;
 
 export default Component.extend({
   tagName: '',

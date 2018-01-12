@@ -1,12 +1,11 @@
-import Ember from 'ember';
 import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
-
-const { Route, inject } = Ember;
+import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 
 export default Route.extend(UnauthenticatedRouteMixin, {
   classNames: ['body-page'],
   titleToken: 'Confirm your account',
-  ajax: inject.service(),
+  ajax: service(),
   queryParams: {
     t: {
     }

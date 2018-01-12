@@ -1,7 +1,5 @@
-import Ember from 'ember';
 import RangeSlider from 'ember-cli-nouislider/components/range-slider';
-
-const { $ } = Ember;
+import $ from 'jquery';
 
 export default RangeSlider.extend({
 

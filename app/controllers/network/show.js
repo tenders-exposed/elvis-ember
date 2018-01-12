@@ -1,10 +1,13 @@
 import Ember from 'ember';
+import Controller from '@ember/controller';
+import { inject as service } from '@ember/service';
+import $ from 'jquery';
 
-const { Controller, $, Logger, inject } = Ember;
+const { Logger } = Ember;
 
 export default Controller.extend({
-  me: inject.service(),
-  ajax: inject.service(),
+  me: service(),
+  ajax: service(),
 
   height: window.innerHeight - 100,
   selectedNodes: [],

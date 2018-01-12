@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import Service from '@ember/service';
 
-const { Service, Logger } = Ember;
+const { Logger } = Ember;
 const rootCodes = [
   {
     id: '09000000',

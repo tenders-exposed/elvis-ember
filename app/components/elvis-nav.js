@@ -1,9 +1,9 @@
-import Ember from 'ember';
-
-const { Component, inject, $ } = Ember;
+import Component from '@ember/component';
+import { inject as service } from '@ember/service';
+import $ from 'jquery';
 
 export default Component.extend({
-  session: inject.service('session'),
+  session: service('session'),
   dropMenu: false,
 
   didInsertElement() {

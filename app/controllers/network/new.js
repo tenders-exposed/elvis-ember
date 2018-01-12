@@ -1,17 +1,15 @@
 // import ENV from '../config/environment';
 import Ember from 'ember';
 
-const {
-  Controller,
-  inject,
-  computed,
-  run,
-  A,
-  $,
-  Logger
-} = Ember;
+import Controller from '@ember/controller';
+import $ from 'jquery';
+import { computed, observer } from '@ember/object';
+import { inject } from '@ember/service';
+import { run } from '@ember/runloop';
+import { A } from '@ember/array';
+import EmberObject from '@ember/object';
 
-const { Object: EmberObject, observer } = Ember;
+const { Logger } = Ember;
 
 export default Controller.extend({
   ajax: inject.service(),

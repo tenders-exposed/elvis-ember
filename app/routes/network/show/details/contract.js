@@ -1,10 +1,10 @@
-import Ember from 'ember';
-const { Route, inject } = Ember;
+import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 
 export default Route.extend({
   classNames: ['body-network'],
-  ajax: inject.service(),
-  store: inject.service(),
+  ajax: service(),
+  store: service(),
 
   model(params, transition) {
     let { tab } = transition.params['network.show.details'];

@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import Service from '@ember/service';
 
-const { Service, Logger, inject } = Ember;
+const { Logger, inject } = Ember;
 
 export default Service.extend({
   benchmark: inject.service(),

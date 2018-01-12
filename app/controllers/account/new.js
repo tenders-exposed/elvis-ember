@@ -1,6 +1,4 @@
-import Ember from 'ember';
-
-const { Controller } = Ember;
+import Controller from '@ember/controller';
 
 export default Controller.extend({
   actions: {
@@ -14,7 +12,6 @@ export default Controller.extend({
         self.transitionToRoute('welcome');
       })
         .catch((reason) => {
-          console.error('CRĂPĂ!!');
           this.set('errors', reason);
         });
       // (response) => {
