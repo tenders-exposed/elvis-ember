@@ -8,15 +8,16 @@ const User = Model.extend({
   email: attr('string'),
   name: attr('string'),
   country: attr('string'),
-  authentication_token: attr('string'),
+  access_token: attr('string'),
+  refresh_token: attr('string'),
 
   password: attr('string'),
   password_confirmation: attr('string'),
 
   networks: hasMany('network'),
 
-  token: computed('authentication_token', function() {
-    return this.get('authentication_token');
+  token: computed('access_token', function() {
+    return this.get('access_token');
   })
 
 });
