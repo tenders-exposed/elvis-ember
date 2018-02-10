@@ -12,16 +12,24 @@ export default Route.extend(AuthenticatedRouteMixin, {
   titleToken: 'Create a new network',
 
   endpoints: {
-    'countries': '/contracts/countries',
-    'years': '/contracts/years',
-    'cpvs': '/contracts/cpvs'
+    'countries': '/tenders/countries',
+    'years': '/tenders/years',
+    'cpvs': '/tenders/cpvs'
   },
 
   setAvailable(controller, item, options) {
     let self = this;
     if (_.indexOf(_.keysIn(self.get('endpoints')), item) !== -1) {
-      self.get('ajax').post(self.get(`endpoints.${item}`), options).then((data) => {
-        controller.set(item, data.search.results);
+      self.get('ajax').request(self.get(`endpoints.${item}`), options).then((data) => {
+        //controller.set(item, data.search.results);
+        //@todo: problem with the catch; this must be modified
+        if(item == 'countries') {
+          _.each(data[item], function (country) {
+            country.text = country.name;
+          })
+        }
+        controller.set(item, data[item]);
+        console.log(`${item} setAvailable`, data[item]);
       });
     } else {
       Logger.error(`Unknown set '${item}'`);

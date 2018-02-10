@@ -89,8 +89,8 @@ export default Controller.extend({
   yearsStart: [],
   yearsRange: computed('years', function() {
     let years = this.get('years');
-    let yearMin = _.minBy(years, 'id').id;
-    let yearMax = _.maxBy(years, 'id').id;
+    let yearMin = _.min(years);
+    let yearMax = _.max(years);
 
     // hacking the range so we won't crash the slider
     // see https://github.com/leongersen/noUiSlider/issues/676 for more
@@ -107,6 +107,10 @@ export default Controller.extend({
 
   treeObserver: observer('cpvs', function() {
     this.createTree();
+  }),
+  
+  selectedCodesObserver: observer('selectedCodes', function () {
+    console.log('observer selectedCodes', this.get('selectedCodes'));
   }),
 
   network: {},
@@ -131,35 +135,50 @@ export default Controller.extend({
   cpvSearchTree: '',
 
   createTree() {
+    /*
+    * cpvs: [
+     {
+     code: "79713000",
+     xName: "Guard services",
+     xNumberDigits: 5
+     },...]
+
+     vs
+     {
+     "doc_count": 1714,
+     "text": "Pharmaceutical products",
+     "number_digits": 3,
+     "id": "33600000"
+     },
+     */
     let treeTimer = performance.now();
     let cpvs = _.sortBy(
       _.cloneDeep(this.get('cpvs')),
-      ['id']
+      ['code']
     );
     let tree = [];
     let missingCodes = [];
 
     cpvs.map((cpv) => {
       let {
-        number_digits,
-        id,
-        doc_count,
-        text
+        xNumberDigits,
+        code,
+        xName
       } = cpv;
       let result = {};
 
-      result.id = id;
-      result.count = doc_count;
-      result.name = text;
+      result.id = code;
+      //result.count = doc_count;
+      result.name = xName;
       result.state = { opened: false };
       result.text = '<div class="details">';
-      result.text += `<div class="cpv-title">${text}</div>`;
-      result.text += `<div class="cpv-code">${id} (${doc_count} / 0)</div>`;
+      result.text += `<div class="cpv-title">${xName}</div>`;
+      result.text += `<div class="cpv-code">${code} </div>`;
       result.text += `</div>`;
 
       let parent, cpvGroup, cpvDivision, regex;
 
-      switch (number_digits) {
+      switch (xNumberDigits) {
       case null:
         result.parent = '#';
         break;
@@ -170,14 +189,14 @@ export default Controller.extend({
         break;
 
       case 3:
-        cpvDivision = id.slice(0, 2);
+        cpvDivision = code.slice(0, 2);
         // parent = cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`);
         result.parent = `${cpvDivision}000000`;
         if (!cpvDivision) {
-          Logger.warn(`Cannot compute division for ${id}`, cpv);
+          Logger.warn(`Cannot compute division for ${code}`, cpv);
           result.parent = '#';
         } else {
-          if (!cpvs.find((cpv) => cpv.id === `${cpvDivision}000000`)) {
+          if (!cpvs.find((cpv) => cpv.code === `${cpvDivision}000000`)) {
             Logger.warn('Trying to get division', cpvDivision);
             missingCodes.push(result.parent);
           }
@@ -187,26 +206,26 @@ export default Controller.extend({
       case 4:
       default:
         // First attempt to find a CPV group (level 2, 3 digits)
-        cpvGroup = id.slice(0, 3);
-        parent = cpvs.find((cpv) => cpv.id === `${cpvGroup}00000`);
+        cpvGroup = code.slice(0, 3);
+        parent = cpvs.find((cpv) => cpv.code === `${cpvGroup}00000`);
         if (parent) {
-          result.parent = parent.id;
+          result.parent = parent.code;
           break;
         }
 
         // If we're here, we're looking for a major division
         cpvDivision = this.get('cpvService').getDivisions().find(
-          (div) => div === id.slice(0, 2)
+          (div) => div === code.slice(0, 2)
         );
         if (!cpvDivision) {
-          Logger.warn(`Cannot find division ${cpvDivision} for ${id}`, cpv);
+          Logger.warn(`Cannot find division ${cpvDivision} for ${code}`, cpv);
           result.parent = '#';
         } else {
           // if (!cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`)) {
           result.parent = `${cpvDivision}000000`;
           regex = `${cpvDivision}0+$`;
-          if (!cpvs.find((c) => c.id.match(new RegExp(regex, 'g'))) ||
-              !cpvs.find((c) => c.id === result.parent)) {
+          if (!cpvs.find((c) => c.code.match(new RegExp(regex, 'g'))) ||
+              !cpvs.find((c) => c.code === result.parent)) {
             missingCodes.push(result.parent);
           }
         }
@@ -233,6 +252,7 @@ export default Controller.extend({
     this.get('benchmark').store('performance.cpvs.count', cpvs.count);
     this.get('benchmark').store('performance.cpvs.treeRender', treeTimer);
     this.set('tree', tree);
+    console.log('formated tree', tree);
   },
 
   prepareQuery() {
@@ -255,25 +275,26 @@ export default Controller.extend({
       rawActors,
       (actor) => (actor.type === 'procurer')
     );
-    let options = { query: {} };
+    let options = {};
     if (countries.length > 0) {
-      options.query.countries = countries;
+      options.countries = countries;
     }
     if (procurers.length > 0) {
-      options.query.procuring_entities = _.map(procurers, (p) => p.x_slug_id);
+      options.procuring_entities = _.map(procurers, (p) => p.x_slug_id);
     }
     if (suppliers.length > 0) {
-      options.query.suppliers = _.map(suppliers, (s) => s.x_slug_id);
+      options.suppliers = _.map(suppliers, (s) => s.x_slug_id);
     }
     this.get('ajax')
-      .post('/contracts/years', {
-        data: JSON.stringify(options),
+      .request('/tenders/years', {
+        data: options,
         headers: {
           'Content-Type': 'application/json'
         }
       })
       .then((data) => {
-        let years = data.search.results;
+        // console.log('fetchYears', data);
+        let years = data.years;
         this.set('years', years);
         this.set('loading.years', false);
         if (this.get('selectedCodes').length > 0) {
@@ -292,39 +313,41 @@ export default Controller.extend({
     let rawActors = this.get('query.rawActors');
     let actors = this.get('query.actors');
     let years = this.get('query.years');
-    let suppliers = _.filter(
+    let bidders = _.filter(
       rawActors,
-      (actor) => (actor.type === 'supplier')
+      (actor) => (actor.type === 'bidder')
     );
-    let procurers = _.filter(
+    let buyers = _.filter(
       rawActors,
-      (actor) => (actor.type === 'procurer')
+      (actor) => (actor.type === 'buyer')
     );
 
-    let options = { query: {} };
+    let options = {};
     if (countries.length > 0) {
-      options.query.countries = countries;
+      options.countries = countries;
     }
-    if (procurers.length > 0) {
-      options.query.procuring_entities = _.map(procurers, (p) => p.x_slug_id);
+    if (buyers.length > 0) {
+      options.buyers = _.map(buyers, (p) => p.id);
     }
-    if (suppliers.length > 0) {
-      options.query.suppliers = _.map(suppliers, (s) => s.x_slug_id);
+    if (bidders.length > 0) {
+      options.bidders = _.map(bidders, (s) => s.id);
     }
     if (years.length > 0) {
-      options.query.years = years;
+      //options.query.years = [2005,2006];
+      options.years = years;
     }
 
     if (countries.length > 0 || actors.length > 0) {
       self.get('ajax')
-        .post('/contracts/cpvs', {
-          data: JSON.stringify(options),
+        .request('/tenders/cpvs', {
+          data: options,
           headers: {
             'Content-Type': 'application/json'
           }
         })
         .then((data) => {
-          self.set('cpvs', data.search.results);
+          console.log('fetchCpvs', data);
+          self.set('cpvs', data.cpvs);
           self.set('loading.cpvs', false);
           self.get('benchmark').store('performance.cpvs.loadTime', (performance.now() - requestTimer));
         });
@@ -335,7 +358,7 @@ export default Controller.extend({
     onCountrySelectEvent(value) {
       this.set('query.countries', []);
       value.forEach((v) => {
-        this.get('query.countries').push(v.id);
+        this.get('query.countries').push(v.code);
       });
       this.fetchYears();
       this.fetchCpvs();
@@ -348,19 +371,32 @@ export default Controller.extend({
       this.fetchYears();
     },
     actorTermChanged(queryTerm) {
-      let query = queryTerm || '';
-      let limit = 10;
-      // let host =`${ENV.APP.apiHost}/${ENV.APP.apiNamespace}`;
-      return this.get('ajax')
-        .request(`/actor_autocomplete?text=${query}&max_suggestions=${limit}`,
-              {
-                headers: {
-                  'Content-Type': 'application/json'
-                }
-              })
-        .then((data) => {
-          this.set('autocompleteActorsOptions', data.search.results);
-        });
+      //let query = queryTerm || '';
+      //let limit = 10;
+      if(queryTerm.length > 1) {
+
+        let countries = this.get('query.countries');
+        let options = {};
+        if (countries.length > 0) {
+          options.countries = countries;
+        }
+
+        if(queryTerm) {
+          options.name = queryTerm;
+        }
+
+        // let host =`${ENV.APP.apiHost}/${ENV.APP.apiNamespace}`;
+        return this.get('ajax')
+          .request('/tenders/actors',
+                {
+                  data: options,
+                  headers: {'Content-Type': 'application/json'}
+                })
+          .then((data) => {
+            this.set('autocompleteActorsOptions', data.actors);
+          });
+      }
+
     },
 
     rangeSlideAction(value) {
@@ -393,13 +429,14 @@ export default Controller.extend({
       let rawActors = this.get('query.rawActors');
       let cpvs = this.get('query.cpvs');
       let years = this.get('query.years');
-      let suppliers = _.filter(
+
+      let bidders = _.filter(
         rawActors,
-        (actor) => (actor.type === 'supplier')
+        (actor) => (actor.type === 'bidder')
       );
-      let procurers = _.filter(
+      let buyers = _.filter(
         rawActors,
-        (actor) => (actor.type === 'procurer')
+        (actor) => (actor.type === 'buyer')
       );
 
       self.notifications.info('This is probably going to take a while...', {
@@ -417,17 +454,17 @@ export default Controller.extend({
       if (countries && countries.length > 0) {
         query.countries = countries.uniq();
       }
-      if (procurers.length > 0) {
-        query.procuring_entities = _.map(procurers, (p) => p.x_slug_id);
+      if (buyers.length > 0) {
+        query.buyers = _.map(buyers, (p) => p.id);
       }
-      if (suppliers.length > 0) {
-        query.suppliers = _.map(suppliers, (s) => s.x_slug_id);
+      if (bidders.length > 0) {
+        query.bidders = _.map(bidders, (s) => s.id);
       }
 
       this.get('store').createRecord('network', {
-        options: {
-          nodes: this.get('query.nodes'),
-          edges: this.get('query.edges')
+        settings: {
+          nodeSize: this.get('query.nodes'),
+          edgeSize: this.get('query.edges')
         },
         query
       }).save().then((data) => {

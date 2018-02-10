@@ -15,3 +15,4 @@ export default Model.extend({
     return this.get('graph.clusters') || [];
   })
 });
+

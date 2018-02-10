@@ -47,6 +47,7 @@
               -->
               <div class="input-field col m6 s12">
                 <span class="input-prefix"><i class="fa fa-globe"></i></span>
+
                 {{ember-select-guru
                     value=query.rawCountries
                     options=countries
@@ -124,6 +125,8 @@
                 {{#if loading.cpvs}}
                   <i class="fa fa-spinner fa-pulse fa-fw"></i> Loading...
                 {{else}}
+                  {{log loading.cpvs}}
+
                   {{#if cpvs}}
                     {{#ember-scrollable}}
                       <div class="jstree-default-dark-small">
@@ -164,14 +167,14 @@
                 <div class="qb-rendering-nodes col m5 s12">
                   <h5>Node size<span class="text-muted">represents</span></h5>
                   {{radio-button
-                      value="count"
+                      value="numberOfWinningBids"
                       radioId="nodeSizeCount"
                       groupValue=query.nodes
                   }}
                   <label class="node-size-count" for="nodeSizeCount">Number of contracts</label>
                   <br>
                   {{radio-button
-                      value="sum"
+                      value="amountOfMoneyExchanged"
                       radioId="nodeSizeSum"
                       groupValue=query.nodes
                   }}
@@ -180,14 +183,14 @@
                 <div class="qb-rendering-edges col m7 s12">
                   <h5>Edge thickness<span class="text-muted">represents</span></h5>
                   {{radio-button
-                      value="count"
+                      value="numberOfWinningBids"
                       groupValue=query.edges
                       radioId="edgeSizeCount"
                   }}
                   <label class="edge-size-count" for="edgeSizeCount"> Number of contracts </label>
                   <br>
                   {{radio-button
-                      value="sum"
+                      value="amountOfMoneyExchanged"
                       groupValue=query.edges
                       radioId="edgeSizeSum"
                   }}
