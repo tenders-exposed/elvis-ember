@@ -6,11 +6,11 @@ const { Model, attr } = DS;
 export default Model.extend({
   // nodes: attr(),
   // edges: attr(),
-  name: attr('string'),
-  description: attr('string'),
+  name: attr(),
+  synopsis: attr(),
   query: attr(),
   graph: attr(),
-  options: attr(),
+  settings: attr(),
   clusters: computed('graph', function() {
     return this.get('graph.clusters') || [];
   })

@@ -460,6 +460,7 @@ export default Controller.extend({
       if (bidders.length > 0) {
         query.bidders = _.map(bidders, (s) => s.id);
       }
+      console.log('submitQuery', query);
 
       this.get('store').createRecord('network', {
         settings: {
