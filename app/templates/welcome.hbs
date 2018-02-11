@@ -1,14 +1,4 @@
 {{outlet}}
-{{#if session.isAuthenticated}}
-    <div class="container hide">
-        <div class="row">
-            <div class="col s12">
-              <h4>You're authenticated as {{me.data.email}}</h4>
-            </div>
-        </div>
-    </div>
-{{/if}}
-
 <div id="welcome-page" class="page">
   <div class="container">
     <div class="hero center">
@@ -21,8 +11,8 @@
       <br>
       <div>
           <a href="#" class="btn-large transparent hide">Use ready-made network</a>
-          {{#if session.isAuthenticated}}
             {{#link-to 'network.new' undefined class="btn-large primary"}}Create a new network{{/link-to}}
+          {{#if session.isAuthenticated}}
           {{else}}
             {{#link-to 'account.new' class="btn-large primary"}}Create an account{{/link-to}}
           {{/if}}

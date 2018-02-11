@@ -2,11 +2,10 @@ import Ember from 'ember';
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
 const { Logger } = Ember;
 
-export default Route.extend(AuthenticatedRouteMixin, {
+export default Route.extend({
   classNames: ['body-page'],
   ajax: service('ajax'),
   titleToken: 'Create a new network',
