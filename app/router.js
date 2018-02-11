@@ -12,6 +12,7 @@ ElvisRouter.map(function() {
 
   this.route('account', {}, function() {
     this.route('login');
+    this.route('logout');
     this.route('confirm');
     this.route('recover', function() {
       this.route('password', {});
