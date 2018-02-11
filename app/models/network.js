@@ -9,6 +9,8 @@ export default Model.extend({
   name: attr(),
   synopsis: attr(),
   query: attr(),
+  nodes: attr(),
+  edges: attr(),
   graph: attr(),
   settings: attr(),
   clusters: computed('graph', function() {
