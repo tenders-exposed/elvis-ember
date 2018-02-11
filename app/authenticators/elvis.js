@@ -8,6 +8,7 @@ import ENV from '../config/environment';
 
 export default OAuth2PasswordGrant.extend({
   serverTokenEndpoint: `${ENV.APP.apiHost}/auth/login`,
+  refreshAccessTokens: true,
 
   authenticate(identification, password) {
     return new RSVP.Promise((resolve, reject) => {
