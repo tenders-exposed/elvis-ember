@@ -1,11 +1,12 @@
 import Controller from '@ember/controller';
 import $ from 'jquery';
 import { observer } from '@ember/object';
-import { inject } from '@ember/service';
+import { inject as service } from '@ember/service';
+import { inject as controller } from '@ember/controller';
 
 export default Controller.extend({
-  me: inject.service(),
-  ajax: inject.service(),
+  me: service(),
+  ajax: service(),
 
   networkInput: false,
   orderOptions: {
@@ -49,7 +50,7 @@ export default Controller.extend({
   stabilizedNetwork: false,
   checkOptions: false,
 
-  showController: inject.controller('network.show'),
+  showController: controller('network.show'),
 
   networkModelLoaded: observer('networkService.isReady', 'model', function() {
     if (this.get('model.options') && !this.get('checkOptions')) {
