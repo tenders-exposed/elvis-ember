@@ -43,11 +43,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
   activate() {
     this.notifications.clearAll();
-    this.notifications.warning('Warning, this page contains unfinished features!', {
-      autoClear: true,
-      clearDuration: 10000
-    });
   },
+
   actions: {
     deleteNetwork(networkId) {
       let self = this;

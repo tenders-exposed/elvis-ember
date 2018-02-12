@@ -7,7 +7,9 @@ export default OAuth2BearerAuthorizer.extend({
   authorize(data, block) {
     let userToken          = data.access_token;
     let userIdentification = data.email;
-    if (!isEmpty(userToken) && !isEmpty(userIdentification)) {
+    console.log('data', data);
+    console.log('block', block);
+    if (!isEmpty(userToken)) {
       // const authData = `${tokenAttributeName}="${userToken}", ${identificationAttributeName}="${userIdentification}"`;
       block('Authorization', `${userToken}`);
     }
