@@ -71,12 +71,12 @@ module.exports = function(environment) {
   }
 
   if (environment === 'staging') {
-    ENV.APP.apiHost = 'https://api.elvis.tenders.exposed/api';
+    ENV.APP.apiHost = 'https://dev.api.tenders.exposed';
     ENV.APP.apiNamespace = '';
   }
 
   if (environment === 'production') {
-    ENV.APP.apiHost = 'https://api.elvis.tenders.exposed/api';
+    ENV.APP.apiHost = 'https://dev.api.tenders.exposed';
     ENV.APP.apiNamespace = '';
   }
 
