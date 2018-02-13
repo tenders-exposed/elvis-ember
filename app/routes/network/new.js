@@ -7,8 +7,10 @@ const { Logger } = Ember;
 
 export default Route.extend({
   classNames: ['body-page'],
-  ajax: service('ajax'),
   titleToken: 'Create a new network',
+
+  songs: service(),
+  ajax: service(),
 
   endpoints: {
     'countries': '/tenders/countries',
@@ -49,5 +51,7 @@ export default Route.extend({
       self.setAvailable(controller, item);
     });
     controller.set('query.cpvs', A([]));
+
+    controller.set('name', this.get('songs').random());
   }
 });

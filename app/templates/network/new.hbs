@@ -201,6 +201,23 @@
           </div>
         </section>
 
+        <!-- STEP 5: rendering options for nodes and edges -->
+        <section class="wizard-step {{optionsStatus}}">
+          <div class="row">
+            <div class="col m4 s12">
+              <h3>Network name (optional)</h3>
+              <p>Name this network</p>
+            </div>
+            <div class="col m8 s12">
+              <div class="row">
+                <div class="qb-rendering-nodes col m5 s12">
+                  {{input type="text" id="networkName" value=name placeholder="Name of the network"}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
       {{#if isMobile.any}}
         <p class="center">Submit is disabled for mobile devices</p>
       {{else}}

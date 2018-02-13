@@ -108,7 +108,7 @@ export default Controller.extend({
   treeObserver: observer('cpvs', function() {
     this.createTree();
   }),
-  
+
   selectedCodesObserver: observer('selectedCodes', function () {
     console.log('observer selectedCodes', this.get('selectedCodes'));
   }),
@@ -463,6 +463,7 @@ export default Controller.extend({
       console.log('submitQuery', query);
 
       this.get('store').createRecord('network', {
+        name: self.get('name'),
         settings: {
           nodeSize: this.get('query.nodes'),
           edgeSize: this.get('query.edges')
