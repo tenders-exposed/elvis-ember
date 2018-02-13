@@ -54,11 +54,11 @@
                 {{!-- relationships --}}
                 {{#if row.toLabel}}
                   {{#link-to "network.show.details.show" route row.link}}
-                    <small class="item-entity"><span class="figure-procurer"></span>&nbsp;{{row.toLabel}}</small><br>
-                    <small class="item-entity"><span class="figure-supplier"></span>&nbsp;{{row.fromLabel}}</small>
+                    <small class="item-entity"><span class="figure-buyer"></span>&nbsp;{{row.toLabel}}</small><br>
+                    <small class="item-entity"><span class="figure-bidder"></span>&nbsp;{{row.fromLabel}}</small>
                   {{/link-to}}
                 {{/if}}
-                {{!-- procurers / suppliers --}}
+                {{!-- buyers / bidders --}}
                 {{#if row.label}}
                   {{#link-to "network.show.details.show" route row.link}}
                     {{row.label}}

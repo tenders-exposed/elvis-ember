@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 
 export default Controller.extend({
   activeTabDetails: 'contracts',
-  activeTabProcurer: 'contracts',
+  activeTabbuyer: 'contracts',
   params: {},
   networkQuery: {},
 
@@ -13,14 +13,14 @@ export default Controller.extend({
       value: 'contract value (€)',
       bids: 'bids'
     },
-    procurers: {
-      procurer: 'Government Name',
+    buyers: {
+      buyer: 'Government Name',
       contracts: 'Contracts',
       income: 'Income (€)',
       bids: 'Avg bids'
     },
-    suppliers: {
-      supplier: 'Company Name',
+    bidders: {
+      bidder: 'Company Name',
       contracts: 'Contracts',
       income: 'Income (€)',
       bids: 'Avg bids'
@@ -38,8 +38,8 @@ export default Controller.extend({
     changeTabDetails(tab) {
       this.set('activeTabDetails', tab);
     },
-    changeTabProcurer(tab) {
-      this.set('activeTabProcurer', tab);
+    changeTabbuyer(tab) {
+      this.set('activeTabbuyer', tab);
     }
   }
 });

@@ -21,11 +21,11 @@ export default Route.extend(AuthenticatedRouteMixin, {
       }
 
       let companies = 0;
-      if (typeof network.get('suppliers') !== 'undefined') {
-        companies += network.get('suppliers').length;
+      if (typeof network.get('bidders') !== 'undefined') {
+        companies += network.get('bidders').length;
       }
-      if (typeof network.get('query.procuring_entities') !== 'undefined') {
-        companies += network.get('query.procuring_entities').length;
+      if (typeof network.get('query.buyers') !== 'undefined') {
+        companies += network.get('query.buyers').length;
       }
       network.set('companies', companies);
 

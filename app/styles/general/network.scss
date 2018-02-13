@@ -27,16 +27,16 @@
   background: $text-color;
   vertical-align: middle;
 }
-.figure-procurer,
-.figure-supplier,
+.figure-buyer,
+.figure-bidder,
 .figure-all {
   @include network-entity(1em);
 }
-.figure-procurer {
-  background: $color-procurer;
+.figure-buyer {
+  background: $color-buyer;
 }
-.figure-supplier {
-  background: $color-supplier;
+.figure-bidder {
+  background: $color-bidder;
 }
 .figure-all {
   background: $color-relationship;

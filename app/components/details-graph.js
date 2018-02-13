@@ -64,30 +64,30 @@ export default Component.extend({
       });
 
       let statistics = { exists: false };
-      // let sortedProcurers = {};
-      // @todo: since the query for suppliers/procurers does not retrieve only the contracts from the range years this cannot be done
+      // let sortedbuyers = {};
+      // @todo: since the query for bidders/buyers does not retrieve only the contracts from the range years this cannot be done
 
       // console.log('route', this.get('route'));
-      /*if (this.get('route') === 'suppliers') {
-        // frequent procurer & biggest amount
+      /*if (this.get('route') === 'bidders') {
+        // frequent buyer & biggest amount
         // console.log('contracts2', this.get('contracts'));
-        sortedProcurers = _.groupBy(this.get('contracts'), (element) => {
-          return element.procuring_entity.x_slug_id;
+        sortedbuyers = _.groupBy(this.get('contracts'), (element) => {
+          return element.buyer.x_slug_id;
         });
-        let procurersContracts = [];
-        // console.log('sortedProcurers', sortedProcurers);
-        _.forEach(sortedProcurers, (value, id) => {
+        let buyersContracts = [];
+        // console.log('sortedbuyers', sortedbuyers);
+        _.forEach(sortedbuyers, (value, id) => {
           let sum = _.sumBy(value, (o) => {
             return o.award.value.x_amount_eur;
           });
           let count = value.length;
-          procurersContracts.push({ id, sum, count });
+          buyersContracts.push({ id, sum, count });
         });
 
-        let maxIncome = _.maxBy(procurersContracts, (o) => {
+        let maxIncome = _.maxBy(buyersContracts, (o) => {
           return o.sum;
         });
-        let maxFrequency = _.maxBy(procurersContracts, (o) => {
+        let maxFrequency = _.maxBy(buyersContracts, (o) => {
           return o.count;
         });
 
@@ -97,8 +97,8 @@ export default Component.extend({
             statistics.node = {};
           }
           statistics.node.most_frequent = {
-            id: sortedProcurers[maxFrequency.id][0].procuring_entity.x_slug_id,
-            node_name: sortedProcurers[maxFrequency.id][0].procuring_entity.name,
+            id: sortedbuyers[maxFrequency.id][0].buyer.x_slug_id,
+            node_name: sortedbuyers[maxFrequency.id][0].buyer.name,
             sum: maxFrequency.sum,
             count: maxFrequency.count
           };
@@ -109,8 +109,8 @@ export default Component.extend({
             statistics.node = {};
           }
           statistics.node.highest_income = {
-            id: sortedProcurers[maxIncome.id][0].procuring_entity.x_slug_id,
-            node_name: sortedProcurers[maxIncome.id][0].procuring_entity.name,
+            id: sortedbuyers[maxIncome.id][0].buyer.x_slug_id,
+            node_name: sortedbuyers[maxIncome.id][0].buyer.name,
             sum: maxIncome.sum,
             count: maxIncome.count
           };
@@ -155,7 +155,7 @@ export default Component.extend({
 
       this.set('statistics', statistics);
       // console.log('statistics', statistics);
-      // console.log('sortedProcurers', sortedProcurers);
+      // console.log('sortedbuyers', sortedbuyers);
       $('#contracts-stat').html('');
       let container = $('#contracts-stat').get(0);
 

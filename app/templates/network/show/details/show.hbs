@@ -7,10 +7,10 @@
         <div style="height: 100vh">
             <div class="container container-entity relative">
                 {{#if modelDetails}}
-                  {{#if (eq tab 'suppliers')}}
-                    {{partial 'network/show/details/partials/supplier'}}
-                  {{else if (eq tab 'procurers')}}
-                    {{partial 'network/show/details/partials/procurer'}}
+                  {{#if (eq tab 'bidders')}}
+                    {{partial 'network/show/details/partials/bidder'}}
+                  {{else if (eq tab 'buyers')}}
+                    {{partial 'network/show/details/partials/buyer'}}
                   {{else if (eq tab 'relationships')}}
                     {{partial 'network/show/details/partials/relationship'}}
                   {{else}}

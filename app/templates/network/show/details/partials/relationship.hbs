@@ -5,10 +5,10 @@
          Tender Details
         <span class="fs3 dark-text">( {{modelDetails.to.firstYear}} - {{modelDetails.to.lastYear}} )</span>
       </h5>
-      <h4 class="el-title procurer">
+      <h4 class="el-title buyer">
         {{fa-icon 'circle' size=1}} {{modelDetails.from.name}}
       </h4>
-      <h4 class="el-title supplier">
+      <h4 class="el-title bidder">
         {{fa-icon 'circle' size=1}}  {{modelDetails.to.name}}
       </h4>
       <hr>
@@ -38,14 +38,14 @@
   </div>
 
   <div class="row">
-    {{#tabbed-content active=activeTabDetails on-change="changeTabDetails" active-class="tab-button--active" as |supplierTabManager|}}
+    {{#tabbed-content active=activeTabDetails on-change="changeTabDetails" active-class="tab-button--active" as |bidderTabManager|}}
       <div class="tabs__nav">
-        {{#tab-button class="tab-button"  manager=supplierTabManager name="contracts"}}
+        {{#tab-button class="tab-button"  manager=bidderTabManager name="contracts"}}
           <a>Common contracts ({{modelDetails.to.contractsCount}})</a>
         {{/tab-button}}
 
       </div>
-      {{#tab-panel manager=supplierTabManager name="contracts" class='tab-panel'}}
+      {{#tab-panel manager=bidderTabManager name="contracts" class='tab-panel'}}
         {{details-data-table
             class="contracts-relationship"
             content=modelDetails.to.contracts

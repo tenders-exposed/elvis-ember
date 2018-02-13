@@ -39,19 +39,19 @@ div#details-info {
             }
           }
         }
-        &.suppliers {
+        &.bidders {
           .col { padding-left: 0px; }
-          .other-supplier {
+          .other-bidder {
             padding-bottom: 5px;
           }
         }
       }
     }
 
-    .procurer {
+    .buyer {
       padding-top: 10px;
       position: relative;
-      i { color: $color-procurer; font-size: 2.5em; }
+      i { color: $color-buyer; font-size: 2.5em; }
       span {
         border-top: 4px solid grey;
         width: 20px;
@@ -61,10 +61,10 @@ div#details-info {
       }
     }
 
-    .supplier {
+    .bidder {
       position: relative;
       padding-top: 10px;
-      i { color: $color-supplier; font-size: 2.5em; }
+      i { color: $color-bidder; font-size: 2.5em; }
       span {
         border-top: 4px solid grey;
         width: 20px;
@@ -100,8 +100,8 @@ div#details-info {
       width: 80%;
       .title {
         margin-top: 40px;
-        .supplier i {
-          color: $color-supplier;
+        .bidder i {
+          color: $color-bidder;
         }
       }
     }

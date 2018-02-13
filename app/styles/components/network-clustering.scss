@@ -101,8 +101,8 @@
       position: relative;
       top: -.1em;
       margin-right: .2em;
-      &.supplier { @extend .figure-supplier; }
-      &.procuring_entity { @extend .figure-procurer; }
+      &.bidder { @extend .figure-bidder; }
+      &.buyer { @extend .figure-buyer; }
     }
 
   }
@@ -200,8 +200,8 @@
           top: 1em;
           font-size: .78em;
           z-index: 2;
-          &.supplier { color: $color-supplier; }
-          &.procuring_entity { color: $color-procurer; }
+          &.bidder { color: $color-bidder; }
+          &.buyer { color: $color-buyer; }
         }
 
 

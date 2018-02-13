@@ -6,8 +6,8 @@ export default Service.extend({
   clusters: [],
 
   // from network, after network is rendered
-  suppliers: [],
-  procurers: [],
+  bidders: [],
+  buyers: [],
   relationships: [],
 
   isReady: false,
@@ -52,11 +52,11 @@ export default Service.extend({
   getNodeById(nodeId) {
     // check if in network is clustered then take it from clusters
     // else from nodes
-    let node = _.find(this.get('suppliers'), (o) => {
+    let node = _.find(this.get('bidders'), (o) => {
       return o.id == nodeId;
     });
     if (!node) {
-      node = _.find(this.get('procurers'), (o) => {
+      node = _.find(this.get('buyers'), (o) => {
         return o.id == nodeId;
       });
     }
@@ -70,24 +70,6 @@ export default Service.extend({
     });
 
     return edge;
-  },
-
-  getFlaggedEdges(edges) {
-    let edgesFlagged = _.cloneDeep(edges);
-
-    _.map(edgesFlagged, (edge) => {
-      if (Object.keys(edge.flags).length > 0) {
-        let flags = '';
-        for (let i = 0; i < Object.keys(edge.flags).length; i++) {
-          flags += '⚑';
-        }
-        edge.label = flags;
-        // hack because in vis-network the flags are not stored
-        edge.title = _.join(_.keys(edge.flags), ', ');
-
-      }
-    });
-    return edgesFlagged;
   },
 
   setModel(model) {
@@ -116,21 +98,21 @@ export default Service.extend({
         });
       });
     }
-    let clusters = typeof model.get('graph.clusters') === 'undefined' ? [] : model.get('graph.clusters');
+    //let clusters = typeof model.get('clusters');
     // necesary or not?
-    model.set('clusters', clusters);
+    //model.set('clusters', clusters);
     // if clusters are emty set them as empty array
-    model.set('graph.clusters', clusters);
+    //model.set('graph.clusters', clusters);
     this.set('model', model);
-    this.set('edges', model.get('graph.edges'));
-    this.set('nodes', model.get('graph.nodes'));
-    this.set('flaggedEdges', this.getFlaggedEdges(model.get('graph.edges')));
-    this.set('clusters', clusters);
+    this.set('edges', model.get('edges'));
+    this.set('nodes', model.get('nodes'));
+    this.set('flaggedEdges', model.get('flaggedEdges'));
+    this.set('clusters', model.get('clusters'));
 
     return model;
   },
 
-  setSuppliersProcurers() {
+  setbiddersbuyers() {
     // from network.network.body.nodesIndices & .nodes[nodeId]
     let valueFormat = (value) => {
       if (typeof value !== 'string' && typeof value !== 'undefined') {
@@ -140,8 +122,8 @@ export default Service.extend({
       return value;
     };
 
-    let suppliers = [];
-    let procurers = [];
+    let bidders = [];
+    let buyers = [];
     let nodes = this.get('network.network.body.nodes');
     _.each(this.get('network.network.body.nodeIndices'), function(nodeId) {
       let node = nodes[nodeId];
@@ -161,19 +143,19 @@ export default Service.extend({
         nodeId
       };
 
-      if (nodeDetails.type == 'supplier') {
-        nodeDetails.route = 'suppliers';
-        suppliers.pushObject(nodeDetails);
+      if (nodeDetails.type == 'bidder') {
+        nodeDetails.route = 'bidders';
+        bidders.pushObject(nodeDetails);
       } else {
-        nodeDetails.route = 'procurers';
-        procurers.pushObject(nodeDetails);
+        nodeDetails.route = 'buyers';
+        buyers.pushObject(nodeDetails);
       }
     });
 
-    let orderedSuppliers = _.orderBy(suppliers, ['unformattedValue', 'label'], ['desc', 'asc']);
-    let orderedProducrers = _.orderBy(procurers, ['unformattedValue', 'label'], ['desc', 'asc']);
-    this.set('suppliers', orderedSuppliers);
-    this.set('procurers', orderedProducrers);
+    let orderedbidders = _.orderBy(bidders, ['unformattedValue', 'label'], ['desc', 'asc']);
+    let orderedProducrers = _.orderBy(buyers, ['unformattedValue', 'label'], ['desc', 'asc']);
+    this.set('bidders', orderedbidders);
+    this.set('buyers', orderedProducrers);
   },
 
   setRelationships() {
@@ -184,7 +166,7 @@ export default Service.extend({
       }
       return value;
     };
-    let edgeValueType = this.get('model.options').edges;
+    let edgeValueType = this.get('model.settings').edgeSize;
     let relationships = [];
     let edges = this.get('network.network.body.edges');
     _.each(this.get('network.network.body.edgeIndices'), function(edgeId) {
@@ -243,8 +225,8 @@ export default Service.extend({
 
       let clusterNodesCount = cluster.nodes.length;
       let clusterName = cluster.name ? `${cluster.name} (${clusterNodesCount})` : `cluster ${clusterIndex} (${clusterNodesCount})`;
-      let nodeColor = cluster.type === 'supplier' ? '#27f0fc' : '#f0308e';
-      let nodeBorder = cluster.type === 'supplier' ? '#86F4FC' : '#FF69B4';
+      let nodeColor = cluster.type === 'bidder' ? '#27f0fc' : '#f0308e';
+      let nodeBorder = cluster.type === 'bidder' ? '#86F4FC' : '#FF69B4';
 
       let count = 0;           // eslint-disable-line no-unused-vars
       let childEdgesOut = [];  // eslint-disable-line no-unused-vars
@@ -319,7 +301,7 @@ export default Service.extend({
     } else {
 
       this.set('network', network);
-      this.setSuppliersProcurers();
+      this.setbiddersbuyers();
       this.setRelationships();
 
       this.activate();

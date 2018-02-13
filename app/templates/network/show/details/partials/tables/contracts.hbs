@@ -5,9 +5,9 @@
   {{/link-to}}
 </td>
 <td class="parties">
-  {{#each row.suppliers as |supplier|}}
-    <span class="circle supplier"> {{fa-icon 'circle' size=1}} </span>
-    {{supplier.name}}
+  {{#each row.bidders as |bidder|}}
+    <span class="circle bidder"> {{fa-icon 'circle' size=1}} </span>
+    {{bidder.name}}
     <br>
   {{/each}}
   <br>

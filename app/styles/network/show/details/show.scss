@@ -36,8 +36,8 @@ div#details-info {
       .title {
         margin-top: 40px;
         padding: 0px;
-        .supplier i { color: $color-supplier; }
-        .procurer i { color: $color-procurer; }
+        .bidder i { color: $color-bidder; }
+        .buyer i { color: $color-buyer; }
       }
       .flag { color: $color-flags; }
     }

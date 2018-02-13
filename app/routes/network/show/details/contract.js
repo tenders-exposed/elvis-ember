@@ -24,7 +24,7 @@ export default Route.extend({
       }).then(
         (data) => {
           let [results] = data.search.results;
-          results.supplier = results.suppliers[0];
+          results.bidder = results.bidders[0];
           results.entityId = entityId;
           results.tab = tab;
 

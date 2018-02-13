@@ -171,12 +171,12 @@ $text: $text-dark-color;
     }
   }
   .vis-graph-group1 {
-    fill: $color-procurer !important;
-    stroke: $color-procurer !important;
+    fill: $color-buyer !important;
+    stroke: $color-buyer !important;
   }
   .vis-graph-group0 {
-    fill: $color-supplier !important;
-    stroke: $color-supplier !important;
+    fill: $color-bidder !important;
+    stroke: $color-bidder !important;
   }
 
 }

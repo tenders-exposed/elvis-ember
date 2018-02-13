@@ -10,38 +10,38 @@ export default Controller.extend({
 
   networkInput: false,
   orderOptions: {
-    suppliers: [
+    bidders: [
       { 'value': 'label', 'name': 'Name' }
     ],
     relationships: [
-      { 'value': 'fromLabel', 'name': 'Procurer' },
-      { 'value': 'toLabel', 'name': 'Supplier' }
+      { 'value': 'fromLabel', 'name': 'buyer' },
+      { 'value': 'toLabel', 'name': 'bidder' }
     ]
 
   },
   fields: {
-    suppliers: {
+    bidders: {
       id: 'ID',
       label: 'Name',
       value: 'Value'
     },
     relationships: {
-      fromLabel: 'Procurer',
-      toLabel: 'Supplier',
+      fromLabel: 'buyer',
+      toLabel: 'bidder',
       value: 'Value'
     }
   },
 
   sidebarTabs: [
-    { id: 'suppliers', title: 'Suppliers' },
-    { id: 'procurers', title: 'Procurers' },
+    { id: 'bidders', title: 'bidders' },
+    { id: 'buyers', title: 'buyers' },
     { id: 'relationships', title: 'Relationships' }
   ],
-  activeTab: 'suppliers',
+  activeTab: 'bidders',
 
   gridOptions: {
-    suppliers: {},
-    procurers: {},
+    bidders: {},
+    buyers: {},
     relationships: {},
     loaded: false
   },
@@ -53,25 +53,25 @@ export default Controller.extend({
   showController: controller('network.show'),
 
   networkModelLoaded: observer('networkService.isReady', 'model', function() {
-    if (this.get('model.options') && !this.get('checkOptions')) {
-      let optNodes = this.get('model.options.nodes') === 'count'
+    if (this.get('model.settings') && !this.get('checkOptions')) {
+      let optNodes = this.get('model.settings.nodeSize') === 'numberOfWinningBids'
                       ? 'Amount of tenders'
                       : 'Value of tenders';
-      let optEdges = this.get('model.options.edges') === 'count'
+      let optEdges = this.get('model.settings.edgeSize') === 'numberOfWinningBids'
                       ? 'Amount of tenders'
                       : 'Value of tenders';
 
-      // let optNodes = _.capitalize(this.get('model.options.nodes'));
-      // let optEdges = _.capitalize(this.get('model.options.edges'));
-      this.set('fields.suppliers.value', optNodes);
+      // let optNodes = _.capitalize(this.get('model.settings.nodeSize'));
+      // let optEdges = _.capitalize(this.get('model.settings.edgeSize'));
+      this.set('fields.bidders.value', optNodes);
       this.set('fields.relationships.value', optEdges);
 
-      this.get('orderOptions.suppliers').push({ 'value': 'value', 'name': optNodes });
+      this.get('orderOptions.bidders').push({ 'value': 'value', 'name': optNodes });
       this.get('orderOptions.relationships').push({ 'value': 'value', 'name': optEdges });
       this.set('checkOptions', true);
     }
-    this.set('gridOptions.suppliers.rowData', this.get('networkService.suppliers'));
-    this.set('gridOptions.procurers.rowData', this.get('networkService.procurers'));
+    this.set('gridOptions.bidders.rowData', this.get('networkService.bidders'));
+    this.set('gridOptions.buyers.rowData', this.get('networkService.buyers'));
     this.set('gridOptions.relationships.rowData', this.get('networkService.relationships'));
     this.set('gridOptions.loaded', true);
   }),

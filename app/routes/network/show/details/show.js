@@ -11,36 +11,36 @@ export default Route.extend({
   store: service(),
 
   endpoints: {
-    suppliers: 'suppliers',
-    procurers: 'procuring_entities',
+    bidders: 'bidders',
+    buyers: 'buyers',
     relationships: ''
   },
   controller: computed(function() {
     return this.controllerFor('network.show.details.show');
   }),
 
-  // get the suppliers/ procurers based on contracts
+  // get the bidders/ buyers based on contracts
   processContracts(model, endpoint) {
     let ids = [];
     let nodes = {};
 
-    // if is a procurer
-    if (endpoint === 'procurers') {
+    // if is a buyer
+    if (endpoint === 'buyers') {
       _.forEach(model.contracts, (contract) => {
-        _.forEach(contract.suppliers, (supplier) => {
-          let idSup = `id_${supplier.x_slug_id}`;
+        _.forEach(contract.bidders, (bidder) => {
+          let idSup = `id_${bidder.x_slug_id}`;
           if (typeof nodes[idSup] === 'undefined') {
             ids.push(idSup);
             // agregate if idSup is part of a cluster
             nodes[idSup] = {
-              name: supplier.name,
-              id: supplier.x_slug_id,
+              name: bidder.name,
+              id: bidder.x_slug_id,
               contracts: [],
               contractsCount: 0,
               income: 0,
               tenderers: [],
               median: 0,
-              nodeType: 'supplier'
+              nodeType: 'bidder'
             };
           }
           if (contract.award.title) {
@@ -53,20 +53,20 @@ export default Route.extend({
       });
 
     } else {
-      // if we are in a supplier
+      // if we are in a bidder
       _.forEach(model.contracts, (contract) => {
-        let idSup = `id_${contract.procuring_entity.x_slug_id}`;
+        let idSup = `id_${contract.buyer.x_slug_id}`;
         if (typeof nodes[idSup] === 'undefined') {
           ids.push(idSup);
           nodes[idSup] = {
-            id: contract.procuring_entity.x_slug_id,
-            name: contract.procuring_entity.name,
+            id: contract.buyer.x_slug_id,
+            name: contract.buyer.name,
             contracts: [],
             contractsCount: 0,
             income: 0,
             tenderers: [],
             median: 0,
-            nodeType: 'procurer'
+            nodeType: 'buyer'
           };
         }
         if (contract.award.title) {
@@ -148,7 +148,7 @@ export default Route.extend({
 
             return _.filter(contracts, (contract) => {
               let check = _.findIndex(filterById, function(id) {
-                return id == contract.procuring_entity.x_slug_id;
+                return id == contract.buyer.x_slug_id;
               });
 
               if (check === -1) {
@@ -187,7 +187,7 @@ export default Route.extend({
           dataEntity.contractsCount = dataEntity.contracts.length;
           dataEntity.queryIds = nodeIds;
           // only if we are not in a relationship
-          // relationships do not requier the suppliers/ procurers
+          // relationships do not requier the bidders/ buyers
           if (!filterById) {
             dataEntity = self.processContracts(dataEntity, endpoint);
           }
@@ -237,8 +237,8 @@ export default Route.extend({
         fromId = clusterDetails.node_ids;
       }
 
-      // & filterContracts by queryIds, by the procurer id or ids (if cluster)
-      this.setNodeDetails(to, 'suppliers', fromId).then((dataTo) => {
+      // & filterContracts by queryIds, by the buyer id or ids (if cluster)
+      this.setNodeDetails(to, 'bidders', fromId).then((dataTo) => {
         controller.set('modelDetails', { 'from': { 'name': fromNode.label }, 'to': dataTo });
         controller.set('readyToRender', true);
 
@@ -281,7 +281,7 @@ export default Route.extend({
     controller.set('activeTab', activeTab);
     // reset to default tabs
     controller.set('activeTabDetails', 'contracts');
-    controller.set('activeTabProcurer', 'contracts');
+    controller.set('activeTabbuyer', 'contracts');
   },
 
   actions: {

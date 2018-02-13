@@ -1,7 +1,7 @@
 <div class="container container-entity relative">
   <div class="row">
     <div class="col s12 title fs1">
-      <div class="el-label-dark fs2 supplier">
+      <div class="el-label-dark fs2 bidder">
         {{fa-icon 'circle' size=1}} Company
       </div>
       <div class="el-title fs5">
@@ -35,31 +35,31 @@
   </div>
 
   <div class="row">
-  {{#tabbed-content active=activeTabDetails on-change="changeTabDetails" active-class="tab-button--active" as |supplierTabManager|}}
+  {{#tabbed-content active=activeTabDetails on-change="changeTabDetails" active-class="tab-button--active" as |bidderTabManager|}}
       <div class="tabs__nav">
-      {{#tab-button class="tab-button"  manager=supplierTabManager name="contracts"}}
+      {{#tab-button class="tab-button"  manager=bidderTabManager name="contracts"}}
         <a>contracts ({{modelDetails.contractsCount}})</a>
       {{/tab-button}}
-      {{#tab-button class="tab-button"  manager=supplierTabManager name="contractsGraph"}}
+      {{#tab-button class="tab-button"  manager=bidderTabManager name="contractsGraph"}}
         <a>timeline</a>
       {{/tab-button}}
-      {{#tab-button class="tab-button"  manager=supplierTabManager name="procurers"}}
+      {{#tab-button class="tab-button"  manager=bidderTabManager name="buyers"}}
         <a>Government ({{modelDetails.nodesCount}})</a>
       {{/tab-button}}
 
       </div>
-    {{#tab-panel manager=supplierTabManager name="contracts" class='tab-panel'}}
+    {{#tab-panel manager=bidderTabManager name="contracts" class='tab-panel'}}
       {{details-data-table
           class="contracts"
           content=modelDetails.contracts
           fields=fields.contracts
           partialPath="network/show/details/partials/tables/contracts"
-          route="suppliers"
+          route="bidders"
           nodeId=params.id
       }}
     {{/tab-panel}}
 
-    {{#tab-panel manager=supplierTabManager name="contractsGraph" class='tab-panel'}}
+    {{#tab-panel manager=bidderTabManager name="contractsGraph" class='tab-panel'}}
       <div class="details-graph-container">
       {{#ember-scrollable}}
         {{details-graph
@@ -67,20 +67,20 @@
             contracts=modelDetails.contracts
             fields=fields.contracts
             partialPath="network/show/details/partials/tables/contracts"
-            route="suppliers"
+            route="bidders"
             nodeId=params.id
         }}
       {{/ember-scrollable}}
       </div>
     {{/tab-panel}}
 
-    {{#tab-panel manager=supplierTabManager name="procurers" class='tab-panel'}}
+    {{#tab-panel manager=bidderTabManager name="buyers" class='tab-panel'}}
       {{details-data-table
-          class="procurers"
+          class="buyers"
           content=modelDetails.nodes
-          fields=fields.procurers
-          partialPath="network/show/details/partials/tables/suppliers-procurers"
-          route="suppliers"
+          fields=fields.buyers
+          partialPath="network/show/details/partials/tables/bidders-buyers"
+          route="bidders"
           nodeId=params.id
       }}
     {{/tab-panel}}

@@ -5,7 +5,7 @@
     {{#if cluster}}
         <h5>cluster of {{model.nodeType}}s</h5>
       {{#each model as |node|}}
-            <span class="figure-supplier"></span>
+            <span class="figure-bidder"></span>
             {{node.label}}
       {{/each}}
     {{else}}
@@ -49,8 +49,8 @@
   {{#if (eq graphElementType "edge")}}
     <h5>Tender</h5>
 
-    <div class="actor"><span class="figure-supplier"></span> {{model.fromLabel}}</div>
-    <div class="actor"><span class="figure-procurer"></span> {{model.toLabel}}</div>
+    <div class="actor"><span class="figure-bidder"></span> {{model.fromLabel}}</div>
+    <div class="actor"><span class="figure-buyer"></span> {{model.toLabel}}</div>
       <hr>
     {{#each-in model.flags as |keyValue value|}}
         <div class="flags">

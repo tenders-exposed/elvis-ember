@@ -5,17 +5,17 @@ export default Component.extend({
 
   options: {
     nodes: [
-      { name: 'sum' },
-      { name: 'count' }
+      { name: 'amountOfMoneyExchanged' },
+      { name: 'numberOfWinningBids' }
     ],
     edges: [
-      { name: 'sum' },
-      { name: 'count' }
+      { name: 'amountOfMoneyExchanged' },
+      { name: 'numberOfWinningBids' }
     ]
   },
 
-  nodes: { name: 'count' },
-  edges: { name: 'count' },
+  nodes: { name: 'numberOfWinningBids' },
+  edges: { name: 'numberOfWinningBids' },
 
   actions: {
 

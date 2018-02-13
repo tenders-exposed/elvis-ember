@@ -131,12 +131,12 @@
   </div>
   {{/if}}
 
-  <!--procurer /supplier statistics-->
+  <!--buyer /bidder statistics-->
   {{#if statistics.node}}
   <div class="row">
     <div class="col s12 el-title relative title-stat">
       {{fa-icon 'user-secret' size=2 class="absolute"}}
-      procurer
+      buyer
     </div>
   </div>
 
@@ -144,7 +144,7 @@
   <div class="row  dark-text ">
     <div class="col s3 fs1">most frequent</div>
     <div class="col s3 center-align el-title fs2">
-      {{#link-to "network.show.details.show" "procurers" statistics.node.most_frequent.id}}
+      {{#link-to "network.show.details.show" "buyers" statistics.node.most_frequent.id}}
         {{statistics.node.most_frequent.node_name}}
       {{/link-to}}
     </div>
@@ -161,7 +161,7 @@
   <div class="row  dark-text fs1">
     <div class="col s3">highest income</div>
     <div class="col s3 center-align el-title fs2">
-      {{#link-to "network.show.details.show" "procurers" statistics.node.highest_income.id}}
+      {{#link-to "network.show.details.show" "buyers" statistics.node.highest_income.id}}
         {{statistics.node.highest_income.node_name}}
       {{/link-to}}
     </div>

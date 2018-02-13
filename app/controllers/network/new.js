@@ -18,8 +18,8 @@ export default Controller.extend({
   selectedCodes: A([]),
 
   query: new EmberObject({
-    'nodes': 'count',
-    'edges': 'count',
+    'nodeSize': 'numberOfWinningBids',
+    'edgeSize': 'numberOfWinningBids',
     'rawCountries': A([]),
     'rawActors': A([]),
     'actors': A([]),
@@ -267,23 +267,23 @@ export default Controller.extend({
 
     let countries = this.get('query.countries');
     let rawActors = this.get('query.rawActors');
-    let suppliers = _.filter(
+    let bidders = _.filter(
       rawActors,
-      (actor) => (actor.type === 'supplier')
+      (actor) => (actor.type === 'bidder')
     );
-    let procurers = _.filter(
+    let buyers = _.filter(
       rawActors,
-      (actor) => (actor.type === 'procurer')
+      (actor) => (actor.type === 'buyer')
     );
     let options = {};
     if (countries.length > 0) {
       options.countries = countries;
     }
-    if (procurers.length > 0) {
-      options.procuring_entities = _.map(procurers, (p) => p.x_slug_id);
+    if (buyers.length > 0) {
+      options.buyers = _.map(buyers, (p) => p.x_slug_id);
     }
-    if (suppliers.length > 0) {
-      options.suppliers = _.map(suppliers, (s) => s.x_slug_id);
+    if (bidders.length > 0) {
+      options.bidders = _.map(bidders, (s) => s.x_slug_id);
     }
     this.get('ajax')
       .request('/tenders/years', {
@@ -447,8 +447,7 @@ export default Controller.extend({
       self.prepareQuery();
 
       let query = {
-        cpvs: cpvs.uniq(),
-        years: years.uniq()
+        cpvs: cpvs.uniq()
       };
 
       if (countries && countries.length > 0) {
