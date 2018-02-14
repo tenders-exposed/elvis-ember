@@ -26,6 +26,7 @@ export default Component.extend({
       nodeDetails.nodeType = nodeDetails.type == 'bidder' ? 'Company' : 'Government';
       this.set('model', nodeDetails);
       this.set('nodeId', elementId);
+
     }
     if (typeSelected === 'edge') {
       let edgeDetails = this.get('networkService').getEdgeById(elementId);

@@ -132,7 +132,7 @@ export default Service.extend({
         type: node.options.type,
         id: node.id,
         value: valueFormat(node.options.value),
-        average_competition: valueFormat(node.options.average_competition),
+        medianCompetition: valueFormat(node.options.medianCompetition),
         unformattedValue: node.options.value,
         label: node.options.label,
         flags: node.options.flags,
@@ -243,17 +243,17 @@ export default Service.extend({
           // let flagsCount = 0;
           let flags = [];
           let value = 0;
-          let average_competition = 0;
+          let medianCompetition = 0;
           let childrenCount = childNodes.length;
           for (let i = 0; i < childrenCount; i++) {
             value += childNodes[i].value;
-            average_competition += childNodes[i].average_competition;
+            medianCompetition += childNodes[i].medianCompetition;
             if (childNodes[i].flags.length) {
               flags.pushObject(childNodes[i].flags);
             }
           }
           clusterOptions.value = value;
-          clusterOptions.average_competition = average_competition / childrenCount;
+          clusterOptions.medianCompetition = medianCompetition / childrenCount;
           clusterOptions.flags = flags;
           clusterOptions.flagsCount = flags.length;
           clusterOptions.type = cluster.type;

@@ -11,7 +11,7 @@ export default Model.extend({
   query: attr(),
   nodes: attr('nodes'),
   edges: attr(),
-  clusters: attr({ defaultValue: [] }),
+ // clusters: attr({ defaultValue: [] }),
   settings: attr('object', { defaultValue: function() {
     return {nodeSize: 'numberOfWinningBids', edgeSize: 'numberOfWinningBids', other: 'property'}; }
   }),
@@ -35,7 +35,10 @@ export default Model.extend({
   }),
 
   graph: computed('nodes', 'edges', function () {
-    return {nodes: this.get('nodes'),edges: this.get('edges'), clusters: this.get('clusters')};
+    return {nodes: this.get('nodes'),edges: this.get('edges')};
+  }),
+  clusters: computed('graph', function() {
+    return this.get('graph.clusters') || [];
   })
 });
 

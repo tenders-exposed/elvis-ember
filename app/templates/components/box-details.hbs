@@ -27,15 +27,15 @@
 
             <td class="value">{{format-amount model.value '0,0[.]00 a'}}</td>
             <td class="label">
-              {{#if (eq model.valueType "count")}}
-                Tenders
+              {{#if (eq networkModel.settings.nodeSize "numberOfWinningBids")}}
+                Bids won
               {{else}}
                 Total money flow
               {{/if}}
             </td>
           </tr>
           <tr>
-            <td class="value">{{format-amount model.average_competition '0'}}</td>
+            <td class="value">{{model.medianCompetition}}</td>
             <td class="label">Average competitors in contracts</td>
           </tr>
         </table>
@@ -62,8 +62,8 @@
         <tr>
             <td class="value">{{format-amount model.value '0,0 a'}}</td>
             <td class="label">
-              {{#if (eq model.valueType "count")}}
-                Tenders
+              {{#if (eq networkModel.settings.edgeSize "numberOfWinningBids" "count")}}
+                Bids won
               {{else}}
                 Total money flow
               {{/if}}
