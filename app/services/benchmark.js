@@ -67,8 +67,7 @@ export default Service.extend({
 
   store(item, value) {
     this.set(`data.${item}`, value);
-    Logger.info(`${item}: ${value}`);
-    // Logger.info('Performance data now: ', this.get('data'));
+    // Logger.info(`${item}: ${value}`);
   },
 
   storeMultiple(items) {
@@ -78,13 +77,13 @@ export default Service.extend({
   },
 
   fakeSave() {
-    Logger.info('Performance data saved: ', this.get('data'));
+    // Logger.info('Performance data saved: ', this.get('data'));
     this.reset();
-    Logger.info('Performance data was reset');
+    // Logger.info('Performance data was reset');
   },
 
   save() {
-    Logger.info('Saving performance data: ', this.get('data'));
+    // Logger.info('Saving performance data: ', this.get('data'));
     let endpoint = this.get('endpoint');
     let options = this.get('options');
     options.data = JSON.stringify({
@@ -93,9 +92,9 @@ export default Service.extend({
     this.get('ajax')
       .post(endpoint, options)
       .then((response) => {
-        Logger.info('Sent payload, got response', response);
+        // Logger.info('Sent payload, got response', response);
         this.reset();
-        Logger.info('Performance data was reset');
+        // Logger.info('Performance data was reset');
       });
   }
 });

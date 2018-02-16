@@ -1,10 +1,13 @@
 import DS from 'ember-data';
+import { isBlank } from '@ember/utils';
 
-export default DS.Transform.extend({
+const { Transform } = DS;
+
+export default Transform.extend({
   deserialize(serialized) {
-    if(!Ember.isBlank(serialized)) {
+    if (!isBlank(serialized)) {
       _.each(serialized, (node) => {
-        if(node.type == 'bidder') {
+        if (node.type == 'bidder') {
           node.color = 'rgb(36, 243, 255)';
         } else {
           node.color = 'rgb(246, 49, 136)';

@@ -29,7 +29,7 @@ export default OAuth2PasswordGrant.extend({
     // }).join('&');
 
     let options = {
-      headers,
+      headers
     };
 
     if (useget) {
@@ -91,8 +91,8 @@ export default OAuth2PasswordGrant.extend({
             reject('access_token is missing in server response');
           }
 
-          let expiresAt = this._absolutizeExpirationTime(response['expires_in']);
-          this._scheduleAccessTokenRefresh(response['expires_in'], expiresAt, response['refresh_token']);
+          let expiresAt = this._absolutizeExpirationTime(response.expires_in);
+          this._scheduleAccessTokenRefresh(response.expires_in, expiresAt, response.refresh_token);
           if (!isEmpty(expiresAt)) {
             response = assign(response, { 'expires_at': expiresAt });
           }
@@ -107,11 +107,11 @@ export default OAuth2PasswordGrant.extend({
 
   restore(data) {
     return new RSVP.Promise((resolve, reject) => {
-      const now = (new Date()).getTime();
-      const refreshAccessTokens = this.get('refreshAccessTokens');
-      if (!isEmpty(data['expires_at']) && data['expires_at'] < now) {
+      let now = (new Date()).getTime();
+      let refreshAccessTokens = this.get('refreshAccessTokens');
+      if (!isEmpty(data.expires_at) && data.expires_at < now) {
         if (refreshAccessTokens) {
-          this._refreshAccessToken(data['expires_in'], data['refresh_token']).then(resolve, reject);
+          this._refreshAccessToken(data.expires_in, data.refresh_token).then(resolve, reject);
         } else {
           reject();
         }
@@ -119,7 +119,7 @@ export default OAuth2PasswordGrant.extend({
         if (!this._validate(data)) {
           reject();
         } else {
-          this._scheduleAccessTokenRefresh(data['expires_in'], data['expires_at'], data['refresh_token']);
+          this._scheduleAccessTokenRefresh(data.expires_in, data.expires_at, data.refresh_token);
           resolve(data);
         }
       }
@@ -135,10 +135,10 @@ export default OAuth2PasswordGrant.extend({
     return new RSVP.Promise((resolve, reject) => {
       this.makeRequest(serverTokenEndpoint, data, headers, true).then((response) => {
         run(() => {
-          expiresIn = response['expires_in'] || expiresIn;
-          refreshToken = response['refresh_token'] || refreshToken;
-          const expiresAt = this._absolutizeExpirationTime(expiresIn);
-          const data = assign(response, { 'expires_in': expiresIn, 'expires_at': expiresAt, 'refresh_token': refreshToken });
+          expiresIn = response.expires_in || expiresIn;
+          refreshToken = response.refresh_token || refreshToken;
+          let expiresAt = this._absolutizeExpirationTime(expiresIn);
+          let data = assign(response, { 'expires_in': expiresIn, 'expires_at': expiresAt, 'refresh_token': refreshToken });
           this._scheduleAccessTokenRefresh(expiresIn, null, refreshToken);
           this.trigger('sessionDataUpdated', data);
           resolve(data);
@@ -148,5 +148,5 @@ export default OAuth2PasswordGrant.extend({
         reject();
       });
     });
-  },
+  }
 });
