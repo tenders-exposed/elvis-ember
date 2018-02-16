@@ -16,6 +16,7 @@ export default Controller.extend({
   cpvService: service('cpv'),
 
   selectedCodes: A([]),
+  selectedCodesCount: 0,
 
   query: new EmberObject({
     'nodeSize': 'numberOfWinningBids',
@@ -25,7 +26,9 @@ export default Controller.extend({
     'actors': A([]),
     'countries': A([]),
     'years': A([2004, 2010]),
-    'cpvs': A([])
+    'cpvs': A([]),
+    'edges': 'numberOfWinningBids',
+    'nodes': 'numberOfWinningBids'
   }),
 
   loading: {
@@ -109,8 +112,12 @@ export default Controller.extend({
     this.createTree();
   }),
 
-  selectedCodesObserver: observer('selectedCodes', function () {
-    console.log('observer selectedCodes', this.get('selectedCodes'));
+  selectedCodesObserver: observer('selectedCodes', function() {
+    // console.log('observer selectedCodes', this.get('selectedCodes'));
+    this.set(
+      'selectedCodesCount',
+      _.sumBy(this.get('selectedCodes'), function(o) { return o.original.count; })
+    );
   }),
 
   network: {},
@@ -124,8 +131,14 @@ export default Controller.extend({
         'theme': 'elvis'
       }
     },
-    plugins: 'checkbox, search',
+    plugins: 'checkbox, search, sort',
     searchOptions: { 'show_only_matches': true },
+    // sort: function(a, b){
+    //   console.log(a,b);
+    //   a1 = this.get_node(a);
+    //   b1 = this.get_node(b);
+    //   return (a1.xNumberBids > b1.xNumberBids) ? 1 : -1;
+    // },
     checkbox: {
       'three_state': false,
       'cascade': 'down'
@@ -135,22 +148,6 @@ export default Controller.extend({
   cpvSearchTree: '',
 
   createTree() {
-    /*
-    * cpvs: [
-     {
-     code: "79713000",
-     xName: "Guard services",
-     xNumberDigits: 5
-     },...]
-
-     vs
-     {
-     "doc_count": 1714,
-     "text": "Pharmaceutical products",
-     "number_digits": 3,
-     "id": "33600000"
-     },
-     */
     let treeTimer = performance.now();
     let cpvs = _.sortBy(
       _.cloneDeep(this.get('cpvs')),
@@ -162,17 +159,18 @@ export default Controller.extend({
     cpvs.map((cpv) => {
       let {
         xNumberDigits,
+        xNumberBids,
         code,
         xName
       } = cpv;
       let result = {};
 
       result.id = code;
-      //result.count = doc_count;
+      result.count = xNumberBids;
       result.name = xName;
       result.state = { opened: false };
       result.text = '<div class="details">';
-      result.text += `<div class="cpv-title">${xName}</div>`;
+      result.text += `<div class="cpv-title">${xName} <small><code>[${xNumberBids}]</code></small></div>`;
       result.text += `<div class="cpv-code">${code} </div>`;
       result.text += `</div>`;
 
@@ -197,7 +195,6 @@ export default Controller.extend({
           result.parent = '#';
         } else {
           if (!cpvs.find((cpv) => cpv.code === `${cpvDivision}000000`)) {
-            Logger.warn('Trying to get division', cpvDivision);
             missingCodes.push(result.parent);
           }
         }
@@ -248,11 +245,11 @@ export default Controller.extend({
     //   }
     // });
 
+
     treeTimer = performance.now() - treeTimer;
     this.get('benchmark').store('performance.cpvs.count', cpvs.count);
     this.get('benchmark').store('performance.cpvs.treeRender', treeTimer);
     this.set('tree', tree);
-    console.log('formated tree', tree);
   },
 
   prepareQuery() {
@@ -294,7 +291,7 @@ export default Controller.extend({
       })
       .then((data) => {
         // console.log('fetchYears', data);
-        let years = data.years;
+        let { years } = data;
         this.set('years', years);
         this.set('loading.years', false);
         if (this.get('selectedCodes').length > 0) {
@@ -333,7 +330,7 @@ export default Controller.extend({
       options.bidders = _.map(bidders, (s) => s.id);
     }
     if (years.length > 0) {
-      //options.query.years = [2005,2006];
+      // options.query.years = [2005,2006];
       options.years = years;
     }
 
@@ -346,7 +343,6 @@ export default Controller.extend({
           }
         })
         .then((data) => {
-          console.log('fetchCpvs', data);
           self.set('cpvs', data.cpvs);
           self.set('loading.cpvs', false);
           self.get('benchmark').store('performance.cpvs.loadTime', (performance.now() - requestTimer));
@@ -371,9 +367,9 @@ export default Controller.extend({
       this.fetchYears();
     },
     actorTermChanged(queryTerm) {
-      //let query = queryTerm || '';
-      //let limit = 10;
-      if(queryTerm.length > 1) {
+      // let query = queryTerm || '';
+      // let limit = 10;
+      if (queryTerm.length > 1) {
 
         let countries = this.get('query.countries');
         let options = {};
@@ -381,7 +377,7 @@ export default Controller.extend({
           options.countries = countries;
         }
 
-        if(queryTerm) {
+        if (queryTerm) {
           options.name = queryTerm;
         }
 
@@ -390,13 +386,12 @@ export default Controller.extend({
           .request('/tenders/actors',
                 {
                   data: options,
-                  headers: {'Content-Type': 'application/json'}
+                  headers: { 'Content-Type': 'application/json' }
                 })
           .then((data) => {
             this.set('autocompleteActorsOptions', data.actors);
           });
       }
-
     },
 
     rangeSlideAction(value) {
@@ -428,7 +423,6 @@ export default Controller.extend({
       let countries = this.get('query.countries');
       let rawActors = this.get('query.rawActors');
       let cpvs = this.get('query.cpvs');
-      let years = this.get('query.years');
 
       let bidders = _.filter(
         rawActors,
@@ -459,7 +453,6 @@ export default Controller.extend({
       if (bidders.length > 0) {
         query.bidders = _.map(bidders, (s) => s.id);
       }
-      console.log('submitQuery', query);
 
       this.get('store').createRecord('network', {
         name: self.get('name'),

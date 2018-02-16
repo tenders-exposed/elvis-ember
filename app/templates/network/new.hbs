@@ -118,16 +118,36 @@
               <h3>Markets / Fields</h3>
               <p>Only selected procurement markets will be visualised.</p>
               <p><a href="https://simap.ted.europa.eu/cpv" target="_blank"><i class="fa fa-arrow-right"></i> Read more about CPV codes</a></p>
+              <p><h4>{{selectedCodesCount}} <small>winning bids selected</small></h4></p>
             </div>
             <div class="col m8 s12">
               <div class="cpv-selector cpv-tree">
                 <!-- @NOTE: ember-scrollable scrollbar needs to be wrapping the long content, and its parent must have limited height  - in this case .cpv-selector { height: 400px; } -->
                 {{#if loading.cpvs}}
-                  <i class="fa fa-spinner fa-pulse fa-fw"></i> Loading...
+                  {{#if query.countries}}
+                    <i class="fa fa-spinner fa-pulse fa-fw"></i> Loading...
+                  {{/if}}
                 {{else}}
                   {{log loading.cpvs}}
 
                   {{#if cpvs}}
+                    <form class="row" {{action 'searchCpv' on='submit'}}>
+                      <div class="col s8">
+                      {{input type="text"
+                              placeholder="search for keyword of CPV code.."
+                              class="search-input form-control"
+                              value=cpvSearchTerm
+                      }}
+                      </div>
+                      <div class="col s2">
+                      {{md-btn text=''
+                              icon='fa fa-search'
+                              action='searchCpv'
+                              class='grey darken-3 btn-floating'
+                      }}
+                      </div>
+                    </form>
+
                     {{#ember-scrollable}}
                       <div class="jstree-default-dark-small">
                         {{ember-jstree
@@ -184,8 +204,8 @@
                   <h5>Edge thickness<span class="text-muted">represents</span></h5>
                   {{radio-button
                       value="numberOfWinningBids"
-                      groupValue=query.edges
                       radioId="edgeSizeCount"
+                      groupValue=query.edges
                   }}
                   <label class="edge-size-count" for="edgeSizeCount"> Number of contracts </label>
                   <br>
