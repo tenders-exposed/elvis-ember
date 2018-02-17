@@ -441,7 +441,8 @@ export default Controller.extend({
       self.prepareQuery();
 
       let query = {
-        cpvs: cpvs.uniq()
+        cpvs: cpvs.uniq(),
+        years: years.uniq()
       };
 
       if (countries && countries.length > 0) {
