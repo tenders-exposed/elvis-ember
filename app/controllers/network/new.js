@@ -365,6 +365,7 @@ export default Controller.extend({
         this.get('query.actors').push(v.id);
       });
       this.fetchYears();
+      this.fetchCpvs();
     },
     actorTermChanged(queryTerm) {
       // let query = queryTerm || '';
@@ -372,7 +373,7 @@ export default Controller.extend({
       if (queryTerm.length > 1) {
 
         let countries = this.get('query.countries');
-        let options = {};
+        let options = { limit: 5};
         if (countries.length > 0) {
           options.countries = countries;
         }
@@ -423,6 +424,9 @@ export default Controller.extend({
       let countries = this.get('query.countries');
       let rawActors = this.get('query.rawActors');
       let cpvs = this.get('query.cpvs');
+      let years = this.get('query.years');
+
+      console.log('submitquery - year', years);
 
       let bidders = _.filter(
         rawActors,
@@ -442,7 +446,7 @@ export default Controller.extend({
 
       let query = {
         cpvs: cpvs.uniq(),
-        years: years.uniq()
+        years: years.uniq(),
       };
 
       if (countries && countries.length > 0) {
