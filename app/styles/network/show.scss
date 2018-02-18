@@ -82,13 +82,26 @@
   }
 }
 
+div#network-container.stabilization100 {
+  opacity: 1 !important;
+  #details-container {
+    display: block !important;
+  }
+}
+
 div#network-container {
+  opacity: 0.3;
+
   position: relative;
   height: 100% !important;
   width: 100%;
   display: block;
   flex-direction: row;
   top: 0;
+
+  #details-container {
+    display: none;
+  }
 
   .crop-fake{
     display: none;
@@ -210,6 +223,7 @@ div#network-container {
       @extend .btn-floating;
       @extend .transparent;
       margin-bottom: 5px;
+      cursor: pointer;
     }
   }
 
@@ -294,22 +308,29 @@ div#network-container {
 .ember-cli-visks-network > .ember-view { display: none; }
 
 div#stabilization-info {
+  position: relative;
 
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+  .loading-bar {
+    top: 20px !important;
+  }
+}
+.loading-bar {
+  width: 300px;
   position: absolute;
-  top: 0;
-  color: black;
-  text-shadow: 0 0 20px rgba(99, 172, 255, 1);
-  div.align-center {
-    b {
-      padding-top: 25%;
-      width: 100%;
-      text-align: center;
-      position: fixed;
-      font-family: Roboto;
-      font-size: 2rem;
-    }
+  top: 100px;
+  right: 40%;
+  z-index: 9999;
+}
+.elvis-legend {
+  width: 94vw;
+  height: 97vh;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 99;
+  background: #1a1a1c;
+
+  img {
+    height: 100%;
   }
 }

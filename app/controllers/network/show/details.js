@@ -106,38 +106,24 @@ export default Controller.extend({
       return false;
     },
     saveNetworkName() {
-      let networkName = this.get('model.name');
-      let networkDescription = this.get('model.description');
-      let networkId = this.get('model.id');
-      let token = this.get('me.data.authentication_token');
       let email = this.get('me.data.email');
-
-      let data = `{"network": { "name": "${networkName}", "description": "${networkDescription}"}}`;
       let self = this;
-
-      this.get('ajax')
-        .put(`/networks/${networkId}`, {
-          data,
-          headers: {
-            'Content-Type': 'application/json',
-            'X-User-Email': `${email}`,
-            'X-User-Token': `${token}`
-          }
-        }).then(
-          () => {
-            if (this.get('session.isAuthenticated')) {
-              self.get('notifications').clearAll();
-              self.get('notifications').success('Done!', { autoClear: true });
-              this.send('toggleInput');
-            } else {
-              self.get('notifications').error(`Error: Please login to save your network!`);
-            }
-          }, (response) => {
+      let response = this.get('model').save().then(
+        () => {
+          if (this.get('session.isAuthenticated')) {
             self.get('notifications').clearAll();
-            _.forEach(response.errors, (error, index) => {
-              self.get('notifications').error(`Error: ${index } ${error.title}`);
-            });
+            self.get('notifications').success('Done!', { autoClear: true });
+            this.send('toggleInput');
+          } else {
+            self.get('notifications').error(`Error: Please login to save your network!`);
+          }
+        }, (response) => {
+          self.get('notifications').clearAll();
+          _.forEach(response.errors, (error, index) => {
+            self.get('notifications').error(`Error: ${index } ${error.title}`);
           });
+        });;
+
     }
   }
 });

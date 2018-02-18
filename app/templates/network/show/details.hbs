@@ -38,6 +38,13 @@
         </span>
         {{input type="text" id="projectName" value=model.name placeholder="My Project Name"}}
       </div>
+      <div class="network-settings-name input-field small">
+        <span class="input-prefix">
+          {{fa-icon 'pencil'}}
+        </span>
+        {{input type="text" id="projectDescription" value=model.synopsis placeholder="My Project Description"}}
+      </div>
+
       {{!-- READY: on/off switch for setting the network public or private
       <div class="network-settings-privacy">
         <div class="switch">

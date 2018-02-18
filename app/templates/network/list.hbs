@@ -23,23 +23,25 @@
                             {{/link-to}}
                       </div>
                       <div class="project-description">
-                          {{network.description}}
+                          {{network.synopsis}}
                       </div>
                       <div class="project-meta">
                         <span class="meta-item">
-                            <span class="project-lastupdate">yesterday</span>
+                            <span class="project-lastupdate">
+                              {{moment-format network.updated 'DD MM YYYY' }}
+                            </span>
                         </span>
-                        <span class="meta-item">
+                       <!-- <span class="meta-item">
                             <i class="fa fa-lock"></i> Private
-                        </span>
+                        </span>-->
                           <span class="meta-item">
-                            <i class="figure-buyer"></i> 17 buyers
+                            <i class="figure-buyer"></i>
+                              <i class="figure-bidder"></i>
+                                {{network.nodeCount}} nodes
                         </span>
+
                           <span class="meta-item">
-                            <i class="figure-bidder"></i> 231 bidders
-                        </span>
-                          <span class="meta-item">
-                            <i class="figure-relationship"></i> 174 Connections
+                            <i class="figure-relationship"></i> {{network.edgeCount}} Connections
                         </span>
                       </div>
                   </div>

@@ -370,10 +370,14 @@ export default Controller.extend({
     actorTermChanged(queryTerm) {
       // let query = queryTerm || '';
       // let limit = 10;
+      if (!queryTerm.length) {
+        this.set('autocompleteActorsOptions', []);
+
+      }
       if (queryTerm.length > 1) {
 
         let countries = this.get('query.countries');
-        let options = { limit: 5};
+        let options = { limit: 15};
         if (countries.length > 0) {
           options.countries = countries;
         }
@@ -492,3 +496,4 @@ export default Controller.extend({
     }
   }
 });
+

@@ -15,7 +15,8 @@ export default Model.extend({
   settings: attr('object', { defaultValue: function() {
     return {nodeSize: 'numberOfWinningBids', edgeSize: 'numberOfWinningBids', other: 'property'}; }
   }),
-
+  count: attr(),
+  updated: attr(),
   flaggedEdges: computed('edges', function () {
     let edgesFlagged = _.cloneDeep(this.get('edges'));
 

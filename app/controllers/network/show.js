@@ -363,6 +363,11 @@ export default Controller.extend({
       }
     },
 
+    toggleInfo() {
+      $('div#stabilization-info').toggle();
+      $('.loading-bar').hide();
+    },
+
     showClustering() {
       this.set('networkClusteringModal', true);
     },
@@ -463,6 +468,7 @@ export default Controller.extend({
 
       Logger.info('stabilization iterations done');
       this.set('stabilizationPercent', 100);
+      $('div#stabilization-info > .progress-wrap').fadeOut();
       $('div#stabilization-info').fadeOut();
 
       this.set('networkStabilization', true);

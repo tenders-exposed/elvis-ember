@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import Adapter from 'ember-data/adapter';
 import {
   AdapterError,
@@ -18,11 +19,15 @@ import {
   deprecate,
   parseResponseHeaders
 } from 'ember-data/-private';
-import MapWithDefault from '@ember/map/with-default';
-import { get } from '@ember/object';
-import RSVP from 'rsvp';
-import { run } from '@ember/runloop';
-import $ from 'jquery';
+
+const {
+  MapWithDefault,
+  get,
+  RSVP,
+  run,
+  $
+} = Ember;
+
 
 const { Promise } = RSVP;
 let ElvisAdapter = Adapter.extend(BuildURLMixin, {
@@ -210,7 +215,7 @@ let ElvisAdapter = Adapter.extend(BuildURLMixin, {
       let { id } = snapshot;
       let url = this.buildURL(type.modelName, id, snapshot, 'updateRecord');
 
-      return this.ajax(url, 'PUT', { data });
+      return this.ajax(url, 'PATCH', { data });
     }
   },
 
@@ -531,7 +536,7 @@ if (isEnabled('ds-improved-ajax')) {
 
       switch (requestType) {
         case 'createRecord': return 'POST';
-        case 'updateRecord': return 'PUT';
+        case 'updateRecord': return 'PATCH';
         case 'deleteRecord': return 'DELETE';
       }
 

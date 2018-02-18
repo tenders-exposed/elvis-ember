@@ -54,7 +54,7 @@
     "ember-cli-test-loader": "^2.1.0",
     "ember-cli-uglify": "^2.0.0",
     "ember-composability": "^0.3.8",
-    "ember-data": "~2.18.0",
+    "ember-data": "^2.18.1",
     "ember-data-table": "^0.3.0",
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-drag-drop": "^0.4.3",

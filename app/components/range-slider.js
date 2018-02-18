@@ -19,8 +19,6 @@ export default RangeSlider.extend({
       if (value[1] > start[1]) {
         value[1] = start[1];
       }
-      // limits[0] = limits[0] < softLimits[0] && softLimits[0];
-      // limits[1] = limits[1] > softLimits[1] && softLimits[1];
       slider.set(value);
       return false;
     });

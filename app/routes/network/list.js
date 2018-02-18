@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+import moment from 'moment';
 
 export default Route.extend(AuthenticatedRouteMixin, {
   me: service(),
@@ -16,8 +17,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
     this.titleToken = ` My projects (${model.get('length')})`;
 
     return model.map(function(network) {
-      if (network.get('description') === 'null') {
-        network.set('description', '');
+      if (network.get('synopsis') === 'null') {
+        network.set('synopsis', '');
       }
 
       let companies = 0;
@@ -32,6 +33,13 @@ export default Route.extend(AuthenticatedRouteMixin, {
       network.set('firstYear', _.first(network.get('query.years')));
       network.set('lastYear', _.last(network.get('query.years')));
       network.set('cpvsCount', network.get('query.cpvs').length);
+
+      network.set('nodeCount', network.get('count.nodeCount'));
+      network.set('edgeCount', network.get('count.edgeCount'));
+
+      console.log('updated', moment.parseZone(network.get('updated')).local().format());
+
+      network.set('updated', moment.parseZone(network.get('updated')).local().format());
       return network;
     }, model);
 
