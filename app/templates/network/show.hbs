@@ -5,15 +5,11 @@
   <i class="fa fa-arrow-circle-right"></i>
 </div>
 
-<div id="stabilization-info">
+<section id="legend">
   <div class="loading-bar">
-    {{progress-bar percent=stabilizationPercent message="while the network is being loaded...."}}
+    {{progress-bar percent=stabilizationPercent message="Please wait, the network is being loaded..."}}
   </div>
-  <div class="elvis-legend">
-    <img alt="ELVIS - legend"  src="images/loading-info.png"/>
-  </div>
-
-</div>
+</section>
 
 <div id="network-container" style="height: {{height}}px;" class="stabilization{{stabilizationPercent}}">
 

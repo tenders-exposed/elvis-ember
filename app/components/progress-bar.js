@@ -6,8 +6,8 @@ export default Component.extend({
   message: '',
 
   didUpdateAttrs() {
-    console.log('progres percent ', this.get('percent'));
-    $('.progress-bar').animate({left: this.get('percent')+'%' }, 5000);
+    let percent = this.get('percent');
+    $('.progress-bar').animate({ left: `${percent}%` }, 5000);
   }
 
 });
