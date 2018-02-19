@@ -8,5 +8,5 @@ export default Model.extend({
   medianCompetition: attr('number', { defaultValue: 0 }),
   type: attr('string'),
   value: attr()
-  //flags: attr({ defaultValue: {}})
+  // flags: attr({ defaultValue: {}})
 });

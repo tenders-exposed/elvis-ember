@@ -38,8 +38,5 @@ export default Service.extend({
       let data = this.get('session.session.content.authenticated');
       return data;
     }));
-
-
-
   }
 });

@@ -4,20 +4,23 @@ import { computed } from '@ember/object';
 const { Model, attr } = DS;
 
 export default Model.extend({
-  // nodes: attr(),
-  // edges: attr(),
-  name: attr('string', {defaultValue: 'unnamedNetwork'}),
+  name: attr('string', { defaultValue: 'unnamedNetwork' }),
   synopsis: attr(),
   query: attr(),
   nodes: attr('nodes'),
   edges: attr(),
- // clusters: attr({ defaultValue: [] }),
-  settings: attr('object', { defaultValue: function() {
-    return {nodeSize: 'numberOfWinningBids', edgeSize: 'numberOfWinningBids', other: 'property'}; }
+  settings: attr('object', {
+    defaultValue: () => {
+      return {
+        nodeSize: 'numberOfWinningBids',
+        edgeSize: 'numberOfWinningBids',
+        other: 'property'
+      };
+    }
   }),
   count: attr(),
   updated: attr(),
-  flaggedEdges: computed('edges', function () {
+  flaggedEdges: computed('edges', function() {
     let edgesFlagged = _.cloneDeep(this.get('edges'));
 
     _.map(edgesFlagged, (edge) => {
@@ -35,11 +38,13 @@ export default Model.extend({
     return edgesFlagged;
   }),
 
-  graph: computed('nodes', 'edges', function () {
-    return {nodes: this.get('nodes'),edges: this.get('edges')};
+  graph: computed('nodes', 'edges', function() {
+    return {
+      nodes: this.get('nodes'),
+      edges: this.get('edges')
+    };
   }),
   clusters: computed('graph', function() {
     return this.get('graph.clusters') || [];
   })
 });
-

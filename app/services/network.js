@@ -98,11 +98,11 @@ export default Service.extend({
         });
       });
     }
-    //let clusters = typeof model.get('clusters');
+    // let clusters = typeof model.get('clusters');
     // necesary or not?
-    //model.set('clusters', clusters);
+    // model.set('clusters', clusters);
     // if clusters are emty set them as empty array
-    //model.set('graph.clusters', clusters);
+    // model.set('graph.clusters', clusters);
     this.set('model', model);
     this.set('edges', model.get('edges'));
     this.set('nodes', model.get('nodes'));
