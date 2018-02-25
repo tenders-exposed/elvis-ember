@@ -81,12 +81,12 @@ export default Service.extend({
       this.set('defaultNodes', nodes);
     }
 
-    if (model.get('graph.clusters')) {
-      _.forEach(model.get('graph.clusters'), function(cluster, clusterIndex) {
+    if (model.get('clusters')) {
+      _.forEach(model.get('clusters'), function(cluster, clusterIndex) {
         cluster.empty = false;
-        cluster.nodes = _.filter(model.get('graph.nodes'), function(node) {
+        cluster.nodes = _.filter(model.get('nodes'), function(node) {
 
-          let indexCheck = _.findIndex(cluster.node_ids, function(o) {
+          let indexCheck = _.findIndex(cluster.nodes, function(o) {
             return o == node.id;
           });
           if (indexCheck !== -1) {
@@ -105,7 +105,7 @@ export default Service.extend({
     //model.set('graph.clusters', clusters);
     this.set('model', model);
     this.set('edges', model.get('edges'));
-    this.set('nodes', model.get('nodes'));
+    this.set('nodes', model.get('graph.nodes'));
     this.set('flaggedEdges', model.get('flaggedEdges'));
     this.set('clusters', model.get('clusters'));
 
@@ -156,6 +156,8 @@ export default Service.extend({
     let orderedProducrers = _.orderBy(buyers, ['unformattedValue', 'label'], ['desc', 'asc']);
     this.set('bidders', orderedbidders);
     this.set('buyers', orderedProducrers);
+
+    console.log('setbidders - network.network', this.get('network.network'));
   },
 
   setRelationships() {
@@ -202,10 +204,11 @@ export default Service.extend({
   },
 
   makeClusteredNetwork(clusteredNodes, clusters) {
+    console.log('service - makeClusteredNetwork');
     // clusters [ {id: "uniqueId",name: "", empty: true, type: '', nodes: []}, ]
     // clusteredNodes all nodes (clustered and notClustered)
 
-    // console.log('service-clusteredNodes', clusteredNodes);
+     console.log('service-clusteredNodes', clusteredNodes);
     // console.log('service-clusters', clusters);
 
     this.set('clusters', clusters);
@@ -224,7 +227,7 @@ export default Service.extend({
       let clusterId = cluster.id;
 
       let clusterNodesCount = cluster.nodes.length;
-      let clusterName = cluster.name ? `${cluster.name} (${clusterNodesCount})` : `cluster ${clusterIndex} (${clusterNodesCount})`;
+      let clusterName = cluster.label ? `${cluster.label} (${clusterNodesCount})` : `cluster ${clusterIndex} (${clusterNodesCount})`;
       let nodeColor = cluster.type === 'bidder' ? '#27f0fc' : '#f0308e';
       let nodeBorder = cluster.type === 'bidder' ? '#86F4FC' : '#FF69B4';
 
@@ -237,8 +240,8 @@ export default Service.extend({
           let condition  = (childOptions.cluster == clusterIndex && childOptions.cluster !== '');
           return condition;
         },
-        processProperties: (clusterOptions,
-                            childNodes/*, childEdges*/)  => {
+        /*processProperties: (clusterOptions,
+                            childNodes/!*, childEdges*!/)  => {
 
           // let flagsCount = 0;
           let flags = [];
@@ -259,7 +262,7 @@ export default Service.extend({
           clusterOptions.type = cluster.type;
 
           return clusterOptions;
-        },
+        },*/
         clusterNodeProperties: {
           id: clusterId,
           label: clusterName,
@@ -290,11 +293,14 @@ export default Service.extend({
   },
 
   setNetwork(network) {
+    console.log('serviceNet - setNetwork');
     // make isReady false.. and recalculate
     if (this.checkReady()) {
       this.deactivate();
     }
-    if (this.get('clusters').length > 0 && !this.get('checkClustered')) {
+    let makeClustered = this.get('clusters').length > 0 && !this.get('checkClustered');
+    makeClustered = false;
+    if (makeClustered) {
       this.set('network', network);
       this.makeClusteredNetwork(this.get('nodes'), this.get('clusters'));
       this.set('checkClustered', true);

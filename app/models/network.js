@@ -11,10 +11,14 @@ export default Model.extend({
   query: attr(),
   nodes: attr('nodes'),
   edges: attr(),
- // clusters: attr({ defaultValue: [] }),
+  clusters: attr('array', { defaultValue: [] }),
   settings: attr('object', { defaultValue: function() {
-    return {nodeSize: 'numberOfWinningBids', edgeSize: 'numberOfWinningBids', other: 'property'}; }
-  }),
+    return {
+      nodeSize: 'numberOfWinningBids',
+      edgeSize: 'numberOfWinningBids',
+      other: 'property'
+    };
+  }}),
   count: attr(),
   updated: attr(),
   flaggedEdges: computed('edges', function () {
@@ -36,10 +40,15 @@ export default Model.extend({
   }),
 
   graph: computed('nodes', 'edges', function () {
-    return {nodes: this.get('nodes'),edges: this.get('edges')};
-  }),
-  clusters: computed('graph', function() {
-    return this.get('graph.clusters') || [];
+    let nodes = this.get('nodes');
+    if(this.get('clusters').length > 0) {
+      nodes.pushObjects(this.get('clusters'));
+    }
+    return {
+      nodes: nodes,
+      edges: this.get('edges'),
+      clusters: this.get('clusters')
+    };
   })
 });
 

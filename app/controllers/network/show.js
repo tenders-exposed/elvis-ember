@@ -409,7 +409,7 @@ export default Controller.extend({
         let edgesPayload = this.get('networkService.edges');
 
         let networkId = this.get('model.id');
-        let token = this.get('me.data.authentication_token');
+        let token = this.get('me.data.access_token');
         let email = this.get('me.data.email');
 
         let data = `{"network": {
@@ -422,33 +422,43 @@ export default Controller.extend({
                   }`;
         let self = this;
 
-        this.get('ajax')
-          .patch(`/networks/${networkId}`, {
-            data,
-            headers: {
-              'Content-Type': 'application/json',
-              'X-User-Email': `${email}`,
-              'X-User-Token': `${token}`
-            }
-          }).then(
-          () => {
-            if (this.get('session.isAuthenticated')) {
-              // close clustering popup
-              self.set('model.clusters', clusters);
-              self.set('model.graph.nodes', clusteredNodes);
+        let saveClusters = false;
+        console.log('show - token', token);
+        console.log('show - clusters', clusters);
+        console.log('show - clusteredNodes', clusteredNodes);
+        //console.log('show - clusteredNodes', nodesPayload);
+        //console.log('show - data to save clusters', data);
 
-              self.get('networkService').makeClusteredNetwork(clusteredNodes, clusters);
+        if (saveClusters) {
+          this.get('ajax')
+            .patch(`/networks/${networkId}`, {
+              data,
+              headers: {
+                'Content-Type': 'application/json',
+                'X-User-Email': `${email}`,
+                'X-User-Token': `${token}`
+              }
+            }).then(
+            () => {
+              if (this.get('session.isAuthenticated')) {
+                // close clustering popup
+                self.set('model.clusters', clusters);
+                self.set('model.graph.nodes', clusteredNodes);
+
+                self.get('networkService').makeClusteredNetwork(clusteredNodes, clusters);
+                self.get('notifications').clearAll();
+                self.get('notifications').success('Done! Clusters saved.', {autoClear: true});
+              } else {
+                self.get('notifications').error(`Error: Please login to save your cluster!`);
+              }
+            }, (response) => {
               self.get('notifications').clearAll();
-              self.get('notifications').success('Done! Clusters saved.', { autoClear: true });
-            } else {
-              self.get('notifications').error(`Error: Please login to save your cluster!`);
-            }
-          }, (response) => {
-            self.get('notifications').clearAll();
-            _.forEach(response.errors, (error, index) => {
-              self.get('notifications').error(`Error: ${index } ${error.title}`);
+              _.forEach(response.errors, (error, index) => {
+                self.get('notifications').error(`Error: ${index } ${error.title}`);
+              });
             });
-          });
+
+        }
       }
     },
 

@@ -237,6 +237,14 @@
           > * {
             padding: .2em;
           }
+          .edit-yes {
+            > .save-edit { display: block; }
+            > .edit { display: none; }
+          }
+          .edit-no {
+            > .save-edit { display: none; }
+            > .edit { display: block; }
+          }
         }
 
 

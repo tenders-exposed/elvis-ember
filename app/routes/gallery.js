@@ -19,9 +19,6 @@ export default Route.extend({
           if (typeof name === 'undefined' || `${name}` === 'null') {
             n.name = 'Unnamed network';
           }
-          if (typeof description === 'undefined' || `${description}` === 'null') {
-            n.description = 'No description';
-          }
 
           n.set('minYear', Math.min(...n.get('query').years));
           n.set('maxYear', Math.max(...n.get('query').years));

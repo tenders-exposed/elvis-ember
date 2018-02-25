@@ -89,25 +89,34 @@
                               </div>
                               --}}
 
-                              <div class="edit-cluster-input">
-                                <span class="cluster-type {{cluster.type}}"><i class="fa fa-database"></i></span>
+                                <div class="edit-cluster-input">
+                                  <span class="cluster-type {{cluster.type}}"><i class="fa fa-database"></i></span>
 
-                                {{input type="text" value=cluster.name placeholder=(concat "cluster " index) class="cluster-text-input" focusIn=(action "editCluster" index) focusOut=(action "saveClusterName" cluster.name index) }}
-                                <div class="edit-cluster-controls">
-                                    <span class="edit-cluster-name" {{action "editCluster" index on="click"}}>
-                                        {{fa-icon "pencil" size=1 class="control-icon"}}
+                                  {{input type="text"
+                                          value=cluster.label
+                                          placeholder=(concat "cluster " index)
+                                          class="cluster-text-input"
+                                          focusIn=(action "editCluster" index)
+                                          focusOut=(action "saveClusterName" cluster.label index) }}
+                                  <div class="edit-cluster-controls">
+                                      <span class="edit-cluster-name hide" {{action "editCluster" index on="click"}}>
+                                          {{fa-icon "pencil" size=1 class="control-icon"}}
+                                      </span>
+                                    <span class="save-cluster-name" {{action "saveClusterName" cluster.label index on="click"}}>
+                                      {{fa-icon "save" size=1 class="control-icon"}}
                                     </span>
-                                  <span class="save-cluster-name hide" {{action "saveClusterName" cluster.name index on="click"}}>
-                                    {{fa-icon "save" size=1 class="control-icon"}}
-                                  </span>
-                                  <span class="cluster-delete" {{action "deleteCluster" index on="click"}}>
-                                    {{fa-icon "trash" size=1 class="control-icon"}}
-                                  </span>
-                                  {{!--<span class="close-cluster-edit" {{action "closeClusterEdit" index on="click"}}>
-                                    {{fa-icon "close" size=1 class="control-icon"}}
-                                  </span>--}}
+                                    <span class="cluster-delete" {{action "deleteCluster" index on="click"}}>
+                                      {{fa-icon "trash" size=1 class="control-icon"}}
+                                    </span>
+                                    <span class="close-cluster-edit" {{action "closeClusterEdit" index on="click"}}>
+                                      {{fa-icon "close" size=1 class="control-icon"}}
+                                    </span>
+                                    {{!--<span class="edit-{{cluster.edit}}">
+                                      <span class="save-edit">S</span>
+                                      <span class="edit">E</span>
+                                    </span>--}}
+                                  </div>
                                 </div>
-                              </div>
 
                                 <div class="clustered-nodes">
                                   {{#each cluster.nodes as |node nodeIndex|}}

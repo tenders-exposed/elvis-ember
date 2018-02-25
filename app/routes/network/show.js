@@ -29,11 +29,13 @@ export default Route.extend({
   },
 
   setupController(controller, model) {
+
     controller.set('model', model);
     controller.set('stabilizationPercent', 0);
   },
 
   resetController(controller) {
+
     controller.set('network', undefined);
     controller.set('clusters', undefined);
   },
