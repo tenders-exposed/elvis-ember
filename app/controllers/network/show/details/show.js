@@ -10,27 +10,34 @@ export default Controller.extend({
 
   fields: {
     contracts: {
-      award: 'contract name' ,
-      parties: 'other parties',
-      value: 'contract value (€)',
-      bids: 'bids'
+      name: 'Contract' ,
+      buyer: 'Buyer',
+      bids: 'Bids',
+      award: 'Awarded amount'
+    },
+    contractsProcurer: {
+      name: 'Contract' ,
+      supplier: 'Supplier',
+      bids: 'Bids',
+      award: 'Awarded amount'
     },
     procurers: {
-      procurer: 'Government Name',
+      procurer: 'Procurer Name',
       contracts: 'Contracts',
-      income: 'Income (€)',
+      income: 'Income',
       bids: 'Avg bids'
     },
     suppliers: {
-      supplier: 'Company Name',
+      supplier: 'Supplier Name',
       contracts: 'Contracts',
-      income: 'Income (€)',
+      income: 'Income',
       bids: 'Avg bids'
     },
     contractsRelationship: {
-      award: 'contract name' ,
-      value: 'contract value (€)',
-      bids: 'bids'
+      name: 'Contract' ,
+      date: 'Date',
+      bids: 'Bids',
+      award: 'Award amount'
     }
   },
 

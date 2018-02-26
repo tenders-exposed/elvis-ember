@@ -1,6 +1,7 @@
 // general network styles
 
 .body-network {
+
   // make links less disturbing in networks
   a {
     color: fade-out($text-color,.5);
@@ -9,6 +10,10 @@
     }
   }
 
+}
+
+.vis-network {
+  background: rgba(0,0,0,0.4);
 }
 
 
@@ -26,20 +31,25 @@
   box-shadow: 1px 1px $size/4 rgba(0,0,0,0.7);
   background: $text-color;
   vertical-align: middle;
+  margin-top: -1%;
 }
 .figure-procurer,
 .figure-supplier,
 .figure-all {
   @include network-entity(1em);
+
+  &.small {
+    @include network-entity(.5em);
+  }
 }
 .figure-procurer {
-  background: $color-procurer;
+  background: $color-procurer !important;
 }
 .figure-supplier {
-  background: $color-supplier;
+  background: $color-supplier !important;
 }
 .figure-all {
-  background: $color-relationship;
+  background: $color-relationship !important;
 }
 .figure-relationship {
   position: relative;

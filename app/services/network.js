@@ -154,7 +154,7 @@ export default Service.extend({
         value: valueFormat(node.options.value),
         average_competition: valueFormat(node.options.average_competition),
         unformattedValue: node.options.value,
-        label: node.options.label,
+        label: node.options.label ? node.options.label : 'n/a',
         flags: node.options.flags,
         flagsCount: node.options.flags.length,
         link: node.id,

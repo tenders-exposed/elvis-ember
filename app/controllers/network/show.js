@@ -163,7 +163,6 @@ export default Controller.extend({
       autoClear: true,
       htmlContent: true
     });
-
   },
 
   // cropping

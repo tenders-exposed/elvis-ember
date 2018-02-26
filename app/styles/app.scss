@@ -31,6 +31,7 @@
 @import "general/modal";
 
 /* Components */
+@import "components/collapsible";
 @import "components/wizard";
 @import "components/cpv-selector";
 @import "components/cpv-chip";
@@ -42,6 +43,8 @@
 @import "components/network-clustering";
 @import "components/network-embedding";
 @import "components/project-list";
+@import "components/detailview";
+
 
 @import "components/query-builder";
 
@@ -50,8 +53,6 @@
 @import "network/show";
 @import "network/vis";
 @import "network/show/details";
-@import "network/show/details/show";
-@import "network/show/details/contract";
 
 /* Top level templates */
 @import "static";

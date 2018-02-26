@@ -69,6 +69,23 @@ div.vis-network div.vis-navigation {
       &:before {
         content: "\f067" !important;
       }
+
+    }
+    &.vis-zoomIn:hover {
+      &:after {
+        content: "Zoom-in" !important;
+        position: absolute;
+        top: 2px;
+        left: -110px;
+        color: white;
+        width: 100px;
+        z-index: 100039;
+        font-size: 0.7rem;
+        height: 20px;
+        display: block;
+        text-align: right;
+        font-weight: bold;
+      }
     }
 
     &.vis-zoomOut {
@@ -77,11 +94,45 @@ div.vis-network div.vis-navigation {
       }
     }
 
+    &.vis-zoomOut:hover {
+      &:after {
+        content: "Zoom-out" !important;
+        position: absolute;
+        top: 43px;
+        left: -110px;
+        color: white;
+        width: 100px;
+        z-index: 100039;
+        font-size: 0.7rem;
+        height: 20px;
+        display: block;
+        text-align: right;
+        font-weight: bold;
+      }
+    }
+
     &.vis-zoomExtends {
-      border-color: transparent !important;
+     // border-color: transparent !important;
 
       &:before {
         content: "\f0b2";
+      }
+    }
+
+    &.vis-zoomExtends:hover {
+      &:after {
+        content: "Center network" !important;
+        position: absolute;
+        top: 84px;
+        left: -110px;
+        color: white;
+        width: 100px;
+        z-index: 100039;
+        font-size: 0.7rem;
+        height: 20px;
+        display: block;
+        text-align: right;
+        font-weight: bold;
       }
     }
 

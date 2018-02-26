@@ -210,6 +210,24 @@ div#network-container {
       @extend .btn-floating;
       @extend .transparent;
       margin-bottom: 5px;
+      position: relative;
+      overflow: visible !important;
+      .tooltip {
+        display: none;
+      }
+
+      &:hover .tooltip {
+        position: absolute;
+        top: 2px;
+        left: -110px;
+        color: white;
+        width: 100px;
+        z-index: 100039;
+        font-size: 0.7rem;
+        height: 20px;
+        display: block !important;
+        text-align: right;
+      }
     }
   }
 
@@ -232,7 +250,6 @@ div#network-container {
       }
     }
   }
-  h5 { margin-top: 0; }
 
   div.network-canvas {
     height: 100%;

@@ -40,7 +40,7 @@
           </tr>
         </table>
         <div class="action">
-            {{#link-to "network.show.details.show" model.route model.link class="btn-tiny transparent primary"}}
+            {{#link-to "network.show.details.show" model.route model.link class="btn-tiny transparent primary" invokeAction="close"}}
               Show details
             {{/link-to}}
         </div>
@@ -71,7 +71,7 @@
         </tr>
     </table>
     <div class="action">
-        {{#link-to "network.show.details.show" model.route model.link class="btn-tiny transparent primary"}}
+        {{#link-to "network.show.details.show" model.route model.link class="btn-tiny transparent primary" invokeAction="close"}}
             Show details
         {{/link-to}}
     </div>

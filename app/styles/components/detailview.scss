@@ -1,0 +1,210 @@
+// styles displaying detail info about government, company, relationship or contract
+.detailview {
+  $detailview-head-height: 60px;
+  $detailview-width: 700px;
+
+  // slide from left
+  @keyframes slide-from-left {
+    from { left: -200vw; }
+    to { left: 0px; }
+  }
+  animation: slide-from-left ease .4s;
+  position: relative;
+  left: 0;
+
+
+  border-right: $network-sidebar-border;
+  border-left: $network-sidebar-border;
+  margin-left: 1px;
+  background: darken($network-sidebar-bg,2%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 5px 0px 15px -2px rgba(0,0,0,0.8);
+
+  position: relative;
+  width: 100%;
+
+  .detailview-head,
+  .detailview-body {
+    padding: 1.5rem 3rem;
+  }
+
+  .detailview-head {
+    position: sticky;
+    width: 100%;
+    top: 0;
+    border-bottom: $border-base;
+    line-height: 1.2em;
+    height: $detailview-head-height;
+
+
+    .detailview-title {
+      font-size: 1rem;
+      font-weight: bold;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      text-align: center;
+      margin: 0;
+      color: $text-muted-color;
+    }
+
+    .close,
+    .back {
+      @include close;
+      top: 50%;
+      margin-top: -.5em;
+      line-height: 1em;
+      font-size: 1.5rem;
+    }
+    .close {
+      right: 1rem;
+      left: auto;
+    }
+    .back {
+      right: auto;
+      left: 1rem;
+    }
+  }
+
+  .detailview-body-wrapper {
+    height: calc(100% - #{$detailview-head-height});
+  }
+  .detailview-body {
+
+  }
+
+  .detailview-restriction {
+    display: inline-block;
+    border: $border-base;
+    background: rgba(255,255,255,.05);
+    padding: .8em .5em .3em;
+    border-radius: $border-radius-base;
+    position: absolute;
+    top: -.8em;
+    opacity: 1;
+    color: fade-out(white,.5);
+    strong {
+      color: white;
+    }
+  }
+
+
+  section {
+    padding: .5em 0 1.5em;
+    &.row {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+  h2 {
+    font-size: 1.78rem;
+    margin: 0;
+  }
+  h5 {
+    font-size: $font-size-small;
+    letter-spacing: .025em;
+    opacity: .5;
+    margin: .5em 0 ;
+  }
+  p {
+    font-size: $font-size-base;
+    font-family: $font-family-sans;
+  }
+  a:not([class*=btn]) {
+    text-decoration: underline;
+  }
+
+  table {
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: $border-radius-base;
+    th {
+      font-weight: normal;
+      opacity: .7;
+      background: rgba(255,255,255,0.05);
+    }
+    tr {
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    td, th {
+      padding: .5rem .5em;
+      vertical-align: top;
+    }
+  }
+
+  .row > .col {
+    padding: 0;
+  }
+
+  .external-links {
+    text-align: right;
+    margin-bottom: -2em;
+  }
+  .tags {
+    margin-top: 1em;
+    .tag {
+      display: inline-block;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: $border-radius-small;
+      background: rgba(0, 0, 0, 0.4);
+      padding: .2em .4em .1em;
+      font-size: $font-size-small;
+      line-height: 18px;
+      vertical-align: middle;
+
+      [class*=flag] {
+        vertical-align: middle;
+      }
+
+      &.redflag {
+        color: $color-flags;
+        border: none;
+      }
+    }
+  }
+
+  .summary {
+    .summary-title {
+      margin-bottom: 0;
+    }
+    .summary-value {
+      font-size: 1.2rem;
+      font-weight: bold;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+
+      small {
+        text-transform: none;
+        opacity: .5;
+        font-weight: normal;
+        letter-spacing: normal;
+      }
+    }
+  }
+
+  .bids-table {
+    td.price {
+      text-align: right;
+    }
+    tr.winner {
+      .bidder:after {
+        margin-left: 1em;
+        color: #ffa10d;
+        content: $fa-var-trophy;
+        @include fontawesome;
+      }
+      .price { color: $success-color; }
+    }
+  }
+
+  .contracts-table {
+    th.supplier,
+    th.buyer,
+    th.name {
+      width: 35%;
+    }
+    .bids,
+    .award {
+      text-align: right;
+    }
+  }
+}

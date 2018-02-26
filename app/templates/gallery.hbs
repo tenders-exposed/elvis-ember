@@ -4,29 +4,29 @@
       <h1>Curated networks</h1>
       <p class="flow-text">Some ready-made interesting networks you can play with. </p>
       <div class="project-list">
-          {{#each model as |network|}}
-          <div class="project-item col m4">
-              <div class="project-body">
-                <div class="project-name">
-                  {{#link-to 'network.show' network.id}}
-                    {{network.name}}
-                  {{/link-to}}
-                </div>
-                <div class="project-desc">{{network.description}}</div>
+        {{#each model as |network|}}
+        <div class="project-item col m4">
+            <div class="project-body">
+              <div class="project-name">
+                {{#link-to 'network.show' network.id}}
+                  {{network.name}}
+                {{/link-to}}
               </div>
+              <div class="project-desc">{{network.description}}</div>
+            </div>
 
-              <div class="project-specs">
-                  {{#each network.query.countries as |country|}}
-                    <div class="project-countries">{{world-flag country 32}}</div>
-                  {{/each}}
-                  <div class="project-years">
-                    {{network.minYear}} - {{network.maxYear}}
-                  </div>
-                  {{!TODO: data from https://github.com/tenders-exposed/elvis-backend-node/issues/24}}
-                  {{!<div class="project-other"><b>Sector:</b> Accounting and auditing services</div>}}
-              </div>
-          </div>
-          {{/each}}
+            <div class="project-specs">
+                {{#each network.query.countries as |country|}}
+                  <div class="project-countries">{{world-flag country 32}}</div>
+                {{/each}}
+                <div class="project-years">
+                  {{network.minYear}} - {{network.maxYear}}
+                </div>
+                {{!TODO: data from https://github.com/tenders-exposed/elvis-backend-node/issues/24}}
+                {{!<div class="project-other"><b>Sector:</b> Accounting and auditing services</div>}}
+            </div>
+        </div>
+        {{/each}}
       </div>
       <br><br>
   </div>
