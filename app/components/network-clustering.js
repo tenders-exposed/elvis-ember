@@ -35,8 +35,8 @@ export default Component.extend({
       'empty': true,
       'type': '',
       'nodes': [],
-      'edit' : false,
-      'hide' : false
+      'edit': false,
+      'hide': false
     });
   },
   sortNodes(nodes) {
@@ -50,7 +50,13 @@ export default Component.extend({
 
     if (clusters.length >  0) {
       let notClusteredNodes = _.filter(nodesClustering, function(node) {
-        return (typeof node.hidden === 'undefined') || node.hidden === false;
+        // check if NOT luster and NOT hidden
+        let check = false;
+        if (((typeof node.nodes === 'undefined') || node.nodes.length == 0)
+         && ((typeof node.hidden === 'undefined') || node.hidden === false)) {
+          check = true;
+        }
+        return check;
       });
       this.set('nodesClustering', this.sortNodes(notClusteredNodes));
     } else {
@@ -63,17 +69,6 @@ export default Component.extend({
 
   checkModified() {
     this.set('modified', true);
-  },
-
-  checkModifiedCluster(clusterIndex) {
-    this.set('modifiedCluster', true);
-    this.set('currentClusterIndex', clusterIndex);
-    this.set(`clusters.${clusterIndex}.edit`, true);
-  },
-
-  resetModifiedCluster(clusterIndex) {
-    this.set('modifiedCluster', false);
-    this.set(`clusters.${clusterIndex}.edit`, "no");
   },
 
   actions: {
@@ -132,78 +127,57 @@ export default Component.extend({
       $(`.cluster${clusterIndex} .cluster-text-input`).focus();
     },
     saveClusterName(clusterName, clusterIndex) {
-      /*
-      * Save cluster , request to backend.
-      * make modified = false;
-      * */
+
       this.set(`clusters.${clusterIndex}.label`, clusterName);
       this.set(`clusters.${clusterIndex}.edit`, true);
       $(`.cluster${clusterIndex} .save-cluster-name`).addClass('hide');
       $(`.cluster${clusterIndex} .edit-cluster-name`).removeClass('hide');
 
       this.checkModified();
-      // this.resetModifiedCluster(clusterIndex);
-
     },
     closeClusterEdit(clusterIndex) {
       $(`.cluster${clusterIndex} .cluster-name`).removeClass('hide');
       $(`.cluster${clusterIndex} .edit-cluster-input`).addClass('hide');
     },
     addToCluster(node, ops) {
-      //
-      /*
-      * check if modified
-      * -> if yes....
-      *   -> if is the same cluster -> ok.
-      *   -> if not -> ask the user to save the previous cluster before adding a new node to this one
-      *
-      * -> if not -> ok & make modified = true
-      *
-      * */
 
       let nodeId = node.id;
       let nodeType = node.type;
       let nodeLabel = node.label;
       let clusterIndex = ops.target.index;
 
+      // if we add a node to a cluster that has no nodes then another
+      // temporary cluster will be made available
+      if (this.get('clusters')[clusterIndex].nodes.length === 0) {
+        this.set(`clusters.${clusterIndex}.empty`, false);
+        this.set(`clusters.${clusterIndex}.type`, nodeType);
+        this.set(`clusters.${clusterIndex}.label`, nodeLabel);
+        this.addEmptyCluster();
+      } else {
+        this.set(`clusters.${clusterIndex}.edit`, true);
+      }
 
-        // if we add a node to a cluster that has no nodes then another
-        // temporary cluster will be made available
-        if (this.get('clusters')[clusterIndex].nodes.length === 0) {
-          this.set(`clusters.${clusterIndex}.empty`, false);
-          this.set(`clusters.${clusterIndex}.type`, nodeType);
-          this.set(`clusters.${clusterIndex}.label`, nodeLabel);
-          this.addEmptyCluster();
-        } else {
-          this.set(`clusters.${clusterIndex}.edit`, true);
-        }
+      let clusterType = this.get('clusters')[clusterIndex].type;
 
-        let clusterType = this.get('clusters')[clusterIndex].type;
+      // check to see if the node that the user wants to add is the same type as the first node added
+      if (node.type === clusterType) {
+        // add the node to the cluster
+        this.get('clusters')[clusterIndex].nodes.pushObject(node);
+        // find the index of the node in nodes to remove it from the nodes list
+        let nodeIndex = _.findIndex(this.get('nodesClustering'), function(o) {
+          return o.id == nodeId;
+        });
+        // remove the node from the node list
+        this.get('nodesClustering').removeAt(nodeIndex);
 
-        // check to see if the node that the user wants to add is the same type as the first node added
-        if (node.type === clusterType) {
-          // add the node to the cluster
-          this.get('clusters')[clusterIndex].nodes.pushObject(node);
-
-          // find the index of the node in nodes to remove it from the nodes list
-          let nodeIndex = _.findIndex(this.get('nodesClustering'), function (o) {
-            return o.id == nodeId;
-          });
-          // remove the node from the node list
-          this.get('nodesClustering').removeAt(nodeIndex);
-
-        } else {
-          // if is not then add a notification
-          this.notifications.clearAll();
-          this.notifications.warning('You need to add the same type of node to the cluster!', {
-            autoClear: true
-          });
-        }
-
-        // only if good answer from backend
-        // this.checkModifiedCluster(clusterIndex);
-        this.checkModified();
-
+      } else {
+        // if is not then add a notification
+        this.notifications.clearAll();
+        this.notifications.warning('You need to add the same type of node to the cluster!', {
+          autoClear: true
+        });
+      }
+      this.checkModified();
     },
     removeNode(node, nodeIndex, clusterIndex) {
       // add the node back to the nodes array;
@@ -219,33 +193,28 @@ export default Component.extend({
       if (this.get('clusters')[clusterIndex].nodes.length === 0) {
         // then the cluster will also be deleted.
         // check to see if it was saved
-        if(this.get('clusters')[clusterIndex].id) {
+        if (this.get('clusters')[clusterIndex].id) {
           this.get('deletedClusters').push(this.get('clusters')[clusterIndex].id);
           console.log('delete Cluster ', clusterIndex);
         }
         this.get('clusters').removeAt(clusterIndex);
-
-        // this.resetModifiedCluster();
       }
-      // this.checkModifiedCluster();
-
     },
     deleteCluster(clusterIndex) {
       // put all nodes back in node list
       // delete cluster
       // erase the clusterIndex from all nodes before putting them back
-      // this.resetModifiedCluster(clusterIndex); // server answer based
 
       let clusterNodes = this.get('clusters')[clusterIndex].nodes;
       _.map(clusterNodes, function(node) {
         _.unset(node, 'cluster');
-        node.hidden =false;
+        node.hidden = false;
         return node;
       });
       this.get('nodesClustering').pushObjects(clusterNodes);
-      if(this.get('clusters')[clusterIndex].id) {
+      if (this.get('clusters')[clusterIndex].id) {
         this.get('deletedClusters').push(this.get('clusters')[clusterIndex].id);
-        console.log('delete Cluster', clusterIndex);
+        // console.log('delete Cluster', clusterIndex);
       }
       this.get('clusters').removeAt(clusterIndex);
 
@@ -253,39 +222,35 @@ export default Component.extend({
     },
 
     closeModal() {
-      // concat all the nodes together
-      let nodesConcat = [];
-      this.get('clusters').removeAt(this.get('clusters').length - 1);
 
-      console.log('clusters - closeModal', this.get('clusters'));
+      this.get('clusters').removeAt(this.get('clusters').length - 1);
+      // console.log('clusters - closeModal', this.get('clusters'));
       let self = this;
 
       function makeClusters(clusters, deletedClusters) {
-        console.log('into makeClusters');
-        let networkId = self.get('networkId')
+        // console.log('into makeClusters');
+        let networkId = self.get('networkId');
         let token = self.get('me.data.access_token');
 
-        return new Promise(function(resolve){
+        return new Promise(function(resolve) {
           let promises = [];
           let dataPromises = [];
 
           clusters.forEach((cluster, index) => {
 
             let clusterF = {
-              "label": cluster.label,
-              "type": cluster.type,
-              "nodes": []
-            }
+              'label': cluster.label,
+              'type': cluster.type,
+              'nodes': []
+            };
             _.each(cluster.nodes, function(node) {
               clusterF.nodes.push(node.id);
             });
 
             let data = `{"cluster": ${JSON.stringify(clusterF)}}`;
-
             // if cluster.edit = true => modified => patch
             // else add=>post
-
-            if((typeof cluster.id === 'undefined') || !cluster.id) {
+            if ((typeof cluster.id === 'undefined') || !cluster.id) {
               // this means that the cluster is not saved yet and must add it.
               console.log('must create cluster', clusterF);
               promises[index] =
@@ -297,34 +262,37 @@ export default Component.extend({
                       'Authorization': `${token}`
                     }
                   })
-                  .then((response) => { //store all inner promises
-                    console.log('response', response);
+                  .then((response) => {
+                    // store all inner promises
+                    // console.log('response', response);
                     dataPromises.push(response);
                   });
 
-            } else if(cluster.edit) {
+            } else if (cluster.edit) {
               // then check if the cluster was modified => must update it
               console.log('must update cluster', clusterF);
               promises[index] =
                 self.get('ajax')
-                  .patch(`/networks/${networkId}/clusters/${cluster.id}`, {
+                  .request(`/networks/${networkId}/clusters/${cluster.id}`, {
                     data,
+                    method: 'patch',
                     headers: {
                       'Content-Type': 'application/json',
                       'Authorization': `${token}`
                     }
                   })
-                  .then((response) => { //store all inner promises
-                    console.log('response', response);
+                  .then((response) => {
+                    // store all inner promises
+                    // console.log('response', response);
                     dataPromises.push(response);
                   });
             }
           });
 
-          if(deletedClusters.length > 0) {
-            console.log('we have deletedClusters');
-            _.each(deletedClusters, function (clusterId, index) {
-              console.log('must deleteCluster cluster', clusterId);
+          if (deletedClusters.length > 0) {
+            // console.log('we have deletedClusters');
+            _.each(deletedClusters, function(clusterId, index) {
+              // console.log('must deleteCluster cluster', clusterId);
               let promiseDelete =  self.get('ajax')
                 .request(`/networks/${networkId}/clusters/${clusterId}`, {
                   method: 'delete',
@@ -333,8 +301,9 @@ export default Component.extend({
                     'Authorization': `${token}`
                   }
                 })
-                .then((response) => { //store all inner promises
-                  console.log('response', response);
+                .then((response) => {
+                  // store all inner promises
+                  // console.log('response', response);
                   dataPromises.push(response);
                 });
               promises.push(promiseDelete);
@@ -343,40 +312,37 @@ export default Component.extend({
 
           Promise.all(promises).then(
             () => {
-             resolve(dataPromises); //resolve the promise when all inner promises are resolved
+              resolve(dataPromises);
+              // resolve the promise when all inner promises are resolved
             }, (response) => {
-              console.log('response-makeClusters', response);
+              // console.log('response-makeClusters', response);
+              self.get('notifications').clearAll();
+              _.forEach(response.errors, (error, index) => {
+                self.get('notifications').error(`Error: ${index } ${error.title}`);
+              });
             }
           );
         });
       }
 
-      if(this.get('modified')) {
+      if (this.get('modified')) {
         makeClusters(this.get('clusters'), this.get('deletedClusters')).then(function(json) {
           // on fulfillment
-          console.log('makeclusters -response- then', json);
+          // console.log('makeclusters -response- then', json);
+
+          self.sendAction('action', self.get('modified'));
+          self.set('modified', false);
         }, function(reason) {
-          console.log('makeclusters -response- rejection', reason);
-
+          // console.log('makeclusters -response- rejection', reason);
           // on rejection
+          self.get('notifications').clearAll();
+          _.forEach(response.errors, (error, index) => {
+            self.get('notifications').error(`Error: ${index } ${error.title}`);
+          });
         });
+      } else {
+        self.sendAction('action', self.get('modified'));
       }
-
-      // check to see if the cluster has more than one node to be a cluster
-      // if the cluster has a single node erase that cluster from the cluster array
-      /*_.each(this.get('clusters'), function(cluster, index) {
-        cluster.node_ids = [];
-        _.each(cluster.nodes, function(node) {
-          node.cluster = index;
-          node.hidden = true;
-          cluster.nodes.push(node.id);
-        });
-        nodesConcat.pushObjects(cluster.nodes);
-      });
-      nodesConcat.pushObjects(this.get('nodesClustering'));*/
-
-      //this.sendAction('action', nodesConcat, this.get('clusters'), this.get('modified'));
-      //this.set('modified', false);
     }
   }
 });

@@ -45,6 +45,16 @@ export default Route.extend({
     this.transitionTo('network.show.details', activeTab);
   },
   actions: {
+    closeClustering(modified) {
+      console.log('closeClustering');
+      this.controllerFor('network.show').set('networkClusteringModal', false);
+      // check if clusters have been modified
+      if (modified) {
+        this.set('networkClusteringModal', false);
+        window.location.reload(true);
+        // refresh the page
+      }
+    },
     openSidebar() {
       this.openSidebar();
     },

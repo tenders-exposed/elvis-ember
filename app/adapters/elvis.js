@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import Adapter from 'ember-data/adapter';
 import {
   AdapterError,
@@ -20,16 +19,14 @@ import {
   parseResponseHeaders
 } from 'ember-data/-private';
 
-const {
-  MapWithDefault,
-  get,
-  RSVP,
-  run,
-  $
-} = Ember;
+import RSVP from 'rsvp';
+import { run } from '@ember/runloop';
+import MapWithDefault from '@ember/map/with-default';
+import { get } from '@ember/object';
 
-
+import $ from 'jquery';
 const { Promise } = RSVP;
+
 let ElvisAdapter = Adapter.extend(BuildURLMixin, {
   defaultSerializer: '-rest',
 
