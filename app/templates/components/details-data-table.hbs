@@ -22,11 +22,9 @@
       {{/each-in}}
     {{/c.header}}
 
-    {{#ember-scrollable}}
-      {{#c.body as |row|}}
-        {{partial partialPath}}
-      {{/c.body}}
-    {{/ember-scrollable}}
+    {{#c.body as |row|}}
+        {{component componentTable route=route nodeId=nodeId row=row}}
+    {{/c.body}}
 
   {{/t.content}}
 {{/data-table}}

@@ -186,6 +186,7 @@ export default Route.extend({
           dataEntity.name = node.label;
           dataEntity.contractsCount = dataEntity.contracts.length;
           dataEntity.queryIds = nodeIds;
+          dataEntity.countries = countries;
           // only if we are not in a relationship
           // relationships do not requier the bidders/ buyers
           if (!filterById) {

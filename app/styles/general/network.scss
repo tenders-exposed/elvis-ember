@@ -11,6 +11,10 @@
 
 }
 
+.vis-network {
+  background: rgba(0,0,0,0.4);
+}
+
 
 // network entities
 // ------------------
@@ -26,11 +30,16 @@
   box-shadow: 1px 1px $size/4 rgba(0,0,0,0.7);
   background: $text-color;
   vertical-align: middle;
+  margin-top: -1%;
 }
 .figure-buyer,
 .figure-bidder,
 .figure-all {
   @include network-entity(1em);
+
+  &.small {
+    @include network-entity(.5em);
+  }
 }
 .figure-buyer {
   background: $color-buyer;
@@ -39,7 +48,7 @@
   background: $color-bidder;
 }
 .figure-all {
-  background: $color-relationship;
+  background: $color-relationship !important;
 }
 .figure-relationship {
   position: relative;
