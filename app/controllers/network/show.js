@@ -364,7 +364,7 @@ export default Controller.extend({
     },
 
     toggleInfo() {
-      $('div#stabilization-info').toggle();
+      $('section#legend').toggle();
       $('.loading-bar').hide();
     },
 
@@ -396,8 +396,8 @@ export default Controller.extend({
 
       Logger.info('stabilization iterations done');
       this.set('stabilizationPercent', 100);
-      $('div#stabilization-info > .progress-wrap').fadeOut();
-      $('div#stabilization-info').fadeOut();
+      $('section#legend > .progress-wrap').fadeOut();
+      $('section#legend').fadeOut();
 
       this.set('networkStabilization', true);
       Logger.info('Network stabilized');

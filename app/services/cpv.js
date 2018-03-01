@@ -238,7 +238,7 @@ export default Service.extend({
       Logger.warn(`No result for ${id}`);
       return { id, name: null };
     }
-    //result.doc_count = 0;
+    // result.doc_count = 0;
     result.parent = '#';
     // result.count = doc_count;
     result.state = { opened: false };

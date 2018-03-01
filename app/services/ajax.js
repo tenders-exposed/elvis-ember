@@ -25,7 +25,7 @@ export default AjaxService.extend({
     'tenders.exposed',
     'api.tenders.exposed',
     'dev.api.tenders.exposed',
-    'elvis.tenders.exposed',
+    'elvis.tenders.exposed'
   ]
 
   // // TODO: Not sure we still need this, will keep around for a while

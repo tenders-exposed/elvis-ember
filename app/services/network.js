@@ -162,8 +162,6 @@ export default Service.extend({
     let orderedProducrers = _.orderBy(buyers, ['unformattedValue', 'label'], ['desc', 'asc']);
     this.set('bidders', orderedbidders);
     this.set('buyers', orderedProducrers);
-
-     // console.log('setbidders - network.network', this.get('bidders'));
   },
 
   setRelationships() {
@@ -223,7 +221,6 @@ export default Service.extend({
   },
 
   setNetwork(network) {
-    // console.log('serviceNet - setNetwork');
     // make isReady false.. and recalculate
     if (this.checkReady()) {
       this.deactivate();

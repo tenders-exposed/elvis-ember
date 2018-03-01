@@ -93,8 +93,9 @@ div#network-container {
   opacity: 0.3;
 
   position: relative;
-  height: 100% !important;
+  height: 90% !important;
   width: 100%;
+  overflow: hidden;
   display: block;
   flex-direction: row;
   top: 0;
@@ -217,7 +218,7 @@ div#network-container {
     right: 1px;
     top: 140px;
     max-width: 1.2*$button-height;
-    z-index: 9;
+    z-index: 100;
 
     .vis-button {
       @extend .btn-floating;
@@ -305,32 +306,25 @@ div#network-container {
   }
 }
 
-.ember-cli-visks-network > .ember-view { display: none; }
+.ember-cli-visjs-network > .ember-view { display: none; }
 
-div#stabilization-info {
-  position: relative;
+section#legend {
+  position: absolute;
+  margin-top: -80px;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+
+  background-color: rgba(0, 0, 0, .9);
+  background-image: url("/images/loading-info.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 
   .loading-bar {
-    top: 20px !important;
-  }
-}
-.loading-bar {
-  width: 300px;
-  position: absolute;
-  top: 100px;
-  right: 40%;
-  z-index: 9999;
-}
-.elvis-legend {
-  width: 94vw;
-  height: 97vh;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  z-index: 99;
-  background: #1a1a1c;
-
-  img {
-    height: 100%;
+    width: 300px;
+    z-index: 100;
+    margin: 0 auto;
+    margin-top: 10em;
   }
 }

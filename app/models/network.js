@@ -4,24 +4,24 @@ import { computed } from '@ember/object';
 const { Model, attr } = DS;
 
 export default Model.extend({
-  // nodes: attr(),
-  // edges: attr(),
-  name: attr('string', {defaultValue: 'unnamedNetwork'}),
+  name: attr('string', { defaultValue: 'unnamedNetwork' }),
   synopsis: attr(),
   query: attr(),
   nodes: attr('nodes'),
   edges: attr(),
   clusters: attr('array', { defaultValue: [] }),
-  settings: attr('object', { defaultValue: function() {
-    return {
-      nodeSize: 'numberOfWinningBids',
-      edgeSize: 'numberOfWinningBids',
-      other: 'property'
-    };
-  }}),
+  settings: attr('object', {
+    defaultValue: () => {
+      return {
+        nodeSize: 'numberOfWinningBids',
+        edgeSize: 'numberOfWinningBids',
+        other: 'property'
+      };
+    }
+  }),
   count: attr(),
   updated: attr(),
-  flaggedEdges: computed('edges', function () {
+  flaggedEdges: computed('edges', function() {
     let edgesFlagged = _.cloneDeep(this.get('edges'));
 
     _.map(edgesFlagged, (edge) => {
@@ -51,4 +51,3 @@ export default Model.extend({
     };
   })
 });
-

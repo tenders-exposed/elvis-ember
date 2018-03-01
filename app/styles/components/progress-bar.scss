@@ -10,13 +10,10 @@ $height: 20px;
   overflow: hidden;
   position: relative;
   p.percent {
-    color: #fff;
+    color: $color-buyer;
     font-weight: bold;
-    left: 10px;
-    top: 0px;
     font-size: 1rem;
-    position: absolute;
-    margin: 0px;
+    margin: 2px;
   }
   .progress-bar {
     border: 1px solid $color-bidder;

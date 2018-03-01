@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import Adapter from 'ember-data/adapter';
 import {
   AdapterError,
@@ -18,13 +19,12 @@ import {
   deprecate,
   parseResponseHeaders
 } from 'ember-data/-private';
-
-import RSVP from 'rsvp';
-import { run } from '@ember/runloop';
 import MapWithDefault from '@ember/map/with-default';
 import { get } from '@ember/object';
-
+import RSVP from 'rsvp';
+import { run } from '@ember/runloop';
 import $ from 'jquery';
+
 const { Promise } = RSVP;
 
 let ElvisAdapter = Adapter.extend(BuildURLMixin, {

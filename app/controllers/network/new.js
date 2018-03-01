@@ -116,7 +116,7 @@ export default Controller.extend({
     // console.log('observer selectedCodes', this.get('selectedCodes'));
     this.set(
       'selectedCodesCount',
-      _.sumBy(this.get('selectedCodes'), function(o) { return o.original.count; })
+      _.sumBy(this.get('selectedCodes'), (o) => o.original.count)
     );
   }),
 
@@ -244,7 +244,6 @@ export default Controller.extend({
     //     Logger.error(`Parent with id ${node.parent} is missing!`, cpvs.find((n) => n.id == node.id));
     //   }
     // });
-
 
     treeTimer = performance.now() - treeTimer;
     this.get('benchmark').store('performance.cpvs.count', cpvs.count);
@@ -377,7 +376,7 @@ export default Controller.extend({
       if (queryTerm.length > 1) {
 
         let countries = this.get('query.countries');
-        let options = { limit: 15};
+        let options = { limit: 15 };
         if (countries.length > 0) {
           options.countries = countries;
         }
@@ -450,7 +449,7 @@ export default Controller.extend({
 
       let query = {
         cpvs: cpvs.uniq(),
-        years: years.uniq(),
+        years: years.uniq()
       };
 
       if (countries && countries.length > 0) {
@@ -496,4 +495,3 @@ export default Controller.extend({
     }
   }
 });
-
