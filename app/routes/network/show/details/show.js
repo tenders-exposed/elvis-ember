@@ -11,8 +11,8 @@ export default Route.extend({
   store: service(),
 
   endpoints: {
-    bidders: 'bidders',
-    buyers: 'buyers',
+    bidders: 'nodes',
+    buyers: 'nodes',
     relationships: ''
   },
   controller: computed(function() {
@@ -20,182 +20,70 @@ export default Route.extend({
   }),
 
   // get the bidders/ buyers based on contracts
-  processContracts(model, endpoint) {
+  processContracts(winningBids, endpoint) {
     let ids = [];
     let nodes = {};
 
     // if is a buyer
-    if (endpoint === 'buyers') {
-      _.forEach(model.contracts, (contract) => {
-        _.forEach(contract.bidders, (bidder) => {
-          let idSup = `id_${bidder.x_slug_id}`;
-          if (typeof nodes[idSup] === 'undefined') {
-            ids.push(idSup);
-            // agregate if idSup is part of a cluster
-            nodes[idSup] = {
-              name: bidder.name,
-              id: bidder.x_slug_id,
-              contracts: [],
-              contractsCount: 0,
-              income: 0,
-              tenderers: [],
-              median: 0,
-              nodeType: 'bidder'
-            };
-          }
-          if (contract.award.title) {
-            nodes[idSup].contracts.push({ 'id': contract.id, 'name': contract.award.title });
-            nodes[idSup].contractsCount += 1;
-          }
-          nodes[idSup].income += contract.award.value.x_amount_eur;
-          nodes[idSup].tenderers.push(contract.number_of_tenderers);
-        });
+    if (endpoint === 'bidders') {
+      let buyers = [];
+      _.forEach(winningBids, function (bid) {
+        buyers = _.unionBy(buyers, bid.lot.tender.buyers, 'id');
       });
+       // console.log('uniquer buyers', buyers);
+      return buyers;
 
     } else {
       // if we are in a bidder
-      _.forEach(model.contracts, (contract) => {
-        let idSup = `id_${contract.buyer.x_slug_id}`;
-        if (typeof nodes[idSup] === 'undefined') {
-          ids.push(idSup);
-          nodes[idSup] = {
-            id: contract.buyer.x_slug_id,
-            name: contract.buyer.name,
-            contracts: [],
-            contractsCount: 0,
-            income: 0,
-            tenderers: [],
-            median: 0,
-            nodeType: 'buyer'
-          };
-        }
-        if (contract.award.title) {
-          nodes[idSup].contracts.push({ 'id': contract.id, 'name': contract.award.title });
-          nodes[idSup].contractsCount += 1;
-        }
-        nodes[idSup].income += contract.award.value.x_amount_eur;
-        nodes[idSup].tenderers.push(contract.number_of_tenderers);
+      let bidders = [];
+      _.forEach(winningBids, function (bid) {
+        bidders = _.unionBy(bidders, bid.bidders, 'id');
       });
+      // console.log('uniquer bidders', bidders);
+      return bidders;
     }
-    // avg bids
-    _.forEach(ids, (idNode) => {
-      let sorted = _.sortBy(nodes[idNode].tenderers);
-      let { length } = sorted;
-      if (length) {
-        let poz = length / 2;
-        poz = _.floor(poz);
-        let median = sorted[poz];
-        if (length % 2 === 0) {
-          median = (median + sorted[poz - 1]) / 2;
-          median = _.round(median, 1);
-        }
-        nodes[idNode].median = median;
-      }
-    });
 
-    // transform it into an array
-    model.nodes = _.values(nodes);
-    model.nodesCount = model.nodes.length;
-    return model;
   },
 
   // node = node or cluster
   // nodeId = node or node ids of cluster
   // endpoint = type of node
   // filterById in relationships = ids of the procuring entity to filter the contracts by
-  getModelDetails(node, nodeIds, endpoint, filterById) {
+  getModelDetails(nodeId, endpoint, filterById) {
     let self = this;
+    let dataEntity = {};
+
+    // let endpointQ = this.endpoints[endpoint];
     let networkModel = this.modelFor('network.show');
+    let networkId  = networkModel.get('id');
     let { years } = networkModel.get('query');
     let { countries } = networkModel.get('query');
-    let { cpvs } = networkModel.get('query');
-    let token     = this.get('me.data.authentication_token');
-    let email     = this.get('me.data.email');
-    let firstYear = _.head(years);
-    let lastYear = _.last(years);
 
-    let endpointQ = this.endpoints[endpoint];
+    dataEntity.firstYear = _.head(years);
+    dataEntity.lastYear = _.last(years);
+    dataEntity.countries = countries;
+    dataEntity.networkId = networkId;
 
-    cpvs = _.map(cpvs, (cpv) => `"${cpv}"`)
-      .join(', ');
-
-    let countriesQuery = (typeof countries === 'undefined') ?
-      '' :
-      `"countries": ["${countries}"],`;
-
-    // params from nodeIds
-    let entityQuery = `{
-        "query": {
-          "${endpointQ}": [${nodeIds}],
-          "years": [${years}],
-          ${countriesQuery}
-          "cpvs": [${cpvs}]
-        }
-      }`;
+    // console.log('dataEntity  before request', dataEntity);
+    // console.log(`/networks/${networkId}/${this.endpoints[endpoint]}/${nodeId}`);
 
     return this.get('ajax')
-      .post(`/contracts/${this.endpoints[endpoint]}_details`, {
-        data: entityQuery,
-        headers: {
-          'Content-Type': 'application/json',
-          'X-User-Email': `${email}`,
-          'X-User-Token': `${token}`
-        }
-      }).then(
+      .request(`/networks/${networkId}/${this.endpoints[endpoint]}/${nodeId}`)
+      .then(
         (data) => {
-          let dataEntity;
-          let filterContracts = function(contracts, filterById) {
-
-            return _.filter(contracts, (contract) => {
-              let check = _.findIndex(filterById, function(id) {
-                return id == contract.buyer.x_slug_id;
-              });
-
-              if (check === -1) {
-                return false;
-              } else {
-                return true;
-              }
-            });
-          };
-
-          if (data.search.count > 1) {
-            // multiple ids of nodes requested, merge them in a single unit
-            dataEntity = { 'contracts': [], 'median_tenderers': 0, 'missing_values': 0, 'total_earnings': 0 };
-            _.forEach(data.search.results, function(resultNode) {
-              // filterContracts if requested
-              if (filterById) {
-                resultNode.contracts = filterContracts(resultNode.contracts, filterById);
-              }
-
-              dataEntity.contracts.pushObjects(resultNode.contracts);
-              dataEntity.median_tenderers += resultNode.median_tenderers;
-              dataEntity.missing_values += resultNode.missing_values;
-              dataEntity.total_earnings += resultNode.total_earnings;
-            });
-          } else {
-            [ dataEntity ] = data.search.results;
-            if (filterById) {
-              dataEntity.contracts = filterContracts(dataEntity.contracts, filterById);
-            }
-          }
-
-          dataEntity.firstYear = firstYear;
-          dataEntity.lastYear = lastYear;
-          dataEntity.flags = node.flags;
-          dataEntity.name = node.label;
-          dataEntity.contractsCount = dataEntity.contracts.length;
-          dataEntity.queryIds = nodeIds;
-          dataEntity.countries = countries;
+          Object.assign(dataEntity, data.node);
+          // console.log('dataEntity - after request', dataEntity);
+          // extract the unique buyers / bidders for bidder / buyer
+          dataEntity.nodes = self.processContracts(dataEntity.winningBids, endpoint);
+          dataEntity.contractsCount = dataEntity.winningBids.length;
           // only if we are not in a relationship
           // relationships do not requier the bidders/ buyers
-          if (!filterById) {
+          /*if (!filterById) {
             dataEntity = self.processContracts(dataEntity, endpoint);
-          }
+          }*/
+
           this.titleToken = dataEntity.name;
-
           return dataEntity;
-
         }, (response) => {
           self.get('notifications').clearAll();
           _.forEach(response.errors, (error, index) => {
@@ -204,18 +92,21 @@ export default Route.extend({
         });
   },
 
+  // not sure if this is needed anymore
   setNodeDetails(nodeId, endpoint, filterContracts) {
     let node =  this.get('networkService').getNodeById(nodeId);
     let requestedIds = [nodeId];
 
     // if it is a cluster get the ids of nodes in that cluster
-    if (this.get('networkService').get('network.network').clustering.isCluster(nodeId)) {
+    // should check in another way
+
+    /*if (this.get('networkService').get('network.network').clustering.isCluster(nodeId)) {
       // get the nodes in that cluster
       let clusterDetails = _.find(this.get('networkService.clusters'), (o) => {
         return o.id == nodeId;
       });
       requestedIds = clusterDetails.node_ids;
-    }
+    }*/
 
     return this.getModelDetails(node, requestedIds, endpoint, filterContracts);
   },
@@ -223,6 +114,7 @@ export default Route.extend({
   setModelDetails() {
     let controller =  this.get('controller');
     let params =  controller.get('params');
+    // bidder,buyers || relationships
     let endpoint  = this.paramsFor('network.show.details').tab;
 
     if (endpoint === 'relationships') {
@@ -249,7 +141,8 @@ export default Route.extend({
 
     } else {
       // for a single node
-      this.setNodeDetails(params.id, endpoint, false).then((data) => {
+      // setNodeDetails(nodeId, endpoint, filterContracts)
+      this.getModelDetails(params.id, endpoint, false).then((data) => {
         controller.set('modelDetails', data);
         controller.set('readyToRender', true);
       });

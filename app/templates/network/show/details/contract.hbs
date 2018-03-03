@@ -3,7 +3,7 @@
   <div class="detailview-head">
 
     <div class="detailview-title">
-      <i class="fa fa-file"></i> Contract Details
+      <i class="fa fa-file"></i> Tender Details
     </div>
 
     <div class="close" {{action "closeDetails"}}>
@@ -33,46 +33,44 @@
       <div class="detailview-body">
         <section class="external-links">
           <!-- TODO: generate working links from the reference number -->
-          <a class="btn-small link primary" href="http://ted.europa.eu">view on ted.europa.eu <i class="fa fa-external-link"></i></a>
-          <a class="btn-small link primary" href="http://opented.eu">view on opented.eu <i class="fa fa-external-link"></i></a>
+          <a class="btn-small link primary" href="http://ted.europa.eu/udl?uri=TED:NOTICE:{{model.tedNumber}}-{{model.tedYear}}:TEXT:EN:HTML">
+            view on ted.europa.eu <i class="fa fa-external-link"></i>
+          </a>
+          <a class="btn-small link primary" href="https://opentender.eu/{{model.tedCountry}}/tender/{{model.id}}">
+            view on opentender.eu <i class="fa fa-external-link"></i>
+          </a>
         </section>
 
         <!-- TODO: output proper Reference number (not ID)-->
         <section>
-          <h5>Reference number</h5>
-          <div>{{model.award.id}}</div>
+          {{!--<h5>Reference number</h5>
+          <div>{{model.award.id}}</div>--}}
         </section>
 
         <!-- TODO: output contract title in English -->
-        {{#if model.award.titleEnglish}}
-        <section>
-          <h5>Title (English)</h5>
-          <div>Beer delivery for railway catering at SBB.</div>
-        </section>
-        {{/if}}
 
         <!-- TODO: output title in original language -->
         <section>
           <h5>Title</h5>
-          <h2>{{model.award.title}}</h2>
+          <h2>{{model.title}}</h2>
 
           <!-- TODO: output bool variables only if their value is TRUE -->
           <div class="tags">
               <!-- TODO: output proper country and flag-->
-              <span class="tag">{{world-flag 'DE' 16}} Germany</span>
+              {{!--<span class="tag">{{world-flag 'DE' 16}} Germany</span>--}}
               <!-- TODO: output isEuFunded variable -->
               <span class="tag">
-                {{fa-icon model.eu_project size="1"}}
+                {{fa-icon model.isEuFunded size="1"}}
                 EU Funded
               </span>
               <!-- TODO: output isFrameWorkAgreement variable -->
               <span class="tag">
-                {{fa-icon model.framework size="1"}}
+                {{fa-icon model.isFrameworkAgreement size="1"}}
                 Framework Agreement
               </span>
               <!-- TODO: output isGpaCovered variable -->
               <span class="tag">
-                {{fa-icon model.subcontracted size="1"}}
+                {{fa-icon model.isCoveredByGpa size="1"}}
                 GPA Covered
               </span>
           </div>
@@ -81,51 +79,60 @@
         <section class="row">
           <div class="col s3 summary">
             <!-- TODO: output total award of the contract -->
-            <h5 class="summary-title">Total price</h5>
-            <div class="summary-value">{{format-amount model.tender.value.x_amount_eur}}</div>
+            <h5 class="summary-title">Price of tender</h5>
+            <div class="summary-value">{{format-amount model.finalValue}}</div>
           </div>
           <div class="col s3 summary">
-            <h5 class="summary-title">Award date</h5>
-            <div class="summary-value">{{moment-format model.award.date.full 'DD MMM YYYY' 'YYYY-MM-DD'}}</div>
+            <h5 class="summary-title">Tender Year</h5>
+            <div class="summary-value">{{model.tedYear}}</div>
           </div>
           <div class="col s3 summary">
             <!-- TODO: output procedureType variable -->
             <h5 class="summary-title">Procedure</h5>
-            <div class="summary-value"> {{format-empty model.procurement-method  "n/a"}} </div>
+            <div class="summary-value"> {{format-empty model.procurementMethod  "n/a"}} </div>
           </div>
           <div class="col s3 summary">
             <!-- TODO: output awardCriteria variable -->
             <h5 class="summary-title">Award criteria</h5>
-            <div class="summary-value"> {{format-empty model.award_criteria "n/a"}} </div>
+            <div class="summary-value"> {{format-empty model.awardCriteria "n/a"}} </div>
           </div>
         </section>
 
-        <section>
-          <h5>Description</h5>
-          <p>{{model.award.description}}</p>
-        </section>
+        {{#if model.titleEnglish}}
+          <section>
+            <h5>Title (English)</h5>
+            <div>{{model.titleEnglish}}</div>
+          </section>
+        {{/if}}
 
         <section>
-          <h5>Description (English)</h5>
-          <p>{{model.award.description}}</p>
+          <h5>Description</h5>
+          <p>{{model.description}}</p>
         </section>
+
 
         <section class="row">
           <div class="col s6">
             <!-- TODO: output the Buyer and Winner(s) of the contract. -->
-            <h5>Buyer</h5>
-            <span class="figure-procurer small"></span>
-            {{#link-to "network.show.details.show" "procurers" model.procuring_entity.x_slug_id}}
-              {{model.procuring_entity.name}}
-            {{/link-to}}
+            <h5>Buyer(s)</h5>
+            {{#each model.buyers as |buyer|}}
+              <div>
+                <span class="figure-buyer small"></span>
+                {{#link-to "network.show.details.show" "buyers" buyer.nodeID}}
+                  {{buyer.name}}
+                {{/link-to}}
+              </div>
+            {{/each}}
           </div>
           <div class="col s6">
             <h5>Winner(s)</h5>
-            {{#each model.suppliers as |supplier|}}
-              <span class="figure-supplier small"></span>
-              {{#link-to "network.show.details.show" "suppliers" supplier.x_slug_id}}
-                {{supplier.name}}
-              {{/link-to}}
+            {{#each model.bidders as |bidder|}}
+              <div>
+                <span class="figure-bidder small"></span>
+                {{#link-to "network.show.details.show" "bidders" bidder.nodeID}}
+                  {{bidder.name}}
+                {{/link-to}}
+              </div>
             {{/each}}
           </div>
         </section>
@@ -164,118 +171,63 @@
         <section>
           <h5>Lots</h5>
           {{#md-card-collapsible }}
-            {{#md-collapsible title="National, international and non-alcoholic beer"}}
-              <section class="row">
-                <div class="col s4">
-                  <h5>Lot Reference Number</h5>
-                  <div>365478976</div>
-                </div>
-                <div class="col s4">
-                  <h5>Estimated price</h5>
-                  <div>1 365 478 976 €</div>
-                </div>
-                <div class="col s4">
-                  <h5>Address of Implementation</h5>
-                  <address>
-                    Opatovská cesta 4<br>
-                    97201, Bojnice<br>
-                    Slovakia<br>
-                  </address>
-                </div>
-              </section>
-              <section>
-                <h5>Description</h5>
-                <div>Lorem ipsum dolor sit amet, consectetur
-                  adipiscing elit, sed do eiusmod tempor incididunt ut
-                  labore et dolore magna aliqua. Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut
-                  aliquip ex ea commodo consequat.</div>
-              </section>
-              <section>
-                <h5>English Description</h5>
-                <div>Provision of efficient ITIL-based single point of contact (SPoC) help desk and technical support service, ad hoc activities and patch management. See also Internet address provided in Section I.3.</div>
-              </section>
-              <section>
-                <h5>Bids (47)</h5>
-                <!-- TODO: this table shows all bids inside this lot.
-                          - the winner is always first and has additional class "winner"
-                          - default order is by the price
-                          - the table is sortable (by price), but the winner should be always first.
-                          -->
-                <table class="bids-table">
-                  <tr class="bid winner">
-                    <td class="bidder"><span class="figure-supplier small"></span> {{#link-to "network.show.details.show" "suppliers" 995348}}Heineken Switzerland AG{{/link-to}}</td>
-                    <td class="price">35768789 €</td>
-                  </tr>
-                  <tr class="bid">
-                    <td class="bidder"><span class="figure-supplier small"></span> {{#link-to "network.show.details.show" "suppliers" 995348}}Pivovar Staropramen AG{{/link-to}}</td>
-                    <td class="price">568789 €</td>
-                  </tr>
-                  <tr class="bid">
-                    <td class="bidder"><span class="figure-supplier small"></span> {{#link-to "network.show.details.show" "suppliers" 995348}}Amstel Beer AG{{/link-to}}</td>
-                    <td class="price">1243589 €</td>
-                  </tr>
-                </table>
-              </section>
-            {{/md-collapsible}}
-            {{#md-collapsible title="Amber and weissbier"}}
-              <section class="row">
-                <div class="col s4">
-                  <h5>Lot Reference Number</h5>
-                  <div>365478976</div>
-                </div>
-                <div class="col s4">
-                  <h5>Estimated price</h5>
-                  <div>1 365 478 976 €</div>
-                </div>
-                <div class="col s4">
-                  <h5>Address of Implementation</h5>
-                  <address>
-                    Opatovská cesta 4<br>
-                    97201, Bojnice<br>
-                    Slovakia<br>
-                  </address>
-                </div>
-              </section>
-              <section>
-                <h5>Description</h5>
-                <div>Lorem ipsum dolor sit amet, consectetur
-                  adipiscing elit, sed do eiusmod tempor incididunt ut
-                  labore et dolore magna aliqua. Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut
-                  aliquip ex ea commodo consequat.</div>
-              </section>
-              <section>
-                <h5>English Description</h5>
-                <div>Lorem ipsum dolor sit amet, consectetur
-                  adipiscing elit, sed do eiusmod tempor incididunt ut
-                  labore et dolore magna aliqua. Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut
-                  aliquip ex ea commodo consequat.</div>
-              </section>
-              <section>
-                <h5>Bids (47)</h5>
-                <!-- TODO: this table shows all bids inside this lot.
-                          - the winner is always first and has additional class "winner"
-                          - default order is by the price
-                          - the table is sortable (by price), but the winner should be always first.
-                          -->
-                <table class="bids-table">
-                  <tr class="bid winner">
-                    <td class="bidder"><span class="figure-supplier small"></span> {{#link-to "network.show.details.show" "supplier" 995348}}Heineken Switzerland AG{{/link-to}}</td>
-                    <td class="price">35768789 €</td>
-                  </tr>
-                  <tr class="bid">
-                    <td class="bidder"><span class="figure-supplier small"></span> {{#link-to "network.show.details.show" "supplier" 995348}}Pivovar Staropramen AG{{/link-to}}</td>
-                    <td class="price">568789 €</td>
-                  </tr>
-                  <tr class="bid">
-                    <td class="bidder"><span class="figure-supplier small"></span> {{#link-to "network.show.details.show" "supplier" 995348}}Amstel Beer AG{{/link-to}}</td>
-                    <td class="price">1243589 €</td>
-                  </tr>
-                </table>
-              </section>
-            {{/md-collapsible}}
+            {{#each model.lots as |lot|}}
+              {{#md-collapsible title=lot.title}}
+                <section class="row">
+                 <div class="col s4">
+                    <h5>Decision Date</h5>
+                    <div>{{lot.awardDecisionDate}}</div>
+                  </div>
+                  <div class="col s4">
+                    <h5>Estimated price</h5>
+                    <div>{{format-amount lot.estimatedValue}} €</div>
+                  </div>
+                  <div class="col s4">
+                    <h5>Address of Implementation</h5>
+                    <address>
+                      {{#if lot.addressOfImplementation}}
+                          {{lot.addressOfImplementation.rawAddress}}
+                      {{/if}}
+                    </address>
+                  </div>
+                </section>
+
+              {{#if lot.description}}
+                <section>
+                  <h5>Description</h5>
+                  <div>{{lot.description}}</div>
+                </section>
+              {{/if}}
+
+                <section>
+                  <h5>Bids ({{lot.bidsCount}})</h5>
+                  <!-- TODO: this table shows all bids inside this lot.
+                            - the winner is always first and has additional class "winner"
+                            - default order is by the price
+                            - the table is sortable (by price), but the winner should be always first.
+                            -->
+                  <table class="bids-table">
+                    {{#each lot.bids as |bid|}}
+                      <tr class="bid {{if bid.isWinning "winner"}}">
+                        <td class="bidder">
+                          <span>
+                          {{#each bid.bidders as |bidder|}}
+                            <div>
+                              <span class="figure-bidder small"></span>
+                              {{#link-to "network.show.details.show" "bidders" bidder.nodeID}}{{bidder.name}}{{/link-to}}
+                            </div>
+                          {{/each}}
+                          </span>
+                        </td>
+                        <td class="price">
+                          {{format-amount bid.value}} €
+                        </td>
+                      </tr>
+                    {{/each}}
+                  </table>
+                </section>
+              {{/md-collapsible}}
+            {{/each}}
           {{/md-card-collapsible}}
         </section>
       </div>

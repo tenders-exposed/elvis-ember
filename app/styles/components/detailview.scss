@@ -186,6 +186,9 @@
       text-align: right;
     }
     tr.winner {
+      & td > span {
+        display: inline-block;
+      }
       .bidder:after {
         margin-left: 1em;
         color: #ffa10d;

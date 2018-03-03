@@ -1,16 +1,21 @@
 <td class="name">
-  {{#link-to "network.show.details.contract" route nodeId row.id}}
+  {{#link-to "network.show.details.contract" route nodeId row.lot.tender.id}}
     {{fa-icon 'file-text' size=1}}
-    {{row.award.title}}
-  {{/link-to}}
+    {{row.lot.tender.title}}
+    {{#if row.lot.title}}
+      - {{row.lot.title}}
+     {{/if}}
+    {{/link-to}}
 </td>
 <td class="buyer">
-  <span class="figure-procurer small"></span>
-  {{#link-to "network.show.details.show" "procurers" row.procuring_entity.x_slug_id}}
-    {{row.procuring_entity.name}}
-  {{/link-to}}
-  <br>
+  <span class="figure-buyer small"></span>
+  {{#each row.lot.tender.buyers as |buyer|}}
+    {{#link-to "network.show.details.show" "buyers" buyer.nodeID}}
+      {{buyer.name}}
+    {{/link-to}}
+    <br>
+  {{/each}}
   <br>
 </td>
-<td class="bids">{{row.number_of_tenderers}}</td>
-<td class="award">{{format-amount row.award.value.x_amount_eur '0,0.00'}} €</td>
+<td class="bids">{{row.lot.bidsCount}}</td>
+<td class="award">{{format-amount row.lot.tender.finalValue '0,0.00'}} €</td>

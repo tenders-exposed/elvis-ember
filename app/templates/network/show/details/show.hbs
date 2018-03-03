@@ -3,9 +3,9 @@
     {{#if readyToRender}}
         {{log modelDetails}}
         {{#if modelDetails}}
-          {{#if (eq tab 'suppliers')}}
+          {{#if (eq tab 'bidders')}}
             {{partial 'network/show/details/partials/supplier'}}
-          {{else if (eq tab 'procurers')}}
+          {{else if (eq tab 'buyers')}}
             {{partial 'network/show/details/partials/procurer'}}
           {{else if (eq tab 'relationships')}}
             {{partial 'network/show/details/partials/relationship'}}
