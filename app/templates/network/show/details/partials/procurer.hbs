@@ -47,7 +47,11 @@
       </section>
 
       <section class="row">
-        <div class="col s4 summary">
+        <div class="col s2 summary">
+          <h5 class="summary-title">Bids awarded</h5>
+          <div class="summary-value">{{format-amount modelDetails.numberOfWinningBids}}</div>
+        </div>
+        <div class="col s3 summary">
           <h5 class="summary-title">All awarded amounts</h5>
           <div class="summary-value">{{format-amount modelDetails.amountOfMoneyExchanged}} €</div>
         </div>
