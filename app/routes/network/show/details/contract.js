@@ -26,8 +26,10 @@ export default Route.extend({
 
           results.isCoveredByGpa = results.isCoveredByGpa ? 'check' : 'close';
           results.isFrameworkAgreement = results.isFrameworkAgreement ? 'check' : 'close';
-          results.isEuFunded = 'question';
+          results.isEuFunded = (typeof results.isEuFunded !== 'undefined')
+            ? (results.isEuFunded ? 'check' : 'close') : 'question';
 
+          results.selectionMethod = results.lots[0].selectionMethod;
           results.bidders = [];
           _.forEach(results.lots, function (lot) {
             // select only the winning bids
