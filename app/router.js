@@ -19,6 +19,7 @@ ElvisRouter.map(function() {
     });
     this.route('show', { path: ':id' });
     this.route('new');
+    this.route('oauth-callback');
   });
 
   this.route('network', function() {

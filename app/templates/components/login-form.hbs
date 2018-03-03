@@ -16,5 +16,11 @@
     </div>
     <br>
     {{async-button action=(action "authenticate" fakeUser) default="Sign in" pending="Logging in..." class="btn primary"}}
+    <a class="btn primary" href="https://dev.api.tenders.exposed/account/login/github">
+      <i class="fa fa-github"></i> Log in with GitHub
+    </a>
+    <a class="btn primary" {{action "authenticateTwitter"}}>
+      <i class="fa fa-twitter"></i> Log in with Twitter
+    </a>
     {{#link-to "account.recover" class="btn link primary"}}Lost password?{{/link-to}}
 </form>
