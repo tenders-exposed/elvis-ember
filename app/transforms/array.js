@@ -7,6 +7,6 @@ export default DS.Transform.extend({
   },
 
   serialize(deserialized) {
-    return isBlank(deserialized) ? [] : deserialized;
+    return deserialized;
   }
 });

@@ -32,8 +32,8 @@ export default Controller.extend({
   }),
 
   loading: {
-    years: false,
-    cpvs: false
+    years: true,
+    cpvs: true
   },
 
   countries: [],
@@ -47,7 +47,10 @@ export default Controller.extend({
     }
   }),
   yearsStatus: computed('query.{countries,actors}', function() {
-    if (this.get('query.countries').length > 0 || this.get('query.actors').length > 0) {
+     if (!this.get('loadingYears') &&
+     (this.get('query.countries').length > 0 || this.get('query.actors').length > 0)) {
+
+   // if (this.get('query.countries').length > 0 || this.get('query.actors').length > 0) {
       return 'completed';
     } else {
       return 'disabled';
@@ -116,7 +119,7 @@ export default Controller.extend({
     // console.log('observer selectedCodes', this.get('selectedCodes'));
     this.set(
       'selectedCodesCount',
-      _.sumBy(this.get('selectedCodes'), (o) => o.original.count)
+      _.sumBy(this.get('selectedCodes'), function(o) { return o.original.count; })
     );
   }),
 
@@ -281,6 +284,8 @@ export default Controller.extend({
     if (bidders.length > 0) {
       options.bidders = _.map(bidders, (s) => s.x_slug_id);
     }
+
+    // console.log('fetchyears payload', options);
     this.get('ajax')
       .request('/tenders/years', {
         data: options,
@@ -289,14 +294,13 @@ export default Controller.extend({
         }
       })
       .then((data) => {
-        // console.log('fetchYears', data);
         let { years } = data;
         this.set('years', years);
         this.set('loading.years', false);
         if (this.get('selectedCodes').length > 0) {
           this.set('loading.cpvs', true);
           this.set('selectedCodes', []);
-          this.set('loading.cpvs', false);
+          // this.set('loading.cpvs', false);
         }
       });
   },
@@ -320,18 +324,19 @@ export default Controller.extend({
 
     let options = {};
     if (countries.length > 0) {
-      options.countries = countries;
+      options.countries = _.join(countries, ',');
     }
     if (buyers.length > 0) {
-      options.buyers = _.map(buyers, (p) => p.id);
+      options.buyers = _.join(_.map(buyers, (p) => p.id), ',');
     }
     if (bidders.length > 0) {
-      options.bidders = _.map(bidders, (s) => s.id);
+      options.bidders = _.join(_.map(bidders, (s) => s.id), ',');
     }
     if (years.length > 0) {
       // options.query.years = [2005,2006];
-      options.years = years;
+      options.years = _.join(years, ',');
     }
+    // console.log('data cpvs payload', options);
 
     if (countries.length > 0 || actors.length > 0) {
       self.get('ajax')
@@ -356,6 +361,7 @@ export default Controller.extend({
         this.get('query.countries').push(v.code);
       });
       this.fetchYears();
+      // console.log('fetch cpvs on onCountrySelectEvent');
       this.fetchCpvs();
     },
     onAutocompleteSelectEvent(value) {
@@ -363,7 +369,9 @@ export default Controller.extend({
       value.forEach((v) => {
         this.get('query.actors').push(v.id);
       });
+
       this.fetchYears();
+      // console.log('fetch cpvs on onAutocompleteSelectEvent');
       this.fetchCpvs();
     },
     actorTermChanged(queryTerm) {
@@ -406,20 +414,23 @@ export default Controller.extend({
     },
     rangeChangeAction(value) {
       // destroy the tree, if any
-      if (this.get('jsTree')) {
-        this.get('jsTree').destroy();
+      if(this.get('yearsStatus') == 'completed'){
+        if (this.get('jsTree')) {
+          this.get('jsTree').destroy();
+        }
+
+        this.set('query.years', []);
+        this.get('query.years').push(value[0]);
+        this.get('query.years').push(value[1]);
+        run.scheduleOnce('afterRender', function() {
+          $('span.left-year').text(value[0]);
+          $('span.right-year').text(value[1]);
+        });
+        this.set('query.years', _.range(this.get('query.years')[0], ++this.get('query.years')[1]));
+
+        // console.log('fetchCpvs - on rangeCangeAction');
+        this.fetchCpvs();
       }
-
-      this.set('query.years', []);
-      this.get('query.years').push(value[0]);
-      this.get('query.years').push(value[1]);
-      run.scheduleOnce('afterRender', function() {
-        $('span.left-year').text(value[0]);
-        $('span.right-year').text(value[1]);
-      });
-      this.set('query.years', _.range(this.get('query.years')[0], ++this.get('query.years')[1]));
-
-      this.fetchCpvs();
     },
 
     submitQuery() {
@@ -429,7 +440,7 @@ export default Controller.extend({
       let cpvs = this.get('query.cpvs');
       let years = this.get('query.years');
 
-      console.log('submitquery - year', years);
+      // console.log('submitquery - year', years);
 
       let bidders = _.filter(
         rawActors,

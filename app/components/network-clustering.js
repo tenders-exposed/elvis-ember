@@ -252,7 +252,8 @@ export default Component.extend({
             // else add=>post
             if ((typeof cluster.id === 'undefined') || !cluster.id) {
               // this means that the cluster is not saved yet and must add it.
-              console.log('must create cluster', clusterF);
+              // console.log('must create cluster', clusterF);
+              // console.log('must create cluster with token', token);
               promises[index] =
                 self.get('ajax')
                   .post(`/networks/${networkId}/clusters`, {

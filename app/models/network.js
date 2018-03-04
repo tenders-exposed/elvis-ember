@@ -9,7 +9,7 @@ export default Model.extend({
   query: attr(),
   nodes: attr('nodes'),
   edges: attr(),
-  clusters: attr(),
+  clusters: attr('array'),
   settings: attr('object', {
     defaultValue: () => {
       return {
