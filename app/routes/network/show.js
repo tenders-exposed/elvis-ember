@@ -21,7 +21,6 @@ export default Route.extend({
   },
 
   afterModel(model) {
-    this.get('benchmark').store('performance.network.save', (performance.now() - this.get('requestTimer')));
     this.titleToken = `${this.titleToken} ${model.get('name') || model.id}`;
     model = this.get('networkService').setModel(model);
 

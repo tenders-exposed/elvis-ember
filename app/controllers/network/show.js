@@ -137,8 +137,6 @@ export default Controller.extend({
     let nodes = this.get('model.graph.nodes').length;
     let edges = this.get('model.graph.edges').length;
 
-    this.get('benchmark').store('performance.network.iterationsTime', timeS);
-    this.get('benchmark').save();
 
     let message =
       `
@@ -414,7 +412,6 @@ export default Controller.extend({
         let diff = event.iterations - this.get('stIterations');
         Logger.info(`Network was stabilized using ${diff} iterations more than assumed (${this.get('stIterations')})`);
       }
-      this.get('benchmark').store('performance.network.iterationsCount', event.iterations);
     }
   }
 });
