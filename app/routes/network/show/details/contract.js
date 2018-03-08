@@ -22,13 +22,18 @@ export default Route.extend({
           let results = data.tender;
           results.entityId = entityId;
           results.tab = tab;
-          // let details = { 'yes': 'check', 'no': 'close', 'null': 'question' };
 
-          results.isCoveredByGpa = results.isCoveredByGpa ? 'check' : 'close';
-          results.isFrameworkAgreement = results.isFrameworkAgreement ? 'check' : 'close';
-          results.isEuFunded = (typeof results.isEuFunded !== 'undefined')
-            ? (results.isEuFunded ? 'check' : 'close') : 'question';
+          // labels
+          results.isCoveredByGpa = (typeof results.isCoveredByGpa !== 'undefined')
+            ? (results.isCoveredByGpa ? 'check' : 'close') : 'question';
 
+          results.isFrameworkAgreement = (typeof results.isFrameworkAgreement !== 'undefined')
+            ? (results.isFrameworkAgreement ? 'check' : 'close') : 'question';
+
+          results.isEuFunded = (typeof results.isEUFunded !== 'undefined')
+            ? (results.isEUFunded ? 'check' : 'close') : 'question';
+
+          // from lots
           results.selectionMethod = results.lots[0].selectionMethod;
           results.bidders = [];
           _.forEach(results.lots, function (lot) {
@@ -38,12 +43,10 @@ export default Route.extend({
             });
 
             // retrieve the year of the first winning bid
-            let TEDCANID = winningBids[0].TEDCANID;
+            let TEDCANID = (typeof results.TEDCANID !== 'undefined') ? results.TEDCANID : winningBids[0].TEDCANID;
             results.tedYear = TEDCANID.substring(0,4);
-            results.tedNumber = TEDCANID.substring(11,TEDCANID.length);
-
-            // @todo: with the observation that this is not the actual tender country from payload is the first country in the query.countries from query builder
-            results.tedCountry = _.lowerCase(countries[0]);
+            let tedIdParts = _.split(TEDCANID,'-');
+            results.tedNumber = _.last(tedIdParts);
 
             // add to bidders if unique
             _.forEach(winningBids, function (bid) {
