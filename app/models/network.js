@@ -42,6 +42,36 @@ export default Model.extend({
   graph: computed('nodes', 'edges', function () {
     let nodes = this.get('nodes');
     if(this.get('clusters').length > 0) {
+      _.each(this.get('clusters'), function (cluster) {
+        if (cluster.type == 'buyer') {
+          cluster.color = {
+            background: "rgb(246, 49, 136)",
+            border: "rgb(121,242,249,1)",
+            hover: {
+              background: "rgb(246, 49, 136)",
+              border: "rgb(121,242,249,1)"
+            },
+            highlight: {
+              background: "rgb(246, 49, 136)",
+              border: "rgb(121,242,249,1)"
+            }
+          };
+        } else {
+          cluster.color = {
+            background: "rgb(36, 243, 255)",
+            border: "rgb(255,89,162,1)",
+            hover: {
+              background: "rgb(36, 243, 255)",
+              border: "rgb(255,89,162,1)"
+            },
+            highlight: {
+              background: "rgb(36, 243, 255)",
+              border: "rgb(255,89,162,1)"
+            }
+          };
+        }
+        cluster.cluster = true;
+      });
       nodes.pushObjects(this.get('clusters'));
     }
     return {

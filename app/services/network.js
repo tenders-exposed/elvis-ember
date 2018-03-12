@@ -138,6 +138,7 @@ export default Service.extend({
       let nodeDetails = {
         type: node.type,
         id: node.id,
+        hidden: node.hidden,
         value: valueFormat(node.value),
         medianCompetition: valueFormat(node.medianCompetition),
         unformattedValue: node.value,
@@ -176,10 +177,11 @@ export default Service.extend({
      /*
       "edges": [
       {
+      "id": "string",
       "type": "contracts",
-      "value": 0,
-      "from": "string",
       "to": "string",
+      "from": "string",
+      "value": 0,
       "hidden": true
       }
       ]
@@ -210,7 +212,7 @@ export default Service.extend({
         unformattedValue: edge.options.value,
         valueType: edgeValueType,
         id: edgeId,
-        link: `${edge.from.options.id}-${edge.to.options.id}`,
+        link: `${edge.options.id}`,
         route: 'relationships'
       };
       relationships.pushObject(edgeDetails);

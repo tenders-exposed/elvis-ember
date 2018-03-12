@@ -34,8 +34,8 @@
     {{#ember-scrollable}}
 
       {{#each content as |row|}}
-        <tr class="{{if row.isSelected 'selected'}}">
-            <td class="{{if row.cluster (concat 'cluster ' name) name}} item-figure">
+        <tr class="{{if row.isSelected 'selected'}} {{if row.hidden "hidden"}}">
+            <td class="item-figure">
               {{#if row.isCluster}}
                 <span class="containedNodes">
                   {{row.containedNodesCount}}
@@ -54,8 +54,8 @@
                 {{!-- relationships --}}
                 {{#if row.toLabel}}
                   {{#link-to "network.show.details.show" route row.link}}
-                    <small class="item-entity"><span class="figure-buyer"></span>&nbsp;{{row.toLabel}}</small><br>
-                    <small class="item-entity"><span class="figure-bidder"></span>&nbsp;{{row.fromLabel}}</small>
+                    <small class="item-entity"><span class="figure-buyer"></span>&nbsp;{{row.fromLabel}} </small><br>
+                    <small class="item-entity"><span class="figure-bidder"></span>&nbsp;{{row.toLabel}} </small>
                   {{/link-to}}
                 {{/if}}
                 {{!-- buyers / bidders --}}
