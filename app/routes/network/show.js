@@ -17,6 +17,15 @@ export default Route.extend({
       params.network_id,
       { reload: true }
     );
+    console.log('modelShow', modelShow);
+
+    modelShow.then(
+      (response) => {
+        console.log('request succes with response', response);
+      }, (response) => {
+        console.log('request faild with response', response);
+      }
+    );
     return modelShow;
   },
 
@@ -46,7 +55,7 @@ export default Route.extend({
   },
   actions: {
     closeClustering(modified) {
-      console.log('closeClustering');
+      // console.log('closeClustering');
       this.controllerFor('network.show').set('networkClusteringModal', false);
       // check if clusters have been modified
       if (modified) {

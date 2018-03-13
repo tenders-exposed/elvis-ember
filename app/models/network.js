@@ -25,7 +25,7 @@ export default Model.extend({
     let edgesFlagged = _.cloneDeep(this.get('edges'));
 
     _.map(edgesFlagged, (edge) => {
-      if (Object.keys(edge.flags).length > 0) {
+      if ((typeof edge.flags !== 'undefined') && Object.keys(edge.flags).length > 0) {
         let flags = '';
         for (let i = 0; i < Object.keys(edge.flags).length; i++) {
           flags += '⚑';
@@ -36,6 +36,7 @@ export default Model.extend({
 
       }
     });
+
     return edgesFlagged;
   }),
 
