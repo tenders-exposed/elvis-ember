@@ -13,7 +13,8 @@ export default Route.extend({
   endpoints: {
     bidders: 'nodes',
     buyers: 'nodes',
-    relationships: 'edges'
+    relationships: 'edges',
+    clusters: 'clusters'
   },
   controller: computed(function() {
     return this.controllerFor('network.show.details.show');
@@ -52,6 +53,10 @@ export default Route.extend({
   getModelDetails(nodeId, endpoint, filterById) {
     let self = this;
     let dataEntity = {};
+    let idParts = _.split(nodeId, '_');
+    nodeId = _.last(idParts);
+    // if we have multiple parts like c-id then we have a cluster endpoint
+    let endpointQ = idParts.length > 1 ? 'clusters' : endpoint;
 
     let networkModel = this.modelFor('network.show');
     let networkId  = networkModel.get('id');
@@ -64,15 +69,19 @@ export default Route.extend({
     dataEntity.networkId = networkId;
 
     // console.log('dataEntity  before request', dataEntity);
-    // console.log(`/networks/${networkId}/${this.endpoints[endpoint]}/${nodeId}`);
+    // console.log(`/networks/${networkId}/${this.endpoints[endpointQ]}/${nodeId}`);
 
     return this.get('ajax')
-      .request(`/networks/${networkId}/${this.endpoints[endpoint]}/${nodeId}`)
+      .request(`/networks/${networkId}/${this.endpoints[endpointQ]}/${nodeId}`)
       .then(
         (data) => {
 
           // extract the unique buyers / bidders for bidder / buyer
-          if (endpoint != 'relationships') {
+          if (endpointQ == 'clusters') {
+            Object.assign(dataEntity, data.cluster);
+            dataEntity.nodes = self.processContracts(dataEntity.winningBids, endpoint);
+
+          } else if (endpointQ != 'relationships') {
             Object.assign(dataEntity, data.node);
             dataEntity.nodes = self.processContracts(dataEntity.winningBids, endpoint);
             this.titleToken = dataEntity.name;
@@ -81,8 +90,8 @@ export default Route.extend({
             Object.assign(dataEntity, data.edge);
           }
 
+          console.log('dataEntity - after request', dataEntity);
           dataEntity.contractsCount = dataEntity.winningBids.length;
-          // console.log('dataEntity - after request', dataEntity);
           return dataEntity;
 
         }, (response) => {

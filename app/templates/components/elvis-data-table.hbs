@@ -60,9 +60,15 @@
                 {{/if}}
                 {{!-- buyers / bidders --}}
                 {{#if row.label}}
-                  {{#link-to "network.show.details.show" route row.link}}
-                    {{row.label}}
-                  {{/link-to}}
+                  {{#if row.isCluster}}
+                    {{#link-to "network.show.details.show" route (concat "c_" row.link)}}
+                      {{row.label}}
+                    {{/link-to}}
+                  {{else}}
+                    {{#link-to "network.show.details.show" route row.link}}
+                      {{row.label}}
+                    {{/link-to}}
+                  {{/if}}
                 {{/if}}
               {{/link-to}}
             </td>

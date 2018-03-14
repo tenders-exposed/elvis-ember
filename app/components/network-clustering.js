@@ -196,7 +196,7 @@ export default Component.extend({
         // check to see if it was saved
         if (this.get('clusters')[clusterIndex].id) {
           this.get('deletedClusters').push(this.get('clusters')[clusterIndex].id);
-          console.log('delete Cluster ', clusterIndex);
+          // console.log('delete Cluster ', clusterIndex);
         }
         this.get('clusters').removeAt(clusterIndex);
       }
@@ -254,8 +254,8 @@ export default Component.extend({
             // else add=>post
             if ((typeof cluster.id === 'undefined') || !cluster.id) {
               // this means that the cluster is not saved yet and must add it.
-               console.log('must create cluster', clusterF);
-               console.log('must create cluster with token', token);
+              // console.log('must create cluster', clusterF);
+              // console.log('must create cluster with token', token);
               promises[index] =
                 self.get('ajax')
                   .post(`/networks/${networkId}/clusters`, {
@@ -267,13 +267,13 @@ export default Component.extend({
                   })
                   .then((response) => {
                     // store all inner promises
-                    // console.log('response', response);
+                     console.log('response', response);
                     dataPromises.push(response);
                   });
 
             } else if (cluster.edit) {
               // then check if the cluster was modified => must update it
-              console.log('must update cluster', clusterF);
+              // console.log('must update cluster', clusterF);
               promises[index] =
                 self.get('ajax')
                   .request(`/networks/${networkId}/clusters/${cluster.id}`, {

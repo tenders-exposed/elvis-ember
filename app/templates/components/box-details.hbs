@@ -28,7 +28,12 @@
             <td class="value">{{format-amount model.value '0,0[.]00 a'}}</td>
             <td class="label">
               {{#if (eq networkModel.settings.nodeSize "numberOfWinningBids")}}
-                Bids won
+                {{#if (eq class "buyer")}}
+                  Awarded bids
+                {{else}}
+                  Bids won
+                {{/if}}
+
               {{else}}
                 Total money flow
               {{/if}}
