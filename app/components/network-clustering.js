@@ -7,6 +7,7 @@ export default Component.extend({
   clusters: [],
   searchNode: '',
   searchCluster: '',
+  savingClusters: false,
   modified: false,
   modifiedCluster: false,
   currentClusterIndex: 0,
@@ -229,6 +230,7 @@ export default Component.extend({
 
       function makeClusters(clusters, deletedClusters) {
         // console.log('into makeClusters');
+        self.set('savingClusters', true);
         let networkId = self.get('networkId');
         let token = self.get('me.data.access_token');
 
@@ -252,8 +254,8 @@ export default Component.extend({
             // else add=>post
             if ((typeof cluster.id === 'undefined') || !cluster.id) {
               // this means that the cluster is not saved yet and must add it.
-              // console.log('must create cluster', clusterF);
-              // console.log('must create cluster with token', token);
+               console.log('must create cluster', clusterF);
+               console.log('must create cluster with token', token);
               promises[index] =
                 self.get('ajax')
                   .post(`/networks/${networkId}/clusters`, {
@@ -284,16 +286,16 @@ export default Component.extend({
                   })
                   .then((response) => {
                     // store all inner promises
-                    // console.log('response', response);
+                     console.log('response', response);
                     dataPromises.push(response);
                   });
             }
           });
 
           if (deletedClusters.length > 0) {
-            // console.log('we have deletedClusters');
+             console.log('we have deletedClusters');
             _.each(deletedClusters, function(clusterId, index) {
-              // console.log('must deleteCluster cluster', clusterId);
+               console.log('must deleteCluster cluster', clusterId);
               let promiseDelete =  self.get('ajax')
                 .request(`/networks/${networkId}/clusters/${clusterId}`, {
                   method: 'delete',
@@ -304,7 +306,7 @@ export default Component.extend({
                 })
                 .then((response) => {
                   // store all inner promises
-                  // console.log('response', response);
+                   console.log('response', response);
                   dataPromises.push(response);
                 });
               promises.push(promiseDelete);
@@ -326,15 +328,18 @@ export default Component.extend({
         });
       }
 
+      console.log('makeclusters -modified', this.get('modified'));
+      console.log('makeclusters -clsters', this.get('clusters'));
+
       if (this.get('modified')) {
         makeClusters(this.get('clusters'), this.get('deletedClusters')).then(function(json) {
           // on fulfillment
-          // console.log('makeclusters -response- then', json);
-
+           console.log('makeclusters -response- then', json);
+          self.set('savingClusters', false);
           self.sendAction('action', self.get('modified'));
           self.set('modified', false);
         }, function(reason) {
-          // console.log('makeclusters -response- rejection', reason);
+           console.log('makeclusters -response- rejection', reason);
           // on rejection
           self.get('notifications').clearAll();
           _.forEach(response.errors, (error, index) => {

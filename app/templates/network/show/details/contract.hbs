@@ -36,7 +36,7 @@
           <a class="btn-small link primary" href="http://ted.europa.eu/udl?uri=TED:NOTICE:{{model.tedNumber}}-{{model.tedYear}}:TEXT:EN:HTML">
             view on ted.europa.eu <i class="fa fa-external-link"></i>
           </a>
-          <a class="btn-small link primary" href="https://opentender.eu/{{model.tedCountry}}/tender/{{model.id}}">
+          <a class="btn-small link primary" href="https://opentender.eu/{{model.country}}/tender/{{model.id}}">
             view on opentender.eu <i class="fa fa-external-link"></i>
           </a>
         </section>
@@ -57,7 +57,7 @@
           <!-- TODO: output bool variables only if their value is TRUE -->
           <div class="tags">
               <!-- TODO: output proper country and flag-->
-              {{!--<span class="tag">{{world-flag 'DE' 16}} Germany</span>--}}
+              <span class="tag">{{world-flag model.country 16}} {{model.country}}</span>
               <!-- TODO: output isEuFunded variable -->
               <span class="tag">
                 {{fa-icon model.isEuFunded size="1"}}
@@ -89,12 +89,12 @@
           <div class="col s3 summary">
             <!-- TODO: output procedureType variable -->
             <h5 class="summary-title">Procedure</h5>
-            <div class="summary-value"> {{format-empty model.procedureType  "n/a"}} </div>
+            <div class="summary-value"> {{format-empty model.procedureType}} </div>
           </div>
           <div class="col s3 summary">
             <!-- TODO: output awardCriteria variable -->
             <h5 class="summary-title">Award criteria</h5>
-            <div class="summary-value"> {{format-empty model.selectionMethod "n/a"}} </div>
+            <div class="summary-value"> {{format-empty model.selectionMethod}} </div>
           </div>
         </section>
 
@@ -185,10 +185,14 @@
                   <div class="col s4">
                     <h5>Address of Implementation</h5>
                     <address>
-                      {{#if lot.addressOfImplementation}}
-                          {{lot.addressOfImplementation.rawAddress}}
+                      {{#if lot.addressOfImplementation.street}}
+                        {{lot.addressOfImplementation.street}}
+                      {{else}}
+                        {{format-empty lot.addressOfImplementation.rawAddress}}
                       {{/if}}
-                    </address>
+                      {{#if lot.addressOfImplementation.city}}<br/>{{lot.addressOfImplementation.city}}{{/if}}
+                      {{#if lot.addressOfImplementation.country}}<br/>{{lot.addressOfImplementation.country}}{{/if}}
+                  </address>
                   </div>
                 </section>
 

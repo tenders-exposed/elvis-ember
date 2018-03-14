@@ -25,20 +25,20 @@
         Displaying Period: <strong>{{modelDetails.firstYear}} - {{modelDetails.lastYear}}</strong>
       </h5>
 
-      <section class="external-links">
+     {{!-- <section class="external-links">
         <a class="btn-small link primary" href="http://opented.eu">view on opentender.eu <i class="fa fa-external-link"></i></a>
-      </section>
+      </section>--}}
 
       <section>
         <h5>Name</h5>
         <h2>{{modelDetails.label}}</h2>
 
         <div class="tags">
-          {{#each modelDetails.countries as |country|}}
+          {{!--{{#each modelDetails.countries as |country|}}
             <span class="tag">
               {{world-flag country 16}} {{country}}
             </span>
-          {{/each}}
+          {{/each}}--}}
 
           {{#each-in modelDetails.flags as |flName flValue|}}
             <span class="tag redflag"><i class="fa fa-flag"></i> {{flName}}</span>

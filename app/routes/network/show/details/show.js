@@ -13,7 +13,7 @@ export default Route.extend({
   endpoints: {
     bidders: 'nodes',
     buyers: 'nodes',
-    relationships: ''
+    relationships: 'edges'
   },
   controller: computed(function() {
     return this.controllerFor('network.show.details.show');
@@ -53,7 +53,6 @@ export default Route.extend({
     let self = this;
     let dataEntity = {};
 
-    // let endpointQ = this.endpoints[endpoint];
     let networkModel = this.modelFor('network.show');
     let networkId  = networkModel.get('id');
     let { years } = networkModel.get('query');
@@ -71,44 +70,27 @@ export default Route.extend({
       .request(`/networks/${networkId}/${this.endpoints[endpoint]}/${nodeId}`)
       .then(
         (data) => {
-          Object.assign(dataEntity, data.node);
-          // console.log('dataEntity - after request', dataEntity);
-          // extract the unique buyers / bidders for bidder / buyer
-          dataEntity.nodes = self.processContracts(dataEntity.winningBids, endpoint);
-          dataEntity.contractsCount = dataEntity.winningBids.length;
-          // only if we are not in a relationship
-          // relationships do not requier the bidders/ buyers
-          /*if (!filterById) {
-            dataEntity = self.processContracts(dataEntity, endpoint);
-          }*/
 
-          this.titleToken = dataEntity.name;
+          // extract the unique buyers / bidders for bidder / buyer
+          if (endpoint != 'relationships') {
+            Object.assign(dataEntity, data.node);
+            dataEntity.nodes = self.processContracts(dataEntity.winningBids, endpoint);
+            this.titleToken = dataEntity.name;
+
+          } else {
+            Object.assign(dataEntity, data.edge);
+          }
+
+          dataEntity.contractsCount = dataEntity.winningBids.length;
+          // console.log('dataEntity - after request', dataEntity);
           return dataEntity;
+
         }, (response) => {
           self.get('notifications').clearAll();
           _.forEach(response.errors, (error, index) => {
             self.get('notifications').error(`Error: ${index } ${error.title}`);
           });
         });
-  },
-
-  // not sure if this is needed anymore
-  setNodeDetails(nodeId, endpoint, filterContracts) {
-    let node =  this.get('networkService').getNodeById(nodeId);
-    let requestedIds = [nodeId];
-
-    // if it is a cluster get the ids of nodes in that cluster
-    // should check in another way
-
-    /*if (this.get('networkService').get('network.network').clustering.isCluster(nodeId)) {
-      // get the nodes in that cluster
-      let clusterDetails = _.find(this.get('networkService.clusters'), (o) => {
-        return o.id == nodeId;
-      });
-      requestedIds = clusterDetails.node_ids;
-    }*/
-
-    return this.getModelDetails(node, requestedIds, endpoint, filterContracts);
   },
 
   setModelDetails() {
@@ -118,30 +100,20 @@ export default Route.extend({
     let endpoint  = this.paramsFor('network.show.details').tab;
 
     if (endpoint === 'relationships') {
-      let [from,to] = _.split(params.id, '-');
-      let fromId = [from];
-      // find node
-      let fromNode = this.get('networkService').getNodeById(from);
-      // determine if from is node or cluster
-      if (this.get('networkService').get('network.network').clustering.isCluster(from)) {
-        let clusterDetails = _.find(this.get('networkService.clusters'), (o) => {
-          return o.id == from;
-        });
-        fromId = clusterDetails.node_ids;
-      }
+      let edge = this.get('networkService').getEdgeById(params.id);
 
-      // & filterContracts by queryIds, by the buyer id or ids (if cluster)
-      this.setNodeDetails(to, 'bidders', fromId).then((dataTo) => {
-        controller.set('modelDetails', { 'from': { 'name': fromNode.label }, 'to': dataTo });
+      this.getModelDetails(params.id, endpoint, false).then((data) => {
+        data.fromLabel =  edge.fromLabel;
+        data.toLabel =  edge.toLabel;
+
+        controller.set('modelDetails', data);
         controller.set('readyToRender', true);
-
       }).catch((error) => {
         Logger.error('Error:', error);
       });
 
     } else {
       // for a single node
-      // setNodeDetails(nodeId, endpoint, filterContracts)
       this.getModelDetails(params.id, endpoint, false).then((data) => {
         controller.set('modelDetails', data);
         controller.set('readyToRender', true);

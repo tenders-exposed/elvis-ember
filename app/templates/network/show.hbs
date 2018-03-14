@@ -60,10 +60,12 @@
         {{fa-icon 'cogs'}}
         <div class="tooltip"> Stop movement </div>
       </a>
+      {{#if session.isAuthenticated}}
       <a class="vis-button" {{action "showClustering" on="click"}}>
         {{fa-icon 'database' size=1}}
         <div class="tooltip"> Merge nodes </div>
       </a>
+      {{/if}}
       <a class="vis-button" {{action "toggleCrop" on="click"}}>
         {{fa-icon 'crop' size=1}}
         <div class="tooltip"> Export image </div>

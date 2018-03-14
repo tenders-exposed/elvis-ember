@@ -5,145 +5,156 @@
       <div class="row">
         <div class="col s12">
           <h4 >Node Merging</h4>
+          {{#unless savingClusters}}
           <span {{action "closeModal" on="click"}}>
               {{fa-icon 'times-circle' size=2 class="close"}}
           </span>
           <br><br>
+          {{/unless}}
         </div>
-        <div class="col s6 nodes">
-          <div class="col-label ">
+        {{#if savingClusters}}
+          <div class="col s12">
+            {{elvis-loader shouldRender=false message="Saving clusters.."}}
+          </div>
+        {{else}}
+          <div class="col s6 nodes">
+            <div class="col-label ">
               <div class="nodes-filter-buttons right">
-                  <span class="tab-icon figure-bidder" {{action "filterNodes" "bidder" on="click"}}></span>
-                  <span class="tab-icon figure-buyer" {{action "filterNodes" "buyer" on="click"}}></span>
-                  <span class="tab-icon figure-all"  {{action "filterNodes" "all" on="click"}}></span>
+                <span class="tab-icon figure-bidder" {{action "filterNodes" "bidder" on="click"}}></span>
+                <span class="tab-icon figure-buyer" {{action "filterNodes" "buyer" on="click"}}></span>
+                <span class="tab-icon figure-all"  {{action "filterNodes" "all" on="click"}}></span>
               </div>
-            <h5>Nodes</h5>
-          </div>
-          <div class="search search-node-list">
-            <div class="input-field search">
+              <h5>Nodes</h5>
+            </div>
+            <div class="search search-node-list">
+              <div class="input-field search">
               <span class="input-prefix">
                 {{fa-icon 'search'}}
               </span>
-              {{input
-                  type="text"
-                  placeholder="find node..."
-                  class="search-input"
-                  value=searchNode
-                  key-up="searchNodeList"
-              }}
+                {{input
+                    type="text"
+                    placeholder="find node..."
+                    class="search-input"
+                    value=searchNode
+                    key-up="searchNodeList"
+                }}
+              </div>
             </div>
-          </div>
-          <div class="nodes-lists">
-            {{#ember-scrollable}}
-            {{#each nodesClustering as |node|}}
-              {{#unless (or node.hide node.filtered)}}
-                {{#draggable-object content=node overrideClass="cluster-node list "}}
-                  <span class="node-type {{node.type}}"></span>
-                  <span class="node-label">{{node.label}}</span>
-                {{/draggable-object}}
-              {{/unless}}
-            {{/each}}
-            {{/ember-scrollable}}
-          </div>
+            <div class="nodes-lists">
+              {{#ember-scrollable}}
+                {{#each nodesClustering as |node|}}
+                  {{#unless (or node.hide node.filtered)}}
+                    {{#draggable-object content=node overrideClass="cluster-node list "}}
+                      <span class="node-type {{node.type}}"></span>
+                      <span class="node-label">{{node.label}}</span>
+                    {{/draggable-object}}
+                  {{/unless}}
+                {{/each}}
+              {{/ember-scrollable}}
+            </div>
 
-        </div>
-        <div class="col s6 clusters">
-          <div class="col-label">
-            <h5>Clusters</h5>
           </div>
-          <div class="search search-cluster-list">
-            <div class="input-field search">
+          <div class="col s6 clusters">
+            <div class="col-label">
+              <h5>Clusters</h5>
+            </div>
+            <div class="search search-cluster-list">
+              <div class="input-field search">
               <span class="input-prefix">
                 {{fa-icon 'search'}}
               </span>
-              {{input
-                  type="text"
-                  placeholder="find in clusters..."
-                  class="search-input"
-                  value=searchCluster
-                  key-up="searchClusterList"
-              }}
+                {{input
+                    type="text"
+                    placeholder="find in clusters..."
+                    class="search-input"
+                    value=searchCluster
+                    key-up="searchClusterList"
+                }}
+              </div>
             </div>
-          </div>
             <div class="cluster-list-wrapper">
-            {{#ember-scrollable}}
+              {{#ember-scrollable}}
                 <div class="cluster-list">
-                    <div class="cluster-list-inner">
+                  <div class="cluster-list-inner">
                     {{#each clusters as |cluster index|}}
                       {{#unless cluster.hide}}
-                          {{#draggable-object-target action="addToCluster" index=index overrideClass=(concat "cluster cluster" index " isempty-"cluster.empty)}}
-                            {{#if cluster.empty}}
-                              <span class="cluster-drag-here">drag nodes here to create a cluster</span>
+                        {{#draggable-object-target action="addToCluster" index=index overrideClass=(concat "cluster cluster" index " isempty-"cluster.empty)}}
+                          {{#if cluster.empty}}
+                            <span class="cluster-drag-here">drag nodes here to create a cluster</span>
+                          {{else}}
+                          {{!--
+                          <div class="cluster-name center-align">
+                            {{#if cluster.name}}
+                              {{cluster.name }}
                             {{else}}
-                              {{!--
-                              <div class="cluster-name center-align">
-                                {{#if cluster.name}}
-                                  {{cluster.name }}
-                                {{else}}
-                                  cluster {{index}}
-                                {{/if}}
-                                <span class="edit-cluster" {{action "editCluster" index on="click"}}>
-                                  {{fa-icon "pencil" size=1 class="control-icon"}}
-                                </span>
+                              cluster {{index}}
+                            {{/if}}
+                            <span class="edit-cluster" {{action "editCluster" index on="click"}}>
+                              {{fa-icon "pencil" size=1 class="control-icon"}}
+                            </span>
 
-                              </div>
-                              --}}
+                          </div>
+                          --}}
 
-                                <div class="edit-cluster-input">
-                                  <span class="cluster-type {{cluster.type}}"><i class="fa fa-database"></i></span>
+                            <div class="edit-cluster-input">
+                              <span class="cluster-type {{cluster.type}}"><i class="fa fa-database"></i></span>
 
-                                  {{input type="text"
-                                          value=cluster.label
-                                          placeholder=(concat "cluster " index)
-                                          class="cluster-text-input"
-                                          focusIn=(action "editCluster" index)
-                                          focusOut=(action "saveClusterName" cluster.label index) }}
-                                  <div class="edit-cluster-controls">
-                                      <span class="edit-cluster-name hide" {{action "editCluster" index on="click"}}>
-                                          {{fa-icon "pencil" size=1 class="control-icon"}}
+                              {{input type="text"
+                                      value=cluster.label
+                                      placeholder=(concat "cluster " index)
+                                      class="cluster-text-input"
+                                      focusIn=(action "editCluster" index)
+                                      focusOut=(action "saveClusterName" cluster.label index) }}
+                              <div class="edit-cluster-controls">
+                                      <span class="edit-cluster-name" {{action "editCluster" index on="click"}}>
+                                        {{fa-icon "pencil" size=1 class="control-icon"}}
                                       </span>
-                                    <span class="save-cluster-name" {{action "saveClusterName" cluster.label index on="click"}}>
-                                      {{fa-icon "save" size=1 class="control-icon"}}
-                                    </span>
-                                    <span class="cluster-delete" {{action "deleteCluster" index on="click"}}>
-                                      {{fa-icon "trash" size=1 class="control-icon"}}
-                                    </span>
-                                    <span class="close-cluster-edit" {{action "closeClusterEdit" index on="click"}}>
-                                      {{fa-icon "close" size=1 class="control-icon"}}
-                                    </span>
-                                    {{!--<span class="edit-{{cluster.edit}}">
-                                      <span class="save-edit">S</span>
-                                      <span class="edit">E</span>
-                                    </span>--}}
-                                  </div>
-                                </div>
+                                <span class="save-cluster-name hide" {{action "saveClusterName" cluster.label index on="click"}}>
+                                  {{fa-icon "save" size=1 class="control-icon"}}
+                                </span>
+                                <span class="cluster-delete" {{action "deleteCluster" index on="click"}}>
+                                  {{fa-icon "trash" size=1 class="control-icon"}}
+                                </span>
+                                <span class="close-cluster-edit" {{action "closeClusterEdit" index on="click"}}>
+                                  {{fa-icon "close" size=1 class="control-icon"}}
+                                </span>
+                                {{!--<span class="edit-{{cluster.edit}}">
+                                  <span class="save-edit">S</span>
+                                  <span class="edit">E</span>
+                                </span>--}}
+                              </div>
+                            </div>
 
-                                <div class="clustered-nodes">
-                                  {{#each cluster.nodes as |node nodeIndex|}}
-                                    <span class="cluster-node" id="{{node.id}}">
+                            <div class="clustered-nodes">
+                              {{#each cluster.nodes as |node nodeIndex|}}
+                                <span class="cluster-node" id="{{node.id}}">
                                         <span class="node-type {{node.type}}"></span>
                                         <span class="node-label">{{node.label}}</span>
                                         <span {{action "removeNode" node nodeIndex index on="click"}} class="removeNode">
                                           {{fa-icon "close"}}
                                         </span>
                                     </span>
-                                  {{/each}}
-                                </div>
-                            {{/if}}
-                          {{/draggable-object-target}}
+                              {{/each}}
+                            </div>
+                          {{/if}}
+                        {{/draggable-object-target}}
                       {{/unless}}
                     {{/each}}
-                    </div><!-- .cluster-list-inner -->
+                  </div><!-- .cluster-list-inner -->
                 </div><!-- .cluster-list -->
-            {{/ember-scrollable}}
+              {{/ember-scrollable}}
             </div><!-- .cluster-list-wrapper -->
-        </div>
+          </div>
+        {{/if}}
       </div>
+      {{#unless savingClusters}}
         <div class="row">
-            <div class="col s12 right-align">
-                <button class="center btn primary" {{action "closeModal" on="click"}}>Done</button>
-            </div>
+          <div class="col s12 right-align">
+            <button class="center btn primary" {{action "closeModal" on="click"}}>Done</button>
+          </div>
         </div>
+      {{/unless}}
+
     </div>
   </div>
 </div>

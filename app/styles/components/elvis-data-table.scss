@@ -110,6 +110,9 @@
   }
 
   // table row highlighting on mouse over
+  .data-table tr.hidden {
+    display: none !important;
+  }
   .data-table tr,
   .data-table tr td.item-figure {
     transition: all 1s ease;
