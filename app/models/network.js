@@ -47,27 +47,27 @@ export default Model.extend({
         if (cluster.type == 'buyer') {
           cluster.color = {
             background: "rgb(246, 49, 136)",
-            border: "rgb(121,242,249,1)",
+            border: "#f0308e",
             hover: {
               background: "rgb(246, 49, 136)",
-              border: "rgb(121,242,249,1)"
+              border: "#f0308e"
             },
             highlight: {
               background: "rgb(246, 49, 136)",
-              border: "rgb(121,242,249,1)"
+              border: "#f0308e"
             }
           };
         } else {
           cluster.color = {
             background: "rgb(36, 243, 255)",
-            border: "rgb(255,89,162,1)",
+            border: "#27f0fc",
             hover: {
               background: "rgb(36, 243, 255)",
-              border: "rgb(255,89,162,1)"
+              border: "#27f0fc"
             },
             highlight: {
               background: "rgb(36, 243, 255)",
-              border: "rgb(255,89,162,1)"
+              border: "#27f0fc"
             }
           };
         }

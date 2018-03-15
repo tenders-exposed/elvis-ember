@@ -17,11 +17,11 @@ export default Route.extend({
       params.network_id,
       { reload: true }
     );
-    console.log('modelShow', modelShow);
+    // console.log('modelShow', modelShow);
 
     modelShow.then(
       (response) => {
-        console.log('request succes with response', response);
+        // console.log('request succes with response', response);
       }, (response) => {
         console.log('request faild with response', response);
       }

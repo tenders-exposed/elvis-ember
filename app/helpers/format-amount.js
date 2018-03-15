@@ -9,7 +9,7 @@ const unicodeFruits = [
 export function formatAmount(params/*, options*/) {
   let [value, format, placeholder] = params;
 
-  if (value !== 'undefined') {
+  if (typeof value !== 'undefined') {
     if (value == 0 || value == '0') {
       return 0;
     } else {

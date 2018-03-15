@@ -54,7 +54,7 @@ export default Route.extend({
             });
           });
 
-          console.log('contract result', results);
+          // console.log('contract result', results);
           return results;
         }, (response) => {
 
