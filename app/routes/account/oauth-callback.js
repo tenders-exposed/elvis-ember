@@ -46,14 +46,14 @@ export default Route.extend({
           resolve(json);
         });
       }).catch((error) => {
-        console.error('ERROR', error);
+        // console.error('ERROR', error);
         reject(error);
       });
     });
   },
   setupController(controller, model) {
     // this.transitionTo('welcome');
-    console.log('model is', model);
+    // console.log('model is', model);
     controller.set('model', model);
 
     this.get('session')
