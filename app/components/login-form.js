@@ -26,6 +26,7 @@ export default Component.extend({
           if (typeof response === 'undefined') {
             location.reload();
           }
+          this.set('loginVisible', false);
         });
     }
   }
