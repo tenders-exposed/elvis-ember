@@ -253,8 +253,6 @@ export default Controller.extend({
     // });
 
     treeTimer = performance.now() - treeTimer;
-    this.get('benchmark').store('performance.cpvs.count', cpvs.count);
-    this.get('benchmark').store('performance.cpvs.treeRender', treeTimer);
     this.set('tree', tree);
   },
 
@@ -341,7 +339,6 @@ export default Controller.extend({
       options.years = _.join(years, ',');
     }
     // console.log('data cpvs payload', options);
-    // console.log('fetch cpvs');
 
     if (countries.length > 0 || actors.length > 0) {
       self.get('ajax')
@@ -354,8 +351,6 @@ export default Controller.extend({
         .then((data) => {
           self.set('cpvs', data.cpvs);
           self.set('loading.cpvs', false);
-          self.get('benchmark').store('performance.cpvs.loadTime', (performance.now() - requestTimer));
-          // console.log('End fetch cpvs');
         });
     }
   },
@@ -457,9 +452,8 @@ export default Controller.extend({
         (actor) => (actor.type === 'buyer')
       );
 
-      self.notifications.info('<i class="fas fa-spinner fa-spin"></i>This is probably going to take a while...', {
-        autoClear: false,
-        htmlContent: true
+      self.notifications.info('This is probably going to take a while...', {
+        autoClear: false
       });
 
       self.set('isLoading', true);

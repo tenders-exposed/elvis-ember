@@ -7,6 +7,17 @@ module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
     sassOptions: {
       includePaths: ['bower_components/materialize/sass']
+    },
+    nodeAssets: {
+      'vis': {
+        srcDir: 'dist',
+        vendor: {
+          include: ['img/network/cross.png']
+        },
+        public: {
+          include: ['img/network/cross.png']
+        }
+      }
     }
   });
 

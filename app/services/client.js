@@ -1,11 +1,9 @@
 import Ember from 'ember';
 import Service from '@ember/service';
-import { inject as service } from '@ember/service';
 
 const { Logger } = Ember;
 
 export default Service.extend({
-  benchmark: service(),
 
   init() {
     let _this = this;
@@ -53,22 +51,5 @@ export default Service.extend({
       );
     });
     this.set('windowsize', `${windowSize.width}x${windowSize.height}`);
-
-    this.get('benchmark').storeMultiple({
-      'client.os.name': this.get('os'),
-      'client.os.version': this.get('osversion'),
-      'client.browser.name': this.get('browser'),
-      // 'client.browser.version': `${this.get('browsermajorversion')}.${this.get('browserminorversion')}`,
-      'client.browser.version': this.get('engine'),
-      'client.resolution.window': this.get('windowsize'),
-      'client.device.type': this.get('devicetype'),
-      'client.device.name': this.get('devicevendor'),
-      'client.misc': JSON.stringify({
-        engine: {
-          name: this.get('engine'),
-          version: this.get('engineversion')
-        }
-      })
-    });
   }
 });

@@ -43,6 +43,7 @@
     "ember-cli-jstree": "tenders-exposed/ember-cli-jstree#feature/preselect-nodes",
     "ember-cli-materialize": "0.22.0-beta.0",
     "ember-cli-moment-shim": "3.0.1",
+    "ember-cli-node-assets": "^0.2.2",
     "ember-cli-notifications": "^4.1.6",
     "ember-cli-nouislider": "^0.11.0",
     "ember-cli-numeral": "0.2.0",

@@ -71,7 +71,38 @@ export default OAuth2PasswordGrant.extend({
     });
   },
 
+  authenticateOauth(response) {
+    return new RSVP.Promise((resolve, reject) => {
+      run(() => {
+        if (isEmpty(response.accessToken)) {
+          reject('OAuth request rejected', response);
+        }
+
+        response.access_token = response.accessToken;
+        response.refresh_token = response.refreshToken;
+
+        response.expires_in = 3600;
+        if (!this._validate(response)) {
+          reject('access_token is missing in server response');
+        }
+
+        let expiresAt = this._absolutizeExpirationTime(response.expires_in);
+        this._scheduleAccessTokenRefresh(response.expires_in, expiresAt, response.refresh_token);
+        if (!isEmpty(expiresAt)) {
+          response = assign(response, { 'expires_at': expiresAt });
+        }
+
+        console.log('authenticateOauth', response);
+        resolve(response);
+      });
+    });
+  },
+
   authenticate(identification, password, scope = [], headers = {}) {
+    if (!isEmpty(identification.accessToken)) {
+      return this.authenticateOauth(identification);
+    }
+
     return new RSVP.Promise((resolve, reject) => {
       let data = { username: identification, password };
       let serverTokenEndpoint = this.get('serverTokenEndpoint');

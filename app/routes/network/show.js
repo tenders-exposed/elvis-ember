@@ -17,7 +17,6 @@ export default Route.extend({
       'network',
       params.network_id
     ).then(function(response){
-        self.get('benchmark').store('performance.network.save', (performance.now() - self.get('requestTimer')));
         self.titleToken = `${self.titleToken} ${response.name || response.id}`;
         response = self.get('networkService').setModel(response);
       return response;

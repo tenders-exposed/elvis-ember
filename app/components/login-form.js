@@ -10,34 +10,12 @@ export default Component.extend({
 
   actions: {
     authenticateTwitter() {
-      // this.get('ajax').request('/account/login/github')
-      //   .then((response) => {
-      //     console.log(response);
-      //   });
       let endpoint = this.get('endpoint');
       window.location = `${endpoint}/twitter`;
-      // return new RSVP.Promise((resolve, reject) => {
-      //   fetch(`${endpoint}/twitter`, {
-      //     mode: 'no-cors',
-      //     redirect: 'follow'
-      //   }).then((response) => {
-      //     console.log(response);
-      //     return false;
-      //   }).catch(reject);
-      // });
     },
     authenticateGithub() {
-      // this.get('ajax').request('/account/login/github')
-      //   .then((response) => {
-      //     console.log(response);
-      //   });
       let endpoint = this.get('endpoint');
-      return new RSVP.Promise((resolve, reject) => {
-        fetch(`${endpoint}/github`, { mode: 'no-cors' }).then((response) => {
-          console.log(response);
-          return false;
-        }).catch(reject);
-      });
+      window.location = `${endpoint}/github`;
     },
     authenticate() {
       let { identification, password } = this.getProperties('identification', 'password');
@@ -48,6 +26,7 @@ export default Component.extend({
           if (typeof response === 'undefined') {
             location.reload();
           }
+          this.set('loginVisible', false);
         });
     }
   }

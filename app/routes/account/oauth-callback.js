@@ -1,8 +1,11 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 import ENV from '../../config/environment';
 import RSVP from 'rsvp';
 
 export default Route.extend({
+  ajax: service(),
+  session: service(),
   endpoint: `${ENV.APP.apiHost}/account/login/twitter/callback`,
 
   queryParams: {
@@ -12,25 +15,55 @@ export default Route.extend({
     }
   },
   model(params) {
-    console.log('params', params);
+    // console.log('params', params);
+    let url = `${this.get('endpoint')}?oauth_token=${params.oauth_token}&oauth_verifier=${params.oauth_verifier}`;
+    let headers = {
+      'Content-Type': 'application/json'
+    };
+    // return this.get('ajax').request(url, {
+    // }).then((response) => {
+    //   console.log(response);
+    //   return response;
+    // }, (error) => {
+    //   console.log(error);
+    // });
     return new RSVP.Promise((resolve, reject) => {
       fetch(
-        this.get('endpoint'),
+        url,
         {
           method: 'get',
-          mode: 'no-cors',
-          qs: {
-            oauth_token: params.oauth_token,
-            oauth_verifier: params.oauth_verifier
-          }
+          // mode: 'no-cors',
+          // referrer: 'http://localhost:4200/account/login',
+          credentials: 'include',
+          // useFinalURL: true
         }
       ).then((response) => {
-        console.log(this.get('endpoint'));
-        console.log(response);
-      }).catch(reject);
+        // console.log(this.get('endpoint'));
+        // console.log('response', response);
+        // console.log('blob', response.blob());
+        // console.log('text', response.text());
+        response.json().then((json) => {
+          resolve(json);
+        });
+      }).catch((error) => {
+        // console.error('ERROR', error);
+        reject(error);
+      });
     });
   },
-  afterModel() {
+  setupController(controller, model) {
     // this.transitionTo('welcome');
+    // console.log('model is', model);
+    controller.set('model', model);
+
+    this.get('session')
+      .authenticate('authenticator:application', model, null)
+      .catch((reason) => this.set('errorMessage', reason.error || reason))
+      .then((response) => {
+        if (typeof response === 'undefined') {
+          location.reload();
+        }
+        this.transitionTo('welcome');
+      });
   }
 });
