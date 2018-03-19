@@ -661,13 +661,13 @@ function ajaxSuccess(adapter, jqXHR, payload, requestData) {
 }
 
 function ajaxError(adapter, jqXHR, requestData, responseData) {
-  runInDebug(function() {
+  /*runInDebug(function() {
     let message = `The server returned an empty string for ${requestData.method} ${requestData.url}, which cannot be parsed into a valid JSON. Return either null or {}.`;
     let validJSONString = !(responseData.textStatus === 'parsererror' && jqXHR.responseText === '');
     warn(message, validJSONString, {
       id: 'ds.adapter.returned-empty-string-as-JSON'
     });
-  });
+  });*/
 
   let error;
 
