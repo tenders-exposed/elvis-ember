@@ -11,33 +11,20 @@ export default Route.extend({
   },
 
   model(params) {
+    let self = this;
     this.set('requestTimer', performance.now());
-    let modelShow = this.get('store').findRecord(
+    return this.get('store').findRecord(
       'network',
-      params.network_id,
-      { reload: true }
-    );
-    // console.log('modelShow', modelShow);
-
-    modelShow.then(
-      (response) => {
-        // console.log('request succes with response', response);
-      }, (response) => {
-        console.log('request faild with response', response);
-      }
-    );
-    return modelShow;
+      params.network_id
+    ).then(function(response){
+        self.titleToken = `${self.titleToken} ${response.name || response.id}`;
+        response = self.get('networkService').setModel(response);
+      return response;
+    });
   },
 
-  afterModel(model) {
-    this.titleToken = `${this.titleToken} ${model.get('name') || model.id}`;
-    model = this.get('networkService').setModel(model);
-
-    return model;
-  },
 
   setupController(controller, model) {
-
     controller.set('model', model);
     controller.set('stabilizationPercent', 0);
   },
@@ -53,6 +40,10 @@ export default Route.extend({
     this.transitionTo('network.show.details', activeTab);
   },
   actions: {
+   /* error(error, transition) {
+      console.log('error.show', error);
+      console.log('error.transition.show', transition);
+    },*/
     closeClustering(modified) {
       // console.log('closeClustering');
       this.controllerFor('network.show').set('networkClusteringModal', false);

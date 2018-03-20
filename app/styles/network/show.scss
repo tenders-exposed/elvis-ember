@@ -230,6 +230,10 @@ div#network-container {
         display: none;
       }
 
+      &.disabled-vis-button {
+        opacity: 0.5 !important;
+      }
+
       &:hover .tooltip {
         position: absolute;
         top: 2px;
@@ -343,5 +347,16 @@ section#legend {
     z-index: 100;
     margin: 0 auto;
     margin-top: 10em;
+  }
+
+  .loading-spinner {
+    width: 100px;
+    z-index: 100;
+    margin: 0 auto;
+    margin-top: 10em;
+
+    i {
+      margin-right: 5px;
+    }
   }
 }

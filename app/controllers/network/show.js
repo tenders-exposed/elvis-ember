@@ -366,7 +366,14 @@ export default Controller.extend({
     },
 
     showClustering() {
-      this.set('networkClusteringModal', true);
+      if (this.get('session.isAuthenticated')) {
+        this.set('networkClusteringModal', true);
+      } else {
+        this.notifications.error('You need to be loged in before continuing.', {
+          htmlContent: true,
+          autoClear: false
+        });
+      }
     },
 
     showEmbedding() {

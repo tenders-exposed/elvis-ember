@@ -151,6 +151,10 @@ export default Controller.extend({
   cpvSearchTree: '',
 
   createTree() {
+    // reset selected codes
+    this.set('selectedCodesCount', 0);
+    this.set('selectedCodes', A([]));
+
     let treeTimer = performance.now();
     let cpvs = _.sortBy(
       _.cloneDeep(this.get('cpvs')),
