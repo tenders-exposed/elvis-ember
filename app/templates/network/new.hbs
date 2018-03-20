@@ -36,7 +36,7 @@
           <div class="row">
             <div class="col m4 s12">
               <h3>Network Focus</h3>
-              <p>Only procurement from these countries and companies will be visualised</p>
+              <p>Only procurement from these countries and/or companies will be visualised</p>
             </div>
             <div class="col m8 s12">
               <!--
@@ -54,6 +54,7 @@
                     searchKey='text'
                     multiple=true
                     optionComponent='country-option'
+                    noOptionsComponent='qb-no-option'
                     onSelect=(action "onCountrySelectEvent")
                 }}
                 <label>Select countries</label>
@@ -68,6 +69,7 @@
                     searchKey='name'
                     multiple=true
                     optionComponent='actor-option'
+                    noOptionsComponent='qb-no-option'
                     multiValueComponent='actor-value'
                     onSearchInputChange=(action "actorTermChanged")
                     onSelect=(action "onAutocompleteSelectEvent")
