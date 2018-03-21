@@ -33,7 +33,16 @@ export default Model.extend({
         edge.label = flags;
         // hack because in vis-network the flags are not stored
         edge.title = _.join(_.keys(edge.flags), ', ');
+      }
 
+      if (edge.type == 'partners') {
+        edge.dashes = [15,15];
+        edge.arrows = {
+          to : {
+            enabled: false,
+          }
+        };
+        edge.scaling = {max: 5};
       }
     });
 

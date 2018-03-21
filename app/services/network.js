@@ -208,12 +208,14 @@ export default Service.extend({
         toLabel: edge.to.options.label,
         from: edge.from.options.id,
         to: edge.to.options.id,
+        hidden: edge.options.dashes ? true : false,
         value: valueFormat(edge.options.value),
         unformattedValue: edge.options.value,
         valueType: edgeValueType,
         id: edgeId,
         link: `${edge.options.id}`,
         route: 'relationships'
+
       };
       relationships.pushObject(edgeDetails);
     });
