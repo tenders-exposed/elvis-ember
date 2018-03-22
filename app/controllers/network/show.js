@@ -136,8 +136,6 @@ export default Controller.extend({
     let iterations = this.get('stIterations');
     let nodes = this.get('model.graph.nodes').length;
     let edges = this.get('model.graph.edges').length;
-
-
     let message =
       `
           <div id="network-info">

@@ -47,10 +47,8 @@ export default Controller.extend({
     }
   }),
   yearsStatus: computed('query.{countries,actors}', function() {
-     if (!this.get('loadingYears') &&
-     (this.get('query.countries').length > 0 || this.get('query.actors').length > 0)) {
-
-   // if (this.get('query.countries').length > 0 || this.get('query.actors').length > 0) {
+    if (!this.get('loadingYears') &&
+    (this.get('query.countries').length > 0 || this.get('query.actors').length > 0)) {
       return 'completed';
     } else {
       return 'disabled';
@@ -119,7 +117,9 @@ export default Controller.extend({
     // console.log('observer selectedCodes', this.get('selectedCodes'));
     this.set(
       'selectedCodesCount',
-      _.sumBy(this.get('selectedCodes'), function(o) { return o.original.count; })
+      _.sumBy(this.get('selectedCodes'), function(o) {
+        return o.original.count;
+      })
     );
   }),
 
@@ -415,7 +415,7 @@ export default Controller.extend({
     },
     rangeChangeAction(value) {
       // destroy the tree, if any
-      if(this.get('yearsStatus') == 'completed'){
+      if (this.get('yearsStatus') == 'completed') {
         if (this.get('jsTree')) {
           this.get('jsTree').destroy();
         }

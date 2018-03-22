@@ -12,7 +12,7 @@ export default JSONSerializer.extend({
     ];
 
     Object.keys(json).forEach((k) => {
-      if (!attributes.includes(k)){
+      if (!attributes.includes(k)) {
         delete json[k];
       }
     });

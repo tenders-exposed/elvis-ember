@@ -146,8 +146,8 @@ export default Service.extend({
         flags: node.flags ? node.flagsCount : {},
         flagsCount: node.flags ? node.flags.length : 0,
         link: node.id,
-        isCluster: ( (typeof node.nodes === 'undefined') ? false : true ),
-        containedNodesCount: ( (typeof node.nodes === 'undefined') ? false : node.nodes.length )
+        isCluster: ((typeof node.nodes === 'undefined') ? false : true),
+        containedNodesCount: ((typeof node.nodes === 'undefined') ? false : node.nodes.length)
       };
 
       if (nodeDetails.type == 'bidder') {
@@ -174,7 +174,7 @@ export default Service.extend({
       return value;
     };
 
-     /*
+    /*
       "edges": [
       {
       "id": "string",
@@ -185,7 +185,7 @@ export default Service.extend({
       "hidden": true
       }
       ]
-     * */
+    */
 
     let edgeValueType = this.get('model.settings').edgeSize;
     let relationships = [];
@@ -208,7 +208,10 @@ export default Service.extend({
         toLabel: edge.to.options.label,
         from: edge.from.options.id,
         to: edge.to.options.id,
+        fromType: edge.from.options.type,
+        toType: edge.from.options.type,
         hidden: edge.options.dashes ? true : false,
+        type: edge.options.dashes ? 'partners' : 'contracts',
         value: valueFormat(edge.options.value),
         unformattedValue: edge.options.value,
         valueType: edgeValueType,

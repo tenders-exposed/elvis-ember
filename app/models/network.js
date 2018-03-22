@@ -38,45 +38,45 @@ export default Model.extend({
       if (edge.type == 'partners') {
         edge.dashes = [15,15];
         edge.arrows = {
-          to : {
-            enabled: false,
+          to: {
+            enabled: false
           }
         };
-        edge.scaling = {max: 5};
+        edge.scaling = { max: 5 };
       }
     });
 
     return edgesFlagged;
   }),
 
-  graph: computed('nodes', 'edges', function () {
+  graph: computed('nodes', 'edges', function() {
     let nodes = this.get('nodes');
-    if(this.get('clusters').length > 0) {
-      _.each(this.get('clusters'), function (cluster) {
+    if (this.get('clusters').length > 0) {
+      _.each(this.get('clusters'), function(cluster) {
         if (cluster.type == 'buyer') {
           cluster.color = {
-            background: "rgb(246, 49, 136)",
-            border: "#f0308e",
+            background: 'rgb(246, 49, 136)',
+            border: '#f0308e',
             hover: {
-              background: "rgb(246, 49, 136)",
-              border: "#f0308e"
+              background: 'rgb(246, 49, 136)',
+              border: '#f0308e'
             },
             highlight: {
-              background: "rgb(246, 49, 136)",
-              border: "#f0308e"
+              background: 'rgb(246, 49, 136)',
+              border: '#f0308e'
             }
           };
         } else {
           cluster.color = {
-            background: "rgb(36, 243, 255)",
-            border: "#27f0fc",
+            background: 'rgb(36, 243, 255)',
+            border: '#27f0fc',
             hover: {
-              background: "rgb(36, 243, 255)",
-              border: "#27f0fc"
+              background: 'rgb(36, 243, 255)',
+              border: '#27f0fc'
             },
             highlight: {
-              background: "rgb(36, 243, 255)",
-              border: "#27f0fc"
+              background: 'rgb(36, 243, 255)',
+              border: '#27f0fc'
             }
           };
         }
@@ -85,7 +85,7 @@ export default Model.extend({
       nodes.pushObjects(this.get('clusters'));
     }
     return {
-      nodes: nodes,
+      nodes,
       edges: this.get('edges'),
       clusters: this.get('clusters')
     };

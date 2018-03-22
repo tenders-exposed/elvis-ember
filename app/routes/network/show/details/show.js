@@ -28,16 +28,16 @@ export default Route.extend({
     // if is a buyer
     if (endpoint === 'bidders') {
       let buyers = [];
-      _.forEach(winningBids, function (bid) {
+      _.forEach(winningBids, function(bid) {
         buyers = _.unionBy(buyers, bid.lot.tender.buyers, 'id');
       });
-       // console.log('uniquer buyers', buyers);
+      // console.log('uniquer buyers', buyers);
       return buyers;
 
     } else {
       // if we are in a bidder
       let bidders = [];
-      _.forEach(winningBids, function (bid) {
+      _.forEach(winningBids, function(bid) {
         bidders = _.unionBy(bidders, bid.bidders, 'id');
       });
       // console.log('uniquer bidders', bidders);

@@ -52,36 +52,66 @@
       {{/if}}
 
   {{#if (eq graphElementType "edge")}}
-    <h5>Tender</h5>
+    {{#if (eq model.type "contracts")}}
+      <h5>Tender</h5>
 
-    <div class="actor"><span class="figure-buyer"></span> {{model.fromLabel}}</div>
-    <div class="actor"><span class="figure-bidder"></span> {{model.toLabel}}</div>
+      <div class="actor"><span class="figure-buyer"></span> {{model.fromLabel}}</div>
+      <div class="actor"><span class="figure-bidder"></span> {{model.toLabel}}</div>
+        <hr>
+      {{#each-in model.flags as |keyValue value|}}
+          <div class="flags">
+              <div class="flag">{{fa-icon 'flag' size=1}} {{keyValue}}</div>
+          </div>
+      {{/each-in}}
+
+      <table class="spec">
+          <tr>
+              <td class="value">{{format-amount model.value '0,0 a'}}</td>
+              <td class="label">
+                {{#if (eq networkModel.settings.edgeSize "numberOfWinningBids" "count")}}
+                  Bids won
+                {{else}}
+                  Total money flow
+                {{/if}}
+              </td>
+          </tr>
+      </table>
+      <div class="action">
+          {{#link-to "network.show.details.show" model.route model.link class="btn-tiny transparent primary" invokeAction="close"}}
+              Show details
+          {{/link-to}}
+      </div>
+    {{else}}
+      {{!-- if model.type = partners--}}
+      <h5>Consortia</h5>
+
+      <div class="actor"><span class="figure-{{model.fromType}}"></span> {{model.fromLabel}}</div>
+      <div class="actor"><span class="figure-{{model.toType}}"></span> {{model.toLabel}}</div>
       <hr>
-    {{#each-in model.flags as |keyValue value|}}
+      {{#each-in model.flags as |keyValue value|}}
         <div class="flags">
-            <div class="flag">{{fa-icon 'flag' size=1}} {{keyValue}}</div>
+          <div class="flag">{{fa-icon 'flag' size=1}} {{keyValue}}</div>
         </div>
-    {{/each-in}}
+      {{/each-in}}
 
-    <table class="spec">
+      <table class="spec">
         <tr>
-            <td class="value">{{format-amount model.value '0,0 a'}}</td>
-            <td class="label">
-              {{#if (eq networkModel.settings.edgeSize "numberOfWinningBids" "count")}}
-                Bids won
-              {{else}}
-                Total money flow
-              {{/if}}
-            </td>
+          <td class="value">{{format-amount model.value '0,0 a'}}</td>
+          <td class="label">
+            {{#if (eq networkModel.settings.edgeSize "numberOfWinningBids" "count")}}
+              Shared bids won
+            {{else}}
+              Shared money flow
+            {{/if}}
+          </td>
         </tr>
-    </table>
-    <div class="action">
-        {{#link-to "network.show.details.show" model.route model.link class="btn-tiny transparent primary" invokeAction="close"}}
-            Show details
-        {{/link-to}}
-    </div>
+      </table>
+      {{!-- if model.type = contracts--}}
+    {{/if}}
 
+  {{!--end if (eq graphElementType "edge")--}}
   {{/if}}
 
-    {{/if}}
+  {{!--end if cluster--}}
+  {{/if}}
 </div>
