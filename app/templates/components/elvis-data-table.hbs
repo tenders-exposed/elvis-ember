@@ -1,4 +1,5 @@
 
+
 <div class="data-table-filter row">
     <a class="order asc col s1" onclick={{action "changeSortOrder"}}>
       {{fa-icon 'sort-amount-desc'}}
@@ -11,7 +12,20 @@
           searchKey='text'
           onSelect=(action "sortTable")
       }}
+    </div>
+</div>
 
+<div class="data-table-search row">
+    <div class="col s1 search-icon">
+      {{fa-icon 'search'}}
+
+    </div>
+    <div class="col s11">
+      {{input type="text"
+              placeholder="search an actor.."
+              class="search-input form-control"
+              value=search
+      }}
     </div>
 </div>
 

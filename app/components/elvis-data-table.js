@@ -5,7 +5,10 @@ export default Component.extend({
   // search word
   search: '',
   // field Name to search
-  searchField: '',
+  searchFields: {
+    node: ["label"],
+    relationships: ["fromLabel", "toLabel"]
+  },
   // label for search input placeholder
   searchLabel: 'find...',
   // the content to revert to after a search was performed
@@ -28,10 +31,10 @@ export default Component.extend({
 
   // reset all variables regarding search if search input has no value
   contentObserver: observer('search', function() {
-    if (!this.get('search')) {
-      this.set('searchField', '');
-      this.set('searchLabel', '');
+    if (!this.get('search') || this.get('search').length <= 1) {
       this.set('content', this.get('defaultContent'));
+    } else if(this.get('search').length > 1) {
+      this.searchTable();
     }
   }),
 
@@ -44,9 +47,39 @@ export default Component.extend({
     this.set('content', this.get('tableContent'));
     this.set('defaultContent', this.get('tableContent'));
   },
+  /*
+   search table
+  - everything transformed in lowercase
+  - if/else a column was set to search into
+  - reset the content of the table with the new searched one
+  */
+  searchTable() {
+    let searchFields = this.get('route') == 'relationships'
+    ? this.get('searchFields.relationships')
+    : this.get('searchFields.node');
+    let searchWord = _.toLower(_.toString(this.get('search')));
+    let self = this;
 
+    let mkRegex = (str) => {
+      let ex = str.replace('*', '.*')
+        .replace('?', '.{0,1}');
+      return new RegExp(`^.*${ex}.*$`, 'gi');
+    };
+
+    let content = _.filter(self.get('defaultContent'), (o) => {
+      let match = false;
+
+      _.each(searchFields, (fieldName) => {
+        let fieldValue = _.toLower(_.toString(o[fieldName]));
+        match = match || fieldValue.match(mkRegex(searchWord));
+      });
+
+      return match;
+    });
+    // set the new filtered content
+    this.set('content', content);
+  },
   actions: {
-
     changeSortOrder() {
       let orderBy = this.get('orderBy') === 'asc' ? 'desc' : 'asc';
       this.set('orderBy', orderBy);
@@ -84,38 +117,9 @@ export default Component.extend({
       this.set('searchLabel', `find ${label}...`);
     },
 
-    /*
-    search table
-    - everything transformed in lowercase
-    - if/else a column was set to search into
-    - reset the content of the table with the new searched one
-     */
-    searchTable() {
-      let searchField = this.get('searchField');
-      let searchWord = _.toLower(_.toString(this.get('search')));
-      let self = this;
 
-      let mkRegex = (str) => {
-        let ex = str.replace('*', '.*')
-          .replace('?', '.{0,1}');
-        return new RegExp(`^.*${ex}.*$`, 'gi');
-      };
-
-      let content = _.filter(self.get('defaultContent'), (o) => {
-        let match = false;
-        if (!searchField) {
-          _.forEach(self.get('fields'), (value, fieldName) => {
-            let fieldValue = _.toLower(_.toString(o[fieldName]));
-            match = match || fieldValue.match(mkRegex(searchWord));
-          });
-        } else {
-          let fieldValue = _.toLower(_.toString(o[searchField]));
-          match = match || fieldValue.match(mkRegex(searchWord));
-        }
-        return match;
-      });
-      // set the new filtered content
-      this.set('content', content);
+    searchTableAction() {
+      this.searchTable();
     }
   }
 });
