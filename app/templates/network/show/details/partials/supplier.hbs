@@ -71,9 +71,9 @@
         <h5>Contracts</h5>
         {{details-data-table
             class="contracts-table"
-            content=modelDetails.winningBids
+            content=modelDetails.contracts
             fields=fields.contracts
-            partialPath="network/show/details/partials/tables/contracts-supplier"
+            sort=sort
             route="bidders"
             nodeId=modelDetails.id
             componentTable="contracts-supplier"

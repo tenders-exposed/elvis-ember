@@ -77,20 +77,45 @@ export default Route.extend({
         (data) => {
 
           // extract the unique buyers / bidders for bidder / buyer
-          if (endpointQ == 'clusters') {
-            Object.assign(dataEntity, data.cluster);
-            dataEntity.nodes = self.processContracts(dataEntity.winningBids, endpoint);
+          if (endpointQ != 'relationships') {
+            if (endpointQ == 'clusters') {
+              Object.assign(dataEntity, data.cluster);
+              dataEntity.nodes = self.processContracts(dataEntity.winningBids, endpoint);
 
-          } else if (endpointQ != 'relationships') {
-            Object.assign(dataEntity, data.node);
-            dataEntity.nodes = self.processContracts(dataEntity.winningBids, endpoint);
-            this.titleToken = dataEntity.name;
+            } else {
+              Object.assign(dataEntity, data.node);
+              dataEntity.nodes = self.processContracts(dataEntity.winningBids, endpoint);
+              this.titleToken = dataEntity.name;
+            }
+
+            dataEntity.contracts = [];
+            _.each(dataEntity.winningBids, function (bid) {
+              let contract = {
+                tenderId: bid.lot.tender.id,
+                title: bid.lot.title ? `${bid.lot.tender.title} - ${bid.lot.title}` : bid.lot.tender.title,
+                buyers: bid.lot.tender.buyers,
+                bidders: bid.bidders,
+                bids: bid.lot.bidsCount,
+                value: bid.value
+              };
+              dataEntity.contracts.push(contract);
+            });
 
           } else {
             Object.assign(dataEntity, data.edge);
+            dataEntity.contracts = [];
+            _.each(dataEntity.winningBids, function (bid) {
+              let contract = {
+                tenderId: bid.lot.tender.id,
+                title: bid.lot.title ? `${bid.lot.tender.title} - ${bid.lot.title}` : bid.lot.tender.title,
+                date: bid.lot.awardDecisionDate,
+                bids: bid.lot.bidsCount,
+                value: bid.value
+              };
+              dataEntity.contracts.push(contract);
+            });
           }
-
-          console.log('dataEntity - after request', dataEntity);
+          // console.log('dataEntity - after request', dataEntity);
           dataEntity.contractsCount = dataEntity.winningBids.length;
           return dataEntity;
 

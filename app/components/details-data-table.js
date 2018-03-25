@@ -3,22 +3,25 @@ import $ from 'jquery';
 import { computed, observer } from '@ember/object';
 
 export default Component.extend({
-  tableContent: computed('content', function() {
-    return this.get('content');
-  }),
-  tableSort: computed('sort', function() {
-    return this.get('sort');
-  }),
+
+
   // sort - a property passed from data-table
-  sortTable: observer('tableSort', () => {
-    let sort = this.get('tableSort');
-    let content = this.get('tableContent');
+  sortTable: observer('sort', function () {
+
+    console.log('tring to sort2', this.get('sort'));
+    let sort = this.get('sort');
+    let content = this.get('content');
 
     let order = _.startsWith(sort, '-') ? 'asc' : 'desc';
     let field = _.trimStart(sort, '-');
 
+    console.log('content', content);
+    console.log('field', field);
+    console.log('order', order);
+    console.log('field typeof', (typeof content[field]));
     let ordered = _.orderBy(content, field, order);
-    this.set('tableContent', ordered);
+    this.set('content', ordered);
+    console.log('ordered', ordered);
   }),
   didInsertElement() {
     $('.show-more').bind('click', function() {

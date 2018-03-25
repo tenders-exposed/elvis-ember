@@ -62,7 +62,8 @@
 
         {{details-data-table
           class="contracts-table"
-          content=modelDetails.winningBids
+          content=modelDetails.contracts
+          sort=sort
           fields=fields.contractsRelationship
           partialPath="network/show/details/partials/tables/contracts-relationship"
           route="relationships"
