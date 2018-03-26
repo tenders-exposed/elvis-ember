@@ -51,7 +51,7 @@ export default Model.extend({
 
   graph: computed('nodes', 'edges', function() {
     let nodes = this.get('nodes');
-    if (this.get('clusters').length > 0) {
+    if (this.get('clusters') && this.get('clusters').length > 0) {
       _.each(this.get('clusters'), function(cluster) {
         if (cluster.type == 'buyer') {
           cluster.color = {
@@ -83,11 +83,19 @@ export default Model.extend({
         cluster.cluster = true;
       });
       nodes.pushObjects(this.get('clusters'));
+      return {
+        nodes,
+        edges: this.get('edges'),
+        clusters: this.get('clusters')
+      };
+    } else {
+      return {
+        nodes,
+        edges: this.get('edges'),
+        clusters: []
+      };
+
     }
-    return {
-      nodes,
-      edges: this.get('edges'),
-      clusters: this.get('clusters')
-    };
+
   })
 });
