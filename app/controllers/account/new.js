@@ -10,18 +10,14 @@ export default Controller.extend({
           autoClear: true
         });
         self.transitionToRoute('welcome');
-      })
-        .catch((reason) => {
-          this.set('errors', reason);
+      }).catch((response) => {
+        this.set('errors', response);
+        _.each(response.errors, function(error) {
+          self.notifications.error(`${error.message}`, {
+            autoClear: false
+          });
         });
-      // (response) => {
-      //   self.notifications.clearAll();
-      //   _.forEach(response.errors, (error, index) => {
-      //     error.forEach((v) => {
-      //       self.notifications.error(`Error: ${index } ${v}!`);
-      //     });
-      //   });
-      // });
+      });
     }
   }
 });
