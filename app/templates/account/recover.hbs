@@ -6,7 +6,7 @@
     </div>
 
     <div class="query-form-container">
-      <form {{action "deviseSendChange" password password_confirmation t on='submit'}}>
+      <form {{action "sendChange" password password_confirmation t on='submit'}}>
         <div class="row">
           {{md-input
               label="type new password here"
@@ -44,7 +44,7 @@
     </div>
   {{else}}
     <div class="query-form-container">
-      <form {{action "deviseSendRecover" email on="submit"}}>
+      <form {{action "sendRecover" email on="submit"}}>
         <div class="row">
           {{md-input
               label="your email"
@@ -64,4 +64,3 @@
   {{/if}}
 
 {{/if}}
-
