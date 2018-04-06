@@ -10,7 +10,7 @@ export function formatEmpty(params) {
 
   if ((typeof value == 'undefined') || value == '' || value == 'null' || value == null
     || (((typeof value == 'object') || (typeof value == 'array'))) && value.length == 0) {
-    if(format) {
+    if (format) {
       return format;
     } else {
       return unicodeFruits[Math.floor(Math.random() * unicodeFruits.length)];

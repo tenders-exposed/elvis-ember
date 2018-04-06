@@ -70,7 +70,8 @@
         <h5>Contracts</h5>
         {{details-data-table
             class="contracts-table"
-            content=modelDetails.winningBids
+            content=modelDetails.contracts
+            sort=sort
             fields=fields.contractsProcurer
             partialPath="network/show/details/partials/tables/contracts-supplier"
             route="buyers"

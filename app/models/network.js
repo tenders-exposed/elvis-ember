@@ -33,52 +33,69 @@ export default Model.extend({
         edge.label = flags;
         // hack because in vis-network the flags are not stored
         edge.title = _.join(_.keys(edge.flags), ', ');
+      }
 
+      if (edge.type == 'partners') {
+        edge.dashes = [15,15];
+        edge.arrows = {
+          to: {
+            enabled: false
+          }
+        };
+        edge.scaling = { max: 5 };
       }
     });
 
     return edgesFlagged;
   }),
 
-  graph: computed('nodes', 'edges', function () {
+  graph: computed('nodes', 'edges', function() {
     let nodes = this.get('nodes');
-    if(this.get('clusters').length > 0) {
-      _.each(this.get('clusters'), function (cluster) {
+    if (this.get('clusters') && this.get('clusters').length > 0) {
+      _.each(this.get('clusters'), function(cluster) {
         if (cluster.type == 'buyer') {
           cluster.color = {
-            background: "rgb(246, 49, 136)",
-            border: "#f0308e",
+            background: 'rgb(246, 49, 136)',
+            border: '#f0308e',
             hover: {
-              background: "rgb(246, 49, 136)",
-              border: "#f0308e"
+              background: 'rgb(246, 49, 136)',
+              border: '#f0308e'
             },
             highlight: {
-              background: "rgb(246, 49, 136)",
-              border: "#f0308e"
+              background: 'rgb(246, 49, 136)',
+              border: '#f0308e'
             }
           };
         } else {
           cluster.color = {
-            background: "rgb(36, 243, 255)",
-            border: "#27f0fc",
+            background: 'rgb(36, 243, 255)',
+            border: '#27f0fc',
             hover: {
-              background: "rgb(36, 243, 255)",
-              border: "#27f0fc"
+              background: 'rgb(36, 243, 255)',
+              border: '#27f0fc'
             },
             highlight: {
-              background: "rgb(36, 243, 255)",
-              border: "#27f0fc"
+              background: 'rgb(36, 243, 255)',
+              border: '#27f0fc'
             }
           };
         }
         cluster.cluster = true;
       });
       nodes.pushObjects(this.get('clusters'));
+      return {
+        nodes,
+        edges: this.get('edges'),
+        clusters: this.get('clusters')
+      };
+    } else {
+      return {
+        nodes,
+        edges: this.get('edges'),
+        clusters: []
+      };
+
     }
-    return {
-      nodes: nodes,
-      edges: this.get('edges'),
-      clusters: this.get('clusters')
-    };
+
   })
 });

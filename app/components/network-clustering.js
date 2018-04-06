@@ -267,7 +267,7 @@ export default Component.extend({
                   })
                   .then((response) => {
                     // store all inner promises
-                     console.log('response', response);
+                    // console.log('response', response);
                     dataPromises.push(response);
                   });
 
@@ -286,16 +286,16 @@ export default Component.extend({
                   })
                   .then((response) => {
                     // store all inner promises
-                     console.log('response', response);
+                    // console.log('response', response);
                     dataPromises.push(response);
                   });
             }
           });
 
           if (deletedClusters.length > 0) {
-             console.log('we have deletedClusters');
+            // console.log('we have deletedClusters');
             _.each(deletedClusters, function(clusterId, index) {
-               console.log('must deleteCluster cluster', clusterId);
+              // console.log('must deleteCluster cluster', clusterId);
               let promiseDelete =  self.get('ajax')
                 .request(`/networks/${networkId}/clusters/${clusterId}`, {
                   method: 'delete',
@@ -306,7 +306,7 @@ export default Component.extend({
                 })
                 .then((response) => {
                   // store all inner promises
-                   console.log('response', response);
+                  // console.log('response', response);
                   dataPromises.push(response);
                 });
               promises.push(promiseDelete);
@@ -328,18 +328,18 @@ export default Component.extend({
         });
       }
 
-      console.log('makeclusters -modified', this.get('modified'));
-      console.log('makeclusters -clsters', this.get('clusters'));
+      // console.log('makeclusters -modified', this.get('modified'));
+      // console.log('makeclusters -clsters', this.get('clusters'));
 
       if (this.get('modified')) {
         makeClusters(this.get('clusters'), this.get('deletedClusters')).then(function(json) {
           // on fulfillment
-           console.log('makeclusters -response- then', json);
+          // console.log('makeclusters -response- then', json);
           self.set('savingClusters', false);
           self.sendAction('action', self.get('modified'));
           self.set('modified', false);
         }, function(reason) {
-           console.log('makeclusters -response- rejection', reason);
+          // console.log('makeclusters -response- rejection', reason);
           // on rejection
           self.get('notifications').clearAll();
           _.forEach(response.errors, (error, index) => {

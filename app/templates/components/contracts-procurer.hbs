@@ -1,10 +1,7 @@
-<td class="name">
-  {{#link-to "network.show.details.contract" route nodeId row.lot.tender.id}}
+<td class="title">
+  {{#link-to "network.show.details.contract" route nodeId row.tenderId}}
     {{fa-icon 'file-text' size=1}}
-    {{row.lot.tender.title}}
-    {{#if row.lot.title}}
-      - {{row.lot.title}}
-    {{/if}}
+    {{row.title}}
   {{/link-to}}
 </td>
 <td class="buyer">
@@ -17,5 +14,5 @@
   {{/each}}
   <br>
 </td>
-<td class="bids">{{row.lot.bidsCount}}</td>
-<td class="award">{{format-amount row.lot.tender.finalValue '0,0.00'}} €</td>
+<td class="bids">{{row.bids}}</td>
+<td class="value">{{format-amount row.value '0,0.00'}} €</td>

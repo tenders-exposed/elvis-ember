@@ -2,6 +2,9 @@
 // -------------------
 
 #details-sidebar {
+  .search-icon {
+    margin-top: 1.2em;
+  }
   a.order {
     margin-top: 3.2em;
     cursor: pointer;
@@ -44,6 +47,7 @@
   }
 
   .data-table-filter,
+  .data-table-search,
   .data-table .tse-content {
     padding: 0 $padding-base;
   }

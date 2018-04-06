@@ -16,13 +16,12 @@ export default Route.extend({
     return this.get('store').findRecord(
       'network',
       params.network_id
-    ).then(function(response){
-        self.titleToken = `${self.titleToken} ${response.name || response.id}`;
-        response = self.get('networkService').setModel(response);
+    ).then(function(response) {
+      self.titleToken = `${self.titleToken} ${response.name || response.id}`;
+      response = self.get('networkService').setModel(response);
       return response;
     });
   },
-
 
   setupController(controller, model) {
     controller.set('model', model);
@@ -30,7 +29,6 @@ export default Route.extend({
   },
 
   resetController(controller) {
-
     controller.set('network', undefined);
     controller.set('clusters', undefined);
   },
@@ -40,7 +38,7 @@ export default Route.extend({
     this.transitionTo('network.show.details', activeTab);
   },
   actions: {
-   /* error(error, transition) {
+    /* error(error, transition) {
       console.log('error.show', error);
       console.log('error.transition.show', transition);
     },*/

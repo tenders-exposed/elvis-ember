@@ -36,20 +36,20 @@ export default Route.extend({
           // from lots
           results.selectionMethod = results.lots[0].selectionMethod;
           results.bidders = [];
-          _.forEach(results.lots, function (lot) {
+          _.forEach(results.lots, function(lot) {
             // select only the winning bids
-            let winningBids = _.filter(lot.bids, function (bid) {
+            let winningBids = _.filter(lot.bids, function(bid) {
               return bid.isWinning;
             });
 
             // retrieve the year of the first winning bid
             let TEDCANID = (typeof results.TEDCANID !== 'undefined') ? results.TEDCANID : winningBids[0].TEDCANID;
-            results.tedYear = TEDCANID.substring(0,4);
-            let tedIdParts = _.split(TEDCANID,'-');
+            results.tedYear = TEDCANID.substring(0, 4);
+            let tedIdParts = _.split(TEDCANID, '-');
             results.tedNumber = _.last(tedIdParts);
 
             // add to bidders if unique
-            _.forEach(winningBids, function (bid) {
+            _.forEach(winningBids, function(bid) {
               results.bidders = _.unionBy(results.bidders, bid.bidders, 'id');
             });
           });
