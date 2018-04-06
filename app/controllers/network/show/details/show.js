@@ -1,43 +1,44 @@
-import Ember from 'ember';
-
-const { Controller } = Ember;
+import Controller from '@ember/controller';
 
 export default Controller.extend({
   activeTabDetails: 'contracts',
-  activeTabProcurer: 'contracts',
+  activeTabbuyer: 'contracts',
   params: {},
   networkQuery: {},
 
+  sort: "value",
   fields: {
     contracts: {
-      name: 'Contract' ,
-      buyer: 'Buyer',
-      bids: 'Bids',
-      award: 'Awarded amount'
+      title: {label: 'Contract', sort: false} ,
+      buyers: {label: 'Buyer', sort: false},
+      bids: {label: 'Bids', sort: true},
+      value: {label: 'Awarded amount', sort: true}
     },
     contractsProcurer: {
-      name: 'Contract' ,
-      supplier: 'Supplier',
-      bids: 'Bids',
-      award: 'Awarded amount'
+      title: {label: 'Contract', sort: false} ,
+      bidders: {label: 'Bidder', sort: false},
+      bids: {label: 'Bids', sort: true},
+      value: {label: 'Awarded amount', sort: true}
     },
-    procurers: {
-      procurer: 'Procurer Name',
+
+    buyers: {
+      buyer: 'Government Name',
       contracts: 'Contracts',
       income: 'Income',
       bids: 'Avg bids'
     },
-    suppliers: {
-      supplier: 'Supplier Name',
+
+    bidders: {
+      bidder: 'Company Name',
       contracts: 'Contracts',
       income: 'Income',
       bids: 'Avg bids'
     },
     contractsRelationship: {
-      name: 'Contract' ,
-      date: 'Date',
-      bids: 'Bids',
-      award: 'Award amount'
+      title: {label: 'Contract', sort: false} ,
+      date: {label: 'Date', sort: false},
+      bids: {label: 'Bids', sort: true},
+      value: {label: 'Award amount', sort: true}
     }
   },
 

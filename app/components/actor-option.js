@@ -1,6 +1,5 @@
-import Ember from 'ember';
-
-const { Component, computed } = Ember;
+import Component from '@ember/component';
+import { computed } from '@ember/object';
 
 export default Component.extend({
   classNames: 'ember-select-guru__option',
@@ -13,8 +12,8 @@ export default Component.extend({
     this.set('option.key', this.get('option.x_slug_id'));
 
     let type = this.get('option.type');
-    if (type === 'procuring_entity') {
-      this.set('option.type', 'procurer');
+    if (type === 'buyer') {
+      this.set('option.type', 'buyer');
     } else {
       this.set('option.type', type);
     }

@@ -1,12 +1,11 @@
-import Ember from 'ember';
-
-const { Component, computed } = Ember;
+import Component from '@ember/component';
+import { computed } from '@ember/object';
 
 export default Component.extend({
 
   typeClasses: {
-    supplier: 'supplier',
-    procuring_entity: 'procurer',
+    bidder: 'bidder',
+    buyer: 'buyer',
     edge: 'relationship'
   },
 
@@ -24,13 +23,17 @@ export default Component.extend({
 
     if (typeSelected === 'node') {
       let nodeDetails = this.get('networkService').getNodeById(elementId);
-      nodeDetails.nodeType = nodeDetails.type == 'supplier' ? 'Company' : 'Government';
+      let nodeType = nodeDetails.type == 'bidder' ? 'Company' : 'Government';
+
       this.set('model', nodeDetails);
+      this.set('model.nodeType', nodeType);
       this.set('nodeId', elementId);
+
     }
     if (typeSelected === 'edge') {
       let edgeDetails = this.get('networkService').getEdgeById(elementId);
       this.set('model', edgeDetails);
+      console.log('box details edge',  edgeDetails);
     }
   },
 

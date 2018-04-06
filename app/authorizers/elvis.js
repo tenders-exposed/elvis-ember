@@ -1,18 +1,12 @@
-import Ember from 'ember';
-import DeviseAuthorizer from 'ember-simple-auth/authorizers/devise';
+import OAuth2BearerAuthorizer from 'ember-simple-auth/authorizers/oauth2-bearer';
+import { isEmpty } from '@ember/utils';
 
-const { isEmpty } = Ember;
-
-export default DeviseAuthorizer.extend({
-  tokenAttributeName: 'authentication_token',
-  identificationAttributeName: 'email',
+export default OAuth2BearerAuthorizer.extend({
+  tokenAttributeName: 'access_token',
   authorize(data, block) {
-    let userToken          = data.authentication_token;
-    let userIdentification = data.email;
-    if (!isEmpty(userToken) && !isEmpty(userIdentification)) {
-      // const authData = `${tokenAttributeName}="${userToken}", ${identificationAttributeName}="${userIdentification}"`;
-      block('X-User-Email', `${userIdentification}`);
-      block('X-User-Token', `${userToken}`);
+    let userToken          = data.access_token;
+    if (!isEmpty(userToken)) {
+      block('Authorization', `${userToken}`);
     }
   }
 });

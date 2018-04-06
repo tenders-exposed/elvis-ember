@@ -12,13 +12,17 @@
 --}}
   {{#t.content as |c|}}
     {{#c.header}}
-      {{#each-in fields as |name label|}}
-        {{th-sortable
-            field=name
-            currentSorting=sort
-            label=label
-            class=name
-        }}
+      {{#each-in fields as |name field|}}
+        {{#if field.sort}}
+          {{th-sortable
+              field=name
+              currentSorting=sort
+              label=field.label
+              class=name
+          }}
+        {{else}}
+          <th class="{{name}}">{{field.label}}</th>
+        {{/if}}
       {{/each-in}}
     {{/c.header}}
 

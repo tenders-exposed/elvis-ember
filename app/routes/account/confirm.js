@@ -1,12 +1,11 @@
-import Ember from 'ember';
 import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
-
-const { Route, inject } = Ember;
+import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 
 export default Route.extend(UnauthenticatedRouteMixin, {
   classNames: ['body-page'],
   titleToken: 'Confirm your account',
-  ajax: inject.service(),
+  ajax: service(),
   queryParams: {
     t: {
     }
@@ -14,7 +13,7 @@ export default Route.extend(UnauthenticatedRouteMixin, {
   model(params) {
     let self = this;
     let token = params.t;
-    self.get('ajax').request(`/users/confirmation?confirmation_token=${token}`).then(() => {
+    self.get('ajax').request(`/account/activate?t=${token}`).then(() => {
       self.notifications.success('Your account is now activated!', {
         autoClear: true
       });
@@ -29,7 +28,7 @@ export default Route.extend(UnauthenticatedRouteMixin, {
           clearDuration: 5000
         });
       });
-      self.controller.transitionToRoute('network.new');
+      // self.controller.transitionToRoute('network.new');
     });
   }
 });

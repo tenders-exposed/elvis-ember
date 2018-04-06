@@ -36,7 +36,7 @@
           <div class="row">
             <div class="col m4 s12">
               <h3>Network Focus</h3>
-              <p>Only procurement from these countries and companies will be visualised</p>
+              <p>Only procurement from these countries and/or companies will be visualised</p>
             </div>
             <div class="col m8 s12">
               <!--
@@ -47,12 +47,14 @@
               -->
               <div class="input-field col m6 s12">
                 <span class="input-prefix"><i class="fa fa-globe"></i></span>
+
                 {{ember-select-guru
                     value=query.rawCountries
                     options=countries
                     searchKey='text'
                     multiple=true
                     optionComponent='country-option'
+                    noOptionsComponent='qb-no-option'
                     onSelect=(action "onCountrySelectEvent")
                 }}
                 <label>Select countries</label>
@@ -67,6 +69,7 @@
                     searchKey='name'
                     multiple=true
                     optionComponent='actor-option'
+                    noOptionsComponent='qb-no-option'
                     multiValueComponent='actor-value'
                     onSearchInputChange=(action "actorTermChanged")
                     onSelect=(action "onAutocompleteSelectEvent")
@@ -117,14 +120,36 @@
               <h3>Markets / Fields</h3>
               <p>Only selected procurement markets will be visualised.</p>
               <p><a href="https://simap.ted.europa.eu/cpv" target="_blank"><i class="fa fa-arrow-right"></i> Read more about CPV codes</a></p>
+              <p><h4>{{selectedCodesCount}} <small>winning bids selected</small></h4></p>
             </div>
             <div class="col m8 s12">
               <div class="cpv-selector cpv-tree">
                 <!-- @NOTE: ember-scrollable scrollbar needs to be wrapping the long content, and its parent must have limited height  - in this case .cpv-selector { height: 400px; } -->
                 {{#if loading.cpvs}}
-                  <i class="fa fa-spinner fa-pulse fa-fw"></i> Loading...
+                  {{#if query.countries}}
+                    <i class="fa fa-spinner fa-pulse fa-fw"></i> Loading...
+                  {{/if}}
                 {{else}}
+                  {{log loading.cpvs}}
+
                   {{#if cpvs}}
+                    <form class="row" {{action 'searchCpv' on='submit'}}>
+                      <div class="col s8">
+                      {{input type="text"
+                              placeholder="search for keyword of CPV code.."
+                              class="search-input form-control"
+                              value=cpvSearchTerm
+                      }}
+                      </div>
+                      <div class="col s2">
+                      {{md-btn text=''
+                              icon='fa fa-search'
+                              action='searchCpv'
+                              class='grey darken-3 btn-floating'
+                      }}
+                      </div>
+                    </form>
+
                     {{#ember-scrollable}}
                       <div class="jstree-default-dark-small">
                         {{ember-jstree
@@ -164,14 +189,14 @@
                 <div class="qb-rendering-nodes col m5 s12">
                   <h5>Node size<span class="text-muted">represents</span></h5>
                   {{radio-button
-                      value="count"
+                      value="numberOfWinningBids"
                       radioId="nodeSizeCount"
                       groupValue=query.nodes
                   }}
                   <label class="node-size-count" for="nodeSizeCount">Number of contracts</label>
                   <br>
                   {{radio-button
-                      value="sum"
+                      value="amountOfMoneyExchanged"
                       radioId="nodeSizeSum"
                       groupValue=query.nodes
                   }}
@@ -180,18 +205,35 @@
                 <div class="qb-rendering-edges col m7 s12">
                   <h5>Edge thickness<span class="text-muted">represents</span></h5>
                   {{radio-button
-                      value="count"
-                      groupValue=query.edges
+                      value="numberOfWinningBids"
                       radioId="edgeSizeCount"
+                      groupValue=query.edges
                   }}
                   <label class="edge-size-count" for="edgeSizeCount"> Number of contracts </label>
                   <br>
                   {{radio-button
-                      value="sum"
+                      value="amountOfMoneyExchanged"
                       groupValue=query.edges
                       radioId="edgeSizeSum"
                   }}
                   <label class="edge-size-sum" for="edgeSizeSum"> Money flow between entities </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 5: rendering options for nodes and edges -->
+        <section class="wizard-step {{optionsStatus}}">
+          <div class="row">
+            <div class="col m4 s12">
+              <h3>Network name (optional)</h3>
+              <p>Name this network</p>
+            </div>
+            <div class="col m8 s12">
+              <div class="row">
+                <div class="qb-rendering-nodes col m5 s12">
+                  {{input type="text" id="networkName" value=name placeholder="Name of the network"}}
                 </div>
               </div>
             </div>

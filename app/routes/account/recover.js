@@ -1,11 +1,13 @@
+import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 import Ember from 'ember';
 
-const { Route, inject, Logger } = Ember;
+const { Logger } = Ember;
 
 export default Route.extend({
   classNames: ['body-page'],
   titleToken: 'Recover your password',
-  ajax: inject.service(),
+  ajax: service(),
 
   activate() {
     let applicationController = this.controllerFor('application');

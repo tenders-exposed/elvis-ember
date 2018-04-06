@@ -1,11 +1,11 @@
-import Ember from 'ember';
+import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
-
-const { Route, inject } = Ember;
+import moment from 'moment';
 
 export default Route.extend(AuthenticatedRouteMixin, {
-  me: inject.service(),
-  ajax: inject.service(),
+  me: service(),
+  ajax: service(),
   classNames: ['body-page'],
 
   model() {
@@ -17,22 +17,29 @@ export default Route.extend(AuthenticatedRouteMixin, {
     this.titleToken = ` My projects (${model.get('length')})`;
 
     return model.map(function(network) {
-      if (network.get('description') === 'null') {
-        network.set('description', '');
+      if (network.get('synopsis') === 'null') {
+        network.set('synopsis', '');
       }
 
       let companies = 0;
-      if (typeof network.get('suppliers') !== 'undefined') {
-        companies += network.get('suppliers').length;
+      if (typeof network.get('bidders') !== 'undefined') {
+        companies += network.get('bidders').length;
       }
-      if (typeof network.get('query.procuring_entities') !== 'undefined') {
-        companies += network.get('query.procuring_entities').length;
+      if (typeof network.get('query.buyers') !== 'undefined') {
+        companies += network.get('query.buyers').length;
       }
       network.set('companies', companies);
 
       network.set('firstYear', _.first(network.get('query.years')));
       network.set('lastYear', _.last(network.get('query.years')));
       network.set('cpvsCount', network.get('query.cpvs').length);
+
+      network.set('nodeCount', network.get('count.nodeCount'));
+      network.set('edgeCount', network.get('count.edgeCount'));
+
+      console.log('updated', moment.parseZone(network.get('updated')).local().format());
+
+      network.set('updated', moment.parseZone(network.get('updated')).local().format());
       return network;
     }, model);
 
@@ -44,11 +51,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
   activate() {
     this.notifications.clearAll();
-    this.notifications.warning('Warning, this page contains unfinished features!', {
-      autoClear: true,
-      clearDuration: 10000
-    });
   },
+
   actions: {
     deleteNetwork(networkId) {
       let self = this;

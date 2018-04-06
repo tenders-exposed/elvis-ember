@@ -9,10 +9,14 @@ const unicodeFruits = [
 export function formatAmount(params/*, options*/) {
   let [value, format, placeholder] = params;
 
-  if (value) {
-    return numeral(value)
-      .format(format || defaultFormat)
-      .toUpperCase();
+  if (typeof value !== 'undefined') {
+    if (value == 0 || value == '0') {
+      return 0;
+    } else {
+      return numeral(value)
+        .format(format || defaultFormat)
+        .toUpperCase();
+    }
   }
 
   if (placeholder) {

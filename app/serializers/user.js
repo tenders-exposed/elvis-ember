@@ -7,20 +7,14 @@ export default JSONSerializer.extend({
     let json = this._super(...arguments);
 
     let attributes = [
-      'id',
       'email',
-      'password',
-      'token',
-      'password_confirmation',
-      'country',
-      'name'
+      'password'
     ];
 
-    json.user = {};
-
-    attributes.forEach((v) => {
-      json.user[v] = json[v];
-      delete json[v];
+    Object.keys(json).forEach((k) => {
+      if (!attributes.includes(k)) {
+        delete json[k];
+      }
     });
 
     return json;

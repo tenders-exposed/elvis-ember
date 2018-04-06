@@ -1,0 +1,33 @@
+$height: 20px;
+
+.progressp {
+  width: 100%;
+  height: $height;
+}
+.progress-wrap {
+  background: $color-bidder;
+  margin: 10px 0;
+  overflow: hidden;
+  position: relative;
+  p.percent {
+    color: $color-buyer;
+    font-weight: bold;
+    font-size: 1rem;
+    margin: 2px;
+  }
+  .progress-bar {
+    border: 1px solid $color-bidder;
+    background: #c7c7c7;
+    left: 0;
+    position: absolute;
+    top: 0;
+  }
+}
+
+.message-progress-bar {
+  font-size: $font-size-small;
+  font-style: $font-family-sans;
+  margin: 0 auto;
+  padding-top: 0px;
+  position: relative;
+}

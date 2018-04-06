@@ -1,24 +1,35 @@
 import Ember from 'ember';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
+import { A } from '@ember/array';
 
-const { Route, inject, Logger, A } = Ember;
+const { Logger } = Ember;
 
-export default Route.extend(AuthenticatedRouteMixin, {
+export default Route.extend({
   classNames: ['body-page'],
-  ajax: inject.service(),
   titleToken: 'Create a new network',
 
+  songs: service(),
+  ajax: service(),
+
   endpoints: {
-    'countries': '/contracts/countries',
-    'years': '/contracts/years',
-    'cpvs': '/contracts/cpvs'
+    'countries': '/tenders/countries',
+    'years': '/tenders/years',
+    'cpvs': '/tenders/cpvs'
   },
 
   setAvailable(controller, item, options) {
     let self = this;
     if (_.indexOf(_.keysIn(self.get('endpoints')), item) !== -1) {
-      self.get('ajax').post(self.get(`endpoints.${item}`), options).then((data) => {
-        controller.set(item, data.search.results);
+      self.get('ajax').request(self.get(`endpoints.${item}`), options).then((data) => {
+        // controller.set(item, data.search.results);
+        // @todo: problem with the catch; this must be modified
+        if (item == 'countries') {
+          _.each(data[item], function(country) {
+            country.text = country.name;
+          });
+        }
+        controller.set(item, data[item]);
       });
     } else {
       Logger.error(`Unknown set '${item}'`);
@@ -39,5 +50,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
       self.setAvailable(controller, item);
     });
     controller.set('query.cpvs', A([]));
+
+    controller.set('name', this.get('songs').random());
   }
 });

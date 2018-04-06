@@ -1,4 +1,5 @@
 
+
 <div class="data-table-filter row">
     <a class="order asc col s1" onclick={{action "changeSortOrder"}}>
       {{fa-icon 'sort-amount-desc'}}
@@ -11,7 +12,20 @@
           searchKey='text'
           onSelect=(action "sortTable")
       }}
+    </div>
+</div>
 
+<div class="data-table-search row">
+    <div class="col s1 search-icon">
+      {{fa-icon 'search'}}
+
+    </div>
+    <div class="col s11">
+      {{input type="text"
+              placeholder="search an actor.."
+              class="search-input form-control"
+              value=search
+      }}
     </div>
 </div>
 
@@ -34,8 +48,8 @@
     {{#ember-scrollable}}
 
       {{#each content as |row|}}
-        <tr class="{{if row.isSelected 'selected'}}">
-            <td class="{{if row.cluster (concat 'cluster ' name) name}} item-figure">
+        <tr class="{{if row.isSelected 'selected'}} {{if row.hidden "hidden"}}">
+            <td class="item-figure">
               {{#if row.isCluster}}
                 <span class="containedNodes">
                   {{row.containedNodesCount}}
@@ -54,15 +68,21 @@
                 {{!-- relationships --}}
                 {{#if row.toLabel}}
                   {{#link-to "network.show.details.show" route row.link}}
-                    <small class="item-entity"><span class="figure-procurer"></span>&nbsp;{{row.toLabel}}</small><br>
-                    <small class="item-entity"><span class="figure-supplier"></span>&nbsp;{{row.fromLabel}}</small>
+                    <small class="item-entity"><span class="figure-buyer"></span>&nbsp;{{row.fromLabel}} </small><br>
+                    <small class="item-entity"><span class="figure-bidder"></span>&nbsp;{{row.toLabel}} </small>
                   {{/link-to}}
                 {{/if}}
-                {{!-- procurers / suppliers --}}
+                {{!-- buyers / bidders --}}
                 {{#if row.label}}
-                  {{#link-to "network.show.details.show" route row.link}}
-                    {{row.label}}
-                  {{/link-to}}
+                  {{#if row.isCluster}}
+                    {{#link-to "network.show.details.show" route (concat "c_" row.link)}}
+                      {{row.label}}
+                    {{/link-to}}
+                  {{else}}
+                    {{#link-to "network.show.details.show" route row.link}}
+                      {{row.label}}
+                    {{/link-to}}
+                  {{/if}}
                 {{/if}}
               {{/link-to}}
             </td>

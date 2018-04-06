@@ -1,7 +1,9 @@
 <h3>Sign in to your account</h3>
 <p>Don'have an account? Register {{#link-to "account.new"}}here{{/link-to}}.</p>
 {{#if errorMessage}}
-    <p class="alert alert-error">{{errorMessage}}</p>
+  {{#each errorMessage.errors as |err|}}
+    <p class="alert alert-error">{{err.message}}</p>
+  {{/each}}
 {{/if}}
 <form {{action 'authenticate' on='submit'}} autocomplete="off">
     <div class="input-field">
@@ -14,5 +16,8 @@
     </div>
     <br>
     {{async-button action=(action "authenticate" fakeUser) default="Sign in" pending="Logging in..." class="btn primary"}}
+    <a class="btn primary" {{action "authenticateTwitter"}}>
+      <i class="fa fa-twitter"></i> Log in with Twitter
+    </a>
     {{#link-to "account.recover" class="btn link primary"}}Lost password?{{/link-to}}
 </form>

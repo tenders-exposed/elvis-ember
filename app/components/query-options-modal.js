@@ -1,23 +1,21 @@
-import Ember from 'ember';
-
-const { Component } = Ember;
+import Component from '@ember/component';
 
 export default Component.extend({
   refresh: true,
 
   options: {
     nodes: [
-      { name: 'sum' },
-      { name: 'count' }
+      { name: 'amountOfMoneyExchanged' },
+      { name: 'numberOfWinningBids' }
     ],
     edges: [
-      { name: 'sum' },
-      { name: 'count' }
+      { name: 'amountOfMoneyExchanged' },
+      { name: 'numberOfWinningBids' }
     ]
   },
 
-  nodes: { name: 'count' },
-  edges: { name: 'count' },
+  nodes: { name: 'numberOfWinningBids' },
+  edges: { name: 'numberOfWinningBids' },
 
   actions: {
 

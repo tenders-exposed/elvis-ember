@@ -1,44 +1,60 @@
-import Ember from 'ember';
-const { Route, inject } = Ember;
+import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 
 export default Route.extend({
   classNames: ['body-network'],
-  ajax: inject.service(),
-  store: inject.service(),
+  ajax: service(),
+  store: service(),
 
   model(params, transition) {
     let { tab } = transition.params['network.show.details'];
+    let { network_id } = transition.params['network.show'];
     let contractId = params.contract_id;
     let entityId = params.node_id;
-    let self = this;
-    let token     = this.get('me.data.authentication_token');
-    let email     = this.get('me.data.email');
+    let { countries } = this.modelFor('network.show').get('query');
 
+    let self = this;
+
+    // console.log(`url request /networks/${network_id}/tenders/${contractId}`);
     return this.get('ajax')
-      .request(`/contracts/${contractId}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          'X-User-Email': `${email}`,
-          'X-User-Token': `${token}`
-        }
-      }).then(
+      .request(`/networks/${network_id}/tenders/${contractId}`).then(
         (data) => {
-          let [results] = data.search.results;
-          results.supplier = results.suppliers[0];
+          let results = data.tender;
           results.entityId = entityId;
           results.tab = tab;
 
-          let details = { 'yes': 'check', 'no': 'close', 'null': 'question' };
+          // labels
+          results.isCoveredByGpa = (typeof results.isCoveredByGpa !== 'undefined')
+            ? (results.isCoveredByGpa ? 'check' : 'close') : 'question';
 
-          results.award.date.full = `${results.award.date.x_year}-${results.award.date.x_month}-${results.award.date.x_day}`;
-          results.x_eu_project = String(results.x_eu_project);
-          results.x_framework = String(results.x_framework);
-          results.x_subcontracted = String(results.x_subcontracted);
+          results.isFrameworkAgreement = (typeof results.isFrameworkAgreement !== 'undefined')
+            ? (results.isFrameworkAgreement ? 'check' : 'close') : 'question';
 
-          results.eu_project = details[results.x_project] ? details[results.x_project] : 'check';
-          results.framework = details[results.x_framework]  ? details[results.x_framework] : 'check';
-          results.subcontracted = details[results.x_subcontracted] ? details[results.x_subcontracted] : 'check';
+          results.isEuFunded = (typeof results.isEUFunded !== 'undefined')
+            ? (results.isEUFunded ? 'check' : 'close') : 'question';
 
+          // from lots
+          results.selectionMethod = results.lots[0].selectionMethod;
+          results.bidders = [];
+          _.forEach(results.lots, function(lot) {
+            // select only the winning bids
+            let winningBids = _.filter(lot.bids, function(bid) {
+              return bid.isWinning;
+            });
+
+            // retrieve the year of the first winning bid
+            let TEDCANID = (typeof results.TEDCANID !== 'undefined') ? results.TEDCANID : winningBids[0].TEDCANID;
+            results.tedYear = TEDCANID.substring(0, 4);
+            let tedIdParts = _.split(TEDCANID, '-');
+            results.tedNumber = _.last(tedIdParts);
+
+            // add to bidders if unique
+            _.forEach(winningBids, function(bid) {
+              results.bidders = _.unionBy(results.bidders, bid.bidders, 'id');
+            });
+          });
+
+          // console.log('contract result', results);
           return results;
         }, (response) => {
 

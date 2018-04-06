@@ -1,6 +1,4 @@
-import Ember from 'ember';
-
-const { Service } = Ember;
+import Service from '@ember/service';
 
 export default Service.extend({
   edges: [],
@@ -8,12 +6,11 @@ export default Service.extend({
   clusters: [],
 
   // from network, after network is rendered
-  suppliers: [],
-  procurers: [],
+  bidders: [],
+  buyers: [],
   relationships: [],
 
   isReady: false,
-  checkClustered: false,
 
   init() {
     this.set('network', undefined);
@@ -54,11 +51,11 @@ export default Service.extend({
   getNodeById(nodeId) {
     // check if in network is clustered then take it from clusters
     // else from nodes
-    let node = _.find(this.get('suppliers'), (o) => {
+    let node = _.find(this.get('bidders'), (o) => {
       return o.id == nodeId;
     });
     if (!node) {
-      node = _.find(this.get('procurers'), (o) => {
+      node = _.find(this.get('buyers'), (o) => {
         return o.id == nodeId;
       });
     }
@@ -74,24 +71,6 @@ export default Service.extend({
     return edge;
   },
 
-  getFlaggedEdges(edges) {
-    let edgesFlagged = _.cloneDeep(edges);
-
-    _.map(edgesFlagged, (edge) => {
-      if (Object.keys(edge.flags).length > 0) {
-        let flags = '';
-        for (let i = 0; i < Object.keys(edge.flags).length; i++) {
-          flags += '⚑';
-        }
-        edge.label = flags;
-        // hack because in vis-network the flags are not stored
-        edge.title = _.join(_.keys(edge.flags), ', ');
-
-      }
-    });
-    return edgesFlagged;
-  },
-
   setModel(model) {
     // let edges = model.get('flaggedGraph.edges');
     // let nodesFl = model.get('flaggedGraph.nodes');
@@ -101,12 +80,12 @@ export default Service.extend({
       this.set('defaultNodes', nodes);
     }
 
-    if (model.get('graph.clusters')) {
-      _.forEach(model.get('graph.clusters'), function(cluster, clusterIndex) {
+    if (model.get('clusters')) {
+      _.forEach(model.get('clusters'), function(cluster, clusterIndex) {
         cluster.empty = false;
-        cluster.nodes = _.filter(model.get('graph.nodes'), function(node) {
+        cluster.nodes = _.filter(model.get('nodes'), function(node) {
 
-          let indexCheck = _.findIndex(cluster.node_ids, function(o) {
+          let indexCheck = _.findIndex(cluster.nodes, function(o) {
             return o == node.id;
           });
           if (indexCheck !== -1) {
@@ -118,21 +97,17 @@ export default Service.extend({
         });
       });
     }
-    let clusters = typeof model.get('graph.clusters') === 'undefined' ? [] : model.get('graph.clusters');
-    // necesary or not?
-    model.set('clusters', clusters);
-    // if clusters are emty set them as empty array
-    model.set('graph.clusters', clusters);
+
     this.set('model', model);
-    this.set('edges', model.get('graph.edges'));
+    this.set('edges', model.get('edges'));
     this.set('nodes', model.get('graph.nodes'));
-    this.set('flaggedEdges', this.getFlaggedEdges(model.get('graph.edges')));
-    this.set('clusters', clusters);
+    this.set('flaggedEdges', model.get('flaggedEdges'));
+    this.set('clusters', model.get('clusters'));
 
     return model;
   },
 
-  setSuppliersProcurers() {
+  setbiddersbuyers() {
     // from network.network.body.nodesIndices & .nodes[nodeId]
     let valueFormat = (value) => {
       if (typeof value !== 'string' && typeof value !== 'undefined') {
@@ -141,41 +116,53 @@ export default Service.extend({
       }
       return value;
     };
+    /*
+    * "nodes": [
+     {
+     "id": "string",
+     "label": "string",
+     "type": "bidder",
+     "country": "string",
+     "medianCompetition": 0,
+     "value": 0,
+     "hidden": true
+     }
+     ]
+     */
 
-    let suppliers = [];
-    let procurers = [];
-    let nodes = this.get('network.network.body.nodes');
-    _.each(this.get('network.network.body.nodeIndices'), function(nodeId) {
-      let node = nodes[nodeId];
+    let bidders = [];
+    let buyers = [];
+    let nodes = this.get('nodes');
+    _.each(this.get('nodes'), function(node) {
 
       let nodeDetails = {
-        type: node.options.type,
+        type: node.type,
         id: node.id,
-        value: valueFormat(node.options.value),
-        average_competition: valueFormat(node.options.average_competition),
-        unformattedValue: node.options.value,
-        label: node.options.label ? node.options.label : 'n/a',
-        flags: node.options.flags,
-        flagsCount: node.options.flags.length,
+        hidden: node.hidden,
+        value: valueFormat(node.value),
+        medianCompetition: valueFormat(node.medianCompetition),
+        unformattedValue: node.value,
+        label: node.label,
+        flags: node.flags ? node.flagsCount : {},
+        flagsCount: node.flags ? node.flags.length : 0,
         link: node.id,
-        isCluster: node.isCluster,
-        containedNodesCount: node.isCluster && node.containedNodes ? Object.keys(node.containedNodes).length : 0,
-        nodeId
+        isCluster: ((typeof node.nodes === 'undefined') ? false : true),
+        containedNodesCount: ((typeof node.nodes === 'undefined') ? false : node.nodes.length)
       };
 
-      if (nodeDetails.type == 'supplier') {
-        nodeDetails.route = 'suppliers';
-        suppliers.pushObject(nodeDetails);
+      if (nodeDetails.type == 'bidder') {
+        nodeDetails.route = 'bidders';
+        bidders.pushObject(nodeDetails);
       } else {
-        nodeDetails.route = 'procurers';
-        procurers.pushObject(nodeDetails);
+        nodeDetails.route = 'buyers';
+        buyers.pushObject(nodeDetails);
       }
     });
 
-    let orderedSuppliers = _.orderBy(suppliers, ['unformattedValue', 'label'], ['desc', 'asc']);
-    let orderedProducrers = _.orderBy(procurers, ['unformattedValue', 'label'], ['desc', 'asc']);
-    this.set('suppliers', orderedSuppliers);
-    this.set('procurers', orderedProducrers);
+    let orderedbidders = _.orderBy(bidders, ['unformattedValue', 'label'], ['desc', 'asc']);
+    let orderedProducrers = _.orderBy(buyers, ['unformattedValue', 'label'], ['desc', 'asc']);
+    this.set('bidders', orderedbidders);
+    this.set('buyers', orderedProducrers);
   },
 
   setRelationships() {
@@ -186,7 +173,21 @@ export default Service.extend({
       }
       return value;
     };
-    let edgeValueType = this.get('model.options').edges;
+
+    /*
+      "edges": [
+      {
+      "id": "string",
+      "type": "contracts",
+      "to": "string",
+      "from": "string",
+      "value": 0,
+      "hidden": true
+      }
+      ]
+    */
+
+    let edgeValueType = this.get('model.settings').edgeSize;
     let relationships = [];
     let edges = this.get('network.network.body.edges');
     _.each(this.get('network.network.body.edgeIndices'), function(edgeId) {
@@ -207,12 +208,17 @@ export default Service.extend({
         toLabel: edge.to.options.label,
         from: edge.from.options.id,
         to: edge.to.options.id,
+        fromType: edge.from.options.type,
+        toType: edge.from.options.type,
+        hidden: edge.options.dashes ? true : false,
+        type: edge.options.dashes ? 'partners' : 'contracts',
         value: valueFormat(edge.options.value),
         unformattedValue: edge.options.value,
         valueType: edgeValueType,
         id: edgeId,
-        link: `${edge.from.options.id}-${edge.to.options.id}`,
+        link: `${edge.options.id}`,
         route: 'relationships'
+
       };
       relationships.pushObject(edgeDetails);
     });
@@ -221,114 +227,16 @@ export default Service.extend({
     this.set('relationships', orderedRelationships);
   },
 
-  makeClusteredNetwork(clusteredNodes, clusters) {
-    // clusters [ {id: "uniqueId",name: "", empty: true, type: '', nodes: []}, ]
-    // clusteredNodes all nodes (clustered and notClustered)
-
-    // console.log('service-clusteredNodes', clusteredNodes);
-    // console.log('service-clusters', clusters);
-
-    this.set('clusters', clusters);
-    this.set('nodes', clusteredNodes);
-    // this.set('flaggedNodes', this.getFlaggedNodes(clusteredNodes));
-
-    this.get('network.network').setData({
-      nodes: clusteredNodes,
-      edges: this.get('network.edges')
-    });
-
-    let self = this;
-    let clusterOptionsByData = {};
-    _.each(clusters, function(cluster, clusterIndex) {
-      // let clusterNameIndex = clusterIndex + 1;
-      let clusterId = cluster.id;
-
-      let clusterNodesCount = cluster.nodes.length;
-      let clusterName = cluster.name ? `${cluster.name} (${clusterNodesCount})` : `cluster ${clusterIndex} (${clusterNodesCount})`;
-      let nodeColor = cluster.type === 'supplier' ? '#27f0fc' : '#f0308e';
-      let nodeBorder = cluster.type === 'supplier' ? '#86F4FC' : '#FF69B4';
-
-      let count = 0;           // eslint-disable-line no-unused-vars
-      let childEdgesOut = [];  // eslint-disable-line no-unused-vars
-      clusterOptionsByData = {
-        joinCondition: (childOptions) => {
-          count++;
-          // console.log('joinCondition condition first', count);
-          let condition  = (childOptions.cluster == clusterIndex && childOptions.cluster !== '');
-          return condition;
-        },
-        processProperties: (clusterOptions,
-                            childNodes/*, childEdges*/)  => {
-
-          // let flagsCount = 0;
-          let flags = [];
-          let value = 0;
-          let average_competition = 0;
-          let childrenCount = childNodes.length;
-          for (let i = 0; i < childrenCount; i++) {
-            value += childNodes[i].value;
-            average_competition += childNodes[i].average_competition;
-            if (childNodes[i].flags.length) {
-              flags.pushObject(childNodes[i].flags);
-            }
-          }
-          clusterOptions.value = value;
-          clusterOptions.average_competition = average_competition / childrenCount;
-          clusterOptions.flags = flags;
-          clusterOptions.flagsCount = flags.length;
-          clusterOptions.type = cluster.type;
-
-          return clusterOptions;
-        },
-        clusterNodeProperties: {
-          id: clusterId,
-          label: clusterName,
-          shape: 'dot',
-          borderWidth: 1,
-          color: {
-            border: nodeBorder,
-            background: nodeColor
-          },
-          shadow: {
-            color: nodeColor,
-            size: 7,
-            x: 0,
-            y: 0
-          }
-
-          /*icon: {
-            face: 'FontAwesome',
-            code: '\uf0c0',
-            size: 40,
-            color: nodeColor
-          }*/
-        }
-      };
-      self.get('network.network').cluster(clusterOptionsByData);
-    });
-
-  },
-
   setNetwork(network) {
     // make isReady false.. and recalculate
     if (this.checkReady()) {
       this.deactivate();
     }
-    if (this.get('clusters').length > 0 && !this.get('checkClustered')) {
-      this.set('network', network);
-      this.makeClusteredNetwork(this.get('nodes'), this.get('clusters'));
-      this.set('checkClustered', true);
-    } else {
 
-      this.set('network', network);
-      this.setSuppliersProcurers();
-      this.setRelationships();
-
-      this.activate();
-      // make the clustering if there is anny to be made
-      // if the network, the nodes, the edges are set but did change then recalculate them
-    }
-
+    this.set('network', network);
+    this.setbiddersbuyers();
+    this.setRelationships();
+    this.activate();
   },
 
   getNetwork() {

@@ -98,7 +98,7 @@
           &:hover { color: $text-color; }
         }
       }
-      td.parties { width: 30%; i { color: $color-supplier; } }
+      td.parties { width: 30%; i { color: $color-bidder; } }
       td.value   { width: 20%; color: $text-color; text-align: right; @include title; font-size: $fs3; padding-right: 0px !important; }
       td.bids    { width: 14%; color: $text-color; text-align: right; @include title; font-size: $fs3; }
     }
@@ -120,18 +120,18 @@
       td.bids    { width: 14%; color: $text-color; text-align: right; @include title; font-size: $fs3; }
     }
   }
-  .procurers, .suppliers {
+  .buyers, .bidders {
     .data-table {
-      th.procurer,
-      th.supplier { width: 35%; padding-left: 0px; margin-left: -15px; }
+      th.buyer,
+      th.bidder { width: 35%; padding-left: 0px; margin-left: -15px; }
       th.contracts { width: 32%; }
       th.income    { width: 20%; text-align: right; }
       th.bids      { width: 13%; text-align: right;  padding-right: 0px !important; }
 
       td { vertical-align: top; }
-      td.procurer,
-      th.supplier  { width: 34%; padding-left: 0px !important; i { color: $color-procurer; } }
-      td.supplier  { width: 34%; padding-left: 0px !important; i { color: $color-supplier; } }
+      td.buyer,
+      th.bidder  { width: 34%; padding-left: 0px !important; i { color: $color-buyer; } }
+      td.bidder  { width: 34%; padding-left: 0px !important; i { color: $color-bidder; } }
       td.contracts {
         width: 35%;
         line-height: $fs2;

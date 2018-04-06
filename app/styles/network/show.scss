@@ -82,13 +82,27 @@
   }
 }
 
+div#network-container.stabilization100 {
+  opacity: 1 !important;
+  #details-container {
+    display: block !important;
+  }
+}
+
 div#network-container {
+  opacity: 0.3;
+
   position: relative;
-  height: 100% !important;
+  height: 90% !important;
   width: 100%;
+  overflow: hidden;
   display: block;
   flex-direction: row;
   top: 0;
+
+  #details-container {
+    display: none;
+  }
 
   .crop-fake{
     display: none;
@@ -204,7 +218,7 @@ div#network-container {
     right: 1px;
     top: 140px;
     max-width: 1.2*$button-height;
-    z-index: 9;
+    z-index: 100;
 
     .vis-button {
       @extend .btn-floating;
@@ -214,6 +228,10 @@ div#network-container {
       overflow: visible !important;
       .tooltip {
         display: none;
+      }
+
+      &.disabled-vis-button {
+        opacity: 0.5 !important;
       }
 
       &:hover .tooltip {
@@ -250,6 +268,7 @@ div#network-container {
       }
     }
   }
+  h5 { margin-top: 0; }
 
   div.network-canvas {
     height: 100%;
@@ -308,25 +327,36 @@ div#network-container {
   }
 }
 
-.ember-cli-visks-network > .ember-view { display: none; }
+.ember-cli-visjs-network > .ember-view { display: none; }
 
-div#stabilization-info {
-
+section#legend {
+  position: absolute;
+  margin-top: -80px;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  color: black;
-  text-shadow: 0 0 20px rgba(99, 172, 255, 1);
-  div.align-center {
-    b {
-      padding-top: 25%;
-      width: 100%;
-      text-align: center;
-      position: fixed;
-      font-family: Roboto;
-      font-size: 2rem;
+  z-index: 99;
+
+  background-color: rgba(0, 0, 0, .9);
+  background-image: url("/images/elvis--loading-legend-PNG24.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  .loading-bar {
+    width: 300px;
+    z-index: 100;
+    margin: 0 auto;
+    margin-top: 10em;
+  }
+
+  .loading-spinner {
+    width: 100px;
+    z-index: 100;
+    margin: 0 auto;
+    margin-top: 10em;
+
+    i {
+      margin-right: 5px;
     }
   }
 }

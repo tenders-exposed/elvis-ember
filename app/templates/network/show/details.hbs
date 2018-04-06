@@ -38,6 +38,13 @@
         </span>
         {{input type="text" id="projectName" value=model.name placeholder="My Project Name"}}
       </div>
+      <div class="network-settings-name input-field small">
+        <span class="input-prefix">
+          {{fa-icon 'pencil'}}
+        </span>
+        {{input type="text" id="projectDescription" value=model.synopsis placeholder="My Project Description"}}
+      </div>
+
       {{!-- READY: on/off switch for setting the network public or private
       <div class="network-settings-privacy">
         <div class="switch">
@@ -63,15 +70,15 @@
     <div class="table-sidebar">
       {{#tabbed-content active=activeTab on-change="changeTab" active-class="tab-button--active" as |sidebarTabManager|}}
       <div class="tabs__nav">
-        {{#tab-button class="tab-button"  manager=sidebarTabManager name="suppliers"}}
+        {{#tab-button class="tab-button"  manager=sidebarTabManager name="bidders"}}
         <a>
-          <span class="tab-icon figure-supplier"></span>
+          <span class="tab-icon figure-bidder"></span>
           Companies
         </a>
         {{/tab-button}}
-          {{#tab-button class="tab-button"  manager=sidebarTabManager  name="procurers"}}
+          {{#tab-button class="tab-button"  manager=sidebarTabManager  name="buyers"}}
           <a>
-            <span class="tab-icon figure-procurer"></span>
+            <span class="tab-icon figure-buyer"></span>
             Government
           </a>
         {{/tab-button}}
@@ -85,34 +92,34 @@
       <a {{action 'closeDetails' model.id}} class="closeDetails sidebar-toggle">
         <i class="control-icon material-icons">{{fa-icon 'arrow-circle-left' size=1}}</i>
       </a>
-      {{#tab-panel manager=sidebarTabManager name="suppliers" class='tab-panel'}}
-        {{#render-later load=gridOptions.suppliers.rowData wait=50 message="Loading data grid..."}}
+      {{#tab-panel manager=sidebarTabManager name="bidders" class='tab-panel'}}
+        {{#render-later load=gridOptions.bidders.rowData wait=50 message="Loading data grid..."}}
           {{elvis-data-table
-            class="sidebar-suppliers"
+            class="sidebar-bidders"
             action="nodeRowClick"
-            tableContent=gridOptions.suppliers.rowData
-            fields=fields.suppliers
-            flags=flags.suppliers
+            tableContent=gridOptions.bidders.rowData
+            fields=fields.bidders
+            flags=flags.bidders
             network=network
             networkId=model.id
-            route="suppliers"
-            orderOptions = orderOptions.suppliers
+            route="bidders"
+            orderOptions = orderOptions.bidders
           }}
         {{/render-later}}
       {{/tab-panel}}
 
-      {{#tab-panel manager=sidebarTabManager name="procurers" class='tab-panel'}}
-        {{#render-later load=gridOptions.procurers.rowData wait=50 message="Loading data grid..."}}
+      {{#tab-panel manager=sidebarTabManager name="buyers" class='tab-panel'}}
+        {{#render-later load=gridOptions.buyers.rowData wait=50 message="Loading data grid..."}}
           {{elvis-data-table
-            class="sidebar-procurers"
+            class="sidebar-buyers"
             action="nodeRowClick"
-            tableContent=gridOptions.procurers.rowData
-            fields=fields.suppliers
-            flags=flags.suppliers
+            tableContent=gridOptions.buyers.rowData
+            fields=fields.bidders
+            flags=flags.bidders
             network=network
             networkId=model.id
-            route="procurers"
-            orderOptions = orderOptions.suppliers
+            route="buyers"
+            orderOptions = orderOptions.bidders
           }}
         {{/render-later}}
       {{/tab-panel}}

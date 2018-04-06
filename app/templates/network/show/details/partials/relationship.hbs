@@ -16,45 +16,44 @@
     <div class="detailview-body">
 
       <h5 class="detailview-restriction">
-        Displaying Period: <strong>{{modelDetails.to.firstYear}} - {{modelDetails.to.lastYear}}</strong>
+        Displaying Period: <strong>{{modelDetails.firstYear}} - {{modelDetails.lastYear}}</strong>
       </h5>
 
       <section>
         <br><br>
         <h5>Actors</h5>
         <div>
-          <span class="figure-procurer small"></span>
-          {{#link-to "network.show.details.show" "procurers" 13333}}
-            {{modelDetails.from.name}}
+          <span class="figure-buyer small"></span>
+          {{#link-to "network.show.details.show" "procurers" modelDetails.from}}
+            {{modelDetails.fromLabel}}
           {{/link-to}}
         </div>
         <div>
-          <span class="figure-supplier small"></span>
-          {{#link-to "network.show.details.show" "suppliers" 995348}}
-            {{modelDetails.to.name}}
+          <span class="figure-bidder small"></span>
+          {{#link-to "network.show.details.show" "suppliers" modelDetails.to}}
+            {{modelDetails.toLabel}}
           {{/link-to}}
         </div>
 
-        <div class="tags">
+        {{!--<div class="tags">
           {{#each-in modelDetails.to.flags as |flName flValue|}}
             <span class="tag redflag"><i class="fa fa-flag"></i> {{flName}}</span>
           {{/each-in}}
-        </div>
+        </div>--}}
       </section>
 
       <section class="row">
         <div class="col s4 summary">
-          <h5 class="summary-title">All awarded amounts</h5>
-          <div class="summary-value">{{format-amount modelDetails.to.total_earnings}}€</div>
+          <h5 class="summary-title">Bids awarded</h5>
+          <div class="summary-value">{{format-amount modelDetails.numberOfWinningBids}}</div>
         </div>
         <div class="col s4 summary">
-          <h5 class="summary-title">Awarded amount unknown in</h5>
-          <div class="summary-value">{{modelDetails.to.missing_values}}% <small>tenders</small></div>
+          <h5 class="summary-title">All awarded amounts</h5>
+          <div class="summary-value">{{format-amount modelDetails.amountOfMoneyExchanged}}</div>
         </div>
-
         <div class="col s3 summary">
-          <h5 class="summary-title">AVG. Competition</h5>
-          <div class="summary-value">{{modelDetails.to.average_competition}} <small>bids per tender</small></div>
+          <h5 class="summary-title">Awarded amount unknown in</h5>
+          <div class="summary-value">{{format-amount modelDetails.percentValuesMissing '0,0.0'}} % <small>tenders</small></div>
         </div>
       </section>
 
@@ -63,35 +62,17 @@
 
         {{details-data-table
           class="contracts-table"
-          content=modelDetails.to.contracts
+          content=modelDetails.contracts
+          sort=sort
           fields=fields.contractsRelationship
           partialPath="network/show/details/partials/tables/contracts-relationship"
           route="relationships"
           nodeId=params.id
           componentTable="contracts-relationship"
         }}
-
-        <!--<table class="contracts-table">
-          <thead>
-          <tr>
-            <th class="name">Contract</th>
-            <th class="date">Date</th>
-            <th class="bids">Bids</th>
-            <th class="award">Awarded amount</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr class="contract">
-            <td class="name">{{#link-to "network.show.details.contract" "59312b352dcb567c94000003" "58275665c91dcf4f891e5cef"}}Beer delivery for railway catering at SBB.{{/link-to}}</td>
-            <td class="date">18 Dec 2016</td>
-            <td class="bids">47</td>
-            <td class="award">123 487 €</td>
-          </tr>
-          </tbody>
-        </table>-->
       </section>
 
-      <!--section>
+      {{!--section>
         <h5>Tenders over time</h5>
         <div>
           {{details-graph
@@ -103,8 +84,7 @@
             nodeId=params.id
           }}
         </div>
-      </section-->
-
+      </section--}}
     </div>
   {{/ember-scrollable}}
 </div>

@@ -31,11 +31,11 @@
       .circle {
         right: 42%;
 
-        &.supplier { color: $color-supplier; }
-        &.procurer { color: $color-procurer; }
+        &.bidder { color: $color-bidder; }
+        &.buyer { color: $color-buyer; }
         &.relationship { color: $color-relationship; }
-        &.rel1 { right: 30%;  color: $color-procurer; }
-        &.rel2 { right: 60%;   color: $color-supplier; }
+        &.rel1 { right: 30%;  color: $color-buyer; }
+        &.rel2 { right: 60%;   color: $color-bidder; }
 
         &.relationship-line {
           width: 30%;

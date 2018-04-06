@@ -1,10 +1,13 @@
 import Ember from 'ember';
+import Controller from '@ember/controller';
+import { inject as service } from '@ember/service';
+import $ from 'jquery';
 
-const { Controller, $, Logger, inject } = Ember;
+const { Logger } = Ember;
 
 export default Controller.extend({
-  me: inject.service(),
-  ajax: inject.service(),
+  me: service(),
+  ajax: service(),
 
   height: window.innerHeight - 100,
   selectedNodes: [],
@@ -133,10 +136,6 @@ export default Controller.extend({
     let iterations = this.get('stIterations');
     let nodes = this.get('model.graph.nodes').length;
     let edges = this.get('model.graph.edges').length;
-
-    this.get('benchmark').store('performance.network.iterationsTime', timeS);
-    this.get('benchmark').save();
-
     let message =
       `
           <div id="network-info">
@@ -359,8 +358,20 @@ export default Controller.extend({
       }
     },
 
+    toggleInfo() {
+      $('section#legend').toggle();
+      $('.loading-bar').hide();
+    },
+
     showClustering() {
-      this.set('networkClusteringModal', true);
+      if (this.get('session.isAuthenticated')) {
+        this.set('networkClusteringModal', true);
+      } else {
+        this.notifications.error('You need to be loged in before continuing.', {
+          htmlContent: true,
+          autoClear: false
+        });
+      }
     },
 
     showEmbedding() {
@@ -371,76 +382,6 @@ export default Controller.extend({
 
     closeEmbedding() {
       this.set('networkEmbeddingModal', false);
-
-    },
-
-    closeClustering(clusteredNodes, clusters, modified) {
-
-      // check if clusters have been modified
-      if (!modified) {
-        this.set('networkClusteringModal', false);
-        this.set('model.clusters', clusters);
-        this.set('model.graph.nodes', clusteredNodes);
-      } else {
-
-        this.set('networkClusteringModal', false);
-        this.get('notifications').clearAll();
-        this.get('notifications').info('Network is being redrawn. This may take a while...', { autoClear: false });
-
-        // model.clusters  = [ {id: 'uniqueId',name: '', empty: true, type: '', node_ids: [id1, id2, id3]}, ]
-        let clustersPayload = _.map(clusters, (c) => {
-          return {
-            'id': c.id,
-            'name': c.name,
-            'type': c.type,
-            'node_ids': c.node_ids
-          };
-        });
-        let nodesPayload = this.get('networkService.defaultNodes');
-        let edgesPayload = this.get('networkService.edges');
-
-        let networkId = this.get('model.id');
-        let token = this.get('me.data.authentication_token');
-        let email = this.get('me.data.email');
-
-        let data = `{"network": {
-                      "graph": {
-                        "nodes": ${JSON.stringify(nodesPayload)},
-                        "edges": ${JSON.stringify(edgesPayload)},
-                        "clusters": ${JSON.stringify(clustersPayload)}
-                        }
-                      }
-                  }`;
-        let self = this;
-
-        this.get('ajax')
-          .patch(`/networks/${networkId}`, {
-            data,
-            headers: {
-              'Content-Type': 'application/json',
-              'X-User-Email': `${email}`,
-              'X-User-Token': `${token}`
-            }
-          }).then(
-          () => {
-            if (this.get('session.isAuthenticated')) {
-              // close clustering popup
-              self.set('model.clusters', clusters);
-              self.set('model.graph.nodes', clusteredNodes);
-
-              self.get('networkService').makeClusteredNetwork(clusteredNodes, clusters);
-              self.get('notifications').clearAll();
-              self.get('notifications').success('Done! Clusters saved.', { autoClear: true });
-            } else {
-              self.get('notifications').error(`Error: Please login to save your cluster!`);
-            }
-          }, (response) => {
-            self.get('notifications').clearAll();
-            _.forEach(response.errors, (error, index) => {
-              self.get('notifications').error(`Error: ${index } ${error.title}`);
-            });
-          });
-      }
     },
 
     startStabilizing() {
@@ -449,8 +390,6 @@ export default Controller.extend({
     },
 
     stabilizationIterationsDone() {
-      // let network = this.get('network');
-      // let nodesCount = network.nodesSet.length;
 
       if (!this.get('networkStabilization')) {
         this.showNetworkInfo();
@@ -459,7 +398,8 @@ export default Controller.extend({
 
       Logger.info('stabilization iterations done');
       this.set('stabilizationPercent', 100);
-      $('div#stabilization-info').fadeOut();
+      $('section#legend > .progress-wrap').fadeOut();
+      $('section#legend').fadeOut();
 
       this.set('networkStabilization', true);
       Logger.info('Network stabilized');
@@ -477,7 +417,6 @@ export default Controller.extend({
         let diff = event.iterations - this.get('stIterations');
         Logger.info(`Network was stabilized using ${diff} iterations more than assumed (${this.get('stIterations')})`);
       }
-      this.get('benchmark').store('performance.network.iterationsCount', event.iterations);
     }
   }
 });

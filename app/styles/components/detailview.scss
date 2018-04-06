@@ -121,6 +121,17 @@
       font-weight: normal;
       opacity: .7;
       background: rgba(255,255,255,0.05);
+
+      i {
+        text-align: center;
+        color: white;
+        border: 1px solid #8b8b8c;
+        cursor: pointer;
+        width: 1.4em;
+        font-size: 0.7rem;
+        margin-right: 3px;
+        border-radius: 2px;
+      }
     }
     tr {
       border-bottom: 1px solid rgba(255,255,255,.1);
@@ -186,6 +197,9 @@
       text-align: right;
     }
     tr.winner {
+      & td > span {
+        display: inline-block;
+      }
       .bidder:after {
         margin-left: 1em;
         color: #ffa10d;
@@ -197,13 +211,13 @@
   }
 
   .contracts-table {
-    th.supplier,
-    th.buyer,
-    th.name {
+    th.bidders,
+    th.buyers,
+    th.title {
       width: 35%;
     }
     .bids,
-    .award {
+    .value {
       text-align: right;
     }
   }

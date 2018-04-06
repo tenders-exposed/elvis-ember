@@ -23,23 +23,25 @@
                             {{/link-to}}
                       </div>
                       <div class="project-description">
-                          {{network.description}}
+                          {{network.synopsis}}
                       </div>
                       <div class="project-meta">
                         <span class="meta-item">
-                            <span class="project-lastupdate">yesterday</span>
+                            <span class="project-lastupdate">
+                              {{moment-format network.updated 'DD MM YYYY' }}
+                            </span>
                         </span>
-                        <span class="meta-item">
+                       <!-- <span class="meta-item">
                             <i class="fa fa-lock"></i> Private
-                        </span>
+                        </span>-->
                           <span class="meta-item">
-                            <i class="figure-procurer"></i> 17 Procurers
+                            <i class="figure-buyer"></i>
+                              <i class="figure-bidder"></i>
+                                {{network.count.nodeCount}} nodes
                         </span>
+
                           <span class="meta-item">
-                            <i class="figure-supplier"></i> 231 Suppliers
-                        </span>
-                          <span class="meta-item">
-                            <i class="figure-relationship"></i> 174 Connections
+                            <i class="figure-relationship"></i> {{network.count.edgeCount}} Connections
                         </span>
                       </div>
                   </div>
@@ -147,24 +149,6 @@
           </div>
           {{/each}}
 
-          <div class="card-container col s3 m6 l4">
-            <div class="card">
-              <div class="card-image waves-effect waves-block waves-light">
-                {{!-- <img class="activator" src="http://lorempixel.com/400/200/animals/"> --}}
-                {{#link-to 'network.new'}}
-                <img class="activator" src="/images/new_visualisation.jpg">
-                {{/link-to}}
-              </div>
-              <div class="card-content">
-                <span class="card-title">
-                 New visualisation
-                  <br>
-                  <small>start right now</small>
-                </span>
-              </div>
-            </div>
-          </div>
         </div>
-
     </div>
 </div>

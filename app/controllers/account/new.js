@@ -1,6 +1,4 @@
-import Ember from 'ember';
-
-const { Controller } = Ember;
+import Controller from '@ember/controller';
 
 export default Controller.extend({
   actions: {
@@ -12,12 +10,11 @@ export default Controller.extend({
           autoClear: true
         });
         self.transitionToRoute('welcome');
-      },
-      (response) => {
-        self.notifications.clearAll();
-        _.forEach(response.errors, (error, index) => {
-          error.forEach((v) => {
-            self.notifications.error(`Error: ${index } ${v}!`);
+      }).catch((response) => {
+        this.set('errors', response);
+        _.each(response.errors, function(error) {
+          self.notifications.error(`${error.message}`, {
+            autoClear: false
           });
         });
       });

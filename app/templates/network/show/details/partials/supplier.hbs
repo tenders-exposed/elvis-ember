@@ -1,7 +1,7 @@
 <div class="detailview-head">
 
   <div class="detailview-title">
-    <span class="figure-supplier small"></span> Supplier Company details<br>
+    <span class="figure-bidder small"></span> Bidder Company details<br>
   </div>
 
   <div class="close" {{action "closeDetails"}}>
@@ -25,20 +25,21 @@
         Displaying Period: <strong>{{modelDetails.firstYear}} - {{modelDetails.lastYear}}</strong>
       </h5>
 
-      <section class="external-links">
+     {{!-- <section class="external-links">
         <a class="btn-small link primary" href="http://opented.eu">view on opentender.eu <i class="fa fa-external-link"></i></a>
-      </section>
+      </section>--}}
 
       <section>
         <h5>Name</h5>
-        <h2>{{modelDetails.name}}</h2>
+        <h2>{{modelDetails.label}}</h2>
 
         <div class="tags">
-          {{#each modelDetails.countries as |country|}}
+          {{!--{{#each modelDetails.countries as |country|}}
             <span class="tag">
-              {{world-flag country 16}} Switzerland
+              {{world-flag country 16}} {{country}}
             </span>
-          {{/each}}
+          {{/each}}--}}
+
           {{#each-in modelDetails.flags as |flName flValue|}}
             <span class="tag redflag"><i class="fa fa-flag"></i> {{flName}}</span>
           {{/each-in}}
@@ -47,18 +48,22 @@
       </section>
 
       <section class="row">
-        <div class="col s4 summary">
+        <div class="col s2 summary">
+          <h5 class="summary-title">Bids awarded</h5>
+          <div class="summary-value">{{format-amount modelDetails.numberOfWinningBids}}</div>
+        </div>
+        <div class="col s3 summary">
           <h5 class="summary-title">All awarded amounts</h5>
-          <div class="summary-value">{{format-amount modelDetails.total_earnings}}</div>
+          <div class="summary-value">{{format-amount modelDetails.amountOfMoneyExchanged}}</div>
         </div>
         <div class="col s4 summary">
           <h5 class="summary-title">Awarded amount unknown in</h5>
-          <div class="summary-value">{{modelDetails.missing_values}}% <small>tenders</small></div>
+          <div class="summary-value">{{format-amount modelDetails.percentValuesMissing '0,0.0'}} % <small>tenders</small></div>
         </div>
 
         <div class="col s3 summary">
           <h5 class="summary-title">AVG. Competition</h5>
-          <div class="summary-value">{{modelDetails.average_competition}} <small>bids per tender</small></div>
+          <div class="summary-value">{{modelDetails.medianCompetition}} <small>bids per tender</small></div>
         </div>
       </section>
 
@@ -68,24 +73,24 @@
             class="contracts-table"
             content=modelDetails.contracts
             fields=fields.contracts
-            partialPath="network/show/details/partials/tables/contracts-supplier"
-            route="suppliers"
-            nodeId=params.id
+            sort=sort
+            route="bidders"
+            nodeId=modelDetails.id
             componentTable="contracts-supplier"
         }}
       </section>
 
       <section>
-        <h5>Contracted government institutions</h5>
+        <h5>Contracting government institutions</h5>
         {{#each modelDetails.nodes as |node|}}
           <div>
-            <span class="figure-procurer small"></span>
-            {{#link-to "network.show.details.show" "procurers" node.id}}{{node.name}}{{/link-to}}
+            <span class="figure-buyer small"></span>
+            {{#link-to "network.show.details.show" "buyers" node.nodeID}}{{node.name}}{{/link-to}}
           </div>
         {{/each}}
       </section>
 
-      <section>
+      {{!--<section>
         <h5>Tenders over time</h5>
         <div>
           {{details-graph
@@ -98,7 +103,7 @@
 
           }}
         </div>
-      </section>
+      </section> --}}
     </div>
   {{/ember-scrollable}}
 </div>

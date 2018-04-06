@@ -1,6 +1,4 @@
-import Ember from 'ember';
-
-const { Route } = Ember;
+import Route from '@ember/routing/route';
 
 export default Route.extend({
   classNames: ['body-network'],
@@ -13,21 +11,16 @@ export default Route.extend({
   },
 
   model(params) {
+    let self = this;
     this.set('requestTimer', performance.now());
-    let modelShow = this.get('store').findRecord(
+    return this.get('store').findRecord(
       'network',
-      params.network_id,
-      { reload: true }
-    );
-    return modelShow;
-  },
-
-  afterModel(model) {
-    this.get('benchmark').store('performance.network.save', (performance.now() - this.get('requestTimer')));
-    this.titleToken = `${this.titleToken} ${model.get('name') || model.id}`;
-    model = this.get('networkService').setModel(model);
-
-    return model;
+      params.network_id
+    ).then(function(response) {
+      self.titleToken = `${self.titleToken} ${response.name || response.id}`;
+      response = self.get('networkService').setModel(response);
+      return response;
+    });
   },
 
   setupController(controller, model) {
@@ -45,6 +38,20 @@ export default Route.extend({
     this.transitionTo('network.show.details', activeTab);
   },
   actions: {
+    /* error(error, transition) {
+      console.log('error.show', error);
+      console.log('error.transition.show', transition);
+    },*/
+    closeClustering(modified) {
+      // console.log('closeClustering');
+      this.controllerFor('network.show').set('networkClusteringModal', false);
+      // check if clusters have been modified
+      if (modified) {
+        this.set('networkClusteringModal', false);
+        window.location.reload(true);
+        // refresh the page
+      }
+    },
     openSidebar() {
       this.openSidebar();
     },

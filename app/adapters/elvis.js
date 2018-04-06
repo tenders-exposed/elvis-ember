@@ -19,16 +19,14 @@ import {
   deprecate,
   parseResponseHeaders
 } from 'ember-data/-private';
-
-const {
-  MapWithDefault,
-  get,
-  RSVP,
-  run,
-  $
-} = Ember;
+import MapWithDefault from '@ember/map/with-default';
+import { get } from '@ember/object';
+import RSVP from 'rsvp';
+import { run } from '@ember/runloop';
+import $ from 'jquery';
 
 const { Promise } = RSVP;
+
 let ElvisAdapter = Adapter.extend(BuildURLMixin, {
   defaultSerializer: '-rest',
 
@@ -214,7 +212,7 @@ let ElvisAdapter = Adapter.extend(BuildURLMixin, {
       let { id } = snapshot;
       let url = this.buildURL(type.modelName, id, snapshot, 'updateRecord');
 
-      return this.ajax(url, 'PUT', { data });
+      return this.ajax(url, 'PATCH', { data });
     }
   },
 
@@ -535,7 +533,7 @@ if (isEnabled('ds-improved-ajax')) {
 
       switch (requestType) {
         case 'createRecord': return 'POST';
-        case 'updateRecord': return 'PUT';
+        case 'updateRecord': return 'PATCH';
         case 'deleteRecord': return 'DELETE';
       }
 
@@ -663,13 +661,13 @@ function ajaxSuccess(adapter, jqXHR, payload, requestData) {
 }
 
 function ajaxError(adapter, jqXHR, requestData, responseData) {
-  runInDebug(function() {
+  /*runInDebug(function() {
     let message = `The server returned an empty string for ${requestData.method} ${requestData.url}, which cannot be parsed into a valid JSON. Return either null or {}.`;
     let validJSONString = !(responseData.textStatus === 'parsererror' && jqXHR.responseText === '');
     warn(message, validJSONString, {
       id: 'ds.adapter.returned-empty-string-as-JSON'
     });
-  });
+  });*/
 
   let error;
 

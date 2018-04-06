@@ -11,7 +11,7 @@
 
   In general, we want to make use of already defined materializecss variables and components (e.g. $input-height or $h1-fontsize etc).
   Also, we want to capture the most general variables specific for elvis which could be further used in other custom components
-  Example: $color-procurer, $color-supplier
+  Example: $color-buyer, $color-bidder
 
   For custom elvis components, we will define custom variables, but they should be related to the values of already predefined variables.
   Example: we want all inputs inside header to be 75% of the default $input-height variable defined in materializecss;
@@ -26,7 +26,7 @@
   ${objectName}-{attribute}-{subAttribute}
 
   variable examples:
-    basic attributes like colors or sizes: $color-supplier, $font-family-serif, $padding-horizontal-small
+    basic attributes like colors or sizes: $color-bidder, $font-family-serif, $padding-horizontal-small
     generally used variables: $base-font-size, $base-bg
     input component attributes: $input-height, $input-font-size
  */
@@ -52,8 +52,8 @@ $secondary-color:         #f0308e;
 $error-color:             #ff533c;
 $success-color:           #00ff7e;
 
-$color-supplier:          $primary-color;
-$color-procurer:          $secondary-color;
+$color-bidder:          $primary-color;
+$color-buyer:          $secondary-color;
 $color-relationship:      #c0c0c0; // should be rgba(255,255,255,-.2);
 $color-flags:             orangered;
 

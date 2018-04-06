@@ -1,7 +1,10 @@
-// data table inside sidebar displaying list of procurers/suppliers/relationships
+// data table inside sidebar displaying list of buyers/bidders/relationships
 // -------------------
 
 #details-sidebar {
+  .search-icon {
+    margin-top: 1.2em;
+  }
   a.order {
     margin-top: 3.2em;
     cursor: pointer;
@@ -44,6 +47,7 @@
   }
 
   .data-table-filter,
+  .data-table-search,
   .data-table .tse-content {
     padding: 0 $padding-base;
   }
@@ -77,9 +81,9 @@
       margin: 0;
     }
   }
-  // circle colors for suppliers and procurers
-  .sidebar-suppliers td.item-figure figure { background: $color-supplier; }
-  .sidebar-procurers td.item-figure figure { background: $color-procurer; }
+  // circle colors for bidders and buyers
+  .sidebar-bidders td.item-figure figure { background: $color-bidder; }
+  .sidebar-buyers td.item-figure figure { background: $color-buyer; }
 
   // entity name style
   .data-table td.item-name,
@@ -97,8 +101,8 @@
     }
   }
 
-  .sidebar-suppliers .data-table td.item-name a,
-  .sidebar-procurers .data-table td.item-name a{
+  .sidebar-bidders .data-table td.item-name a,
+  .sidebar-buyers .data-table td.item-name a{
     line-height: 2em;
   }
 
@@ -110,6 +114,9 @@
   }
 
   // table row highlighting on mouse over
+  .data-table tr.hidden {
+    display: none !important;
+  }
   .data-table tr,
   .data-table tr td.item-figure {
     transition: all 1s ease;
@@ -170,8 +177,8 @@
     }
     .item-name .item-entity {
       font-size: $font-size-small;
-      .procurer,
-      .supplier {
+      .buyer,
+      .bidder {
         font-size: 75%;
       }
     }
@@ -347,7 +354,7 @@ div#details-sidebar .tab-panel {
   }
 
 
-  .suppliers {
+  .bidders {
     th { padding: 10px 0px !important; }
     th.id    { width: 15% !important; }
     th.label { width: 65% !important; }
