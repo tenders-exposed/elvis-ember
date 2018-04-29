@@ -68,9 +68,6 @@ export default Route.extend({
     dataEntity.countries = countries;
     dataEntity.networkId = networkId;
 
-    // console.log('dataEntity  before request', dataEntity);
-    // console.log(`/networks/${networkId}/${this.endpoints[endpointQ]}/${nodeId}`);
-
     return this.get('ajax')
       .request(`/networks/${networkId}/${this.endpoints[endpointQ]}/${nodeId}`)
       .then(
@@ -119,11 +116,6 @@ export default Route.extend({
           dataEntity.contractsCount = dataEntity.winningBids.length;
           return dataEntity;
 
-        }, (response) => {
-          self.get('notifications').clearAll();
-          _.forEach(response.errors, (error, index) => {
-            self.get('notifications').error(`Error: ${index } ${error.title}`);
-          });
         });
   },
 
@@ -132,48 +124,65 @@ export default Route.extend({
     let params =  controller.get('params');
     // bidder,buyers || relationships
     let endpoint  = this.paramsFor('network.show.details').tab;
+    let self = this;
 
-    if (endpoint === 'relationships') {
-      let edge = this.get('networkService').getEdgeById(params.id);
+      if (endpoint === 'relationships') {
+        let edge = self.get('networkService').getEdgeById(params.id);
 
-      this.getModelDetails(params.id, endpoint, false).then((data) => {
-        data.fromLabel =  edge.fromLabel;
-        data.toLabel =  edge.toLabel;
+        return  self.getModelDetails(params.id, endpoint, false).then((data) => {
+          data.fromLabel =  edge.fromLabel;
+          data.toLabel =  edge.toLabel;
+          return data;
+        });
+      } else {
+        // for a single node
+        return self.getModelDetails(params.id, endpoint, false).then((data) => {
+          return data;
+        });
+      }
 
-        controller.set('modelDetails', data);
-        controller.set('readyToRender', true);
-      }).catch((error) => {
-        Logger.error('Error:', error);
-      });
-
-    } else {
-      // for a single node
-      this.getModelDetails(params.id, endpoint, false).then((data) => {
-        controller.set('modelDetails', data);
-        controller.set('readyToRender', true);
-      });
-    }
   },
-  networkLoaded: observer('networkService.isReady', function() {
-    // if the network service is Ready and the data is not yet set
-    if (this.get('networkService.isReady')
-      && !this.get('controller').get('readyToRender')
-    ) {
-      this.setModelDetails();
-    }
-  }),
 
   model(params,transition) {
-    this.get('controller').set('params', params);
-    let { tab } = transition.params['network.show.details'];
-    this.set('tab', tab);
-    this.get('controller').set('tab', tab);
 
-    if (this.get('networkService.isReady')) {
-      this.get('controller').set('modelDetails', undefined);
-      this.get('controller').set('readyToRender', false);
-      this.setModelDetails();
-    }
+    console.log('in details show');
+    let self = this;
+    let controller =  this.get('controller');
+
+    let { tab } = transition.params['network.show.details'];
+    let endpoint  = this.paramsFor('network.show.details').tab;
+
+    this.set('tab', tab);
+    controller.set('params', params);
+    controller.set('tab', tab);
+    controller.set('modelDetails', undefined);
+
+
+    return this.controllerFor('network.show').get('networkDefer').then(function (response) {
+      // console.log('start model');
+
+      // bidder,buyers || relationships
+      if (endpoint === 'relationships') {
+        let edge = self.get('networkService').getEdgeById(params.id);
+        let details =  self.getModelDetails(params.id, endpoint, false).then((data) => {
+          data.fromLabel =  edge.fromLabel;
+          data.toLabel =  edge.toLabel;
+          controller.set('modelDetails', data);
+          return data;
+        });
+        // console.log('finish model', details);
+        return details;
+
+      } else {
+        // for a single node
+        let details =  self.getModelDetails(params.id, endpoint, false).then((data) => {
+          controller.set('modelDetails', data);
+          return data;
+        });
+        // console.log('finish model', details);
+        return details;
+      }
+    });
   },
 
   setupController(controller/*, model, transition*/) {
@@ -185,13 +194,6 @@ export default Route.extend({
   },
 
   actions: {
-    loading(transition) {
-      let controller = this.controllerFor('network.show.details');
-      controller.set('currentlyLoading', true);
-      transition.promise.finally(function() {
-        controller.set('currentlyLoading', false);
-      });
-    },
     closeDetails() {
       this.transitionTo(
         'network.show.details',

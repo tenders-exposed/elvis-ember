@@ -119,11 +119,29 @@ export default Controller.extend({
     boxData: {}
   },
 
+  defer() {
+    let res, rej;
+
+    let promise = new Promise((resolve, reject) => {
+      res = resolve;
+      rej = reject;
+    });
+
+    promise.resolve = res;
+    promise.reject = rej;
+
+    return promise;
+  },
+
   init() {
     this._super();
     this.set('stabilizationPercent', 0);
     this.set('network', undefined);
+    console.log('init show ');
+    this.set('networkDefer', this.defer());
   },
+
+
 
   didInsertElement() {
     $('div#stabilization-info').height(window.innnerHeight - 200);
@@ -385,8 +403,11 @@ export default Controller.extend({
     },
 
     startStabilizing() {
+      console.log('start stabilizing', this.get('network'));
       this.set('startStabilizing', performance.now());
       Logger.info('start stabilizing');
+      this.get('networkService').setNetwork(this.get('network'), this.get('networkDefer'));
+
     },
 
     stabilizationIterationsDone() {
@@ -403,7 +424,7 @@ export default Controller.extend({
 
       this.set('networkStabilization', true);
       Logger.info('Network stabilized');
-      this.get('networkService').setNetwork(this.get('network'));
+      //this.get('networkService').setNetwork(this.get('network'));
     },
 
     stabilizationProgress(amount) {

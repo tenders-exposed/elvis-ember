@@ -10,16 +10,16 @@ export default Route.extend({
     this.openSidebar();
   },
 
-  model(params) {
+  model(params, transition) {
     let self = this;
     this.set('requestTimer', performance.now());
+    this.set('transition', transition);
     return this.get('store').findRecord(
       'network',
       params.network_id
     ).then(function(response) {
       self.titleToken = `${self.titleToken} ${response.name || response.id}`;
-      response = self.get('networkService').setModel(response);
-      return response;
+      return self.get('networkService').setModel(response);
     });
   },
 
@@ -34,14 +34,14 @@ export default Route.extend({
   },
 
   openSidebar() {
-    let activeTab = this.controllerFor('network.show.details').get('activeTab');
-    this.transitionTo('network.show.details', activeTab);
+    // if there is not actually a transition to open the sidebar already
+    if (!this.get('transition.params')['network.show.details']) {
+      let activeTab = this.controllerFor('network.show.details').get('activeTab');
+      this.transitionTo('network.show.details', activeTab);
+    }
   },
   actions: {
-    /* error(error, transition) {
-      console.log('error.show', error);
-      console.log('error.transition.show', transition);
-    },*/
+
     closeClustering(modified) {
       // console.log('closeClustering');
       this.controllerFor('network.show').set('networkClusteringModal', false);

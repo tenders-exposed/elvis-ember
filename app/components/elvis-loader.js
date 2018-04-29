@@ -5,5 +5,5 @@ export default Component.extend({
   size: 'big',
   color: 'blue',
   mode: 'circular',
-  shouldRender: ''
+  shouldRender: false
 });
