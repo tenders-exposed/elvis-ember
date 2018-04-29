@@ -1,0 +1,22 @@
+<div class="detailview details-info-wrapper">
+  <div class="valign-wrapper" style="height: 100%;">
+    <div class="detailview-body center" style="margin: 0 auto">
+      <h1><i class="fa fa-frown-o"></i></h1>
+      <h2>Hoooray! ... I mean oops!</h2>
+      <p>
+        {{#each errors as |error|}}
+          {{error.message}} <br>
+        {{/each}}
+        and data you requested cannot be loaded from the database. <br>We are sorry, perhaps try again later.</p>
+      {{!--<br>
+      <p>
+        <a href="#" class="btn-small transparent primary" {{action "closeDetails"}}>
+          Close this window.
+        </a>
+      </p>
+      --}}
+    </div>
+  </div>
+</div>
+
+

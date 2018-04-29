@@ -1,37 +1,12 @@
 <div class="detailview details-info-wrapper">
-
-    {{#if readyToRender}}
-        {{log modelDetails}}
-        {{#if modelDetails}}
-          {{#if (eq tab 'bidders')}}
-            {{partial 'network/show/details/partials/supplier'}}
-          {{else if (eq tab 'buyers')}}
-            {{partial 'network/show/details/partials/procurer'}}
-          {{else if (eq tab 'relationships')}}
-            {{partial 'network/show/details/partials/relationship'}}
-          {{else}}
-            {{partial 'network/show/details/partials/null'}}
-          {{/if}}
-
-        {{else}}
-          <div class="valign-wrapper" style="height: 100%;">
-            <div class="detailview-body center" style="margin: 0 auto">
-              <h1><i class="fa fa-frown-o"></i></h1>
-              <h2>Hoooray! ... I mean oops!</h2>
-              <p>Something went terribly wrong and data you requested cannot be loaded from the database. <br>We are sorry, perhaps try again later.</p>
-              <br>
-              <p>
-                <a href="#" class="btn-small transparent primary" {{action "closeDetails"}}>
-                Close this window.
-                </a>
-              </p>
-            </div>
-          </div>
-        {{/if}}
-
-
-    {{else}}
-        {{elvis-loader shouldRender=readyToRender message="Loading.."}}
-    {{/if}}
+  {{#if (eq tab 'bidders')}}
+    {{partial 'network/show/details/partials/supplier'}}
+  {{else if (eq tab 'buyers')}}
+    {{partial 'network/show/details/partials/procurer'}}
+  {{else if (eq tab 'relationships')}}
+    {{partial 'network/show/details/partials/relationship'}}
+  {{else}}
+    {{partial 'network/show/details/partials/null'}}
+  {{/if}}
 </div>
 

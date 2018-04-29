@@ -72,39 +72,43 @@ export default Service.extend({
   },
 
   setModel(model) {
-    // let edges = model.get('flaggedGraph.edges');
-    // let nodesFl = model.get('flaggedGraph.nodes');
 
-    if (!this.get('defaultNodes')) {
-      let nodes = _.cloneDeep(model.get('graph.nodes'));
-      this.set('defaultNodes', nodes);
-    }
+    let self = this;
+    let readyServiceModel = new Promise(function (resolve, reject) {
+      if (!self.get('defaultNodes')) {
+        let nodes = _.cloneDeep(model.get('graph.nodes'));
+        self.set('defaultNodes', nodes);
+      }
 
-    if (model.get('clusters')) {
-      _.forEach(model.get('clusters'), function(cluster, clusterIndex) {
-        cluster.empty = false;
-        cluster.nodes = _.filter(model.get('nodes'), function(node) {
+      if (model.get('clusters')) {
+        _.forEach(model.get('clusters'), function(cluster, clusterIndex) {
+          cluster.empty = false;
+          cluster.nodes = _.filter(model.get('nodes'), function(node) {
 
-          let indexCheck = _.findIndex(cluster.nodes, function(o) {
-            return o == node.id;
+            let indexCheck = _.findIndex(cluster.nodes, function(o) {
+              return o == node.id;
+            });
+            if (indexCheck !== -1) {
+              node.cluster = clusterIndex;
+              return true;
+            } else {
+              return false;
+            }
           });
-          if (indexCheck !== -1) {
-            node.cluster = clusterIndex;
-            return true;
-          } else {
-            return false;
-          }
         });
-      });
-    }
+      }
 
-    this.set('model', model);
-    this.set('edges', model.get('edges'));
-    this.set('nodes', model.get('graph.nodes'));
-    this.set('flaggedEdges', model.get('flaggedEdges'));
-    this.set('clusters', model.get('clusters'));
+      self.set('model', model);
+      self.set('edges', model.get('edges'));
+      self.set('nodes', model.get('graph.nodes'));
+      self.set('flaggedEdges', model.get('flaggedEdges'));
+      self.set('clusters', model.get('clusters'));
 
-    return model;
+      resolve(model);
+    });
+
+    this.set('readyServiceModel', readyServiceModel);
+    return readyServiceModel;
   },
 
   setbiddersbuyers() {
@@ -227,16 +231,22 @@ export default Service.extend({
     this.set('relationships', orderedRelationships);
   },
 
-  setNetwork(network) {
+  setNetwork(network, networkDefer) {
     // make isReady false.. and recalculate
-    if (this.checkReady()) {
-      this.deactivate();
+    // console.log('set network');
+    // networkDeferer defined in network.show controller and resolved in network.service
+    this.set('networkDefer',networkDefer);
+    let self = this;
+    if (self.checkReady()) {
+      self.deactivate();
     }
 
-    this.set('network', network);
-    this.setbiddersbuyers();
-    this.setRelationships();
-    this.activate();
+    self.set('network', network);
+    self.setbiddersbuyers();
+    self.setRelationships();
+    self.activate();
+
+    networkDefer.resolve();
   },
 
   getNetwork() {
