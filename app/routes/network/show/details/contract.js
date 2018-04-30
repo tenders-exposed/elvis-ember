@@ -13,9 +13,6 @@ export default Route.extend({
     let entityId = params.node_id;
     let { countries } = this.modelFor('network.show').get('query');
 
-    let self = this;
-
-    // console.log(`url request /networks/${network_id}/tenders/${contractId}`);
     return this.get('ajax')
       .request(`/networks/${network_id}/tenders/${contractId}`).then(
         (data) => {
@@ -56,12 +53,6 @@ export default Route.extend({
 
           // console.log('contract result', results);
           return results;
-        }, (response) => {
-
-          self.get('notifications').clearAll();
-          _.forEach(response.errors, (error, index) => {
-            self.get('notifications').error(`Error: ${index } ${error.title}`);
-          });
         });
   },
 
