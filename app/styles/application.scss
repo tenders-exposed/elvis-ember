@@ -100,3 +100,7 @@ i.control-icon-light {
     }
   }
 }
+
+.c-notifications__container {
+  z-index: 99999 !important;
+}

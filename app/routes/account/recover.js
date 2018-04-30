@@ -1,6 +1,8 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import Ember from 'ember';
+import ENV from '../../config/environment';
+import RSVP from 'rsvp';
 
 const { Logger } = Ember;
 
@@ -15,52 +17,80 @@ export default Route.extend({
   },
 
   actions: {
-    deviseSendChange(password, password_confirmation, token) {
-
-      let data = `{"user": {
-                    "reset_password_token": "${token}",
-                    "password": "${password}",
-                    "password_confirmation": "${password_confirmation}"}
-                  }`;
-      let headers = {
-        'Content-Type': 'application/json'
+    sendChange(password, password_confirmation, token) {
+      let self = this;
+      let endpoint = `${ENV.APP.apiHost}/account/password/reset`;
+      let options = {
+        method: 'post',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          resetPasswordToken: token,
+          password: password
+        })
       };
-      this.get('ajax').put('users/password', {
-        data,
-        headers
-      }).then(() => {
-        this.notifications.addNotification({
-          message: 'Your password was updated!',
-          type: 'success'
+
+      let data = `{
+                    "resetPasswordToken": "${token}",
+                    "password": "${password}",
+                  }`;
+
+      return new RSVP.Promise((resolve, reject) => {
+        fetch(endpoint, options).then((response) => {
+          if (response.status >= 400) {
+            throw(response);
+          }
+          self.notifications.info(`Your password was updated!`, {
+            autoClear: true
+          });
+          self.transitionTo('welcome');
+        }).catch((response) => {
+          console.log('errors');
+          response.json().then((json) => {
+            _.each(json.errors, function(error) {
+              self.notifications.error(`${error.message}`, {
+                autoClear: false
+              });
+            });
+          });
         });
-        this.controller.transitionToRoute('welcome');
-      }, (response) => {
-        // @TODO: show error messages from server
-        Logger.info(response);
       });
     },
 
-    deviseSendRecover(email) {
-      this.notifications.clearAll();
-      this.controller.validate().then(() => {
-        let data = `{ "user": { "email": "${email}" } }`;
-        let headers = {
+    sendRecover(email) {
+      let self = this;
+      let endpoint = `${ENV.APP.apiHost}/account/password/forgot`;
+      let url = `${endpoint}?email=${email}`;
+      let options = {
+        method: 'get',
+        credentials: 'include',
+        headers: {
           'Content-Type': 'application/json'
-        };
-        this.get('ajax').post('users/password', {
-          data,
-          headers
-        }).then((response) => {
-          Logger.info(response);
-          this.controller.set('emailSent', true);
+        }
+      };
 
-        }, (response) => {
-          // @TODO: show error messages from server
-          Logger.info(response);
+      self.notifications.clearAll();
+      this.controller.validate().then(() => {
+        return new RSVP.Promise((resolve, reject) => {
+          fetch(url, options).then((response) => {
+            if (response.status >= 400) {
+              throw(response);
+            }
+            // Logger.info(response);
+            this.controller.set('emailSent', true);
+          }).catch((response) => {
+            console.log('errors');
+            response.json().then((json) => {
+              _.each(json.errors, function(error) {
+                self.notifications.error(`${error.message}`, {
+                  autoClear: false
+                });
+              });
+            });
+          });
         });
-      }, (response) => {
-        let [error] = response.email;
-        this.notifications.error(`Error: ${error}`);
       });
     }
   }

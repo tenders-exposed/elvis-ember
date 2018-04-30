@@ -17,6 +17,7 @@ export default OAuth2PasswordGrant.extend({
   refreshAccessTokens: true,
 
   makeRequest(url, data, headers = {}, useget = false) {
+    let self = this;
     headers['Content-Type'] = 'application/json';
 
     if (!isEmpty(data.username)) {
@@ -46,6 +47,9 @@ export default OAuth2PasswordGrant.extend({
 
     return new RSVP.Promise((resolve, reject) => {
       fetch(url, options).then((response) => {
+        if (response.status >= 400) {
+          throw(response);
+        }
         response.text().then((text) => {
           try {
             let json = JSON.parse(text);
@@ -67,7 +71,16 @@ export default OAuth2PasswordGrant.extend({
             reject(response);
           }
         });
-      }).catch(reject);
+      }).catch((response) => {
+        response.json().then((json) => {
+          _.each(json.errors, function(error) {
+            self.notifications.error(`${error.message}`, {
+              autoClear: false
+            });
+          });
+          reject(response);
+        });
+      });
     });
   },
 
