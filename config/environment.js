@@ -76,7 +76,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.APP.apiHost = 'https://dev.api.tenders.exposed';
+    ENV.APP.apiHost = 'https://api.tenders.exposed';
     ENV.APP.apiNamespace = '';
   }
 
