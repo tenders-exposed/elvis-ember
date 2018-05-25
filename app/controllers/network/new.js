@@ -361,15 +361,22 @@ export default Controller.extend({
       this.fetchYears();
     },
     onAutocompleteSelectEvent(value) {
+      console.log('onAutocompleteSelectEvent', value);
+
       this.set('query.actors', []);
-      value.forEach((v) => {
-        this.get('query.actors').push(v.id);
+      let self = this;
+
+      _.each(value, (v, key) => {
+        console.log('array v.id', v.id);
+        self.get('query.actors').push(v.id);
       });
 
+      console.log('autocomplete query.actors', this.get('query.actors'));
       this.fetchYears();
       this.fetchCpvs();
     },
     actorTermChanged(queryTerm) {
+      console.log('actortermChanged', queryTerm);
       // let query = queryTerm || '';
       // let limit = 10;
       if (!queryTerm.length) {

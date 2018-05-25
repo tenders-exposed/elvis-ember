@@ -63,16 +63,17 @@
                 <span class="input-prefix"><i class="fa fa-briefcase"></i></span>
                 <!-- this is company select
                   TODO: fill the select with real dataset of company names. Matej will restyle the options once it is ready  -->
-                {{ember-select-guru
+                {{elvis-select-guru
                     value=query.rawActors
                     options=autocompleteActorsOptions
                     searchKey='name'
-                    multiple=true
+                    multiple= true
                     optionComponent='actor-option'
                     noOptionsComponent='qb-no-option'
                     multiValueComponent='actor-value'
                     onSearchInputChange=(action "actorTermChanged")
                     onSelect=(action "onAutocompleteSelectEvent")
+
                 }}
                 <label>Select companies</label>
               </div>

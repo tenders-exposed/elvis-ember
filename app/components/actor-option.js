@@ -1,8 +1,9 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
+import { set as EmberSet } from '@ember/object';
 
 export default Component.extend({
-  classNames: 'ember-select-guru__option',
+  classNames: 'ember-select-guru__option __guru',
   classNameBindings: ['current:is-active'],
   current: computed('currentHighlight', 'index', function() {
     return this.get('currentHighlight') === this.get('index');
@@ -17,8 +18,27 @@ export default Component.extend({
     } else {
       this.set('option.type', type);
     }
+
   },
-  click() {
-    this.sendAction('onClick', this.get('option'));
+
+  checkboxSwitch() {
+    if(this.get('option.checked')) {
+      EmberSet(this, 'option.checked', false);
+    } else {
+      EmberSet(this, 'option.checked', true);
+    }
+  },
+  actions: {
+    clickOption() {
+      // console.log('option click', this.get('option'));
+      // this.checkboxSwitch();
+      this.sendAction('onClick', this.get('option'));
+    },
+    clickCheckBox() {
+      this.checkboxSwitch();
+      // console.log('checkbox click', this.get('option'));
+      // console.log('clicking checkbox');
+    }
   }
+
 });

@@ -1,2 +1,13 @@
-<i class='figure-{{option.type}}'></i> &nbsp;
-{{option.name}}
+
+<span class="actor-option __guru">
+ {{!-- {{input type="checkbox"
+  class="__guru"
+          id=option.id
+         checked=option.checked
+          change=(action "clickCheckBox")
+  }} --}}
+  <span {{action "clickOption"}} class="__guru">
+    <i class='figure-{{option.type}} __guru'></i> &nbsp;
+    {{option.name}}
+  </span>
+</span>
