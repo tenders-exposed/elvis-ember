@@ -5,6 +5,11 @@ body {
 }
 
 .wizard {
+  [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+    position: relative !important;
+    left: 0px  !important;
+    opacity: 1;
+  }
 
   .wizard-step {
     padding: $gutter-width 0;

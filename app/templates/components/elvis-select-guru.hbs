@@ -1,0 +1,47 @@
+<div class='ember-select-guru__container'>
+  <div class="ember-select-guru__trigger" {{action "expandComponent"}}>
+    {{#if hasValue}}
+      {{#if multiple}}
+        <ul class='multi-value__selected'>
+          {{#each value as |selectedValue|}}
+            {{component multiValueComponent value=selectedValue onRemoveClick="onRemoveValueClick"}}
+          {{/each}}
+        </ul>
+      {{else}}
+        {{component singleValueComponent value=value}}
+      {{/if}}
+    {{else}}
+      {{placeholder}}
+    {{/if}}
+  </div>
+
+  {{#if isExpanded}}
+    {{#elvis-select-dropdown name=name visible=isExpanded willHideDropdown="willHideDropdown" }}
+      <div class='ember-select-guru__search-wrapper'>
+        {{input placeholder=searchPlaceholder value=queryTerm class='ember-select-guru__search'}}
+      </div>
+      <div class="options-wrapper"  style="height: 200px;">
+      {{#ember-scrollable}}
+
+        {{#if isPending}}
+          {{component pendingComponent}}
+        {{else}} {{#if hasFailed}}
+          {{component failureComponent}}
+        {{else}} {{#if hasOptions}}
+          {{#each _options as |option index|}}
+            {{component optionComponent
+                        option=option
+                        onClick=(action "onOptionClick")
+                        onCheck=(action "onOptionCheck")
+                        currentHighlight=currentHighlight
+                        index=index}}
+          {{/each}}
+        {{else}}
+          {{component noOptionsComponent}}
+        {{/if}}{{/if}}{{/if}}
+      {{/ember-scrollable}}
+
+      </div>
+    {{/elvis-select-dropdown}}
+  {{/if}}
+</div>
