@@ -35,8 +35,9 @@
         <section class="wizard-step {{countriesStatus}}">
           <div class="row">
             <div class="col m4 s12">
-              <h3>Network Focus</h3>
-              <p>Only procurement from these countries and/or companies will be visualised</p>
+              <h3>Select a country and/or actors*</h3>
+              <p>Only procurement from these countries and/or actors* will be visualised.
+                * actors are <div class="figure-bidder"></div>  companies or <div class="figure-buyer"></div> government institutions</p>
             </div>
             <div class="col m8 s12">
               <!--
@@ -59,8 +60,10 @@
                 }}
                 <label>Select countries</label>
               </div>
-              <div class="input-field col m6 s12">
-                <span class="input-prefix"><i class="fa fa-briefcase"></i></span>
+              <div class="input-field col m6 s12 select-actors">
+                <span class="input-prefix">
+                  <i class="fa fa-briefcase"></i>
+                </span>
                 <!-- this is company select
                   TODO: fill the select with real dataset of company names. Matej will restyle the options once it is ready  -->
                 {{elvis-select-guru
@@ -73,9 +76,12 @@
                     multiValueComponent='actor-value'
                     onSearchInputChange=(action "actorTermChanged")
                     onSelect=(action "onAutocompleteSelectEvent")
+                    countActors = countActors
 
                 }}
-                <label>Select companies</label>
+                <label>
+                  Select actors
+                </label>
               </div>
             </div>
           </div>

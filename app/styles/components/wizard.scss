@@ -11,6 +11,60 @@ body {
     opacity: 1;
   }
 
+  .select-actors {
+    .countActors {
+
+    }
+
+    .ember-select-guru .ember-select-guru__container {
+      .guru__trigger-expanded {
+       /* .count-actors {
+          display: none !important;
+        }*/
+        ul.multi-value__selected {
+          display: none !important;
+        }
+      }
+
+      .ember-select-guru__trigger {
+        ul.ul-count-actors {
+          display: none;
+        }
+
+        ul.multi-value__selected{
+          height: 33px;
+          //overflow: auto;
+        }
+
+        &:hover{
+          .count-actors {
+            display: none;
+          }
+
+          ul.multi-value__selected {
+            display: block !important;
+            margin-top: 10px;
+
+            //display: flex;
+            // flex-basis: inherit;
+            //flex-direction: column ;
+            height: 100px;
+            //min-height: 50px;
+            //max-height: 200px;
+            //max-height: 200vh;
+            overflow: auto;
+
+            li{
+              margin-right: 15px;
+            }
+          }
+
+        }
+      }
+    }
+  }
+
+
   .wizard-step {
     padding: $gutter-width 0;
     padding-left: 6rem;
