@@ -1,16 +1,25 @@
 <div class='ember-select-guru__container'>
-  <div class="ember-select-guru__trigger" {{action "expandComponent"}}>
+  <div class="{{if isExpanded 'ember-select-guru__trigger guru__trigger-expanded' 'ember-select-guru__trigger '}}" {{action "expandComponent"}}>
     {{#if hasValue}}
       {{#if multiple}}
-        <ul class='multi-value__selected'>
+        {{#if countActors}}
+          <div class="count-actors">{{countActors}} actors selected</div>
+        {{/if}}
+        <ul class='{{if countActors 'multi-value__selected ul-count-actors' 'multi-value__selected'}}'>
+          {{#ember-scrollable}}
+
           {{#each value as |selectedValue|}}
             {{component multiValueComponent value=selectedValue onRemoveClick="onRemoveValueClick"}}
           {{/each}}
+          {{/ember-scrollable}}
+
         </ul>
+
       {{else}}
         {{component singleValueComponent value=value}}
       {{/if}}
     {{else}}
+
       {{placeholder}}
     {{/if}}
   </div>
@@ -24,7 +33,9 @@
       {{#ember-scrollable}}
 
         {{#if isPending}}
-          {{component pendingComponent}}
+          <!--fetching data-->
+          {{!-- {{component pendingComponent}} --}}
+          {{component noOptionsComponent}}
         {{else}} {{#if hasFailed}}
           {{component failureComponent}}
         {{else}} {{#if hasOptions}}
@@ -37,7 +48,12 @@
                         index=index}}
           {{/each}}
         {{else}}
-          {{component noOptionsComponent}}
+          <label class="col s11">
+            <small>
+              Search for a company name or government institution. Use at least 3 characters.
+            </small>
+          </label>
+          {{!-- {{component noOptionsComponent}} --}}
         {{/if}}{{/if}}{{/if}}
       {{/ember-scrollable}}
 

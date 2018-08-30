@@ -38,6 +38,7 @@ export default Controller.extend({
 
   countries: [],
   autocompleteActorsOptions: [],
+  countActors: 0,
 
   countriesStatus: computed('query.countries', function() {
     if (this.get('query.countries').length > 0) {
@@ -365,12 +366,14 @@ export default Controller.extend({
 
       this.set('query.actors', []);
       let self = this;
-
+      let count = 0;
       _.each(value, (v, key) => {
         console.log('array v.id', v.id);
         self.get('query.actors').push(v.id);
+        count++;
       });
 
+      this.set('countActors', count);
       console.log('autocomplete query.actors', this.get('query.actors'));
       this.fetchYears();
       this.fetchCpvs();
@@ -386,7 +389,8 @@ export default Controller.extend({
       if (queryTerm.length > 1) {
 
         let countries = this.get('query.countries');
-        let options = { limit: 15 };
+        //let options = { limit: 15 };
+        let options = {};
         if (countries.length > 0) {
           options.countries = countries;
         }
