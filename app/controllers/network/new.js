@@ -80,6 +80,8 @@ export default Controller.extend({
     }
   }),
 
+  cpvsIsDisabled: false,
+
   rangeDisableClass: '',
   rangeIsDisabled: computed('query.{countries,actors}', function() {
     let countries = this.get('query.countries');
@@ -298,15 +300,24 @@ export default Controller.extend({
         let { years } = data;
         this.set('years', years);
         this.set('loading.years', false);
-        if (this.get('selectedCodes').length > 0) {
-          this.set('loading.cpvs', true);
-          this.set('selectedCodes', []);
-          // this.set('loading.cpvs', false);
-        }
+        // reset cpvs when other years are loaded
+        this.set('cpvsIsDisabled', false);
+        this.resetCpvs();
       });
   },
+  resetCpvs() {
+    this.set('cpvs', []);
+
+    if (this.get('selectedCodes').length > 0) {
+      // this.set('loading.cpvs', true);
+      this.set('selectedCodes', []);
+      // this.set('loading.cpvs', false);
+    }
+  },
+
   fetchCpvs() {
     this.set('loading.cpvs', true);
+    this.set('cpvsIsDisabled', true);
     let requestTimer = performance.now();
 
     let self = this;
@@ -376,7 +387,8 @@ export default Controller.extend({
       this.set('countActors', count);
       console.log('autocomplete query.actors', this.get('query.actors'));
       this.fetchYears();
-      this.fetchCpvs();
+      //console.log('fetchCpvs onAutocompleteSelectEvent');
+      //this.fetchCpvs();
     },
     actorTermChanged(queryTerm) {
       console.log('actortermChanged', queryTerm);
@@ -434,10 +446,16 @@ export default Controller.extend({
         });
         this.set('query.years', _.range(this.get('query.years')[0], ++this.get('query.years')[1]));
 
-        this.fetchCpvs();
+        //console.log('fetchCpvs rangeChangeAction');
+        //this.fetchCpvs();
+        this.set('cpvsIsDisabled', false);
+        this.resetCpvs();
       }
     },
 
+    loadCpvs() {
+      this.fetchCpvs();
+    },
     submitQuery() {
       let self = this;
       let countries = this.get('query.countries');

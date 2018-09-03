@@ -27,4 +27,16 @@
   .qb-rendering-nodes {
     margin-bottom: 1.5em;
   }
+
+  div.numberOfWinningBids {
+    img.winningBids {display: block;}
+    img.moneyExchanged {display: none;}
+  }
+
+  div.amountOfMoneyExchanged {
+    img.winningBids {display: none;}
+    img.moneyExchanged {display: block;}
+
+  }
+
 }
