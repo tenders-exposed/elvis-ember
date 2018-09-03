@@ -6,8 +6,42 @@
 </div>
 
 <section id="legend">
+
   <div class="loading-bar">
     {{progress-bar percent=stabilizationPercent message="Please wait, the network is being loaded..."}}
+  </div>
+
+  <div class="carousel">
+    {{#carousel-container transitionInterval=400 as |ui controls|}}
+      <div class="carousel-body">
+        {{#ui.item}}
+          <div class="carousel-content">
+            <img src="images/carousel/1elvis--tutorial-company.png">
+          </div>
+        {{/ui.item}}
+        {{#ui.item}}
+          <div class="carousel-content">
+            <img src="images/carousel/2elvis--tutorial-institution.png">
+          </div>
+        {{/ui.item}}
+        {{#ui.item}}
+          <div class="carousel-content">
+            <img src="images/carousel/3elvis--tutorial-relationship.png">
+          </div>
+        {{/ui.item}}
+
+      </div>
+
+      <div class="carousel-controls">
+        <small class="carousel-control carousel-left" onclick={{controls.previous}}>
+          {{fa-icon "arrow-circle-left"}} Slide Left
+        </small>
+        <small class="carousel-control carousel-right" onclick={{controls.next}}>
+          {{fa-icon "arrow-circle-right"}} Slide Right
+        </small>
+      </div>
+
+    {{/carousel-container}}
   </div>
 </section>
 

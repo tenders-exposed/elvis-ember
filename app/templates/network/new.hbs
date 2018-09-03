@@ -4,7 +4,7 @@
       {{!--partial 'partials/network/new'--}}
       <header class="center">
         <h1>Launch New Visualisation</h1>
-        <p>Select criteria you would like to visualise from the <a href="">TED data</a>.<br/>
+        <p>Select criteria you would like to visualise from the <a href="opentender.eu">OpenTender data</a>.<br/>
           Bare in mind that wider criteria will result in too much data to visualise which will make
           the visualisation run slow.</p>
       </header>
@@ -137,48 +137,60 @@
                     <i class="fa fa-spinner fa-pulse fa-fw"></i> Loading...
                   {{/if}}
                 {{else}}
-                  {{log loading.cpvs}}
+                  {{#if cpvsIsDisabled}}
+                    {{log loading.cpvs}}
 
-                  {{#if cpvs}}
-                    <form class="row" {{action 'searchCpv' on='submit'}}>
-                      <div class="col s8">
-                      {{input type="text"
-                              placeholder="search for keyword of CPV code.."
-                              class="search-input form-control"
-                              value=cpvSearchTerm
-                      }}
-                      </div>
-                      <div class="col s2">
-                      {{md-btn text=''
-                              icon='fa fa-search'
-                              action='searchCpv'
-                              class='grey darken-3 btn-floating'
-                      }}
-                      </div>
-                    </form>
+                    {{#if cpvs}}
+                      <form class="row" {{action 'searchCpv' on='submit'}}>
+                        <div class="col s8">
+                          {{input type="text"
+                                  placeholder="search for keyword of CPV code.."
+                                  class="search-input form-control"
+                                  value=cpvSearchTerm
+                          }}
+                        </div>
+                        <div class="col s2">
+                          {{md-btn text=''
+                                   icon='fa fa-search'
+                                   action='searchCpv'
+                                   class='grey darken-3 btn-floating'
+                          }}
+                        </div>
+                      </form>
 
-                    {{#ember-scrollable}}
-                      <div class="jstree-default-dark-small">
-                        {{ember-jstree
-                            data=tree
-                            plugins=jsTreeConfig.plugins
-                            themes=jsTreeConfig.core.themes
-                            selectedNodes=selectedCodes
-                            searchOptions=jsTreeConfig.searchOptions
-                            checkboxOptions=jsTreeConfig.checkbox
-                            actionReceiver=jsTree
-                            searchTerm=cpvSearchTree
-                        }}
-                      </div>
-                    {{/ember-scrollable}}
-                  {{else}}
-                    {{#if years}}
-                      Available CPV codes will be shown here after completing steps 1 and 2.
+
+                      {{#ember-scrollable}}
+                        <div class="jstree-default-dark-small">
+                          {{ember-jstree
+                              data=tree
+                              plugins=jsTreeConfig.plugins
+                              themes=jsTreeConfig.core.themes
+                              selectedNodes=selectedCodes
+                              searchOptions=jsTreeConfig.searchOptions
+                              checkboxOptions=jsTreeConfig.checkbox
+                              actionReceiver=jsTree
+                              searchTerm=cpvSearchTree
+                          }}
+                        </div>
+                      {{/ember-scrollable}}
                     {{else}}
-                      No CPV codes are available for your selection.
-                    {{/if}}
-                  {{/if}}
-                {{/if}}
+                      {{#if years}}
+                        Available CPV codes will be shown here after completing steps 1 and 2.
+                      {{else}}
+                        No CPV codes are available for your selection.
+                      {{/if}}
+                    {{/if}} {{!--{{#if cpvs}} --}}
+                  {{else}}{{!-- {{#if cpvsIsDisabled}} --}}
+                    <div class="loadcpvs">
+                      {{md-btn-submit
+                          action='loadCpvs'
+                          class='btn-large primary'
+                          text='Load Markets!'
+                          isDisabled=cpvsIsDisabled
+                      }}
+                    </div>
+                  {{/if}} {{!-- {{#if cpvsIsDisabled}} --}}
+                {{/if}} {{!-- {{#if loading.cpvs}} --}}
               </div>
             </div>
           </div>
@@ -192,9 +204,10 @@
               <p>Select what type of data do network entities represent.</p>
             </div>
             <div class="col m8 s12">
+              <!--Node Size-->
               <div class="row">
-                <div class="qb-rendering-nodes col m5 s12">
-                  <h5>Node size<span class="text-muted">represents</span></h5>
+                <div class="qb-rendering-nodes col m7 s12">
+                  <h5>Dot size<span class="text-muted">represents</span></h5>
                   {{radio-button
                       value="numberOfWinningBids"
                       radioId="nodeSizeCount"
@@ -209,8 +222,17 @@
                   }}
                   <label class="node-size-sum" for="nodeSizeSum">Money sum of all contracts</label>
                 </div>
+                <div class="qb-rendering-edges col m5 s12 {{query.nodes}}">
+                 <!--Image-->
+                  <img class="winningBids" height="130" width="240" src="images/wizard4/nodecontracts.png"/>
+                  <img class="moneyExchanged" height="130" width="240" src="images/wizard4/nodemoney.png"/>
+
+                </div>
+              </div>
+              <!--Edge size-->
+              <div class="row">
                 <div class="qb-rendering-edges col m7 s12">
-                  <h5>Edge thickness<span class="text-muted">represents</span></h5>
+                  <h5>Connecting line<span class="text-muted">represents</span></h5>
                   {{radio-button
                       value="numberOfWinningBids"
                       radioId="edgeSizeCount"
@@ -220,12 +242,20 @@
                   <br>
                   {{radio-button
                       value="amountOfMoneyExchanged"
-                      groupValue=query.edges
                       radioId="edgeSizeSum"
+                      groupValue=query.edges
                   }}
                   <label class="edge-size-sum" for="edgeSizeSum"> Money flow between entities </label>
                 </div>
+                <div class="qb-rendering-nodes col m5 s12 {{query.edges}}">
+                  <!--image-->
+                  <!--flow-->
+                  <img class="winningBids" height="130" width="240" src="images/wizard4/edges2.png"/>
+                  <!--money-->
+                  <img class="moneyExchanged" height="130" width="240" src="images/wizard4/edges.png"/>
+                </div>
               </div>
+
             </div>
           </div>
         </section>
