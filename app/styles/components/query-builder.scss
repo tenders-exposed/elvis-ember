@@ -1,4 +1,19 @@
+/*.wizard .ember-select-guru {
+  display: none;
+}*/
+.wizard-legend {
+  display: none;
+  z-index: 9999;
+  .launch-network {
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: right;
+    top: 8em !important;
+  }
+}
 #query-builder {
+
 
 
   // range slider

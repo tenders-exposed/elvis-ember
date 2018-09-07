@@ -472,9 +472,13 @@ export default Controller.extend({
         (actor) => (actor.type === 'buyer')
       );
 
-      self.notifications.info('This is probably going to take a while...', {
+      $('.wizard-legend').fadeIn();
+      $('.wizard .ember-select-guru').fadeOut();
+      window.scrollTo(0, 0);
+
+      /*self.notifications.info('This is probably going to take a while...', {
         autoClear: false
-      });
+      });*/
 
       self.set('isLoading', true);
       self.prepareQuery();
