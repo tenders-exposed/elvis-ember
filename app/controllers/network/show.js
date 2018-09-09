@@ -379,6 +379,7 @@ export default Controller.extend({
     toggleInfo() {
       $('section#legend').toggle();
       $('.loading-bar').hide();
+      $('.launch-network').removeClass('launch-network100');
     },
 
     showClustering() {
@@ -419,8 +420,9 @@ export default Controller.extend({
 
       Logger.info('stabilization iterations done');
       this.set('stabilizationPercent', 100);
-      $('section#legend > .progress-wrap').fadeOut();
-      $('section#legend').fadeOut();
+      $('section#legend > .loading-bar').fadeOut();
+      //$('section#legend').fadeOut();
+      $('section#legend .carousel-close').fadeIn();
 
       this.set('networkStabilization', true);
       Logger.info('Network stabilized');
