@@ -54,6 +54,7 @@ export default Route.extend({
     let self = this;
     let dataEntity = {};
     let idParts = _.split(nodeId, '_');
+
     nodeId = _.last(idParts);
     // if we have multiple parts like c-id then we have a cluster endpoint
     let endpointQ = idParts.length > 1 ? 'clusters' : endpoint;
@@ -145,10 +146,8 @@ export default Route.extend({
 
   model(params,transition) {
 
-    console.log('in details show');
     let self = this;
     let controller =  this.get('controller');
-
     let { tab } = transition.params['network.show.details'];
     let endpoint  = this.paramsFor('network.show.details').tab;
 
@@ -156,7 +155,6 @@ export default Route.extend({
     controller.set('params', params);
     controller.set('tab', tab);
     controller.set('modelDetails', undefined);
-
 
     return this.controllerFor('network.show').get('networkDefer').then(function (response) {
       // console.log('start model');
@@ -183,6 +181,7 @@ export default Route.extend({
         return details;
       }
     });
+
   },
 
   setupController(controller/*, model, transition*/) {
