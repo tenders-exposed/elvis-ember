@@ -34,8 +34,8 @@ export default Route.extend({
           method: 'get',
           // mode: 'no-cors',
           // referrer: 'http://localhost:4200/account/login',
-          credentials: 'include',
-          // useFinalURL: true
+          // useFinalURL: true,
+          credentials: 'include'
         }
       ).then((response) => {
         // console.log(this.get('endpoint'));

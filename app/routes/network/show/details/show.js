@@ -87,7 +87,7 @@ export default Route.extend({
             }
 
             dataEntity.contracts = [];
-            _.each(dataEntity.winningBids, function (bid) {
+            _.each(dataEntity.winningBids, function(bid) {
               let contract = {
                 tenderId: bid.lot.tender.id,
                 title: bid.lot.title ? `${bid.lot.tender.title} - ${bid.lot.title}` : bid.lot.tender.title,
@@ -102,7 +102,7 @@ export default Route.extend({
           } else {
             Object.assign(dataEntity, data.edge);
             dataEntity.contracts = [];
-            _.each(dataEntity.winningBids, function (bid) {
+            _.each(dataEntity.winningBids, function(bid) {
               let contract = {
                 tenderId: bid.lot.tender.id,
                 title: bid.lot.title ? `${bid.lot.tender.title} - ${bid.lot.title}` : bid.lot.tender.title,
@@ -127,20 +127,20 @@ export default Route.extend({
     let endpoint  = this.paramsFor('network.show.details').tab;
     let self = this;
 
-      if (endpoint === 'relationships') {
-        let edge = self.get('networkService').getEdgeById(params.id);
+    if (endpoint === 'relationships') {
+      let edge = self.get('networkService').getEdgeById(params.id);
 
-        return  self.getModelDetails(params.id, endpoint, false).then((data) => {
-          data.fromLabel =  edge.fromLabel;
-          data.toLabel =  edge.toLabel;
-          return data;
-        });
-      } else {
-        // for a single node
-        return self.getModelDetails(params.id, endpoint, false).then((data) => {
-          return data;
-        });
-      }
+      return self.getModelDetails(params.id, endpoint, false).then((data) => {
+        data.fromLabel =  edge.fromLabel;
+        data.toLabel =  edge.toLabel;
+        return data;
+      });
+    } else {
+      // for a single node
+      return self.getModelDetails(params.id, endpoint, false).then((data) => {
+        return data;
+      });
+    }
 
   },
 
@@ -156,7 +156,7 @@ export default Route.extend({
     controller.set('tab', tab);
     controller.set('modelDetails', undefined);
 
-    return this.controllerFor('network.show').get('networkDefer').then(function (response) {
+    return this.controllerFor('network.show').get('networkDefer').then(function(response) {
       // console.log('start model');
 
       // bidder,buyers || relationships

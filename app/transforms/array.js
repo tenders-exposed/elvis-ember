@@ -1,7 +1,9 @@
 import DS from 'ember-data';
 import { isBlank } from '@ember/utils';
 
-export default DS.Transform.extend({
+const { Transform } = DS;
+
+export default Transform.extend({
   deserialize(serialized) {
     return isBlank(serialized) ? [] : serialized;
   },

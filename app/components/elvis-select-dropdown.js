@@ -1,40 +1,45 @@
 import Ember from 'ember';
+import Component from '@ember/component';
+import $ from 'jquery';
 
 const { computed, run } = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
   clickOutEventNamespace: 'el-popup',
   classNames: 'ember-select-guru__dropdown',
 
-  didInsertElement: function() {
-    Ember.$(document).bind(
+  didInsertElement() {
+    $(document).bind(
       this.get('_clickOutEventName'),
-      { component: this },
+      {
+        component: this
+      },
       run.bind(this, this.clickoutHandler)
     );
   },
 
-  willDestroyElement: function() {
-    Ember.$(document).unbind(
+  willDestroyElement() {
+    $(document).unbind(
       this.get('_clickOutEventName')
     );
   },
 
-  _willHideDropdown: function() {
+  _willHideDropdown() {
     this.sendAction('willHideDropdown');
   },
 
-  clickoutHandler: function(event) {
+  clickoutHandler(event) {
 
-    if((this.$().parent().children('.ember-select-guru__trigger').has(event.target).length > 0) ||
-      (this.$().parent().children('.ember-select-guru__trigger')[0] === event.target) ||
-      (event.target.className.indexOf('__guru') != -1)
-    ) {
+    if ((this.$().parent().children('.ember-select-guru__trigger').has(event.target).length > 0)
+        || (this.$().parent().children('.ember-select-guru__trigger')[0] === event.target)
+        || (event.target.className.indexOf('__guru') != -1)) {
       // console.log('elvis-select-dropdown clickoutHandler NO', this.$('.ember-select-guru__option .actor-option'));
       return;
     } else {
       // console.log('elvis-select-dropdown clickoutHandler YES', this.$('.ember-select-guru__option .actor-option'));
-      run(() => { this._willHideDropdown(); });
+      run(() => {
+        this._willHideDropdown();
+      });
     }
   },
 

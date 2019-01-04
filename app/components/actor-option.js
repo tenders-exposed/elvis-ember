@@ -22,7 +22,7 @@ export default Component.extend({
   },
 
   checkboxSwitch() {
-    if(this.get('option.checked')) {
+    if (this.get('option.checked')) {
       EmberSet(this, 'option.checked', false);
     } else {
       EmberSet(this, 'option.checked', true);

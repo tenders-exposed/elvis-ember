@@ -141,8 +141,6 @@ export default Controller.extend({
     this.set('networkDefer', this.defer());
   },
 
-
-
   didInsertElement() {
     $('div#stabilization-info').height(window.innnerHeight - 200);
   },
@@ -421,12 +419,12 @@ export default Controller.extend({
       Logger.info('stabilization iterations done');
       this.set('stabilizationPercent', 100);
       $('section#legend > .loading-bar').fadeOut();
-      //$('section#legend').fadeOut();
+      // $('section#legend').fadeOut();
       $('section#legend .carousel-close').fadeIn();
 
       this.set('networkStabilization', true);
       Logger.info('Network stabilized');
-      //this.get('networkService').setNetwork(this.get('network'));
+      // this.get('networkService').setNetwork(this.get('network'));
     },
 
     stabilizationProgress(amount) {

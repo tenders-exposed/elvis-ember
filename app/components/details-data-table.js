@@ -4,9 +4,8 @@ import { computed, observer } from '@ember/object';
 
 export default Component.extend({
 
-
   // sort - a property passed from data-table
-  sortTable: observer('sort', function () {
+  sortTable: observer('sort', function() {
 
     console.log('tring to sort2', this.get('sort'));
     let sort = this.get('sort');

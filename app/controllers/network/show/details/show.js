@@ -6,19 +6,39 @@ export default Controller.extend({
   params: {},
   networkQuery: {},
 
-  sort: "value",
+  sort: 'value',
   fields: {
     contracts: {
-      title: {label: 'Contract', sort: false} ,
-      buyers: {label: 'Buyer', sort: false},
-      bids: {label: 'Bids', sort: true},
-      value: {label: 'Awarded amount', sort: true}
+      title: {
+        label: 'Contract',
+        sort: false
+      } ,
+      buyers: {
+        label: 'Buyer',
+        sort: false
+      },
+      bids: {
+        label: 'Bids',
+        sort: true
+      },
+      value: {
+        label: 'Awarded amount',
+        sort: true
+      }
     },
     contractsProcurer: {
-      title: {label: 'Contract', sort: false} ,
-      bidders: {label: 'Bidder', sort: false},
-      bids: {label: 'Bids', sort: true},
-      value: {label: 'Awarded amount', sort: true}
+      title: {
+        label: 'Contract', sort: false
+      },
+      bidders: {
+        label: 'Bidder', sort: false
+      },
+      bids: {
+        label: 'Bids', sort: true
+      },
+      value: {
+        label: 'Awarded amount', sort: true
+      }
     },
 
     buyers: {
@@ -35,10 +55,18 @@ export default Controller.extend({
       bids: 'Avg bids'
     },
     contractsRelationship: {
-      title: {label: 'Contract', sort: false} ,
-      date: {label: 'Date', sort: false},
-      bids: {label: 'Bids', sort: true},
-      value: {label: 'Award amount', sort: true}
+      title: {
+        label: 'Contract', sort: false
+      },
+      date: {
+        label: 'Date', sort: false
+      },
+      bids: {
+        label: 'Bids', sort: true
+      },
+      value: {
+        label: 'Award amount', sort: true
+      }
     }
   },
 

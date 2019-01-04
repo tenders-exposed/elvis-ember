@@ -28,7 +28,7 @@ export default Route.extend({
         },
         body: JSON.stringify({
           resetPasswordToken: token,
-          password: password
+          password
         })
       };
 
