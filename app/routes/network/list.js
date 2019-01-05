@@ -37,8 +37,6 @@ export default Route.extend(AuthenticatedRouteMixin, {
       network.set('nodeCount', network.get('count.nodeCount'));
       network.set('edgeCount', network.get('count.edgeCount'));
 
-      console.log('updated', moment.parseZone(network.get('updated')).local().format());
-
       network.set('updated', moment.parseZone(network.get('updated')).local().format());
       return network;
     }, model);

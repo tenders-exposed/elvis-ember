@@ -33,7 +33,6 @@ export default Component.extend({
     if (typeSelected === 'edge') {
       let edgeDetails = this.get('networkService').getEdgeById(elementId);
       this.set('model', edgeDetails);
-      console.log('box details edge',  edgeDetails);
     }
   },
 

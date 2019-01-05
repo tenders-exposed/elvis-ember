@@ -1,8 +1,7 @@
-import Ember from 'ember';
 import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { run } from '@ember/runloop';
 import $ from 'jquery';
-
-const { computed, run } = Ember;
 
 export default Component.extend({
   clickOutEventNamespace: 'el-popup',
