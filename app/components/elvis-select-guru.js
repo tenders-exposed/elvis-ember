@@ -1,5 +1,6 @@
 import EmberSelectGuru from 'ember-select-guru/components/ember-select-guru';
 import { run } from '@ember/runloop';
+import { get } from '@ember/object';
 
 export default EmberSelectGuru.extend({
 
@@ -14,6 +15,7 @@ export default EmberSelectGuru.extend({
 
         this.get('_value').pushObject(option);
         this.attrs.onSelect(this.get('_value'));
+        // get(this, '_onSelect')(get(this, '_value'));
       } else {
         // handle single selection
         this.attrs.onSelect(option);

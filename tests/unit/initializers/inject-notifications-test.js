@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import InjectNotificationsInitializer from 'elvis-ember/initializers/inject-notifications';
 import { module, test } from 'qunit';
-
-const { Application, run } = Ember;
+import Application from '@ember/application';
+import { run } from '@ember/runloop';
 
 let application;
 
