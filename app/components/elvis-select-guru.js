@@ -1,6 +1,6 @@
 import EmberSelectGuru from 'ember-select-guru/components/ember-select-guru';
-const {  get, run } = Ember;
-
+import { run } from '@ember/runloop';
+import { get } from '@ember/object';
 
 export default EmberSelectGuru.extend({
 
@@ -9,7 +9,7 @@ export default EmberSelectGuru.extend({
       console.log('onOptionCheck');
     },
     onOptionClick(option) {
-      if(this.get('multiple')) {
+      if (this.get('multiple')) {
         // handle multiple selection
         console.log('onOptionClick multiple option', option);
         console.log('onOptionClick multiple _value', this.get('_value'));
@@ -26,7 +26,9 @@ export default EmberSelectGuru.extend({
       this.attrs.onSelect(this.get('_value'));
     },
     expandComponent() {
-      if(!this.get('isExpanded')) { this._resetCurrentHighlight(); }
+      if (!this.get('isExpanded')) {
+        this._resetCurrentHighlight();
+      }
       this.set('isExpanded', true);
       // this.set('queryTerm', 'ibm');
       // console.log('extended function');

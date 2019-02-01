@@ -359,7 +359,7 @@ export default Controller.extend({
         })
         .then((data) => {
           self.set('cpvs', data.cpvs);
-          //self.set('loading.cpvs', false);
+          // self.set('loading.cpvs', false);
         });
     }
   },
@@ -387,8 +387,8 @@ export default Controller.extend({
       this.set('countActors', count);
       console.log('autocomplete query.actors', this.get('query.actors'));
       this.fetchYears();
-      //console.log('fetchCpvs onAutocompleteSelectEvent');
-      //this.fetchCpvs();
+      // console.log('fetchCpvs onAutocompleteSelectEvent');
+      // this.fetchCpvs();
     },
     actorTermChanged(queryTerm) {
       console.log('actortermChanged', queryTerm);
@@ -401,7 +401,7 @@ export default Controller.extend({
       if (queryTerm.length > 1) {
 
         let countries = this.get('query.countries');
-        //let options = { limit: 15 };
+        // let options = { limit: 15 };
         let options = {};
         if (countries.length > 0) {
           options.countries = countries;
@@ -446,8 +446,8 @@ export default Controller.extend({
         });
         this.set('query.years', _.range(this.get('query.years')[0], ++this.get('query.years')[1]));
 
-        //console.log('fetchCpvs rangeChangeAction');
-        //this.fetchCpvs();
+        // console.log('fetchCpvs rangeChangeAction');
+        // this.fetchCpvs();
         this.set('cpvsIsDisabled', false);
         this.resetCpvs();
       }
