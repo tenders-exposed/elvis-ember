@@ -1,10 +1,7 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import Ember from 'ember';
 import ENV from '../../config/environment';
 import RSVP from 'rsvp';
-
-const { Logger } = Ember;
 
 export default Route.extend({
   classNames: ['body-page'],
@@ -28,16 +25,11 @@ export default Route.extend({
         },
         body: JSON.stringify({
           resetPasswordToken: token,
-          password: password
+          password
         })
       };
 
-      let data = `{
-                    "resetPasswordToken": "${token}",
-                    "password": "${password}",
-                  }`;
-
-      return new RSVP.Promise((resolve, reject) => {
+      return new RSVP.Promise(() => {
         fetch(endpoint, options).then((response) => {
           if (response.status >= 400) {
             throw(response);
@@ -47,7 +39,6 @@ export default Route.extend({
           });
           self.transitionTo('welcome');
         }).catch((response) => {
-          console.log('errors');
           response.json().then((json) => {
             _.each(json.errors, function(error) {
               self.notifications.error(`${error.message}`, {
@@ -73,7 +64,7 @@ export default Route.extend({
 
       self.notifications.clearAll();
       this.controller.validate().then(() => {
-        return new RSVP.Promise((resolve, reject) => {
+        return new RSVP.Promise(() => {
           fetch(url, options).then((response) => {
             if (response.status >= 400) {
               throw(response);
@@ -81,7 +72,6 @@ export default Route.extend({
             // Logger.info(response);
             this.controller.set('emailSent', true);
           }).catch((response) => {
-            console.log('errors');
             response.json().then((json) => {
               _.each(json.errors, function(error) {
                 self.notifications.error(`${error.message}`, {

@@ -6,8 +6,8 @@ export default Component.extend({
   search: '',
   // field Name to search
   searchFields: {
-    node: ["label"],
-    relationships: ["fromLabel", "toLabel"]
+    node: ['label'],
+    relationships: ['fromLabel', 'toLabel']
   },
   // label for search input placeholder
   searchLabel: 'find...',
@@ -19,7 +19,7 @@ export default Component.extend({
   // the action to send to the controller after a click on a table-row
   action: '',
   tableContent: {},
-  // columns for the table = {fieldName: "LabelName", ....}
+  // columns for the table = {fieldName: 'LabelName', ....}
   fields: {},
   // class for data-table element
   class: '',
@@ -33,7 +33,7 @@ export default Component.extend({
   contentObserver: observer('search', function() {
     if (!this.get('search') || this.get('search').length <= 1) {
       this.set('content', this.get('defaultContent'));
-    } else if(this.get('search').length > 1) {
+    } else if (this.get('search').length > 1) {
       this.searchTable();
     }
   }),
@@ -93,8 +93,6 @@ export default Component.extend({
       }
     },
     sortTable(sortByObj) {
-      console.log('sortBy', sortByObj);
-      console.log('content of table', this.get('content'));
       this.set('sortBySelect', sortByObj);
       let sortBy = sortByObj.value;
 
@@ -104,7 +102,6 @@ export default Component.extend({
       }
       let ordered = _.orderBy(this.get('content'), sortBy, this.get('orderBy'));
       this.set('content', ordered);
-
     },
 
     selectRow(selection) {
@@ -116,7 +113,6 @@ export default Component.extend({
       this.set('searchField', field);
       this.set('searchLabel', `find ${label}...`);
     },
-
 
     searchTableAction() {
       this.searchTable();

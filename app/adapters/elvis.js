@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import Adapter from 'ember-data/adapter';
 import {
   AdapterError,
@@ -14,8 +13,8 @@ import {
 import {
   BuildURLMixin,
   isEnabled,
-  runInDebug,
-  warn,
+  // runInDebug,
+  // warn,
   deprecate,
   parseResponseHeaders
 } from 'ember-data/-private';

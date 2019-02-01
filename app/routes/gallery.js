@@ -14,7 +14,6 @@ export default Route.extend({
       .then((networks) => {
         return networks.map((n) => {
           let { name } = n;
-          let description = n.get('description');
 
           if (typeof name === 'undefined' || `${name}` === 'null') {
             n.name = 'Unnamed network';

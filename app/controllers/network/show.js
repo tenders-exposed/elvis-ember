@@ -137,11 +137,8 @@ export default Controller.extend({
     this._super();
     this.set('stabilizationPercent', 0);
     this.set('network', undefined);
-    console.log('init show ');
     this.set('networkDefer', this.defer());
   },
-
-
 
   didInsertElement() {
     $('div#stabilization-info').height(window.innnerHeight - 200);
@@ -404,9 +401,9 @@ export default Controller.extend({
     },
 
     startStabilizing() {
-      console.log('start stabilizing', this.get('network'));
+      // console.log('start stabilizing', this.get('network'));
       this.set('startStabilizing', performance.now());
-      Logger.info('start stabilizing');
+      // Logger.info('start stabilizing');
       this.get('networkService').setNetwork(this.get('network'), this.get('networkDefer'));
 
     },
@@ -421,12 +418,12 @@ export default Controller.extend({
       Logger.info('stabilization iterations done');
       this.set('stabilizationPercent', 100);
       $('section#legend > .loading-bar').fadeOut();
-      //$('section#legend').fadeOut();
+      // $('section#legend').fadeOut();
       $('section#legend .carousel-close').fadeIn();
 
       this.set('networkStabilization', true);
       Logger.info('Network stabilized');
-      //this.get('networkService').setNetwork(this.get('network'));
+      // this.get('networkService').setNetwork(this.get('network'));
     },
 
     stabilizationProgress(amount) {

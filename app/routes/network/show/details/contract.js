@@ -11,7 +11,6 @@ export default Route.extend({
     let { network_id } = transition.params['network.show'];
     let contractId = params.contract_id;
     let entityId = params.node_id;
-    let { countries } = this.modelFor('network.show').get('query');
 
     return this.get('ajax')
       .request(`/networks/${network_id}/tenders/${contractId}`).then(

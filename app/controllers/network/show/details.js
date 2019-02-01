@@ -106,9 +106,8 @@ export default Controller.extend({
       return false;
     },
     saveNetworkName() {
-      let email = this.get('me.data.email');
       let self = this;
-      let response = this.get('model').save().then(
+      this.get('model').save().then(
         () => {
           if (this.get('session.isAuthenticated')) {
             self.get('notifications').clearAll();
@@ -119,10 +118,12 @@ export default Controller.extend({
           }
         }, (response) => {
           self.get('notifications').clearAll();
-          _.forEach(response.errors, (error, index) => {
-            self.get('notifications').error(`Error: ${index } ${error.title}`);
-          });
-        });;
+          if (response.errors) {
+            _.forEach(response.errors, (error, index) => {
+              self.get('notifications').error(`Error: ${index } ${error.title}`);
+            });
+          }
+        });
 
     }
   }
