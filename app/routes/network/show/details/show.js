@@ -1,9 +1,6 @@
 import Route from '@ember/routing/route';
-import { computed, observer } from '@ember/object';
+import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
-import Ember from 'ember';
-
-const { Logger } = Ember;
 
 export default Route.extend({
   classNames: ['body-network'],
@@ -22,25 +19,18 @@ export default Route.extend({
 
   // get the bidders/ buyers based on contracts
   processContracts(winningBids, endpoint) {
-    let ids = [];
-    let nodes = {};
-
-    // if is a buyer
     if (endpoint === 'bidders') {
       let buyers = [];
       _.forEach(winningBids, function(bid) {
         buyers = _.unionBy(buyers, bid.lot.tender.buyers, 'id');
       });
-      // console.log('uniquer buyers', buyers);
       return buyers;
 
     } else {
-      // if we are in a bidder
       let bidders = [];
       _.forEach(winningBids, function(bid) {
         bidders = _.unionBy(bidders, bid.bidders, 'id');
       });
-      // console.log('uniquer bidders', bidders);
       return bidders;
     }
 
@@ -50,7 +40,7 @@ export default Route.extend({
   // nodeId = node or node ids of cluster
   // endpoint = type of node
   // filterById in relationships = ids of the procuring entity to filter the contracts by
-  getModelDetails(nodeId, endpoint, filterById) {
+  getModelDetails(nodeId, endpoint/*, filterById*/) {
     let self = this;
     let dataEntity = {};
     let idParts = _.split(nodeId, '_');
@@ -155,7 +145,7 @@ export default Route.extend({
     controller.set('tab', tab);
     controller.set('modelDetails', undefined);
 
-    return this.controllerFor('network.show').get('networkDefer').then(function(response) {
+    return this.controllerFor('network.show').get('networkDefer').then(() => {
       // console.log('start model');
 
       // bidder,buyers || relationships

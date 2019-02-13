@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
@@ -11,7 +10,9 @@ export default Component.extend({
   didInsertElement() {
     $(document).bind(
       this.get('_clickOutEventName'),
-      { component: this },
+      {
+        component: this
+      },
       run.bind(this, this.clickoutHandler)
     );
   },

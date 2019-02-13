@@ -105,7 +105,6 @@ export default OAuth2PasswordGrant.extend({
           response = assign(response, { 'expires_at': expiresAt });
         }
 
-        console.log('authenticateOauth', response);
         resolve(response);
       });
     });

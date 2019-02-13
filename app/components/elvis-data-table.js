@@ -93,8 +93,6 @@ export default Component.extend({
       }
     },
     sortTable(sortByObj) {
-      console.log('sortBy', sortByObj);
-      console.log('content of table', this.get('content'));
       this.set('sortBySelect', sortByObj);
       let sortBy = sortByObj.value;
 

@@ -16,9 +16,6 @@ export default Route.extend({
   },
   model(params) {
     let url = `${this.get('endpoint')}?oauth_token=${params.oauth_token}&oauth_verifier=${params.oauth_verifier}`;
-    let headers = {
-      'Content-Type': 'application/json'
-    };
     return new RSVP.Promise((resolve, reject) => {
       fetch(
         url,

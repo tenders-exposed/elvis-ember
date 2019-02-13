@@ -1,7 +1,6 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import ENV from '../config/environment';
-import RSVP from 'rsvp';
 
 export default Component.extend({
   session: service(),

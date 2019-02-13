@@ -156,7 +156,7 @@ export default Controller.extend({
     this.set('selectedCodesCount', 0);
     this.set('selectedCodes', A([]));
 
-    let treeTimer = performance.now();
+    // let treeTimer = performance.now();
     let cpvs = _.sortBy(
       _.cloneDeep(this.get('cpvs')),
       ['code']
@@ -245,16 +245,16 @@ export default Controller.extend({
         .getCode(missingCode)
     ));
 
+    // treeTimer = performance.now() - treeTimer;
+    this.set('tree', tree);
+    this.set('loading.cpvs', false);
+
     // // Tree health check!
     // tree.map((node) => {
     //   if (!tree.find((n) => n.id == node.parent) && node.parent !== '#') {
     //     Logger.error(`Parent with id ${node.parent} is missing!`, cpvs.find((n) => n.id == node.id));
     //   }
     // });
-
-    treeTimer = performance.now() - treeTimer;
-    this.set('tree', tree);
-    this.set('loading.cpvs', false);
 
   },
 
@@ -318,7 +318,7 @@ export default Controller.extend({
   fetchCpvs() {
     this.set('loading.cpvs', true);
     this.set('cpvsIsDisabled', true);
-    let requestTimer = performance.now();
+    // let requestTimer = performance.now();
 
     let self = this;
     let countries = this.get('query.countries');
@@ -373,25 +373,19 @@ export default Controller.extend({
       this.fetchYears();
     },
     onAutocompleteSelectEvent(value) {
-      console.log('onAutocompleteSelectEvent', value);
 
       this.set('query.actors', []);
       let self = this;
       let count = 0;
-      _.each(value, (v, key) => {
-        console.log('array v.id', v.id);
+      _.each(value, (v) => {
         self.get('query.actors').push(v.id);
         count++;
       });
 
       this.set('countActors', count);
-      console.log('autocomplete query.actors', this.get('query.actors'));
       this.fetchYears();
-      // console.log('fetchCpvs onAutocompleteSelectEvent');
-      // this.fetchCpvs();
     },
     actorTermChanged(queryTerm) {
-      console.log('actortermChanged', queryTerm);
       // let query = queryTerm || '';
       // let limit = 10;
       if (!queryTerm.length) {

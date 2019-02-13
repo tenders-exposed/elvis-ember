@@ -294,7 +294,7 @@ export default Component.extend({
 
           if (deletedClusters.length > 0) {
             // console.log('we have deletedClusters');
-            _.each(deletedClusters, function(clusterId, index) {
+            _.each(deletedClusters, function(clusterId) {
               // console.log('must deleteCluster cluster', clusterId);
               let promiseDelete =  self.get('ajax')
                 .request(`/networks/${networkId}/clusters/${clusterId}`, {
@@ -332,19 +332,21 @@ export default Component.extend({
       // console.log('makeclusters -clsters', this.get('clusters'));
 
       if (this.get('modified')) {
-        makeClusters(this.get('clusters'), this.get('deletedClusters')).then(function(json) {
+        makeClusters(this.get('clusters'), this.get('deletedClusters')).then(function(/*json*/) {
           // on fulfillment
           // console.log('makeclusters -response- then', json);
           self.set('savingClusters', false);
           self.sendAction('action', self.get('modified'));
           self.set('modified', false);
-        }, function(reason) {
+        }, function(response) {
           // console.log('makeclusters -response- rejection', reason);
           // on rejection
           self.get('notifications').clearAll();
-          _.forEach(response.errors, (error, index) => {
-            self.get('notifications').error(`Error: ${index } ${error.title}`);
-          });
+          if (response.errors) {
+            _.forEach(response.errors, (error, index) => {
+              self.get('notifications').error(`Error: ${index } ${error.title}`);
+            });
+          }
         });
       } else {
         self.sendAction('action', self.get('modified'));

@@ -2,8 +2,8 @@ import Ember from 'ember';
 import { initialize } from 'elvis-ember/instance-initializers/me';
 import { module, test } from 'qunit';
 import destroyApp from '../../helpers/destroy-app';
-
-const { Application, run } = Ember;
+import Application from '@ember/application';
+import { run } from '@ember/runloop';
 
 module('Unit | Instance Initializer | me', {
   beforeEach() {

@@ -30,14 +30,10 @@ export default Component.extend({
   },
   actions: {
     clickOption() {
-      // console.log('option click', this.get('option'));
-      // this.checkboxSwitch();
       this.sendAction('onClick', this.get('option'));
     },
     clickCheckBox() {
       this.checkboxSwitch();
-      // console.log('checkbox click', this.get('option'));
-      // console.log('clicking checkbox');
     }
   }
 

@@ -74,7 +74,7 @@ export default Service.extend({
   setModel(model) {
 
     let self = this;
-    let readyServiceModel = new Promise(function(resolve, reject) {
+    let readyServiceModel = new Promise(function(resolve) {
       if (!self.get('defaultNodes')) {
         let nodes = _.cloneDeep(model.get('graph.nodes'));
         self.set('defaultNodes', nodes);
@@ -137,7 +137,7 @@ export default Service.extend({
     let bidders = [];
     let buyers = [];
     let nodes = this.get('nodes');
-    _.each(this.get('nodes'), function(node) {
+    _.each(nodes, function(node) {
 
       let nodeDetails = {
         type: node.type,
