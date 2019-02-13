@@ -29,7 +29,7 @@ label {
 
 
 .input-field label {
-  left: auto; // what does this do??
+  /* left: auto; // what does this do?? */
   pointer-events: none;
 }
 
@@ -104,7 +104,3 @@ label {
 .switch {
   label { font-size: $font-size-base; }
 }
-
-
-
-
