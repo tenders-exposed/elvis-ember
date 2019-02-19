@@ -110,6 +110,7 @@
       {{/if}}
     {{/if}}
     <div id="network-controls">
+
       <a class="vis-button" {{action "modalNetworkLink" on="click"}}>
         {{fa-icon 'link' size=1}}
         <div class="tooltip"> Get link </div>
@@ -132,7 +133,38 @@
         {{fa-icon 'paw' size=1}}
       </a>
 
+
     </div>
+    <div id="network-settings">
+      <a class="vis-button" {{action "switchTypeValue" on="click"}}>
+        {{fa-icon 'nintendo-switch' size=1}}
+        <div class="tooltip"> switch amount / contracts</div>
+      </a>
+
+
+      <a class="vis-button" {{action "toggleEdgeFlags" on="click"}}>
+        {{fa-icon 'flag' size=1}}
+        <div class="tooltip"> Disable flags </div>
+      </a>
+
+      <a class="vis-button" {{action "toggleNodeFlags" on="click"}}>
+        {{fa-icon 'circle' size=1}} {{fa-icon 'flag' size=1}}
+        <div class="tooltip"> Disable node flags </div>
+      </a>
+
+      <a class="vis-button" {{action "changeValueRange" on="click"}}>
+        {{fa-icon 'arrows-h' size=1}}
+        <div class="tooltip"> ChangeRange </div>
+      </a>
+
+      <span>
+        min: {{model.valueRange.nodeMin}}
+        max: {{model.valueRange.nodeMax}}
+      </span>
+    </div>
+
+
+
     {{#if networkLinkModal}}
     <div id="modalNetworkLink" >
       <div class="modal-container">
@@ -171,6 +203,7 @@
       }}
     {{/if}}
 
+  <div id="setting-options"></div>
     {{#visjs-network
       options=networkOptions
       nodesSet=networkService.nodes

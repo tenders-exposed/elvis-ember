@@ -91,7 +91,7 @@
       <div id="query-builder" class="wizard">
 
         <!-- STEP 1: narrowing countries and companies -->
-        <section class="wizard-step {{countriesStatus}}">
+        <section class="wizard-step {{wizardSteps.countriesStatus}}">
           <div class="row">
             <div class="col m4 s12">
               <h3>Select a country and/or actors*</h3>
@@ -144,10 +144,18 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            {{md-btn-submit
+                action='loadYears'
+                class='btn-large primary'
+                text='Next!'
+                isDisabled=rangeIsDisabled
+            }}
+          </div>
         </section>
 
         <!-- STEP 2: year range	 -->
-        <section class="wizard-step {{yearsStatus}}">
+        <section class="wizard-step {{wizardSteps.yearsStatus}}">
           <div class="row">
             <div class="col m4 s12">
               <h3>Year range</h3>
@@ -177,10 +185,18 @@
               {{/if}}
             </div>
           </div>
+          <div class="row">
+            {{md-btn-submit
+                action='loadCpvs'
+                class='btn-large primary'
+                text='Load Markets!'
+
+            }}
+          </div>
         </section>
 
         <!-- STEP 3: specifying markets/industry fields-->
-        <section class="wizard-step {{cpvsStatus}}">
+        <section class="wizard-step {{wizardSteps.cpvsStatus}}">
           <div class="row">
             <div class="col m4 s12">
               <h3>Markets / Fields</h3>
@@ -241,12 +257,7 @@
                     {{/if}} {{!--{{#if cpvs}} --}}
                   {{else}}{{!-- {{#if cpvsIsDisabled}} --}}
                     <div class="loadcpvs">
-                      {{md-btn-submit
-                          action='loadCpvs'
-                          class='btn-large primary'
-                          text='Load Markets!'
-                          isDisabled=cpvsIsDisabled
-                      }}
+
                     </div>
                   {{/if}} {{!-- {{#if cpvsIsDisabled}} --}}
                 {{/if}} {{!-- {{#if loading.cpvs}} --}}

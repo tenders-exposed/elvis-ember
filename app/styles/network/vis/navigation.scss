@@ -12,6 +12,20 @@ div.vis-network  div.vis-tooltip {
 
 }
 
+// CONFIGURATIONS CONTROLS
+div.elvis-network div.vis-configuration-wrapper {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+
+  div.vis-configuration.vis-config-item {
+    left: 10px ;
+    background-color: #131b29 !important;
+    padding-left: 5px;
+    border-radius: 3px;
+  }
+}
+
 // BUTTON NAVIGATION
 // -----------------------
 div.vis-network div.vis-navigation {

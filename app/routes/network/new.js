@@ -9,6 +9,7 @@ export default Route.extend({
   classNames: ['body-page'],
   titleToken: 'Create a new network',
 
+
   songs: service(),
   ajax: service(),
 
@@ -30,6 +31,8 @@ export default Route.extend({
           });
         }
         controller.set(item, data[item]);
+        console.log('setAvailable - item', item);
+        console.log('setAvailable - data[item]', data[item]);
       });
     } else {
       Logger.error(`Unknown set '${item}'`);

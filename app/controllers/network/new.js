@@ -14,6 +14,7 @@ const { Logger } = Ember;
 export default Controller.extend({
   ajax: service(),
   cpvService: service('cpv'),
+  queryBuilder: service('query-builder'),
 
   selectedCodes: A([]),
   selectedCodesCount: 0,
@@ -32,13 +33,32 @@ export default Controller.extend({
   }),
 
   loading: {
-    years: true,
+    years: false,
     cpvs: true
   },
 
   countries: [],
   autocompleteActorsOptions: [],
   countActors: 0,
+
+  /*
+  if action on elementStatus & > 0
+      => nextElementStatus = enabled
+      => thisElementStatus = completed
+
+      on click pe next => above done
+
+
+      when current all above completed
+      next below current
+      below current
+  * */
+  wizardSteps:  {
+    'countriesStatus': 'current',
+    'yearsStatus': 'disabled',
+    'cpvsStatus': 'disabled',
+    'optionStatus': 'disabled',
+  },
 
   countriesStatus: computed('query.countries', function() {
     if (this.get('query.countries').length > 0) {
@@ -81,6 +101,7 @@ export default Controller.extend({
   }),
 
   cpvsIsDisabled: false,
+ // yearsIsDisabled: true,
 
   rangeDisableClass: '',
   rangeIsDisabled: computed('query.{countries,actors}', function() {
@@ -150,6 +171,13 @@ export default Controller.extend({
   },
   cpvSearchTerm: '',
   cpvSearchTree: '',
+
+  // tests
+  init() {
+    console.log('init new network');
+    let qb = this.get('queryBuilder');
+  },
+  // --end tests
 
   createTree() {
     // reset selected codes
@@ -364,13 +392,61 @@ export default Controller.extend({
     }
   },
 
+  resetSteps(step) {
+    let nextDisable = false;
+    let wizardSteps = this.get('wizardSteps');
+    // console.log(wizardSteps, 'wizardSteps');
+
+    Object.entries(wizardSteps).forEach(([stepName, stepStatus]) => {
+      if(nextDisable) {
+        this.set(`wizardSteps.${stepName}`, 'disabled');
+      }
+      if(step == stepName) {
+        this.set(`wizardSteps.${stepName}`, 'current');
+        nextDisable = true;
+      }
+
+    });
+
+  },
+
+  stepCount: 1,
+  currentStep(step) {
+    this.set('stepCount', step);
+  },
+  checkSteps(stepCount,stepName) {
+    if(this.get('stepCount') > stepCount) {
+      this.resetSteps(stepName);
+      this.currentStep(stepCount);
+    }
+  },
+
   actions: {
+    loadCpvs() {
+      this.set('wizardSteps.yearsStatus', 'completed');
+      this.set('wizardSteps.cpvsStatus', 'current');
+      this.currentStep(3);
+      this.fetchCpvs();
+    },
+
+    loadYears() {
+      this.set('wizardSteps.countriesStatus', 'completed');
+      this.set('wizardSteps.yearsStatus', 'current');
+      this.currentStep(2);
+      this.fetchYears();
+    },
+
     onCountrySelectEvent(value) {
+
+      this.checkSteps(1,'countriesStatus');
+
       this.set('query.countries', []);
       value.forEach((v) => {
         this.get('query.countries').push(v.code);
       });
-      this.fetchYears();
+
+
+      //this.fetchYears();
     },
     onAutocompleteSelectEvent(value) {
 
@@ -385,6 +461,8 @@ export default Controller.extend({
       this.set('countActors', count);
       this.fetchYears();
     },
+
+
     actorTermChanged(queryTerm) {
       // let query = queryTerm || '';
       // let limit = 10;
@@ -419,12 +497,19 @@ export default Controller.extend({
     },
 
     rangeSlideAction(value) {
+      console.log('action on range slider1');
+      this.checkSteps(2,'yearsStatus');
+      // on click change the status
       run.scheduleOnce('afterRender', function() {
         $('span.left-year').text(value[0]);
         $('span.right-year').text(value[1]);
       });
     },
     rangeChangeAction(value) {
+      console.log('action on range slider2', value);
+      this.checkSteps(2,'yearsStatus');
+
+
       // destroy the tree, if any
       if (this.get('yearsStatus') == 'completed') {
         if (this.get('jsTree')) {
@@ -447,9 +532,7 @@ export default Controller.extend({
       }
     },
 
-    loadCpvs() {
-      this.fetchCpvs();
-    },
+
     submitQuery() {
       let self = this;
       let countries = this.get('query.countries');

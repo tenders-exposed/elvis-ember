@@ -48,6 +48,11 @@
             {{#link-to "network.show.details.show" model.route model.link class="btn-tiny transparent primary" invokeAction="close"}}
               Show details
             {{/link-to}}
+          {{#if (eq graphElementType "node")}}
+            <span class="btn-tiny transparent primary" {{action "setTargetNode" on="click"}}>
+              Target
+            </span>
+          {{/if}}
         </div>
       {{/if}}
 

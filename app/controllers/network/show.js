@@ -13,6 +13,12 @@ export default Controller.extend({
   selectedNodes: [],
   selectedEdges: [],
   networkOptions: {
+    /*'configure': {
+      'enabled': true,
+      'filter': 'nodes,edges',
+      'container': undefined,
+      'showButton': true
+    },*/
     'nodes': {
       'shape': 'dot',
       'scaling': {
@@ -103,6 +109,7 @@ export default Controller.extend({
   networkClusteringModal: false,
   networkEmbeddingModal: false,
   networkStabilization: false,
+  networkFlags: true,
 
   crop: {
     container: {
@@ -342,6 +349,20 @@ export default Controller.extend({
   },
 
   actions: {
+    switchTypeValue() {
+      this.get('networkService').switchTypeValue();
+    },
+    changeValueRange() {
+      this.get('networkService').changeValueRange();
+    },
+    toggleEdgeFlags() {
+     this.get('networkService').toggleEdgeFlags();
+    },
+
+    toggleNodeFlags() {
+      this.get('networkService').toggleNodeFlags();
+    },
+
     stopPhysics() {
       let physics = this.get('networkOptions.physics.enabled') ? false : true;
       this.set('networkOptions.physics.enabled', physics);
