@@ -5,6 +5,11 @@
   <i class="fa fa-arrow-circle-right"></i>
 </div>
 
+
+{{! @TODO: create a "tutorial" component containing all #legend markup
+    in this template, show "tutorial" by default. hide tutorial if user clicks "close" button
+    also, no other interaction with network, sidebar or network options should be allowed if tutorial is displayed.
+}}
 <section id="legend">
 
   <div class="loading-bar">
@@ -73,13 +78,17 @@
 
   {{outlet}}
 
+  {{! @TODO: this should be a part of network-embedding component }}
   <div class="crop-fake">
     <div class="go-back-crop" {{action "toggleCrop" on="click"}}>
       {{fa-icon 'crop' size=1}}
     </div>
   </div>
 
+
   {{#if model}}
+
+    {{! @TODO: properly describe how this works and what is it for }}
     {{#if network.selectedNodes}}
       {{#if network.selectedNodes.length}}
         {{#each network.selectedNodes as |node|}}
@@ -109,6 +118,9 @@
         {{/if}}
       {{/if}}
     {{/if}}
+
+
+    {{! @TODO: create a "network-controls" component containing all #network-controls markup }}
     <div id="network-controls">
       <a class="vis-button" {{action "modalNetworkLink" on="click"}}>
         {{fa-icon 'link' size=1}}
@@ -131,9 +143,10 @@
       <a class="vis-button" {{action "toggleInfo" on="click"}}>
         {{fa-icon 'paw' size=1}}
       </a>
-
     </div>
+
     {{#if networkLinkModal}}
+    {{! @TODO: create a "network-link-modal" component markup }}
     <div id="modalNetworkLink" >
       <div class="modal-container">
         <span {{action "modalNetworkLink" on="click"}}>
@@ -149,6 +162,9 @@
     </div>
     {{/if}}
 
+    {{!
+      Clustering modal. Lets user merge nodes of same type
+    }}
     {{#if networkClusteringModal}}
       {{network-clustering
           action="closeClustering"
@@ -160,6 +176,11 @@
           ajax=ajax
       }}
     {{/if}}
+
+    {{!
+      Embedding modal. Lets user to take a snapshot of the current screen
+      @TODO: close the sidebar and legend, when embedding modal is shown.
+     }}
     {{#if networkEmbeddingModal}}
       {{network-embedding
           canvas = visCanvas
@@ -171,6 +192,9 @@
       }}
     {{/if}}
 
+    {{!
+      Network canvas
+    }}
     {{#visjs-network
       options=networkOptions
       nodesSet=networkService.nodes
@@ -189,16 +213,16 @@
 
 </div>
 
+{{! @TODO: this markup should be a part of network-embedding component }}
 <div class="crop-controls">
   <div class="modal-container">
     <div class="modal-content">
+      blows my mind...!
       <div class="row">
         <span {{action "closeCrop" on="click"}}>
           {{fa-icon 'close' size=1 class="close"}}
         </span>
       </div>
-
-
       <div class="row">
         <div class="col s4">
           <small>width</small>
@@ -218,7 +242,6 @@
           </a>
         </div>
       </div>
-
     </div>
   </div>
 </div>
