@@ -1,16 +1,15 @@
 <!-- new navbar -->
-<nav id="main-navbar" class="navbar navbar-fixed open">
+<nav class="navbar navbar-fixed open">
     <div class="nav-wrapper">
-		    {{#link-to 'application' class="brand-logo"}}
-            <img alt="ELVIS - public spending visualisation tool" height="60" src="images/elvis-logo-white.png"/>
-            <em class="hide-on-med-and-down">map me tender</em>
-		    {{/link-to}}
         <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">menu</i></a>
-        <ul class="center hide-on-med-and-down">
+        <ul class="left hide-on-med-and-down">
+          <li>
+          {{#link-to 'application' class="brand-logo"}}
+            <img alt="ELVIS - public spending visualisation tool" height="60" src="images/elvis-logo-white.png"/>
+          {{/link-to}}
+          </li>
             <li>
-				        {{#link-to 'network.new' class=""}}
-                    <span>Create a network</span>
-				        {{/link-to}}
+				        {{#link-to 'network.new'}} Create a network {{/link-to}}
             </li>
             <li> {{link-to 'About' 'about'}} </li>
             {{!--<li> {{link-to 'Gallery' 'gallery'}} </li>--}}

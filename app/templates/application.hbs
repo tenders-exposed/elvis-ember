@@ -3,16 +3,24 @@
     1. create common template for all pages (About, Contact, Welcome, etc...) - they will contain navbar, content and footer
     2. use different template for network (no footer, different navbar behavior
 }}
-{{elvis-nav dropMenu=dropMenu loginVisible=loginVisible}}
 
 <div class="c-notifications__container">
     {{#each notifications as |notification|}}
         {{notification-message notification=notification}}
     {{/each}}
 </div>
-{{outlet}}
 
-{{partial footer}}
+
+<div id="main">
+  <div id="nav-wrapper">
+    {{elvis-nav dropMenu=dropMenu loginVisible=loginVisible}}
+  </div>
+
+  <div id="content-wrapper">
+    {{outlet}}
+    {{partial footer}}
+  </div>
+</div>
 
 {{!-- ember-cli-materialize modal container --}}
 {{md-modal-container}}
