@@ -30,7 +30,7 @@ div.vis-network div.vis-navigation {
     box-sizing: content-box;
 
     // basic style for transparent button
-    @include button-transparent($text-color);
+    @extend .btn.link;
 
     background-image: none !important;
     bottom: auto;

@@ -11,16 +11,14 @@
 </div>
 
 
-<div id="main">
-  <div id="nav-wrapper">
-    {{elvis-nav dropMenu=dropMenu loginVisible=loginVisible}}
-  </div>
 
-  <div id="content-wrapper">
-    {{outlet}}
-    {{partial footer}}
-  </div>
+<div id="nav-wrapper">
+  {{elvis-nav dropMenu=dropMenu loginVisible=loginVisible}}
 </div>
+
+
+{{outlet}}
+{{partial footer}}
 
 {{!-- ember-cli-materialize modal container --}}
 {{md-modal-container}}

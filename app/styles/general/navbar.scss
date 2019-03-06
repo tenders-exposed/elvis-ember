@@ -28,13 +28,16 @@ nav {
   ul li a {
     font-family: $navbar-font-family;
     font-size: $navbar-font-size;
-    font-weight: bold;
+    font-weight: normal;
 
     max-height: $navbar-height;
     position: relative;
     vertical-align: middle;
 
-    &:hover { color: $primary-color; }
+    &:hover {
+      color: $primary-color;
+      background: none;
+    }
   }
 
   .brand-logo {

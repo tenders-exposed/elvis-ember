@@ -3,11 +3,15 @@
 
 #details-sidebar {
   .search-icon {
-    margin-top: 1.2em;
+    margin-top: 1em;
+    input {
+      font-size: $font-size-small;
+    }
   }
   a.order {
-    margin-top: 3.2em;
     cursor: pointer;
+    color: #fff;
+    margin-top: 1.5em;
   }
   select {
     cursor: pointer;
@@ -49,7 +53,8 @@
   .data-table-filter,
   .data-table-search,
   .data-table .tse-content {
-    padding: 0 $padding-base;
+    padding: 0 .5em;
+    margin-bottom: .5rem;
   }
 
   // entity circle with number
