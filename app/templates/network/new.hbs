@@ -1,4 +1,7 @@
 <div class="page wizard">
+
+  {{! @TODO: this whole section is also in network/show.hbs.
+          remove if this code is not used. }}
   <section id="legend" class="wizard-legend">
 
     <div class="launch-network launch-network100">
@@ -60,7 +63,6 @@
 
   <div class="container">
     <div class="row">
-      {{!--partial 'partials/network/new'--}}
       <header class="center">
         <h1>Launch New Visualisation</h1>
         <p>Select criteria you would like to visualise from the <a href="opentender.eu">OpenTender data</a>.<br/>
@@ -68,16 +70,7 @@
           the visualisation run slow.</p>
       </header>
 
-      <!-- NEW QUERY BUILDER HTML STARTS HERE
-
-          TODO: for now we need to make the query builder function with real data.
-          TODO 2: wizard functionality (this will make it more beautiful, but is not that necessary):
-              .wizard-step has 3 states:
-                    1 .wizard-step.disabled - a step which cannot be completed because other inputs (from previous steps) need to be filled
-                    2 .wizard-step.current - a step which has not been completed, but can be interacted with
-                    3 .wizard-step.completed - this step is available for interaction AND all inputs inside this step which are necessary for the next step to be enabled, has been filled
-      -->
-
+      {{! @TODO: hide everything else if device is small screen and show only this message. }}
       {{#if isMobile.any}}
         <p class="center"><i>
           Hi! You are using a mobile device. We get this.
@@ -88,9 +81,13 @@
         </i></p>
       {{/if}}
 
+
+      {{!
+        @TODO: create a component for each Query Builder step
+      }}
       <div id="query-builder" class="wizard">
 
-        <!-- STEP 1: narrowing countries and companies -->
+        <!-- STEP 1: country and actors selection	 -->
         <section class="wizard-step {{countriesStatus}}">
           <div class="row">
             <div class="col m4 s12">
@@ -99,12 +96,6 @@
                 * actors are <div class="figure-bidder"></div>  companies or <div class="figure-buyer"></div> government institutions</p>
             </div>
             <div class="col m8 s12">
-              <!--
-                TODO: current placeholder "click to select..." says nothing and might be confusing
-                    the placeholder text should always describe the action and contents of the selectable list.
-                    so in this case, placeholder text should be "Select countries/companies..."
-                TODO 2: is it possible to display country flags in the collection of selected countries?
-              -->
               <div class="input-field col m6 s12">
                 <span class="input-prefix"><i class="fa fa-globe"></i></span>
 
@@ -123,8 +114,7 @@
                 <span class="input-prefix">
                   <i class="fa fa-briefcase"></i>
                 </span>
-                <!-- this is company select
-                  TODO: fill the select with real dataset of company names. Matej will restyle the options once it is ready  -->
+
                 {{elvis-select-guru
                     value=query.rawActors
                     options=autocompleteActorsOptions
@@ -179,7 +169,7 @@
           </div>
         </section>
 
-        <!-- STEP 3: specifying markets/industry fields-->
+        <!-- STEP 3: specifying CPVs: markets/industry fields -->
         <section class="wizard-step {{cpvsStatus}}">
           <div class="row">
             <div class="col m4 s12">

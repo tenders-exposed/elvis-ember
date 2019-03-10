@@ -15,8 +15,6 @@
 .loader {
   position: absolute;
   opacity: .7;
-  -webkit-filter: blur(2px);
-  -ms-filter: blur(2px);
   filter: blur(2px);
 }
 
@@ -74,10 +72,6 @@
   position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
   font-family: helvetica, arial, sans-serif;
   text-transform: uppercase;
   font-weight: 900;
@@ -92,10 +86,6 @@
     background: rgb(246, 49, 136);
     position: absolute;
     animation: cssload-load 0.81s infinite alternate ease-in-out;
-    -o-animation: cssload-load 0.81s infinite alternate ease-in-out;
-    -ms-animation: cssload-load 0.81s infinite alternate ease-in-out;
-    -webkit-animation: cssload-load 0.81s infinite alternate ease-in-out;
-    -moz-animation: cssload-load 0.81s infinite alternate ease-in-out;
   }
   &::before {
     top: 0;
@@ -106,86 +96,6 @@
 }
 
 @keyframes cssload-load {
-  0% {
-    left: 0;
-    height: 28px;
-    width: 14px;
-  }
-
-  50% {
-    height: 8px;
-    width: 38px;
-  }
-
-  100% {
-    left: 223px;
-    height: 28px;
-    width: 14px;
-  }
-}
-
-
-@-o-keyframes cssload-load {
-  0% {
-    left: 0;
-    height: 28px;
-    width: 14px;
-  }
-
-  50% {
-    height: 8px;
-    width: 38px;
-  }
-
-  100% {
-    left: 223px;
-    height: 28px;
-    width: 14px;
-  }
-}
-
-
-@-ms-keyframes cssload-load {
-  0% {
-    left: 0;
-    height: 28px;
-    width: 14px;
-  }
-
-  50% {
-    height: 8px;
-    width: 38px;
-  }
-
-  100% {
-    left: 223px;
-    height: 28px;
-    width: 14px;
-  }
-}
-
-
-@-webkit-keyframes cssload-load {
-  0% {
-    left: 0;
-    height: 28px;
-    width: 14px;
-  }
-
-  50% {
-    height: 8px;
-    width: 38px;
-  }
-
-  100% {
-    left: 223px;
-    height: 28px;
-    width: 14px;
-  }
-}
-
-
-@-moz-keyframes cssload-load {
   0% {
     left: 0;
     height: 28px;
