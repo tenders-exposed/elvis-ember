@@ -4,7 +4,6 @@
   <div id="details-sidebar" class="{{if networkInput "network-settings-open"}}">
     <div class="sidebar-header">
       <h4 class="network-title">
-        <a {{action 'toggleMenu'}} class="navbar-toggle"><i class="material-icons">menu</i></a>
         &nbsp;
         {{#if model.name}}
             {{model.name}}
@@ -20,12 +19,6 @@
       </h4>
     </div>
     <div class="network-settings {{if networkInput "show-block network-input" "hide"}}">
-
-      {{!-- NOTE: save button will act instead of close
-      <a href="#" class="close" {{action "toggleInput"}}>
-        {{fa-icon 'check'}}
-      </a>
-      --}}
       <span {{action "saveNetworkName"}}>
         <button class="network-settings-save">
           {{fa-icon 'check'}}

@@ -319,7 +319,7 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
   =========================================================================== */
 $network-sidebar-width: 30vw;
 $network-sidebar-padding: $padding-base;
-$network-sidebar-bg: fade-out(lighten($bg-color,2%), 0.1);
+$network-sidebar-bg: fade-out(#1c1c1c, 0.5);
 $network-infowindow-width: calc(100% - $network-sidebar-width);
 $network-sidebar-border: $border-base;
 

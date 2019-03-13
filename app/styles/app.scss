@@ -50,6 +50,8 @@
 @import "components/query-builder";
 
 /* Network */
+@import "network";
+
 @import "network/list";
 @import "network/show";
 @import "network/vis";

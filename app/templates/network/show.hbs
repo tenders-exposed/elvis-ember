@@ -74,11 +74,12 @@
   </div>
 </section>
 
-<div id="network-container" style="height: {{height}}px;" class="stabilization{{stabilizationPercent}}">
+<!-- TODO: make the loader dependent on stabilization percent, not the #network-container-->
+<div id="network-container" class="stabilization{{stabilizationPercent}}">
 
   {{outlet}}
 
-  {{! @TODO: this should be a part of network-embedding component }}
+  {{! @TODO: this should be a part of "network-embedding" component }}
   <div class="crop-fake">
     <div class="go-back-crop" {{action "toggleCrop" on="click"}}>
       {{fa-icon 'crop' size=1}}
@@ -213,11 +214,10 @@
 
 </div>
 
-{{! @TODO: this markup should be a part of network-embedding component }}
+{{! @TODO: this markup should be a part of "network-embedding" component }}
 <div class="crop-controls">
   <div class="modal-container">
     <div class="modal-content">
-      blows my mind...!
       <div class="row">
         <span {{action "closeCrop" on="click"}}>
           {{fa-icon 'close' size=1 class="close"}}
