@@ -6,18 +6,13 @@
 </div>
 
 
-{{! @TODO: create a "tutorial" component containing all #legend markup
+{{! @TODO: create a "tutorial" component/paartial containing all #legend markup
     in this template, show "tutorial" by default. hide tutorial if user clicks "close" button
     also, no other interaction with network, sidebar or network options should be allowed if tutorial is displayed.
 }}
 <section id="legend" class="network-loaded-{{stabilizationPercent}}">
 
-  {{!--
-  <div class="loading-bar">
-    {{progress-bar percent=stabilizationPercent message="Please wait, the network is being loaded..."}}
-  </div>
-  --}}
-  <div class="carousel">
+  <div class="legend-wrapper">
 
     {{! Shows when the network is loading and cannot be yet accessed }}
     <div class="network-loader">
@@ -35,54 +30,58 @@
         </a>
 
     </div>
-    {{#carousel-container transitionInterval=400 as |ui controls|}}
-      <div class="carousel-body">
-        {{#ui.item}}
-          <div class="carousel-content">
-            <img src="images/carousel/1company.jpg">
-          </div>
-        {{/ui.item}}
-        {{#ui.item}}
-          <div class="carousel-content">
-            <img src="images/carousel/2govermnt.jpg">
-          </div>
-        {{/ui.item}}
-        {{#ui.item}}
-          <div class="carousel-content">
-            <img src="images/carousel/3relationship.jpg">
-          </div>
-        {{/ui.item}}
-        {{#ui.item}}
-          <div class="carousel-content">
-            <img src="images/carousel/4merging.jpg">
-          </div>
-        {{/ui.item}}
-        {{#ui.item}}
-          <div class="carousel-content">
-            <img src="images/carousel/5tenders.jpg">
-          </div>
-        {{/ui.item}}
 
-      </div>
+    <div class="carousel">
+      {{#carousel-container transitionInterval=400 as |ui controls|}}
+        <div class="carousel-body">
+          {{#ui.item}}
+            <div class="carousel-content">
+              <img src="images/carousel/1company.jpg">
+            </div>
+          {{/ui.item}}
+          {{#ui.item}}
+            <div class="carousel-content">
+              <img src="images/carousel/2govermnt.jpg">
+            </div>
+          {{/ui.item}}
+          {{#ui.item}}
+            <div class="carousel-content">
+              <img src="images/carousel/3relationship.jpg">
+            </div>
+          {{/ui.item}}
+          {{#ui.item}}
+            <div class="carousel-content">
+              <img src="images/carousel/4merging.jpg">
+            </div>
+          {{/ui.item}}
+          {{#ui.item}}
+            <div class="carousel-content">
+              <img src="images/carousel/5tenders.jpg">
+            </div>
+          {{/ui.item}}
 
-      <div class="carousel-footer">
-        <div class="carousel-arrows">
-          <a class="btn link carousel-control carousel-right" onclick={{controls.next}}>
-            {{fa-icon "arrow-circle-left"}} Previous
-          </a>
-          <a class="btn link carousel-control carousel-left" onclick={{controls.previous}}>
-            {{fa-icon "arrow-circle-right"}} Next
-          </a>
         </div>
 
-        <div class="carousel-close">
-          <a class="btn transparent" {{action "toggleInfo" on="click"}}>
-            Close
-          </a>
-        </div>
-      </div>
+        <div class="carousel-footer">
+          <div class="carousel-arrows">
+            <a class="btn link carousel-control carousel-right" onclick={{controls.next}}>
+              {{fa-icon "arrow-circle-left"}} Previous
+            </a>
+            <a class="btn link carousel-control carousel-left" onclick={{controls.previous}}>
+              {{fa-icon "arrow-circle-right"}} Next
+            </a>
+          </div>
 
-    {{/carousel-container}}
+          <div class="carousel-close">
+            <a class="btn transparent" {{action "toggleInfo" on="click"}}>
+              Close
+            </a>
+          </div>
+        </div>
+
+      {{/carousel-container}}
+    </div>
+
   </div>
 </section>
 

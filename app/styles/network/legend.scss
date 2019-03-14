@@ -1,9 +1,20 @@
 section#legend {
   position: absolute;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   z-index: $zindex-network-legend;
   background-color: rgba(0, 0, 0, .9);
+
+  // main wrapper for all things legend
+  .legend-wrapper {
+    width: 690px;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 10em;
+    background: #1a1a1c;
+    position: relative;
+    overflow: visible;
+  }
 
   // hide Launch network message until network is fully loaded
   .launch-network {
@@ -25,13 +36,9 @@ section#legend {
   // network legend carousel.
   // a slideshow network tutorial
   .carousel {
-    width: 690px;
-    height: auto;
-    margin: 0 auto;
-    margin-top: 10em;
-    background: #1a1a1c;
+    border-radius: 5px;
     padding: 5px;
-    overflow: visible;
+    height: auto;
 
     .carousel-body {
       width: 100%;
@@ -39,7 +46,6 @@ section#legend {
       border-style: inset;
       border: 1px solid rgb(15, 15, 16);
       border-bottom: 1px solid #2f2f31;
-      border-radius: 5px;
     }
 
     .carousel-item {

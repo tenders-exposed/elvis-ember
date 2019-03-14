@@ -374,9 +374,9 @@ export default Controller.extend({
     },
 
     toggleInfo() {
-      $('section#legend').toggle();
+      $('#legend').toggle();
+      $('#legend').removeClass('network-loaded-100');
       $('.loading-bar').hide();
-      $('.launch-network').removeClass('loaded-100');
     },
 
     showClustering() {
