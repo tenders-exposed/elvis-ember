@@ -416,12 +416,17 @@ $progress-bar-color: $primary-color;
 /* Z-indexes
   ==========
  */
-$zindex-network-sidebar: 89;
-$zindex-network-sidebar-toggle: 91;
-$zindex-network-sidenav: 92;
+
 $zindex-navbar: 98;
 $zindex-modal:      999;
 $zindex-infobox:    70;
 $zindex-notification: 69;
+
+$zindex-network-sidebar: 89;
+$zindex-network-sidebar-toggle: 91;
+$zindex-network-legend: 150;
+$zindex-network-sidenav: 92;
+$zindex-network-navbar: $zindex-navbar;
+
 $zindex-details-container:     89;
 $zindex-details:              90;

@@ -12,18 +12,21 @@
 }}
 <section id="legend">
 
+  {{!--
   <div class="loading-bar">
     {{progress-bar percent=stabilizationPercent message="Please wait, the network is being loaded..."}}
   </div>
-
-  <div class="launch-network launch-network{{stabilizationPercent}}">
-    Your Network is loaded!
-    <a class="btn-tiny transparent primary" {{action "toggleInfo" on="click"}}>
-      Launch {{fa-icon "arrow-circle-right"}}
-    </a>
-  </div>
+  --}}
 
   <div class="carousel">
+
+    <div class="launch-network loaded-{{stabilizationPercent}}">
+        <span class="launch-network-text">Your Network is loaded!</span>
+        <a class="launch-network-button btn transparent primary" href="#" {{action "toggleInfo" on="click"}}>
+          Launch {{fa-icon "arrow-right"}}
+        </a>
+
+    </div>
     {{#carousel-container transitionInterval=400 as |ui controls|}}
       <div class="carousel-body">
         {{#ui.item}}

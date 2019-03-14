@@ -1,0 +1,107 @@
+section#legend {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: $zindex-network-legend;
+  background-color: rgba(0, 0, 0, .9);
+
+  .loading-spinner {
+    width: 100px;
+    z-index: 100;
+    margin: 0 auto;
+    margin-top: 10em;
+
+    i {
+      margin-right: 5px;
+    }
+  }
+
+  .loading-bar {
+    width: 300px;
+    z-index: 100;
+    margin: 0 auto;
+    margin-top: 6em;
+    position: absolute;
+    left: 38%;
+
+    .message-progress-bar {
+      display: none !important;
+    }
+  }
+
+  .launch-network {
+    width: 100%;
+    text-align: right;
+    position: absolute;
+    top: -4em;
+    display: none;
+
+    &.loaded-100 {
+      display: block;
+    }
+
+    .launch-network-text {
+      font-weight: bold;
+      color: $text-muted;
+      margin-right: 15px;
+    }
+
+    .launch-network-button {
+      margin-right: 5px;
+    }
+
+  }
+
+
+  .carousel {
+    width: 690px;
+    margin: 0 auto;
+    margin-top: 10em;
+    background: #1a1a1c;
+    padding: 5px;
+    overflow: visible;
+
+    .carousel-body {
+      width: 100%;
+      height: 320px;
+      border-style: inset;
+      border: 1px solid rgb(15, 15, 16);
+      border-bottom: 1px solid #2f2f31;
+      border-radius: 5px;
+    }
+
+    .carousel-item {
+      width: 100%;
+    }
+    .carousel-content {
+      width: 100%;
+      /* height: 200px;*/
+      background: darkslateblue;
+    }
+
+    .carousel-controls {
+      padding-top: 13px;
+
+      .carousel-control {
+        display: inline-block;
+        color: rgba(255, 255, 255, 0.2);
+        padding-left: 15px;
+        padding-top: 6px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+
+        &:hover {
+          color: rgba(255, 255, 255, 0.7);
+        }
+      }
+      .carousel-close {
+        float: right;
+        height: 34px;
+        padding: 7px 15px;
+        display: none;
+      }
+    }
+
+  }
+}

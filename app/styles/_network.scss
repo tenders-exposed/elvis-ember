@@ -36,9 +36,9 @@ body.body-network {
 
   // navbar overlaps the network container
   #nav-wrapper {
-    width: 100vw;
     position: absolute;
-    top: 0;
+    width: 100vw;
+    z-index: $zindex-network-navbar;
 
     .navbar {
       opacity: .6;
