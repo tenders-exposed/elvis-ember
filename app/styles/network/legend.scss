@@ -5,69 +5,25 @@ section#legend {
   z-index: $zindex-network-legend;
   background-color: rgba(0, 0, 0, .9);
 
-  .loading-spinner {
-    width: 100px;
-    z-index: 100;
-    margin: 0 auto;
-    margin-top: 10em;
-
-    i {
-      margin-right: 5px;
-    }
-  }
-
-  .loading-bar {
-    width: 300px;
-    z-index: 100;
-    margin: 0 auto;
-    margin-top: 6em;
-    position: absolute;
-    left: 38%;
-
-    .message-progress-bar {
-      display: none !important;
-    }
-  }
-
+  // hide Launch network message until network is fully loaded
   .launch-network {
-    width: 100%;
-    text-align: right;
-    position: absolute;
-    top: -4em;
     display: none;
+  }
 
-    &.loaded-100 {
-      display: block;
-    }
-
-
-    .launch-network-text {
-      // blinking "Network Loaded!"text
-      @keyframes fadeBlink{
-        0% {
-          opacity:1;
-        }
-        50% {
-          opacity:.3;
-        }
-        100% {
-          opacity: 1;
-        }
-      }
-
-      font-weight: bold;
-      margin-right: 15px;
-      animation: fadeBlink ease 3s infinite;
-      opacity: 1;
-    }
-
-    .launch-network-button {
-      margin-right: 5px;
-    }
+  // show network loader until network is fully loaded
+  .network-loader {
+    position: absolute;
+    left: 0;
+    top: -3em;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    color: $text-muted;
 
   }
 
-
+  // network legend carousel.
+  // a slideshow network tutorial
   .carousel {
     width: 690px;
     height: auto;
@@ -112,6 +68,48 @@ section#legend {
         display: none;
       }
     }
+  }
 
+  // The network is loaded.
+  // shows "Network Loaded!" block and hides the loading bar
+  // shows Close the legend button
+  &.network-loaded-100 {
+
+    .network-loader {
+      display: none; //hide the loader
+    }
+
+    .launch-network {
+      width: 100%;
+      text-align: right;
+      position: absolute;
+      top: -4em; // push top from parent .carousel box
+      display: block; // display this block now
+
+      .launch-network-text {
+        // blinking "Network Loaded!"text
+        @keyframes fadeBlink{
+          0% {
+            opacity:1;
+          }
+          50% {
+            opacity:.3;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+
+        font-weight: bold;
+        margin-right: 15px;
+        animation: fadeBlink ease 3s infinite;
+        opacity: 1;
+      }
+
+      .launch-network-button {
+        margin-right: 5px;
+      }
+
+    }
   }
 }

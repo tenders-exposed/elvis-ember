@@ -10,17 +10,25 @@
     in this template, show "tutorial" by default. hide tutorial if user clicks "close" button
     also, no other interaction with network, sidebar or network options should be allowed if tutorial is displayed.
 }}
-<section id="legend">
+<section id="legend" class="network-loaded-{{stabilizationPercent}}">
 
   {{!--
   <div class="loading-bar">
     {{progress-bar percent=stabilizationPercent message="Please wait, the network is being loaded..."}}
   </div>
   --}}
-
   <div class="carousel">
 
-    <div class="launch-network loaded-{{stabilizationPercent}}">
+    {{! Shows when the network is loading and cannot be yet accessed }}
+    <div class="network-loader">
+      <span>Hold on, your network is loading...</span>
+      <div class="progress">
+        <div class="indeterminate"></div>
+      </div>
+    </div>
+
+    {{! Shows right after the network is loaded }}
+    <div class="launch-network">
         <span class="launch-network-text">{{fa-icon "check"}} Your Network is loaded!</span>
         <a class="launch-network-button btn transparent primary" href="#" {{action "toggleInfo" on="click"}}>
           Launch {{fa-icon "arrow-right"}}
