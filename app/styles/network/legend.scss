@@ -40,10 +40,25 @@ section#legend {
       display: block;
     }
 
+
     .launch-network-text {
+      // blinking "Network Loaded!"text
+      @keyframes fadeBlink{
+        0% {
+          opacity:1;
+        }
+        50% {
+          opacity:.3;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
       font-weight: bold;
-      color: $text-muted;
       margin-right: 15px;
+      animation: fadeBlink ease 3s infinite;
+      opacity: 1;
     }
 
     .launch-network-button {
@@ -55,6 +70,7 @@ section#legend {
 
   .carousel {
     width: 690px;
+    height: auto;
     margin: 0 auto;
     margin-top: 10em;
     background: #1a1a1c;
@@ -75,20 +91,16 @@ section#legend {
     }
     .carousel-content {
       width: 100%;
-      /* height: 200px;*/
       background: darkslateblue;
     }
 
-    .carousel-controls {
-      padding-top: 13px;
+    .carousel-footer {
+      padding: 15px 10px 10px;
+      display: flex;
+      justify-content: space-between;
 
       .carousel-control {
         display: inline-block;
-        color: rgba(255, 255, 255, 0.2);
-        padding-left: 15px;
-        padding-top: 6px;
-        font-size: 1rem;
-        font-weight: bold;
         cursor: pointer;
 
         &:hover {
@@ -97,8 +109,6 @@ section#legend {
       }
       .carousel-close {
         float: right;
-        height: 34px;
-        padding: 7px 15px;
         display: none;
       }
     }

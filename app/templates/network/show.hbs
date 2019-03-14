@@ -21,7 +21,7 @@
   <div class="carousel">
 
     <div class="launch-network loaded-{{stabilizationPercent}}">
-        <span class="launch-network-text">Your Network is loaded!</span>
+        <span class="launch-network-text">{{fa-icon "check"}} Your Network is loaded!</span>
         <a class="launch-network-button btn transparent primary" href="#" {{action "toggleInfo" on="click"}}>
           Launch {{fa-icon "arrow-right"}}
         </a>
@@ -57,17 +57,18 @@
 
       </div>
 
-      <div class="carousel-controls">
-
-        <small class="carousel-control carousel-right" onclick={{controls.next}}>
-          {{fa-icon "arrow-circle-left"}} Previous
-        </small>
-        <small class="carousel-control carousel-left" onclick={{controls.previous}}>
-          {{fa-icon "arrow-circle-right"}} Next
-        </small>
+      <div class="carousel-footer">
+        <div class="carousel-arrows">
+          <a class="btn link carousel-control carousel-right" onclick={{controls.next}}>
+            {{fa-icon "arrow-circle-left"}} Previous
+          </a>
+          <a class="btn link carousel-control carousel-left" onclick={{controls.previous}}>
+            {{fa-icon "arrow-circle-right"}} Next
+          </a>
+        </div>
 
         <div class="carousel-close">
-          <a class="btn-tiny transparent" {{action "toggleInfo" on="click"}}>
+          <a class="btn transparent" {{action "toggleInfo" on="click"}}>
             Close
           </a>
         </div>

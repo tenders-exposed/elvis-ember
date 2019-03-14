@@ -376,7 +376,7 @@ export default Controller.extend({
     toggleInfo() {
       $('section#legend').toggle();
       $('.loading-bar').hide();
-      $('.launch-network').removeClass('launch-network100');
+      $('.launch-network').removeClass('loaded-100');
     },
 
     showClustering() {
