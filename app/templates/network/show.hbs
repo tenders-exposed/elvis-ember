@@ -10,7 +10,7 @@
     in this template, show "tutorial" by default. hide tutorial if user clicks "close" button
     also, no other interaction with network, sidebar or network options should be allowed if tutorial is displayed.
 }}
-<section id="legend" class="network-loaded-{{stabilizationPercent}}">
+<section id="legend" class="network-loading-{{stabilizationPercent}} {{if networkLoaded 'network-loaded network-just-loaded'}}">
 
   <div class="legend-wrapper">
 

@@ -1,4 +1,4 @@
-section#legend {
+#legend {
   position: absolute;
   width: 100vw;
   min-height: 100vh;
@@ -76,11 +76,9 @@ section#legend {
     }
   }
 
-  // The network is loaded.
-  // shows "Network Loaded!" block and hides the loading bar
-  // shows Close the legend button
-  &.network-loaded-100 {
-
+  // The network has just been loaded for the first time
+  // shows "Network Loaded!" block
+  &.network-just-loaded {
     .network-loader {
       display: none; //hide the loader
     }
@@ -116,6 +114,14 @@ section#legend {
         margin-right: 5px;
       }
 
+    }
+  }
+
+  // network has been loaded before
+  // NOTE: this class means the legend doesn need to appear like the network was loaded for the first time
+  &.network-loaded {
+    .network-loader {
+      display: none; //hide the loader
     }
   }
 }

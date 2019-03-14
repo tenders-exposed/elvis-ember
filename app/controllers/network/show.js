@@ -103,6 +103,7 @@ export default Controller.extend({
   networkClusteringModal: false,
   networkEmbeddingModal: false,
   networkStabilization: false,
+  networkLoaded: false,
 
   crop: {
     container: {
@@ -375,8 +376,7 @@ export default Controller.extend({
 
     toggleInfo() {
       $('#legend').toggle();
-      $('#legend').removeClass('network-loaded-100');
-      $('.loading-bar').hide();
+      $('#legend').removeClass('network-just-loaded');
     },
 
     showClustering() {
@@ -417,9 +417,9 @@ export default Controller.extend({
 
       Logger.info('stabilization iterations done');
       this.set('stabilizationPercent', 100);
-      $('section#legend > .loading-bar').fadeOut();
-      // $('section#legend').fadeOut();
       $('section#legend .carousel-close').fadeIn();
+      this.set('networkLoaded',true);
+
 
       this.set('networkStabilization', true);
       Logger.info('Network stabilized');
