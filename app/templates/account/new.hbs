@@ -1,16 +1,12 @@
 <div class="row">
-  <div class="col s12">
-    <h1>Create an account</h1>
-    <hr/>
-  </div>
-</div>
-<div class="row">
-  <div id="register" class="col m4">
-{{#if errorMessage}}
-  {{#each errors as |err|}}
-    <p class="alert alert-error">{{err.message}}</p>
-  {{/each}}
-{{/if}}
+  <div class="col s6 offset-s3 center-align">
+    <h3>Create an account</h3>
+    <p>Do you have an account? Login {{#link-to "account.login"}}here{{/link-to}}.</p>
+    {{#if errorMessage}}
+      {{#each errorMessage.errors as |err|}}
+        <p class="alert alert-error">{{err.message}}</p>
+      {{/each}}
+    {{/if}}
     <form id="register" class="form-signin" {{action 'register' on='submit'}} autocomplete="off">
       <div class="row">
 
@@ -34,20 +30,18 @@
         </div>
 
       </div>
+      <div class="row">
+        <div class="col s12">
+          <h2>Join our community, it's free!</h2>
+          <ul>
+            <li>Save and edit projects</li>
+            <li>Embed ans share networks</li>
+            <li>Be part of the community</li>
+            <li>Other cool stuff</li>
+          </ul>
+        </div>
+      </div>
+
     </form>
-  </div>
-  <div class="col m4">
-    <div class="col m10 offset-m1">
-      &nbsp;
-    </div>
-  </div>
-  <div class="col m4">
-    <h2>Join our community, it's free!</h2>
-    <ul>
-      <li>Save and edit projects</li>
-      <li>Embed ans share networks</li>
-      <li>Be part of the community</li>
-      <li>Other cool stuff</li>
-    </ul>
   </div>
 </div>

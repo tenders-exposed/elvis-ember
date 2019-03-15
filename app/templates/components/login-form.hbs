@@ -1,26 +1,81 @@
-<h3>Sign in to your account</h3>
-<p>Don'have an account? Register {{#link-to "account.new"}}here{{/link-to}}.</p>
-{{#if errorMessage}}
-  {{#each errorMessage.errors as |err|}}
-    <p class="alert alert-error">{{err.message}}</p>
-  {{/each}}
-{{/if}}
-<form {{action 'authenticate' on='submit'}} autocomplete="off">
-    <div class="input-field">
-        {{input id='identification' value=identification type='email' autocomplete='on'}}
+<div class="row">
+  <div class="col s6 offset-s3 center-align" id="login-form">
+    <h3>Sign in to your account</h3>
+    <p>Don't have an account? Register
+      <a class="btn link" {{action "showRegister"}}>here</a>.</p>
+    {{#if errorMessage}}
+      {{#each errorMessage.errors as |err|}}
+        <p class="alert alert-error">{{err.message}}</p>
+      {{/each}}
+    {{/if}}
+    <form {{action 'authenticate' on='submit'}} autocomplete="off">
+      <div class="input-field">
+        <input name="identification" id="identification" type="email" value="{{ctrl.identification}}" autocomplete="on" />
         <label for="inputEmail">Email address</label>
-    </div>
-    <div class="input-field">
-        {{input id='password' type='password' value=password autocomplete='on'}}
+      </div>
+      <div class="input-field">
+        <input name="password" id="password" type="password" value="{{ctrl.password}}" autocomplete="on" />
         <label for="password">Password</label>
-    </div>
-    <br>
-    {{async-button action=(action "authenticate" fakeUser) default="Sign in" pending="Logging in..." class="btn primary"}}
-    <a class="btn primary" {{action "authenticateTwitter"}}>
-      <i class="fa fa-twitter"></i> Log in with Twitter
-    </a>
-    <a class="btn primary" {{action "authenticateGithub"}}>
-      <i class="fa fa-github"></i> Log in with GitHub
-    </a>
-    {{#link-to "account.recover" class="btn link primary"}}Lost password?{{/link-to}}
-</form>
+      </div>
+      <br>
+      {{async-button action=(action "authenticate" fakeUser) default="Sign in" pending="Logging in..." class="btn primary"}}
+      <br>
+      {{#link-to "account.recover" class="btn link primary"}}Lost password?{{/link-to}}
+      <hr>
+      <a class="btn primary" {{action "authenticateTwitter"}}>
+        <i class="fa fa-twitter"></i> Log in with Twitter
+      </a>
+      <hr>
+      <a class="btn primary" {{action "authenticateGithub"}}>
+        <i class="fa fa-github"></i> Log in with GitHub
+      </a>
+    </form>
+  </div>
+
+  <div class="col s6 offset-s3 center-align" id="register-form">
+    <h3>Register your account</h3>
+    <p>Do you have an account? Sign in
+      <a class="link" {{action "showLogin"}}>here</a>.</p>
+    {{#if errorMessage}}
+      {{#each errorMessage.errors as |err|}}
+        <p class="alert alert-error">{{err.message}}</p>
+      {{/each}}
+    {{/if}}
+    <form id="register" class="form-signin" {{action 'register' on='submit'}} autocomplete="off">
+      <div class="row">
+
+        <div class="input-field col s12">
+          <label for="email" class="sr-only">Email address</label>
+          {{input id="email" value=model.email}}
+        </div>
+
+        <div class="input-field col s12">
+          <label for="registerPassword">Your password here</label>
+          {{input id="registerPassword" type="password" value=model.password}}
+        </div>
+
+        <div class="input-field col s12">
+          <label for="registerPasswordConfirmation">...again, please?</label>
+          {{input id="registerPasswordConfirmation" type="password" value=model.password_confirmation}}
+        </div>
+
+        <div class="input-field col s12">
+          {{async-button action=(action "register" model) default="Register" pending="Sending..." class="btn btn-lg btn-primary btn-block"}}
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <h2>Join our community, it's free!</h2>
+          <ul>
+            <li>Save and edit projects</li>
+            <li>Embed ans share networks</li>
+            <li>Be part of the community</li>
+            <li>Other cool stuff</li>
+          </ul>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
