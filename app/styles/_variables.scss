@@ -320,7 +320,7 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
 $network-sidebar-width: 30vw;
 $network-sidebar-padding: $padding-base;
 $network-sidebar-bg: fade-out(#1c1c1c, 0.5);
-$network-infowindow-width: calc(100% - $network-sidebar-width);
+$network-infowindow-width: 100vw - $network-sidebar-width;
 $network-sidebar-border: $border-base;
 
 /* NETWORK vars
@@ -417,16 +417,17 @@ $progress-bar-color: $primary-color;
   ==========
  */
 
-$zindex-navbar: 98;
-$zindex-modal:      999;
-$zindex-infobox:    70;
-$zindex-notification: 69;
+$zindex-page-preloader:           200;
+$zindex-navbar:                   98;
+$zindex-modal:                    999;
+$zindex-infobox:                  70;
+$zindex-notification:             69;
 
-$zindex-network-sidebar: 89;
-$zindex-network-sidebar-toggle: 91;
-$zindex-network-legend: 150;
-$zindex-network-sidenav: 92;
-$zindex-network-navbar: $zindex-navbar;
+$zindex-network-sidebar:          89;
+$zindex-network-sidebar-toggle:   91;
+$zindex-network-legend:           150;
+$zindex-network-sidenav:          92;
+$zindex-network-navbar:           $zindex-navbar;
 
-$zindex-details-container:     89;
-$zindex-details:              90;
+$zindex-details-container:        89;
+$zindex-details:                  90;
