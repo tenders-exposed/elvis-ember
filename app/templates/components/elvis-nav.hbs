@@ -162,7 +162,7 @@
   {{#md-modal}}
     <a class="modal-close" {{action 'toggleLoginModal'}}><i class="fa fa-close"></i></a>
     <div class="modal-content">
-      {{login-form loginVisible=loginVisible}}
+      {{login-form loginVisible=loginVisible ctrl=ctrl}}
     </div>
   {{/md-modal}}
 {{/if}}

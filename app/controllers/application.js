@@ -3,5 +3,5 @@ import { inject as service } from '@ember/service';
 
 export default Controller.extend({
   analytics: service(),
-  loginVisible: false
+  loginVisible: true
 });

@@ -1,32 +1,40 @@
 import Component from '@ember/component';
+import $ from 'jquery';
 import { inject as service } from '@ember/service';
 import ENV from '../config/environment';
 
 export default Component.extend({
-  session: service(),
-  ajax: service(),
-  endpoint: `${ENV.APP.apiHost}/account/login`,
+  auth: service(),
+
+  init() {
+    this._super(...arguments);
+  },
 
   actions: {
+    showRegister() {
+      this.get('auth').showRegister();
+    },
+    showLogin() {
+      this.get('auth').showLogin();
+    },
+
+
     authenticateTwitter() {
-      let endpoint = this.get('endpoint');
-      window.location = `${endpoint}/twitter`;
+      this.get('auth').authenticateTwitter();
     },
     authenticateGithub() {
-      let endpoint = this.get('endpoint');
-      window.location = `${endpoint}/github`;
+      this.get('auth').authenticateGithub();
     },
     authenticate() {
-      let { identification, password } = this.getProperties('identification', 'password');
-      return this.get('session')
-        .authenticate('authenticator:application', identification, password)
-        .catch((reason) => this.set('errorMessage', reason.error || reason))
-        .then((response) => {
-          if (typeof response === 'undefined') {
-            location.reload();
-          }
-          this.set('loginVisible', false);
-        });
+      /* let { identification, password } = this.getProperties('identification', 'password'); */
+      let identification = this.get('auth').current_user.identification;
+      let password = this.get('auth').current_user.password;
+      console.log(identification, password);
+      this.get('auth').authenticate(identification, password);
+    },
+    register() {
+      this.get('auth').register();
     }
+
   }
 });
