@@ -5,7 +5,7 @@ $network-inner-height: calc(100vh - #{2*$network-inner-offset});
 $network-controls-width: 50px;
 
 // basic network look & layout
-body.body-network {
+body.network {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
@@ -118,6 +118,7 @@ body.body-network {
       pointer-events: all;
       width: $network-sidebar-width;
       min-width: 300px;
+      max-width: 400px;
       min-height: 400px;
       position: absolute;
       height: 100%;
@@ -141,12 +142,10 @@ body.body-network {
 
       .contract-info-wrapper,
       .details-info-wrapper {
-        height: calc(#{$network-inner-height} - #{$navbar-height};
+        height: calc(#{$network-inner-height} - #{$navbar-height});
         pointer-events: all;
         border: 0;
       }
-
-
 
       #loader {
         margin: 0 auto;
