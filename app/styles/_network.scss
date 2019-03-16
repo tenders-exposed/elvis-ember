@@ -34,20 +34,19 @@ body.body-network {
   }
 
 
-  // navbar overlaps the network container
-  #nav-wrapper {
+  // navbar overlaps the network
+  .navbar {
     position: absolute;
     width: 100vw;
     z-index: $zindex-network-navbar;
 
-    .navbar {
-      opacity: .6;
-      transition: opacity .75s ease;
-      &:hover {
-        opacity: 1;
-      }
+    opacity: .6;
+    transition: opacity .75s ease;
+    &:hover {
+      opacity: 1;
     }
   }
+
 
   // bottom right nav;
   // TODO: all styles for #network-controls .vis-button and .vis-network .vis-button together
