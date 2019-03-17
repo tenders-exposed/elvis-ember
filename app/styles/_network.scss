@@ -5,7 +5,7 @@ $network-inner-height: calc(100vh - #{2*$network-inner-offset});
 $network-controls-width: 50px;
 
 // basic network look & layout
-body.network {
+body.network:not(.network-new) {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
