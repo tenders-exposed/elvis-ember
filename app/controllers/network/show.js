@@ -405,7 +405,6 @@ export default Controller.extend({
       this.set('startStabilizing', performance.now());
       // Logger.info('start stabilizing');
       this.get('networkService').setNetwork(this.get('network'), this.get('networkDefer'));
-
     },
 
     stabilizationIterationsDone() {
@@ -418,8 +417,7 @@ export default Controller.extend({
       Logger.info('stabilization iterations done');
       this.set('stabilizationPercent', 100);
       $('section#legend .carousel-close').fadeIn();
-      this.set('networkLoaded',true);
-
+      this.set('networkLoaded', true);
 
       this.set('networkStabilization', true);
       Logger.info('Network stabilized');
