@@ -6,6 +6,7 @@ const { Logger } = Ember;
 export default Service.extend({
 
   init() {
+    this._super(...arguments);
     let _this = this;
     // eslint-disable-next-line no-undef
     let client = new ClientJS();
