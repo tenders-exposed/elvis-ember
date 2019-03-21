@@ -5,7 +5,7 @@ $network-inner-height: calc(100vh - #{2*$network-inner-offset});
 $network-controls-width: 50px;
 
 // basic network look & layout
-body.body-network {
+body.network:not(.network-new) {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
@@ -34,20 +34,19 @@ body.body-network {
   }
 
 
-  // navbar overlaps the network container
-  #nav-wrapper {
-    width: 100vw;
+  // navbar overlaps the network
+  .navbar {
     position: absolute;
-    top: 0;
+    width: 100vw;
+    z-index: $zindex-network-navbar;
 
-    .navbar {
-      opacity: .6;
-      transition: opacity .75s ease;
-      &:hover {
-        opacity: 1;
-      }
+    opacity: .6;
+    transition: opacity .75s ease;
+    &:hover {
+      opacity: 1;
     }
   }
+
 
   // bottom right nav;
   // TODO: all styles for #network-controls .vis-button and .vis-network .vis-button together
@@ -119,6 +118,7 @@ body.body-network {
       pointer-events: all;
       width: $network-sidebar-width;
       min-width: 300px;
+      max-width: 400px;
       min-height: 400px;
       position: absolute;
       height: 100%;
@@ -142,12 +142,10 @@ body.body-network {
 
       .contract-info-wrapper,
       .details-info-wrapper {
-        height: calc(#{$network-inner-height} - #{$navbar-height};
+        height: calc(#{$network-inner-height} - #{$navbar-height});
         pointer-events: all;
         border: 0;
       }
-
-
 
       #loader {
         margin: 0 auto;

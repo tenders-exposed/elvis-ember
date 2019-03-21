@@ -39,7 +39,7 @@
 
   table.data-table {
     width: 100%;
-    height: calc(100vh - 250px);
+    height: calc(100vh - 390px);
     position: relative;
     display: block;
 
@@ -48,6 +48,10 @@
       vertical-align: top;
       padding: 5px;
     }
+  }
+
+  .data-table-pagination {
+    display: none;
   }
 
   .data-table-filter,
@@ -95,7 +99,7 @@
   .data-table td.item-name a {
     color: $text-muted-color;
     line-height: 1.2em;
-    vertical-align: top;
+    vertical-align: middle;
 
     .item-id {
       font-weight: 900;
@@ -108,7 +112,7 @@
 
   .sidebar-bidders .data-table td.item-name a,
   .sidebar-buyers .data-table td.item-name a{
-    line-height: 2em;
+    line-height: 1em;
   }
 
   // red flags column

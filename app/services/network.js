@@ -13,6 +13,7 @@ export default Service.extend({
   isReady: false,
 
   init() {
+    this._super(...arguments);
     this.set('network', undefined);
     this.set('model', undefined);
   },

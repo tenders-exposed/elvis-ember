@@ -1,9 +1,10 @@
+$modal-bg: $main-bg;
 .ember-modal-dialog {
 
   .modal,
   .modal-footer,
   .modal-content {
-    background: $main-bg;
+    background: $modal-bg;
 
   }
 
