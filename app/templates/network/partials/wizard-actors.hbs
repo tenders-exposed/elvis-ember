@@ -1,0 +1,32 @@
+<section class="wizard-step {{wizardSteps.countriesStatus}}">
+  <p>
+    * Select company and/or gouverments
+  </p>
+  <div class="row">
+    <div class="col m9 s12">
+      <div class="input-field col m9 s12 select-actors">
+                    <span class="input-prefix">
+                      <i class="fa fa-briefcase"></i>
+                    </span>
+        <!-- this is company select
+          TODO: fill the select with real dataset of company names. Matej will restyle the options once it is ready  -->
+        {{elvis-select-guru
+            value=query.rawActors
+            options=autocompleteActorsOptions
+            searchKey='name'
+            multiple= true
+            optionComponent='actor-option'
+            noOptionsComponent='qb-no-option'
+            multiValueComponent='actor-value'
+            onSearchInputChange=(action "actorTermChanged")
+            onSelect=(action "onAutocompleteSelectEvent")
+            countries = query.countries
+            checkActors = checkActors
+        }}
+        <label>
+          Select actors
+        </label>
+      </div>
+    </div>
+  </div>
+</section>

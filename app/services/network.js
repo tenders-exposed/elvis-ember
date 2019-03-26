@@ -12,6 +12,11 @@ export default Service.extend({
 
   isReady: false,
 
+  // settings
+  edgeFlagsEnabled: true,
+  nodeFlagsEnabled: true,
+  networkType: 'contracts',
+
   init() {
     this.set('network', undefined);
     this.set('model', undefined);
@@ -98,6 +103,9 @@ export default Service.extend({
         });
       }
 
+      // nodemax, nodeMin
+      console.log('nodeMinMax', model.get('valueRange'));
+
       self.set('model', model);
       self.set('edges', model.get('edges'));
       self.set('nodes', model.get('graph.nodes'));
@@ -172,7 +180,7 @@ export default Service.extend({
   setRelationships() {
     let valueFormat = (value) => {
       if (typeof value !== 'string') {
-        value = value.toFixed();
+        // value = value.toFixed();
         value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       }
       return value;
@@ -248,6 +256,297 @@ export default Service.extend({
 
     networkDefer.resolve();
   },
+
+  // settings on network
+/*  hiddenNodes: [],
+
+  checkNodeConnected(edgeValue, nodeId) {
+    // check and update the node connected
+
+    let node = this.get('network.network.body.data.nodes').get(nodeId);
+    let nodeDefaultValue = node.value;
+    let nodeValue = node.value - edgeValue;
+
+    console.log('edgeValue', edgeValue);
+    console.log('defaultNode', node);
+    if(nodeValue <= 0) {
+      // then the node should update to disappear
+      this.get('hiddenNodes').push(nodeId);
+      this.get('network.network.body.data.nodes').update({
+        id: node.id,
+        hidden: true
+      });
+
+    } else {
+      // the node should update the value and add a defaultValue
+      this.get('network.network.body.data.nodes').update({
+        id: node.id,
+        value: nodeValue,
+        defaultValue: nodeDefaultValue
+      });
+    }
+    console.log('updatedNode', this.get('network.network.body.data.nodes').get(nodeId));
+  },
+  changeValueRange2() {
+    let min = this.get('model.valueRange.nodeMin');
+    let max = this.get('model.valueRange.nodeMax') - 5;
+    min = 5;
+    max = 14;
+
+    console.log('changeValueRange min', min);
+    console.log('changeValueRange max', max);
+    _.map(this.get('nodes'), (node) => {
+
+      if(node.value > max || node.value < min) {
+
+        this.get('hiddenNodes').push(node.id);
+
+        _.map(this.get('edges'), (edge) => {
+          if(edge.to == node.id) {
+            if(_.indexOf(this.get('hiddenNodes'), edge.from) < 0) {
+              //check if it should be hidden
+              this.checkNodeConnected(edge.value, edge.from);
+            }
+
+            this.get('network.network.body.data.edges').update({
+              id: edge.id,
+              hidden: true
+            });
+          }
+
+          if(edge.from == node.id) {
+            if(_.indexOf(this.get('hiddenNodes'), edge.to) < 0) {
+              //check if it should be hidden
+              this.checkNodeConnected(edge.value, edge.to);
+            }
+
+            this.checkNodeConnected(edge.value, edge.to);
+            this.get('network.network.body.data.edges').update({
+              id: edge.id,
+              hidden: true
+            });
+          }
+        });
+
+
+        this.get('network.network.body.data.nodes').update({
+          id: node.id,
+          hidden: true
+        });
+
+
+      }
+
+    });
+    console.log('changeValueRange NetworkEdges',  this.get('network.network.body.data.edges'));
+  },*/
+
+  switchTypeValue() {
+
+    console.log('switchTypeValue data.nodes', this.get('network.network.body.data.nodes'));
+    console.log('switchTypeValue data.edges', this.get('network.network.body.data.edges'));
+
+    _.map(this.get('nodes'), (node) => {
+      try {
+        this.get('network.network.body.data.nodes').update({
+          id: node.id,
+          value: node.valueAmount
+        });
+      }
+      catch (err) {
+        alert(err);
+      }
+    });
+
+    _.map(this.get('flaggedEdges'), (edge) => {
+      try {
+        this.get('network.network.body.data.edges').update({
+          id: edge.id,
+          value: edge.valueAmount,
+          from: edge.from,
+          to: edge.to
+        });
+
+      }
+      catch (err) {
+        alert(err);
+      }
+    });
+    console.log('switch done');
+
+// --------------------------------------------------------------------------
+
+    if(this.get('networkType') == 'contracts') {
+      // switch nodes & edges to amount type
+      _.map(this.get('nodes'), (node) => {
+        try {
+          this.get('network.network.body.data.nodes').update({
+            id: node.id,
+            value: node.valueAmount,
+            valueType: 'amountOfMoneyExchanged'
+          });
+        }
+        catch (err) {
+          alert(err);
+        }
+      });
+
+      _.map(this.get('edges'), (edge) => {
+        try {
+          this.get('network.network.body.data.edges').update({
+            id: edge.id,
+            value: edge.valueAmount,
+            valueType: 'amountOfMoneyExchanged'
+
+          });
+
+        }
+        catch (err) {
+          alert(err);
+        }
+      });
+
+      this.set('networkType', 'amount');
+
+    } else {
+
+      _.map(this.get('nodes'), (node) => {
+        try {
+          this.get('network.network.body.data.nodes').update({
+            id: node.id,
+            value: node.valueBids,
+            valueType: 'numberOfWinningBids'
+
+          });
+        }
+        catch (err) {
+          alert(err);
+        }
+      });
+
+      _.map(this.get('edges'), (edge) => {
+        try {
+          this.get('network.network.body.data.edges').update({
+            id: edge.id,
+            value: edge.valueBids,
+            valueType: 'numberOfWinningBids'
+
+          });
+
+        }
+        catch (err) {
+          alert(err);
+        }
+      });
+      this.set('networkType', 'contracts');
+
+    }
+
+    console.log('switchTypeValue data.nodes', this.get('network.network.body.data.nodes'));
+    console.log('switchTypeValue data.edges', this.get('network.network.body.data.edges'));
+
+  },
+
+  changeValueRange() {
+    let min = this.get('model.valueRange.nodeMin');
+    let max = this.get('model.valueRange.nodeMax') - 5;
+    min = 3;
+    max = 14;
+
+    _.map(this.get('nodes'), (node) => {
+      if(node.value > max || node.value < min) {
+        let color = node.type == 'bidder' ? '#1B5559' : '#611430';
+        this.get('network.network.body.data.nodes').update({
+          id: node.id,
+          color: color
+        });
+      }
+    });
+
+    // console.log('updated nodes', this.get('network.network.body.data.nodes'));
+
+  },
+
+  toggleNodeFlags() {
+    // should have a property labelFlags = flag1 + flag2 +..
+    // to draw in visjs. not manipulate the actual flags object
+    if(this.get('nodeFlagsEnabled')) {
+      _.map(this.get('nodes'), (node) => {
+        try {
+          this.get('network.network.body.data.nodes').update({
+            id: node.id,
+            flags: undefined
+          });
+        }
+        catch (err) {
+          alert(err);
+        }
+      });
+      this.set('nodeFlagsEnabled', false);
+
+    } else {
+      _.map(this.get('nodes'), (node) => {
+        let flags = (typeof node.flags !== 'undefined') && Object.keys(node.flags).length > 0
+                    ? node.flags
+                    : undefined;
+        try {
+          this.get('network.network.body.data.nodes').update({
+            id: node.id,
+            flags: flags
+          });
+
+        }
+        catch (err) {
+          alert(err);
+        }
+      });
+      this.set('nodeFlagsEnabled', true);
+
+    }
+
+  },
+  toggleEdgeFlags() {
+
+    if(this.get('edgeFlagsEnabled')) {
+      _.map(this.get('flaggedEdges'), (edge) => {
+        try {
+          this.get('network.network.body.data.edges').update({
+            id: edge.id,
+            from: edge.from,
+            to: edge.to,
+            label: undefined
+          });
+          // console.log('try edge', edge);
+          // console.log('try var', tryVar);
+        }
+        catch (err) {
+          alert(err);
+        }
+      });
+      this.set('edgeFlagsEnabled', false);
+    } else {
+      _.map(this.get('flaggedEdges'), (edge) => {
+        let labelEdge = edge.label ? edge.label : undefined;
+        try {
+          this.get('network.network.body.data.edges').update({
+            id: edge.id,
+            from: edge.from,
+            to: edge.to,
+            label: labelEdge
+          });
+          // console.log('try edge', edge);
+          // console.log('try var', tryVar);
+        }
+        catch (err) {
+          alert(err);
+        }
+
+      });
+      this.set('edgeFlagsEnabled', true);
+
+    }
+  },
+
 
   getNetwork() {
     return this.get('network');

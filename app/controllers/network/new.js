@@ -14,6 +14,24 @@ const { Logger } = Ember;
 export default Controller.extend({
   ajax: service(),
   cpvService: service('cpv'),
+  queryBuilder: service('query-builder'),
+
+  wizardData: [
+    {'step_id': '1', 'header_label': 'Countries','hasAction': true},
+    {'step_id': '2', 'header_label': 'Actors','hasAction': true},
+    {'step_id': '3', 'header_label': 'Years','hasAction': true},
+    {'step_id': '4', 'header_label': 'Markets','hasAction': true},
+    {'step_id': '5', 'header_label': 'Settings','hasAction': true},
+
+  ],
+  useRoundedNav : true,
+  customButtonLabels: {
+    'nextLabel': 'Next',
+    'finishLabel': 'Finish',
+    'cancelLabel': 'Cancel',
+    'prevLabel': 'Previous'
+  },
+  wizardShowNextStep: true,
 
   selectedCodes: A([]),
   selectedCodesCount: 0,
@@ -32,13 +50,24 @@ export default Controller.extend({
   }),
 
   loading: {
-    years: true,
+    years: false,
     cpvs: true
   },
 
+  sizeType: [
+    {'type': 'numberOfWinningBids', 'label': 'winning Bids'},
+    {'type': 'amountOfMoneyExchanged', 'label': 'amount of money'},
+  ],
+
   countries: [],
   autocompleteActorsOptions: [],
-  countActors: 0,
+
+  wizardSteps:  {
+    'countriesStatus': 'current',
+    'yearsStatus': 'disabled',
+    'cpvsStatus': 'disabled',
+    'optionStatus': 'disabled',
+  },
 
   countriesStatus: computed('query.countries', function() {
     if (this.get('query.countries').length > 0) {
@@ -81,6 +110,7 @@ export default Controller.extend({
   }),
 
   cpvsIsDisabled: false,
+ // yearsIsDisabled: true,
 
   rangeDisableClass: '',
   rangeIsDisabled: computed('query.{countries,actors}', function() {
@@ -150,6 +180,13 @@ export default Controller.extend({
   },
   cpvSearchTerm: '',
   cpvSearchTree: '',
+
+  // tests
+  init() {
+    console.log('init new network');
+    let qb = this.get('queryBuilder');
+  },
+  // --end tests
 
   createTree() {
     // reset selected codes
@@ -364,36 +401,112 @@ export default Controller.extend({
     }
   },
 
-  actions: {
-    onCountrySelectEvent(value) {
-      this.set('query.countries', []);
-      value.forEach((v) => {
-        this.get('query.countries').push(v.code);
-      });
-      this.fetchYears();
-    },
-    onAutocompleteSelectEvent(value) {
+  loadYears() {
+    this.set('wizardSteps.countriesStatus', 'completed');
+    this.set('wizardSteps.yearsStatus', 'current');
+    this.fetchYears();
+  },
 
+  loadCpvs() {
+    this.set('wizardSteps.yearsStatus', 'completed');
+    this.set('wizardSteps.cpvsStatus', 'current');
+    this.fetchCpvs();
+  },
+
+  actions: {
+
+    wizardStepChanged(wizardStep) {
+      console.log('wizardStepChanged', wizardStep);
+      if (wizardStep['step_id'] === '1') {
+        // countries
+        Ember.run.later(() => {
+          this.set('wizardShowNextStep', true);
+        }, 2000);
+
+
+      } else if(wizardStep['step_id'] === '2') {
+        // actors
+        if(!this.get('rangeIsDisabled')) {
+          Ember.run.later(() => {
+            this.set('wizardShowNextStep', true);
+          }, 2000);
+          this.loadYears();
+        } else {
+          this.set('wizardShowNextStep', false);
+          console.log('you need to select a country and/or an actor ');
+        }
+
+
+      } else if(wizardStep['step_id'] === '3') {
+        // actors
+        Ember.run.later(() => {
+          this.set('wizardShowNextStep', true);
+        }, 2000);
+        this.loadCpvs();
+
+      }  else if(wizardStep['step_id'] === '4') {
+        // years
+        Ember.run.later(() => {
+          this.set('wizardShowNextStep', true);
+        }, 2000);
+      } else if(wizardStep['step_id'] === '5') {
+        // cpvs
+        Ember.run.later(() => {
+          this.set('wizardShowNextStep', true);
+        }, 2000);
+      }
+
+    },
+
+    // Step1 : Select Countries
+    onCountrySelect(selectedCountryId) {
+      // check if the country is selected
+      // if selected add selected class else remove selected class
+      // retrieve all the selected countries and add them to the query.countries
+
+      let self = this;
+      let jQcountryOption = $(`ul.wizard-countries #${selectedCountryId}`);
+      if(jQcountryOption.hasClass('selected')) {
+        jQcountryOption.removeClass('selected');
+      } else {
+        jQcountryOption.addClass('selected');
+      }
+
+      this.set('query.countries', []);
+      $('ul.wizard-countries li.selected').each(function (i) {
+        let countryId = $(this).attr('id');
+        self.get('query.countries').push(countryId);
+      });
+
+      if(this.get('query.actors').length > 0 && !this.get('checkActors')) {
+        this.set('checkActors', true);
+      }
+    },
+
+    // Step2:
+    onAutocompleteSelectEvent(value) {
+      console.log('new-onAutocompleteSelectEvent');
       this.set('query.actors', []);
       let self = this;
-      let count = 0;
       _.each(value, (v) => {
         self.get('query.actors').push(v.id);
-        count++;
       });
 
-      this.set('countActors', count);
-      this.fetchYears();
+     // this.fetchYears();
     },
+
+
     actorTermChanged(queryTerm) {
-      // let query = queryTerm || '';
-      // let limit = 10;
+      // remove leading and trailing whitespace
+      queryTerm = _.trim(queryTerm);
+      console.log('formated queryTerm', queryTerm);
+      console.log('length queryTerm', queryTerm.length);
+
       if (!queryTerm.length) {
         this.set('autocompleteActorsOptions', []);
 
       }
-      if (queryTerm.length > 1) {
-
+      if (queryTerm.length > 2) {
         let countries = this.get('query.countries');
         // let options = { limit: 15 };
         let options = {};
@@ -413,18 +526,32 @@ export default Controller.extend({
                   headers: { 'Content-Type': 'application/json' }
                 })
           .then((data) => {
-            this.set('autocompleteActorsOptions', data.actors);
+            let autocompleteActorsOptions = [];
+            _.each(data.actors, (actor) => {
+              if (this.get('query.actors').length > 0) {
+                if (_.indexOf(this.get('query.actors'), actor.id ) < 0) {
+                  autocompleteActorsOptions.push(actor);
+                }
+              } else {
+                autocompleteActorsOptions = data.actors;
+              }
+            });
+            this.set('autocompleteActorsOptions', autocompleteActorsOptions);
           });
       }
     },
 
     rangeSlideAction(value) {
+      console.log('action on range slider1');
+      // on click change the status
       run.scheduleOnce('afterRender', function() {
         $('span.left-year').text(value[0]);
         $('span.right-year').text(value[1]);
       });
     },
     rangeChangeAction(value) {
+      console.log('action on range slider2', value);
+
       // destroy the tree, if any
       if (this.get('yearsStatus') == 'completed') {
         if (this.get('jsTree')) {
@@ -447,9 +574,7 @@ export default Controller.extend({
       }
     },
 
-    loadCpvs() {
-      this.fetchCpvs();
-    },
+
     submitQuery() {
       let self = this;
       let countries = this.get('query.countries');

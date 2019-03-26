@@ -5,15 +5,7 @@
         {{#if countActors}}
           <div class="count-actors">{{countActors}} actors selected</div>
         {{/if}}
-        <ul class='{{if countActors 'multi-value__selected ul-count-actors' 'multi-value__selected'}}'>
-          {{#ember-scrollable}}
-
-          {{#each value as |selectedValue|}}
-            {{component multiValueComponent value=selectedValue onRemoveClick="onRemoveValueClick"}}
-          {{/each}}
-          {{/ember-scrollable}}
-
-        </ul>
+        <!--ul selected-->
 
       {{else}}
         {{component singleValueComponent value=value}}
@@ -29,6 +21,13 @@
       <div class='ember-select-guru__search-wrapper'>
         {{input placeholder=searchPlaceholder value=queryTerm class='ember-select-guru__search'}}
       </div>
+      <!--@todo: add checkbox to select all actors-->
+      <!--<div class="switch-select_all-options">
+        <label>
+          <input type="checkbox" class="filled-in" checked="checked" />
+          <span>Red</span>
+        </label>
+      </div>-->
       <div class="options-wrapper"  style="height: 200px;">
       {{#ember-scrollable}}
 
@@ -59,5 +58,25 @@
 
       </div>
     {{/elvis-select-dropdown}}
-  {{/if}}
+  {{else}}<!--!isExpanded-->
+
+  {{/if}}<!--isExpanded-->
+</div>
+<div class="selectedActors">
+  {{#unless isExpanded}}
+  {{#if hasValue}}
+    {{#if multiple}}
+      {{#if countActors}}
+        <ul class='multi-value__selected ul-count-actors'>
+          {{#ember-scrollable}}
+            {{#each _value as |selectedValue|}}
+              {{component multiValueComponent value=selectedValue onRemoveClick="onRemoveValueClick"}}
+            {{/each}}
+          {{/ember-scrollable}}
+
+        </ul>
+      {{/if}}<!--countActors-->
+    {{/if}}<!--multiple-->
+  {{/if}}<!--hasValue-->
+  {{/unless}}
 </div>
