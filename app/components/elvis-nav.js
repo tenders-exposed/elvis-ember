@@ -21,12 +21,6 @@ export default Component.extend({
     invalidateSession() {
       this.get('session').invalidate();
       this.get('router').transitionTo('welcome');
-    },
-    toggleMenu() {
-      let jQMenuContainer = $('.menu-container');
-      jQMenuContainer.toggleClass('hideMenu');
-      jQMenuContainer.toggleClass('showMenu');
-
     }
   }
 });

@@ -51,6 +51,7 @@ $fs0 : 0.6rem;
 
 .buyer-color { color: $color-buyer; }
 .bidder-color { color: $color-bidder; }
+
 i.control-icon {
   color: $color-icon;
   cursor: pointer;
@@ -78,6 +79,18 @@ i.control-icon-light {
 }
 .mainbg {
   background-color: $main-bg;
+}
+
+#login-modal {
+  width: 100% !important;
+  left: auto !important;
+  right: 0 !important;
+  position: absolute;
+  z-index: 99;
+  .login {
+    background-color: darken($main-bg, 10);
+    padding: 30px;
+  }
 }
 
 #network-info {

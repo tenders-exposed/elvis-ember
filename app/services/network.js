@@ -18,6 +18,7 @@ export default Service.extend({
   networkType: 'contracts',
 
   init() {
+    this._super(...arguments);
     this.set('network', undefined);
     this.set('model', undefined);
   },

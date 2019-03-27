@@ -256,6 +256,7 @@ export default Service.extend({
   },
 
   init() {
+    this._super(...arguments);
     this.set('data', rootCodes);
   }
 });
