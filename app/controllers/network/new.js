@@ -5,6 +5,7 @@ import Controller from '@ember/controller';
 import $ from 'jquery';
 import { computed, observer } from '@ember/object';
 import { inject as service } from '@ember/service';
+import { later } from '@ember/runloop';
 import { run } from '@ember/runloop';
 import { A } from '@ember/array';
 import EmberObject from '@ember/object';
@@ -14,15 +15,13 @@ const { Logger } = Ember;
 export default Controller.extend({
   ajax: service(),
   cpvService: service('cpv'),
-  queryBuilder: service('query-builder'),
 
   wizardData: [
-    {'step_id': '1', 'header_label': 'Countries','hasAction': true},
-    {'step_id': '2', 'header_label': 'Actors','hasAction': true},
-    {'step_id': '3', 'header_label': 'Years','hasAction': true},
-    {'step_id': '4', 'header_label': 'Markets','hasAction': true},
-    {'step_id': '5', 'header_label': 'Settings','hasAction': true},
-
+    { 'step_id': '1', 'header_label': 'Countries','hasAction': true },
+    { 'step_id': '2', 'header_label': 'Actors','hasAction': true },
+    { 'step_id': '3', 'header_label': 'Years','hasAction': true },
+    { 'step_id': '4', 'header_label': 'Markets','hasAction': true },
+    { 'step_id': '5', 'header_label': 'Settings','hasAction': true }
   ],
   useRoundedNav : true,
   customButtonLabels: {
@@ -48,27 +47,22 @@ export default Controller.extend({
     'edges': 'numberOfWinningBids',
     'nodes': 'numberOfWinningBids'
   }),
-
   loading: {
     years: false,
     cpvs: true
   },
-
   sizeType: [
-    {'type': 'numberOfWinningBids', 'label': 'winning Bids'},
-    {'type': 'amountOfMoneyExchanged', 'label': 'amount of money'},
+    { 'type': 'numberOfWinningBids', 'label': 'winning Bids' },
+    { 'type': 'amountOfMoneyExchanged', 'label': 'amount of money' }
   ],
-
   countries: [],
   autocompleteActorsOptions: [],
-
   wizardSteps:  {
     'countriesStatus': 'current',
     'yearsStatus': 'disabled',
     'cpvsStatus': 'disabled',
-    'optionStatus': 'disabled',
+    'optionStatus': 'disabled'
   },
-
   countriesStatus: computed('query.countries', function() {
     if (this.get('query.countries').length > 0) {
       return 'completed';
@@ -108,10 +102,8 @@ export default Controller.extend({
       return true;
     }
   }),
-
   cpvsIsDisabled: false,
  // yearsIsDisabled: true,
-
   rangeDisableClass: '',
   rangeIsDisabled: computed('query.{countries,actors}', function() {
     let countries = this.get('query.countries');
@@ -134,14 +126,13 @@ export default Controller.extend({
       yearMin -= 1;
     }
     let yearsRange = { 'min': yearMin, 'max': yearMax };
-
     this.send('rangeChangeAction', [yearMin, yearMax]);
 
     return yearsRange;
   }),
   yearsStart: computed('yearsRange', function() {
     let yearsRange = this.get('yearsRange');
-    return [yearsRange.min, yearsRange.max];
+    return [ yearsRange.min, yearsRange.max ];
   }),
 
   treeObserver: observer('cpvs', function() {
@@ -182,13 +173,6 @@ export default Controller.extend({
   },
   cpvSearchTerm: '',
   cpvSearchTree: '',
-
-  // tests
-  init() {
-    console.log('init new network');
-    let qb = this.get('queryBuilder');
-  },
-  // --end tests
 
   createTree() {
     // reset selected codes
@@ -418,46 +402,42 @@ export default Controller.extend({
   actions: {
 
     wizardStepChanged(wizardStep) {
-      console.log('wizardStepChanged', wizardStep);
+      // console.log('wizardStepChanged', wizardStep);
       if (wizardStep['step_id'] === '1') {
         // countries
-        Ember.run.later(() => {
+        later(() => {
           this.set('wizardShowNextStep', true);
         }, 2000);
 
-
-      } else if(wizardStep['step_id'] === '2') {
+      } else if (wizardStep['step_id'] === '2') {
         // actors
         if(!this.get('rangeIsDisabled')) {
-          Ember.run.later(() => {
+          later(() => {
             this.set('wizardShowNextStep', true);
           }, 2000);
           this.loadYears();
         } else {
           this.set('wizardShowNextStep', false);
-          console.log('you need to select a country and/or an actor ');
         }
 
-
-      } else if(wizardStep['step_id'] === '3') {
+      } else if (wizardStep['step_id'] === '3') {
         // actors
-        Ember.run.later(() => {
+        later(() => {
           this.set('wizardShowNextStep', true);
         }, 2000);
         this.loadCpvs();
 
-      }  else if(wizardStep['step_id'] === '4') {
+      }  else if (wizardStep['step_id'] === '4') {
         // years
-        Ember.run.later(() => {
+        later(() => {
           this.set('wizardShowNextStep', true);
         }, 2000);
-      } else if(wizardStep['step_id'] === '5') {
+      } else if (wizardStep['step_id'] === '5') {
         // cpvs
-        Ember.run.later(() => {
+        later(() => {
           this.set('wizardShowNextStep', true);
         }, 2000);
       }
-
     },
 
     // Step1 : Select Countries
@@ -475,7 +455,7 @@ export default Controller.extend({
       }
 
       this.set('query.countries', []);
-      $('ul.wizard-countries li.selected').each(function (i) {
+      $('ul.wizard-countries li.selected').each(function() {
         let countryId = $(this).attr('id');
         self.get('query.countries').push(countryId);
       });
@@ -487,7 +467,6 @@ export default Controller.extend({
 
     // Step2:
     onAutocompleteSelectEvent(value) {
-      console.log('new-onAutocompleteSelectEvent');
       this.set('query.actors', []);
       let self = this;
       _.each(value, (v) => {
@@ -501,9 +480,6 @@ export default Controller.extend({
     actorTermChanged(queryTerm) {
       // remove leading and trailing whitespace
       queryTerm = _.trim(queryTerm);
-      console.log('formated queryTerm', queryTerm);
-      console.log('length queryTerm', queryTerm.length);
-
       if (!queryTerm.length) {
         this.set('autocompleteActorsOptions', []);
 
@@ -544,7 +520,6 @@ export default Controller.extend({
     },
 
     rangeSlideAction(value) {
-      console.log('action on range slider1');
       // on click change the status
       run.scheduleOnce('afterRender', function() {
         $('span.left-year').text(value[0]);
@@ -552,8 +527,6 @@ export default Controller.extend({
       });
     },
     rangeChangeAction(value) {
-      console.log('action on range slider2', value);
-
       // destroy the tree, if any
       if (this.get('yearsStatus') == 'completed') {
         if (this.get('jsTree')) {
@@ -568,9 +541,6 @@ export default Controller.extend({
           $('span.right-year').text(value[1]);
         });
         this.set('query.years', _.range(this.get('query.years')[0], ++this.get('query.years')[1]));
-
-        // console.log('fetchCpvs rangeChangeAction');
-        // this.fetchCpvs();
         this.set('cpvsIsDisabled', false);
         this.resetCpvs();
       }

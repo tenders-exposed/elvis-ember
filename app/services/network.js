@@ -105,7 +105,7 @@ export default Service.extend({
       }
 
       // nodemax, nodeMin
-      console.log('nodeMinMax', model.get('valueRange'));
+      // console.log('nodeMinMax', model.get('valueRange'));
 
       self.set('model', model);
       self.set('edges', model.get('edges'));
@@ -344,8 +344,8 @@ export default Service.extend({
 
   switchTypeValue() {
 
-    console.log('switchTypeValue data.nodes', this.get('network.network.body.data.nodes'));
-    console.log('switchTypeValue data.edges', this.get('network.network.body.data.edges'));
+    // console.log('switchTypeValue data.nodes', this.get('network.network.body.data.nodes'));
+    // console.log('switchTypeValue data.edges', this.get('network.network.body.data.edges'));
 
     _.map(this.get('nodes'), (node) => {
       try {
@@ -373,7 +373,7 @@ export default Service.extend({
         alert(err);
       }
     });
-    console.log('switch done');
+    // console.log('switch done');
 
 // --------------------------------------------------------------------------
 
@@ -443,8 +443,8 @@ export default Service.extend({
 
     }
 
-    console.log('switchTypeValue data.nodes', this.get('network.network.body.data.nodes'));
-    console.log('switchTypeValue data.edges', this.get('network.network.body.data.edges'));
+    // console.log('switchTypeValue data.nodes', this.get('network.network.body.data.nodes'));
+    // console.log('switchTypeValue data.edges', this.get('network.network.body.data.edges'));
 
   },
 
