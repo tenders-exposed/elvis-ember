@@ -2,7 +2,9 @@
 // network entities
 // ------------------
 
-// mixin for generating a circle representing a network entity
+// mixins for generating a circle representing a network entity
+
+// a simple dot
 @mixin network-entity ($size: 1em) {
   display: inline-block;
   text-align: center;
@@ -18,6 +20,22 @@
     display: inline-block;
   }
 }
+
+// a more complex entity with text inside
+@mixin network-entity-mixed ($size: 1em) {
+  display: inline-block;
+  border-radius: 50%;
+  height: $size;
+  width: $size;
+  text-align: center;
+  line-height: $size;
+  box-shadow: 1px 1px $size/4 rgba(0,0,0,0.7);
+  background: $text-color;
+  vertical-align: middle;
+  margin-top: -1%;
+
+}
+
 .figure-buyer,
 .figure-bidder,
 .figure-all {
