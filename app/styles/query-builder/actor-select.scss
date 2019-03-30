@@ -1,0 +1,64 @@
+.actor-select {
+
+  // refactor inherited ember-select-guru styles
+  .ember-select-guru__trigger {
+    padding: 0;
+    &:after {
+      content: none;
+    }
+  }
+
+    // actor select
+  .actor-select-dropdown {
+    position: relative;
+
+    input {
+      padding-right: 2em; // make space for search icon
+      padding-left: 1em;
+      margin-bottom: 0;
+      box-sizing: border-box;
+      border: $input-border;
+    }
+
+    // search icon
+    &::before {
+      @include fontawesome;
+      content: $fa-var-search;
+      position: absolute;
+      right: 1em;
+      height: $input-line-height;
+      line-height: $input-line-height;
+    }
+
+    // select input options
+    .actor-select-options {
+      display: none; // do not show until dropdown is expanded
+      position: absolute;
+      top: 1rem + $input-line-height;
+      left: 0;
+      width: 100%;
+      max-height: 60vh;
+      background: black;
+      z-index: $zindex-modal;
+
+
+    }
+
+  }
+
+  .actor-select-selected {
+    .actor-select-selected-list {
+      //height: 250px; // TODO: resolve max height and auto height if there aren't enough options
+    }
+
+
+  }
+
+  //state: expanded dropdown
+  &.actor-select__expanded {
+    .actor-select-options {
+      display: block;
+      height: 200px;
+    }
+  }
+}

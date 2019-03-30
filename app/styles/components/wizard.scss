@@ -115,107 +115,10 @@ body {
     opacity: 1;
   }
 
-  .select-actors {
-    .countActors {
-
-    }
-
-    .ember-select-guru .ember-select-guru__container {
-      // deprecated
-      /*.guru__trigger-expanded {
-        .count-actors {
-          display: none !important;
-        }
-        ul.multi-value__selected {
-          display: none !important;
-        }
-      }*/
-      .switch-select_all-options {
-        position: relative;
-        border: 1px solid red;
-
-        input {
-          cursor: pointer;
-        }
-      }
-
-      .ember-select-guru__trigger {
-        ul.ul-count-actors {
-          display: none;
-        }
-        // deprecated
-        /*ul.multi-value__selected{
-          height: 33px;
-          //overflow: auto;
-        }*/
-       /* &:hover{
-          .count-actors {
-            display: none;
-          }
-
-          ul.multi-value__selected {
-            display: block !important;
-            margin-top: 10px;
-
-            //display: flex;
-            // flex-basis: inherit;
-            //flex-direction: column ;
-            height: 100px;
-            //min-height: 50px;
-            //max-height: 200px;
-            //max-height: 200vh;
-            overflow: auto;
-
-            li{
-              margin-right: 15px;
-            }
-          }
-
-        }*/
-      }
-    }
-    .selectedActors {
-      height: 250px;
-      padding-top: 10px;
-      margin-top: 50px;
-      /*border: 1px solid;*/
-      width: 500px;
-      float: left;
-      ul.multi-value__selected {
-        height: 250px;
-        li {
-          display: inline-block;
-          padding-right: 20px;
-
-          .country-flag {
-            i {
-              margin-bottom: -2%;
-            }
-          }
-
-          .multi-value__remove {
-            cursor: pointer;
-            top: .6rem;
-            right: .37rem;
-            background: none;
-            color: gray;
-            font-weight: bold;
-            font-size: 1.2rem;
-
-            &:hover {
-              color: white;
-            }
-          }
-        }
-      }
-    }
-  }
-
 
   .wizard-step {
     /*padding: $gutter-width 0;
     padding-left: 6rem;*/
-    width: 70%;
     position: relative;
 
     //TODO: separate .wizard component. make it more adjustable (color, size)

@@ -1,0 +1,58 @@
+<div class="actor-select {{if isExpanded 'actor-select__expanded'}}">
+  <div class="actor-select-dropdown">
+
+    <div class="ember-select-guru__trigger {{if isExpanded 'guru__trigger-expanded'}}" {{action "expandComponent"}}>
+      {{input placeholder=searchPlaceholder value=queryTerm class='ember-select-guru__search'}}
+    </div>
+
+    {{#elvis-select-dropdown name=name visible=isExpanded willHideDropdown="willHideDropdown" }}
+      {{#if isExpanded}}
+
+
+            {{#if isPending}}
+              <!--fetching data-->
+              {{!-- {{component pendingComponent}} --}}
+              {{component noOptionsComponent}}
+            {{else if hasFailed}}
+
+              {{component failureComponent}}
+
+            {{else unless hasOptions}}
+
+            {{else}}
+                <div class="actor-select-options">
+                  {{#ember-scrollable}}
+
+                    {{#each _options as |option index|}}
+                      {{component optionComponent
+                                  option=option
+                                  onClick=(action "onOptionClick")
+                                  onCheck=(action "onOptionCheck")
+                                  currentHighlight=currentHighlight
+                                  index=index}}
+                    {{/each}}
+                  {{/ember-scrollable}}
+                </div>
+            {{/if}}
+
+      {{/if}}
+    {{/elvis-select-dropdown}}
+  </div>
+
+  {{#if hasValue}}
+    {{#if countActors}}
+      <div class="actor-select-selected">
+        <p class="actor-select-selected-count">{{countActors}} actors selected</p>
+
+        <ul class='actor-select-selected-list multi-value__selected'>
+
+            {{#each _value as |selectedValue|}}
+              {{component multiValueComponent value=selectedValue onRemoveClick="onRemoveValueClick"}}
+            {{/each}}
+
+        </ul>
+
+      </div>
+    {{/if}}
+  {{/if}}
+</div>
