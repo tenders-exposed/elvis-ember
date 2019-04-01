@@ -3,6 +3,22 @@
 
     <div class="ember-select-guru__trigger {{if isExpanded 'guru__trigger-expanded'}}" {{action "expandComponent"}}>
       {{input placeholder=searchPlaceholder value=queryTerm class='ember-select-guru__search'}}
+
+      {{#if hasValue}}
+        {{#if countActors}}
+          <div class="actor-select-selected">
+            <strong class="actor-select-selected-count">{{countActors}} actors selected</strong>
+            <ul class='actor-select-selected-list multi-value__selected'>
+
+              {{#each _value as |selectedValue|}}
+                {{component multiValueComponent value=selectedValue onRemoveClick="onRemoveValueClick"}}
+              {{/each}}
+
+            </ul>
+
+          </div>
+        {{/if}}
+      {{/if}}
     </div>
 
     {{#elvis-select-dropdown name=name visible=isExpanded willHideDropdown="willHideDropdown" }}
@@ -12,12 +28,14 @@
             {{#if isPending}}
               <!--fetching data-->
               {{!-- {{component pendingComponent}} --}}
-              {{component noOptionsComponent}}
+              <br>
+              <div class="progress" style="margin: 0 auto; width: 80%;">
+                <div class="indeterminate"></div>
+              </div>
+              <br>
             {{else if hasFailed}}
 
               {{component failureComponent}}
-
-            {{else unless hasOptions}}
 
             {{else}}
                 <div class="actor-select-options">
@@ -38,21 +56,4 @@
       {{/if}}
     {{/elvis-select-dropdown}}
   </div>
-
-  {{#if hasValue}}
-    {{#if countActors}}
-      <div class="actor-select-selected">
-        <p class="actor-select-selected-count">{{countActors}} actors selected</p>
-
-        <ul class='actor-select-selected-list multi-value__selected'>
-
-            {{#each _value as |selectedValue|}}
-              {{component multiValueComponent value=selectedValue onRemoveClick="onRemoveValueClick"}}
-            {{/each}}
-
-        </ul>
-
-      </div>
-    {{/if}}
-  {{/if}}
 </div>

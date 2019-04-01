@@ -86,8 +86,7 @@
 
 // expanded state
 .ember-select-guru.ember-select-guru__expanded {
-  box-shadow: 1px 1px 10px rgba(0,0,0,0.8);
-  z-index: 999;
+  z-index: $zindex-dropdown;
 
   .ember-select-guru__container {
     background: rgba(0, 0, 0, 0.6);

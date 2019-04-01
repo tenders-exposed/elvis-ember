@@ -7,17 +7,23 @@
       content: none;
     }
   }
+  .ember-select-guru__dropdown {
+    background: rgba(0,0,0,0.2);
+  }
+
 
     // actor select
   .actor-select-dropdown {
     position: relative;
+    border: $input-border;
+    padding: 10px;
 
     input {
-      padding-right: 2em; // make space for search icon
-      padding-left: 1em;
+      padding-right: 1em; // make space for search icon
+      padding-left: 2em;
       margin-bottom: 0;
       box-sizing: border-box;
-      border: $input-border;
+      border: none;
     }
 
     // search icon
@@ -25,7 +31,7 @@
       @include fontawesome;
       content: $fa-var-search;
       position: absolute;
-      right: 1em;
+      left: 1.5em;
       height: $input-line-height;
       line-height: $input-line-height;
     }
@@ -34,24 +40,37 @@
     .actor-select-options {
       display: none; // do not show until dropdown is expanded
       position: absolute;
-      top: 1rem + $input-line-height;
+      top: 100%;
       left: 0;
       width: 100%;
       max-height: 60vh;
-      background: black;
       z-index: $zindex-modal;
 
+      .ember-select-guru__option {
+        background: fade_out($main-bg,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-top: none;
 
+
+        &:hover,
+        &.is-active {
+          background: fade_out(lighten($main-bg,20%),0.05);
+          color: $text-color;
+        }
+      }
     }
 
   }
 
+  // selected items list
   .actor-select-selected {
-    .actor-select-selected-list {
-      //height: 250px; // TODO: resolve max height and auto height if there aren't enough options
+
+    // count of selected items
+    .actor-select-selected-count {
+      position: absolute;
+      top: -.5em;
+      right: 5px;
     }
-
-
   }
 
   //state: expanded dropdown
