@@ -82,9 +82,14 @@
           </a>
         {{/tab-button}}
       </div>
+
+      {{!--
+      NOTE: temporary disable option to hide the sidebar. this will be redesigned soon
       <a {{action 'closeDetails' model.id}} class="closeDetails sidebar-toggle">
-        <i class="control-icon material-icons">{{fa-icon 'arrow-circle-left' size=1}}</i>
+        {{fa-icon 'angle-left'}}
       </a>
+      --}}
+
       {{#tab-panel manager=sidebarTabManager name="bidders" class='tab-panel'}}
         {{#render-later load=gridOptions.bidders.rowData wait=50 message="Loading data grid..."}}
           {{elvis-data-table

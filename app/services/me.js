@@ -26,6 +26,7 @@ export default Service.extend({
   }),
 
   init() {
+    this._super(...arguments);
     let routeName = window.location.href.split('/').pop();
     if (routeName == 'logout') {
       if (this.get('session.isAuthenticated')) {
