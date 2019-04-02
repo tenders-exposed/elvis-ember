@@ -18,7 +18,6 @@ export default Component.extend({
       this.get('auth').showLogin();
     },
 
-
     authenticateTwitter() {
       this.get('auth').authenticateTwitter();
     },
@@ -26,14 +25,15 @@ export default Component.extend({
       this.get('auth').authenticateGithub();
     },
     authenticate() {
-      /* let { identification, password } = this.getProperties('identification', 'password'); */
-      let identification = this.get('auth').current_user.identification;
-      let password = this.get('auth').current_user.password;
-      console.log(identification, password);
-      this.get('auth').authenticate(identification, password);
+      let email = this.get('email');
+      let password = this.get('password');
+      return this.get('auth').authenticate(email, password);
     },
     register() {
-      this.get('auth').register();
+      let email = this.get('email');
+      let password = this.get('password');
+      let password_confirmation = this.get('password_confirmation');
+      this.get('auth').register(email, password, password_confirmation);
     }
 
   }

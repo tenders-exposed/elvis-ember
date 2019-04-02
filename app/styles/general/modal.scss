@@ -12,10 +12,10 @@
   }
 
   .modal-content {
-    padding: 2*$gutter-width;
+    padding: .8*$gutter-width;
 
     .input-field + .input-field {
-      margin-top: 1em;
+      margin-top: .5em;
     }
 
     p {
@@ -38,13 +38,4 @@
 // overlay opacity
 .lean-modal {
   background: rgba(0,0,0,0.75);
-}
-
-
-
-
-// specific modals
-#login-modal .modal {
-  max-width: 400px;
-
 }
