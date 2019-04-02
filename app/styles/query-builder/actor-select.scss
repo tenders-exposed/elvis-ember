@@ -10,20 +10,25 @@
   .ember-select-guru__dropdown {
     background: rgba(0,0,0,0.2);
   }
+  .ember-select-guru__option {
+    padding: 0;
+  }
 
 
     // actor select
   .actor-select-dropdown {
     position: relative;
     border: $input-border;
+    background: rgba(0,0,0,0.5);
     padding: 10px;
+    border-radius: $border-radius-base;
 
     input {
       padding-right: 1em; // make space for search icon
       padding-left: 2em;
       margin-bottom: 0;
       box-sizing: border-box;
-      border: none;
+      border-bottom: $input-border;
     }
 
     // search icon
@@ -64,6 +69,7 @@
 
   // selected items list
   .actor-select-selected {
+    margin-top: 5px;
 
     // count of selected items
     .actor-select-selected-count {

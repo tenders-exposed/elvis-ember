@@ -403,13 +403,13 @@ export default Controller.extend({
 
     wizardStepChanged(wizardStep) {
       // console.log('wizardStepChanged', wizardStep);
-      if (wizardStep['step_id'] === '1') {
+      if (wizardStep.step_id === '1') {
         // countries
         later(() => {
           this.set('wizardShowNextStep', true);
         }, 2000);
 
-      } else if (wizardStep['step_id'] === '2') {
+      } else if (wizardStep.step_id === '2') {
         // actors
         if(!this.get('rangeIsDisabled')) {
           later(() => {
@@ -420,19 +420,19 @@ export default Controller.extend({
           this.set('wizardShowNextStep', false);
         }
 
-      } else if (wizardStep['step_id'] === '3') {
+      } else if (wizardStep.step_id === '3') {
         // actors
         later(() => {
           this.set('wizardShowNextStep', true);
         }, 2000);
         this.loadCpvs();
 
-      }  else if (wizardStep['step_id'] === '4') {
+      }  else if (wizardStep.step_id === '4') {
         // years
         later(() => {
           this.set('wizardShowNextStep', true);
         }, 2000);
-      } else if (wizardStep['step_id'] === '5') {
+      } else if (wizardStep.step_id === '5') {
         // cpvs
         later(() => {
           this.set('wizardShowNextStep', true);

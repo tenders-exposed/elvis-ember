@@ -75,10 +75,12 @@ body {
   }
   .wizard-panel {
     display: none;
-    &.current {
+    position: relative;
+
+
+        &.current {
       display: block !important;
     }
-
 
     ul.wizard-countries li {
       display: inline-block;
@@ -108,118 +110,3 @@ body {
   display: none !important;
 }
 
-.wizard {
-  [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-    position: relative !important;
-    left: 0px  !important;
-    opacity: 1;
-  }
-
-
-  .wizard-step {
-    /*padding: $gutter-width 0;
-    padding-left: 6rem;*/
-    position: relative;
-
-    //TODO: separate .wizard component. make it more adjustable (color, size)
-
-    // numbering for sections
-    /*&:before {
-      counter-increment: wizard; // Increment the value of section counter by 1
-      content: counter(wizard); // Display the value of section counter
-      position: absolute;
-      left: 1rem;
-      display: block;
-      @include button-circle(3rem);
-      border: 2px solid $input-border-color;
-      line-height: 2.2rem;
-      box-sizing: padding-box;
-      border-radius: 100%;
-      font-family: $font-family-serif;
-      z-index: 2;
-      transition: all .5s ease;
-    }
-
-    // line connecting the numbers
-    &:after {
-      content: "";
-      border-left: 2px solid $input-border-color;
-      display: block;
-      position: absolute;
-      left: 2.5rem;
-      top: 4.5rem;
-      bottom: -1.5rem;
-      z-index: 0;
-      transition: all .5s ease;
-    }
-
-    &:last-of-type:after {
-      display: none;
-    }*/
-
-    h2,h3 {
-      margin-top: 0;
-    }
-
-    p {
-      font-size: 1rem;
-      font-family: $font-family-sans;
-    }
-
-  }
-
-  // disabled step - user interaction is disabled
-  .wizard-step.disabled {
-    position: relative;
-    opacity: 0;
-    user-select: none;
-    pointer-events: none;
-    transition: all .5s ease;
-  }
-
-  // completed step
-  .wizard-step.completed {
-    &:before {
-      border-color: $primary-color;
-      background: $primary-color;
-      color: $text-inverse-color;
-      transition: all .5s ease;
-    }
-
-    button {
-      display: none;
-    }
-  }
-
-  // available step
-  .wizard-step.current {
-    &:before {
-      border-color: $primary-color;
-      background: $bg-color;
-      color: $primary-color;
-      transform: scale(1.3);
-      transition: all .5s ease;
-    }
-
-  }
-
-  .wizard-step.enabled {
-    opacity: .5;
-    &:hover {
-      opacity: 1;
-    }
-    &:before {
-      border-color: $primary-color;
-      background: $bg-color;
-      color: $primary-color;
-      transform: scale(1.3);
-      transition: all .5s ease;
-    }
-  }
-
-  // wizard submit or final step
-  .wizard-finish {
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-}
