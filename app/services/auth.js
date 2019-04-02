@@ -6,20 +6,26 @@ import ENV from '../config/environment';
 export default Service.extend({
   session: service(),
   ajax: service(),
+  store: service(),
   endpoint: `${ENV.APP.apiHost}/account/login`,
+  loginVisible: false,
 
   init() {
     this._super(...arguments);
-    $('#register-form').hide();
-    $('#login-form').show();
+  },
+  didInsertElement() {
+    this._super(...arguments);
   },
   showRegister() {
-    $('#register-form').hide();
-    $('#login-form').show();
+    $('#register-form').toggleClass('hide');
+    $('#login-form').toggleClass('hide');
   },
   showLogin() {
-    $('#login-form').hide();
-    $('#register-form').show();
+    $('#login-form').toggleClass('hide');
+    $('#register-form').toggleClass('hide');
+  },
+  hideModal() {
+    this.set('loginVisible', false);
   },
   authenticateTwitter() {
     let endpoint = this.get('endpoint');
@@ -37,12 +43,17 @@ export default Service.extend({
         if (typeof response === 'undefined') {
           location.reload();
         }
-        this.set('loginVisible', false);
+        this.hideModal();
       });
   },
-  register() {
+  register(email, password, password_confirmation) {
     let self = this;
-    return this.get('model').save().then(() => {
+    let user = this.get('store').createRecord('user', {
+      email,
+      password,
+      password_confirmation
+    });
+    return user.save().then(() => {
       self.notifications.clearAll();
       self.notifications.success('Done! Please check your inbox.', {
         autoClear: true
