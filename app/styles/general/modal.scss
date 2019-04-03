@@ -13,10 +13,10 @@ $modal-bg: $main-bg;
   }
 
   .modal-content {
-    padding: .8*$gutter-width;
+    padding: 3rem;
 
     .input-field + .input-field {
-      margin-top: .5em;
+      margin-top: .25em;
     }
 
     p {
@@ -38,5 +38,11 @@ $modal-bg: $main-bg;
 }
 // overlay opacity
 .lean-modal {
-  background: rgba(0,0,0,0.75);
+  background: rgba(0,0,0,0.85);
+}
+
+.login-modal {
+  .modal {
+    max-width: 300px;
+  }
 }

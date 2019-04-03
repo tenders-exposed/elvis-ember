@@ -70,10 +70,10 @@
 </nav>
 
 {{#if loginVisible}}
-  {{#md-modal}}
-    <a class="modal-close" {{action 'toggleLoginModal'}}><i class="fa fa-close"></i></a>
-    <div class="modal-content">
-      {{login-form loginVisible=loginVisible}}
-    </div>
-  {{/md-modal}}
+    {{#md-modal}}
+      <a class="modal-close" {{action 'toggleLoginModal'}}><i class="fa fa-times"></i></a>
+      <div class="modal-content">
+        {{login-form loginVisible=loginVisible}}
+      </div>
+    {{/md-modal}}
 {{/if}}

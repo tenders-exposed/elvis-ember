@@ -1,3 +1,25 @@
+// restyle inputs, use classic border
+input:not([type]),
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=url],
+input[type=time],
+input[type=date],
+input[type=datetime],
+input[type=datetime-local],
+input[type=tel],
+input[type=number],
+input[type=search],
+textarea.materialize-textarea
+{
+  border: $input-border;
+  border-radius: $border-radius-small;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  box-sizing: border-box;
+}
+
 // boxed fieldset
 fieldset.box {
   background: lighten($bg-color,2.5%);
@@ -29,8 +51,14 @@ label {
 
 
 .input-field label {
-  /* left: auto; // what does this do?? */
   pointer-events: none;
+  padding-left: 1rem;
+  display: inline-block;
+  &.active {
+    transform: translateY(-100%);
+    text-shadow: 0 0 2px 10px $main-bg;
+    padding: 3px;
+  }
 }
 
 // radio and checkbox
