@@ -41,7 +41,7 @@ h4 {
   font-size: $h4-fontsize;
   font-family: $font-family-sans;
   font-weight: bold;
-  opacity: .65;
+  opacity: .85;
 }
 h5 {
   font-size: $h5-fontsize;
@@ -63,6 +63,15 @@ h6 {
 a {
   color: $link-color;
   &:hover { color: $link-color-hover; }
+}
+
+hr {
+  border: 0;
+  border-bottom: $input-border;
+
+  &.short {
+    max-width: 200px;
+  }
 }
 
 

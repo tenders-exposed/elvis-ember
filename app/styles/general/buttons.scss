@@ -78,6 +78,12 @@ $button-types:
       @include button-link($color);
     }
   }
+
+  &.wide {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
 
 // disabled state by Bootstrap

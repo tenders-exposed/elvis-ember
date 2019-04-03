@@ -1,6 +1,11 @@
 $modal-bg: $main-bg;
 .ember-modal-dialog {
 
+
+  .modal {
+    width: 550px;
+  }
+
   .modal,
   .modal-footer,
   .modal-content {
