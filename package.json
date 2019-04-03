@@ -107,6 +107,7 @@
     "yamlparser": "0.0.2"
   },
   "dependencies": {
-    "npm": "^6.8.0"
+    "npm": "^6.8.0",
+    "vis": "git+https://git@github.com/tenders-exposed/vis.git"
   }
 }
