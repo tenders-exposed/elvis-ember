@@ -19,12 +19,15 @@
 
         {{async-button action=(action "authenticate") default="Log in" pending="Logging in..." class="btn primary"}}
         {{#link-to "account.recover" class="btn link primary compact"}}Lost password?{{/link-to}}
-        <a class="btn link compact" {{action "authenticateTwitter"}}>
-          <i class="fa fa-twitter"></i> Log in with Twitter
-        </a>
-        <a class="btn link compact" {{action "authenticateGithub"}}>
-          <i class="fa fa-github"></i> Log in with GitHub
-        </a>
+        <br>
+        <p>
+          <a class="btn link compact" {{action "authenticateTwitter"}}>
+            <i class="fa fa-twitter"></i>  Log in with Twitter
+          </a>
+          <a class="btn link compact" {{action "authenticateGithub"}}>
+            <i class="fa fa-github"></i>  Log in with GitHub
+          </a>
+        </p>
     </form>
     <br><br>
     <h4>Don't have an account? Register <a href="#" class="link" {{action "showRegister"}}>here</a>.</h4>
@@ -62,5 +65,5 @@
 
     </form>
     <br>
-    <h4>Do you have an account? Log in <a class="link" {{action "showLogin"}}>here</a>.</h4>
+    <h4>Do you have an account? Log in <a href="#" class="link" {{action "showLogin"}}>here</a>.</h4>
 </div>
