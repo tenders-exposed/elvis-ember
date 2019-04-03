@@ -34,6 +34,7 @@ fieldset.box {
 label {
   font-weight: bold;
   color: $label-color;
+  text-align: left;
   &:hover {
     color: $label-color-hover;
   }
@@ -57,6 +58,7 @@ label {
   &.active {
     transform: translateY(-100%);
     text-shadow: 0 0 2px 10px $main-bg;
+    left: 1rem;
     padding: 3px;
   }
 }
@@ -70,7 +72,7 @@ label {
 // input fields
 // -------------
 .input-field {
-  margin-top: 2em;
+  margin-top: 1em;
   &:hover {
     border-bottom-color: $primary-color;
   }
