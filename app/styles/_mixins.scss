@@ -4,10 +4,10 @@
 }
 
 /*elements*/
-@mixin box{
+@mixin box {
   border-radius: 5px;
   border: 1px solid $box-border-color;
-  padding: $gutter-width;
+  padding: 1.25*$gutter-width;
   position: relative;
   color: $text-color;
   background: $bg-dark-color;

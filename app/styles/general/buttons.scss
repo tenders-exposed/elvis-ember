@@ -11,7 +11,7 @@ $button-types:
 .btn-small {
    font-size: $button-small-font-size;
    height: $button-small-height;
-   padding: $padding-small;
+   padding: .5rem $padding-small;
    border-radius: $border-radius-base;
  }
 
