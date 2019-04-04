@@ -260,6 +260,7 @@ $input-error-color: $error-color;
 $input-success-color: $success-color;
 $input-focus-color: $primary-color;
 $input-font-size: 1.28rem;
+$input-line-height: 3rem;
 $input-margin: 0 0 15px 0;
 $input-padding: 0;
 $input-transition: all .3s;
@@ -420,6 +421,7 @@ $progress-bar-color: $primary-color;
 $zindex-page-preloader:           200;
 $zindex-navbar:                   98;
 $zindex-modal:                    999;
+$zindex-dropdown:                 100;
 $zindex-infobox:                  70;
 $zindex-notification:             69;
 

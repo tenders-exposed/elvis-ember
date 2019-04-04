@@ -55,13 +55,12 @@ export default Controller.extend({
     'years': false,
     'cpvs': false
   },
-  shouldUpdateYears: false,
-  shouldUpdateCpvs: false,
   sizeType: [
     { 'type': 'numberOfWinningBids', 'label': 'winning Bids' },
     { 'type': 'amountOfMoneyExchanged', 'label': 'amount of money' }
   ],
   countries: [],
+  autocompleteActorsOptions: [],
   wizardSteps:  {
     'countriesStatus': 'current',
     'yearsStatus': 'disabled',

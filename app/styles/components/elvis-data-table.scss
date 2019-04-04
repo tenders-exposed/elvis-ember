@@ -84,7 +84,7 @@
     > a { display: inline-block; }
 
     figure {
-      @include network-entity($item-figure-size);
+      @include network-entity-mixed($item-figure-size);
       color: $bg-color;
       font-weight: 900;
       margin: 0;
