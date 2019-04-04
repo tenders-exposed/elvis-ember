@@ -51,12 +51,17 @@ export default Controller.extend({
     years: false,
     cpvs: true
   },
+  shouldUpdate: {
+    'years': false,
+    'cpvs': false
+  },
+  shouldUpdateYears: false,
+  shouldUpdateCpvs: false,
   sizeType: [
     { 'type': 'numberOfWinningBids', 'label': 'winning Bids' },
     { 'type': 'amountOfMoneyExchanged', 'label': 'amount of money' }
   ],
   countries: [],
-  autocompleteActorsOptions: [],
   wizardSteps:  {
     'countriesStatus': 'current',
     'yearsStatus': 'disabled',
@@ -142,7 +147,9 @@ export default Controller.extend({
   }),
 
   treeObserver: observer('cpvs', function() {
-    this.createTree();
+    if (this.get('cpvs').length > 0) {
+      this.createTree();
+    }
   }),
 
   selectedCodesObserver: observer('selectedCodes', function() {
@@ -277,6 +284,8 @@ export default Controller.extend({
     // treeTimer = performance.now() - treeTimer;
     this.set('tree', tree);
     this.set('loading.cpvs', false);
+    // console.log('should update cpvs is set to false');
+    this.set('shouldUpdate.cpvs', false);
 
     // // Tree health check!
     // tree.map((node) => {
@@ -327,6 +336,7 @@ export default Controller.extend({
         let { years } = data;
         this.set('years', years);
         this.set('loading.years', false);
+        this.set('shouldUpdate.years', false);
         // reset cpvs when other years are loaded
         this.set('cpvsIsDisabled', false);
         this.resetCpvs();
@@ -420,8 +430,10 @@ export default Controller.extend({
             this.set('wizardShowNextStep', true);
           }, 100);
           this.set('wizardErrorMessage', false);
-          this.set('loading.years', true);
-          this.loadYears();
+          if (this.get('shouldUpdate.years')) {
+            this.set('loading.years', true);
+            this.loadYears();
+          }
         } else {
           this.set('wizardShowNextStep', false);
           this.set('wizardErrorMessage', '!You must select at least one country or one actor');
@@ -432,8 +444,9 @@ export default Controller.extend({
         later(() => {
           this.set('wizardShowNextStep', true);
         }, 10);
-        this.loadCpvs();
-
+        if (this.get('shouldUpdate.cpvs')) {
+          this.loadCpvs();
+        }
       }  else if (wizardStep.step_id === '4') {
         // years
         later(() => {
@@ -452,7 +465,8 @@ export default Controller.extend({
       // check if the country is selected
       // if selected add selected class else remove selected class
       // retrieve all the selected countries and add them to the query.countries
-
+      this.set('shouldUpdate.years', true);
+      this.set('shouldUpdate.cpvs', true);
       let self = this;
       let jQcountryOption = $(`ul.wizard-countries #${selectedCountryId}`);
       if (jQcountryOption.hasClass('selected')) {
@@ -474,6 +488,8 @@ export default Controller.extend({
 
     // Step2:
     onAutocompleteSelectEvent(value) {
+      this.set('shouldUpdate.years', true);
+      this.set('shouldUpdate.cpvs', true);
       this.set('query.actors', []);
       let self = this;
       _.each(value, (v) => {
@@ -546,6 +562,7 @@ export default Controller.extend({
         });
         this.set('query.years', _.range(this.get('query.years')[0], ++this.get('query.years')[1]));
         this.set('cpvsIsDisabled', false);
+        this.set('shouldUpdate.cpvs', true);
         this.resetCpvs();
       }
     },
