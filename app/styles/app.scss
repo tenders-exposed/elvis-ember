@@ -33,7 +33,6 @@
 /* Components */
 @import "components/collapsible";
 @import "components/wizard";
-@import "components/cpv-selector";
 @import "components/cpv-chip";
 @import "components/range-slider";
 @import "components/elvis-data-table";
@@ -46,8 +45,10 @@
 @import "components/progress-bar";
 @import "components/detailview";
 
-
-@import "components/query-builder";
+// * Query Builder specific components */
+@import "query-builder/query-builder";
+@import "query-builder/actor-select";
+@import "query-builder/cpv-selector";
 
 /* Top level templates */
 @import "static";

@@ -124,10 +124,12 @@ body {
   }
   .wizard-panel {
     display: none;
-    &.current {
+    position: relative;
+
+
+        &.current {
       display: block !important;
     }
-
 
     ul.wizard-countries li {
       display: inline-block;

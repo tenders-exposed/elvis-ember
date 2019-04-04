@@ -1,13 +1,15 @@
-
-<span class="actor-option __guru">
+<div class="actor-option __guru" {{action "clickOption"}} >
  {{!-- {{input type="checkbox"
   class="__guru"
           id=option.id
          checked=option.checked
           change=(action "clickCheckBox")
   }} --}}
-  <span {{action "clickOption"}} class="__guru">
+  <div class="__guru">
     <i class='figure-{{option.type}} __guru'></i> &nbsp;
+    <span class="country-flag">
+      {{world-flag value.country 16}}
+    </span>
     {{option.name}}
-  </span>
-</span>
+  </div>
+</div>

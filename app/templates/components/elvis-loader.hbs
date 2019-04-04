@@ -1,7 +1,15 @@
 {{#unless shouldRender}}
-  <div class="center-align" id="loader">
-    {{md-loader mode=mode color=color size=size}}
-    <br>
-    <small>{{message}}</small>
+  <div class="box-preloader">
+    <div class="preloader-wrapper big active">
+      <div class="spinner-layer spinner-primary-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+      </div>
+    </div>
   </div>
 {{/unless}}
