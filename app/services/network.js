@@ -259,7 +259,7 @@ export default Service.extend({
   },
 
   // settings on network
-/*  hiddenNodes: [],
+  /*  hiddenNodes: [],
 
   checkNodeConnected(edgeValue, nodeId) {
     // check and update the node connected
@@ -374,10 +374,7 @@ export default Service.extend({
       }
     });
     // console.log('switch done');
-
-// --------------------------------------------------------------------------
-
-    if(this.get('networkType') == 'contracts') {
+    if (this.get('networkType') == 'contracts') {
       // switch nodes & edges to amount type
       _.map(this.get('nodes'), (node) => {
         try {
@@ -455,11 +452,11 @@ export default Service.extend({
     max = 14;
 
     _.map(this.get('nodes'), (node) => {
-      if(node.value > max || node.value < min) {
+      if (node.value > max || node.value < min) {
         let color = node.type == 'bidder' ? '#1B5559' : '#611430';
         this.get('network.network.body.data.nodes').update({
           id: node.id,
-          color: color
+          color
         });
       }
     });
@@ -471,7 +468,7 @@ export default Service.extend({
   toggleNodeFlags() {
     // should have a property labelFlags = flag1 + flag2 +..
     // to draw in visjs. not manipulate the actual flags object
-    if(this.get('nodeFlagsEnabled')) {
+    if (this.get('nodeFlagsEnabled')) {
       _.map(this.get('nodes'), (node) => {
         try {
           this.get('network.network.body.data.nodes').update({
@@ -493,22 +490,18 @@ export default Service.extend({
         try {
           this.get('network.network.body.data.nodes').update({
             id: node.id,
-            flags: flags
+            flags
           });
-
         }
         catch (err) {
           alert(err);
         }
       });
       this.set('nodeFlagsEnabled', true);
-
     }
-
   },
   toggleEdgeFlags() {
-
-    if(this.get('edgeFlagsEnabled')) {
+    if (this.get('edgeFlagsEnabled')) {
       _.map(this.get('flaggedEdges'), (edge) => {
         try {
           this.get('network.network.body.data.edges').update({
@@ -517,8 +510,6 @@ export default Service.extend({
             to: edge.to,
             label: undefined
           });
-          // console.log('try edge', edge);
-          // console.log('try var', tryVar);
         }
         catch (err) {
           alert(err);
@@ -544,11 +535,8 @@ export default Service.extend({
 
       });
       this.set('edgeFlagsEnabled', true);
-
     }
   },
-
-
   getNetwork() {
     return this.get('network');
   }

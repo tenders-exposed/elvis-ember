@@ -5,6 +5,54 @@ body {
 }
 
 .wizard {
+  .wizard-error-mesage {
+    color: orangered;
+  }
+  .title {
+    margin: -15px !important;
+    // border: 1px solid red;
+    h3 {
+      padding: 0px;
+    }
+  }
+  .selected-options {
+    // border: 1px solid blueviolet;
+    margin-left: 15px !important;
+    margin-bottom: -10px;
+    padding: 0px;
+
+    .selected-option {
+      margin-right: 10px;
+      // line-height: 18px;
+    }
+
+    .selected-countries * {
+      margin-bottom: -3px;
+    }
+
+    .selected-years-range {
+      background: darkgray;
+      border-radius: 3px;
+      height: 20px;
+      padding: 1px 5px;
+      font-size: 0.8rem;
+      color: #18181a;
+    }
+
+  }
+  .input-field label {
+    left: 0px !important;
+  }
+
+  .wizard-footer {
+    text-align: right;
+    margin-top: -30px;
+    margin-right: 50px;
+
+    button {
+      padding: 0px 15px;
+    }
+  }
   .wizard-header {
     position: relative;
 
@@ -32,7 +80,7 @@ body {
     ul li::after {
       width: 100%;
       left: 0%;
-      margin-left: 15px;
+      margin-left: 16px;
     }
 
     li {
@@ -49,6 +97,7 @@ body {
         padding: 3px 9px 10px 8px;
         font-size: 2px;
         z-index: 100;
+        cursor: none;
 
       }
       p {
@@ -87,6 +136,10 @@ body {
       cursor: pointer;
       border: 1px solid rgba(0,0,0,0);
 
+      i {
+        float: left;
+        margin-right: 10px;
+      }
       &:hover{
         border: 1px solid white;
       }
@@ -98,8 +151,39 @@ body {
   }
 
   .size-type {
+    .qb-rendering-nodes, .qb-rendering-edges * {
+      cursor: pointer !important;
+    }
     .dropdown-content {
-      background: none;
+      background: #1b191d;
+      cursor: pointer !important;
+      top: 10px !important;
+      li {
+        clear: both;
+        background: none;
+        cursor: pointer !important;
+        min-height: 10px;
+        font-size: 1rem;
+        margin: 0px;
+        padding: 0px;
+        line-height: 0rem;
+        width: 100%;
+        text-align: left;
+        text-transform: none;
+        span {
+          cursor: pointer !important;
+          font-size: inherit;
+          color: gray;
+          display: block;
+          padding: 9px 11px;
+        }
+        &:hover {
+          background: none;
+          span {
+            color: white;
+          }
+        }
+      }
     }
   }
 }
@@ -143,43 +227,14 @@ body {
         ul.ul-count-actors {
           display: none;
         }
-        // deprecated
-        /*ul.multi-value__selected{
-          height: 33px;
-          //overflow: auto;
-        }*/
-       /* &:hover{
-          .count-actors {
-            display: none;
-          }
 
-          ul.multi-value__selected {
-            display: block !important;
-            margin-top: 10px;
-
-            //display: flex;
-            // flex-basis: inherit;
-            //flex-direction: column ;
-            height: 100px;
-            //min-height: 50px;
-            //max-height: 200px;
-            //max-height: 200vh;
-            overflow: auto;
-
-            li{
-              margin-right: 15px;
-            }
-          }
-
-        }*/
       }
     }
     .selectedActors {
-      height: 250px;
+      min-height: 150px;
       padding-top: 10px;
       margin-top: 50px;
-      /*border: 1px solid;*/
-      width: 500px;
+      width: 100%;
       float: left;
       ul.multi-value__selected {
         height: 250px;
@@ -215,7 +270,7 @@ body {
   .wizard-step {
     /*padding: $gutter-width 0;
     padding-left: 6rem;*/
-    width: 70%;
+    width: 75%;
     position: relative;
 
     //TODO: separate .wizard component. make it more adjustable (color, size)

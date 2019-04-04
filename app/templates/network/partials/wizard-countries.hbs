@@ -7,7 +7,7 @@
     <ul class="wizard-countries">
       {{#each countries as |country|}}
         <li class="country-option" id={{country.code}}  {{action "onCountrySelect" country.code }}>
-          {{world-flag country.code 16}}
+          {{world-flag country.code 32}}
           {{!--Hack for GB = UK, because TED data...--}}
           {{#if (eq country.code 'UK')}}
             United Kingdom

@@ -13,12 +13,12 @@
                   label="Nodes type"
                   prompt="Please choose..."
                   optionLabelPath="content.label"
-                  optionValuePath="content.type" class="col s12"}}
+                  optionValuePath="content.type" }}
     </div>
     <div class="qb-rendering-edges col m5 s12 {{query.nodes}}">
       <!--Image-->
-      <img class="winningBids" height="130" width="240" src="images/wizard4/nodecontracts.png"/>
-      <img class="moneyExchanged" height="130" width="240" src="images/wizard4/nodemoney.png"/>
+      <img class="winningBids" height="130" width="240" src="/images/wizard4/nodecontracts.png"/>
+      <img class="moneyExchanged" height="130" width="240" src="/images/wizard4/nodemoney.png"/>
 
     </div>
   </div>
@@ -30,24 +30,24 @@
                   label="Edges type"
                   prompt="Please choose..."
                   optionLabelPath="content.label"
-                  optionValuePath="content.type" class="col s12"}}
+                  optionValuePath="content.type" }}
     </div>
     <div class="qb-rendering-edges col m5 s12 {{query.edges}}">
       <!--image-->
       <!--flow-->
-      <img class="winningBids" height="130" width="240" src="images/wizard4/edges2.png"/>
+      <img class="winningBids" height="130" width="240" src="/images/wizard4/edges2.png"/>
       <!--money-->
-      <img class="moneyExchanged" height="130" width="240" src="images/wizard4/edges.png"/>
+      <img class="moneyExchanged" height="130" width="240" src="/images/wizard4/edges.png"/>
     </div>
   </div>
 </section>
 
 <section class="wizard-step {{optionsStatus}}">
   <div class="row">
-    <div class="col m10 s12">
+    <div class="col m7 s12">
         <div class="input-field">
-          <input type="text" id="networkName" value={{name}} placeholder="Name of the network" />
-          <label for="first_name">Name of the network</label>
+          <label for="first_name" class="active">Nameof the network</label>
+          <input type="text" id="networkName" value={{name}} />
         </div>
     </div>
   </div>

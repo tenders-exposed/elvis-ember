@@ -88,6 +88,37 @@
         </i></p>
       {{/if}}
       <div id="query-builder" class="wizard">
+        <div class="row valign-wrapper">
+          <div class="col s3 title">
+            <h3>
+              Network Builder
+            </h3>
+          </div>
+          <div class="col s8 selected-options">
+              {{#if (eq countriesStatus 'completed')}}
+                <span class="selected-option selected-countries">
+                  {{#each query.countries as |country|}}
+                    {{world-flag country 16}}
+                  {{/each}}
+                </span>
+              {{/if}}
+
+              {{#if (eq yearsStatus 'completed')}}
+                <span class="selected-option selected-years-range">
+                  {{queryYearsRange.min}} - {{queryYearsRange.max}}
+                </span>
+              {{/if}}
+
+              {{#if selectedCodesCount}}
+                <span class="selected-option selected-markets">
+                {{selectedCodesCount}} <small>markets</small>
+              </span>
+              {{/if}}
+            </div>
+        </div>
+
+
+
         {{#elvis-wizard
             wizardData=wizardData
             submitAction="submitQuery"
@@ -104,6 +135,9 @@
           {{/wizard-step}}
 
           {{#wizard-step stepId="2"  wizardCurrentState=currentState}}
+            {{#if wizardErrorMessage}}
+              <p class="wizard-error-mesage">{{wizardErrorMessage}}</p>
+            {{/if}}
             {{partial 'network/partials/wizard-actors'}}
           {{/wizard-step}}
 

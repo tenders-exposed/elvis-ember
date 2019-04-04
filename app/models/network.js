@@ -110,9 +110,6 @@ export default Model.extend({
         nodeMax = node.value;
       }
     });
-    return {
-      nodeMax: nodeMax,
-      nodeMin: nodeMin
-    }
+    return { nodeMax, nodeMin };
   })
 });

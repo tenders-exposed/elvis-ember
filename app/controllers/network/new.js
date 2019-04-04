@@ -23,12 +23,12 @@ export default Controller.extend({
     { 'step_id': '4', 'header_label': 'Markets','hasAction': true },
     { 'step_id': '5', 'header_label': 'Settings','hasAction': true }
   ],
-  useRoundedNav : true,
+  useRoundedNav: true,
   customButtonLabels: {
     'nextLabel': 'Next',
-    'finishLabel': 'Finish',
+    'finishLabel': 'Lounch Network',
     'cancelLabel': 'Cancel',
-    'prevLabel': 'Previous'
+    'prevLabel': 'Back'
   },
   wizardShowNextStep: true,
 
@@ -103,7 +103,6 @@ export default Controller.extend({
     }
   }),
   cpvsIsDisabled: false,
- // yearsIsDisabled: true,
   rangeDisableClass: '',
   rangeIsDisabled: computed('query.{countries,actors}', function() {
     let countries = this.get('query.countries');
@@ -113,6 +112,13 @@ export default Controller.extend({
     } else {
       return true;
     }
+  }),
+  queryYearsRange: computed('query.years', function() {
+    let years = this.get('query.years');
+    let yearMin = _.min(years);
+    let yearMax = _.max(years);
+
+    return { 'min': yearMin, 'max': yearMax };
   }),
 
   yearsRange: computed('years', function() {
@@ -289,8 +295,6 @@ export default Controller.extend({
   },
 
   fetchYears() {
-    this.set('loading.years', true);
-
     let countries = this.get('query.countries');
     let rawActors = this.get('query.rawActors');
     let bidders = _.filter(
@@ -403,40 +407,43 @@ export default Controller.extend({
 
     wizardStepChanged(wizardStep) {
       // console.log('wizardStepChanged', wizardStep);
-      if (wizardStep['step_id'] === '1') {
+      if (wizardStep.step_id === '1') {
         // countries
         later(() => {
           this.set('wizardShowNextStep', true);
-        }, 2000);
+        }, 100);
 
-      } else if (wizardStep['step_id'] === '2') {
+      } else if (wizardStep.step_id === '2') {
         // actors
-        if(!this.get('rangeIsDisabled')) {
+        if (!this.get('rangeIsDisabled')) {
           later(() => {
             this.set('wizardShowNextStep', true);
-          }, 2000);
+          }, 100);
+          this.set('wizardErrorMessage', false);
+          this.set('loading.years', true);
           this.loadYears();
         } else {
           this.set('wizardShowNextStep', false);
+          this.set('wizardErrorMessage', '!You must select at least one country or one actor');
         }
 
-      } else if (wizardStep['step_id'] === '3') {
+      } else if (wizardStep.step_id === '3') {
         // actors
         later(() => {
           this.set('wizardShowNextStep', true);
-        }, 2000);
+        }, 10);
         this.loadCpvs();
 
-      }  else if (wizardStep['step_id'] === '4') {
+      }  else if (wizardStep.step_id === '4') {
         // years
         later(() => {
           this.set('wizardShowNextStep', true);
-        }, 2000);
-      } else if (wizardStep['step_id'] === '5') {
+        }, 100);
+      } else if (wizardStep.step_id === '5') {
         // cpvs
         later(() => {
           this.set('wizardShowNextStep', true);
-        }, 2000);
+        }, 100);
       }
     },
 
@@ -448,7 +455,7 @@ export default Controller.extend({
 
       let self = this;
       let jQcountryOption = $(`ul.wizard-countries #${selectedCountryId}`);
-      if(jQcountryOption.hasClass('selected')) {
+      if (jQcountryOption.hasClass('selected')) {
         jQcountryOption.removeClass('selected');
       } else {
         jQcountryOption.addClass('selected');
@@ -460,7 +467,7 @@ export default Controller.extend({
         self.get('query.countries').push(countryId);
       });
 
-      if(this.get('query.actors').length > 0 && !this.get('checkActors')) {
+      if (this.get('query.actors').length > 0 && !this.get('checkActors')) {
         this.set('checkActors', true);
       }
     },
@@ -472,10 +479,7 @@ export default Controller.extend({
       _.each(value, (v) => {
         self.get('query.actors').push(v.id);
       });
-
-     // this.fetchYears();
     },
-
 
     actorTermChanged(queryTerm) {
       // remove leading and trailing whitespace
@@ -507,7 +511,7 @@ export default Controller.extend({
             let autocompleteActorsOptions = [];
             _.each(data.actors, (actor) => {
               if (this.get('query.actors').length > 0) {
-                if (_.indexOf(this.get('query.actors'), actor.id ) < 0) {
+                if (_.indexOf(this.get('query.actors'), actor.id) < 0) {
                   autocompleteActorsOptions.push(actor);
                 }
               } else {
@@ -545,7 +549,6 @@ export default Controller.extend({
         this.resetCpvs();
       }
     },
-
 
     submitQuery() {
       let self = this;

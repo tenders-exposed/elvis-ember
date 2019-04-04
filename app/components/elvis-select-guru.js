@@ -74,6 +74,7 @@ export default EmberSelectGuru.extend({
     },
     expandComponent() {
       if (!this.get('isExpanded')) {
+        this.set('queryTerm', '');
         this._resetCurrentHighlight();
       }
       this.set('isExpanded', true);

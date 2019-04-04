@@ -32,6 +32,8 @@
   </div>
 {{/if}}
 
+
+
 <div class="row panel-wrapper {{if isAnimating 'animating'}}">
   {{#if useContextualComponents}}
     {{yield (hash
@@ -49,13 +51,14 @@
   {{/if}}
 </div>
 
+
 {{#if wizardData}}
   <div class="row wizard-footer">
-      {{#unless isFirstStep}}
-        <button class="btn btn-default" {{action "decrementStep"}}>
-          {{previousBtnLabel}}
-        </button>
-      {{/unless}}
+    {{#unless isFirstStep}}
+      <button class="btn btn-default" {{action "decrementStep"}}>
+        {{previousBtnLabel}}
+      </button>
+    {{/unless}}
     <button class="btn btn-primary {{nextBtnDisabled}}" {{action "incrementStep"}}>
       {{#if isLastStep}}
         {{finishBtnLabel}}
