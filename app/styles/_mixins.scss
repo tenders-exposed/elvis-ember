@@ -10,7 +10,7 @@
   padding: 1.25*$gutter-width;
   position: relative;
   color: $text-color;
-  background: $bg-dark-color;
+  background: fade-out($bg-dark-color,0.3);
 
   .close{
     position: absolute;
