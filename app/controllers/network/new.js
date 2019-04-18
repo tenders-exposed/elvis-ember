@@ -55,6 +55,11 @@ export default Controller.extend({
     'years': false,
     'cpvs': false
   },
+  completed: {
+    'countries': false,
+    'years': false,
+    'markets': false
+  },
   sizeType: [
     { 'type': 'numberOfWinningBids', 'label': 'winning Bids' },
     { 'type': 'amountOfMoneyExchanged', 'label': 'amount of money' }
@@ -67,21 +72,7 @@ export default Controller.extend({
     'cpvsStatus': 'disabled',
     'optionStatus': 'disabled'
   },
-  countriesStatus: computed('query.countries', function() {
-    if (this.get('query.countries').length > 0) {
-      return 'completed';
-    } else {
-      return 'current';
-    }
-  }),
-  yearsStatus: computed('query.{countries,actors}', function() {
-    if (!this.get('loadingYears') &&
-    (this.get('query.countries').length > 0 || this.get('query.actors').length > 0)) {
-      return 'completed';
-    } else {
-      return 'disabled';
-    }
-  }),
+
   cpvsStatus: computed('query.{countries,years}', function() {
     if (this.get('query.years').length > 0 &&
         (this.get('query.countries').length > 0) || this.get('query.actors').length > 0) {
@@ -117,13 +108,14 @@ export default Controller.extend({
       return true;
     }
   }),
-  queryYearsRange: computed('query.years', function() {
+  /*queryYearsRange: computed('query.years', function() {
+     console.log('queryYearsRange computed', this.get('query.years'));
     let years = this.get('query.years');
     let yearMin = _.min(years);
     let yearMax = _.max(years);
 
     return { 'min': yearMin, 'max': yearMax };
-  }),
+  }),*/
 
   yearsRange: computed('years', function() {
     let years = this.get('years');
@@ -338,7 +330,7 @@ export default Controller.extend({
         this.set('shouldUpdate.years', false);
         // reset cpvs when other years are loaded
         this.set('cpvsIsDisabled', false);
-        this.resetCpvs();
+        // this.resetCpvs();
       });
   },
   resetCpvs() {
@@ -415,48 +407,70 @@ export default Controller.extend({
   actions: {
 
     wizardStepChanged(wizardStep) {
-      // console.log('wizardStepChanged', wizardStep);
-      if (wizardStep.step_id === '1') {
-        // countries
-        later(() => {
-          this.set('wizardShowNextStep', true);
-        }, 100);
+       console.log('wizardStepChanged', wizardStep.step_id);
+       let stepId = wizardStep.step_id;
+       let nextStep = () => {
+         later(() => {
+           this.set('wizardShowNextStep', true);
+         }, 100);
+       };
 
-      } else if (wizardStep.step_id === '2') {
-        // actors
-        if (!this.get('rangeIsDisabled')) {
-          later(() => {
-            this.set('wizardShowNextStep', true);
-          }, 100);
-          this.set('wizardErrorMessage', false);
-          if (this.get('shouldUpdate.years')) {
-            this.set('loading.years', true);
-            this.loadYears();
+       let actions = {
+        '1': () => {
+          // console.log('actions step 1');
+          // next actors
+          this.set('completed.countries', this.get('query.countries').length > 0);
+
+          nextStep();
+        },
+        '2': () => {
+          // console.log('actions step 2');
+          // years
+          if (!this.get('rangeIsDisabled')) {
+            nextStep();
+            this.set('wizardErrorMessage', false);
+
+            this.set('wizardSteps.yearsStatus', 'current');
+            // actors completed?
+
+            if (this.get('shouldUpdate.years')) {
+              this.set('loading.years', true);
+              this.fetchYears();
+            }
+          } else {
+            this.set('wizardShowNextStep', false);
+            this.set('wizardErrorMessage', '!You must select at least one country or one actor');
           }
-        } else {
-          this.set('wizardShowNextStep', false);
-          this.set('wizardErrorMessage', '!You must select at least one country or one actor');
-        }
+        },
+        '3': () => {
+          console.log('actions step 3');
+          // cpvs
+          nextStep();
+          this.set('completed.years', true);
+          this.set('wizardSteps.yearsStatus', 'completed');
+          this.set('wizardSteps.cpvsStatus', 'current');
 
-      } else if (wizardStep.step_id === '3') {
-        // actors
-        later(() => {
-          this.set('wizardShowNextStep', true);
-        }, 10);
-        if (this.get('shouldUpdate.cpvs')) {
-          this.loadCpvs();
+          if (this.get('shouldUpdate.cpvs')) {
+            if (this.get('jsTree')) {
+              this.get('jsTree').destroy();
+              this.resetCpvs();
+            }
+            this.fetchCpvs();
+          }
+        },
+        '4': () => {
+          // console.log('actions step 4');
+          // settings
+          nextStep();
+        },
+        '5': () => {
+          console.log('actions step 5');
+          nextStep();
         }
-      }  else if (wizardStep.step_id === '4') {
-        // years
-        later(() => {
-          this.set('wizardShowNextStep', true);
-        }, 100);
-      } else if (wizardStep.step_id === '5') {
-        // cpvs
-        later(() => {
-          this.set('wizardShowNextStep', true);
-        }, 100);
       }
+
+       actions[stepId]();
+
     },
 
     // Step1 : Select Countries
@@ -547,11 +561,6 @@ export default Controller.extend({
     },
     rangeChangeAction(value) {
       // destroy the tree, if any
-      if (this.get('yearsStatus') == 'completed') {
-        if (this.get('jsTree')) {
-          this.get('jsTree').destroy();
-        }
-
         this.set('query.years', []);
         this.get('query.years').push(value[0]);
         this.get('query.years').push(value[1]);
@@ -560,10 +569,11 @@ export default Controller.extend({
           $('span.right-year').text(value[1]);
         });
         this.set('query.years', _.range(this.get('query.years')[0], ++this.get('query.years')[1]));
+        let years = this.get('query.years');
+        this.set('queryYearsRange', { 'min': _.min(years), 'max': _.max(years) });
         this.set('cpvsIsDisabled', false);
         this.set('shouldUpdate.cpvs', true);
-        this.resetCpvs();
-      }
+        // this.resetCpvs();
     },
 
     submitQuery() {

@@ -23,6 +23,11 @@ body {
 
     .selected-option {
       margin-right: 10px;
+      display: none;
+
+      &.completed {
+        display: inline-block !important;
+      }
       // line-height: 18px;
     }
 

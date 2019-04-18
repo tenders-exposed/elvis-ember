@@ -6,10 +6,13 @@
           change=(action "clickCheckBox")
   }} --}}
   <div class="__guru">
-    <i class='figure-{{option.type}} __guru'></i> &nbsp;
-    <span class="country-flag">
-      {{world-flag value.country 16}}
-    </span>
+    <i class='figure-{{option.type}} __guru'></i>
+    {{#if  option.country}}
+      &nbsp;
+      <span class="country-flag">
+        {{world-flag option.country 16}}
+      </span>
+    {{/if}}
     {{option.name}}
   </div>
 </div>

@@ -30,14 +30,14 @@
         </i></p>
       {{/if}}
       <div id="query-builder" class="wizard">
-        <div class="row valign-wrapper">
+        <!--<div class="row valign-wrapper">
           <div class="col s3 title">
             <h3>
               Network Builder
             </h3>
           </div>
           <div class="col s8 selected-options">
-              {{#if (eq countriesStatus 'completed')}}
+              {{#if (eq wizardSteps.countriesStatus 'completed')}}
                 <span class="selected-option selected-countries">
                   {{#each query.countries as |country|}}
                     {{world-flag country 16}}
@@ -45,7 +45,7 @@
                 </span>
               {{/if}}
 
-              {{#if (eq yearsStatus 'completed')}}
+              {{#if (eq wizardSteps.yearsStatus 'completed')}}
                 <span class="selected-option selected-years-range">
                   {{queryYearsRange.min}} - {{queryYearsRange.max}}
                 </span>
@@ -57,7 +57,7 @@
               </span>
               {{/if}}
             </div>
-        </div>
+        </div>-->
 
 
 
@@ -70,38 +70,53 @@
             buttonLabels=customButtonLabels
             animationDuration=700
             useRoundedNav=useRoundedNav
-        as |currentState|
+            as |currentState|
         }}
-          {{#wizard-step stepId="1" wizardCurrentState=currentState}}
-            {{partial 'network/partials/wizard-countries'}}
-          {{/wizard-step}}
+          {{#currentState.step-completed stepId="1" name="selected-countries" wizardCurrentState=currentState}}
+            {{#each query.countries as |country|}}
+              {{world-flag country 16}}
+            {{/each}}
+          {{/currentState.step-completed}}
 
-          {{#wizard-step stepId="2"  wizardCurrentState=currentState}}
+          {{#currentState.step-completed stepId="3" name="selected-years-range" wizardCurrentState=currentState}}
+            {{queryYearsRange.min}} - {{queryYearsRange.max}}
+          {{/currentState.step-completed}}
+
+          {{#currentState.step-completed stepId="4" name="selected-markets" wizardCurrentState=currentState}}
+            {{selectedCodesCount}} <small>markets</small>
+          {{/currentState.step-completed}}
+
+
+          {{#currentState.step stepId="1" wizardCurrentState=currentState}}
+            {{partial 'network/partials/wizard-countries'}}
+          {{/currentState.step}}
+
+          {{#currentState.step stepId="2"  wizardCurrentState=currentState}}
             {{#if wizardErrorMessage}}
               <p class="wizard-error-mesage">{{wizardErrorMessage}}</p>
             {{/if}}
             {{partial 'network/partials/wizard-actors'}}
-          {{/wizard-step}}
+          {{/currentState.step}}
 
-          {{#wizard-step stepId="3"  wizardCurrentState=currentState}}
+          {{#currentState.step stepId="3"  wizardCurrentState=currentState}}
             {{#if loading.years}}
               {{elvis-loader  message="Loading years.."}}
             {{else}}
               {{partial 'network/partials/wizard-years'}}
             {{/if}}
-          {{/wizard-step}}
+          {{/currentState.step}}
 
-          {{#wizard-step stepId="4" wizardCurrentState=currentState}}
+          {{#currentState.step stepId="4" wizardCurrentState=currentState}}
             {{#if loading.cpvs}}
               {{elvis-loader  message="Loading.."}}
             {{else}}
               {{partial 'network/partials/wizard-cpvs'}}
             {{/if}}
-          {{/wizard-step}}
+          {{/currentState.step}}
 
-          {{#wizard-step stepId="5"  wizardCurrentState=currentState}}
+          {{#currentState.step stepId="5"  wizardCurrentState=currentState}}
             {{partial 'network/partials/wizard-settings'}}
-          {{/wizard-step}}
+          {{/currentState.step}}
 
 
         {{/elvis-wizard}}

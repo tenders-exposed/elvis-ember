@@ -10,13 +10,14 @@ export default EmberSelectGuru.extend({
     console.log('check all actors', this.get('checkboxIsSelected'));
   }),*/
   countriesChanged: observer('checkActors', function() {
+    console.log('before countriesChanged');
     if (this.get('checkActors')) {
       let selected = _.cloneDeep(this.get('_value'));
       this.set('_value', []);
       let self = this;
 
       _.each(selected, (option) => {
-        if (_.indexOf(self.get('countries'), option.country) >= 0) {
+        if (option.country && _.indexOf(self.get('countries'), option.country) >= 0) {
           this.get('_value').pushObject(option);
         }
         this.set('value', _.cloneDeep(this.get('_value')));
@@ -27,6 +28,8 @@ export default EmberSelectGuru.extend({
       this.set('countActors', this.get('_value').length);
       this.set('checkActors', false);
     }
+    console.log('after countriesChanged');
+
   }),
 
   removeValue(option) {

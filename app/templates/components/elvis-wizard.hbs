@@ -1,10 +1,30 @@
+<div class="row valign-wrapper">
+  <div class="col s3 title">
+    <h3>
+      Network Builder
+    </h3>
+  </div>
+  <div class="col s8 selected-options">
+    {{log currentStep}}
+    {{yield (hash
+                currentStep=currentStep
+                step-completed=(component 'wizard-step-completed'))
+    }}
+  </div>
+</div>
+
 {{#if showHeader}}
+
   <div class="row wizard-header">
     <div class="{{if showDelete 'col-xs-10' 'col-xs-12'}} no-padding">
       <ul class="nav nav-pills col-xs-12">
         {{#each wizardData as |item|}}
           {{#if showRoundedNav}}
-            <li role="presentation" class="rounded-nav-step {{headerStepsSizeClass}} {{if (eq currentStep item.step_id) 'active' (if (gt currentStep item.step_id) 'completed' 'disabled')}}">
+            <li role="presentation"
+                class="rounded-nav-step
+                        {{headerStepsSizeClass}}
+                        {{if (eq currentStep item.step_id) 'active'
+                             (if (gt currentStep item.step_id) 'completed' 'disabled')}}">
               <a class="rounded-nav" href="#" {{action 'handleNavClick'}}>
                 {{item.step_id}}
               </a>
