@@ -108,14 +108,6 @@ export default Controller.extend({
       return true;
     }
   }),
-  /*queryYearsRange: computed('query.years', function() {
-     console.log('queryYearsRange computed', this.get('query.years'));
-    let years = this.get('query.years');
-    let yearMin = _.min(years);
-    let yearMax = _.max(years);
-
-    return { 'min': yearMin, 'max': yearMax };
-  }),*/
 
   yearsRange: computed('years', function() {
     let years = this.get('years');
@@ -407,7 +399,6 @@ export default Controller.extend({
   actions: {
 
     wizardStepChanged(wizardStep) {
-       console.log('wizardStepChanged', wizardStep.step_id);
        let stepId = wizardStep.step_id;
        let nextStep = () => {
          later(() => {
