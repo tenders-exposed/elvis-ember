@@ -7,8 +7,6 @@ export default Component.extend({
   classNames: ['selected-option'],
   classNameBindings:['name', 'isCompleted'],
   isCompleted: computed('wizardCurrentState.currentStep', function() {
-    // console.log('isCurrentStep',this.get('wizardCurrentState.currentStep') );
-    // console.log('stepId',this.get('stepId'));
 
     if (this.get('wizardCurrentState.currentStep') > this.get('stepId')) {
       return 'completed';

@@ -9,6 +9,7 @@ import { later } from '@ember/runloop';
 import { run } from '@ember/runloop';
 import { A } from '@ember/array';
 import EmberObject from '@ember/object';
+import { setProperties } from '@ember/object';
 
 const { Logger } = Ember;
 
@@ -26,7 +27,7 @@ export default Controller.extend({
   useRoundedNav: true,
   customButtonLabels: {
     'nextLabel': 'Next',
-    'finishLabel': 'Lounch Network',
+    'finishLabel': 'Launch Network',
     'cancelLabel': 'Cancel',
     'prevLabel': 'Back'
   },
@@ -55,11 +56,7 @@ export default Controller.extend({
     'years': false,
     'cpvs': false
   },
-  completed: {
-    'countries': false,
-    'years': false,
-    'markets': false
-  },
+
   sizeType: [
     { 'type': 'numberOfWinningBids', 'label': 'winning Bids' },
     { 'type': 'amountOfMoneyExchanged', 'label': 'amount of money' }
@@ -97,7 +94,10 @@ export default Controller.extend({
       return true;
     }
   }),
-  cpvsIsDisabled: false,
+
+  network: {},
+
+  // years rande-slide
   rangeDisableClass: '',
   rangeIsDisabled: computed('query.{countries,actors}', function() {
     let countries = this.get('query.countries');
@@ -108,7 +108,6 @@ export default Controller.extend({
       return true;
     }
   }),
-
   yearsRange: computed('years', function() {
     let years = this.get('years');
     let yearMin = _.min(years);
@@ -129,12 +128,12 @@ export default Controller.extend({
     return [ yearsRange.min, yearsRange.max ];
   }),
 
+  // cpvs selected
   treeObserver: observer('cpvs', function() {
     if (this.get('cpvs').length > 0) {
       this.createTree();
     }
   }),
-
   selectedCodesObserver: observer('selectedCodes', function() {
     this.set(
       'selectedCodesCount',
@@ -143,9 +142,7 @@ export default Controller.extend({
       })
     );
   }),
-
-  network: {},
-
+  cpvsIsDisabled: false,
   jsTreeConfig: {
     core: {
       'worker': false,
@@ -157,11 +154,6 @@ export default Controller.extend({
     },
     plugins: 'checkbox, search, sort',
     searchOptions: { 'show_only_matches': true },
-    // sort: function(a, b){
-    //   a1 = this.get_node(a);
-    //   b1 = this.get_node(b);
-    //   return (a1.xNumberBids > b1.xNumberBids) ? 1 : -1;
-    // },
     checkbox: {
       'three_state': false,
       'cascade': 'down'
@@ -384,18 +376,6 @@ export default Controller.extend({
     }
   },
 
-  loadYears() {
-    this.set('wizardSteps.countriesStatus', 'completed');
-    this.set('wizardSteps.yearsStatus', 'current');
-    this.fetchYears();
-  },
-
-  loadCpvs() {
-    this.set('wizardSteps.yearsStatus', 'completed');
-    this.set('wizardSteps.cpvsStatus', 'current');
-    this.fetchCpvs();
-  },
-
   actions: {
 
     wizardStepChanged(wizardStep) {
@@ -410,36 +390,49 @@ export default Controller.extend({
         '1': () => {
           // console.log('actions step 1');
           // next actors
-          this.set('completed.countries', this.get('query.countries').length > 0);
-
           nextStep();
         },
         '2': () => {
           // console.log('actions step 2');
           // years
+          let loadingYears = this.get('loading.years');
+          let wizardErrorMessage = false;
+          let wizardShowNextStep = true;
+
           if (!this.get('rangeIsDisabled')) {
             nextStep();
-            this.set('wizardErrorMessage', false);
-
-            this.set('wizardSteps.yearsStatus', 'current');
-            // actors completed?
 
             if (this.get('shouldUpdate.years')) {
-              this.set('loading.years', true);
+              loadingYears = true;
               this.fetchYears();
             }
           } else {
-            this.set('wizardShowNextStep', false);
-            this.set('wizardErrorMessage', '!You must select at least one country or one actor');
+            wizardErrorMessage = '!You must select at least one country or one actor';
+            wizardShowNextStep = false;
           }
+
+          this.setProperties({
+            wizardErrorMessage: wizardErrorMessage,
+            wizardShowNextStep: wizardShowNextStep,
+            wizardSteps: { yearsStatus: 'current' },
+            loading: { years: loadingYears}
+          });
+          // this.set('wizardErrorMessage', false);
+          // this.set('wizardSteps.yearsStatus', 'current');
+
         },
         '3': () => {
-          console.log('actions step 3');
+          // console.log('actions step 3');
           // cpvs
           nextStep();
-          this.set('completed.years', true);
-          this.set('wizardSteps.yearsStatus', 'completed');
-          this.set('wizardSteps.cpvsStatus', 'current');
+          this.setProperties({
+            wizardSteps: {
+              yearsStatus: 'completed',
+              cpvsStatus: 'current'
+            }
+          });
+         /* this.set('wizardSteps.yearsStatus', 'completed');
+          this.set('wizardSteps.cpvsStatus', 'current');*/
 
           if (this.get('shouldUpdate.cpvs')) {
             if (this.get('jsTree')) {
@@ -455,7 +448,7 @@ export default Controller.extend({
           nextStep();
         },
         '5': () => {
-          console.log('actions step 5');
+          // console.log('actions step 5');
           nextStep();
         }
       }
@@ -469,8 +462,15 @@ export default Controller.extend({
       // check if the country is selected
       // if selected add selected class else remove selected class
       // retrieve all the selected countries and add them to the query.countries
-      this.set('shouldUpdate.years', true);
-      this.set('shouldUpdate.cpvs', true);
+     /* this.set('shouldUpdate.years', true);
+      this.set('shouldUpdate.cpvs', true);*/
+      this.setProperties({
+        shouldUpdate: {
+          years: true,
+          cpvs: true
+        }
+      });
+
       let self = this;
       let jQcountryOption = $(`ul.wizard-countries #${selectedCountryId}`);
       if (jQcountryOption.hasClass('selected')) {
@@ -492,8 +492,14 @@ export default Controller.extend({
 
     // Step2:
     onAutocompleteSelectEvent(value) {
-      this.set('shouldUpdate.years', true);
-      this.set('shouldUpdate.cpvs', true);
+      /*this.set('shouldUpdate.years', true);
+      this.set('shouldUpdate.cpvs', true);*/
+      this.setProperties({
+        shouldUpdate: {
+          years: true,
+          cpvs: true
+        }
+      });
       this.set('query.actors', []);
       let self = this;
       _.each(value, (v) => {

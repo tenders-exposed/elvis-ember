@@ -10,7 +10,7 @@ export default EmberSelectGuru.extend({
     console.log('check all actors', this.get('checkboxIsSelected'));
   }),*/
   countriesChanged: observer('checkActors', function() {
-    console.log('before countriesChanged');
+    // console.log('before countriesChanged');
     if (this.get('checkActors')) {
       let selected = _.cloneDeep(this.get('_value'));
       this.set('_value', []);
@@ -24,11 +24,10 @@ export default EmberSelectGuru.extend({
       });
       let onSelect = get(this, 'onSelect');
       onSelect(this.get('_value'));
-      // this.attrs.onSelect(this.get('_value'));
       this.set('countActors', this.get('_value').length);
       this.set('checkActors', false);
     }
-    console.log('after countriesChanged');
+    // console.log('after countriesChanged');
 
   }),
 
@@ -52,7 +51,6 @@ export default EmberSelectGuru.extend({
         this.get('_value').pushObject(option);
         onSelect(this.get('_value'));
 
-        // this.attrs.onSelect(this.get('_value'));
         this.set('countActors', this.get('_value').length);
 
         if (this.get('_options').length <= 1) {
@@ -60,11 +58,9 @@ export default EmberSelectGuru.extend({
           this.set('queryTerm', '');
           this.set('isExpanded', false);
         }
-        // get(this, '_onSelect')(get(this, '_value'));
       } else {
         // handle single selection
         onSelect(option);
-        // this.attrs.onSelect(option);
       }
     },
     onRemoveValueClick(option) {
@@ -72,7 +68,6 @@ export default EmberSelectGuru.extend({
       this.set('countActors', this.get('_value').length);
       let onSelect = get(this, 'onSelect');
       onSelect(this.get('_value'));
-      // this.attrs.onSelect(this.get('_value'));
 
     },
     expandComponent() {
