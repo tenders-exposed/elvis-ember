@@ -118,7 +118,7 @@ $text-muted-color:    fade-out($text-color,0.5);
 $h1-fontsize: 3.42rem;
 $h2-fontsize: 2.5rem;
 $h3-fontsize: 1.71rem;
-$h4-fontsize: 1.28rem;
+$h4-fontsize: 1.14rem;
 $h5-fontsize: 1rem;
 $h6-fontsize: 1rem;
 
@@ -166,7 +166,7 @@ $button-background-focus: lighten($primary-color, 4%);
 $button-font-size: 1.3rem;
 $button-color:  $bg-color;
 $button-height: 36px;
-$button-padding: 0 2rem;
+$button-padding: 0 1.5rem;
 $button-radius: 4px;
 
 // Disabled styles
@@ -421,7 +421,7 @@ $zindex-page-preloader:           200;
 $zindex-navbar:                   98;
 $zindex-modal:                    999;
 $zindex-infobox:                  70;
-$zindex-notification:             69;
+$zindex-notification:             99999;
 
 $zindex-network-sidebar:          89;
 $zindex-network-sidebar-toggle:   91;
