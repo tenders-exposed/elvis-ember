@@ -26,20 +26,19 @@ export default Component.extend({
       let email = this.get('email');
       let password = this.get('password');
       return this.get('auth')
-                 .authenticate(email, password)
-                 .then(() => {
-                   this.get('auth').hideModal();
-                 });
+                .authenticate(email, password)
+                .then(() => {
+                  this.get('auth').hideModal();
+                });
     },
     register() {
       let email = this.get('email');
       let password = this.get('password');
-      let password_confirmation = this.get('password_confirmation');
       return this.get('auth')
-                 .register(email, password, password_confirmation)
-                 .then(() => {
-                   this.get('auth').hideModal();
-                 });
+                .register(email, password)
+                .then(() => {
+                  this.get('auth').hideModal();
+                });
     }
 
   }
