@@ -47,12 +47,11 @@ export default Service.extend({
         this.hideModal();
       });
   },
-  register(email, password, password_confirmation) {
+  register(email, password) {
     let self = this;
     let user = this.get('store').createRecord('user', {
       email,
-      password,
-      password_confirmation
+      password
     });
     self.get('notifications').clearAll();
     return user.save().then(() => {

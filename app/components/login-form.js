@@ -36,7 +36,10 @@ export default Component.extend({
       let password = this.get('password');
       let password_confirmation = this.get('password_confirmation');
       return this.get('auth')
-                 .register(email, password, password_confirmation);
+                 .register(email, password, password_confirmation)
+                 .then(() => {
+                   this.get('auth').hideModal();
+                 });
     }
 
   }
