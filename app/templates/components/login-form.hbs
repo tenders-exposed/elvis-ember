@@ -9,12 +9,12 @@
     <form {{action 'authenticate' on='submit'}} autocomplete="off">
 
         <div class="input-field">
-          <input name="login_email" id="login_email" type="email" value="{{email}}" autocomplete="on" />
-          <label for="inputEmail">Email address</label>
+          {{input id="login_email" type="email" value=email}}
+          <label for="loginEmail">Email address</label>
         </div>
         <div class="input-field">
-          <input name="login_password" id="login_password" type="password" value="{{password}}" autocomplete="on" />
-          <label for="password">Password</label>
+          {{input id="login_password" type="password" value=password}}
+          <label for="loginPassword">Password</label>
         </div>
 
         {{async-button action=(action "authenticate") default="Log in" pending="Logging in..." class="btn primary"}}
@@ -51,12 +51,12 @@
 
 
         <div class="input-field">
-          {{input id="register_password_confirmation" type="password" value=password_confirmation}}
-          <label for="registerPasswordConfirmation">Repeat password</label>
-        </div>
-        <div class="input-field">
           {{input id="register_password" type="password" value=password}}
           <label for="registerPassword">Your password here</label>
+        </div>
+        <div class="input-field">
+          {{input id="register_password_confirmation" type="password" value=password_confirmation}}
+          <label for="registerPasswordConfirmation">Repeat password</label>
         </div>
 
         <div class="input-field">

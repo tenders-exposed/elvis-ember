@@ -8,7 +8,8 @@ export default JSONSerializer.extend({
 
     let attributes = [
       'email',
-      'password'
+      'password',
+      'password_confirmation'
     ];
 
     Object.keys(json).forEach((k) => {

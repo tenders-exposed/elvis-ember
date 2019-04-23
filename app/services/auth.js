@@ -7,6 +7,7 @@ export default Service.extend({
   session: service(),
   ajax: service(),
   store: service(),
+  notifications: service('notification-messages'),
   endpoint: `${ENV.APP.apiHost}/account/login`,
   loginVisible: false,
 
@@ -53,19 +54,20 @@ export default Service.extend({
       password,
       password_confirmation
     });
+    self.get('notifications').clearAll();
     return user.save().then(() => {
-      self.notifications.clearAll();
-      self.notifications.success('Done! Please check your inbox.', {
+      self.get('notifications').success('Done! Please check your inbox.', {
         autoClear: true
       });
       self.transitionToRoute('welcome');
     }).catch((response) => {
-      this.set('errors', response);
       _.each(response.errors, function(error) {
-        self.notifications.error(`${error.message}`, {
+        self.get('notifications').error(`${error.message}`, {
           autoClear: false
         });
       });
+    }).then((response) => {
+      return response;
     });
   }
 });

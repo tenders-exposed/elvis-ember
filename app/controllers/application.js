@@ -1,12 +1,11 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
+import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 
 export default Controller.extend({
   analytics: service(),
   auth: service(),
 
-  loginVisible: computed('auth.loginVisible', function() {
-    return this.get('auth.loginVisible');
-  })
+  loginVisible: alias('auth.loginVisible'),
 });
