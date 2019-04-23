@@ -10,20 +10,22 @@ export default EmberSelectGuru.extend({
       return;
     },
     onOptionClick(option) {
+      let onSelect = get(this, 'onSelect');
       if (this.get('multiple')) {
         // handle multiple selection
 
         this.get('_value').pushObject(option);
-        this.attrs.onSelect(this.get('_value'));
+        onSelect(this.get('_value'));
         // get(this, '_onSelect')(get(this, '_value'));
       } else {
         // handle single selection
-        this.attrs.onSelect(option);
+        onSelect(option);
       }
     },
     onRemoveValueClick(option) {
+      let onSelect = get(this, 'onSelect');
       this.get('_value').removeObject(option);
-      this.attrs.onSelect(this.get('_value'));
+      onSelect(this.get('_value'));
     },
     expandComponent() {
       if (!this.get('isExpanded')) {

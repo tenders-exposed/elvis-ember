@@ -93,7 +93,6 @@ export default Controller.extend({
     }
   }),
 
-  yearsStart: [],
   yearsRange: computed('years', function() {
     let years = this.get('years');
     let yearMin = _.min(years);
@@ -106,10 +105,13 @@ export default Controller.extend({
     }
     let yearsRange = { 'min': yearMin, 'max': yearMax };
 
-    this.set('yearsStart', [yearMin, yearMax]);
     this.send('rangeChangeAction', [yearMin, yearMax]);
 
     return yearsRange;
+  }),
+  yearsStart: computed('yearsRange', function() {
+    let yearsRange = this.get('yearsRange');
+    return [yearsRange.min, yearsRange.max];
   }),
 
   treeObserver: observer('cpvs', function() {

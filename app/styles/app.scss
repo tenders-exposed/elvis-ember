@@ -14,7 +14,6 @@
 /* Settings and general tweaks */
 @import "mixins";
 @import "helpers";
-@import "components";
 @import "application";
 
 /* Partials */
@@ -49,21 +48,17 @@
 
 @import "components/query-builder";
 
-/* Network */
-@import "network/list";
-@import "network/show";
-@import "network/vis";
-@import "network/show/details";
-
 /* Top level templates */
 @import "static";
 @import "welcome";
 
 @import "loading";
 @import "footer";
-@import "account";
-//@import "projects";
 
-/* To move / remove / change / split */
-//@import "sidebar";
+/* Network */
+@import "network";
+@import "network/list";
 @import "network/show";
+@import "network/vis";
+@import "network/show/details";
+@import "network/legend";

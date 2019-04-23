@@ -21,7 +21,8 @@ div#box-details-container {
     padding: $padding-base;
     width: 100%;
     position: absolute;
-    width: 100%;
+    top: $navbar-height;
+    right: 50px; //@TODO: variable
 
     .actor {
       position: relative;

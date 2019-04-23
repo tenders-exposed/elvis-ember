@@ -13,51 +13,8 @@
 
 }
 
-#details-info {
-  max-width: 700px;
-  position: absolute;
-  left: $network-sidebar-width;
-  height: 100vh;
-  width: 100vw-$network-sidebar-width;
-
-  .contract-info-wrapper,
-  .details-info-wrapper {
-    position: relative;
-    pointer-events: all;
-    width: 100%;
-    height: 100%;
-    right: 0px;
-    height: 100%;
-  }
-}
-
 // network sidebar
 #details-sidebar {
-  display: inline-block;
-  z-index: $zindex-network-sidebar;
-  pointer-events: all;
-  width: $network-sidebar-width;
-  min-width: 300px;
-  min-height: 400px;
-  position: absolute;
-  height: 100%;
-  top: 0;
-  clear: both;
-  border-right: $network-sidebar-border;
-  background: $network-sidebar-bg;
-  backdrop-filter: blur(10px);
-  box-shadow: 5px 0px 15px -2px rgba(0,0,0,0.8);
-
-  font-family: $font-family-sans;
-
-  // button to show/hide the navbar
-  .navbar-toggle {
-    display: inline-block;
-    position: relative;
-    top: .3em;
-    height: 2em;
-    cursor: pointer;
-  }
 
   .sidebar-header {
     padding: 0.5*$network-sidebar-padding $network-sidebar-padding;
@@ -89,17 +46,17 @@
   //tab navigations buttons
   // TODO: correct naming of these css classes. we need consistency all over the system: use only dashes
   .tabs__nav {
-    border-bottom: 1px solid #484848;
     display: flex;
     align-items: flex-start;
-    padding: 0 0.5*$network-sidebar-padding;
+    padding: 0 .5*$network-sidebar-padding 1em;
     width: 100%;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 
     // single tab
     .tab-button {
       display: inline-block;
-      flex-grow: 1;
-      padding: 0 0.5*$network-sidebar-padding;
+      //flex-grow: 1;
+      padding: 0 0.5*$network-sidebar-padding 0 1.1*$network-sidebar-padding;
       font-weight: bold;
       text-align: center;
       text-transform: uppercase;
@@ -107,14 +64,16 @@
       letter-spacing: .05em;
       cursor: pointer;
 
+
+
       // tab icon
       .tab-icon {
-        display: block;
-        margin: 1em auto;
+        display: inline-block;
       }
 
       // tab label text
       a {
+        margin-top: .5em;
         display: inline-block;
         color: $text-muted-color;
         padding-bottom: 1em;
@@ -127,29 +86,19 @@
       &.tab-button--active a,
       &.tabs-button--active2 a,
       &:hover a {
-        border-bottom: 2px solid whitesmoke;
         color: $text-color;
       }
     }
-  }
-
-  // sidebar toggle button (circle arrow)
-  .sidebar-toggle {
-    height: 0px;
-    overflow: visible;
-    float: right;
-    position: relative;
-    right: -7px;
-    top: -11px;
-    z-index: $zindex-network-sidebar-toggle;
-    cursor: pointer;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
   }
 
   //tabs
   .tab-panel {
     width: 100%;
     height: 100%;
+
+    .input-field {
+      margin-top: .5em;
+    }
 
     .ember-select-guru {
       margin-bottom: 0rem !important;
@@ -205,33 +154,7 @@
 
 }
 
-#sidebar-toggle {
-  z-index: $zindex-network-sidebar-toggle;
-  position: absolute;
-  left: -1em;
-  top: 0;
-  bottom: 0;
-  height: 100%;
-  width: 2em;
-  border-right: $network-sidebar-border;
-  background: $network-sidebar-bg;
-  text-align: center;
-  opacity: .6;
-  transition: all .3s ease;
 
-  .fa {
-    color: $text-muted-color;
-    position: absolute;
-    top: 2*$navbar-height;
-    left: calc(100% - .5em);
-  }
-
-  &:hover {
-    cursor: pointer;
-    opacity: 1;
-    left: 0;
-  }
-}
 // default toggle state
 body.network-show-details #sidebar-toggle {
   display: none;
