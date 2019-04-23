@@ -1,7 +1,13 @@
 import DS from 'ember-data';
+import tinycolor from 'tinycolor';
 
 import { computed } from '@ember/object';
 const { Model, attr } = DS;
+
+const color = {
+  'buyer': '#f0308e',
+  'bidder': '#27f0fc'
+};
 
 export default Model.extend({
   name: attr('string', { defaultValue: 'unnamedNetwork' }),
@@ -51,32 +57,33 @@ export default Model.extend({
 
   graph: computed('nodes', 'edges', function() {
     let nodes = this.get('nodes');
+
     if (this.get('clusters') && this.get('clusters').length > 0) {
       _.each(this.get('clusters'), function(cluster) {
         if (cluster.type == 'buyer') {
           cluster.color = {
-            background: 'rgb(246, 49, 136)',
-            border: '#f0308e',
+            background: tinycolor.toRgbString(color.buyer),
+            border: color.buyer,
             hover: {
-              background: 'rgb(246, 49, 136)',
-              border: '#f0308e'
+              background: tinycolor.toRgbString(color.buyer),
+              border: color.buyer
             },
             highlight: {
-              background: 'rgb(246, 49, 136)',
-              border: '#f0308e'
+              background: tinycolor.toRgbString(color.buyer),
+              border: color.buyer
             }
           };
         } else {
           cluster.color = {
-            background: 'rgb(36, 243, 255)',
-            border: '#27f0fc',
+            background: tinycolor.toRgbString(color.bidder),
+            border: color.bidder,
             hover: {
-              background: 'rgb(36, 243, 255)',
-              border: '#27f0fc'
+              background: tinycolor.toRgbString(color.bidder),
+              border: color.bidder
             },
             highlight: {
-              background: 'rgb(36, 243, 255)',
-              border: '#27f0fc'
+              background: tinycolor.toRgbString(color.bidder),
+              border: color.bidder
             }
           };
         }

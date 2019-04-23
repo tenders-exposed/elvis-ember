@@ -22,7 +22,7 @@
   },
   "repository": "https://github.com/tenders-exposed/elvis-ember.git",
   "engines": {
-    "node": "^4.5 || 6.* || >= 7.*"
+    "node": "^8.15"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.5.2",
@@ -63,6 +63,7 @@
     "ember-cli-shims": "^1.2.0",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-test-loader": "^2.1.0",
+    "ember-cli-tinycolor": "^1.0.0",
     "ember-cli-uglify": "^2.0.0",
     "ember-cli-wizard": "^0.1.9",
     "ember-composability": "^0.3.8",
@@ -107,6 +108,7 @@
     "yamlparser": "0.0.2"
   },
   "dependencies": {
+    "color-string": "^1.5.3",
     "npm": "^6.8.0",
     "vis": "git+https://git@github.com/tenders-exposed/vis.git"
   }

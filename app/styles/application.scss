@@ -81,18 +81,6 @@ i.control-icon-light {
   background-color: $main-bg;
 }
 
-#login-modal {
-  width: 100% !important;
-  left: auto !important;
-  right: 0 !important;
-  position: absolute;
-  z-index: 99;
-  .login {
-    background-color: darken($main-bg, 10);
-    padding: 30px;
-  }
-}
-
 #network-info {
   margin-bottom: 10px;
   p {
@@ -115,5 +103,8 @@ i.control-icon-light {
 }
 
 .c-notifications__container {
-  z-index: 99999 !important;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: $zindex-notification;
 }
