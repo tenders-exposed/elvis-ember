@@ -1,7 +1,6 @@
 import Component from '@ember/component';
 import $ from 'jquery';
 import { inject as service } from '@ember/service';
-import ENV from '../config/environment';
 
 export default Component.extend({
   auth: service(),
