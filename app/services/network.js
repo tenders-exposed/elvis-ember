@@ -104,9 +104,6 @@ export default Service.extend({
         });
       }
 
-      // nodemax, nodeMin
-      // console.log('nodeMinMax', model.get('valueRange'));
-
       self.set('model', model);
       self.set('edges', model.get('edges'));
       self.set('nodes', model.get('graph.nodes'));
@@ -181,7 +178,6 @@ export default Service.extend({
   setRelationships() {
     let valueFormat = (value) => {
       if (typeof value !== 'string') {
-        // value = value.toFixed();
         value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       }
       return value;
@@ -242,7 +238,6 @@ export default Service.extend({
 
   setNetwork(network, networkDefer) {
     // make isReady false.. and recalculate
-    // console.log('set network');
     // networkDeferer defined in network.show controller and resolved in network.service
     this.set('networkDefer', networkDefer);
     let self = this;
@@ -258,94 +253,7 @@ export default Service.extend({
     networkDefer.resolve();
   },
 
-  // settings on network
-  /*  hiddenNodes: [],
-
-  checkNodeConnected(edgeValue, nodeId) {
-    // check and update the node connected
-
-    let node = this.get('network.network.body.data.nodes').get(nodeId);
-    let nodeDefaultValue = node.value;
-    let nodeValue = node.value - edgeValue;
-
-    console.log('edgeValue', edgeValue);
-    console.log('defaultNode', node);
-    if(nodeValue <= 0) {
-      // then the node should update to disappear
-      this.get('hiddenNodes').push(nodeId);
-      this.get('network.network.body.data.nodes').update({
-        id: node.id,
-        hidden: true
-      });
-
-    } else {
-      // the node should update the value and add a defaultValue
-      this.get('network.network.body.data.nodes').update({
-        id: node.id,
-        value: nodeValue,
-        defaultValue: nodeDefaultValue
-      });
-    }
-    console.log('updatedNode', this.get('network.network.body.data.nodes').get(nodeId));
-  },
-  changeValueRange2() {
-    let min = this.get('model.valueRange.nodeMin');
-    let max = this.get('model.valueRange.nodeMax') - 5;
-    min = 5;
-    max = 14;
-
-    console.log('changeValueRange min', min);
-    console.log('changeValueRange max', max);
-    _.map(this.get('nodes'), (node) => {
-
-      if(node.value > max || node.value < min) {
-
-        this.get('hiddenNodes').push(node.id);
-
-        _.map(this.get('edges'), (edge) => {
-          if(edge.to == node.id) {
-            if(_.indexOf(this.get('hiddenNodes'), edge.from) < 0) {
-              //check if it should be hidden
-              this.checkNodeConnected(edge.value, edge.from);
-            }
-
-            this.get('network.network.body.data.edges').update({
-              id: edge.id,
-              hidden: true
-            });
-          }
-
-          if(edge.from == node.id) {
-            if(_.indexOf(this.get('hiddenNodes'), edge.to) < 0) {
-              //check if it should be hidden
-              this.checkNodeConnected(edge.value, edge.to);
-            }
-
-            this.checkNodeConnected(edge.value, edge.to);
-            this.get('network.network.body.data.edges').update({
-              id: edge.id,
-              hidden: true
-            });
-          }
-        });
-
-
-        this.get('network.network.body.data.nodes').update({
-          id: node.id,
-          hidden: true
-        });
-
-
-      }
-
-    });
-    console.log('changeValueRange NetworkEdges',  this.get('network.network.body.data.edges'));
-  },*/
-
   switchTypeValue() {
-
-    // console.log('switchTypeValue data.nodes', this.get('network.network.body.data.nodes'));
-    // console.log('switchTypeValue data.edges', this.get('network.network.body.data.edges'));
 
     _.map(this.get('nodes'), (node) => {
       try {
@@ -373,7 +281,6 @@ export default Service.extend({
         alert(err);
       }
     });
-    // console.log('switch done');
     if (this.get('networkType') == 'contracts') {
       // switch nodes & edges to amount type
       _.map(this.get('nodes'), (node) => {
@@ -439,10 +346,6 @@ export default Service.extend({
       this.set('networkType', 'contracts');
 
     }
-
-    // console.log('switchTypeValue data.nodes', this.get('network.network.body.data.nodes'));
-    // console.log('switchTypeValue data.edges', this.get('network.network.body.data.edges'));
-
   },
 
   changeValueRange() {
@@ -460,9 +363,6 @@ export default Service.extend({
         });
       }
     });
-
-    // console.log('updated nodes', this.get('network.network.body.data.nodes'));
-
   },
 
   toggleNodeFlags() {
@@ -526,8 +426,6 @@ export default Service.extend({
             to: edge.to,
             label: labelEdge
           });
-          // console.log('try edge', edge);
-          // console.log('try var', tryVar);
         }
         catch (err) {
           alert(err);

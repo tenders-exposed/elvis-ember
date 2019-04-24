@@ -1,4 +1,3 @@
-// import ENV from '../config/environment';
 import Ember from 'ember';
 
 import Controller from '@ember/controller';
@@ -166,7 +165,6 @@ export default Controller.extend({
     this.set('selectedCodesCount', 0);
     this.set('selectedCodes', A([]));
 
-    // let treeTimer = performance.now();
     let cpvs = _.sortBy(
       _.cloneDeep(this.get('cpvs')),
       ['code']
@@ -206,7 +204,6 @@ export default Controller.extend({
 
       case 3:
         cpvDivision = code.slice(0, 2);
-        // parent = cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`);
         result.parent = `${cpvDivision}000000`;
         if (!cpvDivision) {
           Logger.warn(`Cannot compute division for ${code}`, cpv);
@@ -236,7 +233,6 @@ export default Controller.extend({
           Logger.warn(`Cannot find division ${cpvDivision} for ${code}`, cpv);
           result.parent = '#';
         } else {
-          // if (!cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`)) {
           result.parent = `${cpvDivision}000000`;
           regex = `${cpvDivision}0+$`;
           if (!cpvs.find((c) => c.code.match(new RegExp(regex, 'g'))) ||
@@ -255,10 +251,8 @@ export default Controller.extend({
         .getCode(missingCode)
     ));
 
-    // treeTimer = performance.now() - treeTimer;
     this.set('tree', tree);
     this.set('loading.cpvs', false);
-    // console.log('should update cpvs is set to false');
     this.set('shouldUpdate.cpvs', false);
 
     // // Tree health check!
@@ -329,7 +323,6 @@ export default Controller.extend({
   fetchCpvs() {
     this.set('loading.cpvs', true);
     this.set('cpvsIsDisabled', true);
-    // let requestTimer = performance.now();
 
     let self = this;
     let countries = this.get('query.countries');
@@ -356,7 +349,6 @@ export default Controller.extend({
       options.bidders = _.join(_.map(bidders, (s) => s.id), ',');
     }
     if (years.length > 0) {
-      // options.query.years = [2005,2006];
       options.years = _.join(years, ',');
     }
 
@@ -370,7 +362,6 @@ export default Controller.extend({
         })
         .then((data) => {
           self.set('cpvs', data.cpvs);
-          // self.set('loading.cpvs', false);
         });
     }
   },
@@ -388,7 +379,6 @@ export default Controller.extend({
       let actions = {
 
         '1': () => {
-          // console.log('actions step 1');
           // next actors
           nextStep();
         },
@@ -509,7 +499,6 @@ export default Controller.extend({
       }
       if (queryTerm.length > 2) {
         let countries = this.get('query.countries');
-        // let options = { limit: 15 };
         let options = {};
         if (countries.length > 0) {
           options.countries = countries;
@@ -519,7 +508,6 @@ export default Controller.extend({
           options.name = queryTerm;
         }
 
-        // let host =`${ENV.APP.apiHost}/${ENV.APP.apiNamespace}`;
         return this.get('ajax')
           .request('/tenders/actors',
                 {
@@ -615,8 +603,6 @@ export default Controller.extend({
         },
         query
       }).save().then((data) => {
-        // self.send('finished');
-        // self.transitionToRoute('network.show', data.id)
         self.set('isLoading', false);
         self.toggleProperty('optionsModalIsOpen');
         self.transitionToRoute('network.show', data.id);

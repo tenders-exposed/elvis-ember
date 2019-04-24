@@ -4,11 +4,7 @@ import { observer } from '@ember/object';
 import { get } from '@ember/object';
 
 export default EmberSelectGuru.extend({
-  // checkActors: false,
   checkboxIsSelected: false,
-  /*selectAllOptions: observer('checkboxIsSelected', function() {
-    console.log('check all actors', this.get('checkboxIsSelected'));
-  }),*/
   countriesChanged: observer('checkActors', function() {
     if (this.get('checkActors')) {
       let selected = _.cloneDeep(this.get('_value'));
@@ -23,7 +19,6 @@ export default EmberSelectGuru.extend({
       });
       let onSelect = get(this, 'onSelect');
       onSelect(this.get('_value'));
-      // this.attrs.onSelect(this.get('_value'));
       this.set('countActors', this.get('_value').length);
       this.set('checkActors', false);
     }
@@ -34,12 +29,9 @@ export default EmberSelectGuru.extend({
     this.set('countActors', this.get('_value').length);
     let onSelect = get(this, 'onSelect');
     onSelect(this.get('_value'));
-
-    // this.attrs.onSelect(this.get('_value'));
   },
   actions: {
-    onOptionCheck(/* option */) {
-      // console.log('onOptionCheck');
+    onOptionCheck() {
       return;
     },
     onOptionClick(option) {
@@ -49,7 +41,6 @@ export default EmberSelectGuru.extend({
         this.get('_value').pushObject(option);
         onSelect(this.get('_value'));
 
-        // this.attrs.onSelect(this.get('_value'));
         this.set('countActors', this.get('_value').length);
 
         if (this.get('_options').length <= 1) {
@@ -57,11 +48,9 @@ export default EmberSelectGuru.extend({
           this.set('queryTerm', '');
           this.set('isExpanded', false);
         }
-        // get(this, '_onSelect')(get(this, '_value'));
       } else {
         // handle single selection
         onSelect(option);
-        // this.attrs.onSelect(option);
       }
     },
     onRemoveValueClick(option) {
@@ -69,7 +58,6 @@ export default EmberSelectGuru.extend({
       this.set('countActors', this.get('_value').length);
       let onSelect = get(this, 'onSelect');
       onSelect(this.get('_value'));
-      // this.attrs.onSelect(this.get('_value'));
 
     },
     expandComponent() {

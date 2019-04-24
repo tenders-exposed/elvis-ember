@@ -32,10 +32,8 @@ export default Component.extend({
       (this.$().parent().children('.ember-select-guru__trigger')[0] === event.target) ||
       (event.target.className.indexOf('__guru') != -1)
     ) {
-      // console.log('elvis-select-dropdown clickoutHandler NO', this.$('.ember-select-guru__option .actor-option'));
       return false;
     } else {
-      // console.log('elvis-select-dropdown clickoutHandler YES', this.$('.ember-select-guru__option .actor-option'));
       return run(() => {
         this._willHideDropdown();
       });
