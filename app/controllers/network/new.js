@@ -9,7 +9,6 @@ import { later } from '@ember/runloop';
 import { run } from '@ember/runloop';
 import { A } from '@ember/array';
 import EmberObject from '@ember/object';
-import { setProperties } from '@ember/object';
 
 const { Logger } = Ember;
 
@@ -379,21 +378,22 @@ export default Controller.extend({
   actions: {
 
     wizardStepChanged(wizardStep) {
-       let stepId = wizardStep.step_id;
-       let nextStep = () => {
-         later(() => {
-           this.set('wizardShowNextStep', true);
-         }, 100);
-       };
+      let stepId = wizardStep.step_id;
+      let nextStep = () => {
+        later(() => {
+          this.set('wizardShowNextStep', true);
+        }, 100);
+      };
 
-       let actions = {
+      let actions = {
+
         '1': () => {
           // console.log('actions step 1');
           // next actors
           nextStep();
         },
+
         '2': () => {
-          // console.log('actions step 2');
           // years
           let loadingYears = this.get('loading.years');
           let wizardErrorMessage = false;
@@ -412,17 +412,14 @@ export default Controller.extend({
           }
 
           this.setProperties({
-            wizardErrorMessage: wizardErrorMessage,
-            wizardShowNextStep: wizardShowNextStep,
+            wizardErrorMessage,
+            wizardShowNextStep,
             wizardSteps: { yearsStatus: 'current' },
-            loading: { years: loadingYears}
+            loading: { years: loadingYears }
           });
-          // this.set('wizardErrorMessage', false);
-          // this.set('wizardSteps.yearsStatus', 'current');
-
         },
+
         '3': () => {
-          // console.log('actions step 3');
           // cpvs
           nextStep();
           this.setProperties({
@@ -431,8 +428,6 @@ export default Controller.extend({
               cpvsStatus: 'current'
             }
           });
-         /* this.set('wizardSteps.yearsStatus', 'completed');
-          this.set('wizardSteps.cpvsStatus', 'current');*/
 
           if (this.get('shouldUpdate.cpvs')) {
             if (this.get('jsTree')) {
@@ -442,18 +437,18 @@ export default Controller.extend({
             this.fetchCpvs();
           }
         },
+
         '4': () => {
-          // console.log('actions step 4');
           // settings
           nextStep();
         },
+
         '5': () => {
-          // console.log('actions step 5');
           nextStep();
         }
-      }
+      };
 
-       actions[stepId]();
+      actions[stepId]();
 
     },
 
@@ -462,8 +457,6 @@ export default Controller.extend({
       // check if the country is selected
       // if selected add selected class else remove selected class
       // retrieve all the selected countries and add them to the query.countries
-     /* this.set('shouldUpdate.years', true);
-      this.set('shouldUpdate.cpvs', true);*/
       this.setProperties({
         shouldUpdate: {
           years: true,
@@ -558,19 +551,18 @@ export default Controller.extend({
     },
     rangeChangeAction(value) {
       // destroy the tree, if any
-        this.set('query.years', []);
-        this.get('query.years').push(value[0]);
-        this.get('query.years').push(value[1]);
-        run.scheduleOnce('afterRender', function() {
-          $('span.left-year').text(value[0]);
-          $('span.right-year').text(value[1]);
-        });
-        this.set('query.years', _.range(this.get('query.years')[0], ++this.get('query.years')[1]));
-        let years = this.get('query.years');
-        this.set('queryYearsRange', { 'min': _.min(years), 'max': _.max(years) });
-        this.set('cpvsIsDisabled', false);
-        this.set('shouldUpdate.cpvs', true);
-        // this.resetCpvs();
+      this.set('query.years', []);
+      this.get('query.years').push(value[0]);
+      this.get('query.years').push(value[1]);
+      run.scheduleOnce('afterRender', function() {
+        $('span.left-year').text(value[0]);
+        $('span.right-year').text(value[1]);
+      });
+      this.set('query.years', _.range(this.get('query.years')[0], ++this.get('query.years')[1]));
+      let years = this.get('query.years');
+      this.set('queryYearsRange', { 'min': _.min(years), 'max': _.max(years) });
+      this.set('cpvsIsDisabled', false);
+      this.set('shouldUpdate.cpvs', true);
     },
 
     submitQuery() {
