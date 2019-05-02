@@ -5,6 +5,201 @@ body {
 }
 
 .wizard {
+  .wizard-error-mesage {
+    color: orangered;
+  }
+  .title {
+    margin: -15px !important;
+    // border: 1px solid red;
+    h3 {
+      padding: 0px;
+    }
+  }
+  .selected-options {
+    // border: 1px solid blueviolet;
+    margin-left: 15px !important;
+    margin-bottom: -10px;
+    padding: 0px;
+
+    .selected-option {
+      margin-right: 10px;
+      display: none;
+
+      &.completed {
+        display: inline-block !important;
+      }
+      // line-height: 18px;
+    }
+
+    .selected-countries * {
+      margin-bottom: -3px;
+    }
+
+    .selected-years-range {
+      background: darkgray;
+      border-radius: 3px;
+      height: 20px;
+      padding: 1px 5px;
+      font-size: 0.8rem;
+      color: #18181a;
+    }
+
+  }
+  .input-field label {
+    left: 0px !important;
+  }
+
+  .wizard-footer {
+    text-align: right;
+    margin-top: -30px;
+    margin-right: 50px;
+
+    button {
+      padding: 0px 15px;
+    }
+  }
+  .wizard-header {
+    position: relative;
+
+    ul li:first-child::before {
+      width: 0;
+    }
+    ul li:last-child::after {
+      width: 100%;
+    }
+
+    ul li::before {
+      width: 50%;
+      left: -50%;
+    }
+
+    ul li::after, ul li::before {
+      content: '';
+      display: block;
+      background: gray;
+      height: 1px;
+      position: absolute;
+      top: 25px;
+    }
+
+    ul li::after {
+      width: 100%;
+      left: 0%;
+      margin-left: 16px;
+    }
+
+    li {
+      width: 18%;
+      display: inline-block;
+      padding-right: 20px;
+      text-align: left;
+      position: relative;
+
+      a {
+        background: gray;
+        border-radius: 20px;
+        color: gray;
+        padding: 3px 9px 10px 8px;
+        font-size: 2px;
+        z-index: 100;
+        cursor: none;
+
+      }
+      p {
+        color: gray;
+      }
+      &.active {
+        a {
+          color: white;
+          background: white;
+        }
+        p {
+          color: white;
+        }
+
+      }
+      /*&.completed a {
+        color: green;
+      }
+       &.disabled a {
+        color: black;
+      }*/
+
+    }
+  }
+  .wizard-panel {
+    display: none;
+    position: relative;
+
+
+        &.current {
+      display: block !important;
+    }
+
+    ul.wizard-countries li {
+      display: inline-block;
+      margin-right: 20px;
+      padding: 3px 10px;
+      cursor: pointer;
+      border: 1px solid rgba(0,0,0,0);
+
+      i {
+        float: left;
+        margin-right: 10px;
+      }
+      &:hover{
+        border: 1px solid white;
+      }
+
+      &.selected {
+        border: 1px solid gray;
+      }
+    }
+  }
+
+  .size-type {
+    .qb-rendering-nodes, .qb-rendering-edges * {
+      cursor: pointer !important;
+    }
+    .dropdown-content {
+      background: #1b191d;
+      cursor: pointer !important;
+      top: 10px !important;
+      li {
+        clear: both;
+        background: none;
+        cursor: pointer !important;
+        min-height: 10px;
+        font-size: 1rem;
+        margin: 0px;
+        padding: 0px;
+        line-height: 0rem;
+        width: 100%;
+        text-align: left;
+        text-transform: none;
+        span {
+          cursor: pointer !important;
+          font-size: inherit;
+          color: gray;
+          display: block;
+          padding: 9px 11px;
+        }
+        &:hover {
+          background: none;
+          span {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
+
+.query-builder-old {
+  display: none !important;
+}
+
+.wizard {
   [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
     position: relative !important;
     left: 0px  !important;
@@ -17,12 +212,21 @@ body {
     }
 
     .ember-select-guru .ember-select-guru__container {
-      .guru__trigger-expanded {
-       /* .count-actors {
+      // deprecated
+      /*.guru__trigger-expanded {
+        .count-actors {
           display: none !important;
-        }*/
+        }
         ul.multi-value__selected {
           display: none !important;
+        }
+      }*/
+      .switch-select_all-options {
+        position: relative;
+        border: 1px solid red;
+
+        input {
+          cursor: pointer;
         }
       }
 
@@ -31,34 +235,39 @@ body {
           display: none;
         }
 
-        ul.multi-value__selected{
-          height: 33px;
-          //overflow: auto;
-        }
+      }
+    }
+    .selectedActors {
+      min-height: 150px;
+      padding-top: 10px;
+      margin-top: 50px;
+      width: 100%;
+      float: left;
+      ul.multi-value__selected {
+        height: 250px;
+        li {
+          display: inline-block;
+          padding-right: 20px;
 
-        &:hover{
-          .count-actors {
-            display: none;
-          }
-
-          ul.multi-value__selected {
-            display: block !important;
-            margin-top: 10px;
-
-            //display: flex;
-            // flex-basis: inherit;
-            //flex-direction: column ;
-            height: 100px;
-            //min-height: 50px;
-            //max-height: 200px;
-            //max-height: 200vh;
-            overflow: auto;
-
-            li{
-              margin-right: 15px;
+          .country-flag {
+            i {
+              margin-bottom: -2%;
             }
           }
 
+          .multi-value__remove {
+            cursor: pointer;
+            top: .6rem;
+            right: .37rem;
+            background: none;
+            color: gray;
+            font-weight: bold;
+            font-size: 1.2rem;
+
+            &:hover {
+              color: white;
+            }
+          }
         }
       }
     }
@@ -66,14 +275,15 @@ body {
 
 
   .wizard-step {
-    padding: $gutter-width 0;
-    padding-left: 6rem;
+    /*padding: $gutter-width 0;
+    padding-left: 6rem;*/
+    width: 75%;
     position: relative;
 
     //TODO: separate .wizard component. make it more adjustable (color, size)
 
     // numbering for sections
-    &:before {
+    /*&:before {
       counter-increment: wizard; // Increment the value of section counter by 1
       content: counter(wizard); // Display the value of section counter
       position: absolute;
@@ -104,7 +314,7 @@ body {
 
     &:last-of-type:after {
       display: none;
-    }
+    }*/
 
     h2,h3 {
       margin-top: 0;
@@ -120,7 +330,7 @@ body {
   // disabled step - user interaction is disabled
   .wizard-step.disabled {
     position: relative;
-    opacity: .3;
+    opacity: 0;
     user-select: none;
     pointer-events: none;
     transition: all .5s ease;
@@ -134,10 +344,29 @@ body {
       color: $text-inverse-color;
       transition: all .5s ease;
     }
+
+    button {
+      display: none;
+    }
   }
 
   // available step
   .wizard-step.current {
+    &:before {
+      border-color: $primary-color;
+      background: $bg-color;
+      color: $primary-color;
+      transform: scale(1.3);
+      transition: all .5s ease;
+    }
+
+  }
+
+  .wizard-step.enabled {
+    opacity: .5;
+    &:hover {
+      opacity: 1;
+    }
     &:before {
       border-color: $primary-color;
       background: $bg-color;

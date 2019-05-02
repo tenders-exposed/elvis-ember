@@ -28,16 +28,13 @@ export default Component.extend({
   },
 
   clickoutHandler(event) {
-
-    if (($().parent().children('.ember-select-guru__trigger').has(event.target).length > 0) ||
-      ($().parent().children('.ember-select-guru__trigger')[0] === event.target) ||
+    if ((this.$().parent().children('.ember-select-guru__trigger').has(event.target).length > 0) ||
+      (this.$().parent().children('.ember-select-guru__trigger')[0] === event.target) ||
       (event.target.className.indexOf('__guru') != -1)
     ) {
-      // console.log('elvis-select-dropdown clickoutHandler NO', this.$('.ember-select-guru__option .actor-option'));
-      return;
+      return false;
     } else {
-      // console.log('elvis-select-dropdown clickoutHandler YES', this.$('.ember-select-guru__option .actor-option'));
-      run(() => {
+      return run(() => {
         this._willHideDropdown();
       });
     }

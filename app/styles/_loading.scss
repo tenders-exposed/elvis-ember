@@ -1,3 +1,4 @@
+// loading the whole page, loader covers all viewport
 .page-preloader {
   background: fade-out($main-bg,0.9);
   position: fixed;
@@ -9,4 +10,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+// loading the content within a box, loader covers the box.
+// make sure the box has position: relative and some height and width
+.box-preloader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: $zindex-page-preloader;
+  background: fade-out($main-bg,0.9);
 }

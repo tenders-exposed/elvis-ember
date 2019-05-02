@@ -1,0 +1,17 @@
+<section class="wizard-step {{wizardSteps.countriesStatus}}">
+  <p>Select specific governments or companies you want to focus on, if any. You can also choose none.</p>
+  <!-- Actor Selector -->
+  {{actor-select-guru
+      value=query.rawActors
+      options=autocompleteActorsOptions
+      searchKey='name'
+      multiple= true
+      optionComponent='actor-option'
+      noOptionsComponent='qb-no-option'
+      multiValueComponent='actor-value'
+      onSearchInputChange=(action "actorTermChanged")
+      onSelect=(action "onAutocompleteSelectEvent")
+      countries = query.countries
+      checkActors = checkActors
+  }}
+</section>
