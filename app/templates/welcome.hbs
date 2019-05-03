@@ -19,20 +19,6 @@
           </ul>
         </div>
       </div>
-      <div class="col m6">
-        <div class="box">
-          <h4>Account</h4>
-          <p>Account allows you to save generated networks and merge nodes.</p>
-          <ul>
-            {{#if session.isAuthenticated}}
-              <li>{{#link-to 'account.new' class="btn primary transparent"}}Log in here{{/link-to}}</li>
-            {{else}}
-              <li>{{#link-to 'account.new' class="btn default transparent"}}Create an account{{/link-to}}</li>
-            {{/if}}
-          </ul>
-
-        </div>
-      </div>
     </div>
     <div class="row">
       <div class="col m6">
