@@ -8,12 +8,14 @@
   <!--Node Size-->
   <div class="row">
     <div class="qb-rendering-nodes col m7 s12">
-      {{md-select content=sizeType
-                  value=query.nodes
-                  label="Nodes type"
-                  prompt="Please choose..."
-                  optionLabelPath="content.label"
-                  optionValuePath="content.type" }}
+      <div class="input-field">
+        {{md-select content=sizeType
+                    value=query.nodes
+                    label="Nodes type"
+                    prompt="Please choose..."
+                    optionLabelPath="content.label"
+                    optionValuePath="content.type" }}
+      </div>
     </div>
     <div class="qb-rendering-edges col m5 s12 {{query.nodes}}">
       <!--Image-->
@@ -46,7 +48,7 @@
   <div class="row">
     <div class="col m7 s12">
         <div class="input-field">
-          <label for="first_name" class="active">Nameof the network</label>
+          <label for="first_name" class="active">Name of the network</label>
           <input type="text" id="networkName" value={{name}} />
         </div>
     </div>
