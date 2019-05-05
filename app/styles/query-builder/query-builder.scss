@@ -16,14 +16,10 @@
     margin-bottom: 1.5em;
   }
 
-  .numberOfWinningBids {
-    img.winningBids {display: block;}
-    img.moneyExchanged {display: none;}
+  img.winningBids,
+  img.moneyExchanged {
+    mix-blend-mode: color;
   }
 
-  .amountOfMoneyExchanged {
-    img.winningBids {display: none;}
-    img.moneyExchanged {display: block;}
-  }
 
 }

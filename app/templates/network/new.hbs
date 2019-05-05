@@ -3,11 +3,8 @@
   <div class="container">
     <div class="row">
       {{!--partial 'partials/network/new'--}}
-      <header class="center">
-        <h1>Launch New Visualisation</h1>
-        <p>Select criteria you would like to visualise from the <a href="opentender.eu">OpenTender data</a>.<br/>
-          Bare in mind that wider criteria will result in too much data to visualise which will make
-          the visualisation run slow.</p>
+      <header>
+        <h2>Network Builder</h2>
       </header>
       {{#if isMobile.any}}
         <p class="center"><i>
@@ -110,8 +107,6 @@
 
         {{/elvis-wizard}}
       </div>
-
-
     </div>
 
   </div>
