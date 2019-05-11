@@ -6,11 +6,11 @@
 /*elements*/
 @mixin box{
   border-radius: 5px;
-  border: 1px solid $box-border-color;
   padding: $gutter-width;
   position: relative;
   color: $text-color;
-  background: $bg-dark-color;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.4);
+  background: lighten($bg-dark-color,2%);
 
   .close{
     position: absolute;
@@ -131,6 +131,8 @@
   background: none;
   box-shadow: none;
   border-color: transparent;
+  padding-left: 1rem;
+  padding-right: 1rem;
   &:hover {
     color: $color;
   }

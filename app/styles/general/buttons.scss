@@ -3,19 +3,22 @@ $button-types:
         (primary, $primary-color),
         (secondary, $secondary-color),
         (success,$success-color),
-        (error,$error-color);
+        (error,$error-color),
+        (muted,#888);
 
 
 // button sizing
 // -------------------------
 .btn-small {
-   font-size: $button-small-font-size;
-   height: $button-small-height;
-   padding: $padding-small;
-   border-radius: $border-radius-base;
- }
+  cursor: pointer;
+  font-size: $button-small-font-size;
+  height: $button-small-height;
+  padding: $padding-small;
+  border-radius: $border-radius-base;
+}
 
 .btn-tiny {
+  cursor: pointer;
   font-size: $button-tiny-font-size;
   height: $button-tiny-height;
   padding: $padding-tiny;
@@ -36,6 +39,10 @@ $button-types:
   box-sizing: content-box;
   font-family: $font-family-sans;
 
+  & + & {
+    margin-left: .25em;
+  }
+
   // default values for buttons
   & {
     @include button-color($text-color);
@@ -45,6 +52,15 @@ $button-types:
   }
   &.link {
     @include button-link($text-color);
+
+    & + & {
+      margin-left: 0;
+    }
+
+    &.compact {
+      padding-left: .5rem;
+      padding-right: .5rem;
+    }
   }
 
   // other color versions
@@ -61,6 +77,12 @@ $button-types:
     &.link.#{$type} {
       @include button-link($color);
     }
+  }
+
+  &.wide {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 

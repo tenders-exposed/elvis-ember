@@ -51,6 +51,7 @@ $fs0 : 0.6rem;
 
 .buyer-color { color: $color-buyer; }
 .bidder-color { color: $color-bidder; }
+
 i.control-icon {
   color: $color-icon;
   cursor: pointer;
@@ -102,5 +103,8 @@ i.control-icon-light {
 }
 
 .c-notifications__container {
-  z-index: 99999 !important;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: $zindex-notification;
 }

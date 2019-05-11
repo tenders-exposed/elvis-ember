@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import { initialize } from 'elvis-ember/instance-initializers/network';
 import { module, test } from 'qunit';
 import destroyApp from '../../helpers/destroy-app';

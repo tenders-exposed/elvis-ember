@@ -32,35 +32,28 @@
     </div>
   </div>
 {{else}}
-  <div class="row">
-    <div class="col s12">
-      <h1>Recover Password</h1>
-      <hr>
-    </div>
-  </div>
-  {{#if emailSent}}
-    <div class="row center-align">
-      <p>Please check your email.</p>
-    </div>
-  {{else}}
-    <div class="query-form-container">
-      <form {{action "sendRecover" email on="submit"}}>
-        <div class="row">
+  <div style="margin-top: 3rem;">
+    <h3>Password recovery</h3>
+    {{#if emailSent}}
+      <p>Please check your email now. We have sent there further instructions on password recovery. </p>
+    {{else}}
+      <p class="lead">Use the email you registered with to reset your password. </p>
+      <div class="query-form-container">
+        <form {{action "sendRecover" email on="submit"}}>
           {{md-input
               label="your email"
               value=email
-              class="col s4 offset-s4"
               validate=true
+              class="inline"
           }}
-        </div>
-        <div class="row">
-          <div class="col s4 offset-s4 center-align">
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </div>
+          <br>
+          <button type="submit" class="btn primary">Submit</button>
 
-      </form>
-    </div>
-  {{/if}}
+        </form>
+      </div>
+    {{/if}}
+  </div>
+  <br><br>
+  <br><br>
 
 {{/if}}

@@ -1,68 +1,8 @@
 <div class="page wizard">
 
-  {{! @TODO: this whole section is also in network/show.hbs.
-          remove if this code is not used. }}
-  <section id="legend" class="wizard-legend">
-
-    <div class="launch-network launch-network100">
-      <i class="fa fa-spinner fa-pulse fa-fw"></i> Your Network is being created.
-
-      This is probably going to tale a while...
-    </div>
-
-    <div class="carousel">
-      {{#carousel-container transitionInterval=400 as |ui controls|}}
-        <div class="carousel-body">
-          {{#ui.item}}
-            <div class="carousel-content">
-              <img src="images/carousel/1company.jpg">
-            </div>
-          {{/ui.item}}
-          {{#ui.item}}
-            <div class="carousel-content">
-              <img src="images/carousel/2govermnt.jpg">
-            </div>
-          {{/ui.item}}
-          {{#ui.item}}
-            <div class="carousel-content">
-              <img src="images/carousel/3relationship.jpg">
-            </div>
-          {{/ui.item}}
-          {{#ui.item}}
-            <div class="carousel-content">
-              <img src="images/carousel/4merging.jpg">
-            </div>
-          {{/ui.item}}
-          {{#ui.item}}
-            <div class="carousel-content">
-              <img src="images/carousel/5tenders.jpg">
-            </div>
-          {{/ui.item}}
-
-        </div>
-
-        <div class="carousel-controls">
-
-          <small class="carousel-control carousel-right" onclick={{controls.next}}>
-            {{fa-icon "arrow-circle-left"}} Previous
-          </small>
-          <small class="carousel-control carousel-left" onclick={{controls.previous}}>
-            {{fa-icon "arrow-circle-right"}} Next
-          </small>
-
-          <div class="carousel-close">
-            <a class="btn-tiny transparent" {{action "toggleInfo" on="click"}}>
-              Close
-            </a>
-          </div>
-        </div>
-
-      {{/carousel-container}}
-    </div>
-  </section>
-
   <div class="container">
     <div class="row">
+      {{!--partial 'partials/network/new'--}}
       <header class="center">
         <h1>Launch New Visualisation</h1>
         <p>Select criteria you would like to visualise from the <a href="opentender.eu">OpenTender data</a>.<br/>
@@ -70,7 +10,16 @@
           the visualisation run slow.</p>
       </header>
 
-      {{! @TODO: hide everything else if device is small screen and show only this message. }}
+      <!-- NEW QUERY BUILDER HTML STARTS HERE
+
+          TODO: for now we need to make the query builder function with real data.
+          TODO 2: wizard functionality (this will make it more beautiful, but is not that necessary):
+              .wizard-step has 3 states:
+                    1 .wizard-step.disabled - a step which cannot be completed because other inputs (from previous steps) need to be filled
+                    2 .wizard-step.current - a step which has not been completed, but can be interacted with
+                    3 .wizard-step.completed - this step is available for interaction AND all inputs inside this step which are necessary for the next step to be enabled, has been filled
+      -->
+
       {{#if isMobile.any}}
         <p class="center"><i>
           Hi! You are using a mobile device. We get this.
@@ -80,265 +29,100 @@
           Thank you!
         </i></p>
       {{/if}}
-
-
-      {{!
-        @TODO: create a component for each Query Builder step
-      }}
       <div id="query-builder" class="wizard">
-
-        <!-- STEP 1: country and actors selection	 -->
-        <section class="wizard-step {{countriesStatus}}">
-          <div class="row">
-            <div class="col m4 s12">
-              <h3>Select a country and/or actors*</h3>
-              <p>Only procurement from these countries and/or actors* will be visualised.
-                * actors are <div class="figure-bidder"></div>  companies or <div class="figure-buyer"></div> government institutions</p>
-            </div>
-            <div class="col m8 s12">
-              <div class="input-field col m6 s12">
-                <span class="input-prefix"><i class="fa fa-globe"></i></span>
-
-                {{ember-select-guru
-                    value=query.rawCountries
-                    options=countries
-                    searchKey='text'
-                    multiple=true
-                    optionComponent='country-option'
-                    noOptionsComponent='qb-no-option'
-                    onSelect=(action "onCountrySelectEvent")
-                }}
-                <label>Select countries</label>
-              </div>
-              <div class="input-field col m6 s12 select-actors">
-                <span class="input-prefix">
-                  <i class="fa fa-briefcase"></i>
-                </span>
-
-                {{elvis-select-guru
-                    value=query.rawActors
-                    options=autocompleteActorsOptions
-                    searchKey='name'
-                    multiple= true
-                    optionComponent='actor-option'
-                    noOptionsComponent='qb-no-option'
-                    multiValueComponent='actor-value'
-                    onSearchInputChange=(action "actorTermChanged")
-                    onSelect=(action "onAutocompleteSelectEvent")
-                    countActors = countActors
-
-                }}
-                <label>
-                  Select actors
-                </label>
-              </div>
-            </div>
+        <!--<div class="row valign-wrapper">
+          <div class="col s3 title">
+            <h3>
+              Network Builder
+            </h3>
           </div>
-        </section>
+          <div class="col s8 selected-options">
+              {{#if (eq wizardSteps.countriesStatus 'completed')}}
+                <span class="selected-option selected-countries">
+                  {{#each query.countries as |country|}}
+                    {{world-flag country 16}}
+                  {{/each}}
+                </span>
+              {{/if}}
 
-        <!-- STEP 2: year range	 -->
-        <section class="wizard-step {{yearsStatus}}">
-          <div class="row">
-            <div class="col m4 s12">
-              <h3>Year range</h3>
-              <p>Only procurement in this year range will be visualised</p>
-            </div>
-            <div class="col m8 s12">
-              {{#if loading.years}}
-                Loading...
-              {{else}}
-                {{#if years.length}}
-                  <div class="input-field col m6 s12">
-                    {{range-slider
-                        range = yearsRange
-                        start = yearsStart
-                        step=1
-                        connect=true
-                        tooltips=true
-                        disabled=rangeIsDisabled
-                        class=(concat rangeDisableClass ' noUi-target noUi-ltr noUi-horizontal noUi-background' )
-                        on-slide="rangeSlideAction"
-                        on-change="rangeChangeAction"
-                    }}
-                  </div>
-                {{else}}
-                  No years range is available for your selection.
-                {{/if}}
+              {{#if (eq wizardSteps.yearsStatus 'completed')}}
+                <span class="selected-option selected-years-range">
+                  {{queryYearsRange.min}} - {{queryYearsRange.max}}
+                </span>
+              {{/if}}
+
+              {{#if selectedCodesCount}}
+                <span class="selected-option selected-markets">
+                {{selectedCodesCount}} <small>markets</small>
+              </span>
               {{/if}}
             </div>
-          </div>
-        </section>
-
-        <!-- STEP 3: specifying CPVs: markets/industry fields -->
-        <section class="wizard-step {{cpvsStatus}}">
-          <div class="row">
-            <div class="col m4 s12">
-              <h3>Markets / Fields</h3>
-              <p>Only selected procurement markets will be visualised.</p>
-              <p><a href="https://simap.ted.europa.eu/cpv" target="_blank"><i class="fa fa-arrow-right"></i> Read more about CPV codes</a></p>
-              <p><h4>{{selectedCodesCount}} <small>winning bids selected</small></h4></p>
-            </div>
-            <div class="col m8 s12">
-              <div class="cpv-selector cpv-tree">
-                <!-- @NOTE: ember-scrollable scrollbar needs to be wrapping the long content, and its parent must have limited height  - in this case .cpv-selector { height: 400px; } -->
-                {{#if loading.cpvs}}
-                  {{#if query.countries}}
-                    <i class="fa fa-spinner fa-pulse fa-fw"></i> Loading...
-                  {{/if}}
-                {{else}}
-                  {{#if cpvsIsDisabled}}
-                    {{log loading.cpvs}}
-
-                    {{#if cpvs}}
-                      <form class="row" {{action 'searchCpv' on='submit'}}>
-                        <div class="col s8">
-                          {{input type="text"
-                                  placeholder="search for keyword of CPV code.."
-                                  class="search-input form-control"
-                                  value=cpvSearchTerm
-                          }}
-                        </div>
-                        <div class="col s2">
-                          {{md-btn text=''
-                                   icon='fa fa-search'
-                                   action='searchCpv'
-                                   class='grey darken-3 btn-floating'
-                          }}
-                        </div>
-                      </form>
+        </div>-->
 
 
-                      {{#ember-scrollable}}
-                        <div class="jstree-default-dark-small">
-                          {{ember-jstree
-                              data=tree
-                              plugins=jsTreeConfig.plugins
-                              themes=jsTreeConfig.core.themes
-                              selectedNodes=selectedCodes
-                              searchOptions=jsTreeConfig.searchOptions
-                              checkboxOptions=jsTreeConfig.checkbox
-                              actionReceiver=jsTree
-                              searchTerm=cpvSearchTree
-                          }}
-                        </div>
-                      {{/ember-scrollable}}
-                    {{else}}
-                      {{#if years}}
-                        Available CPV codes will be shown here after completing steps 1 and 2.
-                      {{else}}
-                        No CPV codes are available for your selection.
-                      {{/if}}
-                    {{/if}} {{!--{{#if cpvs}} --}}
-                  {{else}}{{!-- {{#if cpvsIsDisabled}} --}}
-                    <div class="loadcpvs">
-                      {{md-btn-submit
-                          action='loadCpvs'
-                          class='btn-large primary'
-                          text='Load Markets!'
-                          isDisabled=cpvsIsDisabled
-                      }}
-                    </div>
-                  {{/if}} {{!-- {{#if cpvsIsDisabled}} --}}
-                {{/if}} {{!-- {{#if loading.cpvs}} --}}
-              </div>
-            </div>
-          </div>
-        </section>
 
-        <!-- STEP 4: rendering options for nodes and edges -->
-        <section class="wizard-step {{optionsStatus}}">
-          <div class="row">
-            <div class="col m4 s12">
-              <h3>Rendering options</h3>
-              <p>Select what type of data do network entities represent.</p>
-            </div>
-            <div class="col m8 s12">
-              <!--Node Size-->
-              <div class="row">
-                <div class="qb-rendering-nodes col m7 s12">
-                  <h5>Dot size<span class="text-muted">represents</span></h5>
-                  {{radio-button
-                      value="numberOfWinningBids"
-                      radioId="nodeSizeCount"
-                      groupValue=query.nodes
-                  }}
-                  <label class="node-size-count" for="nodeSizeCount">Number of contracts</label>
-                  <br>
-                  {{radio-button
-                      value="amountOfMoneyExchanged"
-                      radioId="nodeSizeSum"
-                      groupValue=query.nodes
-                  }}
-                  <label class="node-size-sum" for="nodeSizeSum">Money sum of all contracts</label>
-                </div>
-                <div class="qb-rendering-edges col m5 s12 {{query.nodes}}">
-                 <!--Image-->
-                  <img class="winningBids" height="130" width="240" src="images/wizard4/nodecontracts.png"/>
-                  <img class="moneyExchanged" height="130" width="240" src="images/wizard4/nodemoney.png"/>
+        {{#elvis-wizard
+            wizardData=wizardData
+            submitAction="submitQuery"
+            cancelAction="cancelAction"
+            wizardShowNextStep=wizardShowNextStep
+            wizardStepChangeAction="wizardStepChanged"
+            buttonLabels=customButtonLabels
+            animationDuration=700
+            useRoundedNav=useRoundedNav
+            as |currentState|
+        }}
+          {{#currentState.step-completed stepId="1" name="selected-countries" wizardCurrentState=currentState}}
+            {{#each query.countries as |country|}}
+              {{world-flag country 16}}
+            {{/each}}
+          {{/currentState.step-completed}}
 
-                </div>
-              </div>
-              <!--Edge size-->
-              <div class="row">
-                <div class="qb-rendering-edges col m7 s12">
-                  <h5>Connecting line<span class="text-muted">represents</span></h5>
-                  {{radio-button
-                      value="numberOfWinningBids"
-                      radioId="edgeSizeCount"
-                      groupValue=query.edges
-                  }}
-                  <label class="edge-size-count" for="edgeSizeCount"> Number of contracts </label>
-                  <br>
-                  {{radio-button
-                      value="amountOfMoneyExchanged"
-                      radioId="edgeSizeSum"
-                      groupValue=query.edges
-                  }}
-                  <label class="edge-size-sum" for="edgeSizeSum"> Money flow between entities </label>
-                </div>
-                <div class="qb-rendering-nodes col m5 s12 {{query.edges}}">
-                  <!--image-->
-                  <!--flow-->
-                  <img class="winningBids" height="130" width="240" src="images/wizard4/edges2.png"/>
-                  <!--money-->
-                  <img class="moneyExchanged" height="130" width="240" src="images/wizard4/edges.png"/>
-                </div>
-              </div>
+          {{#currentState.step-completed stepId="3" name="selected-years-range" wizardCurrentState=currentState}}
+            {{queryYearsRange.min}} - {{queryYearsRange.max}}
+          {{/currentState.step-completed}}
 
-            </div>
-          </div>
-        </section>
+          {{#currentState.step-completed stepId="4" name="selected-markets" wizardCurrentState=currentState}}
+            {{selectedCodesCount}} <small>markets</small>
+          {{/currentState.step-completed}}
 
-        <!-- STEP 5: rendering options for nodes and edges -->
-        <section class="wizard-step {{optionsStatus}}">
-          <div class="row">
-            <div class="col m4 s12">
-              <h3>Network name (optional)</h3>
-              <p>Name this network</p>
-            </div>
-            <div class="col m8 s12">
-              <div class="row">
-                <div class="qb-rendering-nodes col m5 s12">
-                  {{input type="text" id="networkName" value=name placeholder="Name of the network"}}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
-      {{#if isMobile.any}}
-        <p class="center">Submit is disabled for mobile devices</p>
-      {{else}}
-        <div class="wizard-finish center">
-          {{md-btn-submit
-              action='submitQuery'
-              class='btn-large primary'
-              text='Visualise!'
-              isDisabled=submitIsDisabled
-          }}
-        </div>
-      {{/if}}
+          {{#currentState.step stepId="1" wizardCurrentState=currentState}}
+            {{partial 'network/partials/wizard-countries'}}
+          {{/currentState.step}}
+
+          {{#currentState.step stepId="2"  wizardCurrentState=currentState}}
+            {{#if wizardErrorMessage}}
+              <p class="wizard-error-mesage">{{wizardErrorMessage}}</p>
+            {{/if}}
+            {{partial 'network/partials/wizard-actors'}}
+          {{/currentState.step}}
+
+          {{#currentState.step stepId="3"  wizardCurrentState=currentState}}
+            {{#if loading.years}}
+              {{elvis-loader  message="Loading years.."}}
+            {{else}}
+              {{partial 'network/partials/wizard-years'}}
+            {{/if}}
+          {{/currentState.step}}
+
+          {{#currentState.step stepId="4" wizardCurrentState=currentState}}
+            {{#if loading.cpvs}}
+              {{elvis-loader  message="Loading.."}}
+            {{else}}
+              {{partial 'network/partials/wizard-cpvs'}}
+            {{/if}}
+          {{/currentState.step}}
+
+          {{#currentState.step stepId="5"  wizardCurrentState=currentState}}
+            {{partial 'network/partials/wizard-settings'}}
+          {{/currentState.step}}
+
+
+        {{/elvis-wizard}}
       </div>
+
+
     </div>
   </div>
 </div>
