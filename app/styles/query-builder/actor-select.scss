@@ -1,4 +1,5 @@
 .actor-select {
+  $actor-select-height: 200px;
 
   // refactor inherited ember-select-guru styles
   .ember-select-guru__trigger {
@@ -14,8 +15,7 @@
     padding: 0;
   }
 
-
-    // actor select
+  // actor select dropdown
   .actor-select-dropdown {
     position: relative;
     border: $input-border;
@@ -28,7 +28,7 @@
       padding-left: 2em;
       margin-bottom: 0;
       box-sizing: border-box;
-      border-bottom: $input-border;
+      border: none;
     }
 
     // search icon
@@ -83,7 +83,7 @@
   &.actor-select__expanded {
     .actor-select-options {
       display: block;
-      height: 200px;
+      height: $actor-select-height;
     }
   }
 }
