@@ -1,0 +1,63 @@
+<section class="wizard-step {{wizardSteps.cpvsStatus}}">
+  <div class="row">
+    Restrict visualization to specific markets
+    <p><a href="https://simap.ted.europa.eu/cpv" target="_blank"><i class="fa fa-arrow-right"></i> Read more about CPV codes</a></p>
+  </div>
+  <div class="row">
+    <div class="col m12 s12">
+      <div class="cpv-selector cpv-tree">
+
+        {{#if cpvsIsDisabled}}
+          {{log loading.cpvs}}
+
+          {{#if cpvs}}
+            <form class="row" {{action 'searchCpv' on='submit'}}>
+              <div class="col s10">
+                {{input type="text"
+                        placeholder="search for keyword of CPV code.."
+                        class="search-input form-control"
+                        value=cpvSearchTerm
+                }}
+              </div>
+              <div class="col s2 right-align">
+                {{md-btn text=''
+                         icon='search'
+                         action='searchCpv'
+                         class='primary'
+                }}
+              </div>
+            </form>
+
+            <p>
+              <h4>
+                {{selectedCodesCount}}
+                <small>winning bids selected</small>
+              </h4>
+            </p>
+
+            {{#ember-scrollable}}
+              <div class="jstree-default-dark-small">
+                {{ember-jstree
+                    data=tree
+                    plugins=jsTreeConfig.plugins
+                    themes=jsTreeConfig.core.themes
+                    selectedNodes=selectedCodes
+                    searchOptions=jsTreeConfig.searchOptions
+                    checkboxOptions=jsTreeConfig.checkbox
+                    actionReceiver=jsTree
+                    searchTerm=cpvSearchTree
+                }}
+              </div>
+            {{/ember-scrollable}}
+          {{else}}
+            {{#if years}}
+              Available CPV codes will be shown here after completing steps 1 and 2.
+            {{else}}
+              No CPV codes are available for your selection.
+            {{/if}}
+          {{/if}} {{!--{{#if cpvs}} --}}
+        {{/if}} {{!-- {{#if cpvsIsDisabled}} --}}
+      </div>
+    </div>
+  </div>
+</section>

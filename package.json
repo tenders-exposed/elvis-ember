@@ -65,6 +65,7 @@
     "ember-cli-test-loader": "^2.1.0",
     "ember-cli-tinycolor": "^1.0.0",
     "ember-cli-uglify": "^2.0.0",
+    "ember-cli-wizard": "^0.1.9",
     "ember-composability": "^0.3.8",
     "ember-data": "3.0.0",
     "ember-data-table": "^1.0.0-beta.3",
@@ -108,6 +109,7 @@
   },
   "dependencies": {
     "color-string": "^1.5.3",
-    "npm": "^6.8.0"
+    "npm": "^6.8.0",
+    "vis": "git+https://git@github.com/tenders-exposed/vis.git"
   }
 }

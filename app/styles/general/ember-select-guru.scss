@@ -63,9 +63,12 @@
 
 // dropdown option
 .ember-select-guru__option {
-  padding: $padding-small/2 $padding-small;
   cursor: pointer;
   line-height: 1.5;
+
+  > .__guru {
+    padding: $padding-small/2 $padding-small;
+  }
 
   // hover
   &:hover,
@@ -76,14 +79,14 @@
 
   // options with flags
   [class*=flag] {
-    vertical-align: middle;
+    top: 2px;
+    position: relative;
   }
 }
 
 // expanded state
 .ember-select-guru.ember-select-guru__expanded {
-  box-shadow: 1px 1px 10px rgba(0,0,0,0.8);
-  z-index: 999;
+  z-index: $zindex-dropdown;
 
   .ember-select-guru__container {
     background: rgba(0, 0, 0, 0.6);
@@ -100,7 +103,7 @@
 .multi-value__option {
   display: inline-block;
   margin: 0;
-  padding: .2em .6em;
+  padding: .1em 1em .2em .6em;
   border-radius: $border-radius-small;
   border: $input-border;
   background: rgba(0,0,0,0.3);
@@ -109,20 +112,22 @@
   font-family: $font-family-sans;
   line-height: $base-line-height;
   position: relative;
+
+  .country-flag {
+    position: relative; // TODO: resolve general style for country flag displaying in the middle of the line
+    top: 4px;
+  }
 }
 // remove btn
 .multi-value__remove {
   display: inline-block;
-  @include circle(0.78rem);
-  font-size: 1rem;
-  background: #444;
-  color: $bg-color;
-  position: absolute;
-  top: -.39rem;
+  color: #444;
+  position: relative;
   right: -.39rem;
+  cursor: pointer;
+
   &:hover {
-    color: rgba(0,0,0,0.6);
-    background: $error-color;
+    color: $error-color;
   }
 }
 

@@ -1,0 +1,54 @@
+<section class="wizard-step size-type {{optionsStatus}}">
+  <div class="row">
+    <div class="col m12 s12">
+      <h3>Rendering options</h3>
+      <p>Select what type of data do network entities represent.</p>
+    </div>
+  </div>
+  <!--Node Size-->
+  <div class="row">
+    <div class="qb-rendering-nodes col m7 s12">
+      {{md-select content=sizeType
+                  value=query.nodes
+                  label="Nodes type"
+                  prompt="Please choose..."
+                  optionLabelPath="content.label"
+                  optionValuePath="content.type" }}
+    </div>
+    <div class="qb-rendering-edges col m5 s12 {{query.nodes}}">
+      <!--Image-->
+      <img class="winningBids" height="130" width="240" src="/images/wizard4/nodecontracts.png"/>
+      <img class="moneyExchanged" height="130" width="240" src="/images/wizard4/nodemoney.png"/>
+
+    </div>
+  </div>
+  <!--Edge size-->
+  <div class="row">
+    <div class="qb-rendering-nodes col m7 s12">
+      {{md-select content=sizeType
+                  value=query.edges
+                  label="Edges type"
+                  prompt="Please choose..."
+                  optionLabelPath="content.label"
+                  optionValuePath="content.type" }}
+    </div>
+    <div class="qb-rendering-edges col m5 s12 {{query.edges}}">
+      <!--image-->
+      <!--flow-->
+      <img class="winningBids" height="130" width="240" src="/images/wizard4/edges2.png"/>
+      <!--money-->
+      <img class="moneyExchanged" height="130" width="240" src="/images/wizard4/edges.png"/>
+    </div>
+  </div>
+</section>
+
+<section class="wizard-step {{optionsStatus}}">
+  <div class="row">
+    <div class="col m7 s12">
+        <div class="input-field">
+          <label for="first_name" class="active">Nameof the network</label>
+          <input type="text" id="networkName" value={{name}} />
+        </div>
+    </div>
+  </div>
+</section>

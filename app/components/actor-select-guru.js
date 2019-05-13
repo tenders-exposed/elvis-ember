@@ -12,7 +12,7 @@ export default EmberSelectGuru.extend({
       let self = this;
 
       _.each(selected, (option) => {
-        if (option.country && _.indexOf(self.get('countries'), option.country) >= 0) {
+        if (_.indexOf(self.get('countries'), option.country) >= 0) {
           this.get('_value').pushObject(option);
         }
         this.set('value', _.cloneDeep(this.get('_value')));
@@ -62,7 +62,6 @@ export default EmberSelectGuru.extend({
     },
     expandComponent() {
       if (!this.get('isExpanded')) {
-        this.set('queryTerm', '');
         this._resetCurrentHighlight();
       }
       this.set('isExpanded', true);
