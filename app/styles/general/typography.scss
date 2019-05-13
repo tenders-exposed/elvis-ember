@@ -107,13 +107,7 @@ code {
   background-color: rgba(255,255,255,0.1);
 }
 
-ul li, ol li {
-  font-size: $font-size-large;
-  font-family: $font-family-serif;
-  color: fade-out($text-color,0.25);
-}
 ul li {
-  margin: $gutter-width/2 0;
 
   // list with icons
   > .fa:first-child,
