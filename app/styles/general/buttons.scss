@@ -25,6 +25,12 @@ $button-types:
   border-radius: $border-radius-base;
 }
 
+.btn-large {
+  padding: .25rem 1.5rem;
+  height: $button-large-height;
+  font-size: 1.2em;
+}
+
 // generate buttons
 // -------------------------
 .btn,

@@ -1,4 +1,7 @@
 #query-builder {
+  padding-bottom: 20px;
+  margin-bottom: 100px;
+
   // year select
   form span.year-label {
     color: rgba(255,255,255,.7);
@@ -7,29 +10,16 @@
     &.right-year { bottom: 20px; right: -7px; }
   }
 
-  // cpv selector. TODO: separate component
-  .cpv-selector {
-    max-height: 400px;
-    height: 400px;
-    position: relative;
-    overflow: hidden;
-  }
-
   // rendering options
   .qb-rendering-edges,
   .qb-rendering-nodes {
     margin-bottom: 1.5em;
   }
 
-  div.numberOfWinningBids {
-    img.winningBids {display: block;}
-    img.moneyExchanged {display: none;}
+  img.winningBids,
+  img.moneyExchanged {
+    mix-blend-mode: color;
   }
 
-  div.amountOfMoneyExchanged {
-    img.winningBids {display: none;}
-    img.moneyExchanged {display: block;}
-
-  }
 
 }

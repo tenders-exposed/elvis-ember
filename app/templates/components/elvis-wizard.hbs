@@ -1,23 +1,16 @@
-<div class="row valign-wrapper">
-  <div class="col s3 title">
-    <h3>
-      Network Builder
-    </h3>
-  </div>
-  <div class="col s8 selected-options">
-    {{log currentStep}}
-    {{yield (hash
-                currentStep=currentStep
-                step-completed=(component 'wizard-step-completed'))
-    }}
-  </div>
+<div class="selected-options">
+  {{log currentStep}}
+  {{yield (hash
+              currentStep=currentStep
+              step-completed=(component 'wizard-step-completed'))
+  }}
 </div>
 
 {{#if showHeader}}
 
-  <div class="row wizard-header">
+  <div class="wizard-header">
     <div class="{{if showDelete 'col-xs-10' 'col-xs-12'}} no-padding">
-      <ul class="nav nav-pills col-xs-12">
+      <ul class="nav nav-pills">
         {{#each wizardData as |item|}}
           {{#if showRoundedNav}}
             <li role="presentation"
@@ -26,7 +19,7 @@
                         {{if (eq currentStep item.step_id) 'active'
                              (if (gt currentStep item.step_id) 'completed' 'disabled')}}">
               <a class="rounded-nav" href="#" {{action 'handleNavClick'}}>
-                {{item.step_id}}
+                <span class="sr-only">{{item.step_id}}</span>
               </a>
               <p class="rounded-nav-label">{{item.header_label}}</p>
             </li>
@@ -54,7 +47,7 @@
 
 
 
-<div class="row panel-wrapper {{if isAnimating 'animating'}}">
+<div class=" panel-wrapper {{if isAnimating 'animating'}}">
   {{#if useContextualComponents}}
     {{yield (hash
                 currentStep=currentStep
@@ -73,13 +66,13 @@
 
 
 {{#if wizardData}}
-  <div class="row wizard-footer">
+  <div class=" wizard-footer">
     {{#unless isFirstStep}}
-      <button class="btn btn-default" {{action "decrementStep"}}>
+      <button class="btn-large transparent" {{action "decrementStep"}}>
         {{previousBtnLabel}}
       </button>
     {{/unless}}
-    <button class="btn btn-primary {{nextBtnDisabled}}" {{action "incrementStep"}}>
+    <button class="btn-large primary {{nextBtnDisabled}}" {{action "incrementStep"}}>
       {{#if isLastStep}}
         {{finishBtnLabel}}
       {{else}}

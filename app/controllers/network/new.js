@@ -397,7 +397,7 @@ export default Controller.extend({
               this.fetchYears();
             }
           } else {
-            wizardErrorMessage = '!You must select at least one country or one actor';
+            wizardErrorMessage = 'You must select at least one country or one actor';
             wizardShowNextStep = false;
           }
 
