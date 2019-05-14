@@ -39,7 +39,9 @@ h3 {
 }
 h4 {
   font-size: $h4-fontsize;
+  font-family: $font-family-sans;
   font-weight: bold;
+  opacity: .85;
 }
 h5 {
   font-size: $h5-fontsize;
@@ -63,6 +65,15 @@ a {
   &:hover { color: $link-color-hover; }
 }
 
+hr {
+  border: 0;
+  border-bottom: $input-border;
+
+  &.short {
+    max-width: 200px;
+  }
+}
+
 
 // paragraph. slightly bigger font
 p {
@@ -77,6 +88,11 @@ p.flow-text {
   font-size: 1.4rem;
   //color: white;
   line-height: 1.3;
+}
+p.lead {
+  font-family: $font-family-sans;
+  font-size: 1.2rem;
+  opacity: .65;
 }
 p.small {
   font-size: .8rem

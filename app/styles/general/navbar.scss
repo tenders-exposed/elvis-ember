@@ -4,13 +4,13 @@ nav {
 }
 
 .navbar {
-  $navbar-bg: rgba(0,0,0,0.2);
-  $navbar-font-family: $font-family-serif;
+  $navbar-bg: transparent;
+  $navbar-font-family: $font-family-sans;
   $navbar-font-size: 1.28rem;
   $navbar-text-color: $text-color;
 
   background: $navbar-bg;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  box-shadow: none;
 
   .nav-wrapper {
     padding-left: $padding-base;
@@ -28,26 +28,33 @@ nav {
   ul li a {
     font-family: $navbar-font-family;
     font-size: $navbar-font-size;
-  }
+    font-weight: normal;
 
-  ul li a,
-  .brand-logo {
     max-height: $navbar-height;
-    opacity: 0.6;
     position: relative;
-    &:hover { opacity: .9; }
+    vertical-align: middle;
+
+    &:hover {
+      color: $primary-color;
+      background: none;
+    }
   }
 
   .brand-logo {
-    font-family: $font-family-serif;
-    font-style: italic;
-    letter-spacing: .1em;
+    position: relative;
+    top: -3px;
+    margin-right: 20px;
+
+    em {
+      font-family: $font-family-serif;
+      letter-spacing: .1em;
+    }
+
   }
 
   // make logo img fit into navbar's height
   .brand-logo,
   .brand-logo img {
-    //height: 100%;
     vertical-align: middle;
   }
 
@@ -57,14 +64,6 @@ nav {
     left: $padding-base;
   }
 
-  // centering a nav
-  // @note: this avoids the rules as navigation should not be centered according to material design guidelines
-  .center {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-  }
 }
 
 

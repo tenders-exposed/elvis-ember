@@ -38,10 +38,6 @@ export default Route.extend({
 
   activate() {
     this.notifications.clearAll();
-    this.notifications.info('This page might be subject to layout changes', {
-      autoClear: true,
-      clearDuration: 15000
-    });
   },
 
   setupController(controller) {

@@ -1,16 +1,15 @@
 <!-- new navbar -->
-<nav id="main-navbar" class="navbar navbar-fixed open">
+<nav class="navbar navbar-fixed open">
     <div class="nav-wrapper">
-		    {{#link-to 'application' class="brand-logo"}}
-            <img alt="ELVIS - public spending visualisation tool" height="60" src="images/elvis-logo-white.png"/>
-            <em class="hide-on-med-and-down">map me tender</em>
-		    {{/link-to}}
         <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">menu</i></a>
-        <ul class="center hide-on-med-and-down">
+        <ul class="left hide-on-med-and-down">
+          <li>
+          {{#link-to 'application' class="brand-logo"}}
+            <img alt="ELVIS - public spending visualisation tool" height="60" src="/images/elvis-logo-white.png"/>
+          {{/link-to}}
+          </li>
             <li>
-				        {{#link-to 'network.new' class=""}}
-                    <span>Create a network</span>
-				        {{/link-to}}
+				        {{#link-to 'network.new'}} Create a network {{/link-to}}
             </li>
             <li> {{link-to 'About' 'about'}} </li>
             {{!--<li> {{link-to 'Gallery' 'gallery'}} </li>--}}
@@ -40,8 +39,7 @@
 				        </ul>
 		        {{else}}
               <div class="right">
-                <a class="btn link" href="#" {{action 'toggleLoginModal'}}>Login</a>
-                {{#link-to 'account.new' class="btn transparent"}} Register {{/link-to}}
+                <a class="btn link" href="#" {{action 'toggleLoginModal'}}>Login / Register</a>
               </div>
 		        {{/if}}
         </div>
@@ -71,110 +69,11 @@
     </ul>
 </nav>
 
-<!-- old navbar (hidden) -->
-<div class="menu-container hide">
-
-  <div id="main-navbar" class="navbar-fixed ">
-      <!-- Dropdown Structure -->
-      {{#if session.isAuthenticated}}
-      <ul id="dropdown1" class="dropdown-content">
-        {{#link-to 'network.list' tagName='li'}}
-          {{#link-to 'network.list'}}
-            My projects
-          {{/link-to}}
-        {{/link-to}}
-        <li><a {{action 'invalidateSession'}}>Log out</a></li>
-      </ul>
-      {{/if}}
-
-      <nav class="mainbg main-nav lighten-4">
-        <div class="nav-wrapper">
-          <div class="container">
-            <div class="row">
-              <div class="col s12">
-                {{#link-to 'application' class="left logo-container"}}
-                  <img alt="Logo" class="logo" src="/images/elvis-logo-white.png"/>
-                {{/link-to}}
-
-                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-
-                <ul class="left hide-on-med-and-down main-menu">
-                  <!--left links-->
-                  <li> {{link-to 'About' 'about'}} </li>
-                  <li><a href="https://talk.tenders.exposed/" target="_blank">Community</a></li>
-                </ul>
-
-                <ul class="right hide-on-med-and-down main-menu">
-                  {{#if session.isAuthenticated}}
-                    {{#link-to 'network.new' tagName='li'}}
-                      {{#link-to 'network.new'}} New visualisation {{/link-to}}
-                    {{/link-to}}
-
-                    <!-- Dropdown Trigger -->
-                    <li>
-                      <a class="dropdown-button" href="#!" data-activates="dropdown1">
-                        Account<i class="material-icons right">arrow_drop_down</i>
-                      </a>
-                    </li>
-                  {{else}}
-                    <li>
-                      <a href="#" {{action 'toggleLoginModal'}}>Login</a>
-                    </li>
-                    {{#link-to 'account.new' tagName='li'}}
-                      {{#link-to 'account.new'}} Sign up {{/link-to}}
-                    {{/link-to}}
-                  {{/if}}
-                </ul>
-
-                <ul class="side-nav" id="mobile-demo">
-                  {{#link-to 'network.new' tagName='li'}}
-                    {{#link-to 'network.new'}}
-                      {{fa-icon "snowflake-o" class="left" }} New visualisation
-                    {{/link-to}}
-                  {{/link-to}}
-                  {{#if session.isAuthenticated}}
-                    {{#link-to 'network.list' tagName='li'}}
-                      {{#link-to 'network.list'}}
-                        {{fa-icon "folder-open" class="left"}} My projects
-                      {{/link-to}}
-                    {{/link-to}}
-
-                    <li>
-                      <a {{action 'invalidateSession'}}>
-                        {{fa-icon "power-off" class="left" }} Log out
-                      </a>
-                    </li>
-                  {{/if}}
-                  <li><a href="/about">{{fa-icon "question-circle" class="left"}} About</a></li>
-                  <li><a href="https://talk.tenders.exposed/" target="_blank">{{fa-icon "group" class="left"}}Community</a></li>
-                  <li><a href="https://tenders.exposed/blog" target="_blank">{{fa-icon "server" class="left"}} Blog</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-	</div>
-
-  <div class="toggleMenu">
-    <div class="container">
-      <div class="row">
-        <a class="handle" {{action "toggleMenu"}}>
-          <span class="down-arrow">{{fa-icon "arrow-circle-down"}}</span>
-          <span class="up-arrow">{{fa-icon "arrow-circle-up"}}</span>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
 {{#if loginVisible}}
-  {{#md-modal}}
-    <a class="modal-close" {{action 'toggleLoginModal'}}><i class="fa fa-close"></i></a>
-    <div class="modal-content">
-      {{login-form loginVisible=loginVisible}}
-    </div>
-  {{/md-modal}}
+    {{#md-modal}}
+      <a class="modal-close" {{action 'toggleLoginModal'}}><i class="fa fa-times"></i></a>
+      <div class="modal-content">
+        {{login-form loginVisible=loginVisible}}
+      </div>
+    {{/md-modal}}
 {{/if}}

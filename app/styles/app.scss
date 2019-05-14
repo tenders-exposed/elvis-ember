@@ -14,7 +14,6 @@
 /* Settings and general tweaks */
 @import "mixins";
 @import "helpers";
-@import "components";
 @import "application";
 
 /* Partials */
@@ -33,7 +32,6 @@
 /* Components */
 @import "components/collapsible";
 @import "components/wizard";
-@import "components/cpv-selector";
 @import "components/cpv-chip";
 @import "components/range-slider";
 @import "components/elvis-data-table";
@@ -46,14 +44,10 @@
 @import "components/progress-bar";
 @import "components/detailview";
 
-
-@import "components/query-builder";
-
-/* Network */
-@import "network/list";
-@import "network/show";
-@import "network/vis";
-@import "network/show/details";
+// * Query Builder specific components */
+@import "query-builder/query-builder";
+@import "query-builder/actor-select";
+@import "query-builder/cpv-selector";
 
 /* Top level templates */
 @import "static";
@@ -61,9 +55,11 @@
 
 @import "loading";
 @import "footer";
-@import "account";
-//@import "projects";
 
-/* To move / remove / change / split */
-//@import "sidebar";
+/* Network */
+@import "network";
+@import "network/list";
 @import "network/show";
+@import "network/vis";
+@import "network/show/details";
+@import "network/legend";

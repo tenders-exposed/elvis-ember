@@ -14,22 +14,9 @@
         <div class="box">
           <h4>Create custom network</h4>
           <p>Create procurement network of your own interest by specifying all options</p>
-          {{#link-to 'network.new' class="btn primary"}}<i class="fa fa-arrow-right"></i> Start here{{/link-to}}
-          <br>
-        </div>
-      </div>
-      <div class="col m6">
-        <div class="box">
-          <h4>Account</h4>
-          <p>Account allows you to save generated networks and merge nodes.</p>
           <ul>
-            {{#if session.isAuthenticated}}
-              <li>{{#link-to 'account.new' class="btn primary transparent"}}Log in here{{/link-to}}</li>
-            {{else}}
-              <li>{{#link-to 'account.new' class="btn default transparent"}}Create an account{{/link-to}}</li>
-            {{/if}}
+            <li>{{#link-to 'network.new' class="btn primary"}}<i class="fa fa-arrow-right"></i> Start here{{/link-to}}</li>
           </ul>
-
         </div>
       </div>
     </div>

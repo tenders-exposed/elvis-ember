@@ -1,26 +1,64 @@
-<h3>Sign in to your account</h3>
-<p>Don'have an account? Register {{#link-to "account.new"}}here{{/link-to}}.</p>
-{{#if errorMessage}}
-  {{#each errorMessage.errors as |err|}}
-    <p class="alert alert-error">{{err.message}}</p>
-  {{/each}}
-{{/if}}
-<form {{action 'authenticate' on='submit'}} autocomplete="off">
-    <div class="input-field">
-        {{input id='identification' value=identification type='email' autocomplete='on'}}
-        <label for="inputEmail">Email address</label>
-    </div>
-    <div class="input-field">
-        {{input id='password' type='password' value=password autocomplete='on'}}
-        <label for="password">Password</label>
-    </div>
+<div id="login-form">
+
+    <h3>Sign in to your account</h3>
+    {{#if errorMessage}}
+      {{#each errorMessage.errors as |err|}}
+        <p class="alert alert-error">{{err.message}}</p>
+      {{/each}}
+    {{/if}}
+    <form {{action 'authenticate' on='submit'}} autocomplete="off">
+
+        <div class="input-field">
+          {{input id="login_email" type="email" value=email}}
+          <label for="loginEmail">Email address</label>
+        </div>
+        <div class="input-field">
+          {{input id="login_password" type="password" value=password}}
+          <label for="loginPassword">Password</label>
+        </div>
+
+        {{async-button action=(action "authenticate") default="Log in" pending="Logging in..." class="btn primary"}}
+        {{#link-to "account.recover" class="btn link primary compact"}}Lost password?{{/link-to}}
+        <br>
+        <p>
+          <a class="btn link compact" {{action "authenticateTwitter"}}>
+            <i class="fa fa-twitter"></i>  Log in with Twitter
+          </a>
+          <a class="btn link compact" {{action "authenticateGithub"}}>
+            <i class="fa fa-github"></i>  Log in with GitHub
+          </a>
+        </p>
+    </form>
+    <br><br>
+    <h4>Don't have an account? Register <a href="#" class="link" {{action "showRegister"}}>here</a>.</h4>
+
+</div>
+
+<div class="hide" id="register-form">
+    <h3>Create an account</h3>
+    <p class="lead">Account lets you save created networks and merge nodes into clusters.</p>
+    {{#if errorMessage}}
+      {{#each errorMessage.errors as |err|}}
+        <p class="alert alert-error">{{err.message}}</p>
+      {{/each}}
+    {{/if}}
+    <form id="register" class="form-signin" {{action 'register' on='submit'}} autocomplete="off">
+
+        <div class="input-field col m12">
+          {{input id="register_email" value=email}}
+          <label for="email">Email address</label>
+        </div>
+
+        <div class="input-field">
+          {{input id="register_password" type="password" value=password}}
+          <label for="registerPassword">Your password here</label>
+        </div>
+
+        <div class="input-field">
+          {{async-button action=(action "register") default="Register" pending="Sending..." class="btn primary"}}
+        </div>
+
+    </form>
     <br>
-    {{async-button action=(action "authenticate" fakeUser) default="Sign in" pending="Logging in..." class="btn primary"}}
-    <a class="btn primary" {{action "authenticateTwitter"}}>
-      <i class="fa fa-twitter"></i> Log in with Twitter
-    </a>
-    <a class="btn primary" {{action "authenticateGithub"}}>
-      <i class="fa fa-github"></i> Log in with GitHub
-    </a>
-    {{#link-to "account.recover" class="btn link primary"}}Lost password?{{/link-to}}
-</form>
+    <h4>Do you have an account? Log in <a href="#" class="link" {{action "showLogin"}}>here</a>.</h4>
+</div>

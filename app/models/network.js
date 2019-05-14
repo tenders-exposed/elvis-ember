@@ -104,5 +104,19 @@ export default Model.extend({
 
     }
 
+  }),
+
+  valueRange: computed('nodes', function() {
+    let nodeMax = 0;
+    let nodeMin = 0;
+    _.map(this.get('nodes'), (node) => {
+      if (node.value < nodeMin || nodeMin == 0) {
+        nodeMin = node.value;
+      }
+      if (node.value > nodeMax) {
+        nodeMax = node.value;
+      }
+    });
+    return { nodeMax, nodeMin };
   })
 });

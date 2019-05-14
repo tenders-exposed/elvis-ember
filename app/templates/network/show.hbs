@@ -1,84 +1,92 @@
 {{!-- Sidebar will stay in the main outlet, everything
   else will stay in sidebar's outlet --}}
 
-<div id="sidebar-toggle" {{action "openSidebar"}}>
-  <i class="fa fa-arrow-circle-right"></i>
-</div>
 
-
-{{! @TODO: create a "tutorial" component containing all #legend markup
+{{! @TODO: create a "tutorial" component/paartial containing all #legend markup
     in this template, show "tutorial" by default. hide tutorial if user clicks "close" button
     also, no other interaction with network, sidebar or network options should be allowed if tutorial is displayed.
 }}
-<section id="legend">
+<section id="legend" class="network-loading-{{stabilizationPercent}} {{if networkLoaded 'network-loaded network-just-loaded'}}">
 
-  <div class="loading-bar">
-    {{progress-bar percent=stabilizationPercent message="Please wait, the network is being loaded..."}}
-  </div>
+  <div class="legend-wrapper">
 
-  <div class="launch-network launch-network{{stabilizationPercent}}">
-    Your Network is loaded!
-    <a class="btn-tiny transparent primary" {{action "toggleInfo" on="click"}}>
-      Launch {{fa-icon "arrow-circle-right"}}
-    </a>
-  </div>
-
-  <div class="carousel">
-    {{#carousel-container transitionInterval=400 as |ui controls|}}
-      <div class="carousel-body">
-        {{#ui.item}}
-          <div class="carousel-content">
-            <img src="images/carousel/1company.jpg">
-          </div>
-        {{/ui.item}}
-        {{#ui.item}}
-          <div class="carousel-content">
-            <img src="images/carousel/2govermnt.jpg">
-          </div>
-        {{/ui.item}}
-        {{#ui.item}}
-          <div class="carousel-content">
-            <img src="images/carousel/3relationship.jpg">
-          </div>
-        {{/ui.item}}
-        {{#ui.item}}
-          <div class="carousel-content">
-            <img src="images/carousel/4merging.jpg">
-          </div>
-        {{/ui.item}}
-        {{#ui.item}}
-          <div class="carousel-content">
-            <img src="images/carousel/5tenders.jpg">
-          </div>
-        {{/ui.item}}
-
+    {{! Shows when the network is loading and cannot be yet accessed }}
+    <div class="network-loader">
+      <span>Hold on, your network is loading...</span>
+      <div class="progress">
+        <div class="determinate" style="awidth: {{concat stabilizationPercent "%"}}"></div>
       </div>
+    </div>
 
-      <div class="carousel-controls">
+    {{! Shows right after the network is loaded }}
+    <div class="launch-network">
+        <span class="launch-network-text">{{fa-icon "check"}} Your Network is loaded!</span>
+        <a class="launch-network-button btn transparent primary" href="#" {{action "toggleInfo" on="click"}}>
+          Launch {{fa-icon "arrow-right"}}
+        </a>
 
-        <small class="carousel-control carousel-right" onclick={{controls.next}}>
-          {{fa-icon "arrow-circle-left"}} Previous
-        </small>
-        <small class="carousel-control carousel-left" onclick={{controls.previous}}>
-          {{fa-icon "arrow-circle-right"}} Next
-        </small>
+    </div>
 
-        <div class="carousel-close">
-          <a class="btn-tiny transparent" {{action "toggleInfo" on="click"}}>
-            Close
-          </a>
+    <div class="carousel">
+      {{#carousel-container transitionInterval=400 as |ui controls|}}
+        <div class="carousel-body">
+          {{#ui.item}}
+            <div class="carousel-content">
+              <img src="/images/carousel/1company.jpg">
+            </div>
+          {{/ui.item}}
+          {{#ui.item}}
+            <div class="carousel-content">
+              <img src="/images/carousel/2govermnt.jpg">
+            </div>
+          {{/ui.item}}
+          {{#ui.item}}
+            <div class="carousel-content">
+              <img src="/images/carousel/3relationship.jpg">
+            </div>
+          {{/ui.item}}
+          {{#ui.item}}
+            <div class="carousel-content">
+              <img src="/images/carousel/4merging.jpg">
+            </div>
+          {{/ui.item}}
+          {{#ui.item}}
+            <div class="carousel-content">
+              <img src="/images/carousel/5tenders.jpg">
+            </div>
+          {{/ui.item}}
+
         </div>
-      </div>
 
-    {{/carousel-container}}
+        <div class="carousel-footer">
+          <div class="carousel-arrows">
+            <a class="btn link carousel-control carousel-right" onclick={{controls.next}}>
+              {{fa-icon "arrow-circle-left"}} Previous
+            </a>
+            <a class="btn link carousel-control carousel-left" onclick={{controls.previous}}>
+              {{fa-icon "arrow-circle-right"}} Next
+            </a>
+          </div>
+
+          <div class="carousel-close">
+            <a class="btn transparent" {{action "toggleInfo" on="click"}}>
+              Close
+            </a>
+          </div>
+        </div>
+
+      {{/carousel-container}}
+    </div>
+
   </div>
 </section>
 
-<div id="network-container" style="height: {{height}}px;" class="stabilization{{stabilizationPercent}}">
+<!-- TODO: make the loader dependent on stabilization percent, not the #network-container-->
+<div id="network-container" class="stabilization{{stabilizationPercent}}">
 
   {{outlet}}
 
-  {{! @TODO: this should be a part of network-embedding component }}
+  {{! @TODO: this should be a part of "network-embedding" component }}
   <div class="crop-fake">
     <div class="go-back-crop" {{action "toggleCrop" on="click"}}>
       {{fa-icon 'crop' size=1}}
@@ -213,11 +221,10 @@
 
 </div>
 
-{{! @TODO: this markup should be a part of network-embedding component }}
+{{! @TODO: this markup should be a part of "network-embedding" component }}
 <div class="crop-controls">
   <div class="modal-container">
     <div class="modal-content">
-      blows my mind...!
       <div class="row">
         <span {{action "closeCrop" on="click"}}>
           {{fa-icon 'close' size=1 class="close"}}

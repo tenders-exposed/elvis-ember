@@ -1,0 +1,83 @@
+<div class="selected-options">
+  {{log currentStep}}
+  {{yield (hash
+              currentStep=currentStep
+              step-completed=(component 'wizard-step-completed'))
+  }}
+</div>
+
+{{#if showHeader}}
+
+  <div class="wizard-header">
+    <div class="{{if showDelete 'col-xs-10' 'col-xs-12'}} no-padding">
+      <ul class="nav nav-pills">
+        {{#each wizardData as |item|}}
+          {{#if showRoundedNav}}
+            <li role="presentation"
+                class="rounded-nav-step
+                        {{headerStepsSizeClass}}
+                        {{if (eq currentStep item.step_id) 'active'
+                             (if (gt currentStep item.step_id) 'completed' 'disabled')}}">
+              <a class="rounded-nav" href="#" {{action 'handleNavClick'}}>
+                <span class="sr-only">{{item.step_id}}</span>
+              </a>
+              <p class="rounded-nav-label">{{item.header_label}}</p>
+            </li>
+          {{else}}
+            <li role="presentation" class="{{headerStepsSizeClass}} {{if (eq currentStep item.step_id) 'active' (if (gt currentStep item.step_id) 'completed' 'disabled')}}">
+              <a href="#" {{action 'handleNavClick'}}>{{item.header_label}}</a>
+            </li>
+          {{/if}}
+        {{/each}}
+      </ul>
+    </div>
+    {{#if showDelete}}
+      <div class="col-xs-2 no-padding">
+        <button {{action "deleteAction"}}
+            class="pull-right delete-entity-button"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Delete Configuration Object">
+          <span class="glyphicon glyphicon-trash" />
+        </button>
+      </div>
+    {{/if}}
+  </div>
+{{/if}}
+
+
+
+<div class=" panel-wrapper {{if isAnimating 'animating'}}">
+  {{#if useContextualComponents}}
+    {{yield (hash
+                currentStep=currentStep
+                animating=isAnimating
+                direction=direction
+                step=(component 'wizard-step'))
+    }}
+  {{else}}
+    {{yield (hash
+                currentStep=currentStep
+                animating=isAnimating
+                direction=direction)
+    }}
+  {{/if}}
+</div>
+
+
+{{#if wizardData}}
+  <div class=" wizard-footer">
+    {{#unless isFirstStep}}
+      <button class="btn-large transparent" {{action "decrementStep"}}>
+        {{previousBtnLabel}}
+      </button>
+    {{/unless}}
+    <button class="btn-large primary {{nextBtnDisabled}}" {{action "incrementStep"}}>
+      {{#if isLastStep}}
+        {{finishBtnLabel}}
+      {{else}}
+        {{nextBtnLabel}}
+      {{/if}}
+    </button>
+  </div>
+{{/if}}

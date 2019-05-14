@@ -1,0 +1,29 @@
+<section class="wizard-step {{wizardSteps.yearsStatus}}">
+  <p>
+    Select Years restriction to visualize
+  </p>
+  <br><br>
+  <div class="row">
+
+    <div class="col m10 s12">
+      {{#if years.length}}
+        <div class="input-field col m10 s12">
+          {{range-slider
+              range = yearsRange
+              start = yearsStart
+              step=1
+              connect=true
+              tooltips=true
+              disabled=rangeIsDisabled
+              class=(concat rangeDisableClass ' noUi-target noUi-ltr noUi-horizontal noUi-background' )
+              on-slide="rangeSlideAction"
+              on-change="rangeChangeAction"
+          }}
+        </div>
+      {{else}}
+        No years range is available for your selection.
+      {{/if}}
+    </div>
+  </div>
+
+</section>

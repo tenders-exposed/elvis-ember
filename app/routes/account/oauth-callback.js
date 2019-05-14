@@ -6,16 +6,35 @@ import RSVP from 'rsvp';
 export default Route.extend({
   ajax: service(),
   session: service(),
-  endpoint: `${ENV.APP.apiHost}/account/login/twitter/callback`,
 
   queryParams: {
+    code: {
+    },
     oauth_token: {
     },
     oauth_verifier: {
     }
   },
+
+  activate() {
+    if (this.get('session.session.content.authenticated.email')) {
+      this.transitionTo('welcome');
+    }
+  },
+
   model(params) {
-    let url = `${this.get('endpoint')}?oauth_token=${params.oauth_token}&oauth_verifier=${params.oauth_verifier}`;
+    let service = 'twitter'; // default to Twitter
+    if (params.code) {
+      service = 'github'; // switch to GitHub
+    }
+    let endpoint = `${ENV.APP.apiHost}/account/login/${service}/callback`;
+
+    let url = `${endpoint}?oauth_token=${params.oauth_token}&oauth_verifier=${params.oauth_verifier}`;
+
+    if (service == 'github') {
+      url = `${endpoint}?code=${params.code}`;
+    }
+
     return new RSVP.Promise((resolve, reject) => {
       fetch(
         url,
@@ -35,6 +54,7 @@ export default Route.extend({
       });
     });
   },
+
   setupController(controller, model) {
     controller.set('model', model);
 

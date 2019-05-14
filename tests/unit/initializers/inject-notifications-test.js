@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import InjectNotificationsInitializer from 'elvis-ember/initializers/inject-notifications';
 import { module, test } from 'qunit';
 import Application from '@ember/application';
