@@ -93,6 +93,10 @@
           {{/currentState.step}}
 
           {{#currentState.step stepId="4" wizardCurrentState=currentState}}
+            {{#if wizardErrorMessage}}
+              <p class="alert alert-error"><i class="fa fa-warning"></i> {{wizardErrorMessage}}</p>
+            {{/if}}
+
             {{#if loading.cpvs}}
               {{elvis-loader  message="Loading.."}}
             {{else}}

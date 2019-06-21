@@ -369,6 +369,7 @@ export default Controller.extend({
   actions: {
 
     wizardStepChanged(wizardStep) {
+      // should reset everything if it transition to this roote.
       let stepId = wizardStep.step_id;
       let nextStep = () => {
         later(() => {
@@ -430,7 +431,21 @@ export default Controller.extend({
 
         '4': () => {
           // settings
-          nextStep();
+          console.log('step4 - selectedCodesCOunt', this.get('selectedCodesCount'));
+          let wizardErrorMessage = false;
+          let wizardShowNextStep = true;
+
+          if (this.get('selectedCodesCount')) {
+            nextStep();
+          } else {
+            wizardErrorMessage = 'You must select at least one market';
+            wizardShowNextStep = false;
+          }
+
+          this.setProperties({
+            wizardErrorMessage,
+            wizardShowNextStep
+          });
         },
 
         '5': () => {
