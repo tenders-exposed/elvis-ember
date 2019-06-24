@@ -159,6 +159,7 @@ export default Controller.extend({
   },
   cpvSearchTerm: '',
   cpvSearchTree: '',
+  networkLoading: false,
 
   createTree() {
     // reset selected codes
@@ -369,6 +370,7 @@ export default Controller.extend({
   actions: {
 
     wizardStepChanged(wizardStep) {
+      // should reset everything if it transition to this roote.
       let stepId = wizardStep.step_id;
       let nextStep = () => {
         later(() => {
@@ -380,6 +382,9 @@ export default Controller.extend({
 
         '1': () => {
           // next actors
+          if (this.get('query.countries').length > 0) {
+            this.set('wizardErrorMessage', false);
+          }
           nextStep();
         },
 
@@ -390,6 +395,7 @@ export default Controller.extend({
           let wizardShowNextStep = true;
 
           if (!this.get('rangeIsDisabled')) {
+            console.log('range is disabled');
             nextStep();
 
             if (this.get('shouldUpdate.years')) {
@@ -430,7 +436,21 @@ export default Controller.extend({
 
         '4': () => {
           // settings
-          nextStep();
+          console.log('step4 - selectedCodesCOunt', this.get('selectedCodesCount'));
+          let wizardErrorMessage = false;
+          let wizardShowNextStep = true;
+
+          if (this.get('selectedCodesCount')) {
+            nextStep();
+          } else {
+            wizardErrorMessage = 'You must select at least one market';
+            wizardShowNextStep = false;
+          }
+
+          this.setProperties({
+            wizardErrorMessage,
+            wizardShowNextStep
+          });
         },
 
         '5': () => {
@@ -594,6 +614,7 @@ export default Controller.extend({
       if (bidders.length > 0) {
         query.bidders = _.map(bidders, (s) => s.id);
       }
+      self.set('networkLoading',true);
 
       this.get('store').createRecord('network', {
         name: self.get('name'),
@@ -604,14 +625,20 @@ export default Controller.extend({
         query
       }).save().then((data) => {
         self.set('isLoading', false);
+        self.set('networkLoading',false);
+        console.log('saving network');
         self.toggleProperty('optionsModalIsOpen');
         self.transitionToRoute('network.show', data.id);
       }).catch((data) => {
         // TODO: Catch the actual reason sent by the API (for some reason it's not pulled in, will check later)
         Logger.error(`Error: ${data}`);
         self.set('isLoading', false);
+        self.set('networkLoading',false);
+
+        console.log('error saving network');
+
         self.notifications.clearAll();
-        self.notifications.error('You need to <a href="/">sign in</a> or <a href="/">sign up</a> before continuing.', {
+        self.notifications.error('This should not be happening. Please send us an email at tech@tenders.exposed', {
           htmlContent: true,
           autoClear: false
         });
