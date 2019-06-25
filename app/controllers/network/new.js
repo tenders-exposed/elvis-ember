@@ -443,7 +443,7 @@ export default Controller.extend({
           if (this.get('selectedCodesCount')) {
             nextStep();
           } else {
-            wizardErrorMessage = 'You must select at least one market';
+            wizardErrorMessage = "If you don't chose any market, all the tenders will be selected. This may result in a slow network.";
             wizardShowNextStep = false;
           }
 

@@ -161,7 +161,9 @@
 
           {{#currentState.step stepId="4" wizardCurrentState=currentState}}
             {{#if wizardErrorMessage}}
-              <p class="alert alert-error"><i class="fa fa-warning"></i> {{wizardErrorMessage}}</p>
+              <div class="row">
+                <p class="alert alert-warning"><i class="fa fa-warning"></i> {{wizardErrorMessage}}</p>
+              </div>
             {{/if}}
 
             {{#if loading.cpvs}}
