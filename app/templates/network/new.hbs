@@ -83,36 +83,6 @@
         </i></p>
       {{/if}}
       <div id="query-builder" class="wizard">
-        <!--<div class="row valign-wrapper">
-          <div class="col s3 title">
-            <h3>
-              Network Builder
-            </h3>
-          </div>
-          <div class="col s8 selected-options">
-              {{#if (eq wizardSteps.countriesStatus 'completed')}}
-                <span class="selected-option selected-countries">
-                  {{#each query.countries as |country|}}
-                    {{world-flag country 16}}
-                  {{/each}}
-                </span>
-              {{/if}}
-
-              {{#if (eq wizardSteps.yearsStatus 'completed')}}
-                <span class="selected-option selected-years-range">
-                  {{queryYearsRange.min}} - {{queryYearsRange.max}}
-                </span>
-              {{/if}}
-
-              {{#if selectedCodesCount}}
-                <span class="selected-option selected-markets">
-                {{selectedCodesCount}} <small>markets</small>
-              </span>
-              {{/if}}
-            </div>
-        </div>-->
-
-
 
         {{#elvis-wizard
             wizardData=wizardData
@@ -130,6 +100,16 @@
               {{world-flag country 16}}
             {{/each}}
           {{/currentState.step-completed}}
+
+            {{#currentState.step-completed stepId="2" name="selected-actors-actors" wizardCurrentState=currentState}}
+            {{#if query.actors.length}}
+              <span>
+                {{query.actors.length}}
+              </span>
+              <div class="figure-buyer"></div><div class="figure-bidder"></div>
+            {{/if}}
+            {{/currentState.step-completed}}
+
 
           {{#currentState.step-completed stepId="3" name="selected-years-range" wizardCurrentState=currentState}}
             {{queryYearsRange.min}} - {{queryYearsRange.max}}

@@ -43,7 +43,6 @@ export default Route.extend({
 
   setupController(controller) {
     // reset data
-    console.log('resetting data');
     controller.setProperties({
       wizardErrorMessage: false ,
       wizardShowNextStep: true,
@@ -75,13 +74,10 @@ export default Route.extend({
       }
     });
 
-
     let self = this;
     _.each(['countries', 'years'], function(item) {
       self.setAvailable(controller, item);
     });
-    //controller.set('query.cpvs', A([]));
-
     controller.set('name', this.get('songs').random());
   }
 });

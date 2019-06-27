@@ -63,6 +63,7 @@ export default Controller.extend({
   autocompleteActorsOptions: [],
   wizardSteps:  {
     'countriesStatus': 'current',
+    'actorsStatus': 'disabled',
     'yearsStatus': 'disabled',
     'cpvsStatus': 'disabled',
     'optionStatus': 'disabled'
@@ -389,13 +390,16 @@ export default Controller.extend({
         },
 
         '2': () => {
+          if (this.get('query.actors').length > 0) {
+            this.set('wizardSteps.actorsStatus', 'completed');
+          }
+
           // years
           let loadingYears = this.get('loading.years');
           let wizardErrorMessage = false;
           let wizardShowNextStep = true;
 
           if (!this.get('rangeIsDisabled')) {
-            console.log('range is disabled');
             nextStep();
 
             if (this.get('shouldUpdate.years')) {
@@ -436,7 +440,6 @@ export default Controller.extend({
 
         '4': () => {
           // settings
-          console.log('step4 - selectedCodesCOunt', this.get('selectedCodesCount'));
           let wizardErrorMessage = false;
           let wizardShowNextStep = true;
 
@@ -614,7 +617,7 @@ export default Controller.extend({
       if (bidders.length > 0) {
         query.bidders = _.map(bidders, (s) => s.id);
       }
-      self.set('networkLoading',true);
+      self.set('networkLoading', true);
 
       this.get('store').createRecord('network', {
         name: self.get('name'),
@@ -625,18 +628,14 @@ export default Controller.extend({
         query
       }).save().then((data) => {
         self.set('isLoading', false);
-        self.set('networkLoading',false);
-        console.log('saving network');
+        self.set('networkLoading', false);
         self.toggleProperty('optionsModalIsOpen');
         self.transitionToRoute('network.show', data.id);
       }).catch((data) => {
         // TODO: Catch the actual reason sent by the API (for some reason it's not pulled in, will check later)
         Logger.error(`Error: ${data}`);
         self.set('isLoading', false);
-        self.set('networkLoading',false);
-
-        console.log('error saving network');
-
+        self.set('networkLoading', false);
         self.notifications.clearAll();
         self.notifications.error('This should not be happening. Please send us an email at tech@tenders.exposed', {
           htmlContent: true,
