@@ -101,14 +101,14 @@
             {{/each}}
           {{/currentState.step-completed}}
 
-            {{#currentState.step-completed stepId="2" name="selected-actors-actors" wizardCurrentState=currentState}}
-            {{#if query.actors.length}}
+          {{#if query.actors.length}}
+          {{#currentState.step-completed stepId="2" name="selected-actors-actors" wizardCurrentState=currentState}}
               <span>
                 {{query.actors.length}}
               </span>
               <div class="figure-buyer"></div><div class="figure-bidder"></div>
-            {{/if}}
             {{/currentState.step-completed}}
+          {{/if}}
 
 
           {{#currentState.step-completed stepId="3" name="selected-years-range" wizardCurrentState=currentState}}
@@ -142,7 +142,10 @@
           {{#currentState.step stepId="4" wizardCurrentState=currentState}}
             {{#if wizardErrorMessage}}
               <div class="row">
-                <p class="alert alert-warning"><i class="fa fa-warning"></i> {{wizardErrorMessage}}</p>
+                <p class="alert alert-warning"><i class="fa fa-warning"></i>
+                  {{wizardErrorMessage}}
+                  <a href="#" {{action "proceedAnyway" '4' on="click"}}>Proceed anyway</a>
+                </p>
               </div>
             {{/if}}
 
