@@ -1,5 +1,5 @@
 import DS from 'ember-data';
-import tinycolor from 'tinycolor';
+//import tinycolor from 'tinycolor';
 
 import { computed } from '@ember/object';
 const { Model, attr } = DS;
@@ -7,6 +7,11 @@ const { Model, attr } = DS;
 const color = {
   'buyer': '#f0308e',
   'bidder': '#27f0fc'
+};
+
+const colorRgb = {
+  'buyer': 'rgb(246, 49, 136)',
+  'bidder': 'rgb(36, 243, 255)'
 };
 
 export default Model.extend({
@@ -62,27 +67,27 @@ export default Model.extend({
       _.each(this.get('clusters'), function(cluster) {
         if (cluster.type == 'buyer') {
           cluster.color = {
-            background: tinycolor.toRgbString(color.buyer),
+            background: color.buyer,
             border: color.buyer,
             hover: {
-              background: tinycolor.toRgbString(color.buyer),
+              background: color.buyer,
               border: color.buyer
             },
             highlight: {
-              background: tinycolor.toRgbString(color.buyer),
+              background: color.buyer,
               border: color.buyer
             }
           };
         } else {
           cluster.color = {
-            background: tinycolor.toRgbString(color.bidder),
+            background: color.bidder,
             border: color.bidder,
             hover: {
-              background: tinycolor.toRgbString(color.bidder),
+              background: color.bidder,
               border: color.bidder
             },
             highlight: {
-              background: tinycolor.toRgbString(color.bidder),
+              background: color.bidder,
               border: color.bidder
             }
           };
