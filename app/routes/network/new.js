@@ -21,7 +21,19 @@ export default Route.extend({
   setAvailable(controller, item, options) {
     let self = this;
     if (_.indexOf(_.keysIn(self.get('endpoints')), item) !== -1) {
-      self.get('ajax').request(self.get(`endpoints.${item}`), options).then((data) => {
+      if(typeof options == 'undefined'){
+        options = {};
+      }
+      options.headers = {
+        'Content-Type': 'application/json'
+      };
+
+      self.get('ajax').request(self.get(`endpoints.${item}`), {
+        data: options,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then((data) => {
         // controller.set(item, data.search.results);
         // @todo: problem with the catch; this must be modified
         if (item == 'countries') {

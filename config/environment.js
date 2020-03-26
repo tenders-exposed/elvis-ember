@@ -92,11 +92,11 @@ module.exports = function(environment) {
   //   authenticationRoute: ENV.APP.apiHost + '/api/' + ENV.APP.apiNamespace + '/users/sign_in'
   // };
   ENV.contentSecurityPolicy = {
-    'default-src': "'self' http://api.defense.tenders.exposed https://www.google-analytics.com http://localhost:10010",
+    'default-src': "'self' https://api.defense.tenders.exposed https://www.google-analytics.com http://localhost:10010",
     'child-src': "blob: * 'self'",
-    'script-src': "'self' 'unsafe-inline' 'unsafe-eval' http://api.defense.tenders.exposed https://www.google-analytics.com http://localhost:10010",
+    'script-src': "'self' 'unsafe-inline' 'unsafe-eval' http://api.tenders.exposed https://www.google-analytics.com http://localhost:10010",
     'font-src': "'self' fonts.gstatic.com",
-    'connect-src': "'self' * http://192.168.0.111:3000 http://0.0.0.0:3000 https://api.mixpanel.com http://localhost:3000 http://localhost:35729 blob: http://api.defense.tenders.exposed https://www.google-analytics.com http://localhost:10010",
+    'connect-src': "'self' * http://192.168.0.111:3000 http://0.0.0.0:3000 https://api.mixpanel.com http://localhost:3000 http://localhost:35729 blob: http://api.tenders.exposed https://www.google-analytics.com http://localhost:10010",
     'img-src': "'self' 'unsafe-inline' 'unsafe-eval' data: *",
     'style-src': "'self' 'unsafe-inline' fonts.googleapis.com",
     'media-src': "'self'",

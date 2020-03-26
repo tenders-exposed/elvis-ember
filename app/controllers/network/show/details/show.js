@@ -21,6 +21,10 @@ export default Controller.extend({
         label: 'Bids',
         sort: true
       },
+      year: {
+        label: 'Year',
+        sort: true
+      },
       value: {
         label: 'Awarded amount',
         sort: true
@@ -35,6 +39,10 @@ export default Controller.extend({
       },
       bids: {
         label: 'Bids', sort: true
+      },
+      year: {
+        label: 'Year',
+        sort: true
       },
       value: {
         label: 'Awarded amount', sort: true
@@ -63,6 +71,9 @@ export default Controller.extend({
       },
       bids: {
         label: 'Bids', sort: true
+      },
+      year: {
+        label: 'Year', sort: false
       },
       value: {
         label: 'Award amount', sort: true

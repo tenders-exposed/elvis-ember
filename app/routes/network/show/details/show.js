@@ -59,52 +59,68 @@ export default Route.extend({
     dataEntity.countries = countries;
     dataEntity.networkId = networkId;
 
+    let options = {};
+    options.headers = {
+      'Content-Type': 'application/json'
+    };
+
     return this.get('ajax')
-      .request(`/networks/${networkId}/${this.endpoints[endpointQ]}/${nodeId}`)
+      .request(`/networks/${networkId}/${this.endpoints[endpointQ]}/${nodeId}`,{
+       data: options
+      })
       .then(
         (data) => {
-
           // extract the unique buyers / bidders for bidder / buyer
           if (endpointQ != 'relationships') {
             if (endpointQ == 'clusters') {
               Object.assign(dataEntity, data.cluster);
-              dataEntity.nodes = self.processContracts(dataEntity.winningBids, endpoint);
+              dataEntity.nodes = self.processContracts(data.node.winningBids, endpoint);
 
             } else {
               Object.assign(dataEntity, data.node);
-              dataEntity.nodes = self.processContracts(dataEntity.winningBids, endpoint);
+              dataEntity.nodes = self.processContracts(data.node.winningBids, endpoint);
               this.titleToken = dataEntity.name;
             }
 
             dataEntity.contracts = [];
-            _.each(dataEntity.winningBids, function(bid) {
+            _.each(data.node.winningBids, function(bid) {
               let contract = {
                 tenderId: bid.lot.tender.id,
                 title: bid.lot.title ? `${bid.lot.tender.title} - ${bid.lot.title}` : bid.lot.tender.title,
                 buyers: bid.lot.tender.buyers,
                 bidders: bid.bidders,
                 bids: bid.lot.bidsCount,
-                value: bid.value
+                value: bid.value,
+                year: bid.lot.tender.year,
+                source: bid.lot.tender.sources[0],
+                xYearApproximated: bid.lot.tender.xYearApproximated,
+                xAmountApproximated: bid.lot.tender.xAmountApproximated
               };
               dataEntity.contracts.push(contract);
             });
+            dataEntity.contractsCount = data.node.winningBids.length;
 
           } else {
             Object.assign(dataEntity, data.edge);
             dataEntity.contracts = [];
-            _.each(dataEntity.winningBids, function(bid) {
+            _.each(data.edge.winningBids, function(bid) {
               let contract = {
                 tenderId: bid.lot.tender.id,
                 title: bid.lot.title ? `${bid.lot.tender.title} - ${bid.lot.title}` : bid.lot.tender.title,
                 date: bid.lot.awardDecisionDate,
                 bids: bid.lot.bidsCount,
-                value: bid.value
+                value: bid.value,
+                year: bid.lot.tender.year,
+                source: bid.lot.tender.sources[0],
+                xYearApproximated: bid.lot.tender.xYearApproximated,
+                xAmountApproximated: bid.lot.tender.xAmountApproximated
               };
               dataEntity.contracts.push(contract);
             });
+            dataEntity.contractsCount = data.edge.winningBids.length;
+
           }
           // console.log('dataEntity - after request', dataEntity);
-          dataEntity.contractsCount = dataEntity.winningBids.length;
           return dataEntity;
 
         });
@@ -147,11 +163,11 @@ export default Route.extend({
 
     return this.controllerFor('network.show').get('networkDefer').then(() => {
       // console.log('start model');
-
+      let details;
       // bidder,buyers || relationships
       if (endpoint === 'relationships') {
-        let edge = self.get('networkService').getEdgeById(params.id);
-        let details =  self.getModelDetails(params.id, endpoint, false).then((data) => {
+          let edge = self.get('networkService').getEdgeById(params.id);
+          details =  self.getModelDetails(params.id, endpoint, false).then((data) => {
           data.fromLabel =  edge.fromLabel;
           data.toLabel =  edge.toLabel;
           controller.set('modelDetails', data);
@@ -162,7 +178,7 @@ export default Route.extend({
 
       } else {
         // for a single node
-        let details =  self.getModelDetails(params.id, endpoint, false).then((data) => {
+          details =  self.getModelDetails(params.id, endpoint, false).then((data) => {
           controller.set('modelDetails', data);
           return data;
         });
