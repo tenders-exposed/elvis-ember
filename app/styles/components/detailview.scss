@@ -227,22 +227,29 @@
     }
   }
    .btn-tooltip {
+
+     color: whitesmoke;
      cursor: pointer;
      position: relative;
 
      .tooltip {
        display: none;
+
      }
 
      &:hover .tooltip {
+       background: $base-bg-color;
+       border: 1px solid rgba(255, 255, 255, 0.1);
+       border-radius: 3px;
+       padding: 5px;
        position: absolute;
-       top: 2px;
-       left: -110px;
-       color: white;
-       width: 100px;
+       top: -66px;
+       left: -75px;
+       color: rgba(223, 242, 210, 0.5);
+       width: 180px;
        z-index: 100039;
        font-size: 0.7rem;
-       height: 20px;
+       height: 56px;
        display: block !important;
        text-align: right;
      }

@@ -16,17 +16,24 @@
 </td>
 <td class="bids">{{row.bids}}</td>
 <td class="year">
-  {{#unless row.xYearApproximated}}
+  {{#if row.xYearApproximated}}
     <span class="btn-tooltip">
       {{fa-icon 'exclamation-triangle' size=1}}
-       <div class="tooltip"> text explicativ</div>
+       <div class="tooltip">
+         This value was deduced from the context by our team. You can consult the source by clicking on the contract title.
+       </div>
     </span>
-  {{/unless}}
+  {{/if}}
   {{row.year}}
 </td>
 <td class="value">
-  {{#unless row.xAmountApproximated}}
-    {{fa-icon 'exclamation-triangle' size=1}}
-  {{/unless}}
+  {{#if row.xAmountApproximated}}
+    <span class="btn-tooltip">
+      {{fa-icon 'exclamation-triangle' size=1}}
+      <div class="tooltip">
+         This value was deduced from the context by our team. You can consult the source by clicking on the contract title.
+       </div>
+    </span>
+  {{/if}}
   {{format-amount row.value '0,0.00'}} €
 </td>
