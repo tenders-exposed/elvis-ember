@@ -8,4 +8,9 @@
     background: $error-color;
     color: white;
   }
+
+  &.alert-warning {
+    color: $warning-color;
+    padding: 0px !important;
+  }
 }

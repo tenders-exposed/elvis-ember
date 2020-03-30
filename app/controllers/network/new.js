@@ -55,6 +55,8 @@ export default Controller.extend({
     'cpvs': false
   },
 
+  loadAllMarkets: false,
+
   sizeType: [
     { 'type': 'numberOfWinningBids', 'label': 'winning Bids' },
     { 'type': 'amountOfMoneyExchanged', 'label': 'amount of money' }
@@ -63,40 +65,16 @@ export default Controller.extend({
   autocompleteActorsOptions: [],
   wizardSteps:  {
     'countriesStatus': 'current',
+    'actorsStatus': 'disabled',
     'yearsStatus': 'disabled',
     'cpvsStatus': 'disabled',
-    'optionStatus': 'disabled'
+    'optionsStatus': 'disabled'
   },
-
-  cpvsStatus: computed('query.{countries,years}', function() {
-    if (this.get('query.years').length > 0 &&
-        (this.get('query.countries').length > 0) || this.get('query.actors').length > 0) {
-      return 'current';
-    } else if (this.get('query.cpvs').length > 0) {
-      return 'completed';
-    } else {
-      return 'disabled';
-    }
-  }),
-  optionsStatus: computed('selectedCodes', function() {
-    if (this.get('selectedCodes').length > 0) {
-      return 'current';
-    } else {
-      return 'disabled';
-    }
-  }),
-  submitIsDisabled: computed('selectedCodes', function() {
-    if (this.get('selectedCodes').length > 0) {
-      return false;
-    } else {
-      return true;
-    }
-  }),
 
   network: {},
 
   // years rande-slide
-  rangeDisableClass: '',
+  // rangeDisableClass: '',
   rangeIsDisabled: computed('query.{countries,actors}', function() {
     let countries = this.get('query.countries');
     let actors = this.get('query.actors');
@@ -159,6 +137,7 @@ export default Controller.extend({
   },
   cpvSearchTerm: '',
   cpvSearchTree: '',
+  networkLoading: false,
 
   createTree() {
     // reset selected codes
@@ -366,80 +345,117 @@ export default Controller.extend({
     }
   },
 
+  wizardStepChanged(wizardStep) {
+    // should reset everything if it transition to this roote.
+    let stepId = wizardStep.step_id;
+    let nextStep = () => {
+      later(() => {
+        this.set('wizardShowNextStep', true);
+      }, 100);
+    };
+
+    let actions = {
+
+      '1': () => {
+        // next actors
+        if (this.get('query.countries').length > 0) {
+          this.set('wizardErrorMessage', false);
+        }
+        nextStep();
+      },
+
+      '2': () => {
+        if (this.get('query.actors').length > 0) {
+          this.set('wizardSteps.actorsStatus', 'completed');
+        }
+
+        // years
+        let loadingYears = this.get('loading.years');
+        let wizardErrorMessage = false;
+        let wizardShowNextStep = true;
+
+        if (!this.get('rangeIsDisabled')) {
+          nextStep();
+
+          if (this.get('shouldUpdate.years')) {
+            loadingYears = true;
+            this.fetchYears();
+          }
+        } else {
+          wizardErrorMessage = 'You must select at least one country or one actor';
+          wizardShowNextStep = false;
+        }
+
+        this.setProperties({
+          wizardErrorMessage,
+          wizardShowNextStep,
+          wizardSteps: { yearsStatus: 'current' },
+          loading: { years: loadingYears }
+        });
+      },
+
+      '3': () => {
+        // cpvs
+        nextStep();
+        this.setProperties({
+          wizardSteps: {
+            yearsStatus: 'completed',
+            cpvsStatus: 'current'
+          }
+        });
+
+        if (this.get('shouldUpdate.cpvs')) {
+          if (this.get('jsTree')) {
+            this.get('jsTree').destroy();
+            this.resetCpvs();
+          }
+          this.fetchCpvs();
+        }
+      },
+
+      '4': () => {
+        // settings
+        let wizardErrorMessage = false;
+        let wizardShowNextStep = true;
+
+        if (this.get('loadAllMarkets')) {
+          nextStep();
+
+        } else if (this.get('selectedCodesCount')) {
+
+          nextStep();
+        } else {
+          wizardErrorMessage = "If you don't chose any market, all the tenders will be selected. This may result in a slow network.";
+          wizardShowNextStep = false;
+        }
+
+        this.setProperties({
+          wizardSteps: {
+            cpvsStatus: 'completed',
+            optionsStatus: 'current'
+          },
+          wizardErrorMessage,
+          wizardShowNextStep
+        });
+      },
+
+      '5': () => {
+        nextStep();
+      }
+    };
+
+    actions[stepId]();
+  },
+
   actions: {
 
     wizardStepChanged(wizardStep) {
-      let stepId = wizardStep.step_id;
-      let nextStep = () => {
-        later(() => {
-          this.set('wizardShowNextStep', true);
-        }, 100);
-      };
+      this.wizardStepChanged(wizardStep);
+    },
 
-      let actions = {
-
-        '1': () => {
-          // next actors
-          nextStep();
-        },
-
-        '2': () => {
-          // years
-          let loadingYears = this.get('loading.years');
-          let wizardErrorMessage = false;
-          let wizardShowNextStep = true;
-
-          if (!this.get('rangeIsDisabled')) {
-            nextStep();
-
-            if (this.get('shouldUpdate.years')) {
-              loadingYears = true;
-              this.fetchYears();
-            }
-          } else {
-            wizardErrorMessage = 'You must select at least one country or one actor';
-            wizardShowNextStep = false;
-          }
-
-          this.setProperties({
-            wizardErrorMessage,
-            wizardShowNextStep,
-            wizardSteps: { yearsStatus: 'current' },
-            loading: { years: loadingYears }
-          });
-        },
-
-        '3': () => {
-          // cpvs
-          nextStep();
-          this.setProperties({
-            wizardSteps: {
-              yearsStatus: 'completed',
-              cpvsStatus: 'current'
-            }
-          });
-
-          if (this.get('shouldUpdate.cpvs')) {
-            if (this.get('jsTree')) {
-              this.get('jsTree').destroy();
-              this.resetCpvs();
-            }
-            this.fetchCpvs();
-          }
-        },
-
-        '4': () => {
-          // settings
-          nextStep();
-        },
-
-        '5': () => {
-          nextStep();
-        }
-      };
-
-      actions[stepId]();
-
+    proceedAnyway(wizardStep) {
+      this.set('loadAllMarkets', true);
+      this.wizardStepChanged({ 'step_id': wizardStep });
     },
 
     // Step1 : Select Countries
@@ -594,6 +610,7 @@ export default Controller.extend({
       if (bidders.length > 0) {
         query.bidders = _.map(bidders, (s) => s.id);
       }
+      self.set('networkLoading', true);
 
       this.get('store').createRecord('network', {
         name: self.get('name'),
@@ -604,14 +621,16 @@ export default Controller.extend({
         query
       }).save().then((data) => {
         self.set('isLoading', false);
+        self.set('networkLoading', false);
         self.toggleProperty('optionsModalIsOpen');
         self.transitionToRoute('network.show', data.id);
       }).catch((data) => {
         // TODO: Catch the actual reason sent by the API (for some reason it's not pulled in, will check later)
         Logger.error(`Error: ${data}`);
         self.set('isLoading', false);
+        self.set('networkLoading', false);
         self.notifications.clearAll();
-        self.notifications.error('You need to <a href="/">sign in</a> or <a href="/">sign up</a> before continuing.', {
+        self.notifications.error('This should not be happening. Please send us an email at tech@tenders.exposed', {
           htmlContent: true,
           autoClear: false
         });

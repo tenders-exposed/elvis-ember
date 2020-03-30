@@ -34,6 +34,27 @@ body {
       color: #18181a;
     }
 
+    .selected-actors-actors {
+      position: relative;
+      height: 12px;
+      width: 40px;
+      //font-size: ;
+      span {
+        margin-right: 1px;
+        color: lightgray;
+      }
+      div {
+        top: 2px !important;
+      }
+      div::before {
+
+        font-size: 1.3rem !important;
+        line-height: 12px;
+      }
+      div.figure-bidder {
+        margin-left: -4px;
+      }
+    }
   }
 
   .wizard-header {

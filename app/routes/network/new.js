@@ -2,6 +2,7 @@ import Ember from 'ember';
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
+import EmberObject from '@ember/object';
 
 const { Logger } = Ember;
 
@@ -53,12 +54,42 @@ export default Route.extend({
   },
 
   setupController(controller) {
+    // reset data
+    controller.setProperties({
+      wizardErrorMessage: false ,
+      wizardShowNextStep: true,
+      query: new EmberObject({
+        'nodeSize': 'numberOfWinningBids',
+        'edgeSize': 'numberOfWinningBids',
+        'rawCountries': A([]),
+        'rawActors': A([]),
+        'actors': A([]),
+        'countries': A([]),
+        'years': A([2004, 2010]),
+        'cpvs': A([]),
+        'edges': 'numberOfWinningBids',
+        'nodes': 'numberOfWinningBids'
+      }),
+      loading: {
+        years: false,
+        cpvs: true
+      },
+      shouldUpdate: {
+        'years': false,
+        'cpvs': false
+      },
+      wizardSteps:  {
+        'countriesStatus': 'current',
+        'yearsStatus': 'disabled',
+        'cpvsStatus': 'disabled',
+        'optionStatus': 'disabled'
+      }
+    });
+
     let self = this;
     _.each(['countries', 'years'], function(item) {
       self.setAvailable(controller, item);
     });
-    controller.set('query.cpvs', A([]));
-
     controller.set('name', this.get('songs').random());
   }
 });
