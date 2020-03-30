@@ -1,4 +1,8 @@
 #welcome-page {
+  .box {
+    @include box;
+  }
+
   .section-begin {
     background-image: url("/woman-desk2.png");
 

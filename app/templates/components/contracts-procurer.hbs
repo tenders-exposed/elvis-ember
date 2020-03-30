@@ -1,8 +1,8 @@
 <td class="title">
-  {{#link-to "network.show.details.contract" route nodeId row.tenderId}}
+  <a href="{{row.source}}">
     {{fa-icon 'file-text' size=1}}
     {{row.title}}
-  {{/link-to}}
+  </a>
 </td>
 <td class="buyer">
   <span class="figure-bidder small"></span>
@@ -15,4 +15,25 @@
   <br>
 </td>
 <td class="bids">{{row.bids}}</td>
-<td class="value">{{format-amount row.value '0,0.00'}} €</td>
+<td class="year">
+  {{#if row.xYearApproximated}}
+    <span class="btn-tooltip">
+      {{fa-icon 'exclamation-triangle' size=1}}
+      <div class="tooltip">
+         This value was deduced from the context by our team. You can consult the source by clicking on the contract title.
+       </div>
+    </span>
+  {{/if}}
+  {{row.year}}
+</td>
+<td class="value">
+  {{#if row.xAmountApproximated}}
+    <span class="btn-tooltip">
+      {{fa-icon 'exclamation-triangle' size=1}}
+      <div class="tooltip">
+         This value was deduced from the context by our team. You can consult the source by clicking on the contract title.
+       </div>
+    </span>
+  {{/if}}
+  {{format-amount row.value '0,0.00'}} €
+</td>

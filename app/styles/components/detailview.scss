@@ -1,5 +1,5 @@
 // styles displaying detail info about government, company, relationship or contract
-.detailview {
+ .detailview {
   $detailview-head-height: 60px;
   $detailview-width: 700px;
 
@@ -215,9 +215,43 @@
     th.title {
       width: 35%;
     }
+    th.year {
+      width: 11%;
+    }
     .bids,
     .value {
       text-align: right;
     }
+    .value {
+      width: 35%;
+    }
   }
+   .btn-tooltip {
+
+     color: whitesmoke;
+     cursor: pointer;
+     position: relative;
+
+     .tooltip {
+       display: none;
+
+     }
+
+     &:hover .tooltip {
+       background: $base-bg-color;
+       border: 1px solid rgba(255, 255, 255, 0.1);
+       border-radius: 3px;
+       padding: 5px;
+       position: absolute;
+       top: -66px;
+       left: -75px;
+       color: rgba(223, 242, 210, 0.5);
+       width: 180px;
+       z-index: 100039;
+       font-size: 0.7rem;
+       height: 56px;
+       display: block !important;
+       text-align: right;
+     }
+   }
 }

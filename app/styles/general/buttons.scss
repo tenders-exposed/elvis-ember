@@ -11,11 +11,11 @@ $button-types:
 // -------------------------
 .btn-small {
   cursor: pointer;
-  font-size: $button-small-font-size;
-  height: $button-small-height;
-  padding: $padding-small;
-  border-radius: $border-radius-base;
-}
+   font-size: $button-small-font-size;
+   height: $button-small-height;
+   padding: .5rem $padding-small;
+   border-radius: $border-radius-base;
+ }
 
 .btn-tiny {
   cursor: pointer;
