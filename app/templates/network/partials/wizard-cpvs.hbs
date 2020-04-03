@@ -11,6 +11,23 @@
           {{log loading.cpvs}}
 
           {{#if cpvs}}
+            {{#if allCpvSelected}}
+              <p>
+                <label>
+                  <span class="all-cpvs deselect-all-cpvs" {{action 'deselectAllCpvs' on='click'}}>{{fa-icon "check" size=1}}</span>
+                  <span class="all-option-deselect">Deselect all cpvs</span>
+                </label>
+              </p>
+            {{else}}
+              <p>
+                <label>
+                  <span class="all-cpvs select-all-cpvs" {{action 'selectAllCpvs' on='click'}}></span>
+                  <span class="all-option">Select all cpvs</span>
+                </label>
+              </p>
+            {{/if}}
+
+
             <form class="row" {{action 'searchCpv' on='submit'}}>
               <div class="col s10">
                 {{input type="text"

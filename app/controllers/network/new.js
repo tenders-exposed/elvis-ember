@@ -138,6 +138,8 @@ export default Controller.extend({
   cpvSearchTerm: '',
   cpvSearchTree: '',
   networkLoading: false,
+  allCpvs:[],
+  allCpvSelected: false,
 
   createTree() {
     // reset selected codes
@@ -222,6 +224,7 @@ export default Controller.extend({
         break;
     }
       tree.push(result);
+
     });
 
     missingCodes = _.uniq(missingCodes);
@@ -448,6 +451,16 @@ export default Controller.extend({
   },
 
   actions: {
+
+    selectAllCpvs() {
+      this.set('allCpvSelected', true);
+      this.get('jsTree').send('selectAll');
+    },
+
+    deselectAllCpvs() {
+      this.set('allCpvSelected', false);
+      this.get('jsTree').send('deselectAll');
+    },
 
     wizardStepChanged(wizardStep) {
       this.wizardStepChanged(wizardStep);
