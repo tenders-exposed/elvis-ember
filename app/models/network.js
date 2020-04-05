@@ -124,7 +124,6 @@ export default Model.extend({
         cluster.cluster = true;
       });
       nodes.pushObjects(this.get('clusters'));
-
       return {
         nodes,
         edges: this.get('edges'),
