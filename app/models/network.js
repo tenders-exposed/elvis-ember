@@ -5,8 +5,8 @@ import { computed } from '@ember/object';
 const { Model, attr } = DS;
 
 const color = {
-  'buyer': '#87bf80',
-  'bidder': '#f0e968'
+  'buyer': '#f0e968',
+  'bidder': '#87bf80'
 };
 
 const colorRgb = {
@@ -62,6 +62,35 @@ export default Model.extend({
 
   graph: computed('nodes', 'edges', function() {
     let nodes = this.get('nodes');
+    _.each(nodes, function (node) {
+      if (node.type == 'buyer') {
+        node.color = {
+          background: color.buyer,
+          border: color.buyer,
+          hover: {
+            background: color.buyer,
+            border: color.buyer
+          },
+          highlight: {
+            background: color.buyer,
+            border: color.buyer
+          }
+        };
+      } else {
+        node.color = {
+          background: color.bidder,
+          border: color.bidder,
+          hover: {
+            background: color.bidder,
+            border: color.bidder
+          },
+          highlight: {
+            background: color.bidder,
+            border: color.bidder
+          }
+        };
+      }
+    })
 
     if (this.get('clusters') && this.get('clusters').length > 0) {
       _.each(this.get('clusters'), function(cluster) {
@@ -95,6 +124,8 @@ export default Model.extend({
         cluster.cluster = true;
       });
       nodes.pushObjects(this.get('clusters'));
+
+      console.log('modelNetwork, graph nodes', nodes);
       return {
         nodes,
         edges: this.get('edges'),

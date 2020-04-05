@@ -107,6 +107,7 @@ export default Service.extend({
       self.set('model', model);
       self.set('edges', model.get('edges'));
       self.set('nodes', model.get('graph.nodes'));
+      console.log('serviceNetwork - graphNodes', model.get('graph.nodes'));
       self.set('flaggedEdges', model.get('flaggedEdges'));
       self.set('clusters', model.get('clusters'));
 
