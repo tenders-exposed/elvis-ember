@@ -135,7 +135,7 @@ body.network:not(.network-new) {
       height: 100%;
       width: 800px;
       position: absolute;
-      left: $network-sidebar-width;
+      left: $network-sidebar-width - 5;
       // right: $network-controls-width + $network-inner-offset;
       display: inline-block;
       pointer-events: none;
