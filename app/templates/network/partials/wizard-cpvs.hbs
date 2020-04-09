@@ -54,7 +54,7 @@
 
             {{#ember-scrollable}}
               <div class="jstree-default-dark-small">
-                {{ember-jstree
+                {{elvis-jstree
                     data=tree
                     plugins=jsTreeConfig.plugins
                     themes=jsTreeConfig.core.themes
@@ -63,6 +63,7 @@
                     checkboxOptions=jsTreeConfig.checkbox
                     actionReceiver=jsTree
                     searchTerm=cpvSearchTree
+                    action="didInsertJsTree"
                 }}
               </div>
             {{/ember-scrollable}}

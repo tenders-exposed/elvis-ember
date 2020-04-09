@@ -228,10 +228,11 @@ export default Controller.extend({
     });
 
     missingCodes = _.uniq(missingCodes);
-    missingCodes.map((missingCode) => tree.push(
-      this.get('cpvService')
-        .getCode(missingCode)
-    ));
+    missingCodes.map((missingCode) => {
+      let code = this.get('cpvService').getCode(missingCode);
+      //code.state = { opened: false, selected: true };
+      tree.push(code);
+    });
 
     this.set('tree', tree);
     this.set('loading.cpvs', false);
@@ -451,15 +452,26 @@ export default Controller.extend({
   },
 
   actions: {
+    didInsertJsTree(renderNo) {
+      if (renderNo == 2) {
+        this.set('allCpvSelected', true);
+        this.get('jsTree').send('selectAll');
+      } else {
+        //@todo: it should work
+        this.get('jsTree').send('closeAll');
+      }
+    },
 
     selectAllCpvs() {
       this.set('allCpvSelected', true);
       this.get('jsTree').send('selectAll');
+      this.get('jsTree').send('closeAll');
     },
 
     deselectAllCpvs() {
       this.set('allCpvSelected', false);
       this.get('jsTree').send('deselectAll');
+      this.get('jsTree').send('closeAll');
     },
 
     wizardStepChanged(wizardStep) {
