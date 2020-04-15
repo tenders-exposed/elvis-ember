@@ -76,13 +76,14 @@ export default Controller.extend({
       // 'adaptiveTimestep': true
       'adaptiveTimestep': true,
       'barnesHut': {
-        'gravitationalConstant': -2000,
+        'gravitationalConstant': -1000,
         'springConstant': 0.04,
         'damping': 0.09
       },
       'stabilization': {
         'enabled': true,
-        'iterations': 1000,
+        // 'iterations': 1000,
+        'iterations': 10,
         'updateInterval': 100,
         'onlyDynamicEdges': false,
         'fit': true
