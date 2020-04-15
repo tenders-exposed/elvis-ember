@@ -78,7 +78,7 @@ export default Controller.extend({
       'barnesHut': {
         'gravitationalConstant': -1000,
         'springConstant': 0.04,
-        'damping': 0.09
+        'damping': 0.2
       },
       'stabilization': {
         'enabled': true,
