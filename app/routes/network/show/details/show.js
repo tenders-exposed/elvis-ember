@@ -74,7 +74,7 @@ export default Route.extend({
           if (endpointQ != 'relationships') {
             if (endpointQ == 'clusters') {
               Object.assign(dataEntity, data.cluster);
-              dataEntity.nodes = self.processContracts(data.node.winningBids, endpoint);
+              dataEntity.nodes = self.processContracts(data.cluster.winningBids, endpoint);
 
             } else {
               Object.assign(dataEntity, data.node);
@@ -83,7 +83,7 @@ export default Route.extend({
             }
 
             dataEntity.contracts = [];
-            _.each(data.node.winningBids, function(bid) {
+            _.each(dataEntity.winningBids, function(bid) {
               let contract = {
                 tenderId: bid.lot.tender.id,
                 title: bid.lot.title ? `${bid.lot.tender.title} - ${bid.lot.title}` : bid.lot.tender.title,
@@ -98,7 +98,7 @@ export default Route.extend({
               };
               dataEntity.contracts.push(contract);
             });
-            dataEntity.contractsCount = data.node.winningBids.length;
+            dataEntity.contractsCount = dataEntity.winningBids.length;
 
           } else {
             Object.assign(dataEntity, data.edge);
