@@ -62,7 +62,9 @@ h6 {
 
 a {
   color: $link-color;
-  &:hover { color: $link-color-hover; }
+  &:hover {
+    color: $link-color-hover;
+  }
 }
 
 hr {

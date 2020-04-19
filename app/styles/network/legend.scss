@@ -54,7 +54,8 @@
     }
     .carousel-content {
       width: 100%;
-      background: darkslateblue;
+      background: $bg-color;
+      filter: hue-rotate(-151deg);
     }
 
     .carousel-footer {
