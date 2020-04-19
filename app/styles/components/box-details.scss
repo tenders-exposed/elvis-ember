@@ -2,16 +2,16 @@
 
 div#box-details-container {
   @keyframes slide-up {
-    from { bottom: -100%; }
-    to { bottom: 20px; }
+    from { top: -100%; }
+    to { top: $navbar-height; }
   }
   animation: slide-up ease .4s;
 
   z-index: $zindex-infobox;
   position: absolute;
-  bottom: 20px;
+  top: $navbar-height;
   right: 60px;
-  width: 300px;
+  left: 20px;
   height: auto !important;
   display: block;
 
@@ -22,9 +22,9 @@ div#box-details-container {
     border: 1px solid lighten($network-sidebar-bg,5%);
     backdrop-filter: blur(2px);
     padding: $padding-base;
-    width: 100%;
+    max-width: 300px;
     position: absolute;
-    bottom: $network-inner-offset;
+    top: 0;
     right: $network-inner-offset;
 
     .actor {
