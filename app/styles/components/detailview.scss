@@ -3,12 +3,6 @@
   $detailview-head-height: 60px;
   $detailview-width: 700px;
 
-  // slide from left
-  @keyframes slide-from-left {
-    from { left: -200vw; }
-    to { left: 0px; }
-  }
-  animation: slide-from-left ease .4s;
   position: relative;
   left: 0;
 

@@ -287,7 +287,7 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
 /* NETWORK vars
   =========================================================================== */
 $network-sidebar-padding: $padding-base;
-$network-sidebar-bg: rgba(lighten($bg-color,2%), 0.8);
+$network-sidebar-bg: rgba(lighten($bg-color,2%), 0.85);
 $network-sidebar-border: $border-base;
 
 /* NETWORK vars
