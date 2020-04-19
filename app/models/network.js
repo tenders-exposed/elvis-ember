@@ -4,8 +4,8 @@ import { computed } from '@ember/object';
 const { Model, attr } = DS;
 
 const color = {
-  'buyer': '#FFC776', // rgb(255,199,118)
-  'bidder': '#008D85' // rgb(0,141,133)
+  'bidder': '#FFC776', // rgb(255,199,118)
+  'buyer': '#008D85' // rgb(0,141,133)
 };
 
 export default Model.extend({
