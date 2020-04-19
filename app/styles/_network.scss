@@ -3,6 +3,7 @@ $network-inner-offset: 20px;
 $network-inner-width: calc(100vw - #{2*$network-inner-offset});
 $network-inner-height: calc(100vh - #{$navbar-height + $network-inner-offset});
 $network-controls-width: 50px;
+$network-sidebar-width: 300px;
 
 // basic network look & layout
 body.network:not(.network-new) {
@@ -122,7 +123,7 @@ body.network:not(.network-new) {
       display: inline-block;
       z-index: $zindex-network-sidebar;
       pointer-events: all;
-      min-width: 300px;
+      min-width: $network-sidebar-width;
       max-width: 400px;
       flex: 1 0 auto;
       //position: absolute;
@@ -143,6 +144,16 @@ body.network:not(.network-new) {
       margin-left: 10px;
       display: inline-block;
       pointer-events: none;
+
+      @media (max-width: 900px) {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin-right: 10px;
+        width: auto;
+        z-index: $zindex-network-sidebar+1;
+
+      }
 
       .contract-info-wrapper,
       .details-info-wrapper {
