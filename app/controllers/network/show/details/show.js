@@ -89,6 +89,9 @@ export default Controller.extend({
     },
     changeTabProcurer(tab) {
       this.set('activeTabProcurer', tab);
+    },
+    redirectLink(link) {
+      console.log('redirect',link);
     }
   }
 });

@@ -1,8 +1,8 @@
 <td class="title">
-  <a href="{{row.source}}" target="_blank">
+  {{#external-link target="_blank" href= row.source}}
     {{fa-icon 'file-text' size=1}}
     {{row.title}}
-  </a>
+  {{/external-link }}
 </td>
 <td class="date">{{format-empty row.date}}</td>
 <td class="bids">{{row.bids}}</td>

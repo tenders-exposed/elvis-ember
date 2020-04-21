@@ -72,6 +72,7 @@
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-drag-drop": "^0.4.3",
     "ember-export-application-global": "^2.0.0",
+    "ember-external-link": "^0.1.0",
     "ember-font-awesome": "^4.0.0-rc.3",
     "ember-is-mobile": "^2.0.5",
     "ember-keyboard": "^2.1.9",
