@@ -3,22 +3,9 @@
   $detailview-head-height: 60px;
   $detailview-width: 700px;
 
-  // slide from left
-  @keyframes slide-from-left {
-    from { left: -200vw; }
-    to { left: 0px; }
-  }
-  animation: slide-from-left ease .4s;
   position: relative;
   left: 0;
 
-
-  border-right: $network-sidebar-border;
-  border-left: $network-sidebar-border;
-  margin-left: 1px;
-  background: darken($network-sidebar-bg,2%);
-  backdrop-filter: blur(10px);
-  box-shadow: 5px 0px 15px -2px rgba(0,0,0,0.8);
 
   position: relative;
   width: 100%;
@@ -111,6 +98,11 @@
   }
   a:not([class*=btn]) {
     text-decoration: underline;
+    color: $text-muted-color;
+
+    &:hover {
+      color: $text-color;
+    }
   }
 
   table {

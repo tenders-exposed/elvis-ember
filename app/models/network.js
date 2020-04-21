@@ -1,17 +1,11 @@
 import DS from 'ember-data';
-//import tinycolor from 'tinycolor';
 
 import { computed } from '@ember/object';
 const { Model, attr } = DS;
 
 const color = {
-  'buyer': '#87bf80',
-  'bidder': '#f0e968'
-};
-
-const colorRgb = {
-  'buyer': 'rgb(246, 49, 136)',
-  'bidder': 'rgb(36, 243, 255)'
+  'bidder': '#FFC776', // rgb(255,199,118)
+  'buyer': '#008D85' // rgb(0,141,133)
 };
 
 export default Model.extend({

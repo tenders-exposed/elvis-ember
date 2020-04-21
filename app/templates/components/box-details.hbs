@@ -10,10 +10,8 @@
       {{/each}}
     {{else}}
       {{#if (eq graphElementType "node")}}
-
         <h5>{{model.nodeType}}</h5>
           <div class="actor"><span class="figure-{{class}}"></span> {{model.label}}</div>
-        <hr>
         {{#each-in model.flags as |keyValue value|}}
             <div class="flags">
                 <div class="flag">
@@ -45,8 +43,9 @@
           </tr>
         </table>
         <div class="action">
-            {{#link-to "network.show.details.show" model.route model.link class="btn-tiny transparent primary" invokeAction="close"}}
+            {{#link-to "network.show.details.show" model.route model.link invokeAction="close"}}
               Show details
+              <i class="fa fa-eye fa-fw"></i>
             {{/link-to}}
         </div>
       {{/if}}
@@ -77,8 +76,9 @@
           </tr>
       </table>
       <div class="action">
-          {{#link-to "network.show.details.show" model.route model.link class="btn-tiny transparent primary" invokeAction="close"}}
+          {{#link-to "network.show.details.show" model.route model.link invokeAction="close"}}
               Show details
+            <i class="fa fa-eye fa-fw"></i>
           {{/link-to}}
       </div>
     {{else}}

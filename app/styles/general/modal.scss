@@ -43,7 +43,7 @@ $modal-bg: $main-bg;
 }
 // overlay opacity
 .lean-modal {
-  background: rgba(0,0,0,0.85);
+  background: rgba(darken($bg-color,5%),0.8);
 }
 
 .login-modal {

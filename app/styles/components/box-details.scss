@@ -1,28 +1,31 @@
+@import '../_network.scss';
+
 div#box-details-container {
   @keyframes slide-up {
     from { top: -100%; }
-    to { top: 20px; }
+    to { top: $navbar-height; }
   }
   animation: slide-up ease .4s;
 
   z-index: $zindex-infobox;
   position: absolute;
-  top: 20px;
+  top: $navbar-height;
   right: 60px;
-  width: 245px;
+  left: 20px;
   height: auto !important;
   display: block;
 
   #box-details-card {
-    border: 1px solid rgba(255,255,255,0.15);
-    background: fade-out($bg-color,0.1);
-    //box-shadow: 0 5px 20px rgba(0,0,0,0.75);
-    border-radius: $border-radius-base;
+    background: $network-sidebar-bg;
+    box-shadow: 0px 0px 55px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 3px; //TODO variable
+    border: 1px solid lighten($network-sidebar-bg,5%);
+    backdrop-filter: blur(2px);
     padding: $padding-base;
-    width: 100%;
+    max-width: 300px;
     position: absolute;
-    top: $navbar-height;
-    right: 50px; //@TODO: variable
+    top: 0;
+    right: $network-inner-offset;
 
     .actor {
       position: relative;
@@ -33,7 +36,6 @@ div#box-details-container {
       margin-bottom: .5em;
 
       [class*=figure-] {
-        font-size: .5rem;
         position: relative;
         left: -.5em;
         //top: .25em;
@@ -70,8 +72,8 @@ div#box-details-container {
     }
 
     .action {
-      margin-top: 1.5em;
-      margin-bottom: .5em;
+      margin-top: .5em;
+      font-weight: bold;
     }
 
     .close {

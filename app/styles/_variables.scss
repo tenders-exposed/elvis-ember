@@ -10,14 +10,14 @@
    ========================================================================== */
 
 // general colors
-$primary-color:           #87bf80;
+$primary-color:           #008d85;
 $primary-color-light:     lighten($primary-color, 15%);
 $primary-color-dark:      darken($primary-color, 15%);
 
-$secondary-color:         #f0e968;
+$secondary-color:         #ffc776;
 
-$error-color:             #ff533c;
-$success-color:           #00ff7e;
+$error-color:             #DA2C38;
+$success-color: #4d9139;
 $warning-color:           orangered;
 
 $color-bidder:            $secondary-color;
@@ -27,16 +27,16 @@ $color-flags:             #DA2C38;
 
 $color-dark:              #444;
 
-$link-color:              fade-out($primary-color,.25);
-$link-color-hover:        $primary-color;
+$link-color:              $primary-color;
+$link-color-hover:        fade-out($primary-color,.25);
 
 // TODO: all these variables should be compressed to just one
-$base-bg-color:           #0e0e11;
+$base-bg-color:           #181b17;
 $main-bg:                 $base-bg-color;
 $bg-color:                $base-bg-color;
 $bg-dark-color:           $base-bg-color;
 
-$text-color:              #DFF2D2;
+$text-color:              $color-relationship;
 $text-muted:              fade_out($text-color,0.5);
 $text-inverse-color:      #222;
 $text-dark-color:         grey;
@@ -286,10 +286,8 @@ $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width 
 
 /* NETWORK vars
   =========================================================================== */
-$network-sidebar-width: 30vw;
 $network-sidebar-padding: $padding-base;
-$network-sidebar-bg: fade-out(lighten($bg-color,2%), 0.1);
-$network-infowindow-width: calc(100% - #{$network-sidebar-width});
+$network-sidebar-bg: rgba(lighten($bg-color,2%), 0.85);
 $network-sidebar-border: $border-base;
 
 /* NETWORK vars

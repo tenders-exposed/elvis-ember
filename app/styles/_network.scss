@@ -1,8 +1,9 @@
-$network-bg: #101010;
+$network-bg: $bg-color;
 $network-inner-offset: 20px;
 $network-inner-width: calc(100vw - #{2*$network-inner-offset});
-$network-inner-height: calc(100vh - #{2*$network-inner-offset});
+$network-inner-height: calc(100vh - #{$navbar-height + $network-inner-offset});
 $network-controls-width: 50px;
+$network-sidebar-width: 300px;
 
 // basic network look & layout
 body.network:not(.network-new) {
@@ -20,6 +21,8 @@ body.network:not(.network-new) {
     background: $network-sidebar-bg;
     box-shadow: 0px 0px 55px 1px rgba(0, 0, 0, 0.25);
     border-radius: 3px; //TODO variable
+    border: 1px solid lighten($network-sidebar-bg,5%);
+    backdrop-filter: blur(2px)
   }
 
   // contains whole network with all sidebars and controls
@@ -27,9 +30,9 @@ body.network:not(.network-new) {
     position: absolute;
     top: 0;
     left: 0;
-    height: calc(100vh - #{2*$network-inner-offset});
-    width: calc(100vw - #{2*$network-inner-offset});
-    margin: $network-inner-offset;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
     overflow: hidden;
   }
 
@@ -53,10 +56,10 @@ body.network:not(.network-new) {
   #network-controls {
     position: absolute;
     top: 210px;
-    right: 0;
+    right: $network-inner-offset;
     padding: 5px;
     max-width: 1.2*$button-height;
-    z-index: 100;
+    z-index: 10;
     text-align: center;
 
 
@@ -70,6 +73,7 @@ body.network:not(.network-new) {
       margin-bottom: 5px;
       position: relative;
       overflow: visible !important;
+      padding: 0;
       .tooltip {
         display: none;
       }
@@ -98,6 +102,7 @@ body.network:not(.network-new) {
     margin-top: $navbar-height - 15px;
     text-align: center;
     height: auto;
+    margin-right: $network-inner-offset;
   }
 
   // network actors container
@@ -106,9 +111,11 @@ body.network:not(.network-new) {
     position: absolute;
     overflow: hidden;
     pointer-events: none;
-    height: calc(100vh - #{$navbar-height + 2*$network-inner-offset});
+    padding: 0 $network-inner-offset;
+    height: $network-inner-height;
     top: $navbar-height;
     width: 100%;
+    display: flex;
 
     // network actors list
     // @TODO: rename
@@ -116,16 +123,14 @@ body.network:not(.network-new) {
       display: inline-block;
       z-index: $zindex-network-sidebar;
       pointer-events: all;
-      width: $network-sidebar-width;
-      min-width: 300px;
+      min-width: $network-sidebar-width;
       max-width: 400px;
-      min-height: 400px;
-      position: absolute;
+      flex: 1 0 auto;
+      //position: absolute;
       height: 100%;
-      top: 0;
-      left: 0;
-      bottom: 0;
       clear: both;
+      overflow: auto;
+      overflow: overlay;
 
       font-family: $font-family-sans;
     }
@@ -133,18 +138,27 @@ body.network:not(.network-new) {
     // actor/contract detail
     #details-info {
       height: 100%;
-      width: 800px;
-      position: absolute;
-      left: $network-sidebar-width;
-      // right: $network-controls-width + $network-inner-offset;
+      flex: 0 1 auto;
+      width: 100%;
+      max-width:800px;
+      margin-left: 10px;
       display: inline-block;
       pointer-events: none;
 
+      @media (max-width: 900px) {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin-right: 10px;
+        width: auto;
+        z-index: $zindex-network-sidebar+1;
+
+      }
+
       .contract-info-wrapper,
       .details-info-wrapper {
-        height: calc(#{$network-inner-height} - #{$navbar-height});
+        height: $network-inner-height;
         pointer-events: all;
-        border: 0;
       }
 
       #loader {
