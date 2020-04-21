@@ -108,3 +108,13 @@ i.control-icon-light {
     right: 20px;
     z-index: $zindex-notification;
 }
+.close-error {
+  right: 10px;
+  font-size: 25px;
+  position: absolute;
+  cursor: pointer;
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
+}

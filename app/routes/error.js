@@ -4,8 +4,7 @@ export default Route.extend({
   classNames: ['body-page'],
   titleToken: 'Page Not Found',
   setupController(controller, error) {
-    // console.log('in error',error);
-    controller.set('errors', error.errors);
     this._super(...arguments);
+    controller.set('errors', error.errors);
   }
 });

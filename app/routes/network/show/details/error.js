@@ -6,5 +6,16 @@ export default Route.extend({
   setupController(controller, error) {
     controller.set('errors', error.payload.errors);
     this._super(...arguments);
+    let activeTab = this.controllerFor('network.show.details').get('activeTab');
+    controller.set('activeTab', activeTab);
+    // reset to default tabs
+    controller.set('activeTabDetails', 'contracts');
+    controller.set('activeTabbuyer', 'contracts');
+  },
+  actions: {
+    closeDetails() {
+      this.transitionTo('network.show.details',
+        this.controllerFor('network.show.details').get('activeTab'));
+    }
   }
 });
