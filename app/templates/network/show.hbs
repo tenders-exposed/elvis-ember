@@ -28,34 +28,15 @@
     </div>
 
     <div class="carousel">
-      {{#carousel-container transitionInterval=400 as |ui controls|}}
+      {{#carousel-container transitionInterval=30 as |ui controls|}}
         <div class="carousel-body">
+          {{#each carousel as |img|}}
           {{#ui.item}}
             <div class="carousel-content">
-              <img src="/images/carousel/1company.jpg">
+              <img src="{{img}}">
             </div>
           {{/ui.item}}
-          {{#ui.item}}
-            <div class="carousel-content">
-              <img src="/images/carousel/2govermnt.jpg">
-            </div>
-          {{/ui.item}}
-          {{#ui.item}}
-            <div class="carousel-content">
-              <img src="/images/carousel/3relationship.jpg">
-            </div>
-          {{/ui.item}}
-          {{#ui.item}}
-            <div class="carousel-content">
-              <img src="/images/carousel/4merging.jpg">
-            </div>
-          {{/ui.item}}
-          {{#ui.item}}
-            <div class="carousel-content">
-              <img src="/images/carousel/5tenders.jpg">
-            </div>
-          {{/ui.item}}
-
+          {{/each}}
         </div>
 
         <div class="carousel-footer">

@@ -120,7 +120,13 @@ export default Controller.extend({
     height: 100,
     boxData: {}
   },
-
+  carousel: [
+    "/images/carousel/1company.jpg",
+    "/images/carousel/2govermnt.jpg",
+    "/images/carousel/3relationship.jpg",
+    "/images/carousel/4merging.jpg",
+    "/images/carousel/5tenders.jpg"
+  ],
   defer() {
     let res, rej;
 
@@ -135,11 +141,33 @@ export default Controller.extend({
     return promise;
   },
 
+  shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  },
+
   init() {
     this._super();
     this.set('stabilizationPercent', 0);
     this.set('network', undefined);
     this.set('networkDefer', this.defer());
+    // shuffling imageins in the carousel
+    let newCarousel = this.shuffle(this.get('carousel'));
+    this.set('carousel',newCarousel);
   },
 
   didInsertElement() {
