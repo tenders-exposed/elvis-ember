@@ -43,10 +43,17 @@
           </tr>
         </table>
         <div class="action">
-            {{#link-to "network.show.details.show" model.route model.link invokeAction="close"}}
+          {{#if model.isCluster}}
+            {{#link-to "network.show.details.show" model.route (concat "c_" model.link) invokeAction="close"}}
               Show details
               <i class="fa fa-eye fa-fw"></i>
             {{/link-to}}
+            {{else}}
+            {{#link-to "network.show.details.show" model.route model.link invokeAction="close"}}
+                Show details
+              <i class="fa fa-eye fa-fw"></i>
+            {{/link-to}}
+          {{/if}}
         </div>
       {{/if}}
 
