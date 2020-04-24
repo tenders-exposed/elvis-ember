@@ -56,7 +56,13 @@
 
         <div class="col s3 summary">
           <h5 class="summary-title">AVG. Competition</h5>
-          <div class="summary-value">{{modelDetails.medianCompetition}} <small>bids per tender</small></div>
+          <div class="summary-value">
+            {{#if modelDetails.medianCompetition}}
+              {{modelDetails.medianCompetition}} <small>bids per tender</small>
+            {{else}}
+              <small>value unknown</small>
+            {{/if}}
+          </div>
         </div>
       </section>
 

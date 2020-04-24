@@ -50,6 +50,7 @@ export default Route.extend(ApplicationRouteMixin, BodyClassMixin, {
     didTransition() {
       this.controllerFor('application').set('dropMenu', false);
       this.controllerFor('application').set('footer', 'partials/footer');
-    }
+    },
+
   }
 });
