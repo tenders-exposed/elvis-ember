@@ -1,7 +1,9 @@
 import Route from '@ember/routing/route';
+import { sort } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import moment from 'moment';
+import { computed, observer } from '@ember/object';
 
 export default Route.extend(AuthenticatedRouteMixin, {
   me: service(),
@@ -45,6 +47,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
   setupController(controller, model) {
     this._super(controller, model);
+    controller.set('model',model);
   },
 
   activate() {

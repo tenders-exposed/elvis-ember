@@ -26,6 +26,7 @@ export default Model.extend({
   }),
   count: attr(),
   updated: attr(),
+  created: attr(),
   flaggedEdges: computed('edges', function() {
     let edgesFlagged = _.cloneDeep(this.get('edges'));
 
