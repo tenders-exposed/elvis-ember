@@ -59,16 +59,16 @@ export default Route.extend({
       wizardErrorMessage: false ,
       wizardShowNextStep: true,
       query: new EmberObject({
-        'nodeSize': 'numberOfWinningBids',
-        'edgeSize': 'numberOfWinningBids',
+        'nodeSize': 'amountOfMoneyExchanged',
+        'edgeSize': 'amountOfMoneyExchanged',
         'rawCountries': A([]),
         'rawActors': A([]),
         'actors': A([]),
         'countries': A([]),
         'years': A([2004, 2010]),
         'cpvs': A([]),
-        'edges': 'numberOfWinningBids',
-        'nodes': 'numberOfWinningBids'
+        'edges': 'amountOfMoneyExchanged',
+        'nodes': 'amountOfMoneyExchanged'
       }),
       loading: {
         years: false,
