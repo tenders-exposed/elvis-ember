@@ -33,11 +33,11 @@
         <h2>{{modelDetails.label}}</h2>
 
         <div class="tags">
-          {{!--{{#each modelDetails.countries as |country|}}
+          {{#each modelDetails.countries as |country|}}
             <span class="tag">
               {{world-flag country 16}} {{country}}
             </span>
-          {{/each}}--}}
+          {{/each}}
 
           {{#each-in modelDetails.flags as |flName flValue|}}
             <span class="tag redflag"><i class="fa fa-flag"></i> {{flName}}</span>
