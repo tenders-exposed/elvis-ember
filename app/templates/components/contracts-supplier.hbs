@@ -1,8 +1,8 @@
 <td class="title">
   <a href="#" target="_blank" {{action "redirectLink" row.source}}>
     {{fa-icon 'file-text' size=1}}
-    {{row.title}}
-  </a>
+    {{row.title}}</a>
+  &nbsp;{{fa-icon 'external-link' click=(action "redirectLink" row.source)}}
 </td>
 <td class="buyers">
   <span class="figure-buyer small"></span>

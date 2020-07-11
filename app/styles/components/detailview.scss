@@ -131,6 +131,31 @@
       padding: .5rem .5em;
       vertical-align: top;
     }
+    td {
+      &.flags {
+        font-size: $font-size-base;
+        color: $text-color;
+
+        .flags-icon {
+          color: $color-flags;
+        }
+
+        .flags-count {
+          cursor: pointer;
+          font-weight: bold;
+          border-bottom: 1px solid $color-flags;
+        }
+
+        .flags-tooltip {
+
+        }
+      }
+
+      &.date,
+      &.value {
+        white-space: nowrap;
+      }
+    }
   }
 
   .row > .col {
