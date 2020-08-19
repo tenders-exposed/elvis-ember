@@ -202,6 +202,17 @@
   }
 
   .contracts-table {
+    tbody.loadingContracts {
+      border: 1px solid #3a3a3a;
+      td {
+        height: 250px !important;
+      }
+      td > div {
+        position: relative;
+        height: 100%;
+      }
+    }
+
     th.bidders,
     th.buyers,
     th.title {

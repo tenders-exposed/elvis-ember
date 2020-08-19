@@ -59,9 +59,27 @@
 
       <section>
         <h5>Contracts</h5>
+        {{#if (gte modelDetails.pag.totalPages 2)}}
+          <div class="contractsPages">
+            {{#if (gte modelDetails.pag.page 2)}}
+              <a href="#"{{action "page" "back"}}>
+                {{fa-icon 'caret-left'}}
+              </a>
+            {{/if}}
+
+            {{modelDetails.pag.page}} / {{modelDetails.pag.totalPages}}
+
+            {{#if (gt modelDetails.pag.totalPages modelDetails.pag.page)}}
+              <a href="#"{{action "page" "next"}}>
+                {{fa-icon 'caret-right' }}
+              </a>
+            {{/if}}
+          </div>
+        {{/if}}
 
         {{details-data-table
           class="contracts-table"
+          loadingContracts= loadingContracts
           content=modelDetails.contracts
           sort=sort
           fields=fields.contractsRelationship
@@ -72,19 +90,6 @@
         }}
       </section>
 
-      {{!--section>
-        <h5>Tenders over time</h5>
-        <div>
-          {{details-graph
-            id="details-graph-id"
-            contracts=modelDetails.contracts
-            fields=fields.contracts
-            partialPath="network/show/details/partials/tables/contracts"
-            route="contract"
-            nodeId=params.id
-          }}
-        </div>
-      </section--}}
     </div>
   {{/ember-scrollable}}
 </div>

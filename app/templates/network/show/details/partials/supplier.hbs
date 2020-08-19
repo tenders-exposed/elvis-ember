@@ -74,8 +74,27 @@
 
       <section>
         <h5>Contracts</h5>
+        {{#if (gte modelDetails.pag.totalPages 2)}}
+          <div class="contractsPages">
+            {{#if (gte modelDetails.pag.page 2)}}
+              <a href="#"{{action "page" "back"}}>
+                {{fa-icon 'caret-left'}}
+              </a>
+            {{/if}}
+
+            {{modelDetails.pag.page}} / {{modelDetails.pag.totalPages}}
+
+            {{#if (gt modelDetails.pag.totalPages modelDetails.pag.page)}}
+              <a href="#"{{action "page" "next"}}>
+                {{fa-icon 'caret-right' }}
+              </a>
+            {{/if}}
+          </div>
+        {{/if}}
+
         {{details-data-table
             class="contracts-table"
+            loadingContracts= loadingContracts
             content=modelDetails.contracts
             fields=fields.contracts
             sort=sort
@@ -85,30 +104,6 @@
         }}
       </section>
 
-      <section>
-        <h5>Contracting government institutions</h5>
-        {{#each modelDetails.nodes as |node|}}
-          <div>
-            <span class="figure-buyer small"></span>
-            {{#link-to "network.show.details.show" "buyers" node.nodeID}}{{node.name}}{{/link-to}}
-          </div>
-        {{/each}}
-      </section>
-
-      {{!--<section>
-        <h5>Tenders over time</h5>
-        <div>
-          {{details-graph
-            id="details-graph-id"
-            contracts=modelDetails.contracts
-            fields=fields.contracts
-            partialPath="network/show/details/partials/tables/contracts"
-            route="suppliers"
-            nodeId=params.id
-
-          }}
-        </div>
-      </section> --}}
     </div>
   {{/ember-scrollable}}
 </div>

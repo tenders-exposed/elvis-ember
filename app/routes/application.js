@@ -24,8 +24,9 @@ export default Route.extend(ApplicationRouteMixin, BodyClassMixin, {
 
   model() {
     if (this.get('session.isAuthenticated')) {
-      // return undefined; // this.store.findRecord('user', this.get('me.data.id'));
-      return this.store.findRecord('user', this.get('me.data.access_token'));
+      // return undefined;
+      // return this.store.findRecord('user', this.get('me.data.id'));
+       return this.store.findRecord('user', this.get('me.data.access_token'));
     } else {
       return undefined;
     }
