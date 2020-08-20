@@ -1,8 +1,8 @@
 <td class="title">
   <a href="#" target="_blank" {{action "redirectLink" row.source}}>
     {{fa-icon 'file-text' size=1}}
-    {{row.title}}
-  </a>
+    {{row.title}}</a>
+  &nbsp;{{fa-icon 'external-link' click=(action "redirectLink" row.source)}}
 </td>
 <td class="date">{{format-empty row.date}}</td>
 <td class="bids">{{row.bids}}</td>
@@ -17,6 +17,26 @@
   {{/if}}
   {{row.year}}
 </td>
+<!-- TODO: add this column to every actor details table to display the red flags -->
+<td class="flags">
+  <span class="flags-icon">{{fa-icon 'flag' size=1}}</span>
+  &nbsp;&times;&nbsp;
+  <span class="flags-count">
+    4 <!-- NOTE: this is the number of red flags on this item -->
+
+    {{#tooltip-on-element class='flags-tooltip' event='click' enableLazyRendering=true side='top'}}
+      <h5>Red flags</h5>
+      <ul>
+        <!-- TODO: only flags which apply are displayed -->
+        <li>{{fa-icon 'flag' size=1}} Single Bid</li>
+        <li>{{fa-icon 'flag' size=1}} Non-open procedure</li>
+        <li>{{fa-icon 'flag' size=1}} No call for tender published</li>
+        <li>{{fa-icon 'flag' size=1}} Tax heaven</li>
+      </ul>
+    {{/tooltip-on-element}}
+  </span>
+</td>
+
 <td class="value">
   {{#if row.xAmountApproximated}}
     <span class="btn-tooltip">
