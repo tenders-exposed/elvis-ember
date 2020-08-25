@@ -17,22 +17,36 @@ export default Route.extend({
     return this.controllerFor('network.show.details.show');
   }),
 
+  getFlags(indicators) {
+    let flagsCount = 0;
+    let flagsNames = [];
+    _.each(indicators, function (indicator) {
+      if(indicator.value == 0) {
+        flagsCount++;
+        flagsNames.push(indicator.type);
+      }
+    });
+
+    return {flagsCount: flagsCount, flagsNames: flagsNames};
+  },
+
   getContracts(apiAddressContracts, endpointQ, page) {
 
+    let self = this;
     let options = {};
     options.headers = {
       'Content-Type': 'application/json'
     };
     // /networks/{networkID}/nodes/{nodeID}/bids?limit=10&page=1
-    console.log('get Contracts - apiAddressContracts', apiAddressContracts);
+    // console.log('get Contracts - apiAddressContracts', apiAddressContracts);
     return this.get('ajax')
       .request(`${apiAddressContracts}${page}`,{
         data: options
       })
       .then(
         (data) => {
-          console.log('getContracts-data', data);
-          console.log('getContracts-endpointQ', endpointQ);
+          // console.log('getContracts-data', data);
+          // console.log('getContracts-endpointQ', endpointQ);
           let pag = {
             page: data.page,
             totalPages: data.totalPages
@@ -40,6 +54,7 @@ export default Route.extend({
           if (endpointQ != 'relationships') {
             let contracts = [];
             _.each(data.bids, function(bid) {
+              let flags = self.getFlags(bid.lot.tender.indicators);
               let contract = {
                 tenderId: bid.lot.tender.id,
                 title: bid.lot.title ? `${bid.lot.tender.title} - ${bid.lot.title}` : bid.lot.tender.title,
@@ -50,18 +65,21 @@ export default Route.extend({
                 year: bid.lot.tender.year,
                 source: bid.lot.tender.sources[0],
                 xYearApproximated: bid.lot.tender.xYearApproximated,
-                xAmountApproximated: bid.lot.tender.xAmountApproximated
+                xAmountApproximated: bid.lot.tender.xAmountApproximated,
+                flagsCount: flags.flagsCount,
+                flagsNames: flags.flagsNames
               };
-              console.log('getContracts-contract', contract);
+              // console.log('getContracts-contract', contract);
               contracts.push(contract);
             });
             //let contractsCount = dataEntity.winningBids.length;
-            console.log('getContracts-contracts', contracts);
+            // console.log('getContracts-contracts', contracts);
             return {contracts: contracts, pag: pag};
 
           } else {
             let contracts = [];
             _.each(data.bids, function(bid) {
+              let flags = self.getFlags(bid.lot.tender.indicators);
               let contract = {
                 tenderId: bid.lot.tender.id,
                 title: bid.lot.title ? `${bid.lot.tender.title} - ${bid.lot.title}` : bid.lot.tender.title,
@@ -71,7 +89,9 @@ export default Route.extend({
                 year: bid.lot.tender.year,
                 source: bid.lot.tender.sources[0],
                 xYearApproximated: bid.lot.tender.xYearApproximated,
-                xAmountApproximated: bid.lot.tender.xAmountApproximated
+                xAmountApproximated: bid.lot.tender.xAmountApproximated,
+                flagsCount: flags.flagsCount,
+                flagsNames: flags.flagsNames
               };
               contracts.push(contract);
             });
@@ -141,7 +161,7 @@ export default Route.extend({
 
     // for future retrive and process of contracts
     dataEntity.apiAddress = `/networks/${networkId}/${this.endpoints[endpointQ]}/${nodeId}`;
-    dataEntity.apiAddressContracts = `${dataEntity.apiAddress}/bids?limit=3&page=`;
+    dataEntity.apiAddressContracts = `${dataEntity.apiAddress}/bids?limit=5&page=`;
 
     dataEntity.endpointQ = endpointQ;
 
@@ -167,7 +187,7 @@ export default Route.extend({
     return this.controllerFor('network.show').get('networkDefer').then(() => {
       // console.log('start model');
       let details;
-      console.log('dataEntity',dataEntity);
+      // console.log('dataEntity',dataEntity);
       // bidder,buyers || relationships
       if (endpoint === 'relationships') {
           let edge = self.get('networkService').getEdgeById(params.id);
@@ -181,7 +201,7 @@ export default Route.extend({
             dataEntity.contracts = values[1].contracts;
             dataEntity.pag = values[1].pag;
 
-            console.log('model', dataEntity);
+            // console.log('model', dataEntity);
             controller.set('modelDetails', dataEntity);
             return values;
           });
@@ -226,7 +246,7 @@ export default Route.extend({
       );
     },
     page(pageAction) {
-      console.log('details.show- action.page', pageAction);
+      // console.log('details.show- action.page', pageAction);
       let controller =  this.get('controller');
       let modelDetails = controller.get('modelDetails');
       let self = this;

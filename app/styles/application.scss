@@ -121,6 +121,7 @@ i.control-icon-light {
 
 // general tooltips
 .ember-tooltip {
+  max-width: 300px !important;
   font-size: .875em;
   background: rgba(lighten($main-bg,10%),0.9);
   padding: 12px;

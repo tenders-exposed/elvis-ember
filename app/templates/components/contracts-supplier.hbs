@@ -26,6 +26,26 @@
   {{/if}}
   {{row.year}}
 </td>
+<td class="flags">
+  {{#if row.flagsCount}}
+    <span class="flags-icon">{{fa-icon 'flag' size=1}}</span>
+    x
+    <span class="flags-count">
+      {{row.flagsCount}}
+
+      {{#tooltip-on-element class="flags-tooltip" event='click' enableLazyRendering=true side='top'}}
+        <h5>Red flags</h5>
+        <ul>
+        {{#each row.flagsNames as |flagName|}}
+          <li>
+            {{fa-icon "flag" size=1}} {{flagName}}
+          </li>
+        {{/each}}
+        </ul>
+      {{/tooltip-on-element}}
+    </span>
+  {{/if}}
+</td>
 <td class="value">
   {{#if row.xAmountApproximated}}
     <span class="btn-tooltip">

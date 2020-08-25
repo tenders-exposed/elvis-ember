@@ -25,6 +25,10 @@ export default Controller.extend({
         label: 'Year',
         sort: true
       },
+      indicators: {
+        label: 'Indicators',
+        sort: false
+      },
       value: {
         label: 'Awarded amount',
         sort: true
@@ -43,6 +47,10 @@ export default Controller.extend({
       year: {
         label: 'Year',
         sort: true
+      },
+      indicators: {
+        label: 'Indicators',
+        sort: false
       },
       value: {
         label: 'Awarded amount', sort: true
@@ -74,6 +82,10 @@ export default Controller.extend({
       },
       year: {
         label: 'Year', sort: false
+      },
+      indicators: {
+        label: 'Indicators',
+        sort: false
       },
       value: {
         label: 'Award amount', sort: true
