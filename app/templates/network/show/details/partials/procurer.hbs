@@ -67,24 +67,37 @@
       </section>
 
       <section>
-        <h5>Contracts</h5>
-        {{#if (gte modelDetails.pag.totalPages 2)}}
-          <div class="contractsPages">
-          {{#if (gte modelDetails.pag.page 2)}}
-            <a href="#"{{action "page" "back"}}>
-              {{fa-icon 'caret-left'}}
-            </a>
-          {{/if}}
+        <div class="contracts-top-table">
+          <h5>Contracts</h5>
+          {{#if (gte modelDetails.pag.totalPages 2)}}
+            <div class="contractsPages">
+              {{#if (gte modelDetails.pag.page 2)}}
+                <a href="#"{{action "page" "first"}}>
+                  {{fa-icon 'backward' size=1}}
+                </a>
+                &nbsp;
+                <a href="#"{{action "page" "back"}}>
+                  {{fa-icon 'caret-left' size=1 class="arrow-page"}}
+                </a>
+                &nbsp;
+              {{/if}}
 
-            {{modelDetails.pag.page}} / {{modelDetails.pag.totalPages}}
+              {{modelDetails.pag.page}} / {{modelDetails.pag.totalPages}}
 
-          {{#if (gt modelDetails.pag.totalPages modelDetails.pag.page)}}
-            <a href="#"{{action "page" "next"}}>
-              {{fa-icon 'caret-right' }}
-            </a>
+              {{#if (gt modelDetails.pag.totalPages modelDetails.pag.page)}}
+                &nbsp;
+                <a href="#"{{action "page" "next"}}>
+                  {{fa-icon 'caret-right' size=1 class="arrow-page"}}
+                </a>
+                &nbsp;
+                <a href="#"{{action "page" "last"}}>
+                  {{fa-icon 'forward' size=1}}
+                </a>
+              {{/if}}
+            </div>
           {{/if}}
-          </div>
-        {{/if}}
+        </div>
+
 
 
           {{details-data-table

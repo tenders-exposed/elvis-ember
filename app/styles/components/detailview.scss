@@ -282,4 +282,20 @@
        text-align: right;
      }
    }
+
+   .contracts-top-table {
+     margin-bottom: 7px;
+     h5 {
+       float: left;
+     }
+     .arrow-page {
+       font-size: 18px;
+     }
+     .contractsPages {
+       display: inline-block;
+       width: 90%;
+       text-align: right;
+     }
+   }
+
 }

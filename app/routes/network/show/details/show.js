@@ -237,6 +237,20 @@ export default Route.extend({
     controller.set('activeTabDetails', 'contracts');
     controller.set('activeTabbuyer', 'contracts');
   },
+  getContractsPage() {
+    let controller =  this.get('controller');
+    let modelDetails = controller.get('modelDetails');
+    let self = this;
+    controller.set('loadingContracts', true);
+
+    self.getContracts(modelDetails.apiAddressContracts, modelDetails.endpointQ,this.get('page'))
+      .then(function(data) {
+        controller.set('loadingContracts', false);
+        controller.set('modelDetails.contracts', data.contracts);
+        controller.set('modelDetails.pag', data.pag);
+        return data;
+      });
+  },
 
   actions: {
     closeDetails() {
@@ -254,23 +268,19 @@ export default Route.extend({
 
       if (pageAction == 'next') {
         this.set('page', this.get('page') + 1);
-        self.getContracts(modelDetails.apiAddressContracts, modelDetails.endpointQ,this.get('page'))
-          .then(function(data) {
-            controller.set('loadingContracts', false);
-            controller.set('modelDetails.contracts', data.contracts);
-            controller.set('modelDetails.pag', data.pag);
-            return data;
-          });
+        this.getContractsPage();
       }
       if (pageAction == 'back') {
         this.set('page', this.get('page') - 1);
-        self.getContracts(modelDetails.apiAddressContracts, modelDetails.endpointQ,this.get('page'))
-          .then(function(data) {
-            controller.set('loadingContracts', false);
-            controller.set('modelDetails.contracts', data.contracts);
-            controller.set('modelDetails.pag', data.pag);
-            return data;
-          });
+        this.getContractsPage();
+      }
+      if (pageAction == 'first') {
+        this.set('page', 1);
+        this.getContractsPage();
+      }
+      if (pageAction == 'last') {
+        this.set('page', controller.get('modelDetails.pag.totalPages'));
+        this.getContractsPage();
       }
     }
   }
