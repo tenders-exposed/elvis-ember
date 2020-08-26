@@ -79,7 +79,7 @@
             <div class="contractsPages">
               {{#if (gte modelDetails.pag.page 2)}}
                 <a href="#"{{action "page" "first"}}>
-                  {{fa-icon 'backward' size=1}}
+                  {{fa-icon 'backward' size=1 class="arrow-page-limit"}}
                 </a>
                 &nbsp;
                 <a href="#"{{action "page" "back"}}>
@@ -97,7 +97,7 @@
                 </a>
                 &nbsp;
                 <a href="#"{{action "page" "last"}}>
-                  {{fa-icon 'forward' size=1}}
+                  {{fa-icon 'forward' size=1 class="arrow-page-limit"}}
                 </a>
               {{/if}}
             </div>

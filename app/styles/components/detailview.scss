@@ -285,11 +285,21 @@
 
    .contracts-top-table {
      margin-bottom: 7px;
+     a {
+       text-decoration: none;
+     }
      h5 {
        float: left;
+       margin-top: 5px !important;
+       margin-bottom: 0px;
      }
      .arrow-page {
        font-size: 18px;
+     }
+     .arrow-page-limit {
+       font-size: 13px;
+       line-height: 19px;
+       vertical-align: top;
      }
      .contractsPages {
        display: inline-block;
