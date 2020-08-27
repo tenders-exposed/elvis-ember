@@ -13,6 +13,13 @@ export default Route.extend({
     relationships: 'edges',
     clusters: 'clusters'
   },
+
+  flagsMap: {
+    INTEGRITY_CALL_FOR_TENDER_PUBLICATION: 'No call for tender published',
+    INTEGRITY_TAX_HAVEN: 'Company from a tax haven',
+    INTEGRITY_PROCEDURE_TYPE: 'Non-open tender procedure'
+  },
+
   controller: computed(function() {
     return this.controllerFor('network.show.details.show');
   }),
@@ -20,10 +27,11 @@ export default Route.extend({
   getFlags(indicators) {
     let flagsCount = 0;
     let flagsNames = [];
+    let flagsMap = this.get('flagsMap');
     _.each(indicators, function (indicator) {
       if(indicator.value == 0) {
         flagsCount++;
-        flagsNames.push(indicator.type);
+        flagsNames.push(flagsMap[indicator.type]);
       }
     });
 

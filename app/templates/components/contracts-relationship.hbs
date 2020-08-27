@@ -5,7 +5,11 @@
   &nbsp;{{fa-icon 'external-link' click=(action "redirectLink" row.source)}}
 </td>
 <td class="date">{{format-empty row.date}}</td>
-<td class="bids">{{row.bids}}</td>
+{{#if (eq row.bids 1)}}
+  <td class="bids red-bids">{{row.bids}}</td>
+{{else}}
+  <td class="bids">{{row.bids}}</td>
+{{/if}}
 <td class="year">
   {{#if row.xYearApproximated}}
     <span class="btn-tooltip">

@@ -132,6 +132,10 @@
       vertical-align: top;
     }
     td {
+      &.red-bids {
+        text-decoration: underline;
+        text-decoration-color: red;
+      }
       &.flags {
         font-size: $font-size-base;
         color: $text-color;
