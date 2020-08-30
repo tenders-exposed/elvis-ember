@@ -189,6 +189,7 @@ export default Route.extend({
 
     this.set('tab', tab);
     this.set('page', 1);
+    // this set limitPage = 5  and on the controller
     controller.set('params', params);
     controller.set('tab', tab);
     controller.set('modelDetails', undefined);
