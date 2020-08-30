@@ -145,15 +145,6 @@
           {{/currentState.step}}
 
           {{#currentState.step stepId="4" wizardCurrentState=currentState}}
-            {{#if wizardErrorMessage}}
-              <div class="row">
-                <p class="alert alert-warning"><i class="fa fa-warning"></i>
-                  {{wizardErrorMessage}}
-                  <!--<a href="#" {{action "proceedAnyway" '4' on="click"}}>Proceed anyway</a>-->
-                </p>
-              </div>
-            {{/if}}
-
             {{#if loading.cpvs}}
               {{elvis-loader  message="Loading.."}}
             {{else}}

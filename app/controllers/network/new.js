@@ -55,6 +55,7 @@ export default Controller.extend({
     'cpvs': false
   },
 
+  // take out
   loadAllMarkets: false,
 
   sizeType: [
@@ -422,20 +423,7 @@ export default Controller.extend({
         // settings
         let wizardErrorMessage = false;
         let wizardShowNextStep = true;
-
-        if (this.get('loadAllMarkets')) {
-          nextStep();
-
-        } else if (this.get('selectedCodesCount')) {
-
-          nextStep();
-        } else {
-          let countAllCpvs = this.get('countAllCpvs');
-          wizardErrorMessage = `If you don't chose any market, all the ${countAllCpvs} tenders will be selected. This may result in a slow network. You can also restrict visualization to specific markets below.`;
-          wizardShowNextStep = false;
-          this.set('loadAllMarkets', true);
-          //this.wizardStepChanged({ 'step_id': 4 });
-        }
+        nextStep();
 
         this.setProperties({
           wizardSteps: {

@@ -185,15 +185,16 @@ export default Route.extend({
     let { tab } = transition.params['network.show.details'];
     let endpoint  = this.paramsFor('network.show.details').tab;
 
-    let dataEntity = this.getNodeDetails(params.id, endpoint);
-
     this.set('tab', tab);
     this.set('page', 1);
-    // this set limitPage = 5  and on the controller
+    this.set('limitPage', 5);
+    controller.set('limitPage', 5);
     controller.set('params', params);
     controller.set('tab', tab);
-    controller.set('modelDetails', undefined);
 
+    let dataEntity = this.getNodeDetails(params.id, endpoint);
+
+    controller.set('modelDetails', undefined);
 
     return this.controllerFor('network.show').get('networkDefer').then(() => {
       // console.log('start model');
