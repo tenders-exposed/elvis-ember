@@ -116,7 +116,12 @@
           {{/currentState.step-completed}}
 
           {{#currentState.step-completed stepId="4" name="selected-markets" wizardCurrentState=currentState}}
-            {{selectedCodesCount}} <small>markets</small>
+            {{#if selectedCodesCount}}
+              {{selectedCodesCount}}
+            {{else}}
+              {{countAllCpvs}}
+            {{/if}}
+             <small>markets</small>
           {{/currentState.step-completed}}
 
 
@@ -144,7 +149,7 @@
               <div class="row">
                 <p class="alert alert-warning"><i class="fa fa-warning"></i>
                   {{wizardErrorMessage}}
-                  <a href="#" {{action "proceedAnyway" '4' on="click"}}>Proceed anyway</a>
+                  <!--<a href="#" {{action "proceedAnyway" '4' on="click"}}>Proceed anyway</a>-->
                 </p>
               </div>
             {{/if}}

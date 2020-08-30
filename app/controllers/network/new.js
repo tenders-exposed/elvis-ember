@@ -140,6 +140,7 @@ export default Controller.extend({
   networkLoading: false,
   allCpvs:[],
   allCpvSelected: false,
+  countAllCpvs: 0,
 
   createTree() {
     // reset selected codes
@@ -429,8 +430,11 @@ export default Controller.extend({
 
           nextStep();
         } else {
-          wizardErrorMessage = "If you don't choose any market, all the tenders will be selected. This may result in a slow network.";
+          let countAllCpvs = this.get('countAllCpvs');
+          wizardErrorMessage = `If you don't chose any market, all the ${countAllCpvs} tenders will be selected. This may result in a slow network. You can also restrict visualization to specific markets below.`;
           wizardShowNextStep = false;
+          this.set('loadAllMarkets', true);
+          //this.wizardStepChanged({ 'step_id': 4 });
         }
 
         this.setProperties({
@@ -453,13 +457,20 @@ export default Controller.extend({
 
   actions: {
     didInsertJsTree(renderNo) {
-      if (renderNo == 2) {
+
+      //countAllCpvs
+      this.get('jsTree').send('selectAll');
+      this.set('countAllCpvs', this.get('selectedCodesCount'));
+      this.get('jsTree').send('deselectAll');
+      this.get('jsTree').send('closeAll');
+
+      /*if (renderNo == 2) {
         this.set('allCpvSelected', true);
         this.get('jsTree').send('selectAll');
       } else {
         //@todo: it should work
         this.get('jsTree').send('closeAll');
-      }
+      }*/
     },
 
     selectAllCpvs() {
@@ -478,10 +489,10 @@ export default Controller.extend({
       this.wizardStepChanged(wizardStep);
     },
 
-    proceedAnyway(wizardStep) {
+    /*proceedAnyway(wizardStep) {
       this.set('loadAllMarkets', true);
       this.wizardStepChanged({ 'step_id': wizardStep });
-    },
+    },*/
 
     // Step1 : Select Countries
     onCountrySelect(selectedCountryId) {
@@ -621,10 +632,14 @@ export default Controller.extend({
       self.set('isLoading', true);
       self.prepareQuery();
 
-      let query = {
-        cpvs: cpvs.uniq(),
-        years: years.uniq()
-      };
+      let query = {};
+      if (this.get('selectedCodes').length == 0) {
+        query.years = years.uniq();
+
+      } else {
+        query.cpvs = cpvs.uniq();
+        query.years = years.uniq();
+      }
 
       if (countries && countries.length > 0) {
         query.countries = countries.uniq();
