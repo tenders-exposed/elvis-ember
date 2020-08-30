@@ -429,7 +429,7 @@ export default Controller.extend({
 
           nextStep();
         } else {
-          wizardErrorMessage = "If you don't chose any market, all the tenders will be selected. This may result in a slow network.";
+          wizardErrorMessage = "If you don't choose any market, all the tenders will be selected. This may result in a slow network.";
           wizardShowNextStep = false;
         }
 
