@@ -31,6 +31,7 @@ ElvisRouter.map(function() {
     });
   });
   this.route('about');
+  this.route('helloimelvis');
   this.route('contact');
   this.route('examples');
   this.route('features');
