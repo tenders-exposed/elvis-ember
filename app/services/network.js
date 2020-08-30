@@ -21,6 +21,13 @@ export default Service.extend({
     this._super(...arguments);
     this.set('network', undefined);
     this.set('model', undefined);
+    this.set('bidders', []);
+    this.set('buyers', []);
+    this.set('relationships', []);
+    this.set('nodes', []);
+    this.set('edges', []);
+    this.set('clusters', []);
+    this.set('isReady', false);
   },
 
   reset() {
@@ -239,6 +246,7 @@ export default Service.extend({
   setNetwork(network, networkDefer) {
     // make isReady false.. and recalculate
     // networkDeferer defined in network.show controller and resolved in network.service
+    console.log('setNetworkservice ******************************');
     this.set('networkDefer', networkDefer);
     let self = this;
     if (self.checkReady()) {

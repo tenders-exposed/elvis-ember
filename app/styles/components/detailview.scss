@@ -132,9 +132,8 @@
       vertical-align: top;
     }
     td {
-      &.red-bids {
-        text-decoration: underline;
-        text-decoration-color: red;
+      .red-bids {
+        border-bottom: 1px solid #ff0006;
       }
       &.flags {
         font-size: $font-size-base;
@@ -296,6 +295,7 @@
        float: left;
        margin-top: 5px !important;
        margin-bottom: 0px;
+       width: 72%;
      }
      .arrow-page {
        font-size: 18px;
@@ -307,8 +307,54 @@
      }
      .contractsPages {
        display: inline-block;
-       width: 90%;
+       width: 20%;
        text-align: right;
+     }
+     .no-contracts {
+       display: inline-block;
+       width: 5%;
+       position: relative;
+       .label-no-contracts {
+         position: absolute;
+         right: 47px;
+         font-size: .9rem;
+         width: 110px;
+         padding-top: 3px;
+       }
+       label, .red-text {
+         display: none;
+       }
+       .select-wrapper {
+         width: 35px;
+         input {
+           height: 2rem;
+           line-height: 2rem;
+           width: 100%;
+           font-size: 1rem;
+           margin: 0 0 15px 0;
+           padding: 0;
+           padding-left: 5px;
+           display: block;
+           margin: 0px;
+         }
+         .caret {
+           top: 8px;
+           right: .3rem;
+         }
+         .dropdown-content {
+           li {
+             min-height: 20px;
+             line-height: 1.3rem;
+             width: 100%;
+           }
+           li > span {
+             font-size: 1rem;
+             display: block;
+             line-height: 10px;
+             padding: 3px 3px;
+           }
+         }
+       }
      }
    }
 

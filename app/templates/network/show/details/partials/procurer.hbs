@@ -69,6 +69,17 @@
       <section>
         <div class="contracts-top-table">
           <h5>Contracts</h5>
+          {{#if (or (gte modelDetails.pag.totalPages 2) (gte limitPage 10))}}
+            <div class="no-contracts">
+              <span class="label-no-contracts">
+                Numer of contracts
+              </span>
+              {{md-select content=limitContractsPage
+                          value=limitPage
+                          optionLabelPath="content.label"
+                          optionValuePath="content.value" }}
+            </div>
+          {{/if}}
           {{#if (gte modelDetails.pag.totalPages 2)}}
             <div class="contractsPages">
               {{#if (gte modelDetails.pag.page 2)}}

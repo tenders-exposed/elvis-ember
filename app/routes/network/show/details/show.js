@@ -20,6 +20,7 @@ export default Route.extend({
     INTEGRITY_PROCEDURE_TYPE: 'Non-open tender procedure'
   },
 
+  limitPage: 5,
   controller: computed(function() {
     return this.controllerFor('network.show.details.show');
   }),
@@ -152,6 +153,7 @@ export default Route.extend({
     let self = this;
     let dataEntity = {};
     let idParts = _.split(nodeId, '_');
+    let limitPage = this.get('limitPage');
 
     nodeId = _.last(idParts);
     // if we have multiple parts like c-id then we have a cluster endpoint
@@ -169,7 +171,7 @@ export default Route.extend({
 
     // for future retrive and process of contracts
     dataEntity.apiAddress = `/networks/${networkId}/${this.endpoints[endpointQ]}/${nodeId}`;
-    dataEntity.apiAddressContracts = `${dataEntity.apiAddress}/bids?limit=5&page=`;
+    dataEntity.apiAddressContracts = `${dataEntity.apiAddress}/bids?limit=${limitPage}&page=`;
 
     dataEntity.endpointQ = endpointQ;
 
@@ -261,6 +263,20 @@ export default Route.extend({
   },
 
   actions: {
+    resetLimitPage() {
+      let controller =  this.get('controller');
+      let limitPage = controller.get('limitPage');
+      let apiAddress = controller.get('modelDetails.apiAddress');
+      controller.set('modelDetails.apiAddressContracts', `${apiAddress}/bids?limit=${limitPage}&page=`);
+      controller.set('loadingContracts', true);
+      this.set('page', 1);
+      this.set('limitPage', limitPage);
+
+      this.getContractsPage();
+
+      console.log('tring to reset limit page from action with limitPage', limitPage);
+      console.log('modelDetails.apiAddressContracts', controller.get('modelDetails.apiAddressContracts'));
+    },
     closeDetails() {
       this.transitionTo(
         'network.show.details',
@@ -271,7 +287,6 @@ export default Route.extend({
       // console.log('details.show- action.page', pageAction);
       let controller =  this.get('controller');
       let modelDetails = controller.get('modelDetails');
-      let self = this;
       controller.set('loadingContracts', true);
 
       if (pageAction == 'next') {

@@ -162,6 +162,7 @@ export default Controller.extend({
 
   init() {
     this._super();
+    console.log('network/show reset network ******************************');
     this.set('stabilizationPercent', 0);
     this.set('network', undefined);
     this.set('networkDefer', this.defer());
@@ -433,6 +434,7 @@ export default Controller.extend({
       // console.log('start stabilizing', this.get('network'));
       this.set('startStabilizing', performance.now());
       // Logger.info('start stabilizing');
+      // !!!
       this.get('networkService').setNetwork(this.get('network'), this.get('networkDefer'));
     },
 

@@ -1,10 +1,24 @@
 import Controller from '@ember/controller';
+import { computed, observer } from '@ember/object';
 
 export default Controller.extend({
   activeTabDetails: 'contracts',
   activeTabbuyer: 'contracts',
   params: {},
   networkQuery: {},
+
+  limitContractsPage: [
+    {'value': 5, 'label': 5},
+    {'value': 10, 'label': 10},
+    {'value': 15, 'label': 15},
+  ],
+
+  limitPage: 5,
+
+  limitPageObserver: observer('limitPage', function() {
+    console.log('limit page Changed', this.get('limitPage'));
+    this.get('target').send('resetLimitPage');
+  }),
 
   sort: 'value',
   fields: {

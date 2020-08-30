@@ -58,7 +58,7 @@ export default Controller.extend({
   loadAllMarkets: false,
 
   sizeType: [
-    { 'type': 'numberOfWinningBids', 'label': 'winning Bids' },
+    { 'type': 'numberOfWinningBids', 'label': 'number of winning Bids' },
     { 'type': 'amountOfMoneyExchanged', 'label': 'amount of money' }
   ],
   countries: [],
