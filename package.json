@@ -22,7 +22,7 @@
   },
   "repository": "https://github.com/tenders-exposed/elvis-ember.git",
   "engines": {
-    "node": "^10.15.1"
+    "node": "^8.9"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.5.2",
