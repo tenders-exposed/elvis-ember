@@ -1,5 +1,9 @@
 // styles displaying detail info about government, company, relationship or contract
- .detailview {
+.ember-tooltip {
+  pointer-events: auto !important;
+}
+
+.detailview {
   $detailview-head-height: 60px;
   $detailview-width: 700px;
 
@@ -9,6 +13,10 @@
 
   position: relative;
   width: 100%;
+
+  .unknown-value {
+    cursor: pointer;
+  }
 
   .detailview-head,
   .detailview-body {

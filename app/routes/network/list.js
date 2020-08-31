@@ -16,9 +16,14 @@ export default Route.extend(AuthenticatedRouteMixin, {
   },
 
   afterModel(model) {
+    console.log('list aftermodel');
     this.titleToken = ` My projects (${model.get('length')})`;
 
+    console.log('list aftermodel - get length');
+
     return model.map(function(network) {
+      console.log('list aftermodel - map networks');
+
       if (network.get('synopsis') === 'null') {
         network.set('synopsis', '');
       }
@@ -34,23 +39,32 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
       network.set('firstYear', _.first(network.get('query.years')));
       network.set('lastYear', _.last(network.get('query.years')));
-      network.set('cpvsCount', network.get('query.cpvs').length);
+      let cpvs = network.get('query.cpvs', []);
+      if(cpvs) {
+        network.set('cpvsCount', cpvs.length);
+      } else {
+        network.set('cpvsCount', 0);
+      }
 
       network.set('nodeCount', network.get('count.nodeCount'));
       network.set('edgeCount', network.get('count.edgeCount'));
 
       network.set('updated', moment.parseZone(network.get('updated')).local().format());
+      console.log('end afterModel');
       return network;
     }, model);
+
 
   },
 
   setupController(controller, model) {
     this._super(controller, model);
+    console.log('setupController - list', model);
     controller.set('model',model);
   },
 
   activate() {
+    console.log('list- activate');
     this.notifications.clearAll();
   },
 

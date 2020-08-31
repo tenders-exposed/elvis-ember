@@ -43,11 +43,38 @@
       <section class="row">
         <div class="col s2 summary">
           <h5 class="summary-title">Bids awarded</h5>
-          <div class="summary-value">{{format-amount modelDetails.numberOfWinningBids}}</div>
+          <div class="summary-value">
+            {{#if modelDetails.numberOfWinningBids}}
+              {{format-amount modelDetails.numberOfWinningBids}}
+            {{else}}
+              <span class="unknown-value">
+              {{format-amount modelDetails.numberOfWinningBids}}
+                {{#tooltip-on-element  event='click' enableLazyRendering=true side='top'}}
+                  Amount not disclosed in the source data.
+                <br>
+                <a href="/helloimelvis" target="_blank">Read more</a>
+                {{/tooltip-on-element}}
+              </span>
+            {{/if}}
+          </div>
         </div>
         <div class="col s3 summary">
           <h5 class="summary-title">All awarded amounts</h5>
-          <div class="summary-value">{{format-amount modelDetails.amountOfMoneyExchanged}} €</div>
+          <div class="summary-value">
+            {{#if modelDetails.amountOfMoneyExchanged}}
+              {{format-amount modelDetails.amountOfMoneyExchanged}} €
+            {{else}}
+              <span class="unknown-value">
+              {{format-amount modelDetails.amountOfMoneyExchanged}}
+                {{#tooltip-on-element event='click' enableLazyRendering=true side='top'}}
+                  Amount not disclosed in the source data.
+                <br>
+                <a href="/helloimelvis" target="_blank">Read more</a>
+                {{/tooltip-on-element}}
+              </span>
+            {{/if}}
+
+          </div>
         </div>
         <div class="col s4 summary">
           <h5 class="summary-title">Awarded amount unknown in</h5>
