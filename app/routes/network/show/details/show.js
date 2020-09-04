@@ -47,15 +47,12 @@ export default Route.extend({
       'Content-Type': 'application/json'
     };
     // /networks/{networkID}/nodes/{nodeID}/bids?limit=10&page=1
-    // console.log('get Contracts - apiAddressContracts', apiAddressContracts);
     return this.get('ajax')
       .request(`${apiAddressContracts}${page}`,{
         data: options
       })
       .then(
         (data) => {
-          // console.log('getContracts-data', data);
-          // console.log('getContracts-endpointQ', endpointQ);
           let pag = {
             page: data.page,
             totalPages: data.totalPages
@@ -78,11 +75,9 @@ export default Route.extend({
                 flagsCount: flags.flagsCount,
                 flagsNames: flags.flagsNames
               };
-              // console.log('getContracts-contract', contract);
               contracts.push(contract);
             });
             //let contractsCount = dataEntity.winningBids.length;
-            // console.log('getContracts-contracts', contracts);
             return {contracts: contracts, pag: pag};
 
           } else {
@@ -143,7 +138,6 @@ export default Route.extend({
           } else {
             Object.assign(dataEntity, data.edge);
           }
-          // console.log('dataEntity - after request', dataEntity);
           return dataEntity;
 
         });
@@ -197,9 +191,7 @@ export default Route.extend({
     controller.set('modelDetails', undefined);
 
     return this.controllerFor('network.show').get('networkDefer').then(() => {
-      // console.log('start model');
       let details;
-      // console.log('dataEntity',dataEntity);
       // bidder,buyers || relationships
       if (endpoint === 'relationships') {
           let edge = self.get('networkService').getEdgeById(params.id);
@@ -213,7 +205,6 @@ export default Route.extend({
             dataEntity.contracts = values[1].contracts;
             dataEntity.pag = values[1].pag;
 
-            // console.log('model', dataEntity);
             controller.set('modelDetails', dataEntity);
             return values;
           });
@@ -230,9 +221,6 @@ export default Route.extend({
           dataEntity.contracts = values[1].contracts;
           dataEntity.pag = values[1].pag;
 
-          // console.log('model - values0', values[0]);
-          // console.log('model - values1', values[1]);
-          // console.log('model - dataEntity', dataEntity);
           controller.set('modelDetails', dataEntity);
           return values;
         });
@@ -275,9 +263,6 @@ export default Route.extend({
       this.set('limitPage', limitPage);
 
       this.getContractsPage();
-
-      console.log('tring to reset limit page from action with limitPage', limitPage);
-      console.log('modelDetails.apiAddressContracts', controller.get('modelDetails.apiAddressContracts'));
     },
     closeDetails() {
       this.transitionTo(

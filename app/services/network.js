@@ -246,7 +246,6 @@ export default Service.extend({
   setNetwork(network, networkDefer) {
     // make isReady false.. and recalculate
     // networkDeferer defined in network.show controller and resolved in network.service
-    console.log('setNetworkservice ******************************');
     this.set('networkDefer', networkDefer);
     let self = this;
     if (self.checkReady()) {

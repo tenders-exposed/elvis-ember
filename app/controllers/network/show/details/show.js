@@ -16,7 +16,6 @@ export default Controller.extend({
   limitPage: 5,
 
   limitPageObserver: observer('limitPage', function() {
-    console.log('limit page Changed', this.get('limitPage'));
     this.get('target').send('resetLimitPage');
   }),
 

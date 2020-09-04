@@ -59,5 +59,17 @@
        </div>
     </span>
   {{/if}}
-  {{format-amount row.value '0,0.00'}} €
+
+  {{#if row.value}}
+    {{format-amount row.value '0,0.00'}} €
+  {{else}}
+    <span class="unknown-value">
+      {{format-amount row.value '0,0.00'}} €
+      {{#tooltip-on-element  event='click' enableLazyRendering=true side='top'}}
+        Amount not disclosed in the source data.
+        <br>
+        <a href="/helloimelvis" target="_blank">Read more</a>
+      {{/tooltip-on-element}}
+    </span>
+  {{/if}}
 </td>
