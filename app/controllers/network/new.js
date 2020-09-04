@@ -112,12 +112,11 @@ export default Controller.extend({
     }
   }),
   selectedCodesObserver: observer('selectedCodes', function() {
-    this.set(
-      'selectedCodesCount',
-      _.sumBy(this.get('selectedCodes'), function(o) {
-        return o.original.count;
-      })
-    );
+    let countCpvs =  _.sumBy(this.get('selectedCodes'), function(o) {
+      return o.original.count;
+    });
+
+    this.set('selectedCodesCount', countCpvs);
   }),
   cpvsIsDisabled: false,
   jsTreeConfig: {
@@ -203,7 +202,8 @@ export default Controller.extend({
         // First attempt to find a CPV group (level 2, 3 digits)
         cpvGroup = code.slice(0, 3);
         parent = cpvs.find((cpv) => cpv.code === `${cpvGroup}00000`);
-        if (parent) {
+
+        if (parent && code != parent.code) {
           result.parent = parent.code;
           break;
         }
@@ -449,16 +449,9 @@ export default Controller.extend({
       //countAllCpvs
       this.get('jsTree').send('selectAll');
       this.set('countAllCpvs', this.get('selectedCodesCount'));
+
       this.get('jsTree').send('deselectAll');
       this.get('jsTree').send('closeAll');
-
-      /*if (renderNo == 2) {
-        this.set('allCpvSelected', true);
-        this.get('jsTree').send('selectAll');
-      } else {
-        //@todo: it should work
-        this.get('jsTree').send('closeAll');
-      }*/
     },
 
     selectAllCpvs() {
@@ -476,11 +469,6 @@ export default Controller.extend({
     wizardStepChanged(wizardStep) {
       this.wizardStepChanged(wizardStep);
     },
-
-    /*proceedAnyway(wizardStep) {
-      this.set('loadAllMarkets', true);
-      this.wizardStepChanged({ 'step_id': wizardStep });
-    },*/
 
     // Step1 : Select Countries
     onCountrySelect(selectedCountryId) {
