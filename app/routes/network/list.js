@@ -11,18 +11,14 @@ export default Route.extend(AuthenticatedRouteMixin, {
   classNames: ['body-page'],
 
   model() {
-    let networks = this.get('store').findAll('network');
+    let networks = this.get('store').findAll('network', { reload: true });
     return networks;
   },
 
   afterModel(model) {
-    console.log('list aftermodel');
     this.titleToken = ` My projects (${model.get('length')})`;
 
-    console.log('list aftermodel - get length');
-
     return model.map(function(network) {
-      console.log('list aftermodel - map networks');
 
       if (network.get('synopsis') === 'null') {
         network.set('synopsis', '');
@@ -50,7 +46,6 @@ export default Route.extend(AuthenticatedRouteMixin, {
       network.set('edgeCount', network.get('count.edgeCount'));
 
       network.set('updated', moment.parseZone(network.get('updated')).local().format());
-      console.log('end afterModel');
       return network;
     }, model);
 
@@ -59,12 +54,10 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
   setupController(controller, model) {
     this._super(controller, model);
-    console.log('setupController - list', model);
     controller.set('model',model);
   },
 
   activate() {
-    console.log('list- activate');
     this.notifications.clearAll();
   },
 
