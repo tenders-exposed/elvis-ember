@@ -112,11 +112,52 @@ export default Controller.extend({
     }
   }),
   selectedCodesObserver: observer('selectedCodes', function() {
-    let countCpvs =  _.sumBy(this.get('selectedCodes'), function(o) {
-      return o.original.count;
-    });
+    // let countCpvs =  _.sumBy(this.get('selectedCodes'), function(o) {
+    //   return o.original.count;
+    // });
 
-    this.set('selectedCodesCount', countCpvs);
+    let countries = this.get('query.countries');
+    let rawActors = this.get('query.rawActors');
+    let bidders = _.filter(
+      rawActors,
+      (actor) => (actor.type === 'bidder')
+    );
+    let buyers = _.filter(
+      rawActors,
+      (actor) => (actor.type === 'buyer')
+    );
+    let cpvs = this.get('query.cpvs');
+    let years = this.get('query.years');
+    let options = {};
+    if (countries.length > 0) {
+      options.countries = _.join(countries, ',');
+    }
+    if (buyers.length > 0) {
+      options.buyers = _.join(_.map(buyers, (p) => p.id), ',');
+    }
+    if (bidders.length > 0) {
+      options.bidders = _.join(_.map(bidders, (s) => s.id), ',');
+    }
+    if (cpvs.length > 0) {
+      options.cpvs = _.join(cpvs, ',');
+    }
+    if (years.length > 0) {
+      options.years = _.join(years, ',');
+    }
+
+    this.get('ajax')
+      .request('/tenders/count', {
+        data: options,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        this.set('selectedCodesCount', data.count);
+      });
+
+    // this.set('selectedCodesCount', countCpvs);
   }),
   cpvsIsDisabled: false,
   jsTreeConfig: {
