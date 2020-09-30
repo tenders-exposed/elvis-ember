@@ -112,11 +112,69 @@ export default Controller.extend({
     }
   }),
   selectedCodesObserver: observer('selectedCodes', function() {
-    let countCpvs =  _.sumBy(this.get('selectedCodes'), function(o) {
-      return o.original.count;
+    // console.log('selectedCodesObserver');
+    // let countCpvs =  _.sumBy(this.get('selectedCodes'), function(o) {
+    //   return o.original.count;
+    // });
+    let self = this;
+    let countries = this.get('query.countries');
+    let rawActors = this.get('query.rawActors');
+    let bidders = _.filter(
+      rawActors,
+      (actor) => (actor.type === 'bidder')
+    );
+    let buyers = _.filter(
+      rawActors,
+      (actor) => (actor.type === 'buyer')
+    );
+    let cpvs = [];
+    this.get('selectedCodes').forEach((v) => {
+      cpvs.push(v.id);
     });
 
-    this.set('selectedCodesCount', countCpvs);
+    let years = this.get('query.years');
+    let options = {};
+    if (countries.length > 0) {
+      options.countries = countries;
+    }
+    if (buyers.length > 0) {
+      options.buyers = buyers;
+    }
+    if (bidders.length > 0) {
+      options.bidders = bidders;
+    }
+    if (cpvs.length > 0) {
+      options.cpvs = cpvs;
+    }
+    if (years.length > 0) {
+      options.years = years;
+    }
+
+
+    // console.log('selectedCodesObserver - options', options);
+
+    this.get('ajax')
+      .post('/tenders/count', {
+        data: options,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then((data) => {
+        self.set('selectedCodesCount', data.count);
+        if (self.get('insertJsTree')) {
+          self.set('insertJsTree', false);
+          self.set('countAllCpvs', data.count);
+        }
+        // console.log('selectedcodesobserver - cpvs', cpvs);
+        if (cpvs.length == 0) {
+          self.set('selectedCodesCount', 0);
+        }
+        // console.log('selectedCodesObserver - count data', self.get('selectedCodesCount'));
+
+      });
+
+    // this.set('selectedCodesCount', countCpvs);
   }),
   cpvsIsDisabled: false,
   jsTreeConfig: {
@@ -141,6 +199,7 @@ export default Controller.extend({
   allCpvs:[],
   allCpvSelected: false,
   countAllCpvs: 0,
+  insertJsTree: false,
 
   createTree() {
     // reset selected codes
@@ -447,8 +506,10 @@ export default Controller.extend({
     didInsertJsTree(renderNo) {
 
       //countAllCpvs
+      this.set('insertJsTree', true);
       this.get('jsTree').send('selectAll');
-      this.set('countAllCpvs', this.get('selectedCodesCount'));
+      // console.log('didInsertJsTree countAllCpvs', this.get('selectedCodesCount'));
+      //this.set('countAllCpvs', this.get('selectedCodesCount'));
 
       this.get('jsTree').send('deselectAll');
       this.get('jsTree').send('closeAll');
