@@ -115,14 +115,6 @@
             {{queryYearsRange.min}} - {{queryYearsRange.max}}
           {{/currentState.step-completed}}
 
-          {{#currentState.step-completed stepId="4" name="selected-markets" wizardCurrentState=currentState}}
-            {{#if selectedCodesCount}}
-              {{selectedCodesCount}}
-            {{else}}
-              {{countAllCpvs}}
-            {{/if}}
-             <small>markets</small>
-          {{/currentState.step-completed}}
 
 
           {{#currentState.step stepId="1" wizardCurrentState=currentState}}
