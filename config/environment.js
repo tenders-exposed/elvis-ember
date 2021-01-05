@@ -49,7 +49,7 @@ module.exports = function(environment) {
 
   if (environment === 'development') {
     // ENV.APP.apiHost = 'http://localhost:10010';
-    ENV.APP.apiHost = 'https://api.defense.tenders.exposed';
+    ENV.APP.apiHost = 'https://api.defence.tenders.exposed';
     ENV.APP.apiNamespace = '';
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
@@ -71,12 +71,12 @@ module.exports = function(environment) {
   }
 
   if (environment === 'staging') {
-    ENV.APP.apiHost = 'https://api.defense.tenders.exposed';
+    ENV.APP.apiHost = 'https://api.defence.tenders.exposed';
     ENV.APP.apiNamespace = '';
   }
 
   if (environment === 'production') {
-    ENV.APP.apiHost = 'https://api.defense.tenders.exposed';
+    ENV.APP.apiHost = 'https://api.defence.tenders.exposed';
     ENV.APP.apiNamespace = '';
   }
 
