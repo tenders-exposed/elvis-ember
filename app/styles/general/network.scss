@@ -1,26 +1,28 @@
-// general network styles
-
-.body-network {
-  // make links less disturbing in networks
-  a {
-    color: fade-out($text-color,.5);
-    &:hover {
-      color: $text-color;
-    }
-  }
-
-}
-
-.vis-network {
-  background: rgba(0,0,0,0.4);
-}
-
 
 // network entities
 // ------------------
 
-// mixin for generating a circle representing a network entity
+// mixins for generating a circle representing a network entity
+
+// a simple dot
 @mixin network-entity ($size: 1em) {
+  display: inline-block;
+  text-align: center;
+  line-height: inherit;
+  text-shadow: 1px 1px $size/8 rgba(0,0,0,0.5);
+  font-size: $size;
+  transform: scale(1.5);
+  position: relative;
+  top: -.15em;
+
+  &::before {
+    content: '●';
+    display: inline-block;
+  }
+}
+
+// a more complex entity with text inside
+@mixin network-entity-mixed ($size: 1em) {
   display: inline-block;
   border-radius: 50%;
   height: $size;
@@ -31,7 +33,9 @@
   background: $text-color;
   vertical-align: middle;
   margin-top: -1%;
+
 }
+
 .figure-buyer,
 .figure-bidder,
 .figure-all {
@@ -40,15 +44,21 @@
   &.small {
     @include network-entity(.5em);
   }
+
+  &.animated:hover {
+    transform: scale(1.2);
+    transition: all .3s ease;
+  }
 }
 .figure-buyer {
-  background: $color-buyer !important;
+  color: $color-buyer !important;
 }
 .figure-bidder {
-  background: $color-bidder !important;
+  color: $color-bidder !important;
 }
-.figure-all {
-  background: $color-relationship !important;
+.figure-all,
+.figure-actor {
+  color: $color-relationship !important;
 }
 .figure-relationship {
   position: relative;

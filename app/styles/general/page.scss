@@ -5,13 +5,11 @@
   z-index: 0;
   padding-bottom: 2*$gutter-width;
 
-  box-shadow: inset 0 -100px 120px -10px black;
-
   &:before {
     content: "";
     background-color: $bg-dark-color;
-    background-image: linear-gradient(rgba(255,255,255,0) 0%, $bg-dark-color 70vw),
-                      url(../images/journalists-filmnoir-scene.jpg);
+    //background-image: linear-gradient(rgba(255,255,255,0) 0%, $bg-dark-color 70vw),
+    //                  url(../images/journalists-filmnoir-scene.jpg);
     background-repeat: no-repeat;
 
     background-size: contain;

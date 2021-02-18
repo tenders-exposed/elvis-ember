@@ -28,9 +28,10 @@ div.vis-network div.vis-navigation {
     text-align: center;
     line-height: $button-height;
     box-sizing: content-box;
+    padding: 0;
 
     // basic style for transparent button
-    @include button-transparent($text-color);
+    @extend .btn.link;
 
     background-image: none !important;
     bottom: auto;

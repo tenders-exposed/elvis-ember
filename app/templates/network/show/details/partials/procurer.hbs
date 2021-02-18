@@ -43,11 +43,38 @@
       <section class="row">
         <div class="col s2 summary">
           <h5 class="summary-title">Bids awarded</h5>
-          <div class="summary-value">{{format-amount modelDetails.numberOfWinningBids}}</div>
+          <div class="summary-value">
+            {{#if modelDetails.numberOfWinningBids}}
+              {{format-amount modelDetails.numberOfWinningBids}}
+            {{else}}
+              <span class="unknown-value">
+              {{format-amount modelDetails.numberOfWinningBids}}
+                {{#tooltip-on-element  event='click' enableLazyRendering=true side='top'}}
+                  Amount not disclosed in the source data.
+                <br>
+                <a href="/helloimelvis" target="_blank">Read more</a>
+                {{/tooltip-on-element}}
+              </span>
+            {{/if}}
+          </div>
         </div>
         <div class="col s3 summary">
           <h5 class="summary-title">All awarded amounts</h5>
-          <div class="summary-value">{{format-amount modelDetails.amountOfMoneyExchanged}} €</div>
+          <div class="summary-value">
+            {{#if modelDetails.amountOfMoneyExchanged}}
+              {{format-amount modelDetails.amountOfMoneyExchanged}} €
+            {{else}}
+              <span class="unknown-value">
+              {{format-amount modelDetails.amountOfMoneyExchanged}}
+                {{#tooltip-on-element event='click' enableLazyRendering=true side='top'}}
+                  Amount not disclosed in the source data.
+                <br>
+                <a href="/helloimelvis" target="_blank">Read more</a>
+                {{/tooltip-on-element}}
+              </span>
+            {{/if}}
+
+          </div>
         </div>
         <div class="col s4 summary">
           <h5 class="summary-title">Awarded amount unknown in</h5>
@@ -56,49 +83,73 @@
 
         <div class="col s3 summary">
           <h5 class="summary-title">AVG. Competition</h5>
-          <div class="summary-value">{{modelDetails.medianCompetition}} <small>bids per tender</small></div>
+          <div class="summary-value">
+            {{#if modelDetails.medianCompetition}}
+              {{modelDetails.medianCompetition}} <small>bids per tender</small>
+            {{else}}
+              <small>value unknown</small>
+            {{/if}}
+          </div>
         </div>
       </section>
 
       <section>
-        <h5>Contracts</h5>
-        {{details-data-table
-            class="contracts-table"
-            content=modelDetails.contracts
-            sort=sort
-            fields=fields.contractsProcurer
-            partialPath="network/show/details/partials/tables/contracts-supplier"
-            route="buyers"
-            nodeId=modelDetails.id
-            componentTable="contracts-procurer"
-        }}
-      </section>
-
-      <section>
-        <h5>Contracted supplying companies</h5>
-        <div>
-          {{#each modelDetails.nodes as |node|}}
-            <div>
-              <span class="figure-bidder small"></span>
-              {{#link-to "network.show.details.show" "suppliers" node.nodeID}}{{node.name}}{{/link-to}}
+        <div class="contracts-top-table">
+          <h5>Contracts</h5>
+          {{#if (or (gte modelDetails.pag.totalPages 2) (gte limitPage 10))}}
+            <div class="no-contracts">
+              <span class="label-no-contracts">
+                Displaying
+              </span>
+              {{md-select content=limitContractsPage
+                          value=limitPage
+                          optionLabelPath="content.label"
+                          optionValuePath="content.value" }}
             </div>
-          {{/each}}
-        </div>
-      </section>
+          {{/if}}
+          {{#if (gte modelDetails.pag.totalPages 2)}}
+            <div class="contractsPages">
+              {{#if (gte modelDetails.pag.page 2)}}
+                <a href="#"{{action "page" "first"}}>
+                  {{fa-icon 'backward' size=1 class="arrow-page-limit"}}
+                </a>
+                &nbsp;
+                <a href="#"{{action "page" "back"}}>
+                  {{fa-icon 'caret-left' size=1 class="arrow-page"}}
+                </a>
+                &nbsp;
+              {{/if}}
 
-      {{!--<section>
-        <h5>Tenders over time</h5>
-        <div>
-          {{details-graph
-            id="details-graph-id"
-            contracts=modelDetails.contracts
-            fields=fields.contracts
-            partialPath="network/show/details/partials/tables/contracts"
-            route="procurers"
-            nodeId=params.id
-          }}
+              {{modelDetails.pag.page}} / {{modelDetails.pag.totalPages}}
+
+              {{#if (gt modelDetails.pag.totalPages modelDetails.pag.page)}}
+                &nbsp;
+                <a href="#"{{action "page" "next"}}>
+                  {{fa-icon 'caret-right' size=1 class="arrow-page"}}
+                </a>
+                &nbsp;
+                <a href="#"{{action "page" "last"}}>
+                  {{fa-icon 'forward' size=1 class="arrow-page-limit"}}
+                </a>
+              {{/if}}
+            </div>
+          {{/if}}
         </div>
-      </section>--}}
+
+
+
+          {{details-data-table
+              class="contracts-table"
+              loadingContracts= loadingContracts
+              content=modelDetails.contracts
+              sort=sort
+              fields=fields.contractsProcurer
+              partialPath="network/show/details/partials/tables/contracts-supplier"
+              route="buyers"
+              nodeId=modelDetails.id
+              componentTable="contracts-procurer"
+          }}
+      </section>
 
     </div>
   {{/ember-scrollable}}

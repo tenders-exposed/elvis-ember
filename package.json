@@ -22,7 +22,7 @@
   },
   "repository": "https://github.com/tenders-exposed/elvis-ember.git",
   "engines": {
-    "node": "^4.5 || 6.* || >= 7.*"
+    "node": "^8.15"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.5.2",
@@ -36,7 +36,7 @@
     "ember-body-class": "^1.1.3",
     "ember-carousel": "^0.1.0",
     "ember-cli": "^3.0.4",
-    "ember-cli-analytics": "^1.1.0",
+    "ember-cli-analytics": "^1.4.1",
     "ember-cli-app-version": "^3.0.0",
     "ember-cli-autoprefixer": "^0.8.1",
     "ember-cli-babel": "^6.6.0",
@@ -63,13 +63,16 @@
     "ember-cli-shims": "^1.2.0",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-test-loader": "^2.1.0",
+    "ember-cli-tinycolor": "^1.0.0",
     "ember-cli-uglify": "^2.0.0",
+    "ember-cli-wizard": "^0.1.9",
     "ember-composability": "^0.3.8",
     "ember-data": "3.0.0",
     "ember-data-table": "^1.0.0-beta.3",
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-drag-drop": "^0.4.3",
     "ember-export-application-global": "^2.0.0",
+    "ember-external-link": "^0.1.0",
     "ember-font-awesome": "^4.0.0-rc.3",
     "ember-is-mobile": "^2.0.5",
     "ember-keyboard": "^2.1.9",
@@ -100,12 +103,13 @@
     "ember-watson": "^0.9.1",
     "ember-world-flags": "git+https://github.com/tenders-exposed/ember-world-flags.git",
     "eslint-plugin-ember": "^5.0.0",
-    "husky": "^1.3.1",
     "loader.js": "^4.2.3",
     "node-sass": "^4.10.0",
     "yamlparser": "0.0.2"
   },
   "dependencies": {
-    "npm": "^6.8.0"
+    "color-string": "^1.5.3",
+    "npm": "^6.8.0",
+    "vis": "git+https://git@github.com/tenders-exposed/vis.git"
   }
 }

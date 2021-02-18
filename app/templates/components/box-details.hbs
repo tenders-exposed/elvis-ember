@@ -5,15 +5,13 @@
     {{#if cluster}}
         <h5>cluster of {{model.nodeType}}s</h5>
       {{#each model as |node|}}
-            <span class="figure-bidder"></span>
+            <span class="figure-bidder animated"></span>
             {{node.label}}
       {{/each}}
     {{else}}
       {{#if (eq graphElementType "node")}}
-
         <h5>{{model.nodeType}}</h5>
           <div class="actor"><span class="figure-{{class}}"></span> {{model.label}}</div>
-        <hr>
         {{#each-in model.flags as |keyValue value|}}
             <div class="flags">
                 <div class="flag">
@@ -45,9 +43,17 @@
           </tr>
         </table>
         <div class="action">
-            {{#link-to "network.show.details.show" model.route model.link class="btn-tiny transparent primary" invokeAction="close"}}
+          {{#if model.isCluster}}
+            {{#link-to "network.show.details.show" model.route (concat "c_" model.link) invokeAction="close"}}
               Show details
+              <i class="fa fa-eye fa-fw"></i>
             {{/link-to}}
+            {{else}}
+            {{#link-to "network.show.details.show" model.route model.link invokeAction="close"}}
+                Show details
+              <i class="fa fa-eye fa-fw"></i>
+            {{/link-to}}
+          {{/if}}
         </div>
       {{/if}}
 
@@ -77,8 +83,9 @@
           </tr>
       </table>
       <div class="action">
-          {{#link-to "network.show.details.show" model.route model.link class="btn-tiny transparent primary" invokeAction="close"}}
+          {{#link-to "network.show.details.show" model.route model.link invokeAction="close"}}
               Show details
+            <i class="fa fa-eye fa-fw"></i>
           {{/link-to}}
       </div>
     {{else}}

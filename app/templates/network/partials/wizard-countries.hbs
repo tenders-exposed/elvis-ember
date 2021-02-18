@@ -1,0 +1,21 @@
+<section class="wizard-step {{wizardSteps.countriesStatus}}">
+  <p>
+    Select one or more countries
+  </p>
+
+  <div class="row">
+    <ul class="wizard-countries">
+      {{#each countries as |country|}}
+        <li class="country-option" id={{country.code}}  {{action "onCountrySelect" country.code }}>
+          {{world-flag country.code 32}}
+          {{!--Hack for GB = UK, because TED data...--}}
+          {{#if (eq country.code 'UK')}}
+            United Kingdom
+          {{else}}
+            {{country.name}}
+          {{/if}}
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

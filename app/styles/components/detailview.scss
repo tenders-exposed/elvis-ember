@@ -1,27 +1,22 @@
 // styles displaying detail info about government, company, relationship or contract
+.ember-tooltip {
+  pointer-events: auto !important;
+}
+
 .detailview {
   $detailview-head-height: 60px;
   $detailview-width: 700px;
 
-  // slide from left
-  @keyframes slide-from-left {
-    from { left: -200vw; }
-    to { left: 0px; }
-  }
-  animation: slide-from-left ease .4s;
   position: relative;
   left: 0;
 
 
-  border-right: $network-sidebar-border;
-  border-left: $network-sidebar-border;
-  margin-left: 1px;
-  background: darken($network-sidebar-bg,2%);
-  backdrop-filter: blur(10px);
-  box-shadow: 5px 0px 15px -2px rgba(0,0,0,0.8);
-
   position: relative;
   width: 100%;
+
+  .unknown-value {
+    cursor: pointer;
+  }
 
   .detailview-head,
   .detailview-body {
@@ -111,6 +106,11 @@
   }
   a:not([class*=btn]) {
     text-decoration: underline;
+    color: $text-muted-color;
+
+    &:hover {
+      color: $text-color;
+    }
   }
 
   table {
@@ -138,6 +138,34 @@
     td, th {
       padding: .5rem .5em;
       vertical-align: top;
+    }
+    td {
+      .red-bids {
+        border-bottom: 1px solid #ff0006;
+      }
+      &.flags {
+        font-size: $font-size-base;
+        color: $text-color;
+
+        .flags-icon {
+          color: $color-flags;
+        }
+
+        .flags-count {
+          cursor: pointer;
+          font-weight: bold;
+          border-bottom: 1px solid $color-flags;
+        }
+
+        .flags-tooltip {
+
+        }
+      }
+
+      &.date,
+      &.value {
+        white-space: nowrap;
+      }
     }
   }
 
@@ -210,14 +238,132 @@
   }
 
   .contracts-table {
+    tbody.loadingContracts {
+      border: 1px solid #3a3a3a;
+      td {
+        height: 250px !important;
+      }
+      td > div {
+        position: relative;
+        height: 100%;
+      }
+    }
+
     th.bidders,
     th.buyers,
     th.title {
       width: 35%;
     }
+    th.year {
+      width: 11%;
+    }
     .bids,
     .value {
       text-align: right;
     }
+    .value {
+      width: 35%;
+    }
   }
+   .btn-tooltip {
+
+     color: whitesmoke;
+     cursor: pointer;
+     position: relative;
+
+     .tooltip {
+       display: none;
+
+     }
+
+     &:hover .tooltip {
+       background: $base-bg-color;
+       border: 1px solid rgba(255, 255, 255, 0.1);
+       border-radius: 3px;
+       padding: 5px;
+       position: absolute;
+       top: -100px;
+       left: -170px;
+       color: rgba(223, 242, 210, 0.5);
+       width: 180px;
+       z-index: 100039;
+       font-size: 0.8rem;
+       height: 90px;
+       display: block !important;
+       text-align: right;
+     }
+   }
+
+   .contracts-top-table {
+     margin-bottom: 7px;
+     a {
+       text-decoration: none;
+     }
+     h5 {
+       float: left;
+       margin-top: 5px !important;
+       margin-bottom: 0px;
+       width: 72%;
+     }
+     .arrow-page {
+       font-size: 18px;
+     }
+     .arrow-page-limit {
+       font-size: 13px;
+       line-height: 19px;
+       vertical-align: top;
+     }
+     .contractsPages {
+       display: inline-block;
+       width: 20%;
+       text-align: right;
+     }
+     .no-contracts {
+       display: inline-block;
+       width: 5%;
+       position: relative;
+       .label-no-contracts {
+         position: absolute;
+         right: 47px;
+         font-size: .9rem;
+         width: 55px;
+         padding-top: 3px;
+       }
+       label, .red-text {
+         display: none;
+       }
+       .select-wrapper {
+         width: 35px;
+         input {
+           height: 2rem;
+           line-height: 2rem;
+           width: 100%;
+           font-size: 1rem;
+           margin: 0 0 15px 0;
+           padding: 0;
+           padding-left: 5px;
+           display: block;
+           margin: 0px;
+         }
+         .caret {
+           top: 8px;
+           right: .3rem;
+         }
+         .dropdown-content {
+           li {
+             min-height: 20px;
+             line-height: 1.3rem;
+             width: 100%;
+           }
+           li > span {
+             font-size: 1rem;
+             display: block;
+             line-height: 10px;
+             padding: 3px 3px;
+           }
+         }
+       }
+     }
+   }
+
 }

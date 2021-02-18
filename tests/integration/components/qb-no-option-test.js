@@ -11,14 +11,13 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{qb-no-option}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  assert.equal(this.$().text().trim(), 'Loading...');
 
   // Template block usage:
   this.render(hbs`
     {{#qb-no-option}}
-      template block text
     {{/qb-no-option}}
   `);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$().text().trim(), 'Loading...');
 });

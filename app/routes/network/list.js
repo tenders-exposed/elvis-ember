@@ -1,7 +1,9 @@
 import Route from '@ember/routing/route';
+import { sort } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import moment from 'moment';
+import { computed, observer } from '@ember/object';
 
 export default Route.extend(AuthenticatedRouteMixin, {
   me: service(),
@@ -9,7 +11,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
   classNames: ['body-page'],
 
   model() {
-    let networks = this.get('store').findAll('network');
+    let networks = this.get('store').findAll('network', { reload: true });
     return networks;
   },
 
@@ -17,6 +19,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
     this.titleToken = ` My projects (${model.get('length')})`;
 
     return model.map(function(network) {
+
       if (network.get('synopsis') === 'null') {
         network.set('synopsis', '');
       }
@@ -32,7 +35,12 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
       network.set('firstYear', _.first(network.get('query.years')));
       network.set('lastYear', _.last(network.get('query.years')));
-      network.set('cpvsCount', network.get('query.cpvs').length);
+      let cpvs = network.get('query.cpvs', []);
+      if(cpvs) {
+        network.set('cpvsCount', cpvs.length);
+      } else {
+        network.set('cpvsCount', 0);
+      }
 
       network.set('nodeCount', network.get('count.nodeCount'));
       network.set('edgeCount', network.get('count.edgeCount'));
@@ -41,10 +49,12 @@ export default Route.extend(AuthenticatedRouteMixin, {
       return network;
     }, model);
 
+
   },
 
   setupController(controller, model) {
     this._super(controller, model);
+    controller.set('model',model);
   },
 
   activate() {

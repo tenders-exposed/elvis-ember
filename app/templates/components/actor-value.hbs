@@ -1,2 +1,8 @@
-<i class="figure-{{value.type}}"></i>&nbsp;{{value.name}}
-<span class='multi-value__remove' {{action 'onRemoveClick'}}>&times;</span>
+<i class="figure-{{value.type}}"></i>&nbsp;
+{{#if value.country}}
+  <span class="country-flag">
+     {{world-flag value.country 16}}
+  </span>
+{{/if}}
+{{value.country}} {{value.name}}
+<span class='multi-value__remove' {{action 'onRemoveClick'}}><i class="fa fa-times-circle"></i></span>

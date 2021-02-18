@@ -51,6 +51,7 @@ $fs0 : 0.6rem;
 
 .buyer-color { color: $color-buyer; }
 .bidder-color { color: $color-bidder; }
+
 i.control-icon {
   color: $color-icon;
   cursor: pointer;
@@ -102,5 +103,44 @@ i.control-icon-light {
 }
 
 .c-notifications__container {
-  z-index: 99999 !important;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: $zindex-notification;
+}
+.close-error {
+  right: 10px;
+  font-size: 25px;
+  position: absolute;
+  cursor: pointer;
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// general tooltips
+.ember-tooltip {
+  max-width: 300px !important;
+  font-size: .875em;
+  background: rgba(lighten($main-bg,10%),0.9);
+  padding: 12px;
+  box-shadow: 0px 1px 14px rgba(0, 0, 0, 0.7);
+  filter: drop-shadow(inset 0px 0px 1px rgba(255,255,255, 0.8));
+
+  // tooltip displaying network flag
+  &.flags-tooltip {
+    .fa-flag {
+      color: $color-flags;
+    }
+    ul {
+      margin: 0;
+    }
+    h5 {
+      font-size: 1em;
+      color: rgba($text-color,0.75);
+      margin: 0 0 0.5em;
+    }
+  }
+
 }

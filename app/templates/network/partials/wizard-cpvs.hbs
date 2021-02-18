@@ -1,0 +1,85 @@
+<section class="wizard-step {{wizardSteps.cpvsStatus}}">
+  <div class="row">
+    <p class="alert alert-warning"><i class="fa fa-warning"></i>
+      If you don't choose any market, all the <b style="color:orangered">{{countAllCpvs}}</b> tenders will be selected, including those that have no cpv.
+      This may result in a slow network.
+      <br>
+      You can also restrict visualization to specific markets below.
+    </p>
+  </div>
+  <div class="row">
+    Restrict visualization to specific markets
+    <p><a href="https://simap.ted.europa.eu/cpv" target="_blank"><i class="fa fa-arrow-right"></i> Read more about CPV codes</a></p>
+  </div>
+  <div class="row">
+    <div class="col m12 s12">
+      <div class="cpv-selector cpv-tree">
+
+        {{#if cpvsIsDisabled}}
+          {{log loading.cpvs}}
+
+          {{#if cpvs}}
+            {{#if allCpvSelected}}
+              <p>
+                <label>
+                  <span class="all-cpvs deselect-all-cpvs" {{action 'deselectAllCpvs' on='click'}}>{{fa-icon "check" size=1}}</span>
+                  <span class="all-option-deselect">Deselect all cpvs</span>
+                </label>
+              </p>
+              <p class="alert alert-warning">*this will include only the tenders that have at least one CPV</p>
+            {{else}}
+              <p>
+                <label>
+                  <span class="all-cpvs select-all-cpvs" {{action 'selectAllCpvs' on='click'}}></span>
+                  <span class="all-option">Select all cpvs</span>
+                </label>
+              </p>
+            {{/if}}
+
+
+            <form class="row" {{action 'searchCpv' on='submit'}}>
+              <div class="col s10">
+                {{input type="text"
+                        placeholder="search for keyword of CPV code.."
+                        class="search-input form-control"
+                        value=cpvSearchTerm
+                }}
+              </div>
+              <div class="col s2 right-align">
+                {{md-btn text=''
+                         icon='search'
+                         action='searchCpv'
+                         class='primary'
+                }}
+              </div>
+            </form>
+
+
+
+            {{#ember-scrollable}}
+              <div class="jstree-default-dark-small">
+                {{elvis-jstree
+                    data=tree
+                    plugins=jsTreeConfig.plugins
+                    themes=jsTreeConfig.core.themes
+                    selectedNodes=selectedCodes
+                    searchOptions=jsTreeConfig.searchOptions
+                    checkboxOptions=jsTreeConfig.checkbox
+                    actionReceiver=jsTree
+                    searchTerm=cpvSearchTree
+                    action="didInsertJsTree"
+                }}
+              </div>
+            {{/ember-scrollable}}
+          {{else}}
+            {{#if years}}
+              Available CPV codes will be shown here after completing steps 1 and 2.
+            {{else}}
+              No CPV codes are available for your selection.
+            {{/if}}
+          {{/if}} {{!--{{#if cpvs}} --}}
+        {{/if}} {{!-- {{#if cpvsIsDisabled}} --}}
+      </div>
+    </div>
+  </div>
+</section>

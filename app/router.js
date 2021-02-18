@@ -11,14 +11,12 @@ ElvisRouter.map(function() {
   this.route('welcome', { path: '/' });
 
   this.route('account', {}, function() {
-    this.route('login');
     this.route('logout');
     this.route('confirm');
     this.route('recover', function() {
       this.route('password', {});
     });
     this.route('show', { path: ':id' });
-    this.route('new');
     this.route('oauth-callback');
   });
 
@@ -33,6 +31,7 @@ ElvisRouter.map(function() {
     });
   });
   this.route('about');
+  this.route('helloimelvis');
   this.route('contact');
   this.route('examples');
   this.route('features');

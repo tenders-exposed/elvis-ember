@@ -10,7 +10,8 @@
         </div>
 
         <div class="project-list">
-          {{#each model as |network|}}
+      {{#ember-scrollable}}
+          {{#each sortedModel as |network|}}
               <div class="project-item">
                   <div class="project-body">
                       <div class="project-name">
@@ -141,14 +142,12 @@
                       {{/link-to}}
                     </div>
                   </div>
-
                 </div>
-
               </div>
             </div>
           </div>
           {{/each}}
-
+          {{/ember-scrollable}}
         </div>
     </div>
 </div>

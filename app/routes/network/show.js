@@ -2,7 +2,7 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
   classNames: ['body-network'],
-  titleToken: 'Network - ',
+  titleToken: 'Network',
   requestTimer: 0,
 
   activate() {
@@ -15,10 +15,9 @@ export default Route.extend({
     this.set('requestTimer', performance.now());
     this.set('transition', transition);
     return this.get('store').findRecord(
-      'network',
-      params.network_id
+      'network', params.network_id, { reload: true }
     ).then(function(response) {
-      self.titleToken = `${self.titleToken} ${response.name || response.id}`;
+      self.titleToken = `Network - ${response.get('name') || response.id}`;
       return self.get('networkService').setModel(response);
     });
   },

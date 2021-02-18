@@ -1,5 +1,10 @@
 import Component from '@ember/component';
 
 export default Component.extend({
-  tagName: ''
+  tagName: '',
+  actions: {
+    redirectLink(link) {
+      window.open(link);
+    }
+  }
 });

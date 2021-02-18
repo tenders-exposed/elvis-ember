@@ -1,9 +1,15 @@
+$modal-bg: $main-bg;
 .ember-modal-dialog {
+
+
+  .modal {
+    width: 550px;
+  }
 
   .modal,
   .modal-footer,
   .modal-content {
-    background: $main-bg;
+    background: $modal-bg;
 
   }
 
@@ -12,10 +18,10 @@
   }
 
   .modal-content {
-    padding: 2*$gutter-width;
+    padding: 3rem;
 
     .input-field + .input-field {
-      margin-top: 1em;
+      margin-top: .25em;
     }
 
     p {
@@ -37,14 +43,11 @@
 }
 // overlay opacity
 .lean-modal {
-  background: rgba(0,0,0,0.75);
+  background: rgba(darken($bg-color,5%),0.8);
 }
 
-
-
-
-// specific modals
-#login-modal .modal {
-  max-width: 400px;
-
+.login-modal {
+  .modal {
+    max-width: 300px;
+  }
 }

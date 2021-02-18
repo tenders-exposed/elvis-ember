@@ -9,6 +9,7 @@ export default AjaxService.extend({
     return this.get('session.session.content.authenticated');
   }),
   session: service(),
+  contentType: 'application/json; charset=utf-8',
   // headers: computed('session.session.content.authenticated', function() {
   //   let userToken = this.get('session.session.content.authenticated.authentication_token');
   //   let userIdentification = this.get('session.session.content.authenticated.email');

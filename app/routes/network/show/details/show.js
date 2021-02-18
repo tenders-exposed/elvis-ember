@@ -13,26 +13,96 @@ export default Route.extend({
     relationships: 'edges',
     clusters: 'clusters'
   },
+
+  flagsMap: {
+    INTEGRITY_CALL_FOR_TENDER_PUBLICATION: 'No call for tender published',
+    INTEGRITY_TAX_HAVEN: 'Company from a tax haven',
+    INTEGRITY_PROCEDURE_TYPE: 'Non-open tender procedure'
+  },
+
+  limitPage: 5,
   controller: computed(function() {
     return this.controllerFor('network.show.details.show');
   }),
 
-  // get the bidders/ buyers based on contracts
-  processContracts(winningBids, endpoint) {
-    if (endpoint === 'bidders') {
-      let buyers = [];
-      _.forEach(winningBids, function(bid) {
-        buyers = _.unionBy(buyers, bid.lot.tender.buyers, 'id');
-      });
-      return buyers;
+  getFlags(indicators) {
+    let flagsCount = 0;
+    let flagsNames = [];
+    let flagsMap = this.get('flagsMap');
+    _.each(indicators, function (indicator) {
+      if(indicator.value == 0) {
+        flagsCount++;
+        flagsNames.push(flagsMap[indicator.type]);
+      }
+    });
 
-    } else {
-      let bidders = [];
-      _.forEach(winningBids, function(bid) {
-        bidders = _.unionBy(bidders, bid.bidders, 'id');
-      });
-      return bidders;
-    }
+    return {flagsCount: flagsCount, flagsNames: flagsNames};
+  },
+
+  getContracts(apiAddressContracts, endpointQ, page) {
+
+    let self = this;
+    let options = {};
+    options.headers = {
+      'Content-Type': 'application/json'
+    };
+    // /networks/{networkID}/nodes/{nodeID}/bids?limit=10&page=1
+    return this.get('ajax')
+      .request(`${apiAddressContracts}${page}`,{
+        data: options
+      })
+      .then(
+        (data) => {
+          let pag = {
+            page: data.page,
+            totalPages: data.totalPages
+          };
+          if (endpointQ != 'relationships') {
+            let contracts = [];
+            _.each(data.bids, function(bid) {
+              let flags = self.getFlags(bid.lot.tender.indicators);
+              let contract = {
+                tenderId: bid.lot.tender.id,
+                title: bid.lot.title ? `${bid.lot.tender.title} - ${bid.lot.title}` : bid.lot.tender.title,
+                buyers: bid.lot.tender.buyers,
+                bidders: bid.bidders,
+                bids: bid.lot.bidsCount,
+                value: bid.value,
+                year: bid.lot.tender.year,
+                source: bid.lot.tender.sources[0],
+                xYearApproximated: bid.lot.tender.xYearApproximated,
+                xAmountApproximated: bid.lot.tender.xAmountApproximated,
+                flagsCount: flags.flagsCount,
+                flagsNames: flags.flagsNames
+              };
+              contracts.push(contract);
+            });
+            //let contractsCount = dataEntity.winningBids.length;
+            return {contracts: contracts, pag: pag};
+
+          } else {
+            let contracts = [];
+            _.each(data.bids, function(bid) {
+              let flags = self.getFlags(bid.lot.tender.indicators);
+              let contract = {
+                tenderId: bid.lot.tender.id,
+                title: bid.lot.title ? `${bid.lot.tender.title} - ${bid.lot.title}` : bid.lot.tender.title,
+                date: bid.lot.awardDecisionDate,
+                bids: bid.lot.bidsCount,
+                value: bid.value,
+                year: bid.lot.tender.year,
+                source: bid.lot.tender.sources[0],
+                xYearApproximated: bid.lot.tender.xYearApproximated,
+                xAmountApproximated: bid.lot.tender.xAmountApproximated,
+                flagsCount: flags.flagsCount,
+                flagsNames: flags.flagsNames
+              };
+              contracts.push(contract);
+            });
+            // let contractsCount = data.edge.winningBids.length;
+            return {contracts: contracts, pag: pag};
+          }
+        });
 
   },
 
@@ -40,10 +110,44 @@ export default Route.extend({
   // nodeId = node or node ids of cluster
   // endpoint = type of node
   // filterById in relationships = ids of the procuring entity to filter the contracts by
-  getModelDetails(nodeId, endpoint/*, filterById*/) {
+  getModelDetails(apiAddress, endpointQ/*, filterById*/) {
+
+    let options = {};
+    options.headers = {
+      'Content-Type': 'application/json'
+    };
+
+    return this.get('ajax')
+      .request(`${apiAddress}`,{
+       data: options
+      })
+      .then(
+        (data) => {
+          let dataEntity = {};
+          // extract the unique buyers / bidders for bidder / buyer
+          if (endpointQ != 'relationships') {
+            if (endpointQ == 'clusters') {
+              Object.assign(dataEntity, data.cluster);
+
+            } else {
+              Object.assign(dataEntity, data.node);
+              //mutat
+              // this.titleToken = dataEntity.name;
+            }
+
+          } else {
+            Object.assign(dataEntity, data.edge);
+          }
+          return dataEntity;
+
+        });
+  },
+
+  getNodeDetails(nodeId, endpoint) {
     let self = this;
     let dataEntity = {};
     let idParts = _.split(nodeId, '_');
+    let limitPage = this.get('limitPage');
 
     nodeId = _.last(idParts);
     // if we have multiple parts like c-id then we have a cluster endpoint
@@ -59,78 +163,13 @@ export default Route.extend({
     dataEntity.countries = countries;
     dataEntity.networkId = networkId;
 
-    return this.get('ajax')
-      .request(`/networks/${networkId}/${this.endpoints[endpointQ]}/${nodeId}`)
-      .then(
-        (data) => {
+    // for future retrive and process of contracts
+    dataEntity.apiAddress = `/networks/${networkId}/${this.endpoints[endpointQ]}/${nodeId}`;
+    dataEntity.apiAddressContracts = `${dataEntity.apiAddress}/bids?limit=${limitPage}&page=`;
 
-          // extract the unique buyers / bidders for bidder / buyer
-          if (endpointQ != 'relationships') {
-            if (endpointQ == 'clusters') {
-              Object.assign(dataEntity, data.cluster);
-              dataEntity.nodes = self.processContracts(dataEntity.winningBids, endpoint);
+    dataEntity.endpointQ = endpointQ;
 
-            } else {
-              Object.assign(dataEntity, data.node);
-              dataEntity.nodes = self.processContracts(dataEntity.winningBids, endpoint);
-              this.titleToken = dataEntity.name;
-            }
-
-            dataEntity.contracts = [];
-            _.each(dataEntity.winningBids, function(bid) {
-              let contract = {
-                tenderId: bid.lot.tender.id,
-                title: bid.lot.title ? `${bid.lot.tender.title} - ${bid.lot.title}` : bid.lot.tender.title,
-                buyers: bid.lot.tender.buyers,
-                bidders: bid.bidders,
-                bids: bid.lot.bidsCount,
-                value: bid.value
-              };
-              dataEntity.contracts.push(contract);
-            });
-
-          } else {
-            Object.assign(dataEntity, data.edge);
-            dataEntity.contracts = [];
-            _.each(dataEntity.winningBids, function(bid) {
-              let contract = {
-                tenderId: bid.lot.tender.id,
-                title: bid.lot.title ? `${bid.lot.tender.title} - ${bid.lot.title}` : bid.lot.tender.title,
-                date: bid.lot.awardDecisionDate,
-                bids: bid.lot.bidsCount,
-                value: bid.value
-              };
-              dataEntity.contracts.push(contract);
-            });
-          }
-          // console.log('dataEntity - after request', dataEntity);
-          dataEntity.contractsCount = dataEntity.winningBids.length;
-          return dataEntity;
-
-        });
-  },
-
-  setModelDetails() {
-    let controller =  this.get('controller');
-    let params =  controller.get('params');
-    // bidder,buyers || relationships
-    let endpoint  = this.paramsFor('network.show.details').tab;
-    let self = this;
-
-    if (endpoint === 'relationships') {
-      let edge = self.get('networkService').getEdgeById(params.id);
-
-      return self.getModelDetails(params.id, endpoint, false).then((data) => {
-        data.fromLabel =  edge.fromLabel;
-        data.toLabel =  edge.toLabel;
-        return data;
-      });
-    } else {
-      // for a single node
-      return self.getModelDetails(params.id, endpoint, false).then((data) => {
-        return data;
-      });
-    }
+    return dataEntity;
   },
 
   model(params,transition) {
@@ -141,32 +180,50 @@ export default Route.extend({
     let endpoint  = this.paramsFor('network.show.details').tab;
 
     this.set('tab', tab);
+    this.set('page', 1);
+    this.set('limitPage', 5);
+    controller.set('limitPage', 5);
     controller.set('params', params);
     controller.set('tab', tab);
+
+    let dataEntity = this.getNodeDetails(params.id, endpoint);
+
     controller.set('modelDetails', undefined);
 
     return this.controllerFor('network.show').get('networkDefer').then(() => {
-      // console.log('start model');
-
+      let details;
       // bidder,buyers || relationships
       if (endpoint === 'relationships') {
-        let edge = self.get('networkService').getEdgeById(params.id);
-        let details =  self.getModelDetails(params.id, endpoint, false).then((data) => {
-          data.fromLabel =  edge.fromLabel;
-          data.toLabel =  edge.toLabel;
-          controller.set('modelDetails', data);
-          return data;
-        });
-        // console.log('finish model', details);
+          let edge = self.get('networkService').getEdgeById(params.id);
+          details = Promise.all([
+            self.getModelDetails(dataEntity.apiAddress, dataEntity.endpointQ),
+            self.getContracts(dataEntity.apiAddressContracts, dataEntity.endpointQ,self.get('page'))
+          ]).then(function (values) {
+            dataEntity.fromLabel =  edge.fromLabel;
+            dataEntity.toLabel =  edge.toLabel;
+            Object.assign(dataEntity, values[0]);
+            dataEntity.contracts = values[1].contracts;
+            dataEntity.pag = values[1].pag;
+
+            controller.set('modelDetails', dataEntity);
+            return values;
+          });
+
         return details;
 
       } else {
-        // for a single node
-        let details =  self.getModelDetails(params.id, endpoint, false).then((data) => {
-          controller.set('modelDetails', data);
-          return data;
+        details = Promise.all([
+          self.getModelDetails(dataEntity.apiAddress, dataEntity.endpointQ),
+          self.getContracts(dataEntity.apiAddressContracts, dataEntity.endpointQ,self.get('page'))
+        ]).then(function (values) {
+          Object.assign(dataEntity, values[0]);
+          //Object.assign(dataEntity, values[1]);
+          dataEntity.contracts = values[1].contracts;
+          dataEntity.pag = values[1].pag;
+
+          controller.set('modelDetails', dataEntity);
+          return values;
         });
-        // console.log('finish model', details);
         return details;
       }
     });
@@ -180,13 +237,61 @@ export default Route.extend({
     controller.set('activeTabDetails', 'contracts');
     controller.set('activeTabbuyer', 'contracts');
   },
+  getContractsPage() {
+    let controller =  this.get('controller');
+    let modelDetails = controller.get('modelDetails');
+    let self = this;
+    controller.set('loadingContracts', true);
+
+    self.getContracts(modelDetails.apiAddressContracts, modelDetails.endpointQ,this.get('page'))
+      .then(function(data) {
+        controller.set('loadingContracts', false);
+        controller.set('modelDetails.contracts', data.contracts);
+        controller.set('modelDetails.pag', data.pag);
+        return data;
+      });
+  },
 
   actions: {
+    resetLimitPage() {
+      let controller =  this.get('controller');
+      let limitPage = controller.get('limitPage');
+      let apiAddress = controller.get('modelDetails.apiAddress');
+      controller.set('modelDetails.apiAddressContracts', `${apiAddress}/bids?limit=${limitPage}&page=`);
+      controller.set('loadingContracts', true);
+      this.set('page', 1);
+      this.set('limitPage', limitPage);
+
+      this.getContractsPage();
+    },
     closeDetails() {
       this.transitionTo(
         'network.show.details',
         this.controllerFor('network.show.details').get('activeTab')
       );
+    },
+    page(pageAction) {
+      // console.log('details.show- action.page', pageAction);
+      let controller =  this.get('controller');
+      let modelDetails = controller.get('modelDetails');
+      controller.set('loadingContracts', true);
+
+      if (pageAction == 'next') {
+        this.set('page', this.get('page') + 1);
+        this.getContractsPage();
+      }
+      if (pageAction == 'back') {
+        this.set('page', this.get('page') - 1);
+        this.getContractsPage();
+      }
+      if (pageAction == 'first') {
+        this.set('page', 1);
+        this.getContractsPage();
+      }
+      if (pageAction == 'last') {
+        this.set('page', controller.get('modelDetails.pag.totalPages'));
+        this.getContractsPage();
+      }
     }
   }
 });

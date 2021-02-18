@@ -4,13 +4,13 @@
 }
 
 /*elements*/
-@mixin box{
+@mixin box {
   border-radius: 5px;
   border: 1px solid $box-border-color;
-  padding: $gutter-width;
+  padding: 1.25*$gutter-width;
   position: relative;
   color: $text-color;
-  background: $bg-dark-color;
+  background: fade-out($bg-dark-color,0.3);
 
   .close{
     position: absolute;
@@ -131,6 +131,8 @@
   background: none;
   box-shadow: none;
   border-color: transparent;
+  padding-left: 1rem;
+  padding-right: 1rem;
   &:hover {
     color: $color;
   }

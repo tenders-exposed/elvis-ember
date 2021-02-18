@@ -1,10 +1,16 @@
 .alert {
   padding: $padding-base/2;
-  font-size: $font-size-small;
+  font-size: $font-size-base;
   font-family: $font-family-sans;
+  border-radius: $border-radius-small;
 
   &.alert-error {
     background: $error-color;
     color: white;
+  }
+
+  &.alert-warning {
+    color: $warning-color;
+    padding: 0px !important;
   }
 }

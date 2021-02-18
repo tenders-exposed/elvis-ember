@@ -3,6 +3,11 @@ import DS from 'ember-data';
 import { computed } from '@ember/object';
 const { Model, attr } = DS;
 
+const color = {
+  'bidder': '#FFC776', // rgb(255,199,118)
+  'buyer': '#008D85' // rgb(0,141,133)
+};
+
 export default Model.extend({
   name: attr('string', { defaultValue: 'unnamedNetwork' }),
   synopsis: attr(),
@@ -21,6 +26,7 @@ export default Model.extend({
   }),
   count: attr(),
   updated: attr(),
+  created: attr(),
   flaggedEdges: computed('edges', function() {
     let edgesFlagged = _.cloneDeep(this.get('edges'));
 
@@ -51,32 +57,62 @@ export default Model.extend({
 
   graph: computed('nodes', 'edges', function() {
     let nodes = this.get('nodes');
+    _.each(nodes, function (node) {
+      if (node.type == 'buyer') {
+        node.color = {
+          background: color.buyer,
+          border: color.buyer,
+          hover: {
+            background: color.buyer,
+            border: color.buyer
+          },
+          highlight: {
+            background: color.buyer,
+            border: color.buyer
+          }
+        };
+      } else {
+        node.color = {
+          background: color.bidder,
+          border: color.bidder,
+          hover: {
+            background: color.bidder,
+            border: color.bidder
+          },
+          highlight: {
+            background: color.bidder,
+            border: color.bidder
+          }
+        };
+      }
+    })
+
     if (this.get('clusters') && this.get('clusters').length > 0) {
       _.each(this.get('clusters'), function(cluster) {
         if (cluster.type == 'buyer') {
           cluster.color = {
-            background: 'rgb(246, 49, 136)',
-            border: '#f0308e',
+            background: color.buyer,
+            border: color.buyer,
             hover: {
-              background: 'rgb(246, 49, 136)',
-              border: '#f0308e'
+              background: color.buyer,
+              border: color.buyer
             },
             highlight: {
-              background: 'rgb(246, 49, 136)',
-              border: '#f0308e'
+              background: color.buyer,
+              border: color.buyer
             }
           };
         } else {
           cluster.color = {
-            background: 'rgb(36, 243, 255)',
-            border: '#27f0fc',
+            background: color.bidder,
+            border: color.bidder,
             hover: {
-              background: 'rgb(36, 243, 255)',
-              border: '#27f0fc'
+              background: color.bidder,
+              border: color.bidder
             },
             highlight: {
-              background: 'rgb(36, 243, 255)',
-              border: '#27f0fc'
+              background: color.bidder,
+              border: color.bidder
             }
           };
         }
@@ -97,5 +133,19 @@ export default Model.extend({
 
     }
 
+  }),
+
+  valueRange: computed('nodes', function() {
+    let nodeMax = 0;
+    let nodeMin = 0;
+    _.map(this.get('nodes'), (node) => {
+      if (node.value < nodeMin || nodeMin == 0) {
+        nodeMin = node.value;
+      }
+      if (node.value > nodeMax) {
+        nodeMax = node.value;
+      }
+    });
+    return { nodeMax, nodeMin };
   })
 });

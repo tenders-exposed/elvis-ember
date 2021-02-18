@@ -1,0 +1,175 @@
+$network-bg: $bg-color;
+$network-inner-offset: 20px;
+$network-inner-width: calc(100vw - #{2*$network-inner-offset});
+$network-inner-height: calc(100vh - #{$navbar-height + $network-inner-offset});
+$network-controls-width: 50px;
+$network-sidebar-width: 300px;
+
+// basic network look & layout
+body.network:not(.network-new) {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: $network-bg;
+
+  // shadowed box style for all boxes resting on the network
+  #details-sidebar,
+  #network-controls,
+  .vis-navigation,
+  .contract-info-wrapper,
+  .details-info-wrapper{
+    background: $network-sidebar-bg;
+    box-shadow: 0px 0px 55px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 3px; //TODO variable
+    border: 1px solid lighten($network-sidebar-bg,5%);
+    backdrop-filter: blur(2px)
+  }
+
+  // contains whole network with all sidebars and controls
+  #network-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    overflow: hidden;
+  }
+
+
+  // navbar overlaps the network
+  .navbar {
+    position: absolute;
+    width: 100vw;
+    z-index: $zindex-network-navbar;
+
+    opacity: .6;
+    transition: opacity .75s ease;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+
+  // bottom right nav;
+  // TODO: all styles for #network-controls .vis-button and .vis-network .vis-button together
+  #network-controls {
+    position: absolute;
+    top: 210px;
+    right: $network-inner-offset;
+    padding: 5px;
+    max-width: 1.2*$button-height;
+    z-index: 10;
+    text-align: center;
+
+
+    .vis-button {
+      @extend .btn.link;
+      display: inline-block;
+      height: 34px;
+      width: 34px;
+      line-height: 34px;
+      text-align: center;
+      margin-bottom: 5px;
+      position: relative;
+      overflow: visible !important;
+      padding: 0;
+      .tooltip {
+        display: none;
+      }
+
+      &.disabled-vis-button {
+        opacity: 0.5 !important;
+      }
+
+      &:hover .tooltip {
+        position: absolute;
+        top: 2px;
+        left: -110px;
+        color: white;
+        width: 100px;
+        z-index: 100039;
+        font-size: 0.7rem;
+        height: 20px;
+        display: block !important;
+        text-align: right;
+      }
+    }
+  }
+
+  // top nav (plus, minus, zoom)
+  .vis-network .vis-navigation {
+    margin-top: $navbar-height - 15px;
+    text-align: center;
+    height: auto;
+    margin-right: $network-inner-offset;
+  }
+
+  // network actors container
+  #details-container {
+    z-index: $zindex-details-container;
+    position: absolute;
+    overflow: hidden;
+    pointer-events: none;
+    padding: 0 $network-inner-offset;
+    height: $network-inner-height;
+    top: $navbar-height;
+    width: 100%;
+    display: flex;
+
+    // network actors list
+    // @TODO: rename
+    #details-sidebar {
+      display: inline-block;
+      z-index: $zindex-network-sidebar;
+      pointer-events: all;
+      min-width: $network-sidebar-width;
+      max-width: 400px;
+      flex: 1 0 auto;
+      //position: absolute;
+      height: 100%;
+      clear: both;
+      overflow: auto;
+      overflow: overlay;
+
+      font-family: $font-family-sans;
+    }
+
+    // actor/contract detail
+    #details-info {
+      height: 100%;
+      flex: 0 1 auto;
+      width: 100%;
+      max-width:850px;
+      margin-left: 10px;
+      display: inline-block;
+      pointer-events: none;
+
+      @media (max-width: 900px) {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin-right: 10px;
+        width: auto;
+        z-index: $zindex-network-sidebar+1;
+
+      }
+
+      .contract-info-wrapper,
+      .details-info-wrapper {
+        height: $network-inner-height;
+        pointer-events: all;
+      }
+
+      #loader {
+        margin: 0 auto;
+        top: 50%;
+        position: absolute;
+        right: 41%;
+        .preloader-wrapper {
+          height: 64px;
+        }
+      }
+    }
+  }
+}

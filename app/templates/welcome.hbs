@@ -1,135 +1,51 @@
 {{outlet}}
 <div id="welcome-page" class="page">
   <div class="container">
-    <div class="hero center">
+    <div class="hero">
       <h1>
-        Visualisation tool for public spending data has arrived
+        Defence tenders exposed
       </h1>
       <p class="flow-text">
-        Raw and dirty public spending data visualised into a sexy, tidy, filterable node network. That’s Elvis. We are still in beta, so feedback is welcome!
+        This visualization tool works with defence procurement data from all 28 EU countries. Data is visualized into a node network graph with possible restrictions to specific countries, years, tender suppliers and government institutions.
       </p>
-      <br>
-      <div>
-          <a href="#" class="btn-large transparent hide">Use ready-made network</a>
-            {{#link-to 'network.new' class="btn-large primary"}}Create a network{{/link-to}}
-          {{#if session.isAuthenticated}}
-          {{else}}
-            {{#link-to 'account.new' class="btn-large primary"}}Create an account{{/link-to}}
-          {{/if}}
+    </div>
+    <div class="row">
+      <div class="col m6">
+        <div class="box">
+          <h4>Create custom network</h4>
+          <p>Create procurement network of your own interest by specifying all options</p>
+          <ul>
+            <li>{{#link-to 'network.new' class="btn primary"}}<i class="fa fa-arrow-right"></i> Start here{{/link-to}}</li>
+          </ul>
+        </div>
       </div>
-      <br>
-      <br>
-      <div class="node-types">
-        <div class="row">
-          <div class="col s4 center-align">
-            <div class="figure-buyer"></div>
-            <h4>
-              Governments
-            </h4>
-            <p class="small">
-              Examine preferences of government institutions such as municipalities, ministries and others
-            </p>
-          </div>
-          <div class="col s4 center-align">
-            <div class="figure-bidder"></div>
-            <h4>Companies</h4>
-            <p class="small">
-              Discover which companies sell their goods and services to the governments
-            </p>
-          </div>
-          <div class="col s4 center-align">
-            <div class="figure-relationship"></div>
-            <h4>Contracts</h4>
-            <p class="small">
-              Dig into public contract details and money flows
-            </p>
+    </div>
+    <div class="row">
+      <div class="col m6">
+        <div class="box">
+          <h4>Explore</h4>
+          <p>Choose from curated networks.</p>
+          <ul>
+            <li><a href="https://defence.tenders.exposed/network/2b0f91aa-a1a4-4dab-9164-1e66d07ce0ec/bidders"><i class="fa fa-caret-right"></i>BAE Systems in European procurement</a></li>
+            <li><a href="https://defence.tenders.exposed/network/98800aa7-9430-4f7c-a7fc-6c5ba2e304b8/bidders"><i class="fa fa-caret-right"></i>Lockheed Martin in European procurement</a></li>
+            <li><a href="https://defence.tenders.exposed/network/88a3f537-bb6a-44b9-b2d8-8f8ab39535e9/bidders"><i class="fa fa-caret-right"></i>Croatian military spending</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col m6">
+        <div class="box">
+          <h4>Learn more</h4>
+          <p>Additional information about this project.</p>
+          <ul>
+            <li><a href="/helloimelvis"><i class="fa fa-caret-right"></i>Get to know Elvis</a></li>
+            <li><a href="https://opentender.eu/"><i class="fa fa-caret-right"></i>Data source</a></li>
+            <li><a href="https://github.com/tenders-exposed/"><i class="fa fa-caret-right"></i>Under the hood</a></li>
+            <li><a href="http://www.govtransparency.eu/"><i class="fa fa-caret-right"></i>About Government Transparency Institute</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
-  <div class="full-width section-about">
-    <div class="container">
-        <div class="row">
-          <div class="col s12">
-            <h1 class="big-title">
-              A tool for revealing corruption
-            </h1>
-            <p class="flow-text big-content">
-              'Tendering' is a process where governments hire private companies that provide services for our tax money. Dive with us into 7 million public tenders in Europe.
-            </p>
-            <p>
-              Elvis helps you create public spending network in specific EU country, time and sector. Explore relationships between government and companies. You can ask questions like "Who is dominatig IT market in Netherlands?" or "Which companies earn most money from public spending in Slovakia?"
-            </p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col m6">
-            <h3 class="title">
-              Under development
-            </h3>
-            <p class="content">
-              Feedback = {{fa-icon 'heart'}}
-              Have an opinion? Everybody does. If you'd like to share yours, you can reach us on the links below.
-            </p>
-            <div class="links">
-              <div class="link">
-                <!--incont-->
-                {{fa-icon 'smile-o'}}<a href="https://talk.tenders.exposed">Join the Elvis community</a>
-              </div>
-              <div class="link">
-                {{fa-icon 'envelope-o'}}<a href="mailto:tech@tenders.exposed">Contact us</a>
-              </div>
-            </div>
-          </div>
-          <div class="col m6">
-            <h3 class="title">
-              Free and Open-source
-            </h3>
-            <p class="content">
-              We are open source!
-              Would you like to help us with development or even make your own Elvis? Our Elvis is yor Elvis
-            </p>
-            <div class="links">
-              <div class="link">
-                <!--incont-->
-                {{fa-icon 'github'}}<a href="https://github.com/tenders-exposed">Elvis on GitHub</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col m6">
-            <h3 class="title">
-              Data source
-            </h3>
-            <p class="content">
-              Data
-              We are using local and EU tender data from the <a href="https://digiwhist.eu">Digiwhist project</a>. Maps, graphs, dashboards, data download and more tender fun is available on <a href="opentender.eu">opentender.eu</a>
-            </p>
-            <div class="links">
-              <div class="link">
-                <!--incont-->
-                {{! {{fa-icon 'arrow-right'}\}<a href="#">About TED data</a> }}
-              </div>
-            </div>
-          </div>
-          <div class="col m6">
-            <h3 class="title">
-              Based on research
-            </h3>
-            <p class="content">
-              It's no mumbo-jumbo. There is an interesting research behind this idea. Learn about Red Flags and how we evaluate the data.
-            </p>
-            <div class="links">
-              <div class="link">
-                <!--incont-->
-                {{fa-icon 'arrow-right'}}<a href="http://v3.sk/~naberacka/social_network_analysis_public_procurement_data_journalism.pdf">Read the thesis</a>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-  </div>
+
 </div>

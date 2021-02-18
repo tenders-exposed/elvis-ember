@@ -1,10 +1,23 @@
 import Controller from '@ember/controller';
+import { computed, observer } from '@ember/object';
 
 export default Controller.extend({
   activeTabDetails: 'contracts',
   activeTabbuyer: 'contracts',
   params: {},
   networkQuery: {},
+
+  limitContractsPage: [
+    {'value': 5, 'label': 5},
+    {'value': 10, 'label': 10},
+    {'value': 15, 'label': 15},
+  ],
+
+  limitPage: 5,
+
+  limitPageObserver: observer('limitPage', function() {
+    this.get('target').send('resetLimitPage');
+  }),
 
   sort: 'value',
   fields: {
@@ -21,6 +34,14 @@ export default Controller.extend({
         label: 'Bids',
         sort: true
       },
+      year: {
+        label: 'Year',
+        sort: true
+      },
+      indicators: {
+        label: 'Indicators',
+        sort: false
+      },
       value: {
         label: 'Awarded amount',
         sort: true
@@ -35,6 +56,14 @@ export default Controller.extend({
       },
       bids: {
         label: 'Bids', sort: true
+      },
+      year: {
+        label: 'Year',
+        sort: true
+      },
+      indicators: {
+        label: 'Indicators',
+        sort: false
       },
       value: {
         label: 'Awarded amount', sort: true
@@ -64,6 +93,13 @@ export default Controller.extend({
       bids: {
         label: 'Bids', sort: true
       },
+      year: {
+        label: 'Year', sort: false
+      },
+      indicators: {
+        label: 'Indicators',
+        sort: false
+      },
       value: {
         label: 'Award amount', sort: true
       }
@@ -78,6 +114,9 @@ export default Controller.extend({
     },
     changeTabProcurer(tab) {
       this.set('activeTabProcurer', tab);
+    },
+    redirectLink(link) {
+      console.log('redirect',link);
     }
   }
 });

@@ -1,10 +1,10 @@
-// import ENV from '../config/environment';
 import Ember from 'ember';
 
 import Controller from '@ember/controller';
 import $ from 'jquery';
 import { computed, observer } from '@ember/object';
 import { inject as service } from '@ember/service';
+import { later } from '@ember/runloop';
 import { run } from '@ember/runloop';
 import { A } from '@ember/array';
 import EmberObject from '@ember/object';
@@ -14,6 +14,22 @@ const { Logger } = Ember;
 export default Controller.extend({
   ajax: service(),
   cpvService: service('cpv'),
+
+  wizardData: [
+    { 'step_id': '1', 'header_label': 'Countries','hasAction': true },
+    { 'step_id': '2', 'header_label': 'Actors','hasAction': true },
+    { 'step_id': '3', 'header_label': 'Years','hasAction': true },
+    { 'step_id': '4', 'header_label': 'Markets','hasAction': true },
+    { 'step_id': '5', 'header_label': 'Settings','hasAction': true }
+  ],
+  useRoundedNav: true,
+  customButtonLabels: {
+    'nextLabel': 'Next',
+    'finishLabel': 'Launch Network',
+    'cancelLabel': 'Cancel',
+    'prevLabel': 'Back'
+  },
+  wizardShowNextStep: true,
 
   selectedCodes: A([]),
   selectedCodesCount: 0,
@@ -30,59 +46,36 @@ export default Controller.extend({
     'edges': 'numberOfWinningBids',
     'nodes': 'numberOfWinningBids'
   }),
-
   loading: {
-    years: true,
+    years: false,
     cpvs: true
   },
+  shouldUpdate: {
+    'years': false,
+    'cpvs': false
+  },
 
+  // take out
+  loadAllMarkets: false,
+
+  sizeType: [
+    { 'type': 'numberOfWinningBids', 'label': 'number of winning Bids' },
+    { 'type': 'amountOfMoneyExchanged', 'label': 'amount of money' }
+  ],
   countries: [],
   autocompleteActorsOptions: [],
-  countActors: 0,
+  wizardSteps:  {
+    'countriesStatus': 'current',
+    'actorsStatus': 'disabled',
+    'yearsStatus': 'disabled',
+    'cpvsStatus': 'disabled',
+    'optionsStatus': 'disabled'
+  },
 
-  countriesStatus: computed('query.countries', function() {
-    if (this.get('query.countries').length > 0) {
-      return 'completed';
-    } else {
-      return 'current';
-    }
-  }),
-  yearsStatus: computed('query.{countries,actors}', function() {
-    if (!this.get('loadingYears') &&
-    (this.get('query.countries').length > 0 || this.get('query.actors').length > 0)) {
-      return 'completed';
-    } else {
-      return 'disabled';
-    }
-  }),
-  cpvsStatus: computed('query.{countries,years}', function() {
-    if (this.get('query.years').length > 0 &&
-        (this.get('query.countries').length > 0) || this.get('query.actors').length > 0) {
-      return 'current';
-    } else if (this.get('query.cpvs').length > 0) {
-      return 'completed';
-    } else {
-      return 'disabled';
-    }
-  }),
-  optionsStatus: computed('selectedCodes', function() {
-    if (this.get('selectedCodes').length > 0) {
-      return 'current';
-    } else {
-      return 'disabled';
-    }
-  }),
-  submitIsDisabled: computed('selectedCodes', function() {
-    if (this.get('selectedCodes').length > 0) {
-      return false;
-    } else {
-      return true;
-    }
-  }),
+  network: {},
 
-  cpvsIsDisabled: false,
-
-  rangeDisableClass: '',
+  // years rande-slide
+  // rangeDisableClass: '',
   rangeIsDisabled: computed('query.{countries,actors}', function() {
     let countries = this.get('query.countries');
     let actors = this.get('query.actors');
@@ -92,8 +85,6 @@ export default Controller.extend({
       return true;
     }
   }),
-
-  yearsStart: [],
   yearsRange: computed('years', function() {
     let years = this.get('years');
     let yearMin = _.min(years);
@@ -105,28 +96,23 @@ export default Controller.extend({
       yearMin -= 1;
     }
     let yearsRange = { 'min': yearMin, 'max': yearMax };
-
-    this.set('yearsStart', [yearMin, yearMax]);
     this.send('rangeChangeAction', [yearMin, yearMax]);
 
     return yearsRange;
   }),
+  yearsStart: computed('yearsRange', function() {
+    let yearsRange = this.get('yearsRange');
+    return [ yearsRange.min, yearsRange.max ];
+  }),
 
+  // cpvs selected
   treeObserver: observer('cpvs', function() {
-    this.createTree();
+    if (this.get('cpvs').length > 0) {
+      this.createTree();
+    }
   }),
 
-  selectedCodesObserver: observer('selectedCodes', function() {
-    this.set(
-      'selectedCodesCount',
-      _.sumBy(this.get('selectedCodes'), function(o) {
-        return o.original.count;
-      })
-    );
-  }),
-
-  network: {},
-
+  cpvsIsDisabled: false,
   jsTreeConfig: {
     core: {
       'worker': false,
@@ -138,11 +124,6 @@ export default Controller.extend({
     },
     plugins: 'checkbox, search, sort',
     searchOptions: { 'show_only_matches': true },
-    // sort: function(a, b){
-    //   a1 = this.get_node(a);
-    //   b1 = this.get_node(b);
-    //   return (a1.xNumberBids > b1.xNumberBids) ? 1 : -1;
-    // },
     checkbox: {
       'three_state': false,
       'cascade': 'down'
@@ -150,13 +131,65 @@ export default Controller.extend({
   },
   cpvSearchTerm: '',
   cpvSearchTree: '',
+  networkLoading: false,
+  allCpvs:[],
+  allCpvSelected: false,
+  countAllCpvs: 0,
+  insertJsTree: false,
+
+  getAllCpvsCount() {
+    let self = this;
+    let countries = this.get('query.countries');
+    let rawActors = this.get('query.rawActors');
+    let bidders = _.filter(
+      rawActors,
+      (actor) => (actor.type === 'bidder')
+    );
+    let buyers = _.filter(
+      rawActors,
+      (actor) => (actor.type === 'buyer')
+    );
+    /*let cpvs = [];
+     this.get('selectedCodes').forEach((v) => {
+     cpvs.push(v.id);
+     });*/
+
+    let years = this.get('query.years');
+    let options = {};
+    if (countries.length > 0) {
+      options.countries = countries;
+    }
+    if (buyers.length > 0) {
+      options.buyers = buyers;
+    }
+    if (bidders.length > 0) {
+      options.bidders = bidders;
+    }
+    /*if (cpvs.length > 0) {
+     options.cpvs = cpvs;
+     }*/
+    if (years.length > 0) {
+      options.years = years;
+    }
+
+    this.get('ajax')
+      .post('/tenders/count', {
+        data: options,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then((data) => {
+        self.set('countAllCpvs', data.count);
+      });
+
+  },
 
   createTree() {
     // reset selected codes
     this.set('selectedCodesCount', 0);
     this.set('selectedCodes', A([]));
 
-    // let treeTimer = performance.now();
     let cpvs = _.sortBy(
       _.cloneDeep(this.get('cpvs')),
       ['code']
@@ -185,69 +218,70 @@ export default Controller.extend({
       let parent, cpvGroup, cpvDivision, regex;
 
       switch (xNumberDigits) {
-      case null:
-        result.parent = '#';
-        break;
-
-      case 0:
-      case 2:
-        result.parent = '#';
-        break;
-
-      case 3:
-        cpvDivision = code.slice(0, 2);
-        // parent = cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`);
-        result.parent = `${cpvDivision}000000`;
-        if (!cpvDivision) {
-          Logger.warn(`Cannot compute division for ${code}`, cpv);
+        case null:
           result.parent = '#';
-        } else {
-          if (!cpvs.find((cpv) => cpv.code === `${cpvDivision}000000`)) {
-            missingCodes.push(result.parent);
-          }
-        }
-        break;
-
-      case 4:
-      default:
-        // First attempt to find a CPV group (level 2, 3 digits)
-        cpvGroup = code.slice(0, 3);
-        parent = cpvs.find((cpv) => cpv.code === `${cpvGroup}00000`);
-        if (parent) {
-          result.parent = parent.code;
           break;
-        }
 
-        // If we're here, we're looking for a major division
-        cpvDivision = this.get('cpvService').getDivisions().find(
-          (div) => div === code.slice(0, 2)
-        );
-        if (!cpvDivision) {
-          Logger.warn(`Cannot find division ${cpvDivision} for ${code}`, cpv);
+        case 0:
+        case 2:
           result.parent = '#';
-        } else {
-          // if (!cpvs.find((cpv) => cpv.id == `${cpvDivision}000000`)) {
+          break;
+
+        case 3:
+          cpvDivision = code.slice(0, 2);
           result.parent = `${cpvDivision}000000`;
-          regex = `${cpvDivision}0+$`;
-          if (!cpvs.find((c) => c.code.match(new RegExp(regex, 'g'))) ||
-              !cpvs.find((c) => c.code === result.parent)) {
-            missingCodes.push(result.parent);
+          if (!cpvDivision) {
+            Logger.warn(`Cannot compute division for ${code}`, cpv);
+            result.parent = '#';
+          } else {
+            if (!cpvs.find((cpv) => cpv.code === `${cpvDivision}000000`)) {
+              missingCodes.push(result.parent);
+            }
           }
-        }
-        break;
-    }
+          break;
+
+        case 4:
+        default:
+          // First attempt to find a CPV group (level 2, 3 digits)
+          cpvGroup = code.slice(0, 3);
+          parent = cpvs.find((cpv) => cpv.code === `${cpvGroup}00000`);
+
+          if (parent && code != parent.code) {
+            result.parent = parent.code;
+            break;
+          }
+
+          // If we're here, we're looking for a major division
+          cpvDivision = this.get('cpvService').getDivisions().find(
+            (div) => div === code.slice(0, 2)
+          );
+          if (!cpvDivision) {
+            Logger.warn(`Cannot find division ${cpvDivision} for ${code}`, cpv);
+            result.parent = '#';
+          } else {
+            result.parent = `${cpvDivision}000000`;
+            regex = `${cpvDivision}0+$`;
+            if (!cpvs.find((c) => c.code.match(new RegExp(regex, 'g'))) ||
+              !cpvs.find((c) => c.code === result.parent)) {
+              missingCodes.push(result.parent);
+            }
+          }
+          break;
+      }
       tree.push(result);
+
     });
 
     missingCodes = _.uniq(missingCodes);
-    missingCodes.map((missingCode) => tree.push(
-      this.get('cpvService')
-        .getCode(missingCode)
-    ));
+    missingCodes.map((missingCode) => {
+      let code = this.get('cpvService').getCode(missingCode);
+      //code.state = { opened: false, selected: true };
+      tree.push(code);
+    });
 
-    // treeTimer = performance.now() - treeTimer;
     this.set('tree', tree);
     this.set('loading.cpvs', false);
+    this.set('shouldUpdate.cpvs', false);
 
     // // Tree health check!
     // tree.map((node) => {
@@ -266,8 +300,6 @@ export default Controller.extend({
   },
 
   fetchYears() {
-    this.set('loading.years', true);
-
     let countries = this.get('query.countries');
     let rawActors = this.get('query.rawActors');
     let bidders = _.filter(
@@ -300,9 +332,10 @@ export default Controller.extend({
         let { years } = data;
         this.set('years', years);
         this.set('loading.years', false);
+        this.set('shouldUpdate.years', false);
         // reset cpvs when other years are loaded
         this.set('cpvsIsDisabled', false);
-        this.resetCpvs();
+        // this.resetCpvs();
       });
   },
   resetCpvs() {
@@ -318,7 +351,6 @@ export default Controller.extend({
   fetchCpvs() {
     this.set('loading.cpvs', true);
     this.set('cpvsIsDisabled', true);
-    // let requestTimer = performance.now();
 
     let self = this;
     let countries = this.get('query.countries');
@@ -345,7 +377,6 @@ export default Controller.extend({
       options.bidders = _.join(_.map(bidders, (s) => s.id), ',');
     }
     if (years.length > 0) {
-      // options.query.years = [2005,2006];
       options.years = _.join(years, ',');
     }
 
@@ -359,43 +390,182 @@ export default Controller.extend({
         })
         .then((data) => {
           self.set('cpvs', data.cpvs);
-          // self.set('loading.cpvs', false);
         });
     }
   },
 
-  actions: {
-    onCountrySelectEvent(value) {
-      this.set('query.countries', []);
-      value.forEach((v) => {
-        this.get('query.countries').push(v.code);
-      });
-      this.fetchYears();
-    },
-    onAutocompleteSelectEvent(value) {
+  wizardStepChanged(wizardStep) {
+    // should reset everything if it transition to this roote.
+    let stepId = wizardStep.step_id;
+    let nextStep = () => {
+      later(() => {
+        this.set('wizardShowNextStep', true);
+      }, 100);
+    };
 
+    let actions = {
+
+      '1': () => {
+        // next actors
+        if (this.get('query.countries').length > 0) {
+          this.set('wizardErrorMessage', false);
+        }
+        nextStep();
+      },
+
+      '2': () => {
+        if (this.get('query.actors').length > 0) {
+          this.set('wizardSteps.actorsStatus', 'completed');
+        }
+
+        // years
+        let loadingYears = this.get('loading.years');
+        let wizardErrorMessage = false;
+        let wizardShowNextStep = true;
+
+        if (!this.get('rangeIsDisabled')) {
+          nextStep();
+
+          if (this.get('shouldUpdate.years')) {
+            loadingYears = true;
+            this.fetchYears();
+          }
+        } else {
+          wizardErrorMessage = 'You must select at least one country or one actor';
+          wizardShowNextStep = false;
+        }
+
+        this.setProperties({
+          wizardErrorMessage,
+          wizardShowNextStep,
+          wizardSteps: { yearsStatus: 'current' },
+          loading: { years: loadingYears }
+        });
+      },
+
+      '3': () => {
+        // cpvs
+        nextStep();
+        this.setProperties({
+          wizardSteps: {
+            yearsStatus: 'completed',
+            cpvsStatus: 'current'
+          }
+        });
+
+        if (this.get('shouldUpdate.cpvs')) {
+          if (this.get('jsTree')) {
+            this.get('jsTree').destroy();
+            this.resetCpvs();
+          }
+          this.fetchCpvs();
+        }
+      },
+
+      '4': () => {
+        // settings
+        let wizardErrorMessage = false;
+        let wizardShowNextStep = true;
+        nextStep();
+
+        this.setProperties({
+          wizardSteps: {
+            cpvsStatus: 'completed',
+            optionsStatus: 'current'
+          },
+          wizardErrorMessage,
+          wizardShowNextStep
+        });
+      },
+
+      '5': () => {
+        nextStep();
+      }
+    };
+
+    actions[stepId]();
+  },
+
+  actions: {
+    didInsertJsTree(renderNo) {
+
+      //countAllCpvs
+      this.getAllCpvsCount();
+    },
+
+    selectAllCpvs() {
+      this.set('allCpvSelected', true);
+      this.get('jsTree').send('selectAll');
+      this.get('jsTree').send('closeAll');
+    },
+
+    deselectAllCpvs() {
+      this.set('allCpvSelected', false);
+      this.get('jsTree').send('deselectAll');
+      this.get('jsTree').send('closeAll');
+    },
+
+    wizardStepChanged(wizardStep) {
+      this.wizardStepChanged(wizardStep);
+    },
+
+    // Step1 : Select Countries
+    onCountrySelect(selectedCountryId) {
+      // check if the country is selected
+      // if selected add selected class else remove selected class
+      // retrieve all the selected countries and add them to the query.countries
+      this.setProperties({
+        shouldUpdate: {
+          years: true,
+          cpvs: true
+        }
+      });
+
+      let self = this;
+      let jQcountryOption = $(`ul.wizard-countries #${selectedCountryId}`);
+      if (jQcountryOption.hasClass('selected')) {
+        jQcountryOption.removeClass('selected');
+      } else {
+        jQcountryOption.addClass('selected');
+      }
+
+      this.set('query.countries', []);
+      $('ul.wizard-countries li.selected').each(function() {
+        let countryId = $(this).attr('id');
+        self.get('query.countries').push(countryId);
+      });
+
+      if (this.get('query.actors').length > 0 && !this.get('checkActors')) {
+        this.set('checkActors', true);
+      }
+    },
+
+    // Step2:
+    onAutocompleteSelectEvent(value) {
+      /*this.set('shouldUpdate.years', true);
+       this.set('shouldUpdate.cpvs', true);*/
+      this.setProperties({
+        shouldUpdate: {
+          years: true,
+          cpvs: true
+        }
+      });
       this.set('query.actors', []);
       let self = this;
-      let count = 0;
       _.each(value, (v) => {
         self.get('query.actors').push(v.id);
-        count++;
       });
-
-      this.set('countActors', count);
-      this.fetchYears();
     },
+
     actorTermChanged(queryTerm) {
-      // let query = queryTerm || '';
-      // let limit = 10;
+      // remove leading and trailing whitespace
+      queryTerm = _.trim(queryTerm);
       if (!queryTerm.length) {
         this.set('autocompleteActorsOptions', []);
 
       }
-      if (queryTerm.length > 1) {
-
+      if (queryTerm.length > 2) {
         let countries = this.get('query.countries');
-        // let options = { limit: 15 };
         let options = {};
         if (countries.length > 0) {
           options.countries = countries;
@@ -405,20 +575,30 @@ export default Controller.extend({
           options.name = queryTerm;
         }
 
-        // let host =`${ENV.APP.apiHost}/${ENV.APP.apiNamespace}`;
         return this.get('ajax')
           .request('/tenders/actors',
-                {
-                  data: options,
-                  headers: { 'Content-Type': 'application/json' }
-                })
+            {
+              data: options,
+              headers: { 'Content-Type': 'application/json' }
+            })
           .then((data) => {
-            this.set('autocompleteActorsOptions', data.actors);
+            let autocompleteActorsOptions = [];
+            _.each(data.actors, (actor) => {
+              if (this.get('query.actors').length > 0) {
+                if (_.indexOf(this.get('query.actors'), actor.id) < 0) {
+                  autocompleteActorsOptions.push(actor);
+                }
+              } else {
+                autocompleteActorsOptions = data.actors;
+              }
+            });
+            this.set('autocompleteActorsOptions', autocompleteActorsOptions);
           });
       }
     },
 
     rangeSlideAction(value) {
+      // on click change the status
       run.scheduleOnce('afterRender', function() {
         $('span.left-year').text(value[0]);
         $('span.right-year').text(value[1]);
@@ -426,30 +606,20 @@ export default Controller.extend({
     },
     rangeChangeAction(value) {
       // destroy the tree, if any
-      if (this.get('yearsStatus') == 'completed') {
-        if (this.get('jsTree')) {
-          this.get('jsTree').destroy();
-        }
-
-        this.set('query.years', []);
-        this.get('query.years').push(value[0]);
-        this.get('query.years').push(value[1]);
-        run.scheduleOnce('afterRender', function() {
-          $('span.left-year').text(value[0]);
-          $('span.right-year').text(value[1]);
-        });
-        this.set('query.years', _.range(this.get('query.years')[0], ++this.get('query.years')[1]));
-
-        // console.log('fetchCpvs rangeChangeAction');
-        // this.fetchCpvs();
-        this.set('cpvsIsDisabled', false);
-        this.resetCpvs();
-      }
+      this.set('query.years', []);
+      this.get('query.years').push(value[0]);
+      this.get('query.years').push(value[1]);
+      run.scheduleOnce('afterRender', function() {
+        $('span.left-year').text(value[0]);
+        $('span.right-year').text(value[1]);
+      });
+      this.set('query.years', _.range(this.get('query.years')[0], ++this.get('query.years')[1]));
+      let years = this.get('query.years');
+      this.set('queryYearsRange', { 'min': _.min(years), 'max': _.max(years) });
+      this.set('cpvsIsDisabled', false);
+      this.set('shouldUpdate.cpvs', true);
     },
 
-    loadCpvs() {
-      this.fetchCpvs();
-    },
     submitQuery() {
       let self = this;
       let countries = this.get('query.countries');
@@ -471,16 +641,20 @@ export default Controller.extend({
       window.scrollTo(0, 0);
 
       /*self.notifications.info('This is probably going to take a while...', {
-        autoClear: false
-      });*/
+       autoClear: false
+       });*/
 
       self.set('isLoading', true);
       self.prepareQuery();
 
-      let query = {
-        cpvs: cpvs.uniq(),
-        years: years.uniq()
-      };
+      let query = {};
+      if (this.get('selectedCodes').length == 0) {
+        query.years = years.uniq();
+
+      } else {
+        query.cpvs = cpvs.uniq();
+        query.years = years.uniq();
+      }
 
       if (countries && countries.length > 0) {
         query.countries = countries.uniq();
@@ -491,6 +665,7 @@ export default Controller.extend({
       if (bidders.length > 0) {
         query.bidders = _.map(bidders, (s) => s.id);
       }
+      self.set('networkLoading', true);
 
       this.get('store').createRecord('network', {
         name: self.get('name'),
@@ -500,17 +675,17 @@ export default Controller.extend({
         },
         query
       }).save().then((data) => {
-        // self.send('finished');
-        // self.transitionToRoute('network.show', data.id)
         self.set('isLoading', false);
+        self.set('networkLoading', false);
         self.toggleProperty('optionsModalIsOpen');
         self.transitionToRoute('network.show', data.id);
       }).catch((data) => {
         // TODO: Catch the actual reason sent by the API (for some reason it's not pulled in, will check later)
         Logger.error(`Error: ${data}`);
         self.set('isLoading', false);
+        self.set('networkLoading', false);
         self.notifications.clearAll();
-        self.notifications.error('You need to <a href="/">sign in</a> or <a href="/">sign up</a> before continuing.', {
+        self.notifications.error('This should not be happening. Please send us an email at tech@tenders.exposed', {
           htmlContent: true,
           autoClear: false
         });
