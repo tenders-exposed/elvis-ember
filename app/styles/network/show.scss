@@ -228,6 +228,7 @@ div#network-container {
       overflow: visible !important;
       .tooltip {
         display: none;
+        white-space: normal;
       }
 
       &.disabled-vis-button {
