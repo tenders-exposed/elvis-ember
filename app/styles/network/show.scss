@@ -187,6 +187,44 @@
     height: 18px !important;
   }
 
+
+  #network-controls {
+    position: absolute;
+    right: 1px;
+    top: 140px;
+    max-width: 1.2*$button-height;
+    z-index: 100;
+
+    .vis-button {
+      @extend .btn-floating;
+      @extend .transparent;
+      margin-bottom: 5px;
+      position: relative;
+      overflow: visible !important;
+      .tooltip {
+        display: none;
+        white-space: normal;
+      }
+
+      &.disabled-vis-button {
+        opacity: 0.5 !important;
+      }
+
+      &:hover .tooltip {
+        position: absolute;
+        top: 2px;
+        left: -110px;
+        color: white;
+        width: 100px;
+        z-index: 100039;
+        font-size: 0.7rem;
+        height: 20px;
+        display: block !important;
+        text-align: right;
+      }
+    }
+  }
+
   #modalNetworkLink {
     position: absolute;
     top: 40%;
