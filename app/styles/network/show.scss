@@ -190,9 +190,9 @@
 
   #network-controls {
     position: absolute;
-    right: 1px;
-    top: 140px;
-    max-width: 1.2*$button-height;
+    //right: 1px;
+    //top: 140px;
+    max-width: 1.4*$button-height;
     z-index: 100;
 
     .vis-button {
