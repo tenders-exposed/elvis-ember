@@ -28,23 +28,23 @@ module.exports = function(environment) {
       'ember-cli-notifications': {
           includeFontAwesome: true
       },
-    },
-    analytics: {
-      integrations: [
-        {
-          name: 'GoogleAnalytics',
-          config: {
-            id: 'UA-70291550-1',
-            remarketing: false,
-            ecommerce: false,
-            enhancedEcommerce: false,
-            set: {
-              anonymizeIp: false
-            }
-          }
-        },
-      ]
-    }
+ //    },
+ //    analytics: {
+ //      integrations: [
+ //        {
+ //          name: 'GoogleAnalytics',
+ //          config: {
+ //            id: 'UA-70291550-1',
+ //            remarketing: false,
+ //            ecommerce: false,
+ //            enhancedEcommerce: false,
+ //            set: {
+ //              anonymizeIp: false
+//             }
+//           }
+//         },
+//       ]
+//     }
   };
 
   if (environment === 'development') {
