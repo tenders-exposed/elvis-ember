@@ -27,26 +27,8 @@ module.exports = function(environment) {
       // when it is created
       'ember-cli-notifications': {
           includeFontAwesome: true
-      }
-    }
-  }
-};
- //    analytics: {
- //      integrations: [
- //        {
- //          name: 'GoogleAnalytics',
- //          config: {
- //            id: 'UA-70291550-1',
- //            remarketing: false,
- //            ecommerce: false,
- //            enhancedEcommerce: false,
- //            set: {
- //              anonymizeIp: false
-//             }
-//           }
-//         },
-//       ]
-
+      },
+  };
 
   if (environment === 'development') {
     // ENV.APP.apiHost = 'http://localhost:10010';
